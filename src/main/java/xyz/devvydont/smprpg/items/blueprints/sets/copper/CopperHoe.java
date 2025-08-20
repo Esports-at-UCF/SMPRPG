@@ -44,6 +44,7 @@ public class CopperHoe extends CustomAttributeItem implements ICraftable, IBreak
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemHoe.getHoeDamage(Material.WOODEN_HOE)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(Material.IRON_HOE) / 2),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.COPPER_TOOL_SPEED),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ItemHoe.getHoeFortune(Material.WOODEN_HOE))
         );
     }

@@ -7,11 +7,14 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.BlockPosition;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.destroystokyo.paper.ParticleBuilder;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -19,7 +22,14 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
 import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.block.BlockLootRegistry;
+import xyz.devvydont.smprpg.services.AttributeService;
 import xyz.devvydont.smprpg.services.BlockBreakingService;
+import xyz.devvydont.smprpg.services.EconomyService;
+import xyz.devvydont.smprpg.services.ItemService;
+import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.formatting.Symbols;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -39,7 +49,7 @@ public class BlockDamage {
 	}
 	
 
-    protected void configureBreakingPacket(double hardness, Player player, Block block) {
+    protected void configureBreakingPacket(Player player, Block block) {
 		PacketContainer breakingAnimation = manager.createPacket(PacketType.Play.Server.BLOCK_BREAK_ANIMATION);
 		
 		// this enusres that the player wont conflict with another player's breaking animation
@@ -50,15 +60,18 @@ public class BlockDamage {
 		breakingAnimation.getIntegers().write(0, entityId);
         breakingAnimation.getBlockPositionModifier().write(0, new BlockPosition(block.getX(), block.getY(), block.getZ()));
         
-        breakingTimeCheck(hardness, player, block, breakingAnimation);
+        breakingTimeCheck(player, block, breakingAnimation);
 
 	}
 
-    private void breakingTimeCheck(double hardness, Player player, Block block, PacketContainer breakingAnimation) {	
-    	double breakingTimeTicks = getBreakingTime(hardness, player, block);
+    private void breakingTimeCheck(Player player, Block block, PacketContainer breakingAnimation) {
+		double breakingTimeTicks = getBreakingTime(player, block);
 
-        // check if the breakingTime is instant
-        if (breakingTimeTicks == 0) {
+
+        // Check if the breakingTime is instant/unbreakable
+        if (breakingTimeTicks <= 0) {
+			if (breakingTimeTicks == -1)
+				return;
         	playerBreakBlock(player, block);
         	return;
         }
@@ -99,10 +112,10 @@ public class BlockDamage {
                     return;
                 }
                 
-                // breaks the block if it has been mined for a succificnet amount of time
+                // breaks the block if it has been mined for a sufficient amount of time
                 if(currentTicks >= breakingTimeTicks) {
                 	// sets the final breaking animation
-                	breakingAnimation.getIntegers().write(1, 9);
+                	breakingAnimation.getIntegers().write(1, 10);  // Set to 10 to remove break stage. Anything not within 0-9 unsigned byte range uses no texture.
                     manager.sendServerPacket(player, breakingAnimation);
 
                     playerBreakBlock(player, originalBlock);
@@ -147,89 +160,78 @@ public class BlockDamage {
             // returns the breaking animation back to none
         	breakingAnimation.getIntegers().write(1, -1);
             manager.sendServerPacket(player, breakingAnimation);
-            return;
         }
     }
     
     @SuppressWarnings("deprecation")
-	private double getBreakingTime(double hardness, Player player, Block block) {
-    	double speedMultiplier = 1d;
-    	
-    	
-    	ItemStack item = player.getEquipment().getItemInMainHand();	
-    	
-    	if (block.isPreferredTool(player.getEquipment().getItemInMainHand())) {
-    		
-    		if (item.getType().equals(Material.AIR)) speedMultiplier = 1d; 
-    		
-    		else if (item.getType().equals(Material.WOODEN_PICKAXE) || 
-    				item.getType().equals(Material.WOODEN_SHOVEL) || 
-    				item.getType().equals(Material.WOODEN_AXE) ||
-    				item.getType().equals(Material.WOODEN_HOE)) speedMultiplier = 2d; 
-    		
-    		else if (item.getType().equals(Material.STONE_PICKAXE) ||
-    				item.getType().equals(Material.STONE_SHOVEL) ||
-    				item.getType().equals(Material.STONE_AXE) ||
-    				item.getType().equals(Material.STONE_HOE)) speedMultiplier = 4d;
-    		
-    		else if (item.getType().equals(Material.IRON_PICKAXE) ||
-    				item.getType().equals(Material.IRON_SHOVEL) ||
-    				item.getType().equals(Material.IRON_AXE) ||
-    				item.getType().equals(Material.IRON_HOE)) speedMultiplier = 6d;
-    		
-    		else if (item.getType().equals(Material.DIAMOND_PICKAXE) ||
-    				item.getType().equals(Material.DIAMOND_SHOVEL) ||
-    				item.getType().equals(Material.DIAMOND_AXE) ||
-    				item.getType().equals(Material.DIAMOND_HOE)) speedMultiplier = 8d;
-    		
-    		else if (item.getType().equals(Material.NETHERITE_PICKAXE) ||
-    				item.getType().equals(Material.NETHERITE_SHOVEL) ||
-    				item.getType().equals(Material.NETHERITE_AXE) ||
-    				item.getType().equals(Material.NETHERITE_HOE)) speedMultiplier = 9d;
-    		
-    		else if (item.getType().equals(Material.GOLDEN_PICKAXE) ||
-    				item.getType().equals(Material.GOLDEN_SHOVEL) ||
-    				item.getType().equals(Material.GOLDEN_AXE) ||
-    				item.getType().equals(Material.GOLDEN_HOE)) speedMultiplier = 12d;
+	private double getBreakingTime(Player player, Block block) {
+		double speedMultiplier = 0d;
 
-    		if (item.hasItemMeta()) {
-				if (item.getItemMeta().hasEnchant(Enchantment.EFFICIENCY)) {
-					speedMultiplier += Math.pow(item.getEnchantmentLevel(Enchantment.EFFICIENCY), 2) + 1d;
-				}
-    		}
-    		    
-    	}
+		// Check if held item has a proper tool component. If it doesn't, assume unarmed
+		var item = player.getEquipment().getItemInMainHand();
+		var itemMeta = item.getItemMeta();
+		if (itemMeta == null || itemMeta.getTool().getRules().isEmpty())  // Either it's a non-item (empty hand), or it has no specified tool rules. Assume unarmed.
+			speedMultiplier = 100d;
 
+		speedMultiplier += AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_SPEED).getValue();
 
-		if (player.hasPotionEffect(PotionEffectType.HASTE)) {
-			speedMultiplier *= 1 + (0.2 * player.getPotionEffect(PotionEffectType.HASTE).getAmplifier());
-		}
+		// Haste gives +50 mining speed per level, Mining Fatigue gives -50 mining speed per level.
+		if (player.hasPotionEffect(PotionEffectType.HASTE))
+			speedMultiplier += 50 * player.getPotionEffect(PotionEffectType.HASTE).getAmplifier();
+		if (player.hasPotionEffect(PotionEffectType.MINING_FATIGUE))
+			speedMultiplier -= 50 * player.getPotionEffect(PotionEffectType.MINING_FATIGUE).getAmplifier();
 
-		if (player.isInWater()) {
-		  speedMultiplier /= 5;
-		}
+		if (player.isInWater())
+		  speedMultiplier *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.UNDERWATER_MINING).getValue();
 
-		if (!player.isOnGround()) {
-		  speedMultiplier /= 5;
-		}
+		if (!player.isOnGround())
+			speedMultiplier *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.AIRBORNE_MINING).getValue();
 
 		double damage;
 		
-		// checks for a custom hardness
-		if (filehandler.getConfig().getConfigurationSection("Speeds") != null) {
-			damage = speedMultiplier / filehandler.getConfig().getDouble("Speeds." + block.getType().toString());
-		} else {
-			damage = speedMultiplier / block.getType().getHardness();
-		}
+		// Checks for a custom hardness.
+		float hardness;
+		var entry = BlockPropertiesRegistry.get(block.getType());
 
-		damage /= 30;
+		// Failsafe, block is unbreakable if not properly defined.
+		if (entry == null) {
+			SMPRPG.getInstance().getLogger().warning("Unknown block entry " + block.toString() + ". Please add it to BlockPropertiesRegistry!");
+			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.75F);
+			return -1d;
+		}
+		else {
+			double playerBp = AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_POWER).getValue();
+			if (playerBp >= entry.getBreakingPower())
+				hardness = entry.getHardness();
+			else {
+				player.sendMessage(ComponentUtils.success(ComponentUtils.merge(
+						ComponentUtils.create("You cannot break this block, as you only have a breaking power of ", NamedTextColor.RED),
+						ComponentUtils.create(Symbols.PICKAXE + String.valueOf((int) playerBp), NamedTextColor.DARK_PURPLE),
+						ComponentUtils.create(". In order to break this block, you need ", NamedTextColor.RED),
+						ComponentUtils.create(Symbols.PICKAXE + String.valueOf((int) entry.getBreakingPower()), NamedTextColor.LIGHT_PURPLE),
+						ComponentUtils.create(" breaking power.", NamedTextColor.RED)
+				)));
+				return -1d;
+			}
+		}
+		damage = speedMultiplier / hardness;
+
+		var preferredTools = entry.getPreferredTools();
+		if (preferredTools != null && preferredTools.contains(SMPRPG.getService(ItemService.class).getBlueprint(item).getItemClassification())) {
+			System.out.println("preferred!");
+			damage /= 30;
+		}
+		else
+			damage /= 100;
+
+		damage = Math.max(damage, 0);  // Prevents negative mining speed.
 
 		// Instant breaking
 		if (damage > 1) {
 		  return 0d;
 		}
 
-		return  Math.round(1 / damage);
+		return Math.round(1 / damage);
     }
     
     private void playerBreakBlock(Player player, Block block) {
@@ -240,6 +242,8 @@ public class BlockDamage {
 //    	for (ItemStack drop : blockDrops) {
 //    		block.getWorld().dropItem(block.getLocation(), drop);	
 //    	}
+
+		var blockState = block.getState();
 
 		block.getWorld().playSound(block.getLocation(), block.getBlockData().getSoundGroup().getBreakSound(), 1.0f, 0.8f);
 		var particle = new ParticleBuilder(Particle.BLOCK)

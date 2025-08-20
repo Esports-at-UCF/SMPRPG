@@ -30,7 +30,7 @@ public class ExiledAxe extends CustomAttributeItem implements IBreakableEquipmen
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(Material.NETHERITE_SWORD)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemAxe.AXE_ATTACK_SPEED_DEBUFF),
-                new ScalarAttributeEntry(AttributeWrapper.MINING_EFFICIENCY, .25)
+                new ScalarAttributeEntry(AttributeWrapper.MINING_POWER, .25)
         );
     }
 

@@ -44,6 +44,7 @@ public class SteelHoe extends CustomAttributeItem implements ICraftable, IBreaka
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 13),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(Material.IRON_HOE)),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, 35)
         );
     }

@@ -30,6 +30,18 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
         };
     }
 
+    public static double getAxeSpeed(Material material) {
+        return switch (material) {
+            case NETHERITE_AXE -> ItemPickaxe.getPickaxeSpeed(Material.NETHERITE_PICKAXE);
+            case DIAMOND_AXE -> ItemPickaxe.getPickaxeSpeed(Material.DIAMOND_PICKAXE);
+            case GOLDEN_AXE -> ItemPickaxe.getPickaxeSpeed(Material.GOLDEN_PICKAXE);
+            case IRON_AXE -> ItemPickaxe.getPickaxeSpeed(Material.IRON_PICKAXE);
+            case STONE_AXE -> ItemPickaxe.getPickaxeSpeed(Material.STONE_PICKAXE);
+            case WOODEN_AXE -> ItemPickaxe.getPickaxeSpeed(Material.WOODEN_PICKAXE);
+            default -> 0;
+        };
+    }
+
     public static double getAxeDamage(Material material) {
         return switch (material) {
             case NETHERITE_AXE -> 100;
@@ -79,6 +91,7 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getAxeDamage(material)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getAxeSpeed(material)),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, getAxeFortune(material)),
                 new AdditiveAttributeEntry(AttributeWrapper.LUMBERING, getAxeLumbering(material))
         );

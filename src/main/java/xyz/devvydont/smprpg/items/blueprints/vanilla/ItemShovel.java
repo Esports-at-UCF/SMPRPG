@@ -42,6 +42,18 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
         };
     }
 
+    public static int getShovelSpeed(Material material) {
+        return switch (material) {
+            case NETHERITE_SHOVEL -> ToolGlobals.NETHERITE_TOOL_SPEED;
+            case DIAMOND_SHOVEL -> ToolGlobals.DIAMOND_TOOL_SPEED;
+            case GOLDEN_SHOVEL -> ToolGlobals.GOLD_TOOL_SPEED;
+            case IRON_SHOVEL -> ToolGlobals.IRON_TOOL_SPEED;
+            case STONE_SHOVEL -> ToolGlobals.STONE_TOOL_SPEED;
+            case WOODEN_SHOVEL -> ToolGlobals.WOOD_TOOL_SPEED;
+            default -> 1;
+        };
+    }
+
     public static double SHOVEL_ATTACK_SPEED_DEBUFF = -0.75;
 
     public ItemShovel(ItemService itemService, Material material) {
@@ -57,6 +69,7 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getShovelDamage(material)),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getShovelSpeed(material)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, SHOVEL_ATTACK_SPEED_DEBUFF)
         );
     }

@@ -21,7 +21,7 @@ public class QuickReforge extends ReforgeBase {
     @Override
     public Collection<AttributeEntry> getAttributeModifiersWithRarity(ItemRarity rarity) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_EFFICIENCY, rarity.ordinal() * .03 + .07)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, rarity.ordinal() * .03 + .07)
         );
     }
 

@@ -161,8 +161,8 @@ public class SkillGlobals {
     public static int LUCK_LEVEL_FREQUENCY = 4;
 
     // The mining skill awards mining efficiency every 4 levels.
-    public static int MINING_EFF_LEVEL_FREQUENCY = 4;
-    public static double MINING_EFF_PER_4_LEVELS = 5;
+    public static int MINING_SPEED_LEVEL_FREQUENCY = 4;
+    public static double MINING_SPEED_PER_4_LEVELS = 40;
 
     // Woodcutting gives a small defense and critical rating boost.
     public static int DEFENSE_LEVEL_FREQUENCY = 2;

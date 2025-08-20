@@ -23,7 +23,7 @@ public class HastyReforge extends ReforgeBase {
     public Collection<AttributeEntry> getAttributeModifiersWithRarity(ItemRarity rarity) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, rarity.ordinal() * .03 + .07),
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_EFFICIENCY, rarity.ordinal() * .04 + .1)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, rarity.ordinal() * .04 + .1)
         );
     }
 

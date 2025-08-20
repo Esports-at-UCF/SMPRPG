@@ -30,6 +30,30 @@ public class ItemPickaxe extends VanillaAttributeItem implements IBreakableEquip
         };
     }
 
+    public static double getPickaxeSpeed(Material material) {
+        return switch (material) {
+            case NETHERITE_PICKAXE -> ToolGlobals.NETHERITE_TOOL_SPEED;
+            case DIAMOND_PICKAXE -> ToolGlobals.DIAMOND_TOOL_SPEED;
+            case GOLDEN_PICKAXE -> ToolGlobals.GOLD_TOOL_SPEED;
+            case IRON_PICKAXE -> ToolGlobals.IRON_TOOL_SPEED;
+            case STONE_PICKAXE -> ToolGlobals.STONE_TOOL_SPEED;
+            case WOODEN_PICKAXE -> ToolGlobals.WOOD_TOOL_SPEED;
+            default -> 0;
+        };
+    }
+
+    public static double getPickaxePower(Material material) {
+        return switch (material) {
+            case NETHERITE_PICKAXE -> 6;
+            case DIAMOND_PICKAXE -> 5;
+            case GOLDEN_PICKAXE -> 1;
+            case IRON_PICKAXE -> 3;
+            case STONE_PICKAXE -> 2;
+            case WOODEN_PICKAXE -> 1;
+            default -> 0;
+        };
+    }
+
     public static double getPickaxeDamage(Material material) {
         return switch (material) {
             case NETHERITE_PICKAXE -> 30;
@@ -68,8 +92,10 @@ public class ItemPickaxe extends VanillaAttributeItem implements IBreakableEquip
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getPickaxePower(material)),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getPickaxeDamage(material)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, PICKAXE_ATTACK_SPEED_DEBUFF),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getPickaxeSpeed(material)),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, getPickaxeFortune(material))
         );
     }

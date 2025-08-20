@@ -48,6 +48,9 @@ public class StoneHatchet extends ItemHatchet implements ICraftable, IBreakableE
     public double getHatchetFortune() { return ItemPickaxe.getPickaxeFortune(Material.STONE_PICKAXE) * 0.8; }
 
     @Override
+    public double getHatchetSpeed() { return ItemPickaxe.getPickaxeSpeed(Material.STONE_PICKAXE) * 0.8; }
+
+    @Override
     public NamespacedKey getRecipeKey() {
         return new NamespacedKey(SMPRPG.getInstance(), getCustomItemType().getKey() + "-recipe");
     }

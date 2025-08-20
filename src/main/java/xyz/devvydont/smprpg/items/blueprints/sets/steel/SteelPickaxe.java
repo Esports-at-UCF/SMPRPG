@@ -47,8 +47,10 @@ public class SteelPickaxe extends CustomAttributeItem implements IBreakableEquip
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 4),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 10),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, PICKAXE_ATTACK_SPEED_DEBUFF),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 35)
         );
     }

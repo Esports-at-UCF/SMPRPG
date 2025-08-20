@@ -47,6 +47,7 @@ public class DragonsteelHatchet extends CustomAttributeItem implements ICraftabl
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 90),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.DRAGONSTEEL_TOOL_SPEED * 0.8),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, 80),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, 80)
         );

@@ -50,6 +50,7 @@ public class SteelHatchet extends CustomAttributeItem implements ICraftable, IBr
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 31),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED * 0.8),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, 28),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, 28)
         );

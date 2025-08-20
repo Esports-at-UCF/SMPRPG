@@ -44,6 +44,7 @@ public class DragonsteelHoe extends CustomAttributeItem implements ICraftable, I
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 30),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(Material.NETHERITE_HOE)),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.DRAGONSTEEL_TOOL_SPEED),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, 100)
         );
     }

@@ -23,6 +23,16 @@ public enum AttributeWrapper {
 
     // First, start with vanilla attributes. These attributes interact with the vanilla attribute system in our API.
     // Keep in mind, if an attribute has vanilla support, it should be used over a custom one.
+
+    MINING_POWER("Breaking Power",
+            AttributeCategory.FORAGING,
+            AttributeType.SPECIAL,
+            merge(
+                    create("The "),
+                    create("tier ", AQUA),
+                    create("of blocks that can be currently broken.")
+            )),
+
     HEALTH(Attribute.MAX_HEALTH,
             "Health",
             AttributeCategory.SURVIVABILITY,
@@ -193,25 +203,14 @@ public enum AttributeWrapper {
                 create(" to apply when dealing damage.")
             )),
 
-    MINING_SPEED(Attribute.BLOCK_BREAK_SPEED,
-            "Mining Speed",
+    MINING_SPEED("Mining Speed",
             AttributeCategory.FORAGING,
             AttributeType.HELPFUL,
             merge(
-                create("The speed at which "),
-                create("any blocks", AQUA),
-                create(" can be broken.")
-            )),
-
-    MINING_EFFICIENCY(Attribute.MINING_EFFICIENCY,
-            "Mining Efficiency",
-            AttributeCategory.FORAGING,
-            AttributeType.HELPFUL,
-            merge(
-                create("The speed at which "),
-                create("certain blocks", AQUA),
-                create(" can be mined when using the"),
-                create(" correct tool.", GOLD)
+                create("The amount of "),
+                create("damage ", RED),
+                create("that is dealt to blocks "),
+                create("per game tick.")
             )),
 
     UNDERWATER_MINING(Attribute.SUBMERGED_MINING_SPEED,
@@ -224,6 +223,17 @@ public enum AttributeWrapper {
                 create(" can be broken while"),
                 create(" submerged", BLUE),
                 create(".")
+            )),
+
+    AIRBORNE_MINING("Airborne Mining Speed",
+            AttributeCategory.FORAGING,
+            AttributeType.HELPFUL,
+            merge(
+                    create("The speed at which "),
+                    create("any blocks", AQUA),
+                    create(" can be broken while"),
+                    create(" airborne", GRAY),
+                    create(".")
             )),
 
     MINING_FORTUNE("Fortune",
@@ -478,6 +488,14 @@ public enum AttributeWrapper {
             AttributeType.HELPFUL,
             merge(
                     create("Vanilla Minecraft's 'luck'. Completely ineffective in this plugin.")
+            )),
+
+    LEGACY_MINING_SPEED(Attribute.BLOCK_BREAK_SPEED,
+            "Mining Speed (Legacy)",
+            AttributeCategory.SPECIAL,
+            AttributeType.HELPFUL,
+            merge(
+                    create("Vanilla Minecraft's 'mining speed'. Completely ineffective in this plugin.")
             )),
     ;
 

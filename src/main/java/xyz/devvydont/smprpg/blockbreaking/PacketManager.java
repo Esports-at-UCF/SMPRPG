@@ -54,70 +54,15 @@ public class PacketManager implements Listener{
 	}
 	
 	@EventHandler
-	private void blockStartBreaking(BlockDamageEvent event) {      
-		if (event.getBlock().getType().isAir()) {
-       		removeMiningFatigue(event.getPlayer());
-       		return;
-       	}
-		
+	private void blockStartBreaking(BlockDamageEvent event) {
+		event.setCancelled(true);  // Cancel any vanilla behavior
 		BlockDamage.cancelTaskWithBlockReset(event.getPlayer());
 		
 		
 		YamlConfiguration config = filehandler.getConfig();
-		
-		if (config.getConfigurationSection("Speeds") == null) {
-			return;
-		}
 
-		if (config.getConfigurationSection("Speeds").contains(event.getBlock().getType().toString())) {	
-			addMiningFatigue(event.getPlayer());
-			damage.configureBreakingPacket(config.getConfigurationSection("Speeds").getDouble(event.getBlock().getType().toString()), event.getPlayer(), event.getBlock());
-		} else {
-			removeMiningFatigue(event.getPlayer());
-		}
+		damage.configureBreakingPacket(event.getPlayer(), event.getBlock());
         
-	}
-	
-	private void addMiningFatigue(Player player) {
-		
-		// removes existing fatigue effects and stores them
-		if (player.hasPotionEffect(PotionEffectType.MINING_FATIGUE)) {
-			previousFatigueEffects.put(player.getName(), player.getPotionEffect(PotionEffectType.MINING_FATIGUE));
-			player.removePotionEffect(PotionEffectType.MINING_FATIGUE);
-		}
-		
-		PacketContainer effectAdd = manager.createPacket(PacketType.Play.Server.ENTITY_EFFECT);
-        
-		effectAdd.getIntegers().write(0, player.getEntityId());
-		effectAdd.getEffectTypes().write(0, PotionEffectType.MINING_FATIGUE);
-		effectAdd.getIntegers().write(1, 255);
-		effectAdd.getIntegers().write(2, 1);
-		effectAdd.getBytes().write(0, (byte) (1));
-
-        manager.sendServerPacket(player, effectAdd);
-
-    }
-	
-	
-	private void removeMiningFatigue(Player player) {
-		
-		if (player.hasPotionEffect(PotionEffectType.MINING_FATIGUE)) {
-			previousFatigueEffects.put(player.getName(), player.getPotionEffect(PotionEffectType.MINING_FATIGUE));
-			player.removePotionEffect(PotionEffectType.MINING_FATIGUE);
-		}
-		
-		PacketContainer effectRemove = manager.createPacket(PacketType.Play.Server.REMOVE_ENTITY_EFFECT);
-        
-		effectRemove.getIntegers().write(0, player.getEntityId());
-		effectRemove.getEffectTypes().write(0, PotionEffectType.MINING_FATIGUE);
-
-        manager.sendServerPacket(player, effectRemove);
-
-        // adds back the previous fatigue effect
-		if (previousFatigueEffects.containsKey(player.getName())) {
-			player.addPotionEffect(previousFatigueEffects.get(player.getName()));
-			previousFatigueEffects.remove(player.getName());
-		}
 	}
 	
 	// checks that an arm swing packet was delivered in the last tick (0.15 seconds)

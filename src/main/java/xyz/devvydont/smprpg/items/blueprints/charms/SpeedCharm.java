@@ -40,7 +40,7 @@ public class SpeedCharm extends CustomAttributeItem implements IModelOverridden 
         return List.of(
                 new ScalarAttributeEntry(AttributeWrapper.MOVEMENT_SPEED, .3),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, .3),
-                new ScalarAttributeEntry(AttributeWrapper.MINING_SPEED, .3)
+                new ScalarAttributeEntry(AttributeWrapper.MINING_SPEED, 100.0)
         );
     }
 

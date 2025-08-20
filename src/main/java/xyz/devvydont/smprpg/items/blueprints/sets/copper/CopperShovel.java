@@ -44,6 +44,7 @@ public class CopperShovel extends CustomAttributeItem implements ICraftable, IBr
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemShovel.getShovelDamage(Material.WOODEN_SHOVEL)),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.COPPER_TOOL_SPEED),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemShovel.SHOVEL_ATTACK_SPEED_DEBUFF + .25)
         );
     }

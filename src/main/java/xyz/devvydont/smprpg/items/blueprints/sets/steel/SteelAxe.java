@@ -33,8 +33,8 @@ public class SteelAxe extends CustomAttributeItem implements ICraftable, IBreaka
 
     public static final Tool TOOL_COMP = Tool.tool()
             .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_IRON_TOOL), 1.0f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_AXE), 7.0f, TriState.TRUE))
+            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_IRON_TOOL), 0.0001f, TriState.FALSE))
+            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_AXE), 0.0001f, TriState.TRUE))
             .build();
 
     public SteelAxe(ItemService itemService, CustomItemType type) {
@@ -46,6 +46,7 @@ public class SteelAxe extends CustomAttributeItem implements ICraftable, IBreaka
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 50),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, 35),
                 new AdditiveAttributeEntry(AttributeWrapper.LUMBERING, 1)
         );

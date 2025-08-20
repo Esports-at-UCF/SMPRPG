@@ -63,10 +63,11 @@ public class BoilingPickaxe extends CustomAttributeItem implements IHeaderDescri
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 4),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 45),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemPickaxe.PICKAXE_ATTACK_SPEED_DEBUFF),
-                new MultiplicativeAttributeEntry(AttributeWrapper.MINING_SPEED, .10),
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 95)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 750.0),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 80)
         );
     }
 

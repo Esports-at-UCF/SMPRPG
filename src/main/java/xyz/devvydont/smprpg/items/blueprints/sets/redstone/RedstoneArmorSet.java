@@ -3,7 +3,6 @@ package xyz.devvydont.smprpg.items.blueprints.sets.redstone;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.trim.TrimMaterial;
@@ -52,7 +51,7 @@ public abstract class RedstoneArmorSet extends CustomAttributeItem implements IB
                 new AdditiveAttributeEntry(AttributeWrapper.DEFENSE, getDefense()),
                 new ScalarAttributeEntry(AttributeWrapper.MOVEMENT_SPEED, MOVEMENT_BUFF),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ATTACK_BUFF),
-                new ScalarAttributeEntry(AttributeWrapper.MINING_EFFICIENCY, MINING_BUFF)
+                new ScalarAttributeEntry(AttributeWrapper.MINING_POWER, MINING_BUFF)
         );
     }
 

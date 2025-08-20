@@ -49,8 +49,8 @@ public class CopperHatchet extends CustomAttributeItem implements ICraftable, IB
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(Material.WOODEN_SWORD) - 5),
-                new MultiplicativeAttributeEntry(AttributeWrapper.MINING_EFFICIENCY, .1),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF+.25),
+                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.COPPER_TOOL_SPEED * 0.8),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ItemAxe.getAxeFortune(Material.WOODEN_AXE) * 0.8),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ItemPickaxe.getPickaxeFortune(Material.WOODEN_PICKAXE) * 0.8)
         );

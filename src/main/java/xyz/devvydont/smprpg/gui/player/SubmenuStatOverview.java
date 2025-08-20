@@ -198,7 +198,7 @@ public class SubmenuStatOverview extends MenuBase {
             case LUCK -> Material.EMERALD;
             case ARMOR -> Material.NETHERITE_CHESTPLATE;
             case STRENGTH -> Material.DIAMOND_SWORD;
-            case MINING_EFFICIENCY -> Material.IRON_PICKAXE;
+            case MINING_POWER -> Material.IRON_PICKAXE;
             case MINING_SPEED -> Material.GOLDEN_PICKAXE;
             case SCALE -> Material.LADDER;
             case HEALTH -> Material.APPLE;
@@ -226,6 +226,7 @@ public class SubmenuStatOverview extends MenuBase {
             case FISHING_TREASURE_CHANCE -> Material.GOLD_BLOCK;
             case STEP -> Material.QUARTZ_SLAB;
             case UNDERWATER_MINING -> Material.TURTLE_HELMET;
+            case AIRBORNE_MINING -> Material.FEATHER;
             case WATER_MOVEMENT -> Material.LEATHER_BOOTS;
             case REGENERATION -> Material.GLISTERING_MELON_SLICE;
             case FALL_DAMAGE_MULTIPLIER -> Material.SLIME_BLOCK;

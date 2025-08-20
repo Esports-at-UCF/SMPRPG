@@ -25,6 +25,10 @@ public class ItemHatchet extends CustomAttributeItem implements IBreakableEquipm
         return 1;
     }
 
+    public double getHatchetSpeed() {
+        return 1;
+    }
+
     public int getPowerRating() {
         return 0;
     }
@@ -45,6 +49,7 @@ public class ItemHatchet extends CustomAttributeItem implements IBreakableEquipm
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getHatchetDamage()),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, HATCHET_ATTACK_SPEED_DEBUFF),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getHatchetSpeed()),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, getHatchetFortune()),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, getHatchetFortune())
         );

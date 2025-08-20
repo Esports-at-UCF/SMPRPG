@@ -30,6 +30,18 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
         };
     }
 
+    public static double getHoeSpeed(Material material) {
+        return switch (material) {
+            case NETHERITE_HOE -> ItemPickaxe.getPickaxeSpeed(Material.NETHERITE_PICKAXE);
+            case DIAMOND_HOE -> ItemPickaxe.getPickaxeSpeed(Material.DIAMOND_PICKAXE);
+            case GOLDEN_HOE -> ItemPickaxe.getPickaxeSpeed(Material.GOLDEN_PICKAXE);
+            case IRON_HOE -> ItemPickaxe.getPickaxeSpeed(Material.IRON_PICKAXE);
+            case STONE_HOE -> ItemPickaxe.getPickaxeSpeed(Material.STONE_PICKAXE);
+            case WOODEN_HOE -> ItemPickaxe.getPickaxeSpeed(Material.WOODEN_PICKAXE);
+            default -> 0;
+        };
+    }
+
     public static double getHoeDamage(Material material) {
         return switch (material) {
             case NETHERITE_HOE -> 20;
@@ -79,6 +91,7 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getHoeDamage(material)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, getHoeAttackSpeedDebuff(material)),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getHoeSpeed(material)),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, getHoeFortune(material))
         );
     }

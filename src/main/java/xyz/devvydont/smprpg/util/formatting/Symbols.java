@@ -30,4 +30,8 @@ public class Symbols {
 
     public static final String CHECK = "✔";
     public static final String X = "❌";
+
+    public static final String PICKAXE = "⛏";
+    public static final String AXE = "\uD83E\uDE93";
+
 }
