@@ -204,6 +204,7 @@ public class BlockDamage {
 			if (playerBp >= entry.getBreakingPower())
 				hardness = entry.getHardness();
 			else {
+				player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.5F);
 				player.sendMessage(ComponentUtils.success(ComponentUtils.merge(
 						ComponentUtils.create("You cannot break this block, as you only have a breaking power of ", NamedTextColor.RED),
 						ComponentUtils.create(Symbols.PICKAXE + String.valueOf((int) playerBp), NamedTextColor.DARK_PURPLE),
@@ -217,10 +218,8 @@ public class BlockDamage {
 		damage = speedMultiplier / hardness;
 
 		var preferredTools = entry.getPreferredTools();
-		if (preferredTools != null && preferredTools.contains(SMPRPG.getService(ItemService.class).getBlueprint(item).getItemClassification())) {
-			System.out.println("preferred!");
+		if (preferredTools != null && preferredTools.contains(SMPRPG.getService(ItemService.class).getBlueprint(item).getItemClassification()))
 			damage /= 30;
-		}
 		else
 			damage /= 100;
 
