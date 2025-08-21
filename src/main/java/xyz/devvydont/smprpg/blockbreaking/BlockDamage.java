@@ -183,13 +183,18 @@ public class BlockDamage {
 		else
 			preferredTools = entry.getPreferredTools();
 		boolean isPreferred = false;
-		if (preferredTools != null)
-			isPreferred = preferredTools.contains(SMPRPG.getService(ItemService.class).getBlueprint(item).getItemClassification()) || entry.getSoftRequirement();
+		boolean correctTool = false;
+		if (preferredTools != null) {
+			correctTool = preferredTools.contains(SMPRPG.getService(ItemService.class).getBlueprint(item).getItemClassification());
+			isPreferred = correctTool || entry.getSoftRequirement();
+		}
 
 		if (isPreferred)  // Only add extra mining speed once we know this is a preferred break option
 		{
-			speedMultiplier -= 100;  // Subtract our implicit 100 speed given for unarmed/non-tool options
-			speedMultiplier += AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_SPEED).getValue();
+			if (correctTool) {
+				speedMultiplier -= 100;  // Subtract our implicit 100 speed given for unarmed/non-tool options
+				speedMultiplier += AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_SPEED).getValue();
+			}
 		}
 
 		// Haste gives +100 mining speed per level, Mining Fatigue gives -100 mining speed per level.
