@@ -42,6 +42,7 @@ public class CopperAxe extends CustomAttributeItem implements ICraftable, IBreak
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.COPPER_TOOL_MINING_POWER),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemAxe.getAxeDamage(Material.WOODEN_AXE)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF+.25),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.COPPER_TOOL_SPEED),

@@ -44,12 +44,12 @@ public class ItemPickaxe extends VanillaAttributeItem implements IBreakableEquip
 
     public static double getPickaxePower(Material material) {
         return switch (material) {
-            case NETHERITE_PICKAXE -> 6;
-            case DIAMOND_PICKAXE -> 5;
-            case GOLDEN_PICKAXE -> 1;
-            case IRON_PICKAXE -> 3;
-            case STONE_PICKAXE -> 2;
-            case WOODEN_PICKAXE -> 1;
+            case NETHERITE_PICKAXE -> ToolGlobals.NETHERITE_TOOL_MINING_POWER;
+            case DIAMOND_PICKAXE -> ToolGlobals.DIAMOND_TOOL_MINING_POWER;
+            case GOLDEN_PICKAXE -> ToolGlobals.GOLD_TOOL_MINING_POWER;
+            case IRON_PICKAXE -> ToolGlobals.IRON_TOOL_MINING_POWER;
+            case STONE_PICKAXE -> ToolGlobals.STONE_TOOL_MINING_POWER;
+            case WOODEN_PICKAXE -> ToolGlobals.WOOD_TOOL_MINING_POWER;
             default -> 0;
         };
     }

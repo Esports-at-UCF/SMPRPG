@@ -42,6 +42,18 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
         };
     }
 
+    public static double getAxePower(Material material) {
+        return switch (material) {
+            case NETHERITE_AXE -> ToolGlobals.NETHERITE_TOOL_MINING_POWER;
+            case DIAMOND_AXE -> ToolGlobals.DIAMOND_TOOL_MINING_POWER;
+            case GOLDEN_AXE -> ToolGlobals.GOLD_TOOL_MINING_POWER;
+            case IRON_AXE -> ToolGlobals.IRON_TOOL_MINING_POWER;
+            case STONE_AXE -> ToolGlobals.STONE_TOOL_MINING_POWER;
+            case WOODEN_AXE -> ToolGlobals.WOOD_TOOL_MINING_POWER;
+            default -> 0;
+        };
+    }
+
     public static double getAxeDamage(Material material) {
         return switch (material) {
             case NETHERITE_AXE -> 100;
@@ -89,6 +101,7 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getAxePower(material)),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getAxeDamage(material)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getAxeSpeed(material)),

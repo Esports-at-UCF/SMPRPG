@@ -135,8 +135,15 @@ public class BlockDamage {
                 		multiplier += 0.1;
                 	}
                 }
-                
-                currentTicks = currentTicks + 1;
+
+				double tickInc = 1;
+				if (player.isInWater())
+					tickInc *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.UNDERWATER_MINING).getValue();
+
+				if (!player.isOnGround())
+					tickInc *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.AIRBORNE_MINING).getValue();
+
+                currentTicks = currentTicks + tickInc;
             }
     	},0L, 1L);
     	
@@ -164,8 +171,7 @@ public class BlockDamage {
             manager.sendServerPacket(player, breakingAnimation);
         }
     }
-    
-    @SuppressWarnings("deprecation")
+
 	private double getBreakingTime(Player player, Block block) {
 		double speedMultiplier = 100d;
 
@@ -203,12 +209,6 @@ public class BlockDamage {
 		if (player.hasPotionEffect(PotionEffectType.MINING_FATIGUE))
 			speedMultiplier -= 100 * player.getPotionEffect(PotionEffectType.MINING_FATIGUE).getAmplifier();
 
-		if (player.isInWater())
-		  speedMultiplier *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.UNDERWATER_MINING).getValue();
-
-		if (!player.isOnGround())
-			speedMultiplier *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.AIRBORNE_MINING).getValue();
-
 		double damage;
 		
 		// Checks for a custom hardness.
@@ -216,8 +216,11 @@ public class BlockDamage {
 
 		// Failsafe, block is unbreakable if not properly defined.
 		double playerBp = AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_POWER).getValue();
-		if (playerBp >= entry.getBreakingPower())
+		if (playerBp >= entry.getBreakingPower()) {
 			hardness = entry.getHardness();
+			if (hardness == -1)
+				return -1d;
+		}
 		else {
 			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.5F);
 			player.sendMessage(ComponentUtils.success(ComponentUtils.merge(

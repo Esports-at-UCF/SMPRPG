@@ -43,6 +43,17 @@ public class ToolGlobals {
     public static final int NETHERITE_TOOL_SPEED = 900;
     public static final int DRAGONSTEEL_TOOL_SPEED = 1100;
 
+    // Breaking Powers
+    public static final int WOOD_TOOL_MINING_POWER = 1;
+    public static final int STONE_TOOL_MINING_POWER = 2;
+    public static final int COPPER_TOOL_MINING_POWER = 2;
+    public static final int IRON_TOOL_MINING_POWER = 3;
+    public static final int GOLD_TOOL_MINING_POWER = 1;
+    public static final int STEEL_TOOL_MINING_POWER = 4;
+    public static final int DIAMOND_TOOL_MINING_POWER = 5;
+    public static final int NETHERITE_TOOL_MINING_POWER = 6;
+    public static final int DRAGONSTEEL_TOOL_MINING_POWER = 7;
+
     // Attack Cooldowns
     public static final double FISHING_ROD_COOLDOWN = -0.5;
 

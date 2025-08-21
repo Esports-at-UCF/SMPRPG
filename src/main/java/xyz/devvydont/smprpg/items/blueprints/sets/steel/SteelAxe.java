@@ -32,9 +32,7 @@ import static xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe.AXE_ATTACK_S
 public class SteelAxe extends CustomAttributeItem implements ICraftable, IBreakableEquipment {
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_IRON_TOOL), 0.0001f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_AXE), 0.0001f, TriState.TRUE))
+            .defaultMiningSpeed(0.0001f)
             .build();
 
     public SteelAxe(ItemService itemService, CustomItemType type) {
@@ -44,6 +42,7 @@ public class SteelAxe extends CustomAttributeItem implements ICraftable, IBreaka
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.STEEL_TOOL_MINING_POWER),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 50),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED),

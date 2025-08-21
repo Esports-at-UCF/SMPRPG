@@ -42,6 +42,9 @@ public class DiamondHatchet extends ItemHatchet implements ICraftable, IBreakabl
     }
 
     @Override
+    public double getHatchetMiningPower() { return ToolGlobals.DIAMOND_TOOL_MINING_POWER; }
+
+    @Override
     public double getHatchetDamage() { return ItemSword.getSwordDamage(Material.DIAMOND_SWORD) - 12; }
 
     @Override

@@ -28,9 +28,6 @@ public class WoodHatchet extends ItemHatchet implements ICraftable, IBreakableEq
 
     public static final Tool TOOL_COMP = Tool.tool()
             .defaultMiningSpeed(0.0001f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_WOODEN_TOOL), 0.0001f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_AXE), 0.0001f, TriState.TRUE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_HOE), 0.0001f, TriState.TRUE))
             .build();
 
     public WoodHatchet(ItemService itemService, CustomItemType type) {
@@ -41,6 +38,9 @@ public class WoodHatchet extends ItemHatchet implements ICraftable, IBreakableEq
     public int getPowerRating() {
         return ItemSword.getSwordRating(Material.WOODEN_SWORD);
     }
+
+    @Override
+    public double getHatchetMiningPower() { return ToolGlobals.WOOD_TOOL_MINING_POWER; }
 
     @Override
     public double getHatchetDamage() { return ItemSword.getSwordDamage(Material.WOODEN_SWORD) - 5; }

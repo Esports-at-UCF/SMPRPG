@@ -35,10 +35,7 @@ import static xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe.AXE_ATTACK_S
 public class SteelHatchet extends CustomAttributeItem implements ICraftable, IBreakableEquipment {
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_IRON_TOOL), 1.0f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_AXE), 7.0f, TriState.TRUE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_HOE), 5.25f, TriState.TRUE))
+            .defaultMiningSpeed(0.0001f)
             .build();
 
     public SteelHatchet(ItemService itemService, CustomItemType type) {
@@ -48,6 +45,7 @@ public class SteelHatchet extends CustomAttributeItem implements ICraftable, IBr
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.STEEL_TOOL_MINING_POWER),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 31),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED * 0.8),

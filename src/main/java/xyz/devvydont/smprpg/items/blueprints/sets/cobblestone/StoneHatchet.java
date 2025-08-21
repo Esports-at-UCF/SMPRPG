@@ -26,10 +26,7 @@ import java.util.List;
 public class StoneHatchet extends ItemHatchet implements ICraftable, IBreakableEquipment {
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_STONE_TOOL), 1.0f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_AXE), 4.0f, TriState.TRUE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_HOE), 3.0f, TriState.TRUE))
+            .defaultMiningSpeed(0.0001f)
             .build();
 
     public StoneHatchet(ItemService itemService, CustomItemType type) {
@@ -40,6 +37,9 @@ public class StoneHatchet extends ItemHatchet implements ICraftable, IBreakableE
     public int getPowerRating() {
         return ItemSword.getSwordRating(Material.STONE_SWORD);
     }
+
+    @Override
+    public double getHatchetMiningPower() { return ToolGlobals.STONE_TOOL_MINING_POWER; }
 
     @Override
     public double getHatchetDamage() { return ItemSword.getSwordDamage(Material.STONE_SWORD) - 5; }

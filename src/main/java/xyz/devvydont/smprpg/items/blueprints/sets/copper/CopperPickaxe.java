@@ -46,7 +46,7 @@ public class CopperPickaxe extends CustomAttributeItem implements IBreakableEqui
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 2),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.COPPER_TOOL_MINING_POWER),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemPickaxe.getPickaxeDamage(Material.WOODEN_PICKAXE)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, PICKAXE_ATTACK_SPEED_DEBUFF / 2),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.COPPER_TOOL_SPEED),
