@@ -54,7 +54,7 @@ public class DragonsteelShovel extends CustomAttributeItem implements ICraftable
 
     @Override
     public ItemClassification getItemClassification() {
-        return ItemClassification.TOOL;
+        return ItemClassification.SHOVEL;
     }
 
     @Override

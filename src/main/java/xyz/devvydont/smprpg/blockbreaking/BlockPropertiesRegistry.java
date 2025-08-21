@@ -31,141 +31,169 @@ public class BlockPropertiesRegistry {
         register(Material.GRASS_BLOCK, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
                 .hardness(60)
                 .breakingPower(0)
+                .softRequirement(true)
                 .build());
 
         register(Material.PODZOL, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
                 .hardness(50)
                 .breakingPower(0)
+                .softRequirement(true)
                 .build());
 
         register(Material.MYCELIUM, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
                 .hardness(50)
                 .breakingPower(0)
+                .softRequirement(true)
                 .build());
 
         register(Material.DIRT_PATH, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
                 .hardness(65)
                 .breakingPower(0)
+                .softRequirement(true)
                 .build());
 
         register(Material.DIRT, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
                 .hardness(50)
                 .breakingPower(0)
+                .softRequirement(true)
                 .build());
 
         register(Material.COARSE_DIRT, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
                 .hardness(50)
                 .breakingPower(0)
+                .softRequirement(true)
                 .build());
 
         register(Material.ROOTED_DIRT, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
                 .hardness(50)
                 .breakingPower(0)
+                .softRequirement(true)
                 .build());
 
         register(Material.MUD, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
                 .hardness(50)
                 .breakingPower(0)
+                .softRequirement(true)
                 .build());
 
         register(Material.CLAY, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
                 .hardness(60)
                 .breakingPower(0)
+                .softRequirement(true)
                 .build());
 
         register(Material.GRAVEL, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
                 .hardness(60)
                 .breakingPower(0)
+                .softRequirement(true)
                 .build());
 
         register(Material.SAND, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
                 .hardness(50)
                 .breakingPower(0)
+                .softRequirement(true)
                 .build());
 
         register(Material.SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(80)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(80)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.SANDSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(80)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.CUT_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(90)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.CUT_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(80)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.CHISELED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(80)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.RED_SAND, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
                 .hardness(50)
                 .breakingPower(0)
+                .softRequirement(true)
                 .build());
 
         register(Material.RED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(80)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.RED_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(80)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.RED_SANDSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(80)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.CUT_RED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(90)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.CUT_RED_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(80)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.CHISELED_RED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(80)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.STONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(150)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.COBBLESTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(200)
                 .breakingPower(0)
+                .softRequirement(false)
                 .build());
 
         register(Material.DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(300)
                 .breakingPower(3)
+                .softRequirement(false)
                 .build());
 
         register(Material.COBBLED_DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
                 .hardness(350)
                 .breakingPower(3)
+                .softRequirement(false)
                 .build());
     }
 

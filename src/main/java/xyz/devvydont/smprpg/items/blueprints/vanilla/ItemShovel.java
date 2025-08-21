@@ -62,7 +62,7 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
 
     @Override
     public ItemClassification getItemClassification() {
-        return ItemClassification.TOOL;
+        return ItemClassification.SHOVEL;
     }
 
     @Override

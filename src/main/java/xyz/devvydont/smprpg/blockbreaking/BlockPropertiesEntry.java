@@ -21,16 +21,21 @@ public class BlockPropertiesEntry {
     // What breaking power is required to destroy this block?
     private final float breakingPower;
 
+    // Is a tool absolutely required to destroy this block effectively?
+    private final boolean softRequirement;
+
     private final @Nullable String blockData;
 
     public BlockPropertiesEntry(
             float hardness,
             float breakingPower,
+            boolean softRequirement,
             @Nullable String blockData,
             @Nullable Set<ItemClassification> preferredTools) {
         this.preferredTool = ImmutableSet.copyOf(preferredTools);
         this.hardness = hardness;
         this.breakingPower = breakingPower;
+        this.softRequirement = softRequirement;
         this.blockData = blockData;
     }
 
@@ -56,6 +61,14 @@ public class BlockPropertiesEntry {
      */
     public float getBreakingPower() {
         return breakingPower;
+    }
+
+    /**
+     * Get the soft breaking requirement flag of a block.
+     * @return A boolean representation of a block's soft break flag.
+     */
+    public boolean getSoftRequirement() {
+        return softRequirement;
     }
 
     /**
@@ -93,6 +106,7 @@ public class BlockPropertiesEntry {
         private @Nullable Set<ItemClassification> preferredTool = null;
         private float hardness = 0;
         private float breakingPower = 0;
+        private boolean softRequirement = false;
         private @Nullable String blockData = null;
 
         private Builder(ItemClassification...preferredTool) {
@@ -130,11 +144,21 @@ public class BlockPropertiesEntry {
         }
 
         /**
+         * Sets a flag to determine if this block *requires* a tool to break effectively. (i.e. dirt)
+         * @param softRequirement Boolean flag for this toggle.
+         * @return The same builder instance for proper builder pattern calls.
+         */
+        public Builder softRequirement(boolean softRequirement) {
+            this.softRequirement = softRequirement;
+            return this;
+        }
+
+        /**
          * Finish construction of the entry and build a {@link BlockPropertiesEntry} instance.
          * @return The new entry.
          */
         public BlockPropertiesEntry build() {
-            return new BlockPropertiesEntry(this.hardness, this.breakingPower, this.blockData, this.preferredTool);
+            return new BlockPropertiesEntry(this.hardness, this.breakingPower, this.softRequirement, this.blockData, this.preferredTool);
         }
 
     }

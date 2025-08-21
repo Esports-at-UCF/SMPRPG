@@ -44,7 +44,7 @@ public class SteelShovel extends CustomAttributeItem implements ICraftable, IBre
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 20),
-                new MultiplicativeAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemShovel.SHOVEL_ATTACK_SPEED_DEBUFF)
         );
     }
@@ -54,7 +54,7 @@ public class SteelShovel extends CustomAttributeItem implements ICraftable, IBre
 
     @Override
     public ItemClassification getItemClassification() {
-        return ItemClassification.TOOL;
+        return ItemClassification.SHOVEL;
     }
 
     @Override

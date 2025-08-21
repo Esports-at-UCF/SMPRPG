@@ -24,6 +24,7 @@ import org.bukkit.potion.PotionEffectType;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.block.BlockLootRegistry;
+import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.services.AttributeService;
 import xyz.devvydont.smprpg.services.BlockBreakingService;
 import xyz.devvydont.smprpg.services.EconomyService;
@@ -33,6 +34,7 @@ import xyz.devvydont.smprpg.util.formatting.Symbols;
 
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Set;
 
 public class BlockDamage {
 
@@ -165,21 +167,36 @@ public class BlockDamage {
     
     @SuppressWarnings("deprecation")
 	private double getBreakingTime(Player player, Block block) {
-		double speedMultiplier = 0d;
+		double speedMultiplier = 100d;
 
 		// Check if held item has a proper tool component. If it doesn't, assume unarmed
 		var item = player.getEquipment().getItemInMainHand();
-		var itemMeta = item.getItemMeta();
-		if (itemMeta == null || itemMeta.getTool().getRules().isEmpty())  // Either it's a non-item (empty hand), or it has no specified tool rules. Assume unarmed.
-			speedMultiplier = 100d;
+		var entry = BlockPropertiesRegistry.get(block.getType());
+		Set<ItemClassification> preferredTools;
 
-		speedMultiplier += AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_SPEED).getValue();
+		// Failfast if entry is null.
+		if (entry == null) {
+			SMPRPG.getInstance().getLogger().warning("Unknown block entry " + block.toString() + ". Please add it to BlockPropertiesRegistry!");
+			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.75F);
+			return -1d;
+		}
+		else
+			preferredTools = entry.getPreferredTools();
+		boolean isPreferred = false;
+		if (preferredTools != null)
+			isPreferred = preferredTools.contains(SMPRPG.getService(ItemService.class).getBlueprint(item).getItemClassification()) || entry.getSoftRequirement();
 
-		// Haste gives +50 mining speed per level, Mining Fatigue gives -50 mining speed per level.
+		if (isPreferred)  // Only add extra mining speed once we know this is a preferred break option
+		{
+			speedMultiplier -= 100;  // Subtract our implicit 100 speed given for unarmed/non-tool options
+			speedMultiplier += AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_SPEED).getValue();
+		}
+
+		// Haste gives +100 mining speed per level, Mining Fatigue gives -100 mining speed per level.
 		if (player.hasPotionEffect(PotionEffectType.HASTE))
-			speedMultiplier += 50 * player.getPotionEffect(PotionEffectType.HASTE).getAmplifier();
+			speedMultiplier += 100 * player.getPotionEffect(PotionEffectType.HASTE).getAmplifier();
 		if (player.hasPotionEffect(PotionEffectType.MINING_FATIGUE))
-			speedMultiplier -= 50 * player.getPotionEffect(PotionEffectType.MINING_FATIGUE).getAmplifier();
+			speedMultiplier -= 100 * player.getPotionEffect(PotionEffectType.MINING_FATIGUE).getAmplifier();
 
 		if (player.isInWater())
 		  speedMultiplier *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.UNDERWATER_MINING).getValue();
@@ -191,34 +208,25 @@ public class BlockDamage {
 		
 		// Checks for a custom hardness.
 		float hardness;
-		var entry = BlockPropertiesRegistry.get(block.getType());
 
 		// Failsafe, block is unbreakable if not properly defined.
-		if (entry == null) {
-			SMPRPG.getInstance().getLogger().warning("Unknown block entry " + block.toString() + ". Please add it to BlockPropertiesRegistry!");
-			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.75F);
-			return -1d;
-		}
+		double playerBp = AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_POWER).getValue();
+		if (playerBp >= entry.getBreakingPower())
+			hardness = entry.getHardness();
 		else {
-			double playerBp = AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_POWER).getValue();
-			if (playerBp >= entry.getBreakingPower())
-				hardness = entry.getHardness();
-			else {
-				player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.5F);
-				player.sendMessage(ComponentUtils.success(ComponentUtils.merge(
-						ComponentUtils.create("You cannot break this block, as you only have a breaking power of ", NamedTextColor.RED),
-						ComponentUtils.create(Symbols.PICKAXE + String.valueOf((int) playerBp), NamedTextColor.DARK_PURPLE),
-						ComponentUtils.create(". In order to break this block, you need ", NamedTextColor.RED),
-						ComponentUtils.create(Symbols.PICKAXE + String.valueOf((int) entry.getBreakingPower()), NamedTextColor.LIGHT_PURPLE),
-						ComponentUtils.create(" breaking power.", NamedTextColor.RED)
-				)));
-				return -1d;
-			}
+			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.5F);
+			player.sendMessage(ComponentUtils.success(ComponentUtils.merge(
+					ComponentUtils.create("You cannot break this block, as you only have a breaking power of ", NamedTextColor.RED),
+					ComponentUtils.create(Symbols.PICKAXE + String.valueOf((int) playerBp), NamedTextColor.DARK_PURPLE),
+					ComponentUtils.create(". In order to break this block, you need ", NamedTextColor.RED),
+					ComponentUtils.create(Symbols.PICKAXE + String.valueOf((int) entry.getBreakingPower()), NamedTextColor.LIGHT_PURPLE),
+					ComponentUtils.create(" breaking power.", NamedTextColor.RED)
+			)));
+			return -1d;
 		}
 		damage = speedMultiplier / hardness;
 
-		var preferredTools = entry.getPreferredTools();
-		if (preferredTools != null && preferredTools.contains(SMPRPG.getService(ItemService.class).getBlueprint(item).getItemClassification()))
+		if (isPreferred)
 			damage /= 30;
 		else
 			damage /= 100;
