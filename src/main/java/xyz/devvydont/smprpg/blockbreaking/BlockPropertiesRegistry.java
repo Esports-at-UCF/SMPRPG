@@ -22,9 +22,7 @@ public class BlockPropertiesRegistry {
 
     private static final Map<Material, BlockPropertiesEntry> entries = new EnumMap<>(Material.class);
 
-    // Inputs necessary block drop overrides. Keep in mind, we only need to add OVERRIDES. If the vanilla behavior
-    // is fine, then you can omit it :)
-    // Just keep in mind, vanilla drops will NOT be affected by any fortune stats, so you do need to add all ores etc.
+    // Maps every block type to specified mining properties. Keep in mind, EVERY block needs to be defined here.
     static {
         //<editor-fold desc="Shovelable blocks">
         //<editor-fold desc="Concrete powders">

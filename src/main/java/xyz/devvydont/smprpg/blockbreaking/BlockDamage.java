@@ -182,7 +182,13 @@ public class BlockDamage {
 
 		// Failfast if entry is null.
 		if (entry == null) {
-			SMPRPG.getInstance().getLogger().warning("Unknown block entry " + block.toString() + ". Please add it to BlockPropertiesRegistry!");
+			player.sendMessage(ComponentUtils.success(ComponentUtils.merge(
+					ComponentUtils.create("This block is missing block properties! Tell a developer that the following block is not defined: ", NamedTextColor.RED),
+					ComponentUtils.create(block.getBlockData().getMaterial().toString(), NamedTextColor.WHITE),
+					ComponentUtils.create("\nBlockState: ", NamedTextColor.LIGHT_PURPLE),
+					ComponentUtils.create(block.toString(), NamedTextColor.GRAY)
+			)));
+			SMPRPG.getInstance().getLogger().warning("Unknown block entry " + block.getState() + ". Please add it to BlockPropertiesRegistry!");
 			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.75F);
 			return -1d;
 		}
