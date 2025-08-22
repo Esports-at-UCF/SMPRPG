@@ -48,6 +48,6 @@ public class ItemShears extends VanillaAttributeItem implements IBreakableEquipm
 
     @Override
     public ItemClassification getItemClassification() {
-        return ItemClassification.TOOL;
+        return ItemClassification.SHEARS;
     }
 }
