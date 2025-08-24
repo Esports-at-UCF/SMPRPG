@@ -23,6 +23,7 @@ import xyz.devvydont.smprpg.commands.player.CommandBalance
 import xyz.devvydont.smprpg.commands.player.CommandBalanceTop
 import xyz.devvydont.smprpg.commands.player.CommandSkill
 import xyz.devvydont.smprpg.commands.player.CommandStatistics
+import xyz.devvydont.smprpg.commands.player.CommandWardrobe
 import xyz.devvydont.smprpg.commands.player.CommandWhatAmIHolding
 import xyz.devvydont.smprpg.fishing.gui.LootTypeChancesMenu
 import xyz.devvydont.smprpg.gui.MainMenu
@@ -55,6 +56,9 @@ class SMPRPGBootstrapper : PluginBootstrap {
             CommandBalance("bal"),  // Effectively functions as an alias. We can register the same command multiple times!
             CommandStatistics("statistics"),
             CommandStatistics("stats"),
+            CommandWardrobe("wardrobe"),
+            CommandWardrobe("sets"),
+            CommandWardrobe("wd"),
             CommandWhatAmIHolding("whatamiholding"),
             CommandWhatAmIHolding("waih"),
             CommandBalanceTop("balancetop"),

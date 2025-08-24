@@ -28,6 +28,7 @@ import java.util.function.Consumer
  * Functions as a server side version of J/NEI. Players can view this interface to view custom items and their recipes.
  */
 class MenuItemBrowser @JvmOverloads constructor(
+    parent: MenuBase?,
     player: Player,
     /**
      * Retrieve the query that is currently being used for this display.
@@ -35,7 +36,7 @@ class MenuItemBrowser @JvmOverloads constructor(
      * @return A string representing what the user input via command.
      */
     val query: String = ""
-) : MenuBase(player, ROWS) {
+) : MenuBase(player, ROWS, parent) {
     private val queriedItems: MutableList<ItemStack> = ArrayList<ItemStack>()
     private var page = 0
 
@@ -256,10 +257,7 @@ class MenuItemBrowser @JvmOverloads constructor(
         }
 
         // Close button
-        this.setButton((ROWS - 1) * 9 + 4, BUTTON_EXIT) { e: InventoryClickEvent ->
-            this.closeMenu()
-            this.sounds.playMenuClose()
-        }
+        this.setBackButton()
     }
 
     companion object {
