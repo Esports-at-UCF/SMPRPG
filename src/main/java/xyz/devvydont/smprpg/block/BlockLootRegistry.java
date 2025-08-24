@@ -2,8 +2,10 @@ package xyz.devvydont.smprpg.block;
 
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Block;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.blockbreaking.BlockPropertiesEntry;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.services.ItemService;
 
@@ -23,6 +25,7 @@ import java.util.Map;
 public class BlockLootRegistry {
 
     private static final Map<Material, BlockLootEntry> entries = new EnumMap<>(Material.class);
+    private static final Map<CustomBlock, BlockLootEntry> specialEntries = new EnumMap<>(CustomBlock.class);
 
     // Inputs necessary block drop overrides. Keep in mind, we only need to add OVERRIDES. If the vanilla behavior
     // is fine, then you can omit it :)
@@ -458,16 +461,24 @@ public class BlockLootRegistry {
         );
     }
 
+    static {
+        register(CustomBlock.END_TEST_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.END_PORTAL_FRAME)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.END_PORTAL_FRAME)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.END_PORTAL_FRAME)))
+                .build()
+        );
+    }
+
     public static void register(Material material, BlockLootEntry entry) {
         entries.put(material, entry);
     }
+    public static void register(CustomBlock material, BlockLootEntry entry) { specialEntries.put(material, entry); }
 
-    public static @Nullable BlockLootEntry get(Material material) {
-        return entries.get(material);
+    public static @Nullable BlockLootEntry get(Block block) {
+        var entry = specialEntries.getOrDefault(CustomBlock.resolve(block), null);
+        if (entry == null)
+            return entries.get(block.getType());
+        return entry;
     }
-
-    public static boolean contains(Material material) {
-        return entries.containsKey(material);
-    }
-
 }

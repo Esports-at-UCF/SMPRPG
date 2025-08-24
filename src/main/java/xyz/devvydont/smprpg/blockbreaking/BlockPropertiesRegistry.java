@@ -1,7 +1,9 @@
 package xyz.devvydont.smprpg.blockbreaking;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.jetbrains.annotations.Nullable;
+import xyz.devvydont.smprpg.block.CustomBlock;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.services.ItemService;
 
@@ -21,6 +23,7 @@ import java.util.Map;
 public class BlockPropertiesRegistry {
 
     private static final Map<Material, BlockPropertiesEntry> entries = new EnumMap<>(Material.class);
+    private static final Map<CustomBlock, BlockPropertiesEntry> specialEntries = new EnumMap<>(CustomBlock.class);
 
     // Maps every block type to specified mining properties. Keep in mind, EVERY block needs to be defined here.
     static {
@@ -6122,16 +6125,25 @@ public class BlockPropertiesRegistry {
         //</editor-fold>
     }
 
+    // Custom Block Registration
+    static {
+        register(CustomBlock.END_TEST_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(800)
+                .breakingPower(7)
+                .softRequirement(false)
+                .build());
+    }
+
     public static void register(Material material, BlockPropertiesEntry entry) {
         entries.put(material, entry);
     }
 
-    public static @Nullable BlockPropertiesEntry get(Material material) {
-        return entries.get(material);
-    }
+    public static void register(CustomBlock material, BlockPropertiesEntry entry) { specialEntries.put(material, entry); }
 
-    public static boolean contains(Material material) {
-        return entries.containsKey(material);
+    public static @Nullable BlockPropertiesEntry get(Block block) {
+        var entry = specialEntries.getOrDefault(CustomBlock.resolve(block), null);
+        if (entry == null)
+            return entries.get(block.getType());
+        return entry;
     }
-
 }

@@ -25,6 +25,7 @@ import org.bukkit.potion.PotionEffectType;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.block.BlockLootRegistry;
+import xyz.devvydont.smprpg.block.CustomBlock;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.interfaces.IFueledEquipment;
 import xyz.devvydont.smprpg.services.AttributeService;
@@ -180,7 +181,8 @@ public class BlockDamage {
 		// Check if held item has a proper tool component. If it doesn't, assume unarmed
 		var item = player.getEquipment().getItemInMainHand();
 		var blueprint = SMPRPG.getService(ItemService.class).getBlueprint(item);
-		var entry = BlockPropertiesRegistry.get(block.getType());
+		var entry = BlockPropertiesRegistry.get(block);
+		System.out.println(block.getBlockData());
 		Set<ItemClassification> preferredTools;
 
 		// Failfast if entry is null.
