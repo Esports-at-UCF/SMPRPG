@@ -182,7 +182,6 @@ public class BlockDamage {
 		var item = player.getEquipment().getItemInMainHand();
 		var blueprint = SMPRPG.getService(ItemService.class).getBlueprint(item);
 		var entry = BlockPropertiesRegistry.get(block);
-		System.out.println(block.getBlockData());
 		Set<ItemClassification> preferredTools;
 
 		// Failfast if entry is null.
@@ -280,10 +279,12 @@ public class BlockDamage {
 //    		block.getWorld().dropItem(block.getLocation(), drop);	
 //    	}
 
-		var blockState = block.getState();
-
-		block.getWorld().playSound(block.getLocation(), block.getBlockData().getSoundGroup().getBreakSound(), 1.0f, 0.8f);
-		var particle = new ParticleBuilder(Particle.BLOCK)
+		String breakSound  = BlockPropertiesRegistry.get(block).getBreakSound();
+		if (breakSound != null)
+			block.getWorld().playSound(block.getLocation(), breakSound, 1.0f, 0.8f);
+		else
+			block.getWorld().playSound(block.getLocation(), block.getBlockData().getSoundGroup().getBreakSound(), 1.0f, 0.8f);
+		new ParticleBuilder(Particle.BLOCK)
 				.location(block.getLocation().toCenterLocation())
 				.data(block.getBlockData())
 				.count(40)

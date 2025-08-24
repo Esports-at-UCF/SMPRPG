@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 
 public enum CustomBlock {
 
-    END_TEST_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(24), false)),
+    REFORGE_TABLE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(24), false)),
     STEEL_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(23), false)),
     DRAGONSTEEL_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(22), false));
 

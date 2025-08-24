@@ -249,7 +249,7 @@ public class ItemService implements IService, Listener {
         registerVanillaMaterialResolver(Material.SHEARS, ItemShears.class);
 
         registerVanillaMaterialResolver(Material.WOODEN_SWORD, ItemSword.class);
-        registerVanillaMaterialResolver(Material.STONE_SWORD, ItemSword.class);
+        // registerVanillaMaterialResolver(Material.STONE_SWORD, ItemSword.class);
         registerVanillaMaterialResolver(Material.GOLDEN_SWORD, ItemSword.class);
         registerVanillaMaterialResolver(Material.IRON_SWORD, ItemSword.class);
         registerVanillaMaterialResolver(Material.DIAMOND_SWORD, ItemSword.class);
@@ -259,7 +259,7 @@ public class ItemService implements IService, Listener {
         registerVanillaMaterialResolver(Material.TRIDENT, ItemSword.class);
 
         registerVanillaMaterialResolver(Material.WOODEN_AXE, ItemAxe.class);
-        registerVanillaMaterialResolver(Material.STONE_AXE, ItemAxe.class);
+        // registerVanillaMaterialResolver(Material.STONE_AXE, ItemAxe.class);
         registerVanillaMaterialResolver(Material.GOLDEN_AXE, ItemAxe.class);
         registerVanillaMaterialResolver(Material.IRON_AXE, ItemAxe.class);
         registerVanillaMaterialResolver(Material.DIAMOND_AXE, ItemAxe.class);
@@ -269,21 +269,21 @@ public class ItemService implements IService, Listener {
         registerVanillaMaterialResolver(Material.CROSSBOW, ItemCrossbow.class);
 
         registerVanillaMaterialResolver(Material.WOODEN_PICKAXE, ItemPickaxe.class);
-        registerVanillaMaterialResolver(Material.STONE_PICKAXE, ItemPickaxe.class);
+        // registerVanillaMaterialResolver(Material.STONE_PICKAXE, ItemPickaxe.class);
         registerVanillaMaterialResolver(Material.GOLDEN_PICKAXE, ItemPickaxe.class);
         registerVanillaMaterialResolver(Material.IRON_PICKAXE, ItemPickaxe.class);
         registerVanillaMaterialResolver(Material.DIAMOND_PICKAXE, ItemPickaxe.class);
         registerVanillaMaterialResolver(Material.NETHERITE_PICKAXE, ItemPickaxe.class);
 
         registerVanillaMaterialResolver(Material.WOODEN_SHOVEL, ItemShovel.class);
-        registerVanillaMaterialResolver(Material.STONE_SHOVEL, ItemShovel.class);
+        // registerVanillaMaterialResolver(Material.STONE_SHOVEL, ItemShovel.class);
         registerVanillaMaterialResolver(Material.GOLDEN_SHOVEL, ItemShovel.class);
         registerVanillaMaterialResolver(Material.IRON_SHOVEL, ItemShovel.class);
         registerVanillaMaterialResolver(Material.DIAMOND_SHOVEL, ItemShovel.class);
         registerVanillaMaterialResolver(Material.NETHERITE_SHOVEL, ItemShovel.class);
 
         registerVanillaMaterialResolver(Material.WOODEN_HOE, ItemHoe.class);
-        registerVanillaMaterialResolver(Material.STONE_HOE, ItemHoe.class);
+        // registerVanillaMaterialResolver(Material.STONE_HOE, ItemHoe.class);
         registerVanillaMaterialResolver(Material.GOLDEN_HOE, ItemHoe.class);
         registerVanillaMaterialResolver(Material.IRON_HOE, ItemHoe.class);
         registerVanillaMaterialResolver(Material.DIAMOND_HOE, ItemHoe.class);

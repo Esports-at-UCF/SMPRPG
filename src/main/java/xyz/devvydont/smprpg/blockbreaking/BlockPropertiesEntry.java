@@ -24,19 +24,23 @@ public class BlockPropertiesEntry {
     // Is a tool absolutely required to destroy this block effectively?
     private final boolean softRequirement;
 
-    private final @Nullable String blockData;
+    // What sounds should play when placing/breaking this block?
+    private final @Nullable String placeSound;
+    private final @Nullable String breakSound;
 
     public BlockPropertiesEntry(
             float hardness,
             float breakingPower,
             boolean softRequirement,
-            @Nullable String blockData,
+            @Nullable String placeSound,
+            @Nullable String breakSound,
             @Nullable Set<ItemClassification> preferredTools) {
         this.preferredTool = ImmutableSet.copyOf(preferredTools);
         this.hardness = hardness;
         this.breakingPower = breakingPower;
         this.softRequirement = softRequirement;
-        this.blockData = blockData;
+        this.placeSound = placeSound;
+        this.breakSound = breakSound;
     }
 
     /**
@@ -64,19 +68,25 @@ public class BlockPropertiesEntry {
     }
 
     /**
+     * Get the placement sound of a block.
+     * @return A string representation of the block's placement sound key
+     */
+    public String getPlaceSound() { return placeSound; }
+
+    /**
+     * Get the break sound of a block.
+     * @return A string representation of the block's break sound key
+     */
+    public String getBreakSound() {
+        return breakSound;
+    }
+
+    /**
      * Get the soft breaking requirement flag of a block.
      * @return A boolean representation of a block's soft break flag.
      */
     public boolean getSoftRequirement() {
         return softRequirement;
-    }
-
-    /**
-     * Get the block data of this block. Useful for specialty noteblock ores.
-     * @return A string representation of the block's BlockData.
-     */
-    public @Nullable String getBlockData() {
-        return blockData;
     }
 
     /**
@@ -107,7 +117,8 @@ public class BlockPropertiesEntry {
         private float hardness = 0;
         private float breakingPower = 0;
         private boolean softRequirement = false;
-        private @Nullable String blockData = null;
+        private @Nullable String placeSound = null;
+        private @Nullable String breakSound = null;
 
         private Builder(ItemClassification...preferredTool) {
             this.preferredTool = ImmutableSet.copyOf(preferredTool);
@@ -134,12 +145,22 @@ public class BlockPropertiesEntry {
         }
 
         /**
-         * Set the BlockData, as a string, of a block entry.
-         * @param blockData The Block's stringified block data.
+         * Set the Placement sound, as a string, of a block.
+         * @param placeSound The Block's placement sound key.
          * @return The same builder instance for proper builder pattern calls.
          */
-        public Builder data(String blockData) {
-            this.blockData = blockData;
+        public Builder placeSound(String placeSound) {
+            this.placeSound = placeSound;
+            return this;
+        }
+
+        /**
+         * Set the Placement sound, as a string, of a block.
+         * @param breakSound The Block's placement sound key.
+         * @return The same builder instance for proper builder pattern calls.
+         */
+        public Builder breakSound(String breakSound) {
+            this.breakSound = breakSound;
             return this;
         }
 
@@ -158,7 +179,7 @@ public class BlockPropertiesEntry {
          * @return The new entry.
          */
         public BlockPropertiesEntry build() {
-            return new BlockPropertiesEntry(this.hardness, this.breakingPower, this.softRequirement, this.blockData, this.preferredTool);
+            return new BlockPropertiesEntry(this.hardness, this.breakingPower, this.softRequirement, this.placeSound, this.breakSound, this.preferredTool);
         }
 
     }

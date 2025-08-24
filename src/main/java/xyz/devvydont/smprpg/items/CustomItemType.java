@@ -3,7 +3,7 @@ package xyz.devvydont.smprpg.items;
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.block.DragonsteelBlock;
-import xyz.devvydont.smprpg.items.blueprints.block.EndTestOreBlock;
+import xyz.devvydont.smprpg.items.blueprints.block.ReforgeTableBlock;
 import xyz.devvydont.smprpg.items.blueprints.block.SteelBlock;
 import xyz.devvydont.smprpg.items.blueprints.boss.DiamondToolRod;
 import xyz.devvydont.smprpg.items.blueprints.boss.InfernoArrow;
@@ -459,7 +459,7 @@ public enum CustomItemType {
 
     // HATCHETS
     WOODEN_HATCHET("Wooden Hatchet",    Material.WOODEN_AXE,    ItemRarity.COMMON,   WoodHatchet.class),
-    STONE_HATCHET("Stone Hatchet",     Material.STONE_AXE,     ItemRarity.COMMON,   StoneHatchet.class),
+    // STONE_HATCHET("Stone Hatchet",     Material.STONE_AXE,     ItemRarity.COMMON,   StoneHatchet.class),
     COPPER_HATCHET("Copper Hatchet",    Material.WOODEN_AXE,    ItemRarity.COMMON,   CopperHatchet.class),
     IRON_HATCHET("Iron Hatchet",      Material.IRON_AXE,      ItemRarity.COMMON,   IronHatchet.class),
     GOLD_HATCHET("Golden Hatchet",      Material.GOLDEN_AXE,    ItemRarity.COMMON,   GoldHatchet.class),
@@ -839,7 +839,7 @@ public enum CustomItemType {
     DEATH_CERTIFICATE("Death Certificate", Material.PAPER, ItemRarity.SPECIAL, DeathCertificate.class),
 
     // BLOCKS
-    END_TEST_ORE(     "End Test Ore",      Material.END_STONE_BRICKS,     ItemRarity.TRANSCENDENT, EndTestOreBlock.class),
+    REFORGE_TABLE(     "Reforge Table",      Material.BARRIER,     ItemRarity.UNCOMMON, ReforgeTableBlock.class),
     STEEL_BLOCK(     "Block of Steel",      Material.BARRIER,     ItemRarity.RARE, SteelBlock.class),
     DRAGONSTEEL_BLOCK(     "Block of Dragonsteel",      Material.BARRIER,     ItemRarity.LEGENDARY, DragonsteelBlock.class),
 

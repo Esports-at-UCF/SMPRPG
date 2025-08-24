@@ -464,10 +464,11 @@ public class BlockLootRegistry {
     }
 
     static {
-        register(CustomBlock.END_TEST_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.END_PORTAL_FRAME)))
-                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.END_PORTAL_FRAME)))
-                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.END_PORTAL_FRAME)))
+        register(CustomBlock.REFORGE_TABLE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
+                .uses(null)
                 .build()
         );
 
@@ -475,6 +476,7 @@ public class BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
+                .uses(null)
                 .build()
         );
 
@@ -482,6 +484,7 @@ public class BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
+                .uses(null)
                 .build()
         );
     }

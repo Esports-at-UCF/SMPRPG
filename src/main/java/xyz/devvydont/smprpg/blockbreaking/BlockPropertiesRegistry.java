@@ -1,6 +1,7 @@
 package xyz.devvydont.smprpg.blockbreaking;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.block.CustomBlock;
@@ -6133,21 +6134,27 @@ public class BlockPropertiesRegistry {
 
     // Custom Block Registration
     static {
-        register(CustomBlock.END_TEST_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(800)
-                .breakingPower(7)
+        register(CustomBlock.REFORGE_TABLE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(4)
+                .placeSound("minecraft:block.iron.place")
+                .breakSound("minecraft:block.iron.break")
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.STEEL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(4)
+                .placeSound("minecraft:block.iron.place")
+                .breakSound("minecraft:block.iron.break")
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.DRAGONSTEEL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(6)
+                .placeSound("minecraft:block.netherite_block.place")
+                .breakSound("minecraft:block.netherite_block.break")
                 .softRequirement(false)
                 .build());
     }
