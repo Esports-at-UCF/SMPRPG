@@ -10,5 +10,6 @@ public interface IFueledEquipment {
     int FUEL_OFFSET = 1;
 
     int getMaxFuel();
+    String getBreakSound();
 
 }

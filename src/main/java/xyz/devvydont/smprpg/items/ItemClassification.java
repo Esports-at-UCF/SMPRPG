@@ -48,6 +48,7 @@ public enum ItemClassification {
     STORAGE,
     // Literally everything else
     ITEM,
+    BLOCK,
     ;
 
     private final Collection<TagKey<ItemType>> keys;

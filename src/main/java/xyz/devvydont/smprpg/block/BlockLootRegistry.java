@@ -3,9 +3,11 @@ package xyz.devvydont.smprpg.block;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.blockbreaking.BlockPropertiesEntry;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.services.ItemService;
 
@@ -468,6 +470,20 @@ public class BlockLootRegistry {
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.END_PORTAL_FRAME)))
                 .build()
         );
+
+        register(CustomBlock.STEEL_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
+                .build()
+        );
+
+        register(CustomBlock.DRAGONSTEEL_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
+                .build()
+        );
     }
 
     public static void register(Material material, BlockLootEntry entry) {
@@ -475,7 +491,7 @@ public class BlockLootRegistry {
     }
     public static void register(CustomBlock material, BlockLootEntry entry) { specialEntries.put(material, entry); }
 
-    public static @Nullable BlockLootEntry get(Block block) {
+    public static @Nullable BlockLootEntry get(BlockState block) {
         var entry = specialEntries.getOrDefault(CustomBlock.resolve(block), null);
         if (entry == null)
             return entries.get(block.getType());

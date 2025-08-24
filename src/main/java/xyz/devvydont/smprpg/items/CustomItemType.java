@@ -2,6 +2,9 @@ package xyz.devvydont.smprpg.items;
 
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.block.DragonsteelBlock;
+import xyz.devvydont.smprpg.items.blueprints.block.EndTestOreBlock;
+import xyz.devvydont.smprpg.items.blueprints.block.SteelBlock;
 import xyz.devvydont.smprpg.items.blueprints.boss.DiamondToolRod;
 import xyz.devvydont.smprpg.items.blueprints.boss.InfernoArrow;
 import xyz.devvydont.smprpg.items.blueprints.boss.NeptunesConch;
@@ -834,6 +837,11 @@ public enum CustomItemType {
     SINGULARITY_BOOTS(     "Singularity Boots",      Material.NETHERITE_BOOTS,      ItemRarity.MYTHIC, SingularityBoots.class),
 
     DEATH_CERTIFICATE("Death Certificate", Material.PAPER, ItemRarity.SPECIAL, DeathCertificate.class),
+
+    // BLOCKS
+    END_TEST_ORE(     "End Test Ore",      Material.END_STONE_BRICKS,     ItemRarity.TRANSCENDENT, EndTestOreBlock.class),
+    STEEL_BLOCK(     "Block of Steel",      Material.BARRIER,     ItemRarity.RARE, SteelBlock.class),
+    DRAGONSTEEL_BLOCK(     "Block of Dragonsteel",      Material.BARRIER,     ItemRarity.LEGENDARY, DragonsteelBlock.class),
 
     // ADMIN UTILITY
     INFINILYTRA("Infini-lytra", Material.ELYTRA, ItemRarity.SPECIAL, InfinilytraBlueprint.class),

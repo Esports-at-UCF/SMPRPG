@@ -44,6 +44,7 @@ import xyz.devvydont.smprpg.items.base.ChargedItemBlueprint;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint;
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.potion.PotionBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource;
 import xyz.devvydont.smprpg.items.blueprints.vanilla.*;
@@ -177,6 +178,7 @@ public class ItemService implements IService, Listener {
         listeners.add(new AbilityCastingListener());
         listeners.add(new RareItemDropPreventionListener());
         listeners.add(new CustomItemFurnacePreventions());
+        listeners.add(new ToolListeners());
     }
 
     @Override
@@ -1336,6 +1338,9 @@ public class ItemService implements IService, Listener {
         SMPItemBlueprint blueprint = getBlueprint(item);
 
         // Hack for summoning crystals. Allow them to be placed!
+        if (blueprint instanceof BlockBlueprint)
+            return;
+
         if (blueprint instanceof CustomItemBlueprint custom && custom.getCustomItemType().equals(CustomItemType.SUMMONING_CRYSTAL))
             return;
 

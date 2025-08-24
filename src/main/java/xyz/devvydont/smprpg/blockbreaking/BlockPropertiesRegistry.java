@@ -216,6 +216,12 @@ public class BlockPropertiesRegistry {
                 .softRequirement(true)
                 .build());
 
+        register(Material.POWDER_SNOW, BlockPropertiesEntry.builder()
+                .hardness(25)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
         register(Material.ICE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
@@ -6130,6 +6136,18 @@ public class BlockPropertiesRegistry {
         register(CustomBlock.END_TEST_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(800)
                 .breakingPower(7)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.STEEL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(4)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.DRAGONSTEEL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(6)
                 .softRequirement(false)
                 .build());
     }

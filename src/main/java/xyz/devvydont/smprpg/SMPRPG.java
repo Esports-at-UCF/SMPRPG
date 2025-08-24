@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.effects.services.SpecialEffectService;
 import xyz.devvydont.smprpg.listeners.*;
 import xyz.devvydont.smprpg.listeners.block.MultiBlockBreakListener;
+import xyz.devvydont.smprpg.listeners.block.NoteblockOverrideListener;
 import xyz.devvydont.smprpg.listeners.block.TrialChamberVaultFix;
 import xyz.devvydont.smprpg.listeners.damage.SlimeRapidAttackFixListener;
 import xyz.devvydont.smprpg.loot.LootListener;
@@ -167,7 +168,8 @@ public final class SMPRPG extends JavaPlugin {
         generalListeners.add(new LootListener());  // Overrides vanilla loot tables by injecting our items into it.
         generalListeners.add(new TrialChamberVaultFix());  // Allows trial chambers to work with our custom item system.
         generalListeners.add(new SlimeRapidAttackFixListener());  // Fixes the vanilla bug of slimes being able to attack every tick.
-        generalListeners.add(new MultiBlockBreakListener());  // Fixes the vanilla bug of slimes being able to attack every tick.
+        generalListeners.add(new MultiBlockBreakListener());  // Allows for lumbering and multi-block break tools to work.
+        generalListeners.add(new NoteblockOverrideListener());  // Overrides vanilla noteblock behavior, such that we can overload noteblock blockstates for custom ores.
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.

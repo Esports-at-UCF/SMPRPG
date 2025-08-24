@@ -53,8 +53,7 @@ public class BlockLootOverrideListener extends ToggleableListener {
             fortuneActive = false;
 
         // Check if this block is flagged. If it isn't, let vanilla handle the logic.
-        var block = event.getBlockState().getBlock();
-        var entry = BlockLootRegistry.get(block);
+        var entry = BlockLootRegistry.get(event.getBlockState());
         if (entry == null)
             return;
 
