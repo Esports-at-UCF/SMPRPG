@@ -1,0 +1,33 @@
+{
+    "model": {
+        "type": "select",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/barrier"
+        },
+        "cases": [
+			{
+                "when": "smprpg:steel_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/steel_block"
+                }
+            },
+            {
+                "when": "smprpg:dragonsteel_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/dragonsteel_block"
+                }
+            },
+			{
+                "when": "smprpg:reforge_table",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/reforge_table"
+                }
+            }
+        ]
+    }
+}

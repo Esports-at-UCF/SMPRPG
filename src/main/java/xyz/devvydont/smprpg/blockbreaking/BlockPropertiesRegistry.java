@@ -4879,6 +4879,18 @@ public class BlockPropertiesRegistry {
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
+
+        register(Material.CHORUS_PLANT, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(1600)
+                .breakingPower(6)
+                .softRequirement(false)
+                .build());
+
+        register(Material.CHORUS_FLOWER, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(1600)
+                .breakingPower(6)
+                .softRequirement(false)
+                .build());
         //</editor-fold>
 
         //<editor-fold desc="Hoe Blocks">

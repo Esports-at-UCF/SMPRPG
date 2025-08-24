@@ -42,7 +42,6 @@ import java.util.Set;
 public class BlockDamage {
 
 	protected final SMPRPG plugin;
-	protected final SpeedConfigFileHandler filehandler = SMPRPG.getService(BlockBreakingService.class).filehandler;
     
     private static HashMap<String, ScheduleTask> scheduleId = new HashMap<String, ScheduleTask>();
 	

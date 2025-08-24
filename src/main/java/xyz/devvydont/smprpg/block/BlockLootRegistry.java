@@ -468,7 +468,6 @@ public class BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
-                .uses(null)
                 .build()
         );
 
@@ -476,7 +475,6 @@ public class BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
-                .uses(null)
                 .build()
         );
 
@@ -484,7 +482,6 @@ public class BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
-                .uses(null)
                 .build()
         );
     }

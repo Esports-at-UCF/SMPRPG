@@ -6,5 +6,11 @@
       "audio:random/breadboard_eat3"
     ],
     "subtitle": "subtitles.breadboard.eat"
+  },
+  "tools.drill.break": {
+	  "sounds": [
+		"audio:tools/drill"
+	  ],
+	  "subtitle": "Drill whirring"
   }
 }

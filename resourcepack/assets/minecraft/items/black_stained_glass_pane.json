@@ -1,0 +1,19 @@
+{
+    "model": {
+        "type": "select",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/black_stained_glass_pane"
+        },
+        "cases": [
+			{
+                "when": "smprpg:border_normal",
+                "model": {
+                    "type": "model",
+                    "model": "ui:components/blocker"
+                }
+            }
+        ]
+    }
+}

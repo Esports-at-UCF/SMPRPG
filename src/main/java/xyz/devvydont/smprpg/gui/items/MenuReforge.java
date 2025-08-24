@@ -32,10 +32,10 @@ import java.util.List;
 
 public class MenuReforge extends MenuBase {
 
-    public static final int ROWS = 5;
+    public static final int ROWS = 3;
 
-    public static final int INPUT_SLOT = 13;
-    public static final int BUTTON_SLOT = 31;
+    public static final int INPUT_SLOT = 12;
+    public static final int BUTTON_SLOT = 14;
 
     public MenuReforge(@NotNull Player player) {
         super(player, ROWS);
@@ -164,14 +164,14 @@ public class MenuReforge extends MenuBase {
         // Check if we have an item in the input
         ItemStack item = getItem(INPUT_SLOT);
         if (item == null) {
-            playInvalidAnimation();
+            //playInvalidAnimation();
             return;
         }
 
         // Check if this item is able to store attributes. Reforges can't add attributes to attributeless items!
         SMPItemBlueprint blueprint = SMPRPG.getService(ItemService.class).getBlueprint(item);
         if (!(blueprint instanceof IAttributeItem attributeable)) {
-            playInvalidAnimation();
+            //playInvalidAnimation();
             return;
         }
 

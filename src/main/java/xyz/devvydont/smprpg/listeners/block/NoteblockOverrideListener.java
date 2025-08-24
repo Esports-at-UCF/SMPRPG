@@ -30,9 +30,6 @@ public class NoteblockOverrideListener extends ToggleableListener {
     public void onRightClickNoteblock(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock().getType() == Material.NOTE_BLOCK) {
             event.setCancelled(true);  // Cancel vanilla event, so that we aren't changing blockstates.
-
-            System.out.println(event.getClickedBlock().getBlockData());
-            System.out.println(CustomBlock.REFORGE_TABLE.BlockData);
             if (event.getClickedBlock().getBlockData().equals(CustomBlock.REFORGE_TABLE.BlockData))
                 new MenuReforge(event.getPlayer()).openMenu();
         }

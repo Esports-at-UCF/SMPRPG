@@ -1,5 +1,7 @@
 package xyz.devvydont.smprpg.gui.base;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.CustomModelData;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -39,6 +41,29 @@ public abstract class MenuBase implements Listener {
     protected static final ItemStack BUTTON_PAGE_PREVIOUS = createNamedItem(Material.ARROW, Component.text("<- Previous Page", NamedTextColor.BLUE));
     protected static final ItemStack BUTTON_BACK = createNamedItem(Material.ARROW, Component.text("Back", NamedTextColor.BLUE));
     protected static final ItemStack BUTTON_EXIT = createNamedItem(Material.BARRIER, Component.text("Exit", NamedTextColor.RED));
+
+    static {
+        BORDER_NORMAL.setData(DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                .addString("smprpg:border_normal")
+                .build()
+        );
+        BUTTON_PAGE_NEXT.setData(DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                .addString("smprpg:icon_next_page")
+                .build()
+        );
+        BUTTON_PAGE_PREVIOUS.setData(DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                .addString("smprpg:icon_previous_page")
+                .build()
+        );
+        BUTTON_BACK.setData(DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                .addString("smprpg:icon_back")
+                .build()
+        );
+        BUTTON_EXIT.setData(DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                .addString("smprpg:icon_exit")
+                .build()
+        );
+    }
 
     // ---------
     //   State
