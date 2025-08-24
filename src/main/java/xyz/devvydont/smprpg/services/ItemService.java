@@ -932,11 +932,21 @@ public class ItemService implements IService, Listener {
         var durabilityUsed = itemStack.getData(DataComponentTypes.DAMAGE);
         if (durabilityComponent != null && durabilityUsed != null && !(blueprint instanceof ChargedItemBlueprint)) {
             lore.add(ComponentUtils.EMPTY);
-            lore.add(
-                    ComponentUtils.create("Durability: ")
-                            .append(ComponentUtils.create(MinecraftStringUtils.formatNumber(durabilityComponent - durabilityUsed), NamedTextColor.RED))
-                            .append(ComponentUtils.create("/" + MinecraftStringUtils.formatNumber(durabilityComponent), NamedTextColor.DARK_GRAY))
-            );
+            if (blueprint instanceof IFueledEquipment) {
+                // We need to spoof durability by subtracting 1, since we store as +1 to allow for durability bar rendering.
+                lore.add(
+                        ComponentUtils.create("Fuel: ")
+                                .append(ComponentUtils.create(MinecraftStringUtils.formatNumber(durabilityComponent - durabilityUsed - 1), NamedTextColor.RED))
+                                .append(ComponentUtils.create("/" + MinecraftStringUtils.formatNumber(durabilityComponent - 1), NamedTextColor.DARK_GRAY))
+                );
+            }
+            else{
+                lore.add(
+                        ComponentUtils.create("Durability: ")
+                                .append(ComponentUtils.create(MinecraftStringUtils.formatNumber(durabilityComponent - durabilityUsed), NamedTextColor.RED))
+                                .append(ComponentUtils.create("/" + MinecraftStringUtils.formatNumber(durabilityComponent), NamedTextColor.DARK_GRAY))
+                );
+            }
         }
 
         // Damage resistant?

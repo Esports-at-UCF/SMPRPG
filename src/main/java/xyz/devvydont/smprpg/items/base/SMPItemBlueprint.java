@@ -18,6 +18,7 @@ import org.bukkit.inventory.meta.components.FoodComponent;
 import org.bukkit.inventory.meta.trim.ArmorTrim;
 import org.bukkit.inventory.meta.trim.TrimMaterial;
 import org.bukkit.inventory.meta.trim.TrimPattern;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment;
@@ -283,6 +284,10 @@ public abstract class SMPItemBlueprint {
             itemStack.setData(DataComponentTypes.DAMAGE, dmg != null ? dmg : 0);
         } else if (this instanceof ChargedItemBlueprint){
             // Don't do anything here. We need the damage data to persist.
+        } else if (this instanceof IFueledEquipment fueled) {
+            // Fueled equipment will hack into the durability bar to show fuel fill, it will always stop at 1 durability, since setting unbreakable will not render the durability bar.
+            itemStack.setData(DataComponentTypes.MAX_DAMAGE, itemStack.getPersistentDataContainer().getOrDefault(IFueledEquipment.maxFuelKey, PersistentDataType.INTEGER, 1));
+            itemStack.setData(DataComponentTypes.DAMAGE, itemStack.getPersistentDataContainer().getOrDefault(IFueledEquipment.fuelKey, PersistentDataType.INTEGER, 1));
         }
         else {
             itemStack.unsetData(DataComponentTypes.MAX_DAMAGE);

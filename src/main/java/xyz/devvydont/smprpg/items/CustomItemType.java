@@ -847,6 +847,7 @@ public enum CustomItemType {
     INFINITY_LEGGINGS(  "Infinity Leggings",   Material.NETHERITE_LEGGINGS,   ItemRarity.TRANSCENDENT, InfinityLeggings.class),
     INFINITY_BOOTS(     "Infinity Boots",      Material.NETHERITE_BOOTS,      ItemRarity.TRANSCENDENT, InfinityBoots.class),
     INFINITY_SWORD(     "Infinity Sword",      Material.NETHERITE_SWORD,      ItemRarity.TRANSCENDENT, InfinitySword.class),
+    INFINITY_DRILL(     "Infinity Drill",      Material.PRISMARINE_SHARD,     ItemRarity.TRANSCENDENT, InfinityDrill.class),
     HEARTY_HELMET("Hearty Helmet", Material.NETHERITE_HELMET, ItemRarity.TRANSCENDENT, HeartyHelmet.class),
 
     GAME_BREAKER("Game Breaker", Material.TNT, ItemRarity.SPECIAL, true, GameBreaker.class),

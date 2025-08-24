@@ -20,11 +20,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.block.BlockLootRegistry;
 import xyz.devvydont.smprpg.items.ItemClassification;
+import xyz.devvydont.smprpg.items.interfaces.IFueledEquipment;
 import xyz.devvydont.smprpg.services.AttributeService;
 import xyz.devvydont.smprpg.services.BlockBreakingService;
 import xyz.devvydont.smprpg.services.EconomyService;
@@ -177,12 +179,13 @@ public class BlockDamage {
 
 		// Check if held item has a proper tool component. If it doesn't, assume unarmed
 		var item = player.getEquipment().getItemInMainHand();
+		var blueprint = SMPRPG.getService(ItemService.class).getBlueprint(item);
 		var entry = BlockPropertiesRegistry.get(block.getType());
 		Set<ItemClassification> preferredTools;
 
 		// Failfast if entry is null.
 		if (entry == null) {
-			player.sendMessage(ComponentUtils.success(ComponentUtils.merge(
+			player.sendMessage(ComponentUtils.alert(ComponentUtils.merge(
 					ComponentUtils.create("This block is missing block properties! Tell a developer that the following block is not defined: ", NamedTextColor.RED),
 					ComponentUtils.create(block.getBlockData().getMaterial().toString(), NamedTextColor.WHITE),
 					ComponentUtils.create("\nBlockState: ", NamedTextColor.LIGHT_PURPLE),
@@ -192,12 +195,23 @@ public class BlockDamage {
 			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.75F);
 			return -1d;
 		}
+		else if (blueprint instanceof IFueledEquipment) {
+			var maxFuel = ((IFueledEquipment) blueprint).getMaxFuel() - IFueledEquipment.FUEL_OFFSET;
+			if (item.getPersistentDataContainer().getOrDefault(IFueledEquipment.fuelKey, PersistentDataType.INTEGER, maxFuel) >= maxFuel) {
+				player.sendMessage(ComponentUtils.alert(ComponentUtils.merge(
+						ComponentUtils.create("Your tool is out of fuel! Refuel it by crafting your tool with furnace fuels in a crafting grid.", NamedTextColor.RED)
+				)));
+				player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.75F);
+				return -1d;
+			}
+			preferredTools = entry.getPreferredTools();
+		}
 		else
 			preferredTools = entry.getPreferredTools();
 		boolean isPreferred = false;
 		boolean correctTool = false;
 		if (preferredTools != null) {
-			correctTool = preferredTools.contains(SMPRPG.getService(ItemService.class).getBlueprint(item).getItemClassification());
+			correctTool = preferredTools.contains(blueprint.getItemClassification());
 			isPreferred = correctTool || entry.getSoftRequirement();
 		}
 

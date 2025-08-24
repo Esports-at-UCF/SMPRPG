@@ -26,230 +26,230 @@ public class BlockPropertiesRegistry {
     static {
         //<editor-fold desc="Shovelable blocks">
         //<editor-fold desc="Concrete powders">
-        register(Material.CLAY, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.CLAY, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(60)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.COARSE_DIRT, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.COARSE_DIRT, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.WHITE_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.WHITE_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.ORANGE_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.ORANGE_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.MAGENTA_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.MAGENTA_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LIGHT_BLUE_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.LIGHT_BLUE_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.YELLOW_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.YELLOW_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LIME_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.LIME_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PINK_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.PINK_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.GRAY_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.GRAY_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LIGHT_GRAY_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.LIGHT_GRAY_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.CYAN_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.CYAN_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PURPLE_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.PURPLE_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BLUE_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.BLUE_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BROWN_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.BROWN_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.GREEN_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.GREEN_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.RED_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.RED_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BLACK_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.BLACK_CONCRETE_POWDER, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
         //</editor-fold>
 
-        register(Material.DIRT, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.DIRT, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DIRT_PATH, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.DIRT_PATH, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(65)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.FARMLAND, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.FARMLAND, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.GRAVEL, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.GRAVEL, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(60)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.GRASS_BLOCK, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.GRASS_BLOCK, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(60)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.MUD, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.MUD, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.MYCELIUM, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.MYCELIUM, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PODZOL, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.PODZOL, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.RED_SAND, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.RED_SAND, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.ROOTED_DIRT, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.ROOTED_DIRT, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.SAND, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.SAND, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.SNOW, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.SNOW, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(10)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.SNOW_BLOCK, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.SNOW_BLOCK, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.ICE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ICE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PACKED_ICE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PACKED_ICE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BLUE_ICE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLUE_ICE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(280)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.SOUL_SAND, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.SOUL_SAND, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.SOUL_SOIL, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.SOUL_SOIL, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.SUSPICIOUS_GRAVEL, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.SUSPICIOUS_GRAVEL, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(25)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.SUSPICIOUS_SAND, BlockPropertiesEntry.builder(ItemClassification.SHOVEL)
+        register(Material.SUSPICIOUS_SAND, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
                 .hardness(25)
                 .breakingPower(0)
                 .softRequirement(true)
@@ -258,782 +258,782 @@ public class BlockPropertiesRegistry {
 
         //<editor-fold desc="Pickaxe blocks">
         //<editor-fold desc="Ores">
-        register(Material.AMETHYST_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.AMETHYST_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.AMETHYST_CLUSTER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.AMETHYST_CLUSTER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.SMALL_AMETHYST_BUD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMALL_AMETHYST_BUD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.MEDIUM_AMETHYST_BUD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MEDIUM_AMETHYST_BUD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LARGE_AMETHYST_BUD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LARGE_AMETHYST_BUD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.ANCIENT_DEBRIS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ANCIENT_DEBRIS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(3000)
                 .breakingPower(5)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BUDDING_AMETHYST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BUDDING_AMETHYST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COAL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COAL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COPPER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COPPER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DIAMOND_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DIAMOND_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(4)
                 .softRequirement(false)
                 .build());
 
-        register(Material.EMERALD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.EMERALD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(4)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GOLD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GOLD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.IRON_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.IRON_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(2)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LAPIS_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LAPIS_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(2)
                 .softRequirement(false)
                 .build());
 
-        register(Material.NETHER_GOLD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.NETHER_GOLD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.NETHER_QUARTZ_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.NETHER_QUARTZ_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.REDSTONE_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.REDSTONE_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_COAL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_COAL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_COPPER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_COPPER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_DIAMOND_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_DIAMOND_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
                 .breakingPower(6)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_EMERALD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_EMERALD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
                 .breakingPower(6)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_GOLD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_GOLD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
                 .breakingPower(5)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_IRON_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_IRON_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
                 .breakingPower(4)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_LAPIS_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_LAPIS_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
                 .breakingPower(4)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_REDSTONE_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_REDSTONE_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
                 .breakingPower(5)
                 .softRequirement(false)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Non-Ore">
-        register(Material.BEDROCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BEDROCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(-1)
                 .breakingPower(-1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.STONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.STONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.STONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.STONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.STONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.STONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.STONE_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.STONE_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.STONE_BUTTON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.STONE_BUTTON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.COBBLESTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COBBLESTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COBBLESTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COBBLESTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COBBLESTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COBBLESTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COBBLESTONE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COBBLESTONE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MOSSY_COBBLESTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MOSSY_COBBLESTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MOSSY_COBBLESTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MOSSY_COBBLESTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MOSSY_COBBLESTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MOSSY_COBBLESTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MOSSY_COBBLESTONE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MOSSY_COBBLESTONE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOOTH_STONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOOTH_STONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOOTH_STONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOOTH_STONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.STONE_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.STONE_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.STONE_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.STONE_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.STONE_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.STONE_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CRACKED_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CRACKED_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MOSSY_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MOSSY_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MOSSY_STONE_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MOSSY_STONE_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MOSSY_STONE_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MOSSY_STONE_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MOSSY_STONE_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MOSSY_STONE_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.INFESTED_COBBLESTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.INFESTED_COBBLESTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.INFESTED_STONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.INFESTED_STONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(75)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.INFESTED_MOSSY_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.INFESTED_MOSSY_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(75)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.INFESTED_CRACKED_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.INFESTED_CRACKED_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(75)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.INFESTED_CHISELED_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.INFESTED_CHISELED_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(75)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.INFESTED_DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.INFESTED_DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.INFESTED_COBBLESTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.INFESTED_COBBLESTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COBBLED_DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COBBLED_DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COBBLED_DEEPSLATE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COBBLED_DEEPSLATE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COBBLED_DEEPSLATE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COBBLED_DEEPSLATE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COBBLED_DEEPSLATE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COBBLED_DEEPSLATE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CHISELED_DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CHISELED_DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_DEEPSLATE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_DEEPSLATE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_DEEPSLATE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_DEEPSLATE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_DEEPSLATE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_DEEPSLATE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CRACKED_DEEPSLATE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CRACKED_DEEPSLATE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_TILES, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_TILES, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_TILES, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_TILES, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_TILE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_TILE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEEPSLATE_TILE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_TILE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CRACKED_DEEPSLATE_TILES, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CRACKED_DEEPSLATE_TILES, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.REINFORCED_DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.REINFORCED_DEEPSLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(-1)
                 .breakingPower(-1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CALCITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CALCITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(75)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GRANITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GRANITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GRANITE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GRANITE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GRANITE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GRANITE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GRANITE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GRANITE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_GRANITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_GRANITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_GRANITE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_GRANITE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_GRANITE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_GRANITE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.ANDESITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ANDESITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.ANDESITE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ANDESITE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.ANDESITE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ANDESITE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.ANDESITE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ANDESITE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_ANDESITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_ANDESITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_ANDESITE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_ANDESITE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_ANDESITE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_ANDESITE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DIORITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DIORITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DIORITE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DIORITE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DIORITE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DIORITE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DIORITE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DIORITE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_DIORITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_DIORITE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_DIORITE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_DIORITE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_DIORITE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_DIORITE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUFF, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUFF, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUFF_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUFF_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUFF_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUFF_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUFF_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUFF_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUFF_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUFF_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUFF_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUFF_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUFF_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUFF_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUFF_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUFF_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CHISELED_TUFF, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CHISELED_TUFF, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_TUFF, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_TUFF, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_TUFF_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_TUFF_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_TUFF_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_TUFF_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_TUFF_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_TUFF_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUFF_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUFF_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUFF_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUFF_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUFF_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUFF_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUFF_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUFF_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CHISELED_TUFF_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CHISELED_TUFF_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DRIPSTONE_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DRIPSTONE_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POINTED_DRIPSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POINTED_DRIPSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PRISMARINE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PRISMARINE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PRISMARINE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PRISMARINE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PRISMARINE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PRISMARINE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PRISMARINE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PRISMARINE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PRISMARINE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PRISMARINE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PRISMARINE_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PRISMARINE_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PRISMARINE_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PRISMARINE_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DARK_PRISMARINE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DARK_PRISMARINE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DARK_PRISMARINE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DARK_PRISMARINE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DARK_PRISMARINE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DARK_PRISMARINE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
@@ -1045,696 +1045,696 @@ public class BlockPropertiesRegistry {
                 .softRequirement(false)
                 .build());
 
-        register(Material.MAGMA_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MAGMA_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CRYING_OBSIDIAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CRYING_OBSIDIAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(5000)
                 .breakingPower(5)
                 .softRequirement(false)
                 .build());
 
-        register(Material.OBSIDIAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.OBSIDIAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(5000)
                 .breakingPower(5)
                 .softRequirement(false)
                 .build());
 
-        register(Material.NETHERRACK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.NETHERRACK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(40)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CRIMSON_NYLIUM, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CRIMSON_NYLIUM, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(40)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WARPED_NYLIUM, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WARPED_NYLIUM, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(40)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BONE_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BONE_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BLACKSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLACKSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BLACKSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLACKSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BLACKSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLACKSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BLACKSTONE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLACKSTONE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GILDED_BLACKSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GILDED_BLACKSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CHISELED_POLISHED_BLACKSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CHISELED_POLISHED_BLACKSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_BLACKSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_BLACKSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_BLACKSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_BLACKSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_BLACKSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_BLACKSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_BLACKSTONE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_BLACKSTONE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_BLACKSTONE_BUTTON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_BLACKSTONE_BUTTON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POLISHED_BLACKSTONE_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_BLACKSTONE_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POLISHED_BLACKSTONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_BLACKSTONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_BLACKSTONE_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_BLACKSTONE_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_BLACKSTONE_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_BLACKSTONE_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_BLACKSTONE_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_BLACKSTONE_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PACKED_MUD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PACKED_MUD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.MUD_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MUD_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MUD_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MUD_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MUD_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MUD_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MUD_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MUD_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RESIN_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RESIN_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RESIN_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RESIN_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RESIN_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RESIN_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RESIN_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RESIN_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SANDSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SANDSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SANDSTONE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SANDSTONE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CUT_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CUT_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(90)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CUT_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CUT_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CHISELED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CHISELED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOOTH_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOOTH_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOOTH_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOOTH_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOOTH_SANDSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOOTH_SANDSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RED_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RED_SANDSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_SANDSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RED_SANDSTONE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_SANDSTONE_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CUT_RED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CUT_RED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(90)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CUT_RED_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CUT_RED_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CHISELED_RED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CHISELED_RED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOOTH_RED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOOTH_RED_SANDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOOTH_RED_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOOTH_RED_SANDSTONE_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOOTH_RED_SANDSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOOTH_RED_SANDSTONE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(0)
                 .softRequirement(false)
                 .build());
 
-        register(Material.NETHER_BRICK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.NETHER_BRICK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.NETHER_BRICK_FENCE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.NETHER_BRICK_FENCE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.NETHER_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.NETHER_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.NETHER_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.NETHER_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.NETHER_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.NETHER_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CRACKED_NETHER_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CRACKED_NETHER_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RED_NETHER_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_NETHER_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RED_NETHER_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_NETHER_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RED_NETHER_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_NETHER_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RED_NETHER_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_NETHER_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BASALT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BASALT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOOTH_BASALT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOOTH_BASALT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.POLISHED_BASALT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POLISHED_BASALT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.END_STONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.END_STONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.END_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.END_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.END_STONE_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.END_STONE_BRICK_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.END_STONE_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.END_STONE_BRICK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.END_STONE_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.END_STONE_BRICK_WALL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PURPUR_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PURPUR_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PURPUR_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PURPUR_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PURPUR_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PURPUR_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PURPUR_PILLAR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PURPUR_PILLAR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Metal/Gem/Dust Blocks and Manufactured"
-        register(Material.COAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
         //<editor-fold desc="No oxidation Copper">
-        register(Material.COPPER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COPPER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Exposed Copper">
-        register(Material.EXPOSED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.EXPOSED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.EXPOSED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.EXPOSED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.EXPOSED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.EXPOSED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.EXPOSED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.EXPOSED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.EXPOSED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.EXPOSED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.EXPOSED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.EXPOSED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.EXPOSED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.EXPOSED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.EXPOSED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.EXPOSED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.EXPOSED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.EXPOSED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Weathered Copper">
-        register(Material.WEATHERED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WEATHERED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WEATHERED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WEATHERED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WEATHERED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WEATHERED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WEATHERED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WEATHERED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WEATHERED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WEATHERED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WEATHERED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WEATHERED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WEATHERED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WEATHERED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WEATHERED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WEATHERED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WEATHERED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WEATHERED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Oxidized Copper">
-        register(Material.OXIDIZED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.OXIDIZED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.OXIDIZED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.OXIDIZED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.OXIDIZED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.OXIDIZED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.OXIDIZED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.OXIDIZED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.OXIDIZED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.OXIDIZED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.OXIDIZED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.OXIDIZED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.OXIDIZED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.OXIDIZED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.OXIDIZED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.OXIDIZED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.OXIDIZED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.OXIDIZED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
@@ -1742,220 +1742,220 @@ public class BlockPropertiesRegistry {
         //</editor-fold>
 
         //<editor-fold desc="Waxed Copper">
-        register(Material.WAXED_COPPER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_COPPER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Waxed Exposed Copper">
-        register(Material.WAXED_EXPOSED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_EXPOSED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_EXPOSED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_EXPOSED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_EXPOSED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_EXPOSED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_EXPOSED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_EXPOSED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_EXPOSED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_EXPOSED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_EXPOSED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_EXPOSED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_EXPOSED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_EXPOSED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_EXPOSED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_EXPOSED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_EXPOSED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_EXPOSED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Waxed Weathered Copper">
-        register(Material.WAXED_WEATHERED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_WEATHERED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_WEATHERED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_WEATHERED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_WEATHERED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_WEATHERED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_WEATHERED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_WEATHERED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_WEATHERED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_WEATHERED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_WEATHERED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_WEATHERED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_WEATHERED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_WEATHERED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_WEATHERED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_WEATHERED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_WEATHERED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_WEATHERED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Waxed Oxidized Copper">
-        register(Material.WAXED_OXIDIZED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_OXIDIZED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_OXIDIZED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_OXIDIZED_CHISELED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_OXIDIZED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_OXIDIZED_COPPER_GRATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_OXIDIZED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_OXIDIZED_CUT_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_OXIDIZED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_OXIDIZED_CUT_COPPER_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_OXIDIZED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_OXIDIZED_CUT_COPPER_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_OXIDIZED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_OXIDIZED_COPPER_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_OXIDIZED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_OXIDIZED_COPPER_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WAXED_OXIDIZED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WAXED_OXIDIZED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
@@ -1969,7 +1969,7 @@ public class BlockPropertiesRegistry {
                 .softRequirement(true)
                 .build());
 
-        register(Material.REDSTONE_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.REDSTONE_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
@@ -1987,7 +1987,7 @@ public class BlockPropertiesRegistry {
                 .softRequirement(true)
                 .build());
 
-        register(Material.LEVER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LEVER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
@@ -1999,7 +1999,7 @@ public class BlockPropertiesRegistry {
                 .softRequirement(true)
                 .build());
 
-        register(Material.TRIPWIRE_HOOK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TRIPWIRE_HOOK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
@@ -2011,176 +2011,176 @@ public class BlockPropertiesRegistry {
                 .softRequirement(true)
                 .build());
 
-        register(Material.PISTON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PISTON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PISTON_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PISTON_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.STICKY_PISTON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.STICKY_PISTON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.MOVING_PISTON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MOVING_PISTON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DISPENSER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DISPENSER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DROPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DROPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CRAFTER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CRAFTER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.HOPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.HOPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.OBSERVER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.OBSERVER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RAIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RAIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(70)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.ACTIVATOR_RAIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ACTIVATOR_RAIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(70)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DETECTOR_RAIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DETECTOR_RAIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(70)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POWERED_RAIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.POWERED_RAIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(70)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
         //</editor-fold>
 
-        register(Material.RAW_COPPER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RAW_COPPER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DIAMOND_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DIAMOND_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(4)
                 .softRequirement(false)
                 .build());
 
-        register(Material.EMERALD_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.EMERALD_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(4)
                 .softRequirement(false)
                 .build());
 
-        register(Material.IRON_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.IRON_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(2)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RAW_IRON_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RAW_IRON_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(2)
                 .softRequirement(false)
                 .build());
 
-        register(Material.IRON_BARS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.IRON_BARS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(2)
                 .softRequirement(false)
                 .build());
 
-        register(Material.IRON_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.IRON_DOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(2)
                 .softRequirement(false)
                 .build());
 
-        register(Material.IRON_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.IRON_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(2)
                 .softRequirement(false)
                 .build());
 
-        register(Material.HEAVY_WEIGHTED_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.HEAVY_WEIGHTED_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.CHAIN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CHAIN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GOLD_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GOLD_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RAW_GOLD_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RAW_GOLD_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LIGHT_WEIGHTED_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_WEIGHTED_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LAPIS_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LAPIS_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(2)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GLOWSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GLOWSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.NETHERITE_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.NETHERITE_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(5000)
                 .breakingPower(5)
                 .softRequirement(false)
@@ -2192,1122 +2192,1122 @@ public class BlockPropertiesRegistry {
                 .softRequirement(false)
                 .build());
 
-        register(Material.QUARTZ_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.QUARTZ_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.QUARTZ_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.QUARTZ_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.QUARTZ_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.QUARTZ_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CHISELED_QUARTZ_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CHISELED_QUARTZ_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.QUARTZ_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.QUARTZ_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.QUARTZ_PILLAR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.QUARTZ_PILLAR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOOTH_QUARTZ, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOOTH_QUARTZ, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOOTH_QUARTZ_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOOTH_QUARTZ_SLAB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOOTH_QUARTZ_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOOTH_QUARTZ_STAIRS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(80)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.SOUL_LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SOUL_LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.REDSTONE_LAMP, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.REDSTONE_LAMP, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.STONECUTTER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.STONECUTTER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GRINDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GRINDSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.FURNACE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.FURNACE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SMOKER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SMOKER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BLAST_FURNACE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLAST_FURNACE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.ANVIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ANVIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CHIPPED_ANVIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CHIPPED_ANVIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DAMAGED_ANVIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DAMAGED_ANVIL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.ENCHANTING_TABLE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ENCHANTING_TABLE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(5000)
                 .breakingPower(5)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BREWING_STAND, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BREWING_STAND, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.CAULDRON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CAULDRON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BELL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BELL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BEACON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BEACON, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(5000)
                 .breakingPower(5)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CONDUIT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CONDUIT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LODESTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LODESTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(350)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LIGHTNING_ROD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHTNING_ROD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(2)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DECORATED_POT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DECORATED_POT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.ENDER_CHEST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ENDER_CHEST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(5000)
                 .breakingPower(5)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RESPAWN_ANCHOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RESPAWN_ANCHOR, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(5000)
                 .breakingPower(5)
                 .softRequirement(false)
                 .build());
 
-        register(Material.SKELETON_SKULL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SKELETON_SKULL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.SKELETON_WALL_SKULL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SKELETON_WALL_SKULL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.WITHER_SKELETON_SKULL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WITHER_SKELETON_SKULL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.WITHER_SKELETON_WALL_SKULL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WITHER_SKELETON_WALL_SKULL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PLAYER_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PLAYER_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PLAYER_WALL_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PLAYER_WALL_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.ZOMBIE_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ZOMBIE_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.ZOMBIE_WALL_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ZOMBIE_WALL_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.CREEPER_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CREEPER_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.CREEPER_WALL_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CREEPER_WALL_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PIGLIN_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PIGLIN_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PIGLIN_WALL_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PIGLIN_WALL_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DRAGON_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DRAGON_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DRAGON_WALL_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DRAGON_WALL_HEAD, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(100)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Concrete Blocks">
-        register(Material.WHITE_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WHITE_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LIGHT_GRAY_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_GRAY_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GRAY_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GRAY_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BLACK_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLACK_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BROWN_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BROWN_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RED_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.ORANGE_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ORANGE_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.YELLOW_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.YELLOW_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LIME_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIME_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GREEN_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GREEN_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CYAN_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CYAN_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LIGHT_BLUE_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_BLUE_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BLUE_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLUE_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PURPLE_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PURPLE_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MAGENTA_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MAGENTA_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PINK_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PINK_CONCRETE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(180)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Terracotta Blocks">
-        register(Material.TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WHITE_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WHITE_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LIGHT_GRAY_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_GRAY_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GRAY_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GRAY_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BLACK_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLACK_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BROWN_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BROWN_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.ORANGE_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ORANGE_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.YELLOW_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.YELLOW_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LIME_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIME_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GREEN_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GREEN_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CYAN_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CYAN_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LIGHT_BLUE_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_BLUE_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BLUE_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLUE_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PURPLE_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PURPLE_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MAGENTA_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MAGENTA_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PINK_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PINK_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(125)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.WHITE_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WHITE_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LIGHT_GRAY_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_GRAY_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GRAY_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GRAY_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BLACK_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLACK_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BROWN_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BROWN_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.RED_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.ORANGE_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ORANGE_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.YELLOW_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.YELLOW_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LIME_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIME_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.GREEN_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GREEN_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.CYAN_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CYAN_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.LIGHT_BLUE_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_BLUE_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BLUE_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLUE_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PURPLE_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PURPLE_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.MAGENTA_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MAGENTA_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.PINK_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PINK_GLAZED_TERRACOTTA, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(140)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Glass Blocks">
-        register(Material.GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.WHITE_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WHITE_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LIGHT_GRAY_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_GRAY_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.GRAY_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GRAY_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BLACK_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLACK_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BROWN_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BROWN_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.RED_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.ORANGE_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ORANGE_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.YELLOW_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.YELLOW_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LIME_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIME_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.GREEN_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GREEN_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.CYAN_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CYAN_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LIGHT_BLUE_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_BLUE_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BLUE_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLUE_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PURPLE_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PURPLE_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.MAGENTA_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MAGENTA_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PINK_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PINK_STAINED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.WHITE_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WHITE_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LIGHT_GRAY_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_GRAY_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.GRAY_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GRAY_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BLACK_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLACK_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BROWN_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BROWN_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.RED_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.ORANGE_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ORANGE_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.YELLOW_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.YELLOW_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LIME_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIME_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.GREEN_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GREEN_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.CYAN_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CYAN_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LIGHT_BLUE_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_BLUE_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BLUE_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLUE_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PURPLE_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PURPLE_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.MAGENTA_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MAGENTA_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PINK_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PINK_STAINED_GLASS_PANE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.TINTED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TINTED_GLASS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Shulker Boxes">
-        register(Material.SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.WHITE_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.WHITE_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LIGHT_GRAY_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_GRAY_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.GRAY_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GRAY_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BLACK_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLACK_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BROWN_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BROWN_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.RED_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.RED_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.ORANGE_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ORANGE_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.YELLOW_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.YELLOW_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LIME_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIME_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.GREEN_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GREEN_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.CYAN_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CYAN_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.LIGHT_BLUE_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LIGHT_BLUE_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BLUE_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BLUE_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PURPLE_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PURPLE_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.MAGENTA_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.MAGENTA_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.PINK_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.PINK_SHULKER_BOX, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Coral">
-        register(Material.TUBE_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUBE_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BRAIN_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BRAIN_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.BUBBLE_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BUBBLE_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.FIRE_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.FIRE_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.HORN_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.HORN_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TUBE_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUBE_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BRAIN_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BRAIN_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BUBBLE_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BUBBLE_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.FIRE_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.FIRE_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.HORN_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.HORN_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.TUBE_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUBE_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BRAIN_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BRAIN_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BUBBLE_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BUBBLE_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.FIRE_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.FIRE_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.HORN_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.HORN_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.TUBE_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TUBE_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BRAIN_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BRAIN_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.BUBBLE_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.BUBBLE_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.FIRE_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.FIRE_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.HORN_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.HORN_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_TUBE_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
-                .hardness(150)
-                .breakingPower(1)
-                .softRequirement(false)
-                .build());
-
-        register(Material.DEAD_BRAIN_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_TUBE_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEAD_BUBBLE_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_BRAIN_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEAD_FIRE_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_BUBBLE_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEAD_HORN_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_FIRE_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.DEAD_TUBE_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_HORN_CORAL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(150)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.DEAD_TUBE_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_BRAIN_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_BRAIN_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_BUBBLE_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_BUBBLE_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_FIRE_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_FIRE_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_HORN_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_HORN_CORAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(1)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_TUBE_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_TUBE_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_BRAIN_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_BRAIN_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_BUBBLE_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_BUBBLE_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_FIRE_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_FIRE_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_HORN_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_HORN_CORAL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_TUBE_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_TUBE_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_BRAIN_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_BRAIN_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_BUBBLE_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_BUBBLE_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_FIRE_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_FIRE_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.DEAD_HORN_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEAD_HORN_CORAL_WALL_FAN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
@@ -4300,7 +4300,7 @@ public class BlockPropertiesRegistry {
                 .softRequirement(false)
                 .build());
 
-        register(Material.MUDDY_MANGROVE_ROOTS, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.AXE, ItemClassification.HATCHET)
+        register(Material.MUDDY_MANGROVE_ROOTS, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL, ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(175)
                 .breakingPower(3)
                 .softRequirement(false)
@@ -4750,7 +4750,7 @@ public class BlockPropertiesRegistry {
                 .softRequirement(true)
                 .build());
 
-        register(Material.SMITHING_TABLE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET, ItemClassification.PICKAXE)
+        register(Material.SMITHING_TABLE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(250)
                 .breakingPower(0)
                 .softRequirement(true)
@@ -5498,222 +5498,222 @@ public class BlockPropertiesRegistry {
         //</editor-fold>
         //<editor-fold desc="Flowers">
         //<editor-fold desc="Potted">
-        register(Material.FLOWER_POT, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.FLOWER_POT, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
-        register(Material.POTTED_ACACIA_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
-                .hardness(0)
-                .breakingPower(0)
-                .softRequirement(true)
-                .build());
-
-        register(Material.POTTED_ALLIUM, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_ACACIA_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_AZALEA_BUSH, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_ALLIUM, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_BAMBOO, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_AZALEA_BUSH, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_AZURE_BLUET, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_BAMBOO, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_BIRCH_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_AZURE_BLUET, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_BLUE_ORCHID, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_BIRCH_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_BROWN_MUSHROOM, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_BLUE_ORCHID, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_CACTUS, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_BROWN_MUSHROOM, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_CHERRY_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_CACTUS, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_CLOSED_EYEBLOSSOM, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_CHERRY_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_CORNFLOWER, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_CLOSED_EYEBLOSSOM, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_CRIMSON_FUNGUS, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_CORNFLOWER, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_CRIMSON_ROOTS, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_CRIMSON_FUNGUS, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_DANDELION, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_CRIMSON_ROOTS, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_DARK_OAK_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_DANDELION, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_DEAD_BUSH, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_DARK_OAK_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_FERN, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_DEAD_BUSH, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_JUNGLE_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_FERN, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_LILY_OF_THE_VALLEY, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_JUNGLE_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_MANGROVE_PROPAGULE, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_LILY_OF_THE_VALLEY, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_OAK_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_MANGROVE_PROPAGULE, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_OPEN_EYEBLOSSOM, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_OAK_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_ORANGE_TULIP, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_OPEN_EYEBLOSSOM, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_OXEYE_DAISY, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_ORANGE_TULIP, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_PALE_OAK_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_OXEYE_DAISY, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_POPPY, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_PALE_OAK_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_PINK_TULIP, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_POPPY, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_RED_MUSHROOM, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_PINK_TULIP, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_RED_TULIP, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_RED_MUSHROOM, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_SPRUCE_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_RED_TULIP, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_TORCHFLOWER, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_SPRUCE_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_WARPED_FUNGUS, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_TORCHFLOWER, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_WARPED_ROOTS, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_WARPED_FUNGUS, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_WHITE_TULIP, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_WARPED_ROOTS, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
-        register(Material.POTTED_WITHER_ROSE, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE)
+        register(Material.POTTED_WHITE_TULIP, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(0)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
+        register(Material.POTTED_WITHER_ROSE, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
@@ -6057,13 +6057,19 @@ public class BlockPropertiesRegistry {
                 .build());
         //</editor-fold>
         //<editor-fold desc="Special generated (Portals, spawners)">
-        register(Material.SPAWNER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.AIR, BlockPropertiesEntry.builder()
+                .hardness(-1)
+                .breakingPower(-1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.SPAWNER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
 
-        register(Material.TRIAL_SPAWNER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.TRIAL_SPAWNER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(5000)
                 .breakingPower(1)
                 .softRequirement(false)
@@ -6081,7 +6087,7 @@ public class BlockPropertiesRegistry {
                 .softRequirement(true)
                 .build());
 
-        register(Material.VAULT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE)
+        register(Material.VAULT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(5000)
                 .breakingPower(1)
                 .softRequirement(false)

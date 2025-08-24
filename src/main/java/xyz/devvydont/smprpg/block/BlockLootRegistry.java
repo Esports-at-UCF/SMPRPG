@@ -30,49 +30,49 @@ public class BlockLootRegistry {
     static {
 
         // Mining.
-        register(Material.STONE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.STONE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.STONE)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.STONE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.COBBLESTONE)))
                 .build()
         );
 
-        register(Material.COBBLESTONE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COBBLESTONE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.STONE)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.STONE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.COBBLESTONE)))
                 .build()
         );
 
-        register(Material.DEEPSLATE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.DEEPSLATE)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.DEEPSLATE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.COBBLED_DEEPSLATE)))
                 .build()
         );
 
-        register(Material.COBBLED_DEEPSLATE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COBBLED_DEEPSLATE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.DEEPSLATE)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.COBBLED_DEEPSLATE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.COBBLED_DEEPSLATE)))
                 .build()
         );
 
-        register(Material.GRANITE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GRANITE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.GRANITE)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.GRANITE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.GRANITE)))
                 .build()
         );
 
-        register(Material.DIORITE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DIORITE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.DIORITE)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.DIORITE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.DIORITE)))
                 .build()
         );
 
-        register(Material.ANDESITE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ANDESITE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.ANDESITE)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.ANDESITE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.ANDESITE)))
@@ -106,14 +106,14 @@ public class BlockLootRegistry {
                 .build()
         );
 
-        register(Material.END_STONE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.END_STONE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.END_STONE)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.END_STONE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.END_STONE)))
                 .build()
         );
 
-        register(Material.AMETHYST_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.AMETHYST_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.AMETHYST_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.AMETHYST_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.AMETHYST_BLOCK)))
@@ -128,140 +128,140 @@ public class BlockLootRegistry {
                 .build()
         );
 
-        register(Material.CALCITE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.CALCITE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.CALCITE)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.CALCITE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.CALCITE)))
                 .build()
         );
 
-        register(Material.COAL_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COAL_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.COAL), 1.5))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.COAL_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.COAL), 1.5))
                 .build()
         );
 
-        register(Material.DEEPSLATE_COAL_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_COAL_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.COAL), 1.75))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.DEEPSLATE_COAL_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.COAL), 1.75))
                 .build()
         );
 
-        register(Material.COPPER_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.COPPER_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.COPPER_INGOT), 1.5))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.COPPER_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.RAW_COPPER), 1.5))
                 .build()
         );
 
-        register(Material.DEEPSLATE_COPPER_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_COPPER_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.COPPER_INGOT), 1.75))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.DEEPSLATE_COPPER_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.RAW_COPPER), 1.75))
                 .build()
         );
 
-        register(Material.IRON_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.IRON_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.IRON_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.IRON_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.RAW_IRON)))
                 .build()
         );
 
-        register(Material.DEEPSLATE_IRON_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_IRON_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.IRON_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.DEEPSLATE_IRON_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.RAW_IRON)))
                 .build()
         );
 
-        register(Material.GOLD_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.GOLD_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.GOLD_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.GOLD_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.RAW_GOLD)))
                 .build()
         );
 
-        register(Material.DEEPSLATE_GOLD_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_GOLD_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.GOLD_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.DEEPSLATE_GOLD_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.RAW_GOLD)))
                 .build()
         );
 
-        register(Material.REDSTONE_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.REDSTONE_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.REDSTONE), 4))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.REDSTONE_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.REDSTONE), 4))
                 .build()
         );
 
-        register(Material.DEEPSLATE_REDSTONE_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_REDSTONE_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.REDSTONE), 5))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.DEEPSLATE_REDSTONE_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.REDSTONE), 5))
                 .build()
         );
 
-        register(Material.LAPIS_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.LAPIS_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.LAPIS_LAZULI), 4))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.LAPIS_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.LAPIS_LAZULI), 4))
                 .build()
         );
 
-        register(Material.DEEPSLATE_LAPIS_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_LAPIS_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.LAPIS_LAZULI), 5))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.DEEPSLATE_LAPIS_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.LAPIS_LAZULI), 5))
                 .build()
         );
 
-        register(Material.EMERALD_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.EMERALD_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.EMERALD)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.EMERALD_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.EMERALD)))
                 .build()
         );
 
-        register(Material.DEEPSLATE_EMERALD_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_EMERALD_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.EMERALD)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.DEEPSLATE_EMERALD_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.EMERALD)))
                 .build()
         );
 
-        register(Material.DIAMOND_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DIAMOND_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.DIAMOND)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.DIAMOND_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.DIAMOND)))
                 .build()
         );
 
-        register(Material.DEEPSLATE_DIAMOND_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.DEEPSLATE_DIAMOND_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.DIAMOND)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.DEEPSLATE_DIAMOND_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.DIAMOND)))
                 .build()
         );
 
-        register(Material.NETHER_GOLD_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.NETHER_GOLD_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.GOLD_NUGGET)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.NETHER_GOLD_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.GOLD_NUGGET)))
                 .build()
         );
 
-        register(Material.NETHER_QUARTZ_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.NETHER_QUARTZ_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.QUARTZ)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.NETHER_QUARTZ_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.QUARTZ)))
                 .build()
         );
 
-        register(Material.ANCIENT_DEBRIS, BlockLootEntry.builder(ItemClassification.PICKAXE)
+        register(Material.ANCIENT_DEBRIS, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.NETHERITE_SCRAP)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.ANCIENT_DEBRIS)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.NETHERITE_SCRAP)))
