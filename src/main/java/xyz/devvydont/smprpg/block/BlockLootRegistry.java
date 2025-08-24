@@ -113,6 +113,13 @@ public class BlockLootRegistry {
                 .build()
         );
 
+        register(Material.OBSIDIAN, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.OBSIDIAN)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.OBSIDIAN)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(Material.OBSIDIAN)))
+                .build()
+        );
+
         register(Material.AMETHYST_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(Material.AMETHYST_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(Material.AMETHYST_BLOCK)))

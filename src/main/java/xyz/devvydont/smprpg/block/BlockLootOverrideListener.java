@@ -27,6 +27,7 @@ public class BlockLootOverrideListener extends ToggleableListener {
     private AttributeWrapper predictDesiredFortuneAttribute(ItemClassification tool) {
         return switch (tool) {
             case PICKAXE -> AttributeWrapper.MINING_FORTUNE;
+            case DRILL -> AttributeWrapper.MINING_FORTUNE;
             case HOE -> AttributeWrapper.FARMING_FORTUNE;
             case AXE -> AttributeWrapper.WOODCUTTING_FORTUNE;
             default -> null;
@@ -46,9 +47,10 @@ public class BlockLootOverrideListener extends ToggleableListener {
             if (ageable.getAge() != ageable.getMaximumAge())
                 return;
 
-        // If this block was placed by a player in some way use vanilla logic.
+        // If this block was placed by a player invalidate their fortune.
+        boolean fortuneActive = true;
         if (ChunkUtil.isBlockSkillInvalid(event.getBlockState()))
-            return;
+            fortuneActive = false;
 
         // Check if this block is flagged. If it isn't, let vanilla handle the logic.
         var entry = BlockLootRegistry.get(event.getBlockState().getType());
@@ -85,16 +87,18 @@ public class BlockLootOverrideListener extends ToggleableListener {
         // Given the preferred tool, we can actually work out which fortune stat is ideal. No preferred tool
         // means that no fortune is applicable to this drop.
         var fortune = 0.0;
-        var attribute = this.predictDesiredFortuneAttribute(usedTool);
-        if (entry.getFortuneOverride() != null)
-            attribute = entry.getFortuneOverride();
+        if (fortuneActive) {
+            var attribute = this.predictDesiredFortuneAttribute(usedTool);
+            if (entry.getFortuneOverride() != null)
+                attribute = entry.getFortuneOverride();
 
-        // If we found one, increment the fortune to use in drop calculation.
-        // The idea here is that base fortune is 0, and 100 fortune would yield 2x drops (scalarly scales).
-        if (attribute != null) {
-            var attrInstance = AttributeService.getInstance().getAttribute(event.getPlayer(), attribute);
-            if (attrInstance != null) {
-                fortune += attrInstance.getValue() / 100;
+            // If we found one, increment the fortune to use in drop calculation.
+            // The idea here is that base fortune is 0, and 100 fortune would yield 2x drops (scalarly scales).
+            if (attribute != null) {
+                var attrInstance = AttributeService.getInstance().getAttribute(event.getPlayer(), attribute);
+                if (attrInstance != null) {
+                    fortune += attrInstance.getValue() / 100;
+                }
             }
         }
 
