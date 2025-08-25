@@ -1,5 +1,7 @@
 package xyz.devvydont.smprpg.gui.items;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.CustomModelData;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -8,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -26,16 +29,17 @@ import xyz.devvydont.smprpg.services.EconomyService;
 import xyz.devvydont.smprpg.services.EntityService;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.formatting.Symbols;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MenuReforge extends MenuBase {
 
-    public static final int ROWS = 3;
+    public static final int ROWS = 5;
 
-    public static final int INPUT_SLOT = 12;
-    public static final int BUTTON_SLOT = 14;
+    public static final int INPUT_SLOT = 22;
+    public static final int BUTTON_SLOT = 24;
 
     public MenuReforge(@NotNull Player player) {
         super(player, ROWS);
@@ -70,7 +74,8 @@ public class MenuReforge extends MenuBase {
     public ItemStack generateAnvilButton() {
 
         ItemStack input = getItem(INPUT_SLOT);
-        ItemStack anvil = InterfaceUtil.getNamedItem(Material.ANVIL, ComponentUtils.create("Roll Random Reforge!", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+        ItemStack anvil = InterfaceUtil.getNamedItem(Material.BLACK_STAINED_GLASS_PANE, ComponentUtils.create("Roll Random Reforge!", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+        markItemNoRender(anvil);
         List<Component> lore = new ArrayList<>();
 
         // Has nothing been input yet?
@@ -196,11 +201,6 @@ public class MenuReforge extends MenuBase {
         Location soundOrigin = player.getLocation().add(player.getLocation().getDirection().normalize().multiply(2));
         player.getWorld().playSound(soundOrigin, success ? Sound.BLOCK_ANVIL_USE : Sound.ENTITY_VILLAGER_NO, .5f, .75f);
         blueprint.updateItemData(item);
-
-        if (success)
-            playSuccessAnimation();
-        else
-            playInvalidAnimation();
     }
 
     /**
@@ -219,7 +219,11 @@ public class MenuReforge extends MenuBase {
     protected void handleInventoryOpened(InventoryOpenEvent event) {
         super.handleInventoryOpened(event);
         this.render();
-        event.titleOverride(ComponentUtils.create("Tool Reforging", NamedTextColor.BLACK));
+        event.titleOverride(ComponentUtils.merge(
+                ComponentUtils.create("Tool Reforging", NamedTextColor.BLACK),
+                ComponentUtils.create(Symbols.OFFSET_NEG_64 + Symbols.OFFSET_NEG_8 + Symbols.OFFSET_NEG_3 + Symbols.REFORGE_BACKGROUND, NamedTextColor.WHITE)  // Menu BG
+        ));
+
     }
 
     @Override
@@ -244,14 +248,7 @@ public class MenuReforge extends MenuBase {
         // If we are clicking in the input slot allow it to happen. The user owns this slot.
         if (event.getClickedInventory().equals(inventory) && event.getSlot() == INPUT_SLOT) {
             event.setCancelled(false);
-            return;
         }
-
-        // If the event is canceled at this point and we clicked a slot that wasn't something we have control over,
-        // play invalid animation
-        if (event.isCancelled() && event.getRawSlot() != INPUT_SLOT && event.getRawSlot() != BUTTON_SLOT)
-            playInvalidAnimation();
-
     }
 
     /**

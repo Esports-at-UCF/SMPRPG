@@ -1,5 +1,7 @@
 package xyz.devvydont.smprpg.gui.items;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.CustomModelData;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -22,6 +24,7 @@ import xyz.devvydont.smprpg.items.interfaces.ISmeltable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.services.RecipeService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.formatting.Symbols;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
 import java.util.ArrayList;
@@ -34,8 +37,8 @@ public class MenuRecipeViewer extends MenuBase {
 
     // Hard set positions
     public static final int CORNER = 10;
-    public static final int RESULT = 23;
-    public static final int REQUIREMENTS = 25;
+    public static final int RESULT = 24;
+    public static final int REQUIREMENTS = 26;
 
     // The index of the recipe we want to show if there is more than one recipe.
     private int currentRecipe = 0;
@@ -63,7 +66,7 @@ public class MenuRecipeViewer extends MenuBase {
     protected void handleInventoryOpened(InventoryOpenEvent event) {
         super.handleInventoryOpened(event);
         event.titleOverride(ComponentUtils.merge(ComponentUtils.create("Recipes for: "), result.displayName()));
-        this.render();
+        this.render(event);
         Bukkit.getScheduler().runTaskTimer(SMPRPG.getInstance(), task -> {
 
             // If nobody is viewing us, we can stop the task.
@@ -72,7 +75,7 @@ public class MenuRecipeViewer extends MenuBase {
                 return;
             }
 
-            render();
+            render(event);
             recipeChoiceIndex++;
         }, TickTime.HALF_SECOND, TickTime.HALF_SECOND);
     }
@@ -81,7 +84,7 @@ public class MenuRecipeViewer extends MenuBase {
     protected void handleInventoryClicked(InventoryClickEvent event) {
         super.handleInventoryClicked(event);
         event.setCancelled(true);
-        this.playInvalidAnimation();
+        //this.playInvalidAnimation();
     }
 
     private ItemStack getItemFromRecipeChoice(RecipeChoice choice) {
@@ -131,7 +134,7 @@ public class MenuRecipeViewer extends MenuBase {
         // Retrieve the blueprint of this item. If it is craftable, enter another recipe layer
         var recipesFor = RecipeService.getRecipesFor(ItemService.blueprint(itemStack).generate());
         if (recipesFor.isEmpty() || itemStack.getType().equals(Material.AIR)) {
-            this.playInvalidAnimation();
+            //this.playInvalidAnimation();
             return;
         }
 
@@ -141,7 +144,7 @@ public class MenuRecipeViewer extends MenuBase {
     /**
      * Renders the recipe completely
      */
-    public void renderRecipe() {
+    public void renderRecipe(InventoryOpenEvent event) {
 
         if (recipes.isEmpty()) {
             SMPRPG.broadcastToOperatorsCausedBy(this.player, ComponentUtils.create("Achieved impossible recipe viewer state (no recipes to show): ", NamedTextColor.RED).append(result.displayName()));
@@ -155,12 +158,12 @@ public class MenuRecipeViewer extends MenuBase {
 
         var recipe = recipes.get(currentRecipe);
         switch (recipe) {
-            case CookingRecipe<?> cooking -> renderCookingRecipe(cooking);
-            case ShapelessRecipe shapeless -> renderShapelessRecipe(shapeless);
-            case ShapedRecipe shaped -> renderShapedRecipe(shaped);
-            case TransmuteRecipe transmute -> renderTransmuteRecipe(transmute);
-            case SmithingRecipe smithing -> renderSmithingTransformRecipe(smithing);
-            case StonecuttingRecipe stonecutting -> renderStonecuttingRecipe(stonecutting);
+            case CookingRecipe<?> cooking -> renderCookingRecipe(cooking, event);
+            case ShapelessRecipe shapeless -> renderShapelessRecipe(shapeless, event);
+            case ShapedRecipe shaped -> renderShapedRecipe(shaped, event);
+            case TransmuteRecipe transmute -> renderTransmuteRecipe(transmute, event);
+            case SmithingRecipe smithing -> renderSmithingTransformRecipe(smithing, event);
+            case StonecuttingRecipe stonecutting -> renderStonecuttingRecipe(stonecutting, event);
             case ComplexRecipe complex -> renderComplexRecipe(complex);  // Not really necessary, this is more of a quirk if anything...
             default ->
                     SMPRPG.broadcastToOperatorsCausedBy(this.player, ComponentUtils.create("Unknown recipe handler: " + recipe.getClass().getSimpleName()));
@@ -184,20 +187,26 @@ public class MenuRecipeViewer extends MenuBase {
 
     }
 
-    private void renderStonecuttingRecipe(StonecuttingRecipe stonecutting) {
+    private void renderStonecuttingRecipe(StonecuttingRecipe stonecutting, InventoryOpenEvent event) {
+        event.titleOverride(ComponentUtils.merge(ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.STONECUTTER_RECIPE_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.getI18NDisplayName(), NamedTextColor.BLACK)));
+
         var input = getItemFromRecipeChoice(stonecutting.getInputChoice());
-        setButton(CORNER + 10, input, event -> handleIngredientClick(input));
-        setSlot(CORNER + 18 + 1, InterfaceUtil.getNamedItem(Material.STONECUTTER, ComponentUtils.create("Stonecutter Recipe", NamedTextColor.GOLD)));
+        setButton(CORNER + 10, input, ev -> handleIngredientClick(input));
+        setSlot(CORNER + 36 + 1, InterfaceUtil.getNamedItem(Material.STONECUTTER, ComponentUtils.create("Stonecutter Recipe", NamedTextColor.GOLD)));
     }
 
-    private void renderSmithingTransformRecipe(SmithingRecipe smithing) {
+    private void renderSmithingTransformRecipe(SmithingRecipe smithing, InventoryOpenEvent event) {
+
+        event.titleOverride(ComponentUtils.merge(ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SMITHING_RECIPE_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.getI18NDisplayName(), NamedTextColor.BLACK)));
 
         if (smithing instanceof SmithingTransformRecipe transform) {
             var input = getItemFromRecipeChoice(transform.getTemplate());
             if (input.getType().equals(Material.AIR))
                 input = InterfaceUtil.getNamedItem(Material.BARRIER, ComponentUtils.create("No template needed!", NamedTextColor.GREEN));
             ItemStack finalInput = input;
-            setButton(CORNER + 9, input, event -> handleIngredientClick(finalInput));
+            setButton(CORNER + 9, input, ev -> handleIngredientClick(finalInput));
         }
 
         var base = getItemFromRecipeChoice(smithing.getBase());
@@ -211,21 +220,23 @@ public class MenuRecipeViewer extends MenuBase {
 
         ItemStack finalBase = base;
         ItemStack finalAddition = addition;
-        setButton(CORNER + 10, base, event -> handleIngredientClick(finalBase));
-        setButton(CORNER + 11, addition, event -> handleIngredientClick(finalAddition));
+        setButton(CORNER + 10, base, ev -> handleIngredientClick(finalBase));
+        setButton(CORNER + 11, addition, ev -> handleIngredientClick(finalAddition));
 
-        setSlot(CORNER + 19, InterfaceUtil.getNamedItem(Material.SMITHING_TABLE, ComponentUtils.create("Smithing Recipe", NamedTextColor.GOLD)));
+        setSlot(CORNER + 37, InterfaceUtil.getNamedItem(Material.SMITHING_TABLE, ComponentUtils.create("Smithing Recipe", NamedTextColor.GOLD)));
     }
 
-    private void renderShapelessRecipe(ShapelessRecipe shapeless) {
+    private void renderShapelessRecipe(ShapelessRecipe shapeless, InventoryOpenEvent event) {
         int x = 0;
         int y = 0;
+        event.titleOverride(ComponentUtils.merge(ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SHAPELESS_RECIPE_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.getI18NDisplayName(), NamedTextColor.BLACK)));
 
         // Loop through all the choices. These are essentially just the ingredients.
         for (var choice : shapeless.getChoiceList()) {
 
             var item = getItemFromRecipeChoice(choice);
-            this.setButton(y*9+x+CORNER, item, event -> handleIngredientClick(item));
+            this.setButton(y*9+x+CORNER, item, ev -> handleIngredientClick(item));
 
             x += 1;
             // If we are out of bounds, go to the next row.
@@ -235,23 +246,25 @@ public class MenuRecipeViewer extends MenuBase {
             }
 
         }
-        this.setSlot(CORNER + 27 + 1, InterfaceUtil.getNamedItem(Material.CRAFTING_TABLE, ComponentUtils.create("Shapeless Crafting Recipe", NamedTextColor.GOLD)));
+        this.setSlot(CORNER + 36 + 1, InterfaceUtil.getNamedItem(Material.CRAFTING_TABLE, ComponentUtils.create("Shapeless Crafting Recipe", NamedTextColor.GOLD)));
     }
 
-    private void renderShapedRecipe(ShapedRecipe shaped) {
+    private void renderShapedRecipe(ShapedRecipe shaped, InventoryOpenEvent event) {
         int x = 0;
         int y = 0;
+        event.titleOverride(ComponentUtils.merge(ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SHAPED_RECIPE_MENU, NamedTextColor.WHITE),
+                                         ComponentUtils.create(Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.getI18NDisplayName(), NamedTextColor.BLACK)));
         for (String row : shaped.getShape()) {
             for (char ingredient : row.toCharArray()) {
                 var choice = shaped.getChoiceMap().get(ingredient);
                 var item = getItemFromRecipeChoice(choice);
-                this.setButton(y*9+x+CORNER, item, event -> handleIngredientClick(item));
+                this.setButton(y*9+x+CORNER, item, ev -> handleIngredientClick(item));
                 x+= 1;
             }
             y += 1;
             x = 0;
         }
-        this.setSlot(CORNER + 27 + 1, InterfaceUtil.getNamedItem(Material.CRAFTING_TABLE, ComponentUtils.create("Shaped Crafting Recipe", NamedTextColor.GOLD)));
+        this.setSlot(CORNER + 36 + 1, InterfaceUtil.getNamedItem(Material.CRAFTING_TABLE, ComponentUtils.create("Shaped Crafting Recipe", NamedTextColor.GOLD)));
     }
 
     /**
@@ -259,19 +272,23 @@ public class MenuRecipeViewer extends MenuBase {
      * Transmute recipes are pretty simple, it is just two items that turn an item into another, similar to shapeless.
      * @param transmute The transmute recipe.
      */
-    private void renderTransmuteRecipe(TransmuteRecipe transmute) {
+    private void renderTransmuteRecipe(TransmuteRecipe transmute, InventoryOpenEvent event) {
         var input = getItemFromRecipeChoice(transmute.getInput());
         var transmuter = getItemFromRecipeChoice(transmute.getMaterial());
-        this.setButton(CORNER + 9 + 1, input, event -> handleIngredientClick(input));
-        this.setButton(CORNER + 9 + 2, transmuter, event -> handleIngredientClick(transmuter));
+        this.setButton(CORNER + 9 + 1, input, ev -> handleIngredientClick(input));
+        this.setButton(CORNER + 9 + 2, transmuter, ev -> handleIngredientClick(transmuter));
         this.setSlot(CORNER + 27 + 1, InterfaceUtil.getNamedItem(Material.CRAFTING_TABLE, ComponentUtils.create("Transmute Crafting Recipe", NamedTextColor.GOLD)));
     }
 
-    private void renderCookingRecipe(CookingRecipe<?> cooking) {
+    private void renderCookingRecipe(CookingRecipe<?> cooking, InventoryOpenEvent event) {
 
         var top = CORNER + 1;
         var middle = top + 9;
         var bottom = middle + 9;
+        var smelterSlot = middle + 27;
+
+        event.titleOverride(ComponentUtils.merge(ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.FURNACE_RECIPE_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.getI18NDisplayName(), NamedTextColor.BLACK)));
 
         ItemStack smelter;
 
@@ -292,9 +309,15 @@ public class MenuRecipeViewer extends MenuBase {
                 ComponentUtils.merge(ComponentUtils.create("for "), ComponentUtils.create(cooking.getCookingTime() / 20 + "s", NamedTextColor.GREEN))
         )));
 
+        var fire = BORDER_NORMAL.clone();
+        fire.setData(DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                        .addString("smprpg:furnace_burn")
+                        .build());
+
         var ingredient = getItemFromRecipeChoice(cooking.getInputChoice());
-        this.setButton(top, ingredient, event -> handleIngredientClick(ingredient));
-        this.setSlot(middle, smelter);
+        this.setButton(top, ingredient, ev -> handleIngredientClick(ingredient));
+        this.setSlot(smelterSlot, smelter);
+        this.setSlot(middle, fire);
         this.setSlot(bottom, InterfaceUtil.getNamedItem(Material.COAL, ComponentUtils.EMPTY));
     }
 
@@ -324,7 +347,7 @@ public class MenuRecipeViewer extends MenuBase {
         return paper;
     }
 
-    private void changePage(int delta) {
+    private void changePage(int delta, InventoryOpenEvent event) {
         currentRecipe += delta;
 
         if (delta < 0)
@@ -332,15 +355,15 @@ public class MenuRecipeViewer extends MenuBase {
         else
             this.sounds.playPageNext();
 
-        render();
+        render(event);
     }
 
-    public void render() {
+    public void render(InventoryOpenEvent event) {
 
         this.clear();
         this.setBorderFull();
 
-        this.renderRecipe();
+        this.renderRecipe(event);
 
         // Misc buttons
         this.setSlot(RESULT, result);
@@ -350,8 +373,8 @@ public class MenuRecipeViewer extends MenuBase {
             this.setSlot(REQUIREMENTS, getRequirements(craftable.unlockedBy()));
 
         if (recipes.size() > 1) {
-            this.setButton(37, InterfaceUtil.getNamedItem(Material.ARROW, ComponentUtils.create("Previous Page " + (currentRecipe+1) + "/" + recipes.size(), NamedTextColor.GOLD)), event -> changePage(-1));
-            this.setButton(39, InterfaceUtil.getNamedItem(Material.ARROW, ComponentUtils.create("Next Page " + (currentRecipe+1) + "/" + recipes.size(), NamedTextColor.GOLD)), event -> changePage(1));
+            this.setButton(46, InterfaceUtil.getNamedItem(Material.ARROW, ComponentUtils.create("Previous Page " + (currentRecipe+1) + "/" + recipes.size(), NamedTextColor.GOLD)), ev -> changePage(-1, event));
+            this.setButton(48, InterfaceUtil.getNamedItem(Material.ARROW, ComponentUtils.create("Next Page " + (currentRecipe+1) + "/" + recipes.size(), NamedTextColor.GOLD)), ev -> changePage(1, event));
         }
 
         if (this.player.isOp()) {

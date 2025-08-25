@@ -12,6 +12,7 @@ import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.gui.base.MenuBase;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.formatting.Symbols;
 
 public final class MenuTrashItems extends MenuBase {
     public MenuTrashItems(@NotNull Player player) {
@@ -21,7 +22,9 @@ public final class MenuTrashItems extends MenuBase {
     @Override
     protected void handleInventoryOpened(InventoryOpenEvent event) {
         // Prepare the inventory
-        event.titleOverride(ComponentUtils.create("Trash Items", NamedTextColor.BLACK));
+        event.titleOverride(ComponentUtils.merge(
+                ComponentUtils.create(Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_16 + Symbols.TRASH_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_8 + Symbols.OFFSET_NEG_4 + "Trash Items", NamedTextColor.BLACK)));
         this.setMaxStackSize(100);
 
         // Render the UI

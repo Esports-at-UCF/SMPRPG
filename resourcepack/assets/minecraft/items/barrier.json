@@ -8,6 +8,13 @@
         },
         "cases": [
 			{
+                "when": "smprpg:icon_exit",
+                "model": {
+                    "type": "model",
+                    "model": "minecraft:block/air"
+                }
+            },
+			{
                 "when": "smprpg:steel_block",
                 "model": {
                     "type": "model",

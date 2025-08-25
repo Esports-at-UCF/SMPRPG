@@ -20,6 +20,7 @@ import xyz.devvydont.smprpg.items.interfaces.ISmeltable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.services.RecipeService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.formatting.Symbols;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,14 +74,16 @@ public class MenuItemBrowser extends MenuBase {
         super.handleInventoryOpened(event);
         this.queryItems();
         this.render();
-        event.titleOverride(ComponentUtils.create("Item Directory: " + (query.isEmpty() ? "All Items" : query), NamedTextColor.BLACK));
+        event.titleOverride(ComponentUtils.merge(
+                ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.RECIPE_MENU, NamedTextColor.WHITE), // Background
+                ComponentUtils.create(Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Item Directory: " + (query.isEmpty() ? "All Items" : query), NamedTextColor.BLACK)));
     }
 
     @Override
     protected void handleInventoryClicked(InventoryClickEvent event) {
         super.handleInventoryClicked(event);
         event.setCancelled(true);
-        this.playInvalidAnimation();
+        //this.playInvalidAnimation();
     }
 
     /**
@@ -179,7 +182,7 @@ public class MenuItemBrowser extends MenuBase {
         var clean = ItemService.blueprint(itemStack);
         var recipes = RecipeService.getRecipesFor(clean.generate());
         if (recipes.isEmpty() || itemStack.getType().equals(Material.AIR)) {
-            this.playInvalidAnimation();
+            //this.playInvalidAnimation();
             return;
         }
 
@@ -242,13 +245,13 @@ public class MenuItemBrowser extends MenuBase {
         // Now set the slots for a next/prev page that increment/decrement the page and re-render
         int displayPage = page + 1;
         int displayPageMax = lastPage + 1;
-        this.setButton((ROWS-1)*9, createNamedItem(Material.ARROW, ComponentUtils.create("Previous Page (" + displayPage + "/" + displayPageMax + ")", NamedTextColor.GOLD)), (e) -> {
+        this.setButton((ROWS-1)*9, createNoRenderNamedItem(Material.BLACK_STAINED_GLASS_PANE, ComponentUtils.create("Previous Page (" + displayPage + "/" + displayPageMax + ")", NamedTextColor.GOLD)), (e) -> {
             page--;
             this.render();
             this.sounds.playPagePrevious();
         });
 
-        this.setButton((ROWS-1)*9+8, createNamedItem(Material.ARROW, ComponentUtils.create("Next Page (" + displayPage + "/" + displayPageMax + ")", NamedTextColor.GOLD)), (e) -> {
+        this.setButton((ROWS-1)*9+8, createNoRenderNamedItem(Material.BLACK_STAINED_GLASS_PANE, ComponentUtils.create("Next Page (" + displayPage + "/" + displayPageMax + ")", NamedTextColor.GOLD)), (e) -> {
             page++;
             this.render();
             this.sounds.playPageNext();

@@ -187,7 +187,7 @@ public abstract class MenuBase implements Listener {
         // Explicitly disable number key modifications.
         if (event.getClick().equals(ClickType.NUMBER_KEY)) {
             event.setCancelled(true);
-            this.playInvalidAnimation();
+            //this.playInvalidAnimation();
             return;
         }
 
@@ -637,5 +637,25 @@ public abstract class MenuBase implements Listener {
         meta.displayName(name.decoration(TextDecoration.ITALIC, false));
         item.setItemMeta(meta);
         return item;
+    }
+
+    /**
+     * Creates an item stack with a custom name, and marks it with no render.
+     *
+     * @param material The type of the item to create an item stack of.
+     * @param name     The name to apply to the item stack.
+     * @return The named item stack.
+     */
+    protected static ItemStack createNoRenderNamedItem(Material material, Component name) {
+        var item = createNamedItem(material, name);
+        markItemNoRender(item);
+        return item;
+    }
+
+    protected static void markItemNoRender(ItemStack item) {
+        item.setData(DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                .addString("smprpg:no_render")
+                .build()
+        );
     }
 }
