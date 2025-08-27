@@ -1,19 +1,25 @@
 {
-  "variants": {
-	"instrument=custom_head,note=24": {
-		"model": "blocks:block/end_ore"
-	},
-	"instrument=harp,note=24": {
-		"model": "blocks:block/reforge_table"
-	},
-	"instrument=harp,note=23": {
-		"model": "blocks:block/steel_block"
-	},
-	"instrument=harp,note=22": {
-		"model": "blocks:block/dragonsteel_block"
-	},
-    "": {
-      "model": "minecraft:block/note_block"
+    "variants": {
+		"instrument=harp,note=0,powered=true": {
+            "model": "blocks:block/silver_ore"
+        },
+		"instrument=harp,note=1,powered=true": {
+            "model": "blocks:block/deepslate_silver_ore"
+        },
+        "instrument=harp,note=0,powered=false": {
+            "model": "blocks:block/silver_block"
+        },
+        "instrument=harp,note=1,powered=false": {
+            "model": "blocks:block/raw_silver_block"
+        },
+        "instrument=harp,note=8,powered=false": {
+            "model": "blocks:block/steel_block"
+        },
+        "instrument=harp,note=23,powered=false": {
+            "model": "blocks:block/dragonsteel_block"
+        },
+        "instrument=harp,note=24,powered=false": {
+            "model": "blocks:block/reforge_table"
+        }
     }
-  }
 }

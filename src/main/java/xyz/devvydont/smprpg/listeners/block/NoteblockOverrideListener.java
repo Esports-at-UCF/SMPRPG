@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.listeners.block;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
@@ -64,8 +65,11 @@ public class NoteblockOverrideListener extends ToggleableListener {
                 blockDest.setType(blockEnum.BlockMaterial);
                 blockDest.setBlockData(blockEnum.BlockData);
                 String placeSound  = BlockPropertiesRegistry.get(blockDest).getPlaceSound();
-                if (placeSound != null)
-                    blockDest.getWorld().playSound(blockDest.getLocation(), placeSound, 1.0f, 1.0f);
+                if (placeSound != null) {
+                    event.getPlayer().stopSound(Sound.BLOCK_WOOD_PLACE);
+                    System.out.println(blockDest.getBlockData());
+                    blockDest.getWorld().playSound(blockDest.getLocation(), placeSound, 1.0f, 0.8f);
+                }
                 if (event.getPlayer().getGameMode() != GameMode.CREATIVE)
                     item.setAmount(item.getAmount() - 1);
             }

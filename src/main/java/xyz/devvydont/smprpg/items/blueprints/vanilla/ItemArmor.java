@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry;
@@ -65,6 +66,19 @@ public class ItemArmor extends VanillaAttributeItem implements IBreakableEquipme
             case NETHERITE_CHESTPLATE -> 120;
             case NETHERITE_LEGGINGS -> 100;
             case NETHERITE_BOOTS -> 65;
+
+            default -> 0;
+        };
+    }
+
+    public static int getDefenseFromItemType(CustomItemType itemType) {
+
+        return switch (itemType) {
+
+            case SILVER_HELMET -> 5;
+            case SILVER_CHESTPLATE -> 7;
+            case SILVER_LEGGINGS -> 6;
+            case SILVER_BOOTS -> 4;
 
             default -> 0;
         };

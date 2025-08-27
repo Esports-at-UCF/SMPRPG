@@ -15,6 +15,20 @@
                 }
             },
             {
+                "when": "smprpg:silver_axe",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/silver_axe"
+                }
+            },
+            {
+                "when": "smprpg:silver_hatchet",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/silver_hatchet"
+                }
+            },
+            {
                 "when": "smprpg:steel_axe",
                 "model": {
                     "type": "model",

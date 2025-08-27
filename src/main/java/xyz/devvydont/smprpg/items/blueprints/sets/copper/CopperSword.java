@@ -33,14 +33,14 @@ public class CopperSword extends CustomAttributeItem implements ICraftable, IBre
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(Material.WOODEN_SWORD)),
-                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemSword.SWORD_ATTACK_SPEED_DEBUFF+.25)
+                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(Material.STONE_SWORD)),
+                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemSword.SWORD_ATTACK_SPEED_DEBUFF)
         );
     }
 
     @Override
     public int getPowerRating() {
-        return 5;
+        return ToolGlobals.COPPER_TOOL_POWER;
     }
 
     @Override

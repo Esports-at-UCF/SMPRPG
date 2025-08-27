@@ -34,9 +34,6 @@ import static xyz.devvydont.smprpg.items.blueprints.vanilla.ItemPickaxe.PICKAXE_
 public class CopperPickaxe extends CustomAttributeItem implements IBreakableEquipment, ICraftable {
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_STONE_TOOL), 1.0f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_PICKAXE), 5.0f, TriState.TRUE))
             .build();
 
     public CopperPickaxe(ItemService itemService, CustomItemType type) {
@@ -50,13 +47,13 @@ public class CopperPickaxe extends CustomAttributeItem implements IBreakableEqui
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemPickaxe.getPickaxeDamage(Material.WOODEN_PICKAXE)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, PICKAXE_ATTACK_SPEED_DEBUFF / 2),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.COPPER_TOOL_SPEED),
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, ItemPickaxe.getPickaxeFortune(Material.STONE_PICKAXE))
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, ToolGlobals.COPPER_TOOL_FORTUNE)
         );
     }
 
     @Override
     public int getPowerRating() {
-        return 5;
+        return ToolGlobals.COPPER_TOOL_POWER;
     }
 
     @Override

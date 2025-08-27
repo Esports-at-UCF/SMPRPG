@@ -6154,6 +6154,38 @@ public class BlockPropertiesRegistry {
                 .softRequirement(false)
                 .build());
 
+        register(CustomBlock.SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(2)
+                .placeSound("minecraft:block.stone.place")
+                .breakSound("minecraft:block.stone.break")
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.DEEPSLATE_SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(450)
+                .breakingPower(2)
+                .placeSound("minecraft:block.deepslate.place")
+                .breakSound("minecraft:block.deepslate.break")
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RAW_SILVER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(2)
+                .placeSound("minecraft:block.stone.place")
+                .breakSound("minecraft:block.stone.break")
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.SILVER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(2)
+                .placeSound("minecraft:block.metal.place")
+                .breakSound("minecraft:block.metal.break")
+                .softRequirement(false)
+                .build());
+
         register(CustomBlock.STEEL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(4)

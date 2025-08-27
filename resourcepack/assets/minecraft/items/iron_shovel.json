@@ -8,6 +8,13 @@
         },
         "cases": [
             {
+                "when": "smprpg:silver_shovel",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/silver_shovel"
+                }
+            },
+            {
                 "when": "smprpg:steel_shovel",
                 "model": {
                     "type": "model",

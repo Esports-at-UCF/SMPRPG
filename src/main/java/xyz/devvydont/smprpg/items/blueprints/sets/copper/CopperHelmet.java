@@ -19,6 +19,7 @@ import xyz.devvydont.smprpg.items.interfaces.ICraftable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.util.crafting.builders.HelmetRecipe;
+import xyz.devvydont.smprpg.util.items.ToolGlobals;
 
 import java.util.Collection;
 import java.util.List;
@@ -32,16 +33,14 @@ public class CopperHelmet extends CopperArmorSet implements ICraftable, IBreakab
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromMaterial(Material.LEATHER_HELMET)),
-                new ScalarAttributeEntry(AttributeWrapper.MINING_POWER, .05),
+                new AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromMaterial(Material.CHAINMAIL_HELMET)),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 25),
                 new ScalarAttributeEntry(AttributeWrapper.MOVEMENT_SPEED, .02)
         );
     }
 
     @Override
-    public int getPowerRating() {
-        return 5;
-    }
+    public int getPowerRating() { return ToolGlobals.COPPER_TOOL_POWER; }
 
     @Override
     public EquipmentSlotGroup getActiveSlot() {

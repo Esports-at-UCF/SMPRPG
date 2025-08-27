@@ -8,6 +8,13 @@
         },
         "cases": [
             {
+                "when": "smprpg:silver_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/silver_ingot"
+                }
+            },
+            {
                 "when": "smprpg:steel_ingot",
                 "model": {
                     "type": "model",

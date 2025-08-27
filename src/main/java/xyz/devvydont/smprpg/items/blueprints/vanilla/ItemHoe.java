@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
@@ -54,6 +55,14 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
         };
     }
 
+    public static double getHoeDamage(CustomItemType itemType) {
+        return switch (itemType) {
+            case COPPER_HOE -> 5;
+            case SILVER_HOE -> 7;
+            default -> 0;
+        };
+    }
+
     public static double getHoeAttackSpeedDebuff(Material material) {
         return switch (material) {
             case NETHERITE_HOE -> -0.05;
@@ -61,6 +70,13 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
             case IRON_HOE -> -0.20;
             case STONE_HOE -> -0.25;
             case WOODEN_HOE, GOLDEN_HOE -> -0.35;
+            default -> 0;
+        };
+    }
+
+    public static double getHoeAttackSpeedDebuff(CustomItemType itemType) {
+        return switch (itemType) {
+            case COPPER_HOE, SILVER_HOE -> -0.25;
             default -> 0;
         };
     }

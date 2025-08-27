@@ -36,9 +36,7 @@ public class CopperBow extends CustomAttributeItem implements ICraftable, IBreak
     }
 
     @Override
-    public int getPowerRating() {
-        return 5;
-    }
+    public int getPowerRating() { return ToolGlobals.COPPER_TOOL_POWER; }
 
     @Override
     public ItemClassification getItemClassification() {

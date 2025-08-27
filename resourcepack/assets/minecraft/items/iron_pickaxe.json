@@ -8,6 +8,13 @@
         },
         "cases": [
             {
+                "when": "smprpg:silver_pickaxe",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/silver_pickaxe"
+                }
+            },
+            {
                 "when": "smprpg:steel_pickaxe",
                 "model": {
                     "type": "model",

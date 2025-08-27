@@ -2,9 +2,13 @@ package xyz.devvydont.smprpg.items;
 
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
-import xyz.devvydont.smprpg.items.blueprints.block.DragonsteelBlock;
+import xyz.devvydont.smprpg.items.blueprints.block.ore.DeepslateSilverOre;
+import xyz.devvydont.smprpg.items.blueprints.block.ore.SilverOre;
+import xyz.devvydont.smprpg.items.blueprints.block.rawmaterials.DragonsteelBlock;
 import xyz.devvydont.smprpg.items.blueprints.block.ReforgeTableBlock;
-import xyz.devvydont.smprpg.items.blueprints.block.SteelBlock;
+import xyz.devvydont.smprpg.items.blueprints.block.rawmaterials.RawSilverBlock;
+import xyz.devvydont.smprpg.items.blueprints.block.rawmaterials.SilverBlock;
+import xyz.devvydont.smprpg.items.blueprints.block.rawmaterials.SteelBlock;
 import xyz.devvydont.smprpg.items.blueprints.boss.DiamondToolRod;
 import xyz.devvydont.smprpg.items.blueprints.boss.InfernoArrow;
 import xyz.devvydont.smprpg.items.blueprints.boss.NeptunesConch;
@@ -110,6 +114,7 @@ import xyz.devvydont.smprpg.items.blueprints.sets.sakura.SakuraBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.sakura.SakuraChestplate;
 import xyz.devvydont.smprpg.items.blueprints.sets.sakura.SakuraHelmet;
 import xyz.devvydont.smprpg.items.blueprints.sets.sakura.SakuraLeggings;
+import xyz.devvydont.smprpg.items.blueprints.sets.silver.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.singularity.SingularityBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.singularity.SingularityChestplate;
 import xyz.devvydont.smprpg.items.blueprints.sets.singularity.SingularityHelmet;
@@ -175,6 +180,27 @@ public enum CustomItemType {
     COPPER_CHESTPLATE("Copper Chestplate", Material.LEATHER_CHESTPLATE, CopperChestplate.class),
     COPPER_LEGGINGS(  "Copper Leggings",   Material.LEATHER_LEGGINGS,   CopperLeggings.class),
     COPPER_BOOTS(     "Copper Boots",      Material.LEATHER_BOOTS,      CopperBoots.class),
+
+    // SILVER SET
+    RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, false, 15),
+    SILVER_INGOT("Silver Ingot",                 Material.IRON_INGOT,     ItemRarity.COMMON, false, 50),
+    SILVER_ORE("Silver Ore",                     Material.BARRIER,        ItemRarity.COMMON, SilverOre.class),
+    DEEPSLATE_SILVER_ORE("Deepslate Silver Ore", Material.BARRIER,        ItemRarity.COMMON, DeepslateSilverOre.class),
+    RAW_SILVER_BLOCK("Block of Raw Silver",      Material.BARRIER,        ItemRarity.COMMON, RawSilverBlock.class),
+    SILVER_BLOCK("Block of Silver",              Material.BARRIER,        ItemRarity.UNCOMMON, SilverBlock.class),
+
+    SILVER_PICKAXE("Silver Pickaxe",  Material.IRON_PICKAXE, SilverPickaxe.class),
+    SILVER_AXE(    "Silver Axe",      Material.IRON_AXE,     SilverAxe.class),
+    SILVER_HOE(    "Silver Hoe",      Material.IRON_HOE,     SilverHoe.class),
+    SILVER_SHOVEL( "Silver Shovel",   Material.IRON_SHOVEL,  SilverShovel.class),
+    SILVER_SWORD(  "Silver Sword",    Material.IRON_SWORD,   SilverSword.class),
+    SILVER_HATCHET("Silver Hatchet",  Material.IRON_AXE,      ItemRarity.COMMON,   SilverHatchet.class),
+    SILVER_BOW(    "Silver Bow",      Material.BOW,            SilverBow.class),
+
+    SILVER_HELMET(    "Silver Helmet",     Material.IRON_HELMET,     SilverHelmet.class),
+    SILVER_CHESTPLATE("Silver Chestplate", Material.IRON_CHESTPLATE, SilverChestplate.class),
+    SILVER_LEGGINGS(  "Silver Leggings",   Material.IRON_LEGGINGS,   SilverLeggings.class),
+    SILVER_BOOTS(     "Silver Boots",      Material.IRON_BOOTS,      SilverBoots.class),
 
     // COBBLESTONE SET
     COBBLESTONE_HELMET("Cobblestone Helmet",         Material.LEATHER_HELMET,        ItemRarity.UNCOMMON, CobblestoneHelmet.class),

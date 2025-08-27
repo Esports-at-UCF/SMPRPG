@@ -464,10 +464,40 @@ public class BlockLootRegistry {
     }
 
     static {
-        register(CustomBlock.REFORGE_TABLE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
-                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
-                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
+        register(CustomBlock.SILVER_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
+                .build()
+        );
+
+        register(CustomBlock.RAW_SILVER_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.RAW_SILVER_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_SILVER_BLOCK)))
+                .build()
+        );
+
+        register(CustomBlock.SILVER_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
+                .build()
+        );
+
+        register(CustomBlock.SILVER_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_SILVER)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        );
+
+        register(CustomBlock.DEEPSLATE_SILVER_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.DEEPSLATE_SILVER_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_SILVER)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
                 .build()
         );
 
@@ -482,6 +512,13 @@ public class BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
+                .build()
+        );
+
+        register(CustomBlock.REFORGE_TABLE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
                 .build()
         );
     }

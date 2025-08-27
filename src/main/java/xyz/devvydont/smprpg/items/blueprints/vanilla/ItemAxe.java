@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
@@ -67,6 +68,14 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
         };
     }
 
+    public static double getAxeDamage(CustomItemType itemType) {
+        return switch (itemType) {
+            case COPPER_AXE -> 30;
+            case SILVER_AXE -> 35;
+            default -> 0;
+        };
+    }
+
     public static int getAxeRating(Material material) {
         return switch (material) {
             case NETHERITE_AXE -> ToolGlobals.NETHERITE_TOOL_POWER;
@@ -83,6 +92,13 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
         return switch (material) {
             case NETHERITE_AXE -> 2;
             case DIAMOND_AXE -> 1;
+            default -> 0;
+        };
+    }
+
+    public static int getAxeLumbering(CustomItemType itemType) {
+        return switch (itemType) {
+            case COPPER_AXE -> 1;
             default -> 0;
         };
     }
