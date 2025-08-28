@@ -57,8 +57,10 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
 
     public static double getHoeDamage(CustomItemType itemType) {
         return switch (itemType) {
+            case TIN_HOE -> 4;
             case COPPER_HOE -> 5;
             case SILVER_HOE -> 7;
+            case ROSE_GOLD_HOE -> 14;
             default -> 0;
         };
     }
@@ -76,7 +78,7 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
 
     public static double getHoeAttackSpeedDebuff(CustomItemType itemType) {
         return switch (itemType) {
-            case COPPER_HOE, SILVER_HOE -> -0.25;
+            case COPPER_HOE, SILVER_HOE, TIN_HOE, ROSE_GOLD_HOE -> -0.25;
             default -> 0;
         };
     }

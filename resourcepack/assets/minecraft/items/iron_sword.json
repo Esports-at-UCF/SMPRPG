@@ -27,6 +27,13 @@
                     "type": "model",
                     "model": "swords:item/steel_sword"
                 }
+            },
+            {
+                "when": "smprpg:tin_sword",
+                "model": {
+                    "type": "model",
+                    "model": "swords:item/tin_sword"
+                }
             }
         ]
     }

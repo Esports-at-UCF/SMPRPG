@@ -13,6 +13,13 @@
                     "type": "model",
                     "model": "materials:item/raw_silver"
                 }
+            },
+            {
+                "when": "smprpg:raw_tin",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/raw_tin"
+                }
             }
         ]
     }

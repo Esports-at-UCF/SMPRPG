@@ -71,7 +71,7 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-	  "smprpg:ore_silver"
+	  "smprpg:ore_silver", "smprpg:ore_adamantium", "smprpg:ore_tin"
     ],
     [
       "minecraft:sculk_vein",

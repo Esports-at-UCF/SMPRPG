@@ -43,6 +43,48 @@
                 }
             },
 			{
+                "when": "smprpg:tin_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/tin_ore"
+                }
+            },
+			{
+                "when": "smprpg:deepslate_tin_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/deepslate_tin_ore"
+                }
+            },
+			{
+                "when": "smprpg:tin_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/tin_block"
+                }
+            },
+			{
+                "when": "smprpg:raw_tin_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/raw_tin_block"
+                }
+            },
+			{
+                "when": "smprpg:rose_gold_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/rose_gold_block"
+                }
+            },
+			{
+                "when": "smprpg:bronze_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/bronze_block"
+                }
+            },
+			{
                 "when": "smprpg:steel_block",
                 "model": {
                     "type": "model",

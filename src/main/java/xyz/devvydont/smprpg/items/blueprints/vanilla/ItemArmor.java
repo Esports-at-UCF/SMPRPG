@@ -80,6 +80,21 @@ public class ItemArmor extends VanillaAttributeItem implements IBreakableEquipme
             case SILVER_LEGGINGS -> 6;
             case SILVER_BOOTS -> 4;
 
+            case TIN_HELMET -> 10;
+            case TIN_CHESTPLATE -> 15;
+            case TIN_LEGGINGS -> 13;
+            case TIN_BOOTS -> 7;
+
+            case BRONZE_HELMET -> 30;
+            case BRONZE_CHESTPLATE -> 40;
+            case BRONZE_LEGGINGS -> 35;
+            case BRONZE_BOOTS -> 20;
+
+            case ROSE_GOLD_HELMET -> 15;
+            case ROSE_GOLD_CHESTPLATE -> 20;
+            case ROSE_GOLD_LEGGINGS -> 16;
+            case ROSE_GOLD_BOOTS -> 12;
+
             default -> 0;
         };
     }

@@ -20,6 +20,13 @@
                     "type": "model",
                     "model": "tools:item/steel_shovel"
                 }
+            },
+            {
+                "when": "smprpg:tin_shovel",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/tin_shovel"
+                }
             }
         ]
     }

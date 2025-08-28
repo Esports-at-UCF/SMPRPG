@@ -36,7 +36,7 @@ public class SilverBow extends CustomAttributeItem implements ICraftable, IBreak
     }
 
     @Override
-    public int getPowerRating() { return ToolGlobals.COPPER_TOOL_POWER; }
+    public int getPowerRating() { return ToolGlobals.SILVER_TOOL_POWER; }
 
     @Override
     public ItemClassification getItemClassification() {
@@ -56,7 +56,7 @@ public class SilverBow extends CustomAttributeItem implements ICraftable, IBreak
     @Override
     public CraftingRecipe getCustomRecipe() {
         return new BowRecipe(this,
-                itemService.getCustomItem(Material.COPPER_INGOT),
+                itemService.getCustomItem(CustomItemType.SILVER_INGOT),
                 itemService.getCustomItem(Material.STRING),
                 generate()
         ).build();
@@ -65,12 +65,12 @@ public class SilverBow extends CustomAttributeItem implements ICraftable, IBreak
     @Override
     public Collection<ItemStack> unlockedBy() {
         return List.of(
-                itemService.getCustomItem(Material.COPPER_INGOT)
+                itemService.getCustomItem(CustomItemType.SILVER_INGOT)
         );
     }
 
     @Override
     public int getMaxDurability() {
-        return ToolGlobals.COPPER_TOOL_DURABILITY;
+        return ToolGlobals.SILVER_TOOL_DURABILITY;
     }
 }

@@ -40,7 +40,7 @@ public class SilverHoe extends CustomAttributeItem implements ICraftable, IBreak
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemHoe.getHoeDamage(CustomItemType.SILVER_HOE)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(CustomItemType.SILVER_HOE)),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.SILVER_TOOL_SPEED),
-                new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ItemHoe.getHoeFortune(Material.STONE_HOE))
+                new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ToolGlobals.SILVER_TOOL_FORTUNE)
         );
     }
 

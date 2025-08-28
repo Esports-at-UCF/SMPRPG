@@ -40,7 +40,7 @@ public class CopperHoe extends CustomAttributeItem implements ICraftable, IBreak
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemHoe.getHoeDamage(CustomItemType.COPPER_HOE)),
-                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(Material.STONE_HOE)),
+                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(CustomItemType.COPPER_HOE)),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.COPPER_TOOL_SPEED),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ToolGlobals.COPPER_TOOL_FORTUNE)
         );

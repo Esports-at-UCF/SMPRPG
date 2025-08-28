@@ -6154,6 +6154,7 @@ public class BlockPropertiesRegistry {
                 .softRequirement(false)
                 .build());
 
+        //<editor-fold desc="Ores & Material Blocks">
         register(CustomBlock.SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(2)
@@ -6164,7 +6165,7 @@ public class BlockPropertiesRegistry {
 
         register(CustomBlock.DEEPSLATE_SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
-                .breakingPower(2)
+                .breakingPower(4)
                 .placeSound("minecraft:block.deepslate.place")
                 .breakSound("minecraft:block.deepslate.break")
                 .softRequirement(false)
@@ -6186,6 +6187,54 @@ public class BlockPropertiesRegistry {
                 .softRequirement(false)
                 .build());
 
+        register(CustomBlock.TIN_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .placeSound("minecraft:block.stone.place")
+                .breakSound("minecraft:block.stone.break")
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.DEEPSLATE_TIN_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(450)
+                .breakingPower(3)
+                .placeSound("minecraft:block.deepslate.place")
+                .breakSound("minecraft:block.deepslate.break")
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RAW_TIN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(2)
+                .placeSound("minecraft:block.stone.place")
+                .breakSound("minecraft:block.stone.break")
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.TIN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(2)
+                .placeSound("minecraft:block.metal.place")
+                .breakSound("minecraft:block.metal.break")
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.BRONZE_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(3)
+                .placeSound("minecraft:block.copper.place")
+                .breakSound("minecraft:block.copper.break")
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.ROSE_GOLD_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(3)
+                .placeSound("minecraft:block.metal.place")
+                .breakSound("minecraft:block.metal.break")
+                .softRequirement(false)
+                .build());
+
         register(CustomBlock.STEEL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(4)
@@ -6201,6 +6250,8 @@ public class BlockPropertiesRegistry {
                 .breakSound("minecraft:block.netherite_block.break")
                 .softRequirement(false)
                 .build());
+        //</editor-fold>
+
     }
 
     public static void register(Material material, BlockPropertiesEntry entry) {

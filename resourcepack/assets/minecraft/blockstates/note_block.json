@@ -6,16 +6,58 @@
 		"instrument=harp,note=1,powered=true": {
             "model": "blocks:block/deepslate_silver_ore"
         },
+		"instrument=harp,note=2,powered=true": {
+            "model": "blocks:block/tin_ore"
+        },
+		"instrument=harp,note=3,powered=true": {
+            "model": "blocks:block/deepslate_tin_ore"
+        },
+		"instrument=harp,note=8,powered=true": {
+            "model": "blocks:block/bedrock_adamantium_ore"
+        },
+		
+		
+		
         "instrument=harp,note=0,powered=false": {
             "model": "blocks:block/silver_block"
         },
         "instrument=harp,note=1,powered=false": {
             "model": "blocks:block/raw_silver_block"
         },
+        "instrument=harp,note=2,powered=false": {
+            "model": "blocks:block/tin_block"
+        },
+        "instrument=harp,note=3,powered=false": {
+            "model": "blocks:block/raw_tin_block"
+        },
+        "instrument=harp,note=4,powered=false": {
+            "model": "blocks:block/rose_gold_block"
+        },
+        "instrument=harp,note=5,powered=false": {
+            "model": "blocks:block/bronze_block"
+        },
+        "instrument=harp,note=6,powered=false": {
+            "model": "blocks:block/mithril_block"
+        },
+        "instrument=harp,note=7,powered=false": {
+            "model": "blocks:block/raw_mithril_block"
+        },
         "instrument=harp,note=8,powered=false": {
             "model": "blocks:block/steel_block"
         },
-        "instrument=harp,note=23,powered=false": {
+        "instrument=harp,note=9,powered=false": {
+            "model": "blocks:block/raw_titanium_block"
+        },
+        "instrument=harp,note=10,powered=false": {
+            "model": "blocks:block/titanium_block"
+        },
+        "instrument=harp,note=11,powered=false": {
+            "model": "blocks:block/adamantium_block"
+        },
+        "instrument=harp,note=12,powered=false": {
+            "model": "blocks:block/raw_adamantium_block"
+        },
+        "instrument=harp,note=22,powered=false": {
             "model": "blocks:block/dragonsteel_block"
         },
         "instrument=harp,note=24,powered=false": {

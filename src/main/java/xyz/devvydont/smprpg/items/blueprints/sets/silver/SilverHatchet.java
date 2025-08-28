@@ -44,7 +44,7 @@ public class SilverHatchet extends CustomAttributeItem implements ICraftable, IB
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.SILVER_TOOL_MINING_POWER),
-                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(Material.STONE_SWORD) - 5),
+                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(CustomItemType.SILVER_SWORD) - 5),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.SILVER_TOOL_SPEED * 0.8),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.SILVER_TOOL_FORTUNE * 0.8),

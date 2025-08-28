@@ -38,7 +38,7 @@ public class SilverShovel extends CustomAttributeItem implements ICraftable, IBr
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemShovel.getShovelDamage(Material.WOODEN_SHOVEL)),
+                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemShovel.getShovelDamage(CustomItemType.SILVER_SHOVEL)),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.SILVER_TOOL_SPEED),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemShovel.SHOVEL_ATTACK_SPEED_DEBUFF)
         );

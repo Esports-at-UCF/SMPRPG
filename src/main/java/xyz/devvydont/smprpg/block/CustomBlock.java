@@ -32,7 +32,14 @@ public enum CustomBlock {
 
     //<editor-fold desc="Noteblocks: Harp, powered">
     SILVER_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(0), true)),
-    DEEPSLATE_SILVER_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(1), true));
+    DEEPSLATE_SILVER_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(1), true)),
+    TIN_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(2), true)),
+    DEEPSLATE_TIN_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(3), true)),
+    SPARSE_MITHRIL_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(4), true)),
+    MITHRIL_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(5), true)),
+    DENSE_MITHRIL_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(6), true)),
+    TITANIUM_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(7), true)),
+    ADAMANTIUM_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(8), true));
     //</editor-fold>
 
     public final Material BlockMaterial;

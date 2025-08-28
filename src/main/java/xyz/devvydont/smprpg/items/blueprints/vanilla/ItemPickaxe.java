@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
@@ -62,6 +63,17 @@ public class ItemPickaxe extends VanillaAttributeItem implements IBreakableEquip
             case IRON_PICKAXE -> 7;
             case STONE_PICKAXE -> 5;
             case WOODEN_PICKAXE -> 4;
+            default -> 0;
+        };
+    }
+
+    public static double getPickaxeDamage(CustomItemType itemType) {
+        return switch (itemType) {
+            case TIN_PICKAXE -> 4;
+            case COPPER_PICKAXE -> 5;
+            case SILVER_PICKAXE -> 6;
+            case BRONZE_PICKAXE -> 7;
+            case ROSE_GOLD_PICKAXE -> 12;
             default -> 0;
         };
     }

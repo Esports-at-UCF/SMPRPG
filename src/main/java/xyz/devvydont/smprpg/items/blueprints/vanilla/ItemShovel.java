@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
@@ -26,6 +27,16 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
             case IRON_SHOVEL -> 15;
             case STONE_SHOVEL -> 10;
             case WOODEN_SHOVEL -> 5;
+            default -> 0;
+        };
+    }
+
+    public static double getShovelDamage(CustomItemType itemType) {
+        return switch (itemType) {
+            case TIN_SHOVEL -> 5;
+            case COPPER_SHOVEL -> 10;
+            case SILVER_SHOVEL -> 15;
+            case ROSE_GOLD_SHOVEL -> 22;
             default -> 0;
         };
     }

@@ -36,6 +36,9 @@ public class ItemSword extends VanillaAttributeItem implements IBreakableEquipme
         return switch (itemType) {
             case COPPER_SWORD -> 20;
             case SILVER_SWORD -> 25;
+            case TIN_SWORD -> 17;
+            case BRONZE_SWORD -> 30;
+            case ROSE_GOLD_SWORD -> 40;
             default -> 0;
         };
     }

@@ -478,13 +478,6 @@ public class BlockLootRegistry {
                 .build()
         );
 
-        register(CustomBlock.SILVER_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
-                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
-                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
-                .build()
-        );
-
         register(CustomBlock.SILVER_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_ORE)))
@@ -497,6 +490,36 @@ public class BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.SILVER_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.DEEPSLATE_SILVER_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_SILVER)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        );
+
+        register(CustomBlock.TIN_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.TIN_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.TIN_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.TIN_BLOCK)))
+                .build()
+        );
+
+        register(CustomBlock.RAW_TIN_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.TIN_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.RAW_TIN_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_TIN_BLOCK)))
+                .build()
+        );
+
+        register(CustomBlock.TIN_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.TIN_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.TIN_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_TIN)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        );
+
+        register(CustomBlock.DEEPSLATE_TIN_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.TIN_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.DEEPSLATE_TIN_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_TIN)))
                 .uses(AttributeWrapper.MINING_FORTUNE)
                 .build()
         );

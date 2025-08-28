@@ -15,6 +15,20 @@
                 }
             },
             {
+                "when": "smprpg:tin_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/tin_ingot"
+                }
+            },
+            {
+                "when": "smprpg:rose_gold_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/rose_gold_ingot"
+                }
+            },
+            {
                 "when": "smprpg:steel_ingot",
                 "model": {
                     "type": "model",
