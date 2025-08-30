@@ -1,9 +1,9 @@
 {
-  "feature": "smprpg:ore_mithril",
+  "feature": "smprpg:ore_sulfur",
   "placement": [
     {
-      "type": "minecraft:rarity_filter",
-      "chance": 12
+      "type": "minecraft:count",
+      "count": 4
     },
     {
       "type": "minecraft:in_square"
@@ -11,12 +11,12 @@
     {
       "type": "minecraft:height_range",
       "height": {
-        "type": "minecraft:uniform",
+        "type": "minecraft:trapezoid",
         "max_inclusive": {
-          "absolute": -6
+          "absolute": 72
         },
         "min_inclusive": {
-          "above_bottom": 16
+          "absolute": 16
         }
       }
     },

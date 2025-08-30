@@ -340,6 +340,25 @@ public enum CustomItemType {
     ADAMANTIUM_LEGGINGS(  "Adamantium Leggings",   Material.DIAMOND_LEGGINGS,   ItemRarity.RARE, AdamantiumLeggings.class),
     ADAMANTIUM_BOOTS(     "Adamantium Boots",      Material.DIAMOND_BOOTS,      ItemRarity.RARE, AdamantiumBoots.class),
 
+    // SULFUR
+    SULFUR_ORE("Sulfur Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, SulfurOre.class),
+    //SULFUR_BLOCK("Block of Sulfur",              Material.POISONOUS_POTATO,        ItemRarity.RARE, SulfurOre.class),
+    SULFUR_CRYSTAL(    "Sulfur Crystal",         Material.GUNPOWDER,               ItemRarity.UNCOMMON, false, 20),
+
+    // ONYX
+    ONYX_ORE("Onyx Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, OnyxOre.class),
+    //ONYX_BLOCK("Block of Onyx",              Material.POISONOUS_POTATO,        ItemRarity.RARE, SulfurOre.class),
+    ONYX(    "Onyx",     Material.COAL,     ItemRarity.RARE, false, 20),
+
+    // TUNGSTEN SET
+    TUNGSTEN_ORE("Tungsten Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, TungstenOre.class),
+
+    // COBALT SET
+    COBALT_ORE("Cobalt Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, CobaltOre.class),
+
+    // ORICHALCUM SET
+    ORICHALCUM_ORE("Orichalcum Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, OrichalcumOre.class),
+
     // COBBLESTONE SET
     COBBLESTONE_HELMET("Cobblestone Helmet",         Material.LEATHER_HELMET,        ItemRarity.UNCOMMON, CobblestoneHelmet.class),
     COBBLESTONE_CHESTPLATE("Cobblestone Chestplate", Material.LEATHER_CHESTPLATE, ItemRarity.UNCOMMON, CobblestoneChestplate.class),

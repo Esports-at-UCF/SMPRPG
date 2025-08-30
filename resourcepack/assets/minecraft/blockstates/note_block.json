@@ -27,6 +27,21 @@
 		"instrument=harp,note=8,powered=true": {
             "model": "blocks:block/bedrock_adamantium_ore"
         },
+		"instrument=harp,note=9,powered=true": {
+            "model": "blocks:block/sulfur_ore"
+        },
+		"instrument=harp,note=10,powered=true": {
+            "model": "blocks:block/tungsten_ore"
+        },
+		"instrument=harp,note=11,powered=true": {
+            "model": "blocks:block/cobalt_ore"
+        },
+		"instrument=harp,note=12,powered=true": {
+            "model": "blocks:block/orichalcum_ore"
+        },
+		"instrument=harp,note=13,powered=true": {
+            "model": "blocks:block/onyx_ore"
+        },
 		
 		
 		

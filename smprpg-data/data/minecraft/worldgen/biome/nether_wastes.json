@@ -53,7 +53,8 @@
       "minecraft:ore_gold_nether",
       "minecraft:ore_quartz_nether",
       "minecraft:ore_ancient_debris_large",
-      "minecraft:ore_debris_small"
+      "minecraft:ore_debris_small",
+	  "smprpg:ore_tungsten", "smprpg:ore_cobalt", "smprpg:ore_orichalcum", "smprpg:ore_sulfur", "smprpg:ore_onyx"
     ],
     [],
     [

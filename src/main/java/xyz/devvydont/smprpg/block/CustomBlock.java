@@ -26,6 +26,14 @@ public enum CustomBlock {
     TITANIUM_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(10), false)),
     ADAMANTIUM_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(11), false)),
     RAW_ADAMANTIUM_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(12), false)),
+    SULFUR_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(13), false)),
+    RAW_TUNGSTEN_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(14), false)),
+    TUNGSTEN_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(15), false)),
+    RAW_COBALT_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(16), false)),
+    COBALT_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(17), false)),
+    RAW_ORICHALCUM_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(18), false)),
+    ORICHALCUM_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(19), false)),
+    ONYX_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(20), false)),
     DRAGONSTEEL_BLOCK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(22), false)),
     REFORGE_TABLE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(24), false)),
     //</editor-fold>
@@ -39,7 +47,12 @@ public enum CustomBlock {
     MITHRIL_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(5), true)),
     DENSE_MITHRIL_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(6), true)),
     TITANIUM_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(7), true)),
-    ADAMANTIUM_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(8), true));
+    ADAMANTIUM_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(8), true)),
+    SULFUR_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(9), true)),
+    TUNGSTEN_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(10), true)),
+    COBALT_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(11), true)),
+    ORICHALCUM_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(12), true)),
+    ONYX_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(13), true));
     //</editor-fold>
 
     public final Material BlockMaterial;
