@@ -230,7 +230,7 @@
 						{
 							"model": {
 								"type": "minecraft:model",
-								"model": "armor:item/mithril/mithril_leggings_mithril_trim"
+								"model": "armor:item/mithril/mithril_leggings_emerald_trim"
 							},
 							"when": "minecraft:mithril"
 						},
@@ -320,7 +320,7 @@
 						{
 							"model": {
 								"type": "minecraft:model",
-								"model": "armor:item/titanium/titanium_leggings_titanium_trim"
+								"model": "armor:item/titanium/titanium_leggings_emerald_trim"
 							},
 							"when": "minecraft:titanium"
 						},
@@ -410,7 +410,7 @@
 						{
 							"model": {
 								"type": "minecraft:model",
-								"model": "armor:item/adamantium/adamantium_leggings_adamantium_trim"
+								"model": "armor:item/adamantium/adamantium_leggings_emerald_trim"
 							},
 							"when": "minecraft:adamantium"
 						},
