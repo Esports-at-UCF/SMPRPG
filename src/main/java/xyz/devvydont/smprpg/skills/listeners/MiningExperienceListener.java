@@ -1,6 +1,7 @@
 package xyz.devvydont.smprpg.skills.listeners;
 
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -8,6 +9,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.block.CustomBlock;
+import xyz.devvydont.smprpg.blockbreaking.BlockPropertiesRegistry;
 import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent;
 import xyz.devvydont.smprpg.services.EntityService;
 import xyz.devvydont.smprpg.skills.SkillInstance;
@@ -16,12 +19,31 @@ import xyz.devvydont.smprpg.util.world.ChunkUtil;
 public class MiningExperienceListener implements Listener {
 
 
-    public static int getBaseExperienceForDrop(ItemStack item, World.Environment environment) {
+    public static int getBaseExperienceForDrop(Block block) {
 
-        double dimensionMultiplier = environment.equals(World.Environment.THE_END) ? 1.5 :
-                environment.equals(World.Environment.NETHER) ? 1.2 : 1;
+        if (BlockPropertiesRegistry.isCustom(block)) {
+            CustomBlock cb = CustomBlock.resolve(block);
+            return switch (cb) {
+                case RAW_SILVER_BLOCK -> 11;
+                case RAW_TIN_BLOCK -> 8;
+                case RAW_MITHRIL_BLOCK -> 20;
+                case RAW_TITANIUM_BLOCK -> 125;
+                case RAW_ADAMANTIUM_BLOCK -> 200;
 
-        return (int) (switch (item.getType()) {
+                case SILVER_ORE -> 10;
+                case DEEPSLATE_SILVER_ORE -> 30;
+                case TIN_ORE -> 2;
+                case DEEPSLATE_TIN_ORE -> 6;
+                case SPARSE_MITHRIL_ORE -> 9;
+                case MITHRIL_ORE -> 18;
+                case DENSE_MITHRIL_ORE -> 36;
+                case TITANIUM_ORE -> 75;
+                case ADAMANTIUM_ORE -> 200;
+                default -> 0;
+            };
+        }
+
+        return switch (block.getType()) {
 
             case END_STONE, STONE, COBBLESTONE, COBBLED_DEEPSLATE, SAND, RED_SAND, SANDSTONE, RED_SANDSTONE, CLAY, MYCELIUM, GRASS_BLOCK, DIRT, GRAVEL, DEEPSLATE, TUFF, NETHERRACK, BLACKSTONE, BASALT, SMOOTH_BASALT, CRIMSON_NYLIUM, WARPED_NYLIUM, FLINT -> 1;
                     case ANDESITE, DIORITE, GRANITE, CALCITE, BONE_BLOCK, SOUL_SAND, SOUL_SOIL, ICE, PACKED_ICE -> 2;
@@ -34,18 +56,20 @@ public class MiningExperienceListener implements Listener {
                     case BLUE_ICE -> 8;
 
                     case COAL_ORE, COAL -> 5;
-                    case DEEPSLATE_COAL_ORE -> 7;
+                    case DEEPSLATE_COAL_ORE -> 15;
 
                     case COPPER_ORE, RAW_COPPER, COPPER_INGOT -> 2;
-                    case DEEPSLATE_COPPER_ORE, RAW_COPPER_BLOCK -> 8;
+                    case DEEPSLATE_COPPER_ORE -> 6;
+                    case RAW_COPPER_BLOCK -> 8;
 
                     case IRON_ORE, RAW_IRON, IRON_INGOT -> 7;
                     case RAW_IRON_BLOCK -> 8;
                     case IRON_BLOCK -> 9;
-                    case DEEPSLATE_IRON_ORE -> 12;
+                    case DEEPSLATE_IRON_ORE -> 21;
 
                     case GOLD_ORE, RAW_GOLD, GOLD_INGOT -> 12;
-                    case RAW_GOLD_BLOCK, DEEPSLATE_GOLD_ORE -> 14;
+                    case RAW_GOLD_BLOCK -> 14;
+                    case DEEPSLATE_GOLD_ORE -> 36;
 
                     case OBSIDIAN -> 20;
                     case CRYING_OBSIDIAN -> 24;
@@ -64,13 +88,13 @@ public class MiningExperienceListener implements Listener {
                     case REDSTONE_BLOCK -> 15;
 
                     case LAPIS_ORE, REDSTONE_ORE -> 18;
-                    case DEEPSLATE_LAPIS_ORE, DEEPSLATE_REDSTONE_ORE -> 21;
+                    case DEEPSLATE_LAPIS_ORE, DEEPSLATE_REDSTONE_ORE -> 54;
 
                     case DIAMOND_ORE, DIAMOND -> 25;
-                    case DEEPSLATE_DIAMOND_ORE -> 30;
+                    case DEEPSLATE_DIAMOND_ORE -> 75;
 
                     case EMERALD_ORE, EMERALD -> 100;
-                    case DEEPSLATE_EMERALD_ORE -> 120;
+                    case DEEPSLATE_EMERALD_ORE -> 300;
 
                     case GOLD_BLOCK -> 45;
                     case EMERALD_BLOCK -> 200;
@@ -87,8 +111,7 @@ public class MiningExperienceListener implements Listener {
 
 
                     default -> 0;
-                } * dimensionMultiplier * item.getAmount());
-
+                };
     }
 
 
@@ -117,18 +140,19 @@ public class MiningExperienceListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onGainGeneralMiningExperience(BlockBreakEvent event) {
 
+        var block = event.getBlock();
+
         if (event.isCancelled())
             return;
 
         // If this block isn't allowed to retrieve experience
-        if (ChunkUtil.isBlockSkillInvalid(event.getBlock()))
+        if (ChunkUtil.isBlockSkillInvalid(block))
             return;
 
         SkillInstance skill = SMPRPG.getService(EntityService.class).getPlayerInstance(event.getPlayer()).getMiningSkill();
 
         int exp = 0;
-        for (ItemStack drop : event.getBlock().getDrops(event.getPlayer().getInventory().getItemInMainHand(), event.getPlayer()))
-            exp += getBaseExperienceForDrop(drop, event.getPlayer().getWorld().getEnvironment());
+        exp += getBaseExperienceForDrop(block);
         if (exp <= 0)
             return;
 
