@@ -148,7 +148,11 @@ public class AttributeUtil {
 
         // Query base attributes...
         for (var baseAttribute : attributeItem.getAttributeModifiers(item)) {
-            var key = AttributeModifierType.BASE.keyForItem(nameKey);
+            NamespacedKey key;
+            if (baseAttribute.getKey() == null)
+                key = AttributeModifierType.BASE.keyForItem(nameKey);
+            else
+                key = new NamespacedKey("smprpg", baseAttribute.getKey());
             modifiers.put(
                     baseAttribute.getAttribute(),
                     new SourcedAttributeModifier(baseAttribute.asModifier(key, attributeItem.getActiveSlot()), AttributeModifierType.BASE)

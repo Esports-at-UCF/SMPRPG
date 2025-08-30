@@ -9,4 +9,8 @@ public class AdditiveAttributeEntry extends AttributeEntry {
         super(attribute, amount, AttributeModifier.Operation.ADD_NUMBER);
     }
 
+    public AdditiveAttributeEntry(AttributeWrapper attribute, double amount, String key) {
+        super(attribute, amount, AttributeModifier.Operation.ADD_NUMBER, key);
+    }
+
 }

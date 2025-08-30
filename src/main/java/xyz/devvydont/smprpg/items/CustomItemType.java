@@ -152,6 +152,7 @@ import xyz.devvydont.smprpg.items.blueprints.sets.valiant.ValiantLeggings;
 import xyz.devvydont.smprpg.items.blueprints.sets.wood.WoodHatchet;
 import xyz.devvydont.smprpg.items.blueprints.storage.*;
 import xyz.devvydont.smprpg.items.interfaces.ICustomTextured;
+import xyz.devvydont.smprpg.items.tools.ItemDrill;
 
 public enum CustomItemType {
 
@@ -169,6 +170,9 @@ public enum CustomItemType {
     NEO_FRONTIER_CHESTPLATE("Neo Frontier Chestplate", Material.LEATHER_CHESTPLATE, NeoFrontierChestplate.class),
     NEO_FRONTIER_LEGGINGS("Neo Frontier Leggings",     Material.IRON_LEGGINGS,      NeoFrontierLeggings.class),
     NEO_FRONTIER_BOOTS("Neo Frontier Boots",           Material.LEATHER_BOOTS,      NeoFrontierBoots.class),
+
+    // DYNAMIC TOOLS
+    DRILL("Undefined Drill", Material.PRISMARINE_SHARD, ItemDrill.class),
 
     // COPPER SET
     COPPER_PICKAXE("Copper Pickaxe",  Material.WOODEN_PICKAXE, CopperPickaxe.class),
@@ -246,6 +250,9 @@ public enum CustomItemType {
     STEEL_INGOT("Steel Ingot", Material.IRON_INGOT, ItemRarity.UNCOMMON, SteelIngot.class),
     STEEL_BLOCK(     "Block of Steel",      Material.POISONOUS_POTATO,     ItemRarity.RARE, SteelBlock.class),
     STEEL_TOOL_SHAFT("Steel Tool Shaft", Material.STICK, ItemRarity.UNCOMMON, SteelToolShaft.class),
+
+    STEEL_DRILL_HEAD("Steel Drill Head", Material.PRISMARINE, ItemRarity.UNCOMMON, SteelDrillHead.class),
+    STEEL_DRILL_BASE("Steel Drill Base", Material.PRISMARINE, ItemRarity.UNCOMMON, SteelDrillBase.class),
 
     STEEL_PICKAXE("Steel Pickaxe",      Material.IRON_PICKAXE,      ItemRarity.UNCOMMON,   SteelPickaxe.class),
     STEEL_AXE("Steel Axe",              Material.IRON_AXE,          ItemRarity.UNCOMMON,   SteelAxe.class),
@@ -1027,7 +1034,6 @@ public enum CustomItemType {
     INFINITY_LEGGINGS(  "Infinity Leggings",   Material.NETHERITE_LEGGINGS,   ItemRarity.TRANSCENDENT, InfinityLeggings.class),
     INFINITY_BOOTS(     "Infinity Boots",      Material.NETHERITE_BOOTS,      ItemRarity.TRANSCENDENT, InfinityBoots.class),
     INFINITY_SWORD(     "Infinity Sword",      Material.NETHERITE_SWORD,      ItemRarity.TRANSCENDENT, InfinitySword.class),
-    INFINITY_DRILL(     "Infinity Drill",      Material.PRISMARINE_SHARD,     ItemRarity.TRANSCENDENT, InfinityDrill.class),
     HEARTY_HELMET("Hearty Helmet", Material.NETHERITE_HELMET, ItemRarity.TRANSCENDENT, HeartyHelmet.class),
 
     GAME_BREAKER("Game Breaker", Material.TNT, ItemRarity.SPECIAL, true, GameBreaker.class),

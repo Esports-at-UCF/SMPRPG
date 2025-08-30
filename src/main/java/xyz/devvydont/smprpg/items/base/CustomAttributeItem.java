@@ -54,4 +54,14 @@ public abstract class CustomAttributeItem extends CustomItemBlueprint implements
     public String getUniqueModifierKey() {
         return this.getCustomItemType().name().toLowerCase();
     }
+
+    @Override
+    public ItemRarity getRarity(ItemStack item) {
+        return super.getRarity(item);
+    }
+
+    @Override
+    public String getItemName(ItemStack item) {
+        return super.getItemName(item);
+    }
 }

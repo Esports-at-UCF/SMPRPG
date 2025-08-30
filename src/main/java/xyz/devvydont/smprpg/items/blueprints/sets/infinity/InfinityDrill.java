@@ -24,18 +24,6 @@ public class InfinityDrill extends ItemDrill implements IFueledEquipment {
     }
 
     @Override
-    public double getDrillMiningPower() { return 99; }
-
-    @Override
-    public double getDrillDamage() { return 999_99; }
-
-    @Override
-    public double getDrillFortune() { return 1000; }
-
-    @Override
-    public double getDrillSpeed() { return 10000; }
-
-    @Override
     public int getMaxFuel() {
         return 999_999 + IFueledEquipment.FUEL_OFFSET;
     }
