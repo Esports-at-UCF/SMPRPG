@@ -8,10 +8,7 @@ import com.comphenix.protocol.wrappers.BlockPosition;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.destroystokyo.paper.ParticleBuilder;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
@@ -25,6 +22,7 @@ import org.bukkit.potion.PotionEffectType;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.block.BlockLootRegistry;
+import xyz.devvydont.smprpg.block.BlockSound;
 import xyz.devvydont.smprpg.block.CustomBlock;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.interfaces.IFueledEquipment;
@@ -88,6 +86,7 @@ public class BlockDamage {
 
     	int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
         	double currentTicks = 0d;
+			double soundTicks = 0d;
         	
         	@Override
             public void run() {
@@ -146,6 +145,28 @@ public class BlockDamage {
 					tickInc *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.AIRBORNE_MINING).getValue();
 
                 currentTicks = currentTicks + tickInc;
+				soundTicks++;
+				if (soundTicks % 4 == 0)
+				{
+					boolean isWoodNonNoteblock = currentTarget.getBlockSoundGroup().getHitSound() == Sound.BLOCK_WOOD_HIT && currentTarget.getType() != Material.NOTE_BLOCK;
+					if (BlockPropertiesRegistry.isCustom(currentTarget) || isWoodNonNoteblock) {
+						BlockSound blockSound = BlockPropertiesRegistry.get(currentTarget).getBlockSound();
+						String hitSound;
+						float hitVolume;
+						float hitPitch;
+						if (blockSound != null) {
+							hitSound = blockSound.HitSound;
+							hitVolume = blockSound.HitVolume;
+							hitPitch = blockSound.HitPitch;
+						}
+						else {
+							hitSound = "audio:block.wood_custom.hit";
+							hitVolume = 1.0f;
+							hitPitch = 0.25f;
+						}
+						currentTarget.getWorld().playSound(currentTarget.getLocation(), hitSound, hitVolume, hitPitch);
+					}
+				}
             }
     	},0L, 1L);
     	
@@ -270,25 +291,18 @@ public class BlockDamage {
     }
     
     private void playerBreakBlock(Player player, Block block) {
-//    	Collection<ItemStack> blockDrops = block.getDrops(player.getEquipment().getItemInMainHand());
-//    	
-//    	block.getLocation().getBlock().setType(Material.AIR);
-//    	block.getWorld().playSound(block.getLocation(), Sound.BLOCK_STONE_BREAK, 1.0f, 1.0f);    	
-//    	for (ItemStack drop : blockDrops) {
-//    		block.getWorld().dropItem(block.getLocation(), drop);	
-//    	}
-
-		String breakSound  = BlockPropertiesRegistry.get(block).getBreakSound();
-		if (breakSound != null)
-			block.getWorld().playSound(block.getLocation(), breakSound, 1.0f, 0.8f);
+		BlockSound blockSound = BlockPropertiesRegistry.get(block).getBlockSound();
+		if (blockSound != null)
+			block.getWorld().playSound(block.getLocation(), blockSound.BreakSound, blockSound.BreakVolume, blockSound.BreakPitch);
 		else
-			block.getWorld().playSound(block.getLocation(), block.getBlockData().getSoundGroup().getBreakSound(), 1.0f, 0.8f);
+			block.getWorld().playSound(block.getLocation(), block.getBlockSoundGroup().getBreakSound(), 1.0f, 0.8f);  // This is making a WILD assumption that all block breaks use this pitch. We will need to do data entry at some point.
 		new ParticleBuilder(Particle.BLOCK)
 				.location(block.getLocation().toCenterLocation())
 				.data(block.getBlockData())
 				.count(40)
 				.offset(0.25, 0.25, 0.25)
 				.spawn();
+
     	player.breakBlock(block);
     }
 }

@@ -1,26 +1,41 @@
 package xyz.devvydont.smprpg.listeners.block;
 
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockPhysicsEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.block.NotePlayEvent;
+import org.bukkit.event.block.*;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.server.ServerLoadEvent;
+import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.block.BlockSound;
 import xyz.devvydont.smprpg.block.CustomBlock;
 import xyz.devvydont.smprpg.blockbreaking.BlockPropertiesRegistry;
 import xyz.devvydont.smprpg.gui.items.MenuReforge;
 import xyz.devvydont.smprpg.items.interfaces.ICustomBlock;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener;
+import xyz.devvydont.smprpg.util.time.TickTime;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 public class NoteblockOverrideListener extends ToggleableListener {
+
+    public HashMap<Player, Integer> placementDelays = new HashMap<Player, Integer>();
+
+    public void decrementPlacementDelays() {
+        ArrayList<Player> copySet = new ArrayList<Player>(placementDelays.keySet());
+        for (var player : copySet) {
+            placementDelays.put(player, (placementDelays.getOrDefault(player, 1) - 1));
+            if (placementDelays.get(player) == 0)
+                placementDelays.remove(player);
+        }
+    }
 
     @EventHandler
     public void onNotePlay(NotePlayEvent event) {
@@ -28,9 +43,21 @@ public class NoteblockOverrideListener extends ToggleableListener {
     }
 
     @EventHandler(priority = EventPriority.LOW)
+    public void woodPlacementSoundHack(BlockPlaceEvent event) {
+        var block = event.getBlock();
+        var entry = BlockPropertiesRegistry.get(block);
+        if (entry != null && !BlockPropertiesRegistry.isCustom(block)) {
+            BlockSound blockSound  = BlockPropertiesRegistry.get(block).getBlockSound();
+            if (blockSound != null) {
+                block.getWorld().playSound(block.getLocation(), blockSound.PlaceSound, blockSound.PlaceVolume, blockSound.PlacePitch);
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOW)
     public void onRightClickNoteblock(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock().getType() == Material.NOTE_BLOCK) {
-            event.setCancelled(true);  // Cancel vanilla event, so that we aren't changing blockstates.
+            event.setCancelled(true);
             if (event.getClickedBlock().getBlockData().equals(CustomBlock.REFORGE_TABLE.BlockData))
                 new MenuReforge(event.getPlayer()).openMenu();
         }
@@ -44,13 +71,16 @@ public class NoteblockOverrideListener extends ToggleableListener {
         if (event.getClickedBlock() == null)
             return;
 
-
         if (event.getItem() == null)
             return;
 
         var bp = ItemService.blueprint(event.getItem());
         if (bp instanceof ICustomBlock custom)
         {
+            var player = event.getPlayer();
+            if (placementDelays.getOrDefault(player, 0) > 0)
+                return;
+
             var item = event.getItem();
             if (item == null)
                 return;
@@ -64,13 +94,12 @@ public class NoteblockOverrideListener extends ToggleableListener {
                     return;
                 blockDest.setType(blockEnum.BlockMaterial);
                 blockDest.setBlockData(blockEnum.BlockData);
-                String placeSound  = BlockPropertiesRegistry.get(blockDest).getPlaceSound();
-                if (placeSound != null) {
-                    event.getPlayer().stopSound(Sound.BLOCK_WOOD_PLACE);
-                    System.out.println(blockDest.getBlockData());
-                    blockDest.getWorld().playSound(blockDest.getLocation(), placeSound, 1.0f, 0.8f);
+                placementDelays.put(player, 4);
+                BlockSound blockSound  = BlockPropertiesRegistry.get(blockDest).getBlockSound();
+                if (blockSound != null) {
+                    blockDest.getWorld().playSound(blockDest.getLocation(), blockSound.PlaceSound, blockSound.PlaceVolume, blockSound.PlacePitch);
                 }
-                if (event.getPlayer().getGameMode() != GameMode.CREATIVE)
+                if (player.getGameMode() != GameMode.CREATIVE)
                     item.setAmount(item.getAmount() - 1);
             }
         }
@@ -106,6 +135,34 @@ public class NoteblockOverrideListener extends ToggleableListener {
         Location nextBlock = b.getRelative(BlockFace.DOWN).getLocation();
         if (nextBlock.getBlock().getType() == Material.NOTE_BLOCK)
             updateAndCheck(b.getLocation(), BlockFace.DOWN);
+    }
+
+    @EventHandler
+    public void removeNoteblocksFromEntityExplosions(EntityExplodeEvent event) {
+        var blockList = event.blockList();
+        var copyList = new ArrayList<>(blockList);
+        for (Block block : copyList) {
+            if (block.getType() == Material.NOTE_BLOCK)
+                blockList.remove(block);
+        }
+    }
+
+    @EventHandler
+    public void removeNoteblocksFromBlockExplosions(BlockExplodeEvent event) {
+        // We need to duplicate this event for beds, respawn anchors, etc.
+        var blockList = event.blockList();
+        var copyList = new ArrayList<>(blockList);
+        for (Block block : copyList) {
+            if (block.getType() == Material.NOTE_BLOCK)
+                blockList.remove(block);
+        }
+    }
+
+    @EventHandler
+    public void startPlacementDelayHandler(ServerLoadEvent event) {
+        Bukkit.getScheduler().runTaskTimer(SMPRPG.getInstance(), () -> {
+            decrementPlacementDelays();
+        }, TickTime.INSTANTANEOUSLY, TickTime.TICK);
     }
 
 }

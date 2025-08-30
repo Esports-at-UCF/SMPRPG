@@ -2,8 +2,6 @@ package xyz.devvydont.smprpg.items.blueprints.sets.steel;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.Tool;
-import io.papermc.paper.registry.keys.tags.BlockTypeTagKeys;
-import net.kyori.adventure.util.TriState;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CraftingRecipe;
@@ -32,27 +30,25 @@ import static xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe.AXE_ATTACK_S
 public class SteelAxe extends CustomAttributeItem implements ICraftable, IBreakableEquipment {
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(0.0001f)
             .build();
 
-    public SteelAxe(ItemService itemService, CustomItemType type) {
-        super(itemService, type);
-    }
+    public SteelAxe(ItemService itemService, CustomItemType type) { super(itemService, type); }
 
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.STEEL_TOOL_MINING_POWER),
-                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 50),
+                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemAxe.getAxeDamage(CustomItemType.STEEL_AXE)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED),
-                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, 35),
-                new AdditiveAttributeEntry(AttributeWrapper.LUMBERING, 1)
+                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.STEEL_TOOL_FORTUNE)
         );
     }
 
     @Override
-    public int getPowerRating() { return ToolGlobals.STEEL_TOOL_POWER; }
+    public int getPowerRating() {
+        return ToolGlobals.STEEL_TOOL_POWER;
+    }
 
     @Override
     public ItemClassification getItemClassification() {

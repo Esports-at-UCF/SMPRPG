@@ -60,7 +60,10 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
             case TIN_HOE -> 4;
             case COPPER_HOE -> 5;
             case SILVER_HOE -> 7;
-            case ROSE_GOLD_HOE -> 14;
+            case STEEL_HOE -> 13;
+            case ROSE_GOLD_HOE, MITHRIL_HOE -> 14;
+            case TITANIUM_HOE -> 16;
+            case ADAMANTIUM_HOE -> 20;
             default -> 0;
         };
     }

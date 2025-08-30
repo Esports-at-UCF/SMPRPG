@@ -20,6 +20,27 @@
                     "type": "model",
                     "model": "materials:item/raw_tin"
                 }
+            },
+			            {
+                "when": "smprpg:raw_mithril",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/raw_mithril"
+                }
+            },
+			{
+                "when": "smprpg:raw_titanium",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/raw_titanium"
+                }
+            },
+			{
+                "when": "smprpg:raw_adamantium",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/raw_adamantium"
+                }
             }
         ]
     }

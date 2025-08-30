@@ -36,7 +36,7 @@ public class RoseGoldBow extends CustomAttributeItem implements ICraftable, IBre
     }
 
     @Override
-    public int getPowerRating() { return ToolGlobals.TIN_TOOL_POWER; }
+    public int getPowerRating() { return ToolGlobals.ROSE_GOLD_TOOL_POWER; }
 
     @Override
     public ItemClassification getItemClassification() {

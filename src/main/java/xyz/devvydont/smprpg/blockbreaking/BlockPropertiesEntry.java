@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.blockbreaking;
 import com.google.common.collect.ImmutableSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.devvydont.smprpg.block.BlockSound;
 import xyz.devvydont.smprpg.items.ItemClassification;
 
 import java.util.Set;
@@ -25,22 +26,19 @@ public class BlockPropertiesEntry {
     private final boolean softRequirement;
 
     // What sounds should play when placing/breaking this block?
-    private final @Nullable String placeSound;
-    private final @Nullable String breakSound;
+    private final @Nullable BlockSound blockSound;
 
     public BlockPropertiesEntry(
             float hardness,
             float breakingPower,
             boolean softRequirement,
-            @Nullable String placeSound,
-            @Nullable String breakSound,
+            @Nullable BlockSound blockSound,
             @Nullable Set<ItemClassification> preferredTools) {
         this.preferredTool = ImmutableSet.copyOf(preferredTools);
         this.hardness = hardness;
         this.breakingPower = breakingPower;
         this.softRequirement = softRequirement;
-        this.placeSound = placeSound;
-        this.breakSound = breakSound;
+        this.blockSound = blockSound;
     }
 
     /**
@@ -68,18 +66,10 @@ public class BlockPropertiesEntry {
     }
 
     /**
-     * Get the placement sound of a block.
+     * Get the BlockSound enum for this block.
      * @return A string representation of the block's placement sound key
      */
-    public String getPlaceSound() { return placeSound; }
-
-    /**
-     * Get the break sound of a block.
-     * @return A string representation of the block's break sound key
-     */
-    public String getBreakSound() {
-        return breakSound;
-    }
+    public BlockSound getBlockSound() { return blockSound; }
 
     /**
      * Get the soft breaking requirement flag of a block.
@@ -117,8 +107,7 @@ public class BlockPropertiesEntry {
         private float hardness = 0;
         private float breakingPower = 0;
         private boolean softRequirement = false;
-        private @Nullable String placeSound = null;
-        private @Nullable String breakSound = null;
+        private @Nullable BlockSound blockSound = null;
 
         private Builder(ItemClassification...preferredTool) {
             this.preferredTool = ImmutableSet.copyOf(preferredTool);
@@ -145,22 +134,12 @@ public class BlockPropertiesEntry {
         }
 
         /**
-         * Set the Placement sound, as a string, of a block.
-         * @param placeSound The Block's placement sound key.
+         * Set the sound enum of a block..
+         * @param blockSound The Block's BlockSound enum
          * @return The same builder instance for proper builder pattern calls.
          */
-        public Builder placeSound(String placeSound) {
-            this.placeSound = placeSound;
-            return this;
-        }
-
-        /**
-         * Set the Placement sound, as a string, of a block.
-         * @param breakSound The Block's placement sound key.
-         * @return The same builder instance for proper builder pattern calls.
-         */
-        public Builder breakSound(String breakSound) {
-            this.breakSound = breakSound;
+        public Builder blockSound(BlockSound blockSound) {
+            this.blockSound = blockSound;
             return this;
         }
 
@@ -179,7 +158,7 @@ public class BlockPropertiesEntry {
          * @return The new entry.
          */
         public BlockPropertiesEntry build() {
-            return new BlockPropertiesEntry(this.hardness, this.breakingPower, this.softRequirement, this.placeSound, this.breakSound, this.preferredTool);
+            return new BlockPropertiesEntry(this.hardness, this.breakingPower, this.softRequirement, this.blockSound, this.preferredTool);
         }
 
     }

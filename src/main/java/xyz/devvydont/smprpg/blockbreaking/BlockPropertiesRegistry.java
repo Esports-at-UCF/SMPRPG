@@ -1,12 +1,11 @@
 package xyz.devvydont.smprpg.blockbreaking;
 
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.Nullable;
+import xyz.devvydont.smprpg.block.BlockSound;
 import xyz.devvydont.smprpg.block.CustomBlock;
 import xyz.devvydont.smprpg.items.ItemClassification;
-import xyz.devvydont.smprpg.services.ItemService;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -3331,96 +3330,112 @@ public class BlockPropertiesRegistry {
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.LIGHT_GRAY_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.GRAY_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BLACK_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BROWN_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.RED_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ORANGE_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.YELLOW_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.LIME_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.GREEN_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.CYAN_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.LIGHT_BLUE_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BLUE_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PURPLE_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MAGENTA_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PINK_BANNER, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Beds">
@@ -3428,96 +3443,112 @@ public class BlockPropertiesRegistry {
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.LIGHT_GRAY_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.GRAY_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BLACK_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BROWN_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.RED_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ORANGE_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.YELLOW_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.LIME_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.GREEN_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.CYAN_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.LIGHT_BLUE_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BLUE_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PURPLE_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MAGENTA_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PINK_BED, BlockPropertiesEntry.builder(ItemClassification.AXE)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Logs/Wood">
@@ -3526,90 +3557,105 @@ public class BlockPropertiesRegistry {
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_OAK_LOG, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_OAK_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_PLANKS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_SLAB, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_DOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_FENCE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_FENCE_GATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_BUTTON, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.OAK_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
@@ -3623,90 +3669,105 @@ public class BlockPropertiesRegistry {
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_SPRUCE_LOG, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_SPRUCE_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_PLANKS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_SLAB, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_DOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_FENCE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_FENCE_GATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_BUTTON, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(50)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SPRUCE_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
@@ -3720,90 +3781,105 @@ public class BlockPropertiesRegistry {
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_BIRCH_LOG, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_BIRCH_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_PLANKS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_SLAB, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_STAIRS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_DOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_FENCE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_FENCE_GATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(62)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_BUTTON, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(62)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(62)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(62)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BIRCH_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
@@ -3817,90 +3893,105 @@ public class BlockPropertiesRegistry {
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_JUNGLE_LOG, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_JUNGLE_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_PLANKS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_SLAB, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_DOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_FENCE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_FENCE_GATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(62)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_BUTTON, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(62)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(62)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(62)
                 .breakingPower(1)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUNGLE_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
@@ -3914,90 +4005,105 @@ public class BlockPropertiesRegistry {
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_ACACIA_LOG, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_ACACIA_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_PLANKS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_SLAB, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_STAIRS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_DOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_FENCE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_FENCE_GATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(87)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_BUTTON, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(87)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(87)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(87)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.ACACIA_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
@@ -4011,90 +4117,105 @@ public class BlockPropertiesRegistry {
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_DARK_OAK_LOG, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_DARK_OAK_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_PLANKS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_SLAB, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_DOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_FENCE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_FENCE_GATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(87)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_BUTTON, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(87)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(87)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(87)
                 .breakingPower(2)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.DARK_OAK_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
@@ -4308,102 +4429,119 @@ public class BlockPropertiesRegistry {
                 .hardness(175)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MUDDY_MANGROVE_ROOTS, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL, ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(175)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_LOG, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_MANGROVE_LOG, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_MANGROVE_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_PLANKS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_SLAB, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_STAIRS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_DOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_FENCE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_FENCE_GATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(125)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_BUTTON, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(125)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(125)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(125)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MANGROVE_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
@@ -4417,90 +4555,105 @@ public class BlockPropertiesRegistry {
                 .hardness(750)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(750)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_PALE_OAK_LOG, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(750)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.STRIPPED_PALE_OAK_WOOD, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(750)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_PLANKS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(750)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_SLAB, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(750)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_STAIRS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(750)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_DOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(750)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_FENCE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(750)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_FENCE_GATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(750)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_TRAPDOOR, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(750)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_PRESSURE_PLATE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(187)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_BUTTON, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(187)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(187)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(187)
                 .breakingPower(4)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.PALE_OAK_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
@@ -4714,18 +4867,21 @@ public class BlockPropertiesRegistry {
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.RED_MUSHROOM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MUSHROOM_STEM, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Azalea">
@@ -4746,54 +4902,63 @@ public class BlockPropertiesRegistry {
                 .hardness(250)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.CARTOGRAPHY_TABLE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.FLETCHING_TABLE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SMITHING_TABLE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(250)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.LOOM, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.CAMPFIRE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SOUL_CAMPFIRE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.COMPOSTER, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(60)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JUKEBOX, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.LADDER, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
@@ -4806,78 +4971,91 @@ public class BlockPropertiesRegistry {
                 .hardness(150)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.CHISELED_BOOKSHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.LECTERN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.CHEST, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.TRAPPED_CHEST, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BARREL, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
         //</editor-fold>
         register(Material.PUMPKIN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.CARVED_PUMPKIN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.JACK_O_LANTERN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.MELON, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.COCOA_BEANS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BEE_NEST, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(30)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BEEHIVE, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(60)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.CHORUS_PLANT, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
@@ -6085,6 +6263,12 @@ public class BlockPropertiesRegistry {
                 .softRequirement(false)
                 .build());
 
+        register(Material.FIRE, BlockPropertiesEntry.builder()
+                .hardness(-1)
+                .breakingPower(-1)
+                .softRequirement(true)
+                .build());
+
         register(Material.SPAWNER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(1)
@@ -6149,8 +6333,7 @@ public class BlockPropertiesRegistry {
         register(CustomBlock.REFORGE_TABLE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(4)
-                .placeSound("minecraft:block.iron.place")
-                .breakSound("minecraft:block.iron.break")
+                .blockSound(BlockSound.IRON)
                 .softRequirement(false)
                 .build());
 
@@ -6158,96 +6341,161 @@ public class BlockPropertiesRegistry {
         register(CustomBlock.SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(2)
-                .placeSound("minecraft:block.stone.place")
-                .breakSound("minecraft:block.stone.break")
+                .blockSound(BlockSound.STONE_GENERIC)
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.DEEPSLATE_SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
                 .breakingPower(4)
-                .placeSound("minecraft:block.deepslate.place")
-                .breakSound("minecraft:block.deepslate.break")
+                .blockSound(BlockSound.DEEPSLATE_GENERIC)
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.RAW_SILVER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(2)
-                .placeSound("minecraft:block.stone.place")
-                .breakSound("minecraft:block.stone.break")
+                .blockSound(BlockSound.STONE_GENERIC)
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.SILVER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(2)
-                .placeSound("minecraft:block.metal.place")
-                .breakSound("minecraft:block.metal.break")
+                .blockSound(BlockSound.METAL_GENERIC)
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.TIN_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
                 .breakingPower(1)
-                .placeSound("minecraft:block.stone.place")
-                .breakSound("minecraft:block.stone.break")
+                .blockSound(BlockSound.STONE_GENERIC)
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.DEEPSLATE_TIN_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
                 .breakingPower(3)
-                .placeSound("minecraft:block.deepslate.place")
-                .breakSound("minecraft:block.deepslate.break")
+                .blockSound(BlockSound.DEEPSLATE_GENERIC)
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.RAW_TIN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(2)
-                .placeSound("minecraft:block.stone.place")
-                .breakSound("minecraft:block.stone.break")
+                .blockSound(BlockSound.STONE_GENERIC)
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.TIN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(2)
-                .placeSound("minecraft:block.metal.place")
-                .breakSound("minecraft:block.metal.break")
+                .blockSound(BlockSound.METAL_GENERIC)
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.BRONZE_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(3)
-                .placeSound("minecraft:block.copper.place")
-                .breakSound("minecraft:block.copper.break")
+                .blockSound(BlockSound.COPPER)
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.ROSE_GOLD_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(3)
-                .placeSound("minecraft:block.metal.place")
-                .breakSound("minecraft:block.metal.break")
+                .blockSound(BlockSound.METAL_GENERIC)
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.STEEL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(4)
-                .placeSound("minecraft:block.iron.place")
-                .breakSound("minecraft:block.iron.break")
+                .blockSound(BlockSound.IRON)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.SPARSE_MITHRIL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(625)
+                .breakingPower(4)
+                .blockSound(BlockSound.MITHRIL_ORE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.MITHRIL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(1250)
+                .breakingPower(4)
+                .blockSound(BlockSound.MITHRIL_ORE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.DENSE_MITHRIL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(2500)
+                .breakingPower(5)
+                .blockSound(BlockSound.MITHRIL_ORE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RAW_MITHRIL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(800)
+                .breakingPower(4)
+                .blockSound(BlockSound.MITHRIL_ORE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.MITHRIL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(800)
+                .breakingPower(4)
+                .blockSound(BlockSound.METAL_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.TITANIUM_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(7500)
+                .breakingPower(4)
+                .blockSound(BlockSound.MITHRIL_ORE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RAW_TITANIUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(2500)
+                .breakingPower(4)
+                .blockSound(BlockSound.MITHRIL_ORE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.TITANIUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(2500)
+                .breakingPower(4)
+                .blockSound(BlockSound.TITANIUM_METAL)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.ADAMANTIUM_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(15000)
+                .breakingPower(5)
+                .blockSound(BlockSound.ADAMANTIUM_ORE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RAW_ADAMANTIUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(5000)
+                .breakingPower(5)
+                .blockSound(BlockSound.ADAMANTIUM_ORE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.ADAMANTIUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(5000)
+                .breakingPower(5)
+                .blockSound(BlockSound.TITANIUM_METAL)
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.DRAGONSTEEL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(6)
-                .placeSound("minecraft:block.netherite_block.place")
-                .breakSound("minecraft:block.netherite_block.break")
+                .blockSound(BlockSound.IRON)
                 .softRequirement(false)
                 .build());
         //</editor-fold>
@@ -6265,5 +6513,12 @@ public class BlockPropertiesRegistry {
         if (entry == null)
             return entries.get(block.getType());
         return entry;
+    }
+
+    public static boolean isCustom(Block block) {
+        var entry = specialEntries.getOrDefault(CustomBlock.resolve(block), null);
+        if (entry == null)
+            return false;
+        return true;
     }
 }

@@ -36,7 +36,7 @@ public class BronzeBow extends CustomAttributeItem implements ICraftable, IBreak
     }
 
     @Override
-    public int getPowerRating() { return ToolGlobals.TIN_TOOL_POWER; }
+    public int getPowerRating() { return ToolGlobals.BRONZE_TOOL_POWER; }
 
     @Override
     public ItemClassification getItemClassification() {

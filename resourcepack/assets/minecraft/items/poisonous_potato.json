@@ -1,0 +1,180 @@
+{
+    "model": {
+        "type": "select",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/poisonous_potato"
+        },
+        "cases": [
+			{
+                "when": "smprpg:silver_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/silver_ore"
+                }
+            },
+			{
+                "when": "smprpg:deepslate_silver_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/deepslate_silver_ore"
+                }
+            },
+			{
+                "when": "smprpg:silver_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/silver_block"
+                }
+            },
+			{
+                "when": "smprpg:raw_silver_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/raw_silver_block"
+                }
+            },
+			{
+                "when": "smprpg:tin_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/tin_ore"
+                }
+            },
+			{
+                "when": "smprpg:deepslate_tin_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/deepslate_tin_ore"
+                }
+            },
+			{
+                "when": "smprpg:tin_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/tin_block"
+                }
+            },
+			{
+                "when": "smprpg:raw_tin_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/raw_tin_block"
+                }
+            },
+			{
+                "when": "smprpg:rose_gold_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/rose_gold_block"
+                }
+            },
+			{
+                "when": "smprpg:bronze_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/bronze_block"
+                }
+            },
+			{
+                "when": "smprpg:steel_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/steel_block"
+                }
+            },
+			{
+                "when": "smprpg:sparse_mithril_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/sparse_mithril_ore"
+                }
+            },
+			{
+                "when": "smprpg:mithril_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/mithril_ore"
+                }
+            },
+			{
+                "when": "smprpg:dense_mithril_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/dense_mithril_ore"
+                }
+            },
+			{
+                "when": "smprpg:raw_mithril_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/raw_mithril_block"
+                }
+            },
+			{
+                "when": "smprpg:mithril_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/mithril_block"
+                }
+            },
+			{
+                "when": "smprpg:titanium_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/titanium_ore"
+                }
+            },
+			{
+                "when": "smprpg:raw_titanium_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/raw_titanium_block"
+                }
+            },
+			{
+                "when": "smprpg:titanium_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/titanium_block"
+                }
+            },
+			{
+                "when": "smprpg:adamantium_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/bedrock_adamantium_ore"
+                }
+            },
+			{
+                "when": "smprpg:raw_adamantium_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/raw_adamantium_block"
+                }
+            },
+			{
+                "when": "smprpg:adamantium_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/adamantium_block"
+                }
+            },
+            {
+                "when": "smprpg:dragonsteel_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/dragonsteel_block"
+                }
+            },
+			{
+                "when": "smprpg:reforge_table",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/reforge_table"
+                }
+            }
+        ]
+    }
+}

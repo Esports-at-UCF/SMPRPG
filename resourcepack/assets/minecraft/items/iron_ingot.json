@@ -36,6 +36,27 @@
                 }
             },
             {
+                "when": "smprpg:mithril_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/mithril_ingot"
+                }
+            },
+            {
+                "when": "smprpg:titanium_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/titanium_ingot"
+                }
+            },
+            {
+                "when": "smprpg:adamantium_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/adamantium_ingot"
+                }
+            },
+            {
                 "when": "smprpg:dragonsteel_ingot",
                 "model": {
                     "type": "model",

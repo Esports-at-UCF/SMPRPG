@@ -9,8 +9,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.components.ToolComponent;
-import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.items.CustomItemType;
@@ -29,14 +27,11 @@ import xyz.devvydont.smprpg.util.items.ToolGlobals;
 import java.util.Collection;
 import java.util.List;
 
-import static org.bukkit.inventory.ItemStack.of;
 import static xyz.devvydont.smprpg.items.blueprints.vanilla.ItemPickaxe.PICKAXE_ATTACK_SPEED_DEBUFF;
 
 public class SteelPickaxe extends CustomAttributeItem implements IBreakableEquipment, ICraftable {
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_IRON_TOOL), 1.0f, TriState.FALSE))
             .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_PICKAXE), 7.0f, TriState.TRUE))
             .build();
 
@@ -47,11 +42,11 @@ public class SteelPickaxe extends CustomAttributeItem implements IBreakableEquip
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 4),
-                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 10),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.STEEL_TOOL_MINING_POWER),
+                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemPickaxe.getPickaxeDamage(CustomItemType.STEEL_PICKAXE)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, PICKAXE_ATTACK_SPEED_DEBUFF),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED),
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 35)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, ToolGlobals.STEEL_TOOL_FORTUNE)
         );
     }
 

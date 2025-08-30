@@ -531,6 +531,83 @@ public class BlockLootRegistry {
                 .build()
         );
 
+        register(CustomBlock.SPARSE_MITHRIL_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.MITHRIL_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.SPARSE_MITHRIL_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_MITHRIL)))
+                .build()
+        );
+
+        register(CustomBlock.MITHRIL_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.MITHRIL_INGOT), 2))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.MITHRIL_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_MITHRIL), 2))
+                .build()
+        );
+
+        register(CustomBlock.DENSE_MITHRIL_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.MITHRIL_INGOT), 3))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.DENSE_MITHRIL_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_MITHRIL), 3))
+                .build()
+        );
+
+        register(CustomBlock.RAW_MITHRIL_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.MITHRIL_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.RAW_MITHRIL_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_MITHRIL_BLOCK)))
+                .build()
+        );
+
+        register(CustomBlock.MITHRIL_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.MITHRIL_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.MITHRIL_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.MITHRIL_BLOCK)))
+                .build()
+        );
+
+        register(CustomBlock.TITANIUM_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.TITANIUM_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.TITANIUM_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_TITANIUM)))
+                .build()
+        );
+
+        register(CustomBlock.RAW_TITANIUM_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.TITANIUM_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.RAW_TITANIUM_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_TITANIUM_BLOCK)))
+                .build()
+        );
+
+        register(CustomBlock.TITANIUM_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.TITANIUM_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.TITANIUM_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.TITANIUM_BLOCK)))
+                .build()
+        );
+
+        register(CustomBlock.ADAMANTIUM_ORE, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.ADAMANTIUM_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.ADAMANTIUM_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_ADAMANTIUM)))
+                .build()
+        );
+
+        register(CustomBlock.RAW_ADAMANTIUM_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.ADAMANTIUM_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.RAW_ADAMANTIUM_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.RAW_ADAMANTIUM_BLOCK)))
+                .build()
+        );
+
+        register(CustomBlock.ADAMANTIUM_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.ADAMANTIUM_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.ADAMANTIUM_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, BlockLoot.of(ItemService.generate(CustomItemType.ADAMANTIUM_BLOCK)))
+                .build()
+        );
+
         register(CustomBlock.DRAGONSTEEL_BLOCK, BlockLootEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, BlockLoot.of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))

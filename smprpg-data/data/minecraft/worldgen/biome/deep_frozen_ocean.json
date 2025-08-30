@@ -27,7 +27,7 @@
     [
       "minecraft:iceberg_packed",
       "minecraft:iceberg_blue",
-      "minecraft:amethyst_geode"
+      "minecraft:amethyst_geode", "smprpg:ore_mithril"
     ],
     [
       "minecraft:monster_room",

@@ -2,6 +2,8 @@ package xyz.devvydont.smprpg.items.blueprints.sets.tin;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.Tool;
+import io.papermc.paper.registry.keys.tags.BlockTypeTagKeys;
+import net.kyori.adventure.util.TriState;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CraftingRecipe;
@@ -30,6 +32,7 @@ import static xyz.devvydont.smprpg.items.blueprints.vanilla.ItemPickaxe.PICKAXE_
 public class TinPickaxe extends CustomAttributeItem implements IBreakableEquipment, ICraftable {
 
     public static final Tool TOOL_COMP = Tool.tool()
+            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_PICKAXE), 7.0f, TriState.TRUE))
             .build();
 
     public TinPickaxe(ItemService itemService, CustomItemType type) {

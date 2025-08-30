@@ -1,16 +1,7 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.steel;
 
-import io.papermc.paper.datacomponent.DataComponentTypes;
-import io.papermc.paper.datacomponent.item.Tool;
-import io.papermc.paper.registry.RegistryKey;
-import io.papermc.paper.registry.keys.BlockTypeKeys;
-import io.papermc.paper.registry.keys.EnchantmentKeys;
-import io.papermc.paper.registry.keys.tags.BlockTypeTagKeys;
-import io.papermc.paper.registry.set.RegistrySet;
-import net.kyori.adventure.util.TriState;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.BlockType;
 import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
@@ -35,14 +26,6 @@ import java.util.List;
 
 public class SteelSword extends CustomAttributeItem implements ICraftable, IBreakableEquipment {
 
-    public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .canDestroyBlocksInCreative(false)
-            .addRule(Tool.rule(RegistrySet.keySet(RegistryKey.BLOCK, BlockTypeKeys.COBWEB), 15.0f, TriState.TRUE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.SWORD_INSTANTLY_MINES), Float.MAX_VALUE, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.SWORD_EFFICIENT), 1.5f, TriState.FALSE))
-            .build();
-
     public SteelSword(ItemService itemService, CustomItemType type) {
         super(itemService, type);
     }
@@ -50,13 +33,15 @@ public class SteelSword extends CustomAttributeItem implements ICraftable, IBrea
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 40),
+                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(CustomItemType.STEEL_SWORD)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemSword.SWORD_ATTACK_SPEED_DEBUFF)
         );
     }
 
     @Override
-    public int getPowerRating() { return ToolGlobals.STEEL_TOOL_POWER; }
+    public int getPowerRating() {
+        return ToolGlobals.STEEL_TOOL_POWER;
+    }
 
     @Override
     public ItemClassification getItemClassification() {
@@ -76,12 +61,6 @@ public class SteelSword extends CustomAttributeItem implements ICraftable, IBrea
     @Override
     public NamespacedKey getRecipeKey() {
         return new NamespacedKey(SMPRPG.getInstance(), getCustomItemType().getKey() + "-recipe");
-    }
-
-    @Override
-    public void updateItemData(ItemStack itemStack) {
-        super.updateItemData(itemStack);
-        itemStack.setData(DataComponentTypes.TOOL, TOOL_COMP);
     }
 
     @Override

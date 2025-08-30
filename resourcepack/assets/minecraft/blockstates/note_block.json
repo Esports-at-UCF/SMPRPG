@@ -12,6 +12,18 @@
 		"instrument=harp,note=3,powered=true": {
             "model": "blocks:block/deepslate_tin_ore"
         },
+		"instrument=harp,note=4,powered=true": {
+            "model": "blocks:block/sparse_mithril_ore"
+        },
+		"instrument=harp,note=5,powered=true": {
+            "model": "blocks:block/mithril_ore"
+        },
+		"instrument=harp,note=6,powered=true": {
+            "model": "blocks:block/dense_mithril_ore"
+        },
+		"instrument=harp,note=7,powered=true": {
+            "model": "blocks:block/titanium_ore"
+        },
 		"instrument=harp,note=8,powered=true": {
             "model": "blocks:block/bedrock_adamantium_ore"
         },

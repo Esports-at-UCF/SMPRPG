@@ -44,7 +44,7 @@ public class RoseGoldHatchet extends CustomAttributeItem implements ICraftable, 
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.ROSE_GOLD_TOOL_MINING_POWER),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(CustomItemType.ROSE_GOLD_SWORD) - 5),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
-                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.ROSE_GOLD_TOOL_SPEED * 0.8),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.ROSE_GOLD_TOOL_SPEED * 0.8),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.ROSE_GOLD_TOOL_FORTUNE * 0.8),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ToolGlobals.ROSE_GOLD_TOOL_FORTUNE * 0.8)
         );
