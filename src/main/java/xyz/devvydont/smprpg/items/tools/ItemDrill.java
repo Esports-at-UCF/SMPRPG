@@ -1,7 +1,10 @@
 package xyz.devvydont.smprpg.items.tools;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.ItemContainerContents;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +21,7 @@ import xyz.devvydont.smprpg.items.interfaces.IFueledEquipment;
 import xyz.devvydont.smprpg.items.interfaces.IModularToolComponent;
 import xyz.devvydont.smprpg.services.ItemService;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,13 +32,23 @@ public class ItemDrill extends CustomAttributeItem implements IFueledEquipment, 
 
     public final NamespacedKey drillHeadKey = new NamespacedKey(SMPRPG.getInstance(), "drill_head");
     public final NamespacedKey drillBaseKey = new NamespacedKey(SMPRPG.getInstance(), "drill_base");
+    public final NamespacedKey drillTankKey = new NamespacedKey(SMPRPG.getInstance(), "drill_tank");
 
-    public ItemStack getDrillPartItem(ItemStack item, NamespacedKey key) {
-        return itemService.getCustomItem(item.getPersistentDataContainer().getOrDefault(key, PersistentDataType.STRING, null));
+    public final int DRILL_BASE_SLOT_INDEX = 0;
+    public final int DRILL_HEAD_SLOT_INDEX = 1;
+    public final int DRILL_TANK_SLOT_INDEX = 2;
+
+    public ItemStack getDrillPartItem(ItemStack item, int index) {
+        var data = item.getData(DataComponentTypes.CONTAINER);
+        if (data != null) {
+            List<ItemStack> toolContainer = data.contents();
+            return toolContainer.get(index);
+        }
+        return null;
     }
 
     public Collection<AttributeEntry> getDrillHeadStats(ItemStack item) {
-        ItemStack drillHead = getDrillPartItem(item, drillHeadKey);
+        ItemStack drillHead = getDrillPartItem(item, DRILL_HEAD_SLOT_INDEX);
         if (drillHead != null) {
             var head = (IModularToolComponent) ItemService.blueprint(drillHead);
             return head.getAttributes();
@@ -43,7 +57,7 @@ public class ItemDrill extends CustomAttributeItem implements IFueledEquipment, 
     }
 //
     public Collection<AttributeEntry> getDrillBaseStats(ItemStack item) {
-        ItemStack drillBase = getDrillPartItem(item, drillBaseKey);
+        ItemStack drillBase = getDrillPartItem(item, DRILL_BASE_SLOT_INDEX);
         if (drillBase != null) {
             var base = (IModularToolComponent) ItemService.blueprint(drillBase);
             return base.getAttributes();
@@ -85,7 +99,23 @@ public class ItemDrill extends CustomAttributeItem implements IFueledEquipment, 
 
     @Override
     public int getMaxFuel() {
-        return 50_000;
+        return 50_000 + FUEL_OFFSET;
+    }
+
+    public int getModularSlots() {
+        return 3;
+    }
+
+    public ArrayList<ItemStack> initialize(ItemStack backpack) {
+
+        // Create enough air items to fill all the slots.
+        var items = new ArrayList<ItemStack>();
+        for (var i = 0; i < getModularSlots(); i++)
+            items.add(ItemStack.of(Material.AIR));
+
+        // Set the stored contents.
+        backpack.setData(DataComponentTypes.CONTAINER, ItemContainerContents.containerContents(items));
+        return items;
     }
 
     @Override
@@ -93,8 +123,18 @@ public class ItemDrill extends CustomAttributeItem implements IFueledEquipment, 
         var itemPdc = itemStack.getPersistentDataContainer();
         itemStack.editPersistentDataContainer(pdc -> pdc.set(IFueledEquipment.maxFuelKey, PersistentDataType.INTEGER, getMaxFuel()));
 
-        itemStack.editPersistentDataContainer(pdc -> pdc.set(drillHeadKey, PersistentDataType.STRING, "steel_drill_head"));
-        itemStack.editPersistentDataContainer(pdc -> pdc.set(drillBaseKey, PersistentDataType.STRING, "steel_drill_base"));
+        itemStack.editPersistentDataContainer(pdc -> pdc.set(drillHeadKey, PersistentDataType.STRING, "adamantium_drill_head"));
+        itemStack.editPersistentDataContainer(pdc -> pdc.set(drillBaseKey, PersistentDataType.STRING, "mithril_drill_base"));
+        var data = itemStack.getData(DataComponentTypes.CONTAINER);
+        ArrayList<ItemStack> items;
+        if (data == null || data.contents().isEmpty())
+            items = initialize(itemStack);
+        else
+            items = new ArrayList<>(data.contents());
+
+        items.set(0, ItemService.generate(CustomItemType.MITHRIL_DRILL_BASE));
+        items.set(1, ItemService.generate(CustomItemType.ADAMANTIUM_DRILL_HEAD));
+        itemStack.setData(DataComponentTypes.CONTAINER, ItemContainerContents.containerContents(items));
 
         // Fuel our drill to full on first pickup/craft
         itemStack.editPersistentDataContainer(pdc -> pdc.set(IFueledEquipment.fuelKey,
@@ -114,32 +154,9 @@ public class ItemDrill extends CustomAttributeItem implements IFueledEquipment, 
 
     @Override
     public ItemRarity getRarity(ItemStack item) {
-        ItemStack drillHead = getDrillPartItem(item, drillHeadKey);
+        ItemStack drillHead = getDrillPartItem(item, DRILL_HEAD_SLOT_INDEX);
         if (drillHead != null)
             return ItemService.blueprint(drillHead).getRarity(drillHead);
         return ItemRarity.COMMON;
-    }
-
-    @Override
-    public String getItemName(ItemStack item) {
-        String retString = "";
-        String headPrefix = "";
-        String basePrefix;
-        ItemStack drillHead = getDrillPartItem(item, drillHeadKey);
-        if (drillHead != null) {
-            var headBp = (IModularToolComponent) ItemService.blueprint(drillHead);
-            headPrefix = headBp.getComponentPrefix();
-            retString += headPrefix;
-        }
-        ItemStack drillBase = getDrillPartItem(item, drillBaseKey);
-        if (drillBase != null) {
-            var drillBp = (IModularToolComponent) ItemService.blueprint(drillHead);
-            basePrefix = drillBp.getComponentPrefix();
-            if (headPrefix != basePrefix) {  // Prevents double names like (Steel-Steel Drill)
-                retString += "-" + basePrefix;
-            }
-        }
-        retString += " Drill";
-        return retString;
     }
 }

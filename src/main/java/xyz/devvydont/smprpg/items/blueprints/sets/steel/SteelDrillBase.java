@@ -24,9 +24,7 @@ public class SteelDrillBase extends CustomItemBlueprint implements IModularToolC
     @Override
     public Collection<AttributeEntry> getAttributes() {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 50, attrKey),
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 100, attrKey),
-                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 60, attrKey)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 50, attrKey)
         );
     }
 

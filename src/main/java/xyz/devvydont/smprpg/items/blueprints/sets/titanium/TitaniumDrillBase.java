@@ -1,4 +1,4 @@
-package xyz.devvydont.smprpg.items.blueprints.sets.steel;
+package xyz.devvydont.smprpg.items.blueprints.sets.titanium;
 
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.items.CustomItemType;
@@ -12,25 +12,26 @@ import xyz.devvydont.smprpg.services.ItemService;
 import java.util.Collection;
 import java.util.List;
 
-public class SteelDrillHead extends CustomItemBlueprint implements IModularToolComponent {
+public class TitaniumDrillBase extends CustomItemBlueprint implements IModularToolComponent {
 
-    public static final String attrKey = "steel_drill_head";
+    public static final String attrKey = "titanium_drill_base";
 
-    public SteelDrillHead(ItemService itemService, CustomItemType type) {
+    public TitaniumDrillBase(ItemService itemService, CustomItemType type) {
         super(itemService, type);
     }
 
     @Override
     public Collection<AttributeEntry> getAttributes() {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 1050, attrKey),
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 4, attrKey)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 65, attrKey)
         );
     }
 
     @Override
-    public ItemClassification getItemClassification() { return ItemClassification.ITEM; }
+    public ItemClassification getItemClassification() {
+        return ItemClassification.ITEM;
+    }
 
     @Override
-    public String getComponentPrefix() { return "Steel"; }
+    public String getComponentPrefix() { return "Titanium"; }
 }

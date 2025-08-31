@@ -172,7 +172,7 @@ public enum CustomItemType {
     NEO_FRONTIER_BOOTS("Neo Frontier Boots",           Material.LEATHER_BOOTS,      NeoFrontierBoots.class),
 
     // DYNAMIC TOOLS
-    DRILL("Undefined Drill", Material.PRISMARINE_SHARD, ItemDrill.class),
+    DRILL("Mining Drill", Material.PRISMARINE_SHARD, ItemDrill.class),
 
     // COPPER SET
     COPPER_PICKAXE("Copper Pickaxe",  Material.WOODEN_PICKAXE, CopperPickaxe.class),
@@ -251,8 +251,8 @@ public enum CustomItemType {
     STEEL_BLOCK(     "Block of Steel",      Material.POISONOUS_POTATO,     ItemRarity.RARE, SteelBlock.class),
     STEEL_TOOL_SHAFT("Steel Tool Shaft", Material.STICK, ItemRarity.UNCOMMON, SteelToolShaft.class),
 
-    STEEL_DRILL_HEAD("Steel Drill Head", Material.PRISMARINE, ItemRarity.UNCOMMON, SteelDrillHead.class),
-    STEEL_DRILL_BASE("Steel Drill Base", Material.PRISMARINE, ItemRarity.UNCOMMON, SteelDrillBase.class),
+    STEEL_DRILL_HEAD("Steel Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillHead.class),
+    STEEL_DRILL_BASE("Steel Drill Base", Material.MINECART, ItemRarity.UNCOMMON, SteelDrillBase.class),
 
     STEEL_PICKAXE("Steel Pickaxe",      Material.IRON_PICKAXE,      ItemRarity.UNCOMMON,   SteelPickaxe.class),
     STEEL_AXE("Steel Axe",              Material.IRON_AXE,          ItemRarity.UNCOMMON,   SteelAxe.class),
@@ -269,6 +269,9 @@ public enum CustomItemType {
     // ROSE GOLD SET
     ROSE_GOLD_INGOT("Rose Gold Ingot",                 Material.IRON_INGOT,     ItemRarity.UNCOMMON,   RoseGoldIngot.class),
     ROSE_GOLD_BLOCK("Block of Rose Gold",              Material.POISONOUS_POTATO,        ItemRarity.RARE, RoseGoldBlock.class),
+
+    ROSE_GOLD_DRILL_HEAD("Rose Gold Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, RoseGoldDrillHead.class),
+    ROSE_GOLD_DRILL_BASE("Rose Gold Drill Base", Material.MINECART, ItemRarity.UNCOMMON, RoseGoldDrillBase.class),
 
     ROSE_GOLD_PICKAXE("Rose Gold Pickaxe",  Material.GOLDEN_PICKAXE, ItemRarity.UNCOMMON, RoseGoldPickaxe.class),
     ROSE_GOLD_AXE(    "Rose Gold Axe",      Material.GOLDEN_AXE,     ItemRarity.UNCOMMON, RoseGoldAxe.class),
@@ -294,6 +297,9 @@ public enum CustomItemType {
     RAW_MITHRIL_BLOCK("Block of Raw Mithril",      Material.POISONOUS_POTATO,        ItemRarity.RARE, RawMithrilBlock.class),
     MITHRIL_BLOCK("Block of Mithril",              Material.POISONOUS_POTATO,        ItemRarity.RARE, MithrilBlock.class),
 
+    MITHRIL_DRILL_HEAD("Mithril Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillHead.class),
+    MITHRIL_DRILL_BASE("Mithril Drill Base", Material.MINECART, ItemRarity.UNCOMMON, MithrilDrillBase.class),
+
     MITHRIL_PICKAXE("Mithril Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.UNCOMMON, MithrilPickaxe.class),
     MITHRIL_AXE(    "Mithril Axe",      Material.DIAMOND_AXE,     ItemRarity.UNCOMMON, MithrilAxe.class),
     MITHRIL_HOE(    "Mithril Hoe",      Material.DIAMOND_HOE,     ItemRarity.UNCOMMON, MithrilHoe.class),
@@ -314,6 +320,9 @@ public enum CustomItemType {
     RAW_TITANIUM_BLOCK("Block of Raw Titanium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, RawTitaniumBlock.class),
     TITANIUM_BLOCK("Block of Titanium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, TitaniumBlock.class),
 
+    TITANIUM_DRILL_HEAD("Titanium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillHead.class),
+    TITANIUM_DRILL_BASE("Titanium Drill Base", Material.MINECART, ItemRarity.RARE, TitaniumDrillBase.class),
+
     TITANIUM_PICKAXE("Titanium Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, TitaniumPickaxe.class),
     TITANIUM_AXE(    "Titanium Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, TitaniumAxe.class),
     TITANIUM_HOE(    "Titanium Hoe",      Material.DIAMOND_HOE,     ItemRarity.RARE, TitaniumHoe.class),
@@ -333,6 +342,9 @@ public enum CustomItemType {
     ADAMANTIUM_ORE("Adamantium Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, AdamantiumOre.class),
     RAW_ADAMANTIUM_BLOCK("Block of Raw Adamantium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, RawAdamantiumBlock.class),
     ADAMANTIUM_BLOCK("Block of Adamantium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, AdamantiumBlock.class),
+
+    ADAMANTIUM_DRILL_HEAD("Adamantium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillHead.class),
+    ADAMANTIUM_DRILL_BASE("Adamantium Drill Base", Material.MINECART, ItemRarity.RARE, AdamantiumDrillBase.class),
 
     ADAMANTIUM_PICKAXE("Adamantium Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, AdamantiumPickaxe.class),
     ADAMANTIUM_AXE(    "Adamantium Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, AdamantiumAxe.class),

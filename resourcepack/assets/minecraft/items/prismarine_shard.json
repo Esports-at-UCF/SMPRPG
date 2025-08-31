@@ -13,7 +13,185 @@
                     "type": "model",
                     "model": "materials:item/pluto_fragment"
                 }
-            }
+            },
+			{
+				"when": "smprpg:drill",
+				"model": {
+					"type": "minecraft:composite",
+					"models": [
+						{
+							"type": "minecraft:condition",
+							"property": "minecraft:component",
+							"predicate": "minecraft:custom_data",
+							"value": {
+								"PublicBukkitValues": {
+									"smprpg:drill_head": "steel_drill_head"
+								}
+							},
+							"on_true": {
+								"type": "minecraft:model",
+								"model": "tools:item/drills/steel_drill_head"
+							},
+							"on_false": {
+								"type": "minecraft:empty"
+							}
+						},
+						{
+							"type": "minecraft:condition",
+							"property": "minecraft:component",
+							"predicate": "minecraft:custom_data",
+							"value": {
+								"PublicBukkitValues": {
+									"smprpg:drill_base": "steel_drill_base"
+								}
+							},
+							"on_true": {
+								"type": "minecraft:model",
+								"model": "tools:item/drills/steel_drill_base"
+							},
+							"on_false": {
+								"type": "minecraft:empty"
+							}
+						},
+						{
+							"type": "minecraft:condition",
+							"property": "minecraft:component",
+							"predicate": "minecraft:custom_data",
+							"value": {
+								"PublicBukkitValues": {
+									"smprpg:drill_head": "rose_gold_drill_head"
+								}
+							},
+							"on_true": {
+								"type": "minecraft:model",
+								"model": "tools:item/drills/rose_gold_drill_head"
+							},
+							"on_false": {
+								"type": "minecraft:empty"
+							}
+						},
+						{
+							"type": "minecraft:condition",
+							"property": "minecraft:component",
+							"predicate": "minecraft:custom_data",
+							"value": {
+								"PublicBukkitValues": {
+									"smprpg:drill_base": "rose_gold_drill_base"
+								}
+							},
+							"on_true": {
+								"type": "minecraft:model",
+								"model": "tools:item/drills/rose_gold_drill_base"
+							},
+							"on_false": {
+								"type": "minecraft:empty"
+							}
+						},
+						{
+							"type": "minecraft:condition",
+							"property": "minecraft:component",
+							"predicate": "minecraft:custom_data",
+							"value": {
+								"PublicBukkitValues": {
+									"smprpg:drill_head": "mithril_drill_head"
+								}
+							},
+							"on_true": {
+								"type": "minecraft:model",
+								"model": "tools:item/drills/mithril_drill_head"
+							},
+							"on_false": {
+								"type": "minecraft:empty"
+							}
+						},
+						{
+							"type": "minecraft:condition",
+							"property": "minecraft:component",
+							"predicate": "minecraft:custom_data",
+							"value": {
+								"PublicBukkitValues": {
+									"smprpg:drill_base": "mithril_drill_base"
+								}
+							},
+							"on_true": {
+								"type": "minecraft:model",
+								"model": "tools:item/drills/mithril_drill_base"
+							},
+							"on_false": {
+								"type": "minecraft:empty"
+							}
+						},
+						{
+							"type": "minecraft:condition",
+							"property": "minecraft:component",
+							"predicate": "minecraft:custom_data",
+							"value": {
+								"PublicBukkitValues": {
+									"smprpg:drill_head": "titanium_drill_head"
+								}
+							},
+							"on_true": {
+								"type": "minecraft:model",
+								"model": "tools:item/drills/titanium_drill_head"
+							},
+							"on_false": {
+								"type": "minecraft:empty"
+							}
+						},
+						{
+							"type": "minecraft:condition",
+							"property": "minecraft:component",
+							"predicate": "minecraft:custom_data",
+							"value": {
+								"PublicBukkitValues": {
+									"smprpg:drill_base": "titanium_drill_base"
+								}
+							},
+							"on_true": {
+								"type": "minecraft:model",
+								"model": "tools:item/drills/titanium_drill_base"
+							},
+							"on_false": {
+								"type": "minecraft:empty"
+							}
+						},
+						{
+							"type": "minecraft:condition",
+							"property": "minecraft:component",
+							"predicate": "minecraft:custom_data",
+							"value": {
+								"PublicBukkitValues": {
+									"smprpg:drill_head": "adamantium_drill_head"
+								}
+							},
+							"on_true": {
+								"type": "minecraft:model",
+								"model": "tools:item/drills/adamantium_drill_head"
+							},
+							"on_false": {
+								"type": "minecraft:empty"
+							}
+						},
+						{
+							"type": "minecraft:condition",
+							"property": "minecraft:component",
+							"predicate": "minecraft:custom_data",
+							"value": {
+								"PublicBukkitValues": {
+									"smprpg:drill_base": "adamantium_drill_base"
+								}
+							},
+							"on_true": {
+								"type": "minecraft:model",
+								"model": "tools:item/drills/adamantium_drill_base"
+							},
+							"on_false": {
+								"type": "minecraft:empty"
+							}
+						}
+					]
+				}
+			}
         ]
     }
 }
