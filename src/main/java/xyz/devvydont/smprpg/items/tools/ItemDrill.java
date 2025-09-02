@@ -114,7 +114,7 @@ public class ItemDrill extends CustomAttributeItem implements IFueledEquipment, 
         ItemService.blueprint(tank).updateItemData(tank);
         var containerData = item.getData(DataComponentTypes.CONTAINER);
         ArrayList<ItemStack> items = new ArrayList<>(containerData.contents());
-        items.set(2, tank);
+        items.set(DRILL_TANK_SLOT_INDEX, tank);
         item.setData(DataComponentTypes.CONTAINER, ItemContainerContents.containerContents(items));
         ItemService.blueprint(tank).updateItemData(tank);
         item.setData(DataComponentTypes.DAMAGE, fuel);
@@ -141,7 +141,7 @@ public class ItemDrill extends CustomAttributeItem implements IFueledEquipment, 
         drill.setData(DataComponentTypes.CONTAINER, ItemContainerContents.containerContents(items));
         IFueledEquipment drillBlueprint = new ItemDrill(itemService, CustomItemType.DRILL);  // We need to manually create a drill blueprint class here, as the item type key has not been set yet.
         drill.setData(DataComponentTypes.MAX_DAMAGE, items.get(2).getData(DataComponentTypes.MAX_DAMAGE));
-        drillBlueprint.setFuelUsed(drill, 4990);
+        drillBlueprint.setFuelUsed(drill, 0);
         drill.editPersistentDataContainer(pdc -> pdc.set(drillBaseKey, PersistentDataType.STRING, keys[0]));
         drill.editPersistentDataContainer(pdc -> pdc.set(drillHeadKey, PersistentDataType.STRING, keys[1]));
         drill.editPersistentDataContainer(pdc -> pdc.set(drillTankKey, PersistentDataType.STRING, keys[2]));

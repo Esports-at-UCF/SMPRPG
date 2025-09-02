@@ -6264,7 +6264,7 @@ public class BlockPropertiesRegistry {
                 .build());
 
         register(Material.FIRE, BlockPropertiesEntry.builder()
-                .hardness(-1)
+                .hardness(0)
                 .breakingPower(-1)
                 .softRequirement(true)
                 .build());
