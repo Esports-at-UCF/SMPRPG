@@ -1,15 +1,17 @@
 package xyz.devvydont.smprpg.items.interfaces;
 
 import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.SMPRPG;
 
 public interface IFueledEquipment {
 
-    NamespacedKey fuelKey = new NamespacedKey(SMPRPG.getInstance(), "fuel");
-    NamespacedKey maxFuelKey = new NamespacedKey(SMPRPG.getInstance(), "max_fuel");
     int FUEL_OFFSET = 1;
 
-    int getMaxFuel();
+    int getMaxFuel(ItemStack item);
+    int getFuelUsed(ItemStack item);
+    void setFuelUsed(ItemStack item, int fuel);
+
     String getBreakSound();
 
 }

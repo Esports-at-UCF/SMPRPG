@@ -749,6 +749,15 @@
         },
         {
             "type": "bitmap",
+            "file": "ui:font/backgrounds/tool_modification_menu.png",
+            "height": 256,
+            "ascent": -4,
+            "chars": [
+                "\ub009"
+            ]
+        },
+        {
+            "type": "bitmap",
             "file": "space:font/space_split.png",
             "ascent": -32768,
             "height": -3,

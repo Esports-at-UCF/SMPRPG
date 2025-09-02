@@ -217,8 +217,9 @@ public class BlockDamage {
 			return -1d;
 		}
 		else if (blueprint instanceof IFueledEquipment) {
-			var maxFuel = ((IFueledEquipment) blueprint).getMaxFuel() - IFueledEquipment.FUEL_OFFSET;
-			if (item.getPersistentDataContainer().getOrDefault(IFueledEquipment.fuelKey, PersistentDataType.INTEGER, maxFuel) >= maxFuel) {
+			var maxFuel = ((IFueledEquipment) blueprint).getMaxFuel(item);
+			var fuelUsed = ((IFueledEquipment) blueprint).getFuelUsed(item);
+			if ((fuelUsed >= (maxFuel - IFueledEquipment.FUEL_OFFSET))) {
 				player.sendMessage(ComponentUtils.alert(ComponentUtils.merge(
 						ComponentUtils.create("Your tool is out of fuel! Refuel it by crafting your tool with furnace fuels in a crafting grid.", NamedTextColor.RED)
 				)));

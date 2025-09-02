@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.items.listeners;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -21,20 +22,11 @@ public class ToolListeners extends ToggleableListener {
         var itemUsedToBreakBlueprint = ItemService.blueprint(itemUsedToBreak);
 
         if (itemUsedToBreakBlueprint instanceof IFueledEquipment) {
+            IFueledEquipment bp = (IFueledEquipment) ItemService.blueprint(itemUsedToBreak);
             player.getWorld().playSound(player.getLocation(), ((IFueledEquipment) itemUsedToBreakBlueprint).getBreakSound(), 0.5F, 1.0F);
 
             // Decrement fuel
-            var maxFuel = itemUsedToBreak.getPersistentDataContainer().get(IFueledEquipment.maxFuelKey, PersistentDataType.INTEGER);
-            var fuel = itemUsedToBreak.getPersistentDataContainer().get(IFueledEquipment.fuelKey, PersistentDataType.INTEGER);
-
-            // Try to query the value if it was present.
-            if (fuel == null) {
-                fuel = maxFuel;  // Really just a failsafe in case fuel isn't initialized for whatever reason.
-            }
-
-            final int finalFuel = Math.min(fuel + 1, ((IFueledEquipment) itemUsedToBreakBlueprint).getMaxFuel() - IFueledEquipment.FUEL_OFFSET);;
-            itemUsedToBreak.editPersistentDataContainer(pdc -> pdc.set(IFueledEquipment.fuelKey, PersistentDataType.INTEGER, finalFuel));
-
+            bp.setFuelUsed(itemUsedToBreak, itemUsedToBreak.getData(DataComponentTypes.DAMAGE) + 1);
         }
     }
 
@@ -85,10 +77,9 @@ public class ToolListeners extends ToggleableListener {
         }
         ItemStack returnRefuelable = matrix[refuelableIndex].clone();
         IFueledEquipment blueprint = (IFueledEquipment) ItemService.blueprint(returnRefuelable);
-        var maxFuel = blueprint.getMaxFuel();
-        var fuel = returnRefuelable.getPersistentDataContainer().getOrDefault(IFueledEquipment.fuelKey, PersistentDataType.INTEGER, 1);
-        var newFuel = Math.min(maxFuel - IFueledEquipment.FUEL_OFFSET, fuel - totalRefuel);
-        returnRefuelable.editPersistentDataContainer(pdc -> pdc.set(IFueledEquipment.fuelKey, PersistentDataType.INTEGER, newFuel));
+        var fuel = blueprint.getFuelUsed(returnRefuelable);
+        var newFuel = Math.max(0, fuel - totalRefuel);
+        blueprint.setFuelUsed(returnRefuelable, newFuel);
         ItemService.blueprint(returnRefuelable).updateItemData(returnRefuelable);
         event.getInventory().setResult(returnRefuelable);
     }

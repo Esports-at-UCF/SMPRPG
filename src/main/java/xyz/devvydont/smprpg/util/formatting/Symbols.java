@@ -76,5 +76,6 @@ public class Symbols {
     public static final String SMITHING_RECIPE_MENU = "\ub006";
     public static final String STONECUTTER_RECIPE_MENU = "\ub007";
     public static final String FURNACE_RECIPE_MENU = "\ub008";
+    public static final String TOOL_MODIFICATION_MENU = "\ub009";
 
 }

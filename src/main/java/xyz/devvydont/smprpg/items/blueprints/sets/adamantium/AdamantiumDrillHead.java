@@ -23,9 +23,14 @@ public class AdamantiumDrillHead extends CustomItemBlueprint implements IModular
     @Override
     public Collection<AttributeEntry> getAttributes() {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 1650, attrKey),
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 5, attrKey)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 1650, getAttrKey()),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 5, getAttrKey())
         );
+    }
+
+    @Override
+    public String getAttrKey() {
+        return attrKey;
     }
 
     @Override

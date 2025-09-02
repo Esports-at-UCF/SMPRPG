@@ -23,9 +23,14 @@ public class SteelDrillHead extends CustomItemBlueprint implements IModularToolC
     @Override
     public Collection<AttributeEntry> getAttributes() {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 1050, attrKey),
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 4, attrKey)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 1050, getAttrKey()),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 4, getAttrKey())
         );
+    }
+
+    @Override
+    public String getAttrKey() {
+        return attrKey;
     }
 
     @Override

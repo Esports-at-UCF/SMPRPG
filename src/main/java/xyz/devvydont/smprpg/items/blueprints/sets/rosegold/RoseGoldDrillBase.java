@@ -23,9 +23,14 @@ public class RoseGoldDrillBase extends CustomItemBlueprint implements IModularTo
     @Override
     public Collection<AttributeEntry> getAttributes() {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 105, attrKey),
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, -1, attrKey)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 105, getAttrKey()),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, -1, getAttrKey())
         );
+    }
+
+    @Override
+    public String getAttrKey() {
+        return attrKey;
     }
 
     @Override

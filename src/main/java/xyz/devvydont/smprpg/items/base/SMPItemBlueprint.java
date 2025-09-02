@@ -282,12 +282,8 @@ public abstract class SMPItemBlueprint {
             var dmg = itemStack.getData(DataComponentTypes.DAMAGE);
             itemStack.setData(DataComponentTypes.MAX_DAMAGE, breakable.getMaxDurability());
             itemStack.setData(DataComponentTypes.DAMAGE, dmg != null ? dmg : 0);
-        } else if (this instanceof ChargedItemBlueprint){
+        } else if (this instanceof ChargedItemBlueprint || this instanceof IFueledEquipment fueled){
             // Don't do anything here. We need the damage data to persist.
-        } else if (this instanceof IFueledEquipment fueled) {
-            // Fueled equipment will hack into the durability bar to show fuel fill, it will always stop at 1 durability, since setting unbreakable will not render the durability bar.
-            itemStack.setData(DataComponentTypes.MAX_DAMAGE, itemStack.getPersistentDataContainer().getOrDefault(IFueledEquipment.maxFuelKey, PersistentDataType.INTEGER, 1));
-            itemStack.setData(DataComponentTypes.DAMAGE, itemStack.getPersistentDataContainer().getOrDefault(IFueledEquipment.fuelKey, PersistentDataType.INTEGER, 1));
         }
         else {
             itemStack.unsetData(DataComponentTypes.MAX_DAMAGE);

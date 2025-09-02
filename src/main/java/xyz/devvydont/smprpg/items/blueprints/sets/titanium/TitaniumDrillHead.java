@@ -23,13 +23,18 @@ public class TitaniumDrillHead extends CustomItemBlueprint implements IModularTo
     @Override
     public Collection<AttributeEntry> getAttributes() {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 1200, attrKey),
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 5, attrKey)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 1200, getAttrKey()),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 5, getAttrKey())
         );
     }
 
     @Override
     public ItemClassification getItemClassification() { return ItemClassification.ITEM; }
+
+    @Override
+    public String getAttrKey() {
+        return attrKey;
+    }
 
     @Override
     public String getComponentPrefix() { return "Titanium"; }

@@ -14,6 +14,7 @@ import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.block.BlockSound;
 import xyz.devvydont.smprpg.block.CustomBlock;
 import xyz.devvydont.smprpg.blockbreaking.BlockPropertiesRegistry;
+import xyz.devvydont.smprpg.gui.items.MenuModularToolModify;
 import xyz.devvydont.smprpg.gui.items.MenuReforge;
 import xyz.devvydont.smprpg.items.interfaces.ICustomBlock;
 import xyz.devvydont.smprpg.services.ItemService;

@@ -191,7 +191,98 @@
 						}
 					]
 				}
-			}
+			},
+            {
+                "when": "smprpg:adamantium_drill_base",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/adamantium_drill_base"
+                }
+            },
+            {
+                "when": "smprpg:adamantium_drill_head",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/adamantium_drill_head"
+                }
+            },
+            {
+                "when": "smprpg:mithril_drill_base",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/mithril_drill_base"
+                }
+            },
+            {
+                "when": "smprpg:mithril_drill_head",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/mithril_drill_head"
+                }
+            },
+            {
+                "when": "smprpg:rose_gold_drill_base",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/rose_gold_drill_base"
+                }
+            },
+            {
+                "when": "smprpg:rose_gold_drill_head",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/rose_gold_drill_head"
+                }
+            },
+            {
+                "when": "smprpg:steel_drill_base",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/steel_drill_base"
+                }
+            },
+            {
+                "when": "smprpg:steel_drill_head",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/steel_drill_head"
+                }
+            },
+            {
+                "when": "smprpg:titanium_drill_base",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/titanium_drill_base"
+                }
+            },
+            {
+                "when": "smprpg:titanium_drill_head",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/titanium_drill_head"
+                }
+            },
+            {
+                "when": "smprpg:small_fuel_tank",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/small_fuel_tank"
+                }
+            },
+            {
+                "when": "smprpg:medium_fuel_tank",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/medium_fuel_tank"
+                }
+            },
+            {
+                "when": "smprpg:large_fuel_tank",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/drills/components/large_fuel_tank"
+                }
+            }
         ]
     }
 }

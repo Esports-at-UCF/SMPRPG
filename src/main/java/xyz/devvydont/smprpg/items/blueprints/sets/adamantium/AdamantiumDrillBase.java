@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AdamantiumDrillBase extends CustomItemBlueprint implements IModularToolComponent {
 
-    public static final String attrKey = "steel_drill_base";
+    public static final String attrKey = "adamantium_drill_base";
 
     public AdamantiumDrillBase(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -23,8 +23,13 @@ public class AdamantiumDrillBase extends CustomItemBlueprint implements IModular
     @Override
     public Collection<AttributeEntry> getAttributes() {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 135, attrKey)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 135, getAttrKey())
         );
+    }
+
+    @Override
+    public String getAttrKey() {
+        return attrKey;
     }
 
     @Override

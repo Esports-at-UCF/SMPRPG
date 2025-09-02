@@ -23,9 +23,14 @@ public class MithrilDrillHead extends CustomItemBlueprint implements IModularToo
     @Override
     public Collection<AttributeEntry> getAttributes() {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 1350, attrKey),
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 4, attrKey)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 1350, getAttrKey()),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 4, getAttrKey())
         );
+    }
+
+    @Override
+    public String getAttrKey() {
+        return attrKey;
     }
 
     @Override

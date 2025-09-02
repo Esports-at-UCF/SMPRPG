@@ -23,8 +23,13 @@ public class TitaniumDrillBase extends CustomItemBlueprint implements IModularTo
     @Override
     public Collection<AttributeEntry> getAttributes() {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 65, attrKey)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 65, getAttrKey())
         );
+    }
+
+    @Override
+    public String getAttrKey() {
+        return attrKey;
     }
 
     @Override

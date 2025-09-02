@@ -45,6 +45,7 @@ import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint;
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.drills.FuelTankBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.potion.PotionBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource;
 import xyz.devvydont.smprpg.items.blueprints.vanilla.*;
@@ -179,6 +180,7 @@ public class ItemService implements IService, Listener {
         listeners.add(new RareItemDropPreventionListener());
         listeners.add(new CustomItemFurnacePreventions());
         listeners.add(new ToolListeners());
+        listeners.add(new DrillInteractionListener());
     }
 
     @Override
@@ -934,7 +936,7 @@ public class ItemService implements IService, Listener {
         var durabilityUsed = itemStack.getData(DataComponentTypes.DAMAGE);
         if (durabilityComponent != null && durabilityUsed != null && !(blueprint instanceof ChargedItemBlueprint)) {
             lore.add(ComponentUtils.EMPTY);
-            if (blueprint instanceof IFueledEquipment) {
+            if (blueprint instanceof IFueledEquipment || blueprint instanceof FuelTankBlueprint) {
                 // We need to spoof durability by subtracting 1, since we store as +1 to allow for durability bar rendering.
                 lore.add(
                         ComponentUtils.create("Fuel: ")
