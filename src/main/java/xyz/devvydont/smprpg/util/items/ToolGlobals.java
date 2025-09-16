@@ -30,8 +30,14 @@ public class ToolGlobals {
     public static final int TITANIUM_TOOL_DURABILITY = 4_000;
     public static final int ADAMANTIUM_TOOL_DURABILITY = 8_000;
 
+    public static final int TUNGSTEN_TOOL_DURABILITY = 6_000;
+
+    public static final int COBALT_TOOL_DURABILITY = 7_500;
+    public static final int ORICHALCUM_TOOL_DURABILITY = 10_000;
+
+    public static final int NETHERITE_TOOL_DURABILITY = 15_000;
+
     public static final int DRAGONSTEEL_TOOL_DURABILITY = 40_000;
-    public static final int NETHERITE_TOOL_DURABILITY = 10_000;
 
     //<editor-fold desc="Unused">
     public static final int STONE_TOOL_DURABILITY = 750;
@@ -57,8 +63,14 @@ public class ToolGlobals {
     public static final int TITANIUM_TOOL_POWER = 15;
     public static final int ADAMANTIUM_TOOL_POWER = 20;
 
-    public static final int NETHERITE_TOOL_POWER = 25;
-    public static final int DRAGONSTEEL_TOOL_POWER = 40;
+    public static final int TUNGSTEN_TOOL_POWER = 25;
+    public static final int COBALT_TOOL_POWER = 30;
+
+    public static final int ORICHALCUM_TOOL_POWER = 30;
+
+    public static final int NETHERITE_TOOL_POWER = 40;
+
+    public static final int DRAGONSTEEL_TOOL_POWER = 60;
 
     //<editor-fold desc="Unused">
     public static final int STONE_TOOL_POWER = 3;
@@ -84,15 +96,21 @@ public class ToolGlobals {
     public static final int TITANIUM_TOOL_FORTUNE = 45;
     public static final int ADAMANTIUM_TOOL_FORTUNE = 90;
 
-    public static final int DRAGONSTEEL_TOOL_FORTUNE = 100;
-    public static final int NETHERITE_TOOL_FORTUNE = 70;
+    public static final int TUNGSTEN_TOOL_FORTUNE = 70;
+    public static final int COBALT_TOOL_FORTUNE = 60;
+
+    public static final int ORICHALCUM_TOOL_FORTUNE = 100;
+
+    public static final int NETHERITE_TOOL_FORTUNE = 120;
+
+    public static final int DRAGONSTEEL_TOOL_FORTUNE = 150;
 
     //<editor-fold desc="Unused">
     public static final int STONE_TOOL_FORTUNE = 15;
     public static final int DIAMOND_TOOL_FORTUNE = 45;
     //</editor-fold>
     //</editor-fold>
-    //<editor-fold desc="Breaking Powers">
+    //<editor-fold desc="Tool Speeds">
     public static final int WOOD_TOOL_SPEED = 200;
 
     public static final int COPPER_TOOL_SPEED = 400;
@@ -111,8 +129,14 @@ public class ToolGlobals {
     public static final int TITANIUM_TOOL_SPEED = 800;
     public static final int ADAMANTIUM_TOOL_SPEED = 1100;
 
-    public static final int NETHERITE_TOOL_SPEED = 900;
-    public static final int DRAGONSTEEL_TOOL_SPEED = 1100;
+    public static final int TUNGSTEN_TOOL_SPEED = 900;
+    public static final int COBALT_TOOL_SPEED = 1400;
+
+    public static final int ORICHALCUM_TOOL_SPEED = 1000;
+
+    public static final int NETHERITE_TOOL_SPEED = 1600;
+
+    public static final int DRAGONSTEEL_TOOL_SPEED = 2000;
 
     //<editor-fold desc="Unused">
     public static final int STONE_TOOL_SPEED = 400;
@@ -138,8 +162,14 @@ public class ToolGlobals {
     public static final int TITANIUM_TOOL_MINING_POWER = 5;
     public static final int ADAMANTIUM_TOOL_MINING_POWER = 5;
 
-    public static final int NETHERITE_TOOL_MINING_POWER = 6;
-    public static final int DRAGONSTEEL_TOOL_MINING_POWER = 7;
+    public static final int TUNGSTEN_TOOL_MINING_POWER = 6;
+    public static final int COBALT_TOOL_MINING_POWER = 6;
+
+    public static final int ORICHALCUM_TOOL_MINING_POWER = 7;
+
+    public static final int NETHERITE_TOOL_MINING_POWER = 8;
+
+    public static final int DRAGONSTEEL_TOOL_MINING_POWER = 9;
 
     //<editor-fold desc="Unused">
     public static final int STONE_TOOL_MINING_POWER = 2;

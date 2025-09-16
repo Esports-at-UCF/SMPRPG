@@ -68,6 +68,11 @@ public class Symbols {
     public static final String OFFSET_512 = "\uF82E";
     public static final String OFFSET_1024 = "\uF82F";
 
+    public static final String NUTRITION_FULL = "\ua009";
+    public static final String NUTRITION_HALF = "\ua00A";
+    public static final String SATURATION_FULL = "\ua00B";
+    public static final String SATURATION_HALF = "\ua00C";
+
     public static final String REFORGE_BACKGROUND = "\ub001";
     public static final String RECIPE_MENU = "\ub002";
     public static final String TRASH_MENU = "\ub003";

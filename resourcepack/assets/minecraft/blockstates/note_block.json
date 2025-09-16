@@ -89,6 +89,21 @@
         },
         "instrument=harp,note=24,powered=false": {
             "model": "blocks:block/reforge_table"
+        },
+		
+		
+		
+		"instrument=basedrum,note=0,powered=true": {
+            "model": "blocks:block/aether/holystone"
+        },
+		"instrument=basedrum,note=1,powered=true": {
+            "model": "blocks:block/aether/ethereal_dirt"
+        },
+		"instrument=basedrum,note=2,powered=true": {
+            "model": "blocks:block/aether/ethereal_grass"
+        },
+		"instrument=basedrum,note=3,powered=true": {
+            "model": "blocks:block/aether/smiteslate"
         }
     }
 }

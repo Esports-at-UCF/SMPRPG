@@ -74,6 +74,42 @@
         },
         {
             "type": "bitmap",
+            "file": "ui:font/food_full.png",
+            "height": 9,
+            "ascent": 9,
+            "chars": [
+                "\ua009"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/food_half.png",
+            "height": 9,
+            "ascent": 9,
+            "chars": [
+                "\ua00A"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/saturation_full.png",
+            "height": 9,
+            "ascent": 9,
+            "chars": [
+                "\ua00B"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/saturation_half.png",
+            "height": 9,
+            "ascent": 9,
+            "chars": [
+                "\ua00C"
+            ]
+        },
+        {
+            "type": "bitmap",
             "file": "ui:font/bars/bar_left_0_desat.png",
             "height": 10,
             "ascent": -24,
@@ -664,15 +700,6 @@
             "ascent": -34,
             "chars": [
                 "\ua15A"
-            ]
-        },
-        {
-            "type": "bitmap",
-            "file": "ui:font/reroll.png",
-            "height": 16,
-            "ascent": 16,
-            "chars": [
-                "\ua009"
             ]
         },
         {

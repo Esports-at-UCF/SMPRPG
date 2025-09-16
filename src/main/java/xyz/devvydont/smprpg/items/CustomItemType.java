@@ -368,7 +368,7 @@ public enum CustomItemType {
     // SULFUR
     SULFUR_ORE("Sulfur Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, SulfurOre.class),
     //SULFUR_BLOCK("Block of Sulfur",              Material.POISONOUS_POTATO,        ItemRarity.RARE, SulfurOre.class),
-    SULFUR_CRYSTAL(    "Sulfur Crystal",         Material.GUNPOWDER,               ItemRarity.UNCOMMON, false, 20),
+    SULFUR(    "Sulfur",                         Material.GUNPOWDER,               ItemRarity.UNCOMMON, false, 20),
 
     // ONYX
     ONYX_ORE("Onyx Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, OnyxOre.class),
@@ -377,12 +377,16 @@ public enum CustomItemType {
 
     // TUNGSTEN SET
     TUNGSTEN_ORE("Tungsten Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, TungstenOre.class),
+    RAW_TUNGSTEN("Raw Tungsten",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 40),
+    //TUNGSTEN_INGOT("Tungsten Ore",                   Material.IRON_INGOT,              ItemRarity.UNCOMMON, false, 60),
 
     // COBALT SET
     COBALT_ORE("Cobalt Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, CobaltOre.class),
+    RAW_COBALT("Raw Cobalt",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 200),
 
     // ORICHALCUM SET
     ORICHALCUM_ORE("Orichalcum Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, OrichalcumOre.class),
+    RAW_ORICHALCUM("Raw Orichalcum",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 200),
 
     // COBBLESTONE SET
     COBBLESTONE_HELMET("Cobblestone Helmet",         Material.LEATHER_HELMET,        ItemRarity.UNCOMMON, CobblestoneHelmet.class),
