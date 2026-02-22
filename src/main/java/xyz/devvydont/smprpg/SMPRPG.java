@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg;
 
+import io.papermc.paper.datapack.Datapack;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -185,5 +186,17 @@ public final class SMPRPG extends JavaPlugin {
             service.cleanup();
         for (var listener : generalListeners)
             listener.stop();
+    }
+
+    @Override
+    public void onLoad() {
+        Datapack pack = this.getServer().getDatapackManager().getPack(getPluginMeta().getName() + "/provided");
+        if (pack != null) {
+            if (pack.isEnabled()) {
+                this.getLogger().info("The datapack loaded successfully!");
+            } else {
+                this.getLogger().warning("The datapack failed to load.");
+            }
+        }
     }
 }

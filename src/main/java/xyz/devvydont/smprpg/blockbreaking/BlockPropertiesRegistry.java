@@ -2153,7 +2153,7 @@ public class BlockPropertiesRegistry {
                 .softRequirement(true)
                 .build());
 
-        register(Material.CHAIN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        register(Material.IRON_CHAIN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)

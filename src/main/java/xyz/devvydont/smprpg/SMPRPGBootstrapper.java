@@ -18,6 +18,10 @@ import xyz.devvydont.smprpg.commands.items.CommandTrashItems;
 import xyz.devvydont.smprpg.commands.player.*;
 import xyz.devvydont.smprpg.services.EnchantmentService;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class SMPRPGBootstrapper implements PluginBootstrap {
 
     private void bootstrapCommands(BootstrapContext context) {
@@ -60,9 +64,26 @@ public class SMPRPGBootstrapper implements PluginBootstrap {
             enchantment.bootstrap(context);
     }
 
+    private void bootstrapDatapack(BootstrapContext context) {
+        context.getLifecycleManager().registerEventHandler(LifecycleEvents.DATAPACK_DISCOVERY.newHandler(
+                event -> {
+                    try {
+                        // Retrieve the URI of the datapack folder.
+                        URI uri = this.getClass().getResource("/smprpg-data").toURI();
+                        // Discover the pack. The ID is set to "provided", which indicates to
+                        // a server owner that your plugin includes this data pack.
+                        event.registrar().discoverPack(uri, "provided");
+                    } catch (URISyntaxException | IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        ));
+    }
+
     @Override
     public void bootstrap(@NotNull BootstrapContext bootstrapContext) {
         bootstrapCommands(bootstrapContext);
         bootstrapEnchantments(bootstrapContext);
+        bootstrapDatapack(bootstrapContext);
     }
 }

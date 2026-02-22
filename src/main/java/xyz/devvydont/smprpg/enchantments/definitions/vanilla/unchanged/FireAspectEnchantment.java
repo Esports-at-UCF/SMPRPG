@@ -36,7 +36,7 @@ public class FireAspectEnchantment extends UnchangedEnchantment {
 
     @Override
     public TagKey<ItemType> getItemTypeTag() {
-        return ItemTypeTagKeys.ENCHANTABLE_SWORD;
+        return ItemTypeTagKeys.ENCHANTABLE_SWEEPING;
     }
 
     @Override

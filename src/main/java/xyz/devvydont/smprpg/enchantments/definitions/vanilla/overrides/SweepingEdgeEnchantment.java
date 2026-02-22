@@ -66,7 +66,7 @@ public class SweepingEdgeEnchantment extends VanillaEnchantment implements Attri
 
     @Override
     public TagKey<ItemType> getItemTypeTag() {
-        return ItemTypeTagKeys.ENCHANTABLE_SWORD;
+        return ItemTypeTagKeys.ENCHANTABLE_SWEEPING;
     }
 
     @Override
