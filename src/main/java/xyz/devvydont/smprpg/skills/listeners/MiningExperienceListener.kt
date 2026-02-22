@@ -15,12 +15,10 @@ import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.world.ChunkUtil
 import kotlin.math.max
 
-class MiningExperienceListener(plugin: SMPRPG) : Listener {
-    val plugin: SMPRPG?
+class MiningExperienceListener(val plugin: SMPRPG) : Listener {
 
     init {
-        this.plugin = plugin
-        plugin.getServer().getPluginManager().registerEvents(this, plugin)
+        plugin.server.pluginManager.registerEvents(this, plugin)
     }
 
     /**
@@ -30,7 +28,7 @@ class MiningExperienceListener(plugin: SMPRPG) : Listener {
      */
     @EventHandler
     fun onPlaceBlock(event: BlockPlaceEvent) {
-        if (event.isCancelled()) return
+        if (event.isCancelled) return
 
         // When any block is placed, it is no longer able to earn skill experience
         ChunkUtil.markBlockSkillInvalid(event.getBlock())
@@ -40,27 +38,26 @@ class MiningExperienceListener(plugin: SMPRPG) : Listener {
     fun onGainGeneralMiningExperience(event: BlockBreakEvent) {
         val block = event.getBlock()
 
-        if (event.isCancelled()) return
+        if (event.isCancelled) return
 
         // If this block isn't allowed to retrieve experience
         if (ChunkUtil.isBlockSkillInvalid(block)) return
 
-        val skill = SMPRPG.getService<EntityService?>(EntityService::class.java)!!.getPlayerInstance(event.getPlayer())
-            .getMiningSkill()
+        val skill = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.player)
+            .miningSkill
 
         var exp = 0
         exp += getBaseExperienceForDrop(block)
         if (exp <= 0) return
 
-        event.setExpToDrop(max(1, exp / 10))
+        event.expToDrop = max(1, exp / 10)
         skill.addExperience(exp, SkillExperienceGainEvent.ExperienceSource.ORE)
     }
 
     companion object {
         fun getBaseExperienceForDrop(block: Block): Int {
             if (BlockPropertiesRegistry.isCustom(block)) {
-                val cb = CustomBlock.resolve(block)
-                if (cb == null) return 0
+                val cb = CustomBlock.resolve(block) ?: return 0
                 return when (cb) {
                     CustomBlock.RAW_SILVER_BLOCK -> 11
                     CustomBlock.RAW_TIN_BLOCK -> 8
@@ -80,7 +77,7 @@ class MiningExperienceListener(plugin: SMPRPG) : Listener {
                 }
             }
 
-            return when (block.getType()) {
+            return when (block.type) {
                 Material.END_STONE, Material.STONE, Material.COBBLESTONE, Material.COBBLED_DEEPSLATE, Material.SAND, Material.RED_SAND, Material.SANDSTONE, Material.RED_SANDSTONE, Material.CLAY, Material.MYCELIUM, Material.GRASS_BLOCK, Material.DIRT, Material.GRAVEL, Material.DEEPSLATE, Material.TUFF, Material.NETHERRACK, Material.BLACKSTONE, Material.BASALT, Material.SMOOTH_BASALT, Material.CRIMSON_NYLIUM, Material.WARPED_NYLIUM, Material.FLINT -> 1
                 Material.ANDESITE, Material.DIORITE, Material.GRANITE, Material.CALCITE, Material.BONE_BLOCK, Material.SOUL_SAND, Material.SOUL_SOIL, Material.ICE, Material.PACKED_ICE -> 2
                 Material.SEA_LANTERN -> 10

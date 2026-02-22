@@ -35,15 +35,15 @@ class MenuTrashItems(player: Player) : MenuBase(player, 6) {
     }
 
     override fun handleInventoryClicked(event: InventoryClickEvent) {
-        event.setCancelled(false)
+        event.isCancelled = false
 
-        if (event.getCurrentItem() == null) return
+        if (event.currentItem == null) return
 
         val itemBlueprint =
-            SMPRPG.getService<ItemService?>(ItemService::class.java)!!.getBlueprint(event.getCurrentItem()!!)
+            SMPRPG.getService(ItemService::class.java).getBlueprint(event.currentItem!!)
         // If the item clicked is enchanted or reforged, we should prevent the item from being shift clicked.
-        if (event.isShiftClick() && (!event.getCurrentItem()!!.getEnchantments().isEmpty() || itemBlueprint.isReforged(
-                event.getCurrentItem()
+        if (event.isShiftClick && (!event.currentItem!!.enchantments.isEmpty() || itemBlueprint.isReforged(
+                event.currentItem
             ))
         ) {
             val error = ComponentUtils.merge(
@@ -51,8 +51,8 @@ class MenuTrashItems(player: Player) : MenuBase(player, 6) {
                 ComponentUtils.create(" Do you really want to trash this? Manually drag the item in the menu if so.")
             )
             player.sendMessage(ComponentUtils.alert(error, NamedTextColor.RED))
-            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_DEATH, 1f, 1.5f)
-            event.setCancelled(true)
+            player.playSound(player.location, Sound.ENTITY_VILLAGER_DEATH, 1f, 1.5f)
+            event.isCancelled = true
         }
     }
 
@@ -63,8 +63,8 @@ class MenuTrashItems(player: Player) : MenuBase(player, 6) {
                 continue
             }
 
-            itemCount += itemStack.getAmount()
-            itemStack.setAmount(0)
+            itemCount += itemStack.amount
+            itemStack.amount = 0
         }
 
         this.player.sendMessage(

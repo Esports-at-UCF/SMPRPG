@@ -24,7 +24,7 @@ class BlockLootOverrideListener : ToggleableListener() {
     /**
      * Using an item type, try to guess which fortune stat is desired to be use when an override isn't set.
      * For example, if we are using a pickaxe it's safe to assume we want to use mining fortune.
-     * Keep in mind, this isn't reliable and [BlockLootEntry.getFortuneOverride] is a desirable choice.
+     * Keep in mind, this isn't reliable and [BlockLootEntry.fortuneOverride] is a desirable choice.
      * @param tool The tool to guess a fortune attribute for.
      * @return The attribute that we should use, null if inconclusive.
      */
@@ -44,23 +44,25 @@ class BlockLootOverrideListener : ToggleableListener() {
      * If it does, we need to determine what fortune attribute to use based on the context (the tool!)
      */
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    private fun __onBlockBreak(event: BlockDropItemEvent) {
+    private fun onBlockBreak(event: BlockDropItemEvent) {
         // If this block is ageable, then it needs to be at its max age before we consider custom logic.
 
-        if (event.getBlockState().getBlockData() is Ageable) if (ageable.getAge() != ageable.getMaximumAge()) return
+        val blockData = event.blockState.blockData
+        if (blockData is Ageable)
+            if (blockData.age != blockData.maximumAge)
+                return
 
         // If this block was placed by a player invalidate their fortune.
         var fortuneActive = true
-        if (ChunkUtil.isBlockSkillInvalid(event.getBlockState())) fortuneActive = false
+        if (ChunkUtil.isBlockSkillInvalid(event.blockState)) fortuneActive = false
 
         // Check if this block is flagged. If it isn't, let vanilla handle the logic.
-        val entry = get(event.getBlockState())
-        if (entry == null) return
+        val entry = BlockLootRegistry.get(event.blockState) ?: return
 
         // The block is flagged. We need context. Essentially, we have manual checks that determine this.
         var ctx = BlockLootContext.INCORRECT_TOOL
-        val toolPreferences: MutableSet<ItemClassification?> = entry.preferredTools
-        val itemUsedToBreak = event.getPlayer().getInventory().getItemInMainHand()
+        val toolPreferences: MutableSet<ItemClassification> = entry.preferredTools
+        val itemUsedToBreak = event.player.inventory.itemInMainHand
         val itemUsedToBreakBlueprint = ItemService.blueprint(itemUsedToBreak)
         val usedTool = itemUsedToBreakBlueprint.getItemClassification()
 
@@ -76,8 +78,7 @@ class BlockLootOverrideListener : ToggleableListener() {
         if (itemUsedToBreakBlueprint is BoilingPickaxe) ctx = BlockLootContext.AUTO_SMELT
 
         // We now have context. If the block doesn't define the given context, we can let vanilla take over.
-        val loot: MutableCollection<BlockLoot?> = entry.getLootForContext(ctx)
-        if (loot == null) return
+        val loot: Collection<BlockLoot> = entry.getLootForContext(ctx)
 
         // Given the preferred tool, we can actually work out which fortune stat is ideal. No preferred tool
         // means that no fortune is applicable to this drop.
@@ -89,7 +90,7 @@ class BlockLootOverrideListener : ToggleableListener() {
             // If we found one, increment the fortune to use in drop calculation.
             // The idea here is that base fortune is 0, and 100 fortune would yield 2x drops (scalarly scales).
             if (attribute != null) {
-                val attrInstance = instance.getAttribute<Player>(event.getPlayer(), attribute)
+                val attrInstance = instance.getAttribute<Player>(event.player, attribute)
                 if (attrInstance != null) {
                     fortune += attrInstance.getValue() / 100
                 }
@@ -97,11 +98,11 @@ class BlockLootOverrideListener : ToggleableListener() {
         }
 
         // Set the drops manually! Take into account the base drop chance, and the fortune chance.
-        event.getItems().clear()
+        event.items.clear()
         for (drop in loot) {
             // The amount of drops is equal to the chance. Drops with chances of 1 or higher are additive, otherwise multiplicative.
 
-            var amount = drop!!.chance
+            var amount = drop.chance
             if (drop.chance < 1.0) amount *= (1 + fortune)
             else amount += fortune
 
@@ -109,22 +110,22 @@ class BlockLootOverrideListener : ToggleableListener() {
             if (Math.random() < leftover) amount++
 
             val item = drop.getLoot()
-            item.setAmount(amount.toInt())
+            item.amount = amount.toInt()
 
             // This might seem scuffed, but there's a reason.
             // In order for loot tagging to be detected properly by things like telekinesis, we have to first add the
             // loot flags to the item, then manually and immediately transfer it to the item entity itself
             // BEFORE it spawns in. When we do it this way, succeeding BlockDropItemEvent calls will be able to detect
             // this. If we spawn it here and now, the ItemSpawnEvent will hijack us and mess everything up.
-            val ent = event.getBlock().getWorld()
-                .dropItem(event.getBlock().getLocation().toCenterLocation(), item, Consumer { entity: Item? ->
-                    SMPRPG.getService<DropsService?>(DropsService::class.java)
-                        .addDefaultLootFlags(item, event.getPlayer())
-                    entity!!.setItemStack(item)
-                    SMPRPG.getService<DropsService?>(DropsService::class.java).transferLootFlags(entity)
+            val ent = event.getBlock().world
+                .dropItem(event.getBlock().location.toCenterLocation(), item, Consumer { entity: Item? ->
+                    SMPRPG.getService(DropsService::class.java)
+                        .addDefaultLootFlags(item, event.player)
+                    entity!!.itemStack = item
+                    SMPRPG.getService(DropsService::class.java).transferLootFlags(entity)
                 })
 
-            event.getItems().add(ent)
+            event.items.add(ent)
         }
     }
 }

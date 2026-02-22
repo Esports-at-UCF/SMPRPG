@@ -21,51 +21,38 @@ import xyz.devvydont.smprpg.SMPRPG.Companion.broadcastToOperatorsCausedBy
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItemWithDescription
 import xyz.devvydont.smprpg.gui.base.MenuBase
-import xyz.devvydont.smprpg.gui.base.MenuButtonClickHandler
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.RecipeService.Companion.getRecipesFor
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
 import xyz.devvydont.smprpg.util.time.TickTime
-import java.util.List
 import java.util.function.Consumer
 
 class MenuRecipeViewer(
     player: Player,
     parentMenu: MenuBase?,
     private val recipes: MutableList<Recipe>,
-    result: ItemStack?
+    result: ItemStack
 ) : MenuBase(player, ROWS, parentMenu) {
     // The index of the recipe we want to show if there is more than one recipe.
     private var currentRecipe = 0
 
-    private val result: ItemStack
+    private val result: ItemStack =
+        ItemService.clean(result) // This may seem silly, but it's necessary to remove the "craftable" lore.
 
     // Integer that will allow us to continuously flip through different options a recipe provides.
     private var recipeChoiceIndex = 0
-
-    /**
-     * Default constructor initialized from within the MenuItemBrowser typically when a craftable item was clicked.
-     * 
-     * @param player The player viewing the recipe.
-     * @param parentMenu The menu calling this menu. Typically, the MenuItemBrowser.
-     * @param result The result from crafting.
-     */
-    init {
-        this.result =
-            ItemService.clean(result) // This may seem silly, but it's necessary to remove the "craftable" lore.
-    }
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
         super.handleInventoryOpened(event)
         event.titleOverride(ComponentUtils.merge(ComponentUtils.create("Recipes for: "), result.displayName()))
         this.render(event)
-        Bukkit.getScheduler().runTaskTimer(SMPRPG.getInstance(), Consumer { task: BukkitTask? ->
+        Bukkit.getScheduler().runTaskTimer(SMPRPG.plugin, Consumer runTaskTimer@{ task: BukkitTask ->
 
             // If nobody is viewing us, we can stop the task.
-            if (this.inventory.getViewers().isEmpty()) {
-                task!!.cancel()
+            if (this.inventory.viewers.isEmpty()) {
+                task.cancel()
                 return@runTaskTimer
             }
 
@@ -76,21 +63,20 @@ class MenuRecipeViewer(
 
     override fun handleInventoryClicked(event: InventoryClickEvent) {
         super.handleInventoryClicked(event)
-        event.setCancelled(true)
+        event.isCancelled = true
         //this.playInvalidAnimation();
     }
 
     private fun getItemFromRecipeChoice(choice: RecipeChoice?): ItemStack {
         // Yes, this is possible... LMAO
-
         if (choice == null) return ItemStack.of(Material.AIR)
 
         var item: ItemStack? = null
         if (choice is ExactChoice) item =
-            ItemService.clean(choice.getChoices().get(recipeChoiceIndex % choice.getChoices().size))
+            ItemService.clean(choice.choices[recipeChoiceIndex % choice.choices.size])
 
         if (choice is MaterialChoice) item =
-            ItemService.generate(choice.getChoices().get(recipeChoiceIndex % choice.getChoices().size))
+            ItemService.generate(choice.choices[recipeChoiceIndex % choice.choices.size])
 
         // This will only occur if Spigot/Paper ever add a new child of RecipeChoice in a future update.
         if (item == null) {
@@ -105,8 +91,8 @@ class MenuRecipeViewer(
 
         // If this item is deemed craftable by us, inject lore explaining that they can click it to go deeper.
         if (!getRecipesFor(item).isEmpty()) {
-            val lore = ArrayList<Component?>(
-                List.of<TextComponent?>(
+            val lore = ArrayList<Component>(
+                listOf<TextComponent>(
                     ComponentUtils.EMPTY,
                     ComponentUtils.create("Click to view recipe!", NamedTextColor.YELLOW),
                     ComponentUtils.EMPTY
@@ -129,7 +115,7 @@ class MenuRecipeViewer(
         // Retrieve the blueprint of this item. If it is craftable, enter another recipe layer
 
         val recipesFor = getRecipesFor(ItemService.blueprint(itemStack).generate())
-        if (recipesFor.isEmpty() || itemStack.getType() == Material.AIR) {
+        if (recipesFor.isEmpty() || itemStack.type == Material.AIR) {
             //this.playInvalidAnimation();
             return
         }
@@ -155,18 +141,17 @@ class MenuRecipeViewer(
         if (currentRecipe >= recipes.size) currentRecipe = 0
         if (currentRecipe < 0) currentRecipe = recipes.size - 1
 
-        val recipe = recipes.get(currentRecipe)
-        when (recipe) {
-            -> renderCookingRecipe(cooking, event)
-            -> renderShapelessRecipe(shapeless, event)
-            -> renderShapedRecipe(shaped, event)
-            -> renderTransmuteRecipe(transmute, event)
-            -> renderSmithingTransformRecipe(smithing, event)
-            -> renderStonecuttingRecipe(stonecutting, event)
-            -> renderComplexRecipe(complex)
+        when (val recipe = recipes[currentRecipe]) {
+            is CookingRecipe<*> -> renderCookingRecipe(recipe, event)
+            is ShapelessRecipe -> renderShapelessRecipe(recipe, event)
+            is ShapedRecipe -> renderShapedRecipe(recipe, event)
+            is TransmuteRecipe -> renderTransmuteRecipe(recipe)
+            is SmithingTransformRecipe -> renderSmithingTransformRecipe(recipe, event)
+            is StonecuttingRecipe -> renderStonecuttingRecipe(recipe, event)
+            is ComplexRecipe -> renderComplexRecipe(recipe)
             else -> broadcastToOperatorsCausedBy(
                 this.player,
-                ComponentUtils.create("Unknown recipe handler: " + recipe.getClass().getSimpleName())
+                ComponentUtils.create("Unknown recipe handler: " + recipe.javaClass.getSimpleName())
             )
         }
     }
@@ -185,7 +170,7 @@ class MenuRecipeViewer(
                 ComponentUtils.EMPTY,
                 ComponentUtils.merge(
                     ComponentUtils.create("Recipe Key: "),
-                    ComponentUtils.create(complex.getKey().asString(), NamedTextColor.RED)
+                    ComponentUtils.create(complex.key.asString(), NamedTextColor.RED)
                 )
             )
         )
@@ -196,17 +181,17 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.STONECUTTER_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.getI18NDisplayName(),
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
                     NamedTextColor.BLACK
                 )
             )
         )
 
-        val input = getItemFromRecipeChoice(stonecutting.getInputChoice())
+        val input = getItemFromRecipeChoice(stonecutting.inputChoice)
         setButton(
             CORNER + 10,
-            input,
-            MenuButtonClickHandler { ev: InventoryClickEvent? -> handleIngredientClick(input) })
+            input
+        ) { _: InventoryClickEvent -> handleIngredientClick(input) }
         setSlot(
             CORNER + 36 + 1,
             getNamedItem(Material.STONECUTTER, ComponentUtils.create("Stonecutter Recipe", NamedTextColor.GOLD))
@@ -218,42 +203,42 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SMITHING_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.getI18NDisplayName(),
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
                     NamedTextColor.BLACK
                 )
             )
         )
 
         if (smithing is SmithingTransformRecipe) {
-            var input = getItemFromRecipeChoice(smithing.getTemplate())
-            if (input.getType() == Material.AIR) input =
+            var input = getItemFromRecipeChoice(smithing.template)
+            if (input.type == Material.AIR) input =
                 getNamedItem(Material.BARRIER, ComponentUtils.create("No template needed!", NamedTextColor.GREEN))
             val finalInput = input
             setButton(
                 CORNER + 9,
-                input,
-                MenuButtonClickHandler { ev: InventoryClickEvent? -> handleIngredientClick(finalInput) })
+                input
+            ) { _: InventoryClickEvent -> handleIngredientClick(finalInput) }
         }
 
-        var base = getItemFromRecipeChoice(smithing.getBase())
-        var addition = getItemFromRecipeChoice(smithing.getAddition())
+        var base = getItemFromRecipeChoice(smithing.base)
+        var addition = getItemFromRecipeChoice(smithing.addition)
 
-        if (addition.getType() == Material.AIR) addition =
+        if (addition.type == Material.AIR) addition =
             getNamedItem(Material.BARRIER, ComponentUtils.create("No additional item needed!", NamedTextColor.GREEN))
 
-        if (base.getType() == Material.AIR) base =
+        if (base.type == Material.AIR) base =
             getNamedItem(Material.BARRIER, ComponentUtils.create("No base item needed!", NamedTextColor.GREEN))
 
         val finalBase = base
         val finalAddition = addition
         setButton(
             CORNER + 10,
-            base,
-            MenuButtonClickHandler { ev: InventoryClickEvent? -> handleIngredientClick(finalBase) })
+            base
+        ) { _: InventoryClickEvent -> handleIngredientClick(finalBase) }
         setButton(
             CORNER + 11,
-            addition,
-            MenuButtonClickHandler { ev: InventoryClickEvent? -> handleIngredientClick(finalAddition) })
+            addition
+        ) { _: InventoryClickEvent -> handleIngredientClick(finalAddition) }
 
         setSlot(
             CORNER + 37,
@@ -268,19 +253,19 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SHAPELESS_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.getI18NDisplayName(),
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
                     NamedTextColor.BLACK
                 )
             )
         )
 
         // Loop through all the choices. These are essentially just the ingredients.
-        for (choice in shapeless.getChoiceList()) {
+        for (choice in shapeless.choiceList) {
             val item = getItemFromRecipeChoice(choice)
             this.setButton(
                 y * 9 + x + CORNER,
-                item,
-                MenuButtonClickHandler { ev: InventoryClickEvent? -> handleIngredientClick(item) })
+                item
+            ) { _: InventoryClickEvent -> handleIngredientClick(item) }
 
             x += 1
             // If we are out of bounds, go to the next row.
@@ -305,19 +290,19 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SHAPED_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.getI18NDisplayName(),
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
                     NamedTextColor.BLACK
                 )
             )
         )
-        for (row in shaped.getShape()) {
+        for (row in shaped.shape) {
             for (ingredient in row.toCharArray()) {
-                val choice = shaped.getChoiceMap().get(ingredient)
+                val choice = shaped.choiceMap[ingredient]
                 val item = getItemFromRecipeChoice(choice)
                 this.setButton(
                     y * 9 + x + CORNER,
-                    item,
-                    MenuButtonClickHandler { ev: InventoryClickEvent? -> handleIngredientClick(item) })
+                    item
+                ) { _: InventoryClickEvent -> handleIngredientClick(item) }
                 x += 1
             }
             y += 1
@@ -334,17 +319,17 @@ class MenuRecipeViewer(
      * Transmute recipes are pretty simple, it is just two items that turn an item into another, similar to shapeless.
      * @param transmute The transmute recipe.
      */
-    private fun renderTransmuteRecipe(transmute: TransmuteRecipe, event: InventoryOpenEvent?) {
-        val input = getItemFromRecipeChoice(transmute.getInput())
-        val transmuter = getItemFromRecipeChoice(transmute.getMaterial())
+    private fun renderTransmuteRecipe(transmute: TransmuteRecipe) {
+        val input = getItemFromRecipeChoice(transmute.input)
+        val transmuter = getItemFromRecipeChoice(transmute.material)
         this.setButton(
             CORNER + 9 + 1,
-            input,
-            MenuButtonClickHandler { ev: InventoryClickEvent? -> handleIngredientClick(input) })
+            input
+        ) { _: InventoryClickEvent -> handleIngredientClick(input) }
         this.setButton(
             CORNER + 9 + 2,
-            transmuter,
-            MenuButtonClickHandler { ev: InventoryClickEvent? -> handleIngredientClick(transmuter) })
+            transmuter
+        ) { _: InventoryClickEvent -> handleIngredientClick(transmuter) }
         this.setSlot(
             CORNER + 27 + 1,
             getNamedItem(
@@ -364,30 +349,42 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.FURNACE_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.getI18NDisplayName(),
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
                     NamedTextColor.BLACK
                 )
             )
         )
 
-        val smelter: ItemStack?
+        val smelter = when (cooking) {
+            is FurnaceRecipe -> getNamedItem(
+                Material.FURNACE,
+                ComponentUtils.create("Furnace Recipe", NamedTextColor.GOLD)
+            )
 
-        if (cooking is FurnaceRecipe) smelter =
-            getNamedItem(Material.FURNACE, ComponentUtils.create("Furnace Recipe", NamedTextColor.GOLD))
-        else if (cooking is BlastingRecipe) smelter =
-            getNamedItem(Material.BLAST_FURNACE, ComponentUtils.create("Blasting Recipe", NamedTextColor.GOLD))
-        else if (cooking is SmokingRecipe) smelter =
-            getNamedItem(Material.SMOKER, ComponentUtils.create("Smoker Recipe", NamedTextColor.GOLD))
-        else if (cooking is CampfireRecipe) smelter =
-            getNamedItem(Material.CAMPFIRE, ComponentUtils.create("Campfire Recipe", NamedTextColor.GOLD))
-        else smelter = getNamedItem(
-            Material.BARRIER,
-            ComponentUtils.create("Unknown Smelter: " + cooking.getClass().getSimpleName(), NamedTextColor.RED)
-        )
+            is BlastingRecipe -> getNamedItem(
+                Material.BLAST_FURNACE,
+                ComponentUtils.create("Blasting Recipe", NamedTextColor.GOLD)
+            )
+
+            is SmokingRecipe -> getNamedItem(
+                Material.SMOKER,
+                ComponentUtils.create("Smoker Recipe", NamedTextColor.GOLD)
+            )
+
+            is CampfireRecipe -> getNamedItem(
+                Material.CAMPFIRE,
+                ComponentUtils.create("Campfire Recipe", NamedTextColor.GOLD)
+            )
+
+            else -> getNamedItem(
+                Material.BARRIER,
+                ComponentUtils.create("Unknown Smelter: " + cooking.javaClass.getSimpleName(), NamedTextColor.RED)
+            )
+        }
 
         smelter.lore(
             ComponentUtils.cleanItalics(
-                List.of<Component?>(
+                listOf<Component>(
                     ComponentUtils.EMPTY,
                     ComponentUtils.merge(
                         ComponentUtils.create("Cook in a "),
@@ -396,7 +393,7 @@ class MenuRecipeViewer(
                     ),
                     ComponentUtils.merge(
                         ComponentUtils.create("for "),
-                        ComponentUtils.create((cooking.getCookingTime() / 20).toString() + "s", NamedTextColor.GREEN)
+                        ComponentUtils.create((cooking.cookingTime / 20).toString() + "s", NamedTextColor.GREEN)
                     )
                 )
             )
@@ -409,11 +406,11 @@ class MenuRecipeViewer(
                 .build()
         )
 
-        val ingredient = getItemFromRecipeChoice(cooking.getInputChoice())
+        val ingredient = getItemFromRecipeChoice(cooking.inputChoice)
         this.setButton(
             top,
-            ingredient,
-            MenuButtonClickHandler { ev: InventoryClickEvent? -> handleIngredientClick(ingredient) })
+            ingredient
+        ) { _: InventoryClickEvent -> handleIngredientClick(ingredient) }
         this.setSlot(smelterSlot, smelter)
         this.setSlot(middle, fire)
         this.setSlot(bottom, getNamedItem(Material.COAL, ComponentUtils.EMPTY))
@@ -439,7 +436,7 @@ class MenuRecipeViewer(
             meta!!.lore(ComponentUtils.cleanItalics(lore))
             meta.setEnchantmentGlintOverride(true)
         })
-        SMPRPG.getService<ItemService?>(ItemService::class.java)!!.setIgnoreMetaUpdate(paper)
+        SMPRPG.getService(ItemService::class.java).setIgnoreMetaUpdate(paper)
         return paper
     }
 
@@ -464,37 +461,39 @@ class MenuRecipeViewer(
         val blueprint = ItemService.blueprint(result)
         if (blueprint is ICraftable) this.setSlot(REQUIREMENTS, getRequirements(blueprint.unlockedBy()))
 
-        if (recipes.size() > 1) {
+        if (recipes.size > 1) {
             this.setButton(
                 46,
                 getNamedItem(
                     Material.ARROW,
                     ComponentUtils.create(
-                        "Previous Page " + (currentRecipe + 1) + "/" + recipes.size(),
+                        "Previous Page " + (currentRecipe + 1) + "/" + recipes.size,
                         NamedTextColor.GOLD
                     )
-                ),
-                MenuButtonClickHandler { ev: InventoryClickEvent? -> changePage(-1, event) })
+                )
+            ) { _: InventoryClickEvent -> changePage(-1, event) }
             this.setButton(
                 48,
                 getNamedItem(
                     Material.ARROW,
                     ComponentUtils.create(
-                        "Next Page " + (currentRecipe + 1) + "/" + recipes.size(),
+                        "Next Page " + (currentRecipe + 1) + "/" + recipes.size,
                         NamedTextColor.GOLD
                     )
-                ),
-                MenuButtonClickHandler { ev: InventoryClickEvent? -> changePage(1, event) })
+                )
+            ) { _: InventoryClickEvent -> changePage(1, event) }
         }
 
-        if (this.player.isOp()) {
+        if (this.player.isOp) {
             var key = "?"
-            if (recipes.get(currentRecipe) is Keyed) key = keyed.getKey().asString()
+            val keyedRecipe = recipes[currentRecipe]
+            if (keyedRecipe is Keyed)
+                key = keyedRecipe.key.asString()
             this.setSlot(
                 0, getNamedItemWithDescription(
                     Material.OAK_SIGN,
                     ComponentUtils.create("Info", NamedTextColor.RED),
-                    ComponentUtils.create("Key: " + key, NamedTextColor.YELLOW)
+                    ComponentUtils.create("Key: $key", NamedTextColor.YELLOW)
                 )
             )
         }
@@ -502,8 +501,8 @@ class MenuRecipeViewer(
         // Utility buttons
         this.setButton(
             (ROWS - 1) * 9 + 4,
-            BUTTON_BACK,
-            MenuButtonClickHandler { e: InventoryClickEvent? -> this.openParentMenu() })
+            BUTTON_BACK
+        ) { _: InventoryClickEvent -> this.openParentMenu() }
     }
 
     companion object {

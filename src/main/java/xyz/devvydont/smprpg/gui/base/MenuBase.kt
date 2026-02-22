@@ -31,16 +31,18 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 abstract class MenuBase @JvmOverloads constructor(// ---------
     //   State
     // ---------
-    protected val player: Player, rows: Int, parentMenu: MenuBase? = null
+    @JvmField protected val player: Player, rows: Int, parentMenu: MenuBase? = null
 ) : Listener {
     protected val parentMenu: MenuBase?
+    @JvmField
     protected val inventory: Inventory
+    @JvmField
     protected val sounds: MenuSoundManager
 
     private var shouldPlayOpeningSound = false
     private var shouldPlayClosingSound = false
     private var activeAnimation: AnimationHandle? = null
-    private val buttonSlots: MutableMap<Int?, MenuButtonClickHandler?> = HashMap<Int?, MenuButtonClickHandler?>()
+    private val buttonSlots: MutableMap<Int, MenuButtonClickHandler> = HashMap()
 
 
     // ----------------
@@ -74,7 +76,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
         this.shouldPlayClosingSound = true
 
         // Open the UI
-        Bukkit.getPluginManager().registerEvents(this, SMPRPG.getInstance())
+        Bukkit.getPluginManager().registerEvents(this, SMPRPG.plugin)
         this.player.openInventory(this.inventory)
     }
 
@@ -117,8 +119,8 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     //   Events
     // ----------
     @EventHandler
-    fun __handleInventoryOpened(event: InventoryOpenEvent) {
-        val eventForOtherInventory = event.getInventory() != this.inventory
+    private fun onInventoryOpened(event: InventoryOpenEvent) {
+        val eventForOtherInventory = event.inventory != this.inventory
         if (eventForOtherInventory) {
             return
         }
@@ -131,15 +133,15 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     }
 
     @EventHandler
-    fun __handleInventoryClicked(event: InventoryClickEvent) {
-        val eventForOtherInventory = event.getInventory() != this.inventory
+    private fun onInventoryClicked(event: InventoryClickEvent) {
+        val eventForOtherInventory = event.inventory != this.inventory
         if (eventForOtherInventory) {
             return
         }
 
         // Explicitly disable number key modifications.
-        if (event.getClick() == ClickType.NUMBER_KEY) {
-            event.setCancelled(true)
+        if (event.click == ClickType.NUMBER_KEY) {
+            event.isCancelled = true
             //this.playInvalidAnimation();
             return
         }
@@ -148,9 +150,9 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
         // This is because buttons should only be inside the menu inventory.
         // The index returned by event.getSlot() is relative to the clicked inventory.
         // As the menu is slot index 0 to something, we can use the raw index and skip inventory checks.
-        val clickHandler = this.buttonSlots.getOrDefault(event.getRawSlot(), null)
+        val clickHandler = this.buttonSlots.getOrDefault(event.rawSlot, null)
         if (clickHandler != null) {
-            event.setCancelled(true)
+            event.isCancelled = true
             clickHandler.handleClick(event)
             return
         }
@@ -159,8 +161,8 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     }
 
     @EventHandler
-    fun __handleInventoryClosed(event: InventoryCloseEvent) {
-        val eventForOtherInventory = event.getInventory() != this.inventory
+    private fun onInventoryClosed(event: InventoryCloseEvent) {
+        val eventForOtherInventory = event.inventory != this.inventory
         if (eventForOtherInventory) {
             return
         }
@@ -181,19 +183,19 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     /**
      * Called when the menu is displayed.
      */
-    protected open fun handleInventoryOpened(event: InventoryOpenEvent?) {
+    protected open fun handleInventoryOpened(event: InventoryOpenEvent) {
     }
 
     /**
      * Called when a non button slot is clicked on the menu.
      */
-    protected open fun handleInventoryClicked(event: InventoryClickEvent?) {
+    protected open fun handleInventoryClicked(event: InventoryClickEvent) {
     }
 
     /**
      * Called when the menu is closed.
      */
-    protected open fun handleInventoryClosed(event: InventoryCloseEvent?) {
+    protected open fun handleInventoryClosed(event: InventoryCloseEvent) {
     } // ------------------------
     //   Inventory Operations
     // ------------------------
@@ -206,7 +208,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
      * @return The item stored in the inventory slot or null if the slot is empty.
      */
     protected fun getItem(slotIndex: Int): ItemStack? {
-        if (slotIndex < 0 || slotIndex >= this.inventory.getSize()) {
+        if (slotIndex < 0 || slotIndex >= this.inventory.size) {
             return null
         }
         return this.inventory.getItem(slotIndex)
@@ -218,7 +220,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
          * 
          * @return An array containing all the item stacks stored in the menu.
          */
-        get() = this.inventory.getContents()
+        get() = this.inventory.contents
 
     protected val inventorySize: Int
         /**
@@ -226,7 +228,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
          * 
          * @return The size of menu inventory.
          */
-        get() = this.inventory.getSize()
+        get() = this.inventory.size
 
     /**
      * Copies the item from the menu inventory to the players inventory.
@@ -236,20 +238,17 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
      * @param shouldDropOnGround True if any leftover items should be dropped onto the ground, otherwise false.
      */
     protected fun giveItemToPlayer(slotIndex: Int, shouldDropOnGround: Boolean) {
-        val itemStack = this.inventory.getItem(slotIndex)
-        if (itemStack == null) {
-            return
-        }
+        val itemStack = this.inventory.getItem(slotIndex) ?: return
 
         // Give the maximum amount of items to the player.
-        val overflowItems = this.player.getInventory().addItem(itemStack).values
+        val overflowItems = this.player.inventory.addItem(itemStack).values
         if (!shouldDropOnGround) {
             return
         }
 
         // Throw any remaining items onto the ground.
         for (item in overflowItems) {
-            this.player.getWorld().dropItemNaturally(this.player.getLocation(), item)
+            this.player.world.dropItemNaturally(this.player.location, item)
         }
     }
 
@@ -268,7 +267,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
      * @param maxStackSize The maximum stack size.
      */
     protected fun setMaxStackSize(maxStackSize: Int) {
-        this.inventory.setMaxStackSize(maxStackSize)
+        this.inventory.maxStackSize = maxStackSize
     }
 
     /**
@@ -308,7 +307,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
      * @param itemStack The item to insert.
      */
     protected fun setSlots(itemStack: ItemStack) {
-        for (slotIndex in 0..<this.inventory.getSize()) {
+        for (slotIndex in 0..<this.inventory.size) {
             this.setSlot(slotIndex, itemStack)
         }
     }
@@ -324,7 +323,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
         check(!slotIndexOutsideMenuBounds(slotIndex)) { "Provided slot index is outside the bounds of the menu inventory." }
 
         this.setSlot(slotIndex, itemStack)
-        this.buttonSlots.put(slotIndex, handler)
+        this.buttonSlots[slotIndex] = handler
     }
 
     /**
@@ -334,7 +333,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
      * @param newItem The item to replace the old item with.
      */
     protected fun replaceSlots(oldItem: ItemStack, newItem: ItemStack) {
-        for (slotIndex in 0..<this.inventory.getSize()) {
+        for (slotIndex in 0..<this.inventory.size) {
             val shouldReplace = oldItem == this.getItem(slotIndex)
             if (shouldReplace) {
                 this.setSlot(slotIndex, newItem)
@@ -370,12 +369,12 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
      * Creates a border around the perimeter of the menus inventory.
      */
     fun setBorderEdge() {
-        val canApplyBorder = this.inventory.getSize() >= (3 * 9)
+        val canApplyBorder = this.inventory.size >= (3 * 9)
         require(canApplyBorder) { "Edge borders can only be applied to menus with 3 or more rows" }
 
-        for (slotIndex in 0..<this.inventory.getSize()) {
+        for (slotIndex in 0..<this.inventory.size) {
             val isTopSlot = slotIndex <= 8
-            val isBottomSlot = this.inventory.getSize() - slotIndex <= 9
+            val isBottomSlot = this.inventory.size - slotIndex <= 9
             val isSideSlot = slotIndex % 9 == 0 || slotIndex % 9 == 8
             if (isTopSlot || isBottomSlot || isSideSlot) {
                 this.setSlot(slotIndex, BORDER_NORMAL)
@@ -386,7 +385,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     fun setBorderBottom() {
         // Make all the slots in the bottom row a border.
 
-        for (slotIndex in this.inventory.getSize() - 9..<this.inventory.getSize()) this.setSlot(
+        for (slotIndex in this.inventory.size - 9..<this.inventory.size) this.setSlot(
             slotIndex,
             BORDER_NORMAL
         )
@@ -414,13 +413,13 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     protected fun playSuccessAnimation(playSound: Boolean = true) {
         stopAnimation()
         val successBorder: ItemStack = createNamedItem(Material.LIME_STAINED_GLASS_PANE, Component.text(""))
-        this.activeAnimation = SMPRPG.getService<AnimationService?>(AnimationService::class.java).playOnce(
-            AnimationFrame {
+        this.activeAnimation = SMPRPG.getService(AnimationService::class.java).playOnce(
+            {
                 if (playSound) this.sounds.playActionConfirm()
                 this.replaceSlots(BORDER_NORMAL, successBorder)
                 WaitFor.milliseconds(200)
             },
-            AnimationFrame {
+            {
                 this.replaceSlots(successBorder, BORDER_NORMAL)
                 WaitFor.nothing()
             }
@@ -438,13 +437,13 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     protected fun playInvalidAnimation(playSound: Boolean = true) {
         stopAnimation()
         val errorBorder: ItemStack = createNamedItem(Material.RED_STAINED_GLASS_PANE, Component.text(""))
-        this.activeAnimation = SMPRPG.getService<AnimationService?>(AnimationService::class.java).playOnce(
-            AnimationFrame {
+        this.activeAnimation = SMPRPG.getService(AnimationService::class.java).playOnce(
+            {
                 if (playSound) this.sounds.playActionError()
                 this.replaceSlots(BORDER_NORMAL, errorBorder)
                 WaitFor.milliseconds(200)
             },
-            AnimationFrame {
+            {
                 this.replaceSlots(errorBorder, BORDER_NORMAL)
                 WaitFor.nothing()
             }
@@ -474,13 +473,13 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
         if (this.parentMenu == null) {
             this.setButton(
                 slotIndex,
-                BUTTON_EXIT,
-                MenuButtonClickHandler { e: InventoryClickEvent? -> this.closeMenu() })
+                BUTTON_EXIT
+            ) { e: InventoryClickEvent -> this.closeMenu() }
         } else {
             this.setButton(
                 slotIndex,
-                BUTTON_BACK,
-                MenuButtonClickHandler { e: InventoryClickEvent? -> this.openParentMenu() })
+                BUTTON_BACK
+            ) { e: InventoryClickEvent -> this.openParentMenu() }
         }
     }
 
@@ -508,7 +507,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
      * @param sound The sound effect to play.
      */
     protected fun playSound(sound: Sound, volume: Float = 1.0f, pitch: Float = 1.0f) {
-        this.player.playSound(this.player.getLocation(), sound, volume, pitch)
+        this.player.playSound(this.player.location, sound, volume, pitch)
     }
 
     /**
@@ -516,10 +515,10 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
      * 
      * @param item The item to give to the player.
      */
-    protected fun giveItemToPlayer(item: ItemStack?) {
-        val overflow = this.player.getInventory().addItem(item!!)
+    protected fun giveItemToPlayer(item: ItemStack) {
+        val overflow = this.player.inventory.addItem(item)
         for (overflowItem in overflow.entries) {
-            this.player.getWorld().dropItemNaturally(this.player.getEyeLocation(), overflowItem.value)
+            this.player.world.dropItemNaturally(this.player.eyeLocation, overflowItem.value)
         }
     }
 
@@ -530,20 +529,23 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
      * @return True if it's outside the bounds, otherwise false.
      */
     protected fun slotIndexOutsideMenuBounds(slotIndex: Int): Boolean {
-        return slotIndex < 0 || this.inventory.getSize() <= slotIndex
+        return slotIndex < 0 || this.inventory.size <= slotIndex
     }
 
     companion object {
         // -----------
         //   Presets
         // -----------
+        @JvmField
         protected val BORDER_NORMAL: ItemStack = createNamedItem(Material.BLACK_STAINED_GLASS_PANE, Component.text(""))
         protected val BUTTON_PAGE_NEXT: ItemStack =
             createNamedItem(Material.ARROW, Component.text("Next Page ->", NamedTextColor.BLUE))
         protected val BUTTON_PAGE_PREVIOUS: ItemStack =
             createNamedItem(Material.ARROW, Component.text("<- Previous Page", NamedTextColor.BLUE))
+        @JvmField
         protected val BUTTON_BACK: ItemStack =
             createNamedItem(Material.ARROW, Component.text("Back", NamedTextColor.BLUE))
+        @JvmField
         protected val BUTTON_EXIT: ItemStack =
             createNamedItem(Material.BARRIER, Component.text("Exit", NamedTextColor.RED))
 
@@ -584,7 +586,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
          */
         protected fun createNamedItem(material: Material, name: String?): ItemStack {
             val item = ItemStack(material)
-            val meta = item.getItemMeta()
+            val meta = item.itemMeta
             meta.displayName(ComponentUtils.create(name, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
             item.setItemMeta(meta)
             return item
@@ -597,9 +599,10 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
          * @param name     The name to apply to the item stack.
          * @return The named item stack.
          */
+        @JvmStatic
         protected fun createNamedItem(material: Material, name: Component): ItemStack {
             val item = ItemStack(material)
-            val meta = item.getItemMeta()
+            val meta = item.itemMeta
             meta.displayName(name.decoration(TextDecoration.ITALIC, false))
             item.setItemMeta(meta)
             return item
@@ -612,12 +615,14 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
          * @param name     The name to apply to the item stack.
          * @return The named item stack.
          */
+        @JvmStatic
         protected fun createNoRenderNamedItem(material: Material, name: Component): ItemStack {
             val item: ItemStack = createNamedItem(material, name)
             markItemNoRender(item)
             return item
         }
 
+        @JvmStatic
         protected fun markItemNoRender(item: ItemStack) {
             item.setData<CustomModelData?>(
                 DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()

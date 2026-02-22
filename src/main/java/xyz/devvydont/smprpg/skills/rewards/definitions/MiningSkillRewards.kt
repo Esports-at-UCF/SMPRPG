@@ -9,9 +9,8 @@ import xyz.devvydont.smprpg.skills.rewards.SkillRewardContainer
  * Rewards to get from mining. We should give rewards like mining efficiency and fortune.
  */
 class MiningSkillRewards : SkillRewardContainer() {
-    public override fun initializeRewards() {
-        // Add fortune every level
 
+    init {
         this.addAttributeRewardEveryLevel(
             AttributeWrapper.MINING_FORTUNE,
             AttributeModifier.Operation.ADD_NUMBER,

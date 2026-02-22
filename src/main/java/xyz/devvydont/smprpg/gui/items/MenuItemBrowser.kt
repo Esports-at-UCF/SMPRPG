@@ -35,7 +35,7 @@ class MenuItemBrowser @JvmOverloads constructor(
      */
     val query: String? = ""
 ) : MenuBase(player, ROWS) {
-    private val queriedItems: MutableList<ItemStack>
+    private val queriedItems: MutableList<ItemStack> = ArrayList<ItemStack>()
     private var page = 0
 
     /**
@@ -51,12 +51,11 @@ class MenuItemBrowser @JvmOverloads constructor(
      * @param player The player who wants to view items
      */
     init {
-        this.queriedItems = ArrayList<ItemStack>()
 
         // If the item cache hasn't initialized yet, go ahead and do that.
         if (ITEM_CACHE.isEmpty()) {
             for (type in CustomItemType.entries) ITEM_CACHE.add(ItemService.generate(type))
-            for (material in Material.entries) if (!material.isLegacy() && material.isItem()) ITEM_CACHE.add(
+            for (material in Material.entries) if (!material.isLegacy && material.isItem) ITEM_CACHE.add(
                 ItemService.generate(
                     material
                 )
@@ -81,7 +80,7 @@ class MenuItemBrowser @JvmOverloads constructor(
 
     override fun handleInventoryClicked(event: InventoryClickEvent) {
         super.handleInventoryClicked(event)
-        event.setCancelled(true)
+        event.isCancelled = true
         //this.playInvalidAnimation();
     }
 
@@ -92,7 +91,7 @@ class MenuItemBrowser @JvmOverloads constructor(
      * @return true if a query is set, false if we are just viewing everything
      */
     fun hasQuery(): Boolean {
-        return query != null && !query.isEmpty()
+        return !query.isNullOrEmpty()
     }
 
     /**
@@ -130,7 +129,7 @@ class MenuItemBrowser @JvmOverloads constructor(
 
         // Do vanilla items too.
         for (material in Material.entries) {
-            if (material.isLegacy() || !material.isItem() || material == Material.AIR) continue
+            if (material.isLegacy || !material.isItem || material == Material.AIR) continue
 
             val simpleName =
                 material.name.lowercase(Locale.getDefault()).replace(" ", "").replace("_", "").replace("-", "")
@@ -155,18 +154,18 @@ class MenuItemBrowser @JvmOverloads constructor(
         this.sounds.playActionConfirm()
 
         // If the player is in creative mode and this is a shift click, give it to them.
-        if (this.player.getGameMode() == GameMode.CREATIVE && event.isShiftClick()) {
+        if (this.player.gameMode == GameMode.CREATIVE && event.isShiftClick) {
             this.playSound(Sound.ENTITY_ITEM_PICKUP, 1f, .5f)
             val item = itemStack.clone()
-            SMPRPG.getService<ItemService?>(ItemService::class.java)!!.ensureItemStackUpdated(item)
-            this.player.getInventory().addItem(item)
+            SMPRPG.getService(ItemService::class.java).ensureItemStackUpdated(item)
+            this.player.inventory.addItem(item)
             return
         }
 
         // Get a clean version of the item w/o modified lore so that we can properly query recipes.
         val clean = ItemService.blueprint(itemStack)
-        val recipes: MutableList<Recipe?> = getRecipesFor(clean.generate())
-        if (recipes.isEmpty() || itemStack.getType() == Material.AIR) {
+        val recipes: MutableList<Recipe> = getRecipesFor(clean.generate())
+        if (recipes.isEmpty() || itemStack.type == Material.AIR) {
             //this.playInvalidAnimation();
             return
         }
@@ -206,26 +205,26 @@ class MenuItemBrowser @JvmOverloads constructor(
             if (this.getItem(slot) != null) continue
 
             // Add the button
-            val item = queriedItems.get(itemIndexOffset)
+            val item = queriedItems[itemIndexOffset]
 
             // Re-render the lore on the item. This needs to be done so we don't duplicate injected lore.
-            val blueprint = SMPRPG.getService<ItemService?>(ItemService::class.java)!!.getBlueprint(item)
-            val lore = SMPRPG.getService<ItemService?>(ItemService::class.java)!!.renderItemStackLore(item)
+            val blueprint = SMPRPG.getService(ItemService::class.java).getBlueprint(item)
+            val lore = SMPRPG.getService(ItemService::class.java).renderItemStackLore(item)
             lore.addFirst(ComponentUtils.EMPTY)
             lore.addFirst(ComponentUtils.create("Click to view recipe!", NamedTextColor.YELLOW))
             lore.addFirst(ComponentUtils.EMPTY)
 
             // If this ingredient can be crafted, insert the craftable tooltip.
-            if (blueprint is ICraftable || blueprint is ISmeltable) item.editMeta(Consumer { meta: ItemMeta? ->
-                meta!!.lore(
+            if (blueprint is ICraftable || blueprint is ISmeltable) item.editMeta(Consumer { meta: ItemMeta ->
+                meta.lore(
                     lore
                 )
             })
 
             this.setButton(
                 slot,
-                item,
-                MenuButtonClickHandler { event: InventoryClickEvent? -> this.handleClick(event!!, item) })
+                item
+            ) { event: InventoryClickEvent -> this.handleClick(event, item) }
             itemIndexOffset++
         }
 
@@ -237,28 +236,28 @@ class MenuItemBrowser @JvmOverloads constructor(
             (ROWS - 1) * 9,
             createNoRenderNamedItem(
                 Material.BLACK_STAINED_GLASS_PANE,
-                ComponentUtils.create("Previous Page (" + displayPage + "/" + displayPageMax + ")", NamedTextColor.GOLD)
-            ),
-            MenuButtonClickHandler { e: InventoryClickEvent? ->
-                page--
-                this.render()
-                this.sounds.playPagePrevious()
-            })
+                ComponentUtils.create("Previous Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD)
+            )
+        ) { _: InventoryClickEvent ->
+            page--
+            this.render()
+            this.sounds.playPagePrevious()
+        }
 
         this.setButton(
             (ROWS - 1) * 9 + 8,
             createNoRenderNamedItem(
                 Material.BLACK_STAINED_GLASS_PANE,
-                ComponentUtils.create("Next Page (" + displayPage + "/" + displayPageMax + ")", NamedTextColor.GOLD)
-            ),
-            MenuButtonClickHandler { e: InventoryClickEvent? ->
-                page++
-                this.render()
-                this.sounds.playPageNext()
-            })
+                ComponentUtils.create("Next Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD)
+            )
+        ) { _: InventoryClickEvent ->
+            page++
+            this.render()
+            this.sounds.playPageNext()
+        }
 
         // Close button
-        this.setButton((ROWS - 1) * 9 + 4, BUTTON_EXIT, MenuButtonClickHandler { e: InventoryClickEvent? ->
+        this.setButton((ROWS - 1) * 9 + 4, BUTTON_EXIT, MenuButtonClickHandler { _: InventoryClickEvent ->
             this.closeMenu()
             this.sounds.playMenuClose()
         })

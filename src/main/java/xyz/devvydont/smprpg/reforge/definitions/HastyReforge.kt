@@ -13,7 +13,7 @@ class HastyReforge(type: ReforgeType) : ReforgeBase(type) {
     override fun getAttributeModifiersWithRarity(rarity: ItemRarity): List<AttributeEntry> {
         return listOf<AttributeEntry>(
             AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, rarity.ordinal * .03 + .07),
-            AdditiveAttributeEntry(AttributeWrapper.MINING_EFFICIENCY, rarity.ordinal * .04 + .1)
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, rarity.ordinal * .04 + .1)
         )
     }
 

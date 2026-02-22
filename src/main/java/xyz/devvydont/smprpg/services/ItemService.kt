@@ -46,6 +46,8 @@ import xyz.devvydont.smprpg.items.base.ChargedItemBlueprint
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint
+import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint
+import xyz.devvydont.smprpg.items.blueprints.drills.FuelTankBlueprint
 import xyz.devvydont.smprpg.items.blueprints.potion.PotionBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource
 import xyz.devvydont.smprpg.items.blueprints.vanilla.*
@@ -168,7 +170,7 @@ class ItemService : IService, Listener {
         registerVanillaMaterialResolver(Material.SHEARS, ItemShears::class.java)
 
         registerVanillaMaterialResolver(Material.WOODEN_SWORD, ItemSword::class.java)
-        registerVanillaMaterialResolver(Material.STONE_SWORD, ItemSword::class.java)
+//        registerVanillaMaterialResolver(Material.STONE_SWORD, ItemSword::class.java)
         registerVanillaMaterialResolver(Material.GOLDEN_SWORD, ItemSword::class.java)
         registerVanillaMaterialResolver(Material.IRON_SWORD, ItemSword::class.java)
         registerVanillaMaterialResolver(Material.DIAMOND_SWORD, ItemSword::class.java)
@@ -178,7 +180,7 @@ class ItemService : IService, Listener {
         registerVanillaMaterialResolver(Material.TRIDENT, ItemSword::class.java)
 
         registerVanillaMaterialResolver(Material.WOODEN_AXE, ItemAxe::class.java)
-        registerVanillaMaterialResolver(Material.STONE_AXE, ItemAxe::class.java)
+//        registerVanillaMaterialResolver(Material.STONE_AXE, ItemAxe::class.java)
         registerVanillaMaterialResolver(Material.GOLDEN_AXE, ItemAxe::class.java)
         registerVanillaMaterialResolver(Material.IRON_AXE, ItemAxe::class.java)
         registerVanillaMaterialResolver(Material.DIAMOND_AXE, ItemAxe::class.java)
@@ -188,21 +190,21 @@ class ItemService : IService, Listener {
         registerVanillaMaterialResolver(Material.CROSSBOW, ItemCrossbow::class.java)
 
         registerVanillaMaterialResolver(Material.WOODEN_PICKAXE, ItemPickaxe::class.java)
-        registerVanillaMaterialResolver(Material.STONE_PICKAXE, ItemPickaxe::class.java)
+//        registerVanillaMaterialResolver(Material.STONE_PICKAXE, ItemPickaxe::class.java)
         registerVanillaMaterialResolver(Material.GOLDEN_PICKAXE, ItemPickaxe::class.java)
         registerVanillaMaterialResolver(Material.IRON_PICKAXE, ItemPickaxe::class.java)
         registerVanillaMaterialResolver(Material.DIAMOND_PICKAXE, ItemPickaxe::class.java)
         registerVanillaMaterialResolver(Material.NETHERITE_PICKAXE, ItemPickaxe::class.java)
 
         registerVanillaMaterialResolver(Material.WOODEN_SHOVEL, ItemShovel::class.java)
-        registerVanillaMaterialResolver(Material.STONE_SHOVEL, ItemShovel::class.java)
+//        registerVanillaMaterialResolver(Material.STONE_SHOVEL, ItemShovel::class.java)
         registerVanillaMaterialResolver(Material.GOLDEN_SHOVEL, ItemShovel::class.java)
         registerVanillaMaterialResolver(Material.IRON_SHOVEL, ItemShovel::class.java)
         registerVanillaMaterialResolver(Material.DIAMOND_SHOVEL, ItemShovel::class.java)
         registerVanillaMaterialResolver(Material.NETHERITE_SHOVEL, ItemShovel::class.java)
 
         registerVanillaMaterialResolver(Material.WOODEN_HOE, ItemHoe::class.java)
-        registerVanillaMaterialResolver(Material.STONE_HOE, ItemHoe::class.java)
+//        registerVanillaMaterialResolver(Material.STONE_HOE, ItemHoe::class.java)
         registerVanillaMaterialResolver(Material.GOLDEN_HOE, ItemHoe::class.java)
         registerVanillaMaterialResolver(Material.IRON_HOE, ItemHoe::class.java)
         registerVanillaMaterialResolver(Material.DIAMOND_HOE, ItemHoe::class.java)
@@ -874,21 +876,21 @@ class ItemService : IService, Listener {
         val durabilityUsed = itemStack.getData<@NonNegative Int?>(DataComponentTypes.DAMAGE)
         if (durabilityComponent != null && durabilityUsed != null && (blueprint !is ChargedItemBlueprint)) {
             lore.add(ComponentUtils.EMPTY)
-            lore.add(
-                ComponentUtils.create("Durability: ")
-                    .append(
-                        ComponentUtils.create(
-                            MinecraftStringUtils.formatNumber((durabilityComponent - durabilityUsed).toLong()),
-                            NamedTextColor.RED
-                        )
-                    )
-                    .append(
-                        ComponentUtils.create(
-                            "/" + MinecraftStringUtils.formatNumber(durabilityComponent.toLong()),
-                            NamedTextColor.DARK_GRAY
-                        )
-                    )
-            )
+            if (blueprint is IFueledEquipment || blueprint is FuelTankBlueprint) {
+                // We need to spoof durability by subtracting 1, since we store as +1 to allow for durability bar rendering.
+                lore.add(
+                    ComponentUtils.create("Fuel: ")
+                        .append(ComponentUtils.create(MinecraftStringUtils.formatNumber((durabilityComponent - durabilityUsed - 1).toLong()), NamedTextColor.RED))
+                        .append(ComponentUtils.create("/" + MinecraftStringUtils.formatNumber((durabilityComponent - 1).toLong()), NamedTextColor.DARK_GRAY))
+                );
+            }
+            else{
+                lore.add(
+                    ComponentUtils.create("Durability: ")
+                        .append(ComponentUtils.create(MinecraftStringUtils.formatNumber((durabilityComponent - durabilityUsed).toLong()), NamedTextColor.RED))
+                        .append(ComponentUtils.create("/" + MinecraftStringUtils.formatNumber(durabilityComponent.toLong()), NamedTextColor.DARK_GRAY))
+                );
+            }
         }
 
         // Damage resistant?
@@ -1296,6 +1298,9 @@ class ItemService : IService, Listener {
     private fun onPlaceCustomItem(event: BlockPlaceEvent) {
         val item = event.getItemInHand()
         val blueprint = getBlueprint(item)
+
+        if (blueprint is BlockBlueprint)
+            return;
 
         // Hack for summoning crystals. Allow them to be placed!
         if (blueprint is CustomItemBlueprint && blueprint.customItemType == CustomItemType.SUMMONING_CRYSTAL) return

@@ -156,7 +156,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.AXE,
         ItemClassification.PICKAXE,
         ItemClassification.HOE,
-        ItemClassification.HATCHET
+        ItemClassification.HATCHET,
+        ItemClassification.DRILL
     ),
     HASTY(
         HastyReforge::class.java,
@@ -165,7 +166,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.AXE,
         ItemClassification.PICKAXE,
         ItemClassification.HOE,
-        ItemClassification.HATCHET
+        ItemClassification.HATCHET,
+        ItemClassification.DRILL
     ),
 
     // Fishing oriented (RODS)
@@ -205,7 +207,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.MACE,
         ItemClassification.PICKAXE,
         ItemClassification.HOE,
-        ItemClassification.HATCHET
+        ItemClassification.HATCHET,
+        ItemClassification.DRILL
     ),
     COPIOUS(
         CopiousReforge::class.java,
@@ -225,7 +228,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.MACE,
         ItemClassification.PICKAXE,
         ItemClassification.HOE,
-        ItemClassification.HATCHET
+        ItemClassification.HATCHET,
+        ItemClassification.DRILL
     ),
 
     // DAMAGE (melee)
@@ -251,7 +255,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.TOOL,
         ItemClassification.CHARM,
         ItemClassification.PICKAXE,
-        ItemClassification.HOE
+        ItemClassification.HOE,
+        ItemClassification.DRILL
     ),
     POWERFUL(
         PowerfulReforge::class.java,
@@ -261,7 +266,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.TOOL,
         ItemClassification.CHARM,
         ItemClassification.PICKAXE,
-        ItemClassification.HOE
+        ItemClassification.HOE,
+        ItemClassification.DRILL
     ),
     DULL(DullReforge::class.java, ItemClassification.SWORD, ItemClassification.CHARM),
     SLUGGISH(
@@ -310,7 +316,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.CHARM,
         ItemClassification.PICKAXE,
         ItemClassification.HOE,
-        ItemClassification.HATCHET
+        ItemClassification.HATCHET,
+        ItemClassification.DRILL
     ),
     EXTENDED(
         ExtendedReforge::class.java,
@@ -323,7 +330,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.CHARM,
         ItemClassification.PICKAXE,
         ItemClassification.HOE,
-        ItemClassification.HATCHET
+        ItemClassification.HATCHET,
+        ItemClassification.DRILL
     ),
 
     // META reforges, only dropped from rare drops
