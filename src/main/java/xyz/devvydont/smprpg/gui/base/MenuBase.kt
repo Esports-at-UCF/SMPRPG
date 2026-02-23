@@ -119,7 +119,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     //   Events
     // ----------
     @EventHandler
-    private fun onInventoryOpened(event: InventoryOpenEvent) {
+    fun onInventoryOpened(event: InventoryOpenEvent) {
         val eventForOtherInventory = event.inventory != this.inventory
         if (eventForOtherInventory) {
             return
@@ -133,7 +133,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     }
 
     @EventHandler
-    private fun onInventoryClicked(event: InventoryClickEvent) {
+    fun onInventoryClicked(event: InventoryClickEvent) {
         val eventForOtherInventory = event.inventory != this.inventory
         if (eventForOtherInventory) {
             return
@@ -161,7 +161,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     }
 
     @EventHandler
-    private fun onInventoryClosed(event: InventoryCloseEvent) {
+    fun onInventoryClosed(event: InventoryCloseEvent) {
         val eventForOtherInventory = event.inventory != this.inventory
         if (eventForOtherInventory) {
             return

@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
@@ -48,7 +49,7 @@ public class ShadowBrew extends CustomItemBlueprint implements ISellable, IEdibl
     }
 
     @Override
-    public Consumable getConsumableComponent(ItemStack item) {
+    public @NonNull Consumable getConsumableComponent(ItemStack item) {
         return Consumable.consumable()
                 .addEffect(ConsumeEffect.applyStatusEffects(List.of(
                         new PotionEffect(PotionEffectType.SPEED, (int) TickTime.seconds(30), 2, false, false),

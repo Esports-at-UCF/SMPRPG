@@ -5,8 +5,9 @@ import io.papermc.paper.datacomponent.item.FoodProperties;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
-import xyz.devvydont.smprpg.util.formatting.MinecraftStringUtils;
 import xyz.devvydont.smprpg.util.formatting.Symbols;
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public interface IEdible extends IConsumable {
         return lore;
     }
 
-    static IEdible fromVanillaData(FoodProperties foodProperties, Consumable consumable) {
+    static IEdible fromVanillaData(@NotNull FoodProperties foodProperties, @NotNull Consumable consumable) {
         return new IEdible() {
             @Override
             public int getNutrition(ItemStack item) {
@@ -102,7 +103,7 @@ public interface IEdible extends IConsumable {
             }
 
             @Override
-            public Consumable getConsumableComponent(ItemStack item) {
+            public @NonNull Consumable getConsumableComponent(ItemStack item) {
                 return consumable;
             }
         };

@@ -18,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
 import org.bukkit.persistence.PersistentDataType;
+import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
@@ -101,7 +102,7 @@ public class MagicMirror extends CustomItemBlueprint implements IConsumable, Lis
     }
 
     @Override
-    public Consumable getConsumableComponent(ItemStack item) {
+    public @NonNull Consumable getConsumableComponent(ItemStack item) {
         return Consumable.consumable()
                 .consumeSeconds(7)
                 .animation(ItemUseAnimation.BLOCK)

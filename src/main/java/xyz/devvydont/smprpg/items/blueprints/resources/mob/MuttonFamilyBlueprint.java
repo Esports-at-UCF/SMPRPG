@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.base.CustomCompressableBlueprint;
@@ -60,7 +61,7 @@ public class MuttonFamilyBlueprint extends CustomCompressableBlueprint implement
     }
 
     @Override
-    public Consumable getConsumableComponent(ItemStack item) {
+    public @NonNull Consumable getConsumableComponent(ItemStack item) {
 
         var effects = new ArrayList<ConsumeEffect>();
 

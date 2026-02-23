@@ -778,9 +778,9 @@ class ItemService : IService, Listener {
 
         // Temp hack, get food and consumable properties for vanilla items.
         // Keeping this here until we get all vanilla items on the same page as custom ones.
-        if (!blueprint.isCustom() && itemStack.getData<FoodProperties?>(DataComponentTypes.FOOD) != null) {
-            val foodData = itemStack.getData<FoodProperties?>(DataComponentTypes.FOOD)
-            val consumableData = itemStack.getData<Consumable?>(DataComponentTypes.CONSUMABLE)
+        val foodData = itemStack.getData(DataComponentTypes.FOOD)
+        val consumableData = itemStack.getData(DataComponentTypes.CONSUMABLE)
+        if (!blueprint.isCustom() && foodData != null && consumableData != null) {
             lore.add(ComponentUtils.EMPTY)
             lore.addAll(
                 IEdible.generateEdibilityComponent(
@@ -788,14 +788,16 @@ class ItemService : IService, Listener {
                     IEdible.fromVanillaData(foodData, consumableData)
                 )
             )
-        } else if (!blueprint.isCustom() && itemStack.getData<Consumable?>(DataComponentTypes.CONSUMABLE) != null) {
-            val consumableData = itemStack.getData<Consumable?>(DataComponentTypes.CONSUMABLE)
-            lore.add(ComponentUtils.EMPTY)
-            lore.addAll(
-                IConsumable.generateConsumabilityComponent(
-                    itemStack
-                ) { i: ItemStack? -> consumableData }
-            )
+        } else if (!blueprint.isCustom() && consumableData != null) {
+            val consumableData = itemStack.getData(DataComponentTypes.CONSUMABLE)
+            if (consumableData != null) {
+                lore.add(ComponentUtils.EMPTY)
+                lore.addAll(
+                    IConsumable.generateConsumabilityComponent(
+                        itemStack
+                    ) { i: ItemStack? -> consumableData }
+                )
+            }
         }
 
         // Is this item compressed?
@@ -1325,7 +1327,13 @@ class ItemService : IService, Listener {
          */
         @JvmStatic
         fun generate(type: CustomItemType): ItemStack {
-            return SMPRPG.getService(ItemService::class.java).getCustomItem(type)
+            try {
+                return SMPRPG.getService(ItemService::class.java).getCustomItem(type)
+            } catch (e: Exception) {
+                SMPRPG.plugin.logger.severe { "Failed to generate vanilla item for $type" }
+                e.printStackTrace()
+                return ItemStack(Material.AIR)
+            }
         }
 
         /**
@@ -1336,7 +1344,13 @@ class ItemService : IService, Listener {
          */
         @JvmStatic
         fun generate(material: Material): ItemStack {
-            return SMPRPG.getService(ItemService::class.java).getCustomItem(material)
+            try {
+                return SMPRPG.getService(ItemService::class.java).getCustomItem(material)
+            } catch (e: Exception) {
+                SMPRPG.plugin.logger.severe { "Failed to generate vanilla item for $material" }
+                e.printStackTrace()
+                return ItemStack(Material.AIR)
+            }
         }
 
         /**

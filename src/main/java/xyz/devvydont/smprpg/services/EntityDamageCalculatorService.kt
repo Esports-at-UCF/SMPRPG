@@ -616,7 +616,7 @@ class EntityDamageCalculatorService : Listener, IService {
         // Ignore this event if another player is causing this. PVP is unaffected.
         if (event.dealer is Player)
             return
-        val player = event.dealer as Player
+        val player = event.damaged
 
         // Multiply their difficulty damage multiplier.
         val multiplier = getDamageMultiplier(SMPRPG.getService(DifficultyService::class.java).getDifficulty(player))

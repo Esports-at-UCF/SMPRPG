@@ -1,15 +1,13 @@
 package xyz.devvydont.smprpg.items.blueprints.food;
 
-import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.Consumable;
-import io.papermc.paper.datacomponent.item.ItemAdventurePredicate;
 import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect;
-import io.papermc.paper.registry.keys.SoundEventKeys;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
@@ -50,7 +48,7 @@ public class BreadboardBlueprint extends CustomItemBlueprint implements IEdible,
     }
 
     @Override
-    public Consumable getConsumableComponent(ItemStack item) {
+    public @NonNull Consumable getConsumableComponent(ItemStack item) {
         return Consumable.consumable()
                 .consumeSeconds(1.5f)
                 .addEffect(ConsumeEffect.applyStatusEffects(List.of(new PotionEffect(PotionEffectType.GLOWING, (int) TickTime.seconds(30), 0, true, true)), .5f))

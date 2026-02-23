@@ -110,9 +110,11 @@ class SMPRPGBootstrapper : PluginBootstrap {
                         // a server owner that your plugin includes this data pack.
                         event.registrar().discoverPack(uri, "provided")
                     } catch (e: URISyntaxException) {
-                        throw RuntimeException(e)
+                        SMPRPG.plugin.logger.severe("unable to load the smprpg-data builtin datapack. check console for details.")
+                        e.printStackTrace()
                     } catch (e: IOException) {
-                        throw RuntimeException(e)
+                        SMPRPG.plugin.logger.severe("unable to load the smprpg-data builtin datapack. check console for details.")
+                        e.printStackTrace()
                     }
                 }
             ))
@@ -121,7 +123,7 @@ class SMPRPGBootstrapper : PluginBootstrap {
     override fun bootstrap(bootstrapContext: BootstrapContext) {
         bootstrapCommands(bootstrapContext)
         bootstrapEnchantments(bootstrapContext)
-        bootstrapDatapack(bootstrapContext)
+//        bootstrapDatapack(bootstrapContext)
     }
 
 
