@@ -72,6 +72,11 @@ class InterfaceStats : MenuBase {
                 this.playSound(Sound.BLOCK_CHEST_OPEN)
                 MenuInventoryPeek(this.player, this.target, this).openMenu()
             }
+
+            this.setButton(SLOT_WARDROBE, this.wardrobeButton) { e: InventoryClickEvent ->
+                this.playSound(Sound.ITEM_ARMOR_EQUIP_GENERIC)
+                InterfaceWardrobe(this, this.player, this.target).openMenu()
+            }
         }
 
         this.setButton(
@@ -364,6 +369,29 @@ class InterfaceStats : MenuBase {
             return chest
         }
 
+    private val wardrobeButton: ItemStack
+        get() {
+            val item = ItemStack(Material.ARMOR_STAND)
+            val meta = item.itemMeta
+
+            meta.displayName(
+                this.target.name().color(NamedTextColor.AQUA).append(ComponentUtils.create("'s Wardrobe"))
+                    .decoration(TextDecoration.ITALIC, false)
+            )
+            val lore =
+                listOf(
+                    ComponentUtils.EMPTY,
+                    ComponentUtils.merge(
+                        ComponentUtils.create("Click to view their "),
+                        ComponentUtils.create("wardrobe", NamedTextColor.GOLD),
+                        ComponentUtils.create("!")
+                    )
+                )
+            meta.lore(ComponentUtils.cleanItalics(lore))
+            item.setItemMeta(meta)
+            return item
+        }
+
     private fun getEquipment(slot: Int): ItemStack? {
 
         val equipment = this.target.equipment
@@ -419,6 +447,7 @@ class InterfaceStats : MenuBase {
         private const val SLOT_OFF_HAND = 23
         private const val SLOT_STATS = 20
         private const val SLOT_INVENTORY = 11
+        private const val SLOT_WARDROBE = 16
         private const val SLOT_MISC_INFO = 29
 
         private val ATTRIBUTES_TO_SHOW: Set<AttributeWrapper> = setOf(
