@@ -6502,14 +6502,14 @@ public class BlockPropertiesRegistry {
         register(CustomBlock.GRIMSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(600)
                 .breakingPower(5)
-                .blockSound(BlockSound.DEEPSLATE_GENERIC)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
                 .softRequirement(false)
                 .build());
 
         register(CustomBlock.COBBLED_GRIMSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(650)
                 .breakingPower(5)
-                .blockSound(BlockSound.DEEPSLATE_GENERIC)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
                 .softRequirement(false)
                 .build());
         //</editor-fold>
