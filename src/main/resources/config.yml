@@ -22,3 +22,11 @@ world_skill_unlocks:
 world_time_unlocks:
   nether: "2025-01-01T00:00:00Z"
   end: "2025-01-01T00:00:00Z"
+
+# The port the embedded HTTP server listens on to serve the resource pack to players.
+resource-pack-port: 8080
+
+# The public address (IP or domain) players use to reach this server.
+# Must be set to the server's public IP or domain for the resource pack to work.
+# Leave empty to disable automatic resource pack hosting.
+resource-pack-host: ""

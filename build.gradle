@@ -65,7 +65,17 @@ tasks {
     }
 }
 
+tasks.register('zipResourcePack', Zip) {
+    from 'resourcepack'
+    archiveFileName = 'resourcepack.zip'
+    destinationDirectory = layout.buildDirectory.dir('generated-resources')
+}
+
 processResources {
+    dependsOn zipResourcePack
+    from(layout.buildDirectory.dir('generated-resources')) {
+        include 'resourcepack.zip'
+    }
     def props = [version: version]
     inputs.properties props
     filteringCharset 'UTF-8'
