@@ -2,6 +2,8 @@ package xyz.devvydont.smprpg.items;
 
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.block.decoration.CobbledGrimstoneBlock;
+import xyz.devvydont.smprpg.items.blueprints.block.decoration.GrimstoneBlock;
 import xyz.devvydont.smprpg.items.blueprints.block.ore.*;
 import xyz.devvydont.smprpg.items.blueprints.block.rawmaterials.*;
 import xyz.devvydont.smprpg.items.blueprints.block.ReforgeTableBlock;
@@ -1033,6 +1035,9 @@ public enum CustomItemType {
 
     // BLOCKS
     REFORGE_TABLE(     "Reforge Table",      Material.POISONOUS_POTATO,     ItemRarity.UNCOMMON, ReforgeTableBlock.class),
+
+    GRIMSTONE("Grimstone", Material.POISONOUS_POTATO, ItemRarity.COMMON, GrimstoneBlock.class),
+    COBBLED_GRIMSTONE("Cobbled Grimstone", Material.POISONOUS_POTATO, ItemRarity.COMMON, CobbledGrimstoneBlock.class),
 
     // ADMIN UTILITY
     INFINILYTRA("Infini-lytra", Material.ELYTRA, ItemRarity.SPECIAL, InfinilytraBlueprint.class),

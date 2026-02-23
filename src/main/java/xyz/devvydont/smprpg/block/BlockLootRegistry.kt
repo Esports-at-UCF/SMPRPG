@@ -679,6 +679,22 @@ object BlockLootRegistry {
         )
 
         register(
+            CustomBlock.GRIMSTONE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.GRIMSTONE)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.COBBLED_GRIMSTONE)))
+                .build()
+        )
+
+        register(
+            CustomBlock.COBBLED_GRIMSTONE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.GRIMSTONE)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.COBBLED_GRIMSTONE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.COBBLED_GRIMSTONE)))
+                .build()
+        )
+
+        register(
             CustomBlock.DRAGONSTEEL_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))

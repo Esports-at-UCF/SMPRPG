@@ -6505,6 +6505,13 @@ public class BlockPropertiesRegistry {
                 .blockSound(BlockSound.DEEPSLATE_GENERIC)
                 .softRequirement(false)
                 .build());
+
+        register(CustomBlock.COBBLED_GRIMSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(650)
+                .breakingPower(5)
+                .blockSound(BlockSound.DEEPSLATE_GENERIC)
+                .softRequirement(false)
+                .build());
         //</editor-fold>
 
     }
