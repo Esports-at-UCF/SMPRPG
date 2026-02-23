@@ -31,6 +31,27 @@
           "predicate_type": "minecraft:block_match",
           "block": "minecraft:deepslate"
         }
+      },
+      {
+        "state": {
+          "Name": "minecraft:note_block",
+          "Properties": {
+            "instrument": "harp",
+            "note": "19",
+            "powered": "true"
+          }
+        },
+        "target": {
+          "predicate_type": "minecraft:blockstate_match",
+          "block_state": {
+            "Name": "minecraft:note_block",
+            "Properties": {
+              "instrument": "harp",
+              "note": "14",
+              "powered": "true"
+            }
+          }
+        }
       }
     ]
   }

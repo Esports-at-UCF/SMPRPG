@@ -84,7 +84,7 @@
         }
       ],
       "cannot_replace": "#minecraft:features_cannot_replace",
-      "invalid_blocks": "#minecraft:geode_invalid_blocks"
+      "invalid_blocks": "#smprpg:geode_invalid_blocks"
     },
 	"invalid_blocks_threshold": 1,
     "layers": {

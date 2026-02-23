@@ -13,7 +13,7 @@
   "legacy_random_source": false,
   "noise": {
     "height": 512,
-    "min_y": -128,
+    "min_y": -64,
     "size_horizontal": 1,
     "size_vertical": 2
   },
@@ -272,7 +272,7 @@
           "argument1": 128,
           "argument2": {
             "type": "minecraft:mul",
-            "argument1": -128,
+            "argument1": -64,
             "argument2": {
               "type": "minecraft:add",
               "argument1": {
@@ -389,7 +389,7 @@
     }
   },
   "ore_veins_enabled": true,
-  "sea_level": 63,
+  "sea_level": 96,
   "spawn_target": [
     {
       "continentalness": [
@@ -2577,11 +2577,11 @@
         "if_true": {
           "type": "minecraft:vertical_gradient",
           "false_at_and_above": {
-            "absolute": -56
+            "absolute": 8
           },
           "random_name": "smprpg:grimstone",
           "true_at_and_below": {
-            "absolute": -64
+            "absolute": 0
           }
         },
         "then_run": {
@@ -2601,11 +2601,11 @@
         "if_true": {
           "type": "minecraft:vertical_gradient",
           "false_at_and_above": {
-            "absolute": 8
+            "absolute": 72
           },
           "random_name": "minecraft:deepslate",
           "true_at_and_below": {
-            "absolute": 0
+            "absolute": 64
           }
         },
         "then_run": {
