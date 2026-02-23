@@ -64,7 +64,13 @@ public enum BlockSound {
             "audio:block.wood_custom.place", 0.8f, 1.0f,
             "audio:block.wood_custom.hit", 0.5f, 0.25f,
             "minecraft:block.wood.fall", 0.75f, 0.5f,
-            "minecraft:block.wood.step", 1.0f, 0.15f);
+            "minecraft:block.wood.step", 1.0f, 0.15f),
+
+    BLACKSTONE_GENERIC("minecraft:block.gilded_blackstone.break", 0.8f, 1.0f,
+                              "minecraft:block.gilded_blackstone.place", 0.8f, 1.0f,
+                              "minecraft:block.gilded_blackstone.hit", 0.5f, 0.25f,
+                              "minecraft:block.gilded_blackstone.fall", 0.75f, 0.5f,
+                              "minecraft:block.gilded_blackstone.step", 1.0f, 0.15f);
 
     public final String BreakSound;
     public final String PlaceSound;

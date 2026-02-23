@@ -126,7 +126,7 @@ class SMPRPGBootstrapper : PluginBootstrap {
     override fun bootstrap(bootstrapContext: BootstrapContext) {
         bootstrapCommands(bootstrapContext)
         bootstrapEnchantments(bootstrapContext)
-//        bootstrapDatapack(bootstrapContext)
+        bootstrapDatapack(bootstrapContext)
     }
 
 

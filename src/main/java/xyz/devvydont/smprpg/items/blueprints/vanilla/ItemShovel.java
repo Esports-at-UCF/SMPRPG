@@ -26,6 +26,7 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
             case GOLDEN_SHOVEL -> 20;
             case IRON_SHOVEL -> 15;
             case STONE_SHOVEL -> 10;
+            case COPPER_SHOVEL -> 10;
             case WOODEN_SHOVEL -> 5;
             default -> 0;
         };
@@ -34,7 +35,6 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
     public static double getShovelDamage(CustomItemType itemType) {
         return switch (itemType) {
             case TIN_SHOVEL -> 5;
-            case COPPER_SHOVEL -> 10;
             case SILVER_SHOVEL -> 15;
             case STEEL_SHOVEL -> 20;
             case ROSE_GOLD_SHOVEL, MITHRIL_SHOVEL -> 22;
@@ -52,6 +52,7 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
             case IRON_SHOVEL -> ToolGlobals.IRON_TOOL_POWER;
             case STONE_SHOVEL -> ToolGlobals.STONE_TOOL_POWER;
             case WOODEN_SHOVEL -> ToolGlobals.WOOD_TOOL_POWER;
+            case COPPER_SHOVEL -> ToolGlobals.COPPER_TOOL_POWER;
             default -> 1;
         };
     }
@@ -64,6 +65,7 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
             case IRON_SHOVEL -> ToolGlobals.IRON_TOOL_SPEED;
             case STONE_SHOVEL -> ToolGlobals.STONE_TOOL_SPEED;
             case WOODEN_SHOVEL -> ToolGlobals.WOOD_TOOL_SPEED;
+            case COPPER_SHOVEL -> ToolGlobals.COPPER_TOOL_SPEED;
             default -> 1;
         };
     }
@@ -107,6 +109,7 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
             case IRON_SHOVEL -> ToolGlobals.IRON_TOOL_DURABILITY;
             case STONE_SHOVEL -> ToolGlobals.STONE_TOOL_DURABILITY;
             case WOODEN_SHOVEL -> ToolGlobals.WOOD_TOOL_DURABILITY;
+            case COPPER_SHOVEL -> ToolGlobals.COPPER_TOOL_DURABILITY;
             default -> 50_000;
         };
     }

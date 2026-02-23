@@ -2,6 +2,8 @@ package xyz.devvydont.smprpg.items;
 
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.block.decoration.CobbledGrimstoneBlock;
+import xyz.devvydont.smprpg.items.blueprints.block.decoration.GrimstoneBlock;
 import xyz.devvydont.smprpg.items.blueprints.block.ore.*;
 import xyz.devvydont.smprpg.items.blueprints.block.rawmaterials.*;
 import xyz.devvydont.smprpg.items.blueprints.block.ReforgeTableBlock;
@@ -181,17 +183,7 @@ public enum CustomItemType {
     LARGE_FUEL_TANK("Large Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.RARE,      LargeFuelTank.class),
 
     // COPPER SET
-    COPPER_PICKAXE("Copper Pickaxe",  Material.WOODEN_PICKAXE, CopperPickaxe.class),
-    COPPER_AXE(    "Copper Axe",      Material.WOODEN_AXE,     CopperAxe.class),
-    COPPER_HOE(    "Copper Hoe",      Material.WOODEN_HOE,     CopperHoe.class),
-    COPPER_SHOVEL( "Copper Shovel",   Material.WOODEN_SHOVEL,  CopperShovel.class),
-    COPPER_SWORD(  "Copper Sword",    Material.WOODEN_SWORD,   CopperSword.class),
     COPPER_BOW(    "Copper Bow",      Material.BOW,            CopperBow.class),
-
-    COPPER_HELMET(    "Copper Helmet",     Material.LEATHER_HELMET,     CopperHelmet.class),
-    COPPER_CHESTPLATE("Copper Chestplate", Material.LEATHER_CHESTPLATE, CopperChestplate.class),
-    COPPER_LEGGINGS(  "Copper Leggings",   Material.LEATHER_LEGGINGS,   CopperLeggings.class),
-    COPPER_BOOTS(     "Copper Boots",      Material.LEATHER_BOOTS,      CopperBoots.class),
 
     // SILVER SET
     RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, false, 15),
@@ -1043,6 +1035,9 @@ public enum CustomItemType {
 
     // BLOCKS
     REFORGE_TABLE(     "Reforge Table",      Material.POISONOUS_POTATO,     ItemRarity.UNCOMMON, ReforgeTableBlock.class),
+
+    GRIMSTONE("Grimstone", Material.POISONOUS_POTATO, ItemRarity.COMMON, GrimstoneBlock.class),
+    COBBLED_GRIMSTONE("Cobbled Grimstone", Material.POISONOUS_POTATO, ItemRarity.COMMON, CobbledGrimstoneBlock.class),
 
     // ADMIN UTILITY
     INFINILYTRA("Infini-lytra", Material.ELYTRA, ItemRarity.SPECIAL, InfinilytraBlueprint.class),

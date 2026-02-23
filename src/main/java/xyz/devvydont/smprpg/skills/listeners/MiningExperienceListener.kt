@@ -74,6 +74,8 @@ class MiningExperienceListener() : Listener {
                     CustomBlock.DENSE_MITHRIL_ORE -> 36
                     CustomBlock.TITANIUM_ORE -> 75
                     CustomBlock.ADAMANTIUM_ORE -> 200
+                    CustomBlock.GRIMSTONE -> 4
+                    CustomBlock.COBBLED_GRIMSTONE -> 4
                     else -> 0
                 }
             }

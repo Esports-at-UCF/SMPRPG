@@ -27,10 +27,6 @@ class LootListener : ToggleableListener() {
     init {
         lootTableAdditions.put(
             LootTables.ABANDONED_MINESHAFT.key, CustomLootTable(
-                LootTableMember(generate(CustomItemType.COPPER_HELMET)).withChance(.1f).withEnchants(true, 20),
-                LootTableMember(generate(CustomItemType.COPPER_CHESTPLATE)).withChance(.1f).withEnchants(true, 20),
-                LootTableMember(generate(CustomItemType.COPPER_LEGGINGS)).withChance(.1f).withEnchants(true, 20),
-                LootTableMember(generate(CustomItemType.COPPER_BOOTS)).withChance(.1f).withEnchants(true, 20),
                 LootTableMember(generate(CustomItemType.GRAPPLING_HOOK)).withChance(.005f),
                 LootTableMember(generate(CustomItemType.SILVER_COIN)).withChance(.2f).withMax(5)
             )

@@ -203,7 +203,7 @@ public enum AttributeWrapper {
                 create(" to apply when dealing damage.")
             )),
 
-    MINING_SPEED("Mining Speed",
+    MINING_SPEED("Harvest Speed",
             AttributeCategory.FORAGING,
             AttributeType.HELPFUL,
             merge(
@@ -214,7 +214,7 @@ public enum AttributeWrapper {
             )),
 
     UNDERWATER_MINING(Attribute.SUBMERGED_MINING_SPEED,
-            "Underwater Mining Speed",
+            "Underwater Harvest Rate",
             AttributeCategory.FORAGING,
             AttributeType.HELPFUL,
             merge(
@@ -225,7 +225,7 @@ public enum AttributeWrapper {
                 create(".")
             )),
 
-    AIRBORNE_MINING("Airborne Mining Speed",
+    AIRBORNE_MINING("Airborne Harvest Rate",
             AttributeCategory.FORAGING,
             AttributeType.HELPFUL,
             merge(

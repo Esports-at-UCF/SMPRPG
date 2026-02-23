@@ -13,6 +13,7 @@ import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ToolGlobals;
 
+import javax.tools.Tool;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -41,6 +42,11 @@ public class ItemArmor extends VanillaAttributeItem implements IBreakableEquipme
             case LEATHER_CHESTPLATE -> 15;
             case LEATHER_LEGGINGS -> 13;
             case LEATHER_BOOTS -> 7;
+
+            case COPPER_HELMET -> 12;
+            case COPPER_CHESTPLATE -> 18;
+            case COPPER_LEGGINGS -> 14;
+            case COPPER_BOOTS -> 10;
 
             case CHAINMAIL_HELMET -> 12;
             case CHAINMAIL_CHESTPLATE -> 18;
@@ -177,6 +183,13 @@ public class ItemArmor extends VanillaAttributeItem implements IBreakableEquipme
         };
     }
 
+    public static double getMiningSpeedFromMaterial(Material material) {
+        return switch(material) {
+            case COPPER_HELMET, COPPER_CHESTPLATE, COPPER_LEGGINGS, COPPER_BOOTS -> 50;
+            default -> 0;
+        };
+    }
+
     public static int getArmorPowerRating(Material material) {
 
         return switch (material) {
@@ -188,6 +201,7 @@ public class ItemArmor extends VanillaAttributeItem implements IBreakableEquipme
             case IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, IRON_HORSE_ARMOR -> ToolGlobals.IRON_TOOL_POWER;
             case CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, TURTLE_HELMET -> 6;
             case LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, LEATHER_HORSE_ARMOR -> 3;
+            case COPPER_HELMET, COPPER_CHESTPLATE, COPPER_LEGGINGS, COPPER_BOOTS, COPPER_HORSE_ARMOR -> ToolGlobals.COPPER_TOOL_POWER;
 
             default -> 1;
         };
@@ -205,6 +219,7 @@ public class ItemArmor extends VanillaAttributeItem implements IBreakableEquipme
             case IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS -> ToolGlobals.IRON_TOOL_DURABILITY;
             case CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS -> ToolGlobals.COPPER_TOOL_DURABILITY;
             case LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, TURTLE_HELMET -> ToolGlobals.WOOD_TOOL_DURABILITY;
+            case COPPER_HELMET, COPPER_CHESTPLATE, COPPER_LEGGINGS, COPPER_BOOTS -> ToolGlobals.COPPER_TOOL_DURABILITY;
 
             default -> Math.max(1000, material.getMaxDurability() * 10);
         };
@@ -249,6 +264,11 @@ public class ItemArmor extends VanillaAttributeItem implements IBreakableEquipme
         double intelligence = getIntelligenceFromMaterial(material);
         if (intelligence > 0)
             modifiers.add(new AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, intelligence));
+
+        // If we have mining speed...
+        double miningSpeed = getMiningSpeedFromMaterial(material);
+        if (miningSpeed > 0)
+            modifiers.add(new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, miningSpeed));
 
         // If we have no modifiers, we need to have something to get rid of the vanilla stats
         // Crappy armor won't have any attributes since defense isn't an attribute

@@ -28,13 +28,13 @@ public class ItemSword extends VanillaAttributeItem implements IBreakableEquipme
             case TRIDENT, IRON_SWORD -> 30;
             case STONE_SWORD -> 20;
             case WOODEN_SWORD -> 15;
+            case COPPER_SWORD -> 20;
             default -> 0;
         };
     }
 
     public static double getSwordDamage(CustomItemType itemType) {
         return switch (itemType) {
-            case COPPER_SWORD -> 20;
             case SILVER_SWORD -> 25;
             case TIN_SWORD -> 17;
             case BRONZE_SWORD -> 30;
@@ -54,6 +54,7 @@ public class ItemSword extends VanillaAttributeItem implements IBreakableEquipme
             case TRIDENT, IRON_SWORD -> ToolGlobals.IRON_TOOL_POWER;
             case STONE_SWORD -> ToolGlobals.STONE_TOOL_POWER;
             case WOODEN_SWORD -> ToolGlobals.WOOD_TOOL_POWER;
+            case COPPER_SWORD -> ToolGlobals.COPPER_TOOL_POWER;
             default -> 1;
         };
     }
@@ -98,6 +99,7 @@ public class ItemSword extends VanillaAttributeItem implements IBreakableEquipme
             case IRON_SWORD -> ToolGlobals.IRON_TOOL_DURABILITY;
             case STONE_SWORD -> ToolGlobals.STONE_TOOL_DURABILITY;
             case WOODEN_SWORD -> ToolGlobals.WOOD_TOOL_DURABILITY;
+            case COPPER_SWORD -> ToolGlobals.COPPER_TOOL_DURABILITY;
             default -> 50_000;
         };
     }
