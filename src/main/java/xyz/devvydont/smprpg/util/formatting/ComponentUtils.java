@@ -25,6 +25,16 @@ public final class ComponentUtils {
     public static final TextComponent SYMBOL_EXCLAMATION = create("!");
 
     /**
+     * Creates a clean component with a message. This should be used when you don't want to apply the default coloring
+     * to a text component, so that the default styling options are used.
+     * @param message The message to turn into a component.
+     * @return The text component.
+     */
+    public static TextComponent clean(final String message) {
+        return Component.text(message);
+    }
+
+    /**
      * Creates a text component with the default styling.
      *
      * @param message     The message to turn into a component.

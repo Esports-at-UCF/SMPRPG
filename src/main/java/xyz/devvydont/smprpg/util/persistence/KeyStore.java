@@ -30,6 +30,11 @@ public class KeyStore {
     public static final NamespacedKey FISHING_GALLERY = key("fishing_gallery");
 
     /**
+     * Used for storing armor sets and quick swapping between them.
+     */
+    public static final NamespacedKey PLAYER_WARDROBE = key("wardrobe");
+
+    /**
      * Used for item rarity adjustments in item blueprints.
      */
     public static final NamespacedKey ITEM_RARITY_OVERRIDE = key("item_rarity_override");

@@ -27,6 +27,7 @@ import java.util.function.Consumer
  * Functions as a server side version of J/NEI. Players can view this interface to view custom items and their recipes.
  */
 class MenuItemBrowser @JvmOverloads constructor(
+    parent: MenuBase?,
     player: Player,
     /**
      * Retrieve the query that is currently being used for this display.

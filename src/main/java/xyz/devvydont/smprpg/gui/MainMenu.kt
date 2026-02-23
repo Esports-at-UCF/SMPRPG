@@ -16,7 +16,9 @@ import xyz.devvydont.smprpg.fishing.gui.LootTypeChancesMenu
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.gui.base.MenuButtonClickHandler
 import xyz.devvydont.smprpg.gui.enchantments.MagicMenu
+import xyz.devvydont.smprpg.gui.items.MenuItemBrowser
 import xyz.devvydont.smprpg.gui.player.InterfaceStats
+import xyz.devvydont.smprpg.gui.player.InterfaceWardrobe
 import xyz.devvydont.smprpg.gui.player.MenuDifficultyChooser
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.skills.SkillGlobals.getExperienceForLevel
@@ -43,6 +45,19 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
         this.setBackButton()
 
         this.setButton(
+            RECIPE_MENU,
+            this.recipeDisplay
+        ) { e: InventoryClickEvent ->
+            this.openSubMenu(
+                MenuItemBrowser(
+                    this,
+                    this.player,
+                    ""
+                )
+            )
+        }
+
+        this.setButton(
             PLAYER_MENU,
             this.playerDisplay
         ) { e: InventoryClickEvent ->
@@ -54,6 +69,20 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
                 )
             )
         }
+
+        this.setButton(
+            WARDROBE_MENU,
+            this.wardrobeDisplay
+        ) { e: InventoryClickEvent ->
+            this.openSubMenu(
+                InterfaceWardrobe(
+                    this,
+                    this.player,
+                    this.player
+                )
+            )
+        }
+
         this.setButton(
             COMBAT_INDEX,
             this.combatDisplay
@@ -97,6 +126,13 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
                 )
             )
         }
+
+        this.setButton(
+            SETTINGS_INDEX,
+            this.settingsDisplay
+        ) { e: InventoryClickEvent ->
+            this.playInvalidAnimation()
+        }
     }
 
     private val difficultyDisplay: ItemStack
@@ -111,6 +147,19 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
             item.setData<ResolvableProfile?>(
                 DataComponentTypes.PROFILE,
                 ResolvableProfile.resolvableProfile(this.player.playerProfile)
+            )
+            return item
+        }
+
+    private val settingsDisplay: ItemStack
+        get() {
+            val item = InterfaceUtil.getNamedItemWithDescription(
+                Material.COMPARATOR,
+                ComponentUtils.create("Settings", NamedTextColor.GREEN),
+                ComponentUtils.create("Tweak certain behaviors for the game!"),
+                ComponentUtils.create("Coming soon!", NamedTextColor.RED),
+                ComponentUtils.EMPTY,
+                ComponentUtils.create("Click to change your settings!", NamedTextColor.YELLOW)
             )
             return item
         }
@@ -131,6 +180,31 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
             item.setData<ResolvableProfile?>(
                 DataComponentTypes.PROFILE,
                 ResolvableProfile.resolvableProfile(this.player.playerProfile)
+            )
+            return item
+        }
+
+
+    private val wardrobeDisplay: ItemStack
+        get() {
+            val item = InterfaceUtil.getNamedItemWithDescription(
+                Material.ARMOR_STAND,
+                ComponentUtils.create("Wardrobe", NamedTextColor.GOLD),
+                ComponentUtils.create("Swap and store different armor sets!"),
+                ComponentUtils.EMPTY,
+                ComponentUtils.create("Click to change your gear!", NamedTextColor.YELLOW)
+            )
+            return item
+        }
+
+    private val recipeDisplay: ItemStack
+        get() {
+            val item = InterfaceUtil.getNamedItemWithDescription(
+                Material.KNOWLEDGE_BOOK,
+                ComponentUtils.create("Recipes", NamedTextColor.GOLD),
+                ComponentUtils.create("Check out all the recipes!"),
+                ComponentUtils.EMPTY,
+                ComponentUtils.create("Click to view all recipes!", NamedTextColor.YELLOW)
             )
             return item
         }
@@ -309,10 +383,9 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
         private const val BAR_CHARACTER = '▏'
         private const val BAR_NUM_CHARS = 100
 
-        /*
-    Indexes of buttons.
-     */
+        private const val RECIPE_MENU = 12
         private const val PLAYER_MENU = 13
+        private const val WARDROBE_MENU = 14
 
         private const val COMBAT_INDEX = 19
         private const val MINING_INDEX = 20

@@ -57,6 +57,9 @@ class SMPRPGBootstrapper : PluginBootstrap {
             CommandBalance("bal"),  // Effectively functions as an alias. We can register the same command multiple times!
             CommandStatistics("statistics"),
             CommandStatistics("stats"),
+            CommandWardrobe("wardrobe"),
+            CommandWardrobe("sets"),
+            CommandWardrobe("wd"),
             CommandWhatAmIHolding("whatamiholding"),
             CommandWhatAmIHolding("waih"),
             CommandBalanceTop("balancetop"),
