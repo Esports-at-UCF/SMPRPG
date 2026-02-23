@@ -1,19 +1,15 @@
 package xyz.devvydont.smprpg.gui.player
 
-import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.util.TriState
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
-import org.bukkit.block.data.type.NoteBlock
-import org.bukkit.block.spawner.SpawnerEntry
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryAction
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
-import org.bukkit.event.inventory.InventoryEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.ItemStack
@@ -28,8 +24,6 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import xyz.devvydont.smprpg.util.persistence.PDCAdapters
-import xyz.devvydont.smprpg.util.time.TickTime
-import kotlin.concurrent.timerTask
 
 /**
  * The top left corner of the UI. Used as an anchor. Maps to the first helmet slot for the first set.
@@ -46,10 +40,9 @@ const val MAX_PAGES = 3
 class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) : MenuBase(viewer, 6, parent) {
 
     private var page = 0
+    private lateinit var wardrobe: PlayerWardrobe
 
     override fun handleInventoryClicked(event: InventoryClickEvent) {
-
-        val wardrobe = getWardrobe()
 
         // Someone viewing someone else's wardrobe can't interact with it.
         if (target != this.player) {
@@ -93,7 +86,7 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
         }
 
         // Blacklist any click events that line up with the currently equipped set. There is no reason to click it.
-        if (clickedInventory == this.inventory && convertInventorySlotToWardrobeSlot(event.slot) == getWardrobe().currentlyEquipped) {
+        if (clickedInventory == this.inventory && convertInventorySlotToWardrobeSlot(event.slot) == wardrobe.currentlyEquipped) {
             event.isCancelled = true
             this.playInvalidAnimation()
             return
@@ -105,6 +98,7 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
         if (clickedInventory == this.inventory && cursor.type != Material.AIR) {
             if (isValidSlot(cursorBlueprint.itemClassification, event.slot)) {
                 this.playSuccessAnimation()
+                Bukkit.getScheduler().runTask(SMPRPG.plugin, Runnable { savePage() })
             } else {
                 this.playInvalidAnimation()
                 event.isCancelled = true
@@ -113,8 +107,10 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
         }
 
         // Allow general armor slot clicks. (Air, or armor item.)
-        if (event.clickedInventory == inventory && isArmorSlot(event.slot))
+        if (event.clickedInventory == inventory && isArmorSlot(event.slot)) {
+            Bukkit.getScheduler().runTask(SMPRPG.plugin, Runnable { savePage() })
             return
+        }
 
         // Allow any armor items to be clicked.
         if (clickedItem != null && ItemService.blueprint(clickedItem).itemClassification.isArmor)
@@ -131,23 +127,14 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
         event.titleOverride(ComponentUtils.clean("${this.target.name}'s Wardrobe"))
+        wardrobe = this.target.persistentDataContainer.getOrDefault(
+            KeyStore.PLAYER_WARDROBE, PDCAdapters.WARDROBE_ADAPTER, PlayerWardrobe()
+        )
         render()
     }
 
     override fun handleInventoryClosed(event: InventoryCloseEvent) {
         savePage()
-    }
-
-    /**
-     * Queries the target's wardrobe. If they don't have one yet due to not doing anything with it yet, a new one
-     * will be created (that is empty).
-     */
-    fun getWardrobe(): PlayerWardrobe {
-        return this.target.persistentDataContainer.getOrDefault(
-            KeyStore.PLAYER_WARDROBE,
-            PDCAdapters.WARDROBE_ADAPTER,
-            PlayerWardrobe()
-        )
     }
 
     fun render() {
@@ -207,14 +194,12 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
             }
         }
 
-        val wardrobe = getWardrobe()
-
         // Loop through every possible wardrobe slot, even if we aren't on that page. We do this so we can easily fill
         // in blanks where the wardrobe may not have an entry defined. Since we can simply just skip logic completely for
         // entries where we are out of bounds, this isn't a big deal.
         val startToShowIndex = page * SETS_PER_PAGE
         val stopShowingIndex = startToShowIndex + SETS_PER_PAGE
-        for (index in 0..MAX_PAGES*SETS_PER_PAGE) {
+        for (index in 0 until MAX_PAGES * SETS_PER_PAGE) {
 
             if (index < startToShowIndex || index >= stopShowingIndex)
                 continue
@@ -226,7 +211,7 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
             renderSet(index, wardrobe.query(index))
 
             // Now render the button that will actually switch to this set.
-            renderEquipButton(index, wardrobe)
+            renderEquipButton(index)
         }
 
         // Now, whatever is currently equipped is going to be the set that this person is currently wearing.
@@ -235,7 +220,6 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
             return
         val currentEquipment = EquipmentSet(this.target.equipment)
         renderSet(wardrobe.currentlyEquipped, currentEquipment)
-        savePage()
     }
 
     private fun renderNotUnlocked(index: Int) {
@@ -256,7 +240,7 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
         this.setSlot(guiIndex+27, set?.boots ?: fallback)
     }
 
-    private fun renderEquipButton(index: Int, wardrobe: PlayerWardrobe) {
+    private fun renderEquipButton(index: Int) {
 
         val inventorySlot = TOP_LEFT_CORNER - 9 + (index%SETS_PER_PAGE)
 
@@ -272,7 +256,7 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
                 ComponentUtils.create("this set equipped"),
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Click to equip this set of armor!", NamedTextColor.YELLOW)
-            )){ event -> handleEquip(index, wardrobe)}
+            )){ event -> handleEquip(index)}
             return
         }
 
@@ -318,7 +302,8 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
         ))
     }
 
-    private fun handleEquip(wardrobeIndex: Int, wardrobe: PlayerWardrobe) {
+    private fun handleEquip(wardrobeIndex: Int) {
+        savePage()
         val success = wardrobe.equip(this.target, wardrobeIndex)
         wardrobe.save(this.target)
         if (success)
@@ -338,8 +323,7 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
             return
 
         val start = page * SETS_PER_PAGE
-        val wardrobe = getWardrobe()
-        for (column in 0..SETS_PER_PAGE) {
+        for (column in 0 until SETS_PER_PAGE) {
             val wardrobeIndex = start+column
             if (wardrobeIndex == wardrobe.currentlyEquipped)
                 continue
@@ -361,18 +345,26 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
         if (page >= MAX_PAGES )
             page = 0
         if (page < 0)
-            page = MAX_PAGES
+            page = MAX_PAGES - 1
         render()
+    }
+
+    /**
+     * Checks if the given slot falls within an armor row/column, regardless of occupancy.
+     */
+    private fun isArmorPosition(index: Int): Boolean {
+        if (index >= TOP_LEFT_CORNER && index < TOP_LEFT_CORNER + SETS_PER_PAGE) return true
+        if (index >= TOP_LEFT_CORNER + 9 && index < TOP_LEFT_CORNER + SETS_PER_PAGE + 9) return true
+        if (index >= TOP_LEFT_CORNER + 18 && index < TOP_LEFT_CORNER + SETS_PER_PAGE + 18) return true
+        if (index >= TOP_LEFT_CORNER + 27 && index < TOP_LEFT_CORNER + SETS_PER_PAGE + 27) return true
+        return false
     }
 
     /**
      * Checks if the given slot is allowed for armor to take up.
      */
     private fun isArmorSlot(index: Int): Boolean {
-        return isValidSlot(ItemClassification.HELMET, index) ||
-                isValidSlot(ItemClassification.CHESTPLATE, index) ||
-                isValidSlot(ItemClassification.LEGGINGS, index) ||
-                isValidSlot(ItemClassification.BOOTS, index)
+        return isArmorPosition(index)
     }
 
     /**
@@ -384,13 +376,13 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
         if (getItem(index) != null)
             return false
         if (clazz == ItemClassification.HELMET)
-            return index >= TOP_LEFT_CORNER && index <= (TOP_LEFT_CORNER+SETS_PER_PAGE)
+            return index >= TOP_LEFT_CORNER && index < (TOP_LEFT_CORNER+SETS_PER_PAGE)
         if (clazz == ItemClassification.CHESTPLATE)
-            return index >= (TOP_LEFT_CORNER+9) && index <= (TOP_LEFT_CORNER+SETS_PER_PAGE+9)
+            return index >= (TOP_LEFT_CORNER+9) && index < (TOP_LEFT_CORNER+SETS_PER_PAGE+9)
         if (clazz == ItemClassification.LEGGINGS)
-            return index >= (TOP_LEFT_CORNER+18) && index <= (TOP_LEFT_CORNER+SETS_PER_PAGE+18)
+            return index >= (TOP_LEFT_CORNER+18) && index < (TOP_LEFT_CORNER+SETS_PER_PAGE+18)
         if (clazz == ItemClassification.BOOTS)
-            return index >= (TOP_LEFT_CORNER+27) && index <= (TOP_LEFT_CORNER+SETS_PER_PAGE+27)
+            return index >= (TOP_LEFT_CORNER+27) && index < (TOP_LEFT_CORNER+SETS_PER_PAGE+27)
         return false
     }
 
@@ -403,7 +395,7 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
      */
     private fun convertInventorySlotToWardrobeSlot(index: Int): Int? {
 
-        if (!isArmorSlot(index))
+        if (!isArmorPosition(index))
             return null
 
         val column = index % 9 - 1
@@ -419,11 +411,11 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
         if (!clazz.isArmor)
             return null
 
-        for (index in 0..inventory.size) {
+        for (index in 0 until inventory.size) {
             if (!isValidSlot(clazz, index))
                 continue
 
-            if (convertInventorySlotToWardrobeSlot(index) == getWardrobe().currentlyEquipped)
+            if (convertInventorySlotToWardrobeSlot(index) == wardrobe.currentlyEquipped)
                 continue
 
             val current = inventory.getItem(index)

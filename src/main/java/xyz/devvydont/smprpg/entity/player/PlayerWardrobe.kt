@@ -71,7 +71,7 @@ class PlayerWardrobe {
      * affect the player's wardrobe.
      */
     fun all(): Map<Int, EquipmentSet> {
-        return _sets
+        return _sets.toMap()
     }
 
     /**

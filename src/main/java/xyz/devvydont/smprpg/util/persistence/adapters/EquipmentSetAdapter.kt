@@ -74,7 +74,7 @@ class EquipmentSetAdapter : PersistentDataType<PersistentDataContainer, Equipmen
         if (isEmptyItem(item))
             return ItemStack(Material.AIR)
 
-        return ItemStack.deserializeBytes(data)
+        return item
     }
 
     /**
