@@ -27,6 +27,7 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
             case IRON_HOE -> ItemPickaxe.getPickaxeFortune(Material.IRON_PICKAXE);
             case STONE_HOE -> ItemPickaxe.getPickaxeFortune(Material.STONE_PICKAXE);
             case WOODEN_HOE -> ItemPickaxe.getPickaxeFortune(Material.WOODEN_PICKAXE);
+            case COPPER_HOE -> ItemPickaxe.getPickaxeFortune(Material.COPPER_PICKAXE);
             default -> 0;
         };
     }
@@ -38,7 +39,7 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
             case GOLDEN_HOE -> ItemPickaxe.getPickaxeSpeed(Material.GOLDEN_PICKAXE);
             case IRON_HOE -> ItemPickaxe.getPickaxeSpeed(Material.IRON_PICKAXE);
             case STONE_HOE -> ItemPickaxe.getPickaxeSpeed(Material.STONE_PICKAXE);
-            case WOODEN_HOE -> ItemPickaxe.getPickaxeSpeed(Material.WOODEN_PICKAXE);
+            case COPPER_HOE -> ItemPickaxe.getPickaxeSpeed(Material.COPPER_PICKAXE);
             default -> 0;
         };
     }
@@ -51,6 +52,7 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
             case IRON_HOE -> 10;
             case STONE_HOE -> 5;
             case WOODEN_HOE -> 3;
+            case COPPER_HOE -> 5;
             default -> 0;
         };
     }
@@ -58,7 +60,6 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
     public static double getHoeDamage(CustomItemType itemType) {
         return switch (itemType) {
             case TIN_HOE -> 4;
-            case COPPER_HOE -> 5;
             case SILVER_HOE -> 7;
             case STEEL_HOE -> 13;
             case ROSE_GOLD_HOE, MITHRIL_HOE -> 14;
@@ -73,7 +74,7 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
             case NETHERITE_HOE -> -0.05;
             case DIAMOND_HOE -> -0.15;
             case IRON_HOE -> -0.20;
-            case STONE_HOE -> -0.25;
+            case STONE_HOE, COPPER_HOE -> -0.25;
             case WOODEN_HOE, GOLDEN_HOE -> -0.35;
             default -> 0;
         };
@@ -81,7 +82,7 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
 
     public static double getHoeAttackSpeedDebuff(CustomItemType itemType) {
         return switch (itemType) {
-            case COPPER_HOE, SILVER_HOE, TIN_HOE, ROSE_GOLD_HOE -> -0.25;
+            case SILVER_HOE, TIN_HOE, ROSE_GOLD_HOE -> -0.25;
             default -> 0;
         };
     }
@@ -94,6 +95,7 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
             case IRON_HOE -> ToolGlobals.IRON_TOOL_POWER;
             case STONE_HOE -> ToolGlobals.STONE_TOOL_POWER;
             case WOODEN_HOE -> ToolGlobals.WOOD_TOOL_POWER;
+            case COPPER_HOE -> ToolGlobals.COPPER_TOOL_POWER;
             default -> 1;
         };
     }
@@ -137,6 +139,7 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
             case IRON_HOE -> ToolGlobals.IRON_TOOL_DURABILITY;
             case STONE_HOE -> ToolGlobals.STONE_TOOL_DURABILITY;
             case WOODEN_HOE -> ToolGlobals.WOOD_TOOL_DURABILITY;
+            case COPPER_HOE -> ToolGlobals.COPPER_TOOL_DURABILITY;
             default -> 50_000;
         };
     }

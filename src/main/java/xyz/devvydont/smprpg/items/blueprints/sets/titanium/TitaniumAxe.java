@@ -40,7 +40,8 @@ public class TitaniumAxe extends CustomAttributeItem implements ICraftable, IBre
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemAxe.getAxeDamage(CustomItemType.TITANIUM_AXE)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.TITANIUM_TOOL_SPEED),
-                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.TITANIUM_TOOL_FORTUNE)
+                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.TITANIUM_TOOL_FORTUNE),
+                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ItemAxe.getAxeLumbering(CustomItemType.TITANIUM_AXE))
         );
     }
 
