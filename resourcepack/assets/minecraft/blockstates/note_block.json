@@ -45,7 +45,22 @@
 		"instrument=harp,note=14,powered=true": {
             "model": "blocks:block/grimstone"
         },
-
+		"instrument=harp,note=15,powered=true": {
+            "model": "blocks:block/cobbled_grimstone"
+        },
+		"instrument=harp,note=16,powered=true": {
+            "model": "blocks:block/grimstone_diamond_ore"
+        },
+		"instrument=harp,note=17,powered=true": {
+            "model": "blocks:block/grimstone_iron_ore"
+        },
+		"instrument=harp,note=18,powered=true": {
+            "model": "blocks:block/grimstone_gold_ore"
+        },
+		"instrument=harp,note=19,powered=true": {
+            "model": "blocks:block/grimstone_silver_ore"
+        },
+		
 		
         "instrument=harp,note=0,powered=false": {
             "model": "blocks:block/silver_block"

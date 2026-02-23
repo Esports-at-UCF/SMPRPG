@@ -265,6 +265,20 @@
                     "type": "model",
                     "model": "blocks:block/reforge_table"
                 }
+            },
+			{
+                "when": "smprpg:grimstone",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/grimstone"
+                }
+            },
+			{
+                "when": "smprpg:cobbled_grimstone",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/cobbled_grimstone"
+                }
             }
         ]
     }
