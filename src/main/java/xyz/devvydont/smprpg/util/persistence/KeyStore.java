@@ -35,6 +35,11 @@ public class KeyStore {
     public static final NamespacedKey PLAYER_WARDROBE = key("wardrobe");
 
     /**
+     * Used for tracking which wardrobe upgrade slots a player has unlocked.
+     */
+    public static final NamespacedKey WARDROBE_UPGRADES = key("wardrobe_upgrades");
+
+    /**
      * Used for item rarity adjustments in item blueprints.
      */
     public static final NamespacedKey ITEM_RARITY_OVERRIDE = key("item_rarity_override");

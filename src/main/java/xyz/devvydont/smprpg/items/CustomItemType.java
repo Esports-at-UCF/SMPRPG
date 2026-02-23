@@ -37,6 +37,7 @@ import xyz.devvydont.smprpg.items.blueprints.resources.fishing.HolomokuCrest;
 import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
+import xyz.devvydont.smprpg.items.blueprints.wardrobe.WardrobeSlotToken;
 import xyz.devvydont.smprpg.items.blueprints.sets.adamantium.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystChestplate;
@@ -1030,6 +1031,13 @@ public enum CustomItemType {
     SINGULARITY_CHESTPLATE("Singularity Chestplate", Material.NETHERITE_CHESTPLATE, ItemRarity.MYTHIC, SingularityChestplate.class),
     SINGULARITY_LEGGINGS(  "Singularity Leggings",   Material.NETHERITE_LEGGINGS,   ItemRarity.MYTHIC, SingularityLeggings.class),
     SINGULARITY_BOOTS(     "Singularity Boots",      Material.NETHERITE_BOOTS,      ItemRarity.MYTHIC, SingularityBoots.class),
+
+    // WARDROBE TOKENS
+    WARDROBE_SLOT_COMMON(   "Common Wardrobe Token",    Material.ARMOR_STAND, ItemRarity.COMMON,    WardrobeSlotToken.class),
+    WARDROBE_SLOT_UNCOMMON( "Uncommon Wardrobe Token",  Material.ARMOR_STAND, ItemRarity.UNCOMMON,  WardrobeSlotToken.class),
+    WARDROBE_SLOT_RARE(     "Rare Wardrobe Token",      Material.ARMOR_STAND, ItemRarity.RARE,      WardrobeSlotToken.class),
+    WARDROBE_SLOT_EPIC(     "Epic Wardrobe Token",      Material.ARMOR_STAND, ItemRarity.EPIC,      WardrobeSlotToken.class),
+    WARDROBE_SLOT_LEGENDARY("Legendary Wardrobe Token", Material.ARMOR_STAND, ItemRarity.LEGENDARY, WardrobeSlotToken.class),
 
     DEATH_CERTIFICATE("Death Certificate", Material.PAPER, ItemRarity.SPECIAL, DeathCertificate.class),
 

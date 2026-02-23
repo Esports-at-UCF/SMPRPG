@@ -16,12 +16,16 @@ import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.entity.player.EquipmentSet
 import xyz.devvydont.smprpg.entity.player.PlayerWardrobe
+import xyz.devvydont.smprpg.entity.player.UpgradeCategory
+import xyz.devvydont.smprpg.entity.player.WardrobeUpgrade
 import xyz.devvydont.smprpg.gui.InterfaceUtil
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.services.WardrobeService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
+import xyz.devvydont.smprpg.util.formatting.Symbols
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import xyz.devvydont.smprpg.util.persistence.PDCAdapters
 
@@ -35,7 +39,7 @@ const val TOP_LEFT_CORNER = 10
  */
 const val SETS_PER_PAGE = 7
 
-const val MAX_PAGES = 3
+const val MAX_PAGES = 4
 
 class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) : MenuBase(viewer, 6, parent) {
 
@@ -140,17 +144,56 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
     fun render() {
         setBorderEdge()
         this.setBackButton()
+
+        if (this.player == this.target) {
+            val wardrobeService = SMPRPG.getService(WardrobeService::class.java)
+            val completed = wardrobeService.getCompletedUpgrades(this.player)
+            val totalSlots = WardrobeUpgrade.DEFAULT_SLOTS + completed.size
+
+            val maxSlots = MAX_PAGES * SETS_PER_PAGE
+            val lore = mutableListOf<net.kyori.adventure.text.Component>()
+            lore.add(ComponentUtils.EMPTY)
+            lore.add(ComponentUtils.create("Total Wardrobe Slots: $totalSlots/$maxSlots", NamedTextColor.GRAY))
+            lore.add(ComponentUtils.EMPTY)
+            for (category in UpgradeCategory.entries) {
+                val upgrades = WardrobeUpgrade.byCategory(category)
+                val count = upgrades.count { it in completed }
+                val total = upgrades.size
+                lore.add(
+                    ComponentUtils.merge(
+                        ComponentUtils.create("${Symbols.POINT} ", NamedTextColor.DARK_GRAY),
+                        ComponentUtils.create("${category.displayName}: ", category.color),
+                        ComponentUtils.create("$count/$total", NamedTextColor.WHITE)
+                    )
+                )
+            }
+            lore.add(ComponentUtils.EMPTY)
+            lore.add(ComponentUtils.create("Click to view upgrades!", NamedTextColor.YELLOW))
+
+            this.setButton(
+                47,
+                InterfaceUtil.getNamedItemWithDescription(
+                    Material.NETHERITE_UPGRADE_SMITHING_TEMPLATE,
+                    ComponentUtils.create("Upgrade Slots", NamedTextColor.GREEN),
+                    lore
+                )
+            ) { _: InventoryClickEvent ->
+                savePage()
+                this.openSubMenu(InterfaceWardrobeUpgrades(this.player, this))
+            }
+        }
+
         this.setButton(
             45,
             getNamedItem(Material.SPECTRAL_ARROW, ComponentUtils.create("Previous Page (${page + 1}/$MAX_PAGES)", NamedTextColor.AQUA))
-        ) { e: InventoryClickEvent ->
+        ) { _: InventoryClickEvent ->
             changePage(-1)
             this.sounds.playPagePrevious()
         }
         this.setButton(
             53,
             getNamedItem(Material.SPECTRAL_ARROW, ComponentUtils.create("Next Page (${page + 1}/$MAX_PAGES)", NamedTextColor.AQUA))
-        ) { e: InventoryClickEvent ->
+        ) { _: InventoryClickEvent ->
             changePage(1)
             this.sounds.playPageNext()
         }
@@ -194,6 +237,11 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
             }
         }
 
+        // Clear stale equip button handlers from the previous page render.
+        for (col in 0 until SETS_PER_PAGE) {
+            clearSlot(TOP_LEFT_CORNER - 9 + col)
+        }
+
         // Loop through every possible wardrobe slot, even if we aren't on that page. We do this so we can easily fill
         // in blanks where the wardrobe may not have an entry defined. Since we can simply just skip logic completely for
         // entries where we are out of bounds, this isn't a big deal.
@@ -201,11 +249,12 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
         val stopShowingIndex = startToShowIndex + SETS_PER_PAGE
         for (index in 0 until MAX_PAGES * SETS_PER_PAGE) {
 
-            if (index < startToShowIndex || index >= stopShowingIndex)
+            if (index !in startToShowIndex..<stopShowingIndex)
                 continue
 
             if (index >= wardrobe.maxCapacity) {
                 renderNotUnlocked(index)
+                renderEquipButton(index)
                 continue
             }
             renderSet(index, wardrobe.query(index))
@@ -216,7 +265,7 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
 
         // Now, whatever is currently equipped is going to be the set that this person is currently wearing.
         // Obviously, we only need to do this if the index is on screen.
-        if (wardrobe.currentlyEquipped < startToShowIndex || wardrobe.currentlyEquipped >= stopShowingIndex)
+        if (wardrobe.currentlyEquipped !in startToShowIndex..<stopShowingIndex)
             return
         val currentEquipment = EquipmentSet(this.target.equipment)
         renderSet(wardrobe.currentlyEquipped, currentEquipment)
@@ -256,7 +305,7 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
                 ComponentUtils.create("this set equipped"),
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Click to equip this set of armor!", NamedTextColor.YELLOW)
-            )){ event -> handleEquip(index)}
+            )){ _ -> handleEquip(index)}
             return
         }
 
@@ -283,7 +332,7 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
                 ComponentUtils.create("You currently don't have"),
                 ComponentUtils.create("this slot unlocked!"),
                 ComponentUtils.EMPTY,
-                ComponentUtils.merge(ComponentUtils.create("To unlock, you must ", NamedTextColor.DARK_GRAY), ComponentUtils.create("??? ??? ?????", NamedTextColor.DARK_GRAY, TextDecoration.OBFUSCATED))
+                ComponentUtils.create("Open Upgrade Slots below to learn how!", NamedTextColor.DARK_GRAY)
             ))
             return
         }

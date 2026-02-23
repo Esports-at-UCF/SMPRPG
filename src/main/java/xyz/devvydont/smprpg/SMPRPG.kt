@@ -68,6 +68,7 @@ class SMPRPG : JavaPlugin() {
         services.add(UnstableListenersService()) // Implements some listeners that depend on ProtocolLib.
         services.add(AnimationService()) // Mainly provides GUIs with an easy-to-use animation API.
         services.add(BlockBreakingService())
+        services.add(WardrobeService()) // Manages wardrobe slot upgrades and progression.
 
         // Start all the services. Make sure nothing goes wrong.
         for (service in services) {
