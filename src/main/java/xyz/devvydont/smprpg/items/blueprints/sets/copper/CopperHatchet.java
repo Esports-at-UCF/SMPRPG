@@ -39,42 +39,32 @@ public class CopperHatchet extends CustomAttributeItem implements ICraftable, IB
     }
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_STONE_TOOL), 1.0f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_AXE), 5.0f, TriState.TRUE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_HOE), 3.75f, TriState.TRUE))
+            .defaultMiningSpeed(0.0001f)
             .build();
 
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(Material.WOODEN_SWORD) - 5),
-                new MultiplicativeAttributeEntry(AttributeWrapper.MINING_EFFICIENCY, .1),
-                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF+.25),
-                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ItemAxe.getAxeFortune(Material.WOODEN_AXE) * 0.8),
-                new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ItemPickaxe.getPickaxeFortune(Material.WOODEN_PICKAXE) * 0.8)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.COPPER_TOOL_MINING_POWER),
+                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(Material.STONE_SWORD) - 5),
+                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.COPPER_TOOL_SPEED * 0.8),
+                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.COPPER_TOOL_FORTUNE * 0.8),
+                new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ToolGlobals.COPPER_TOOL_FORTUNE * 0.8)
         );
     }
 
     @Override
-    public int getPowerRating() {
-        return 5;
-    }
+    public int getPowerRating() { return ToolGlobals.COPPER_TOOL_POWER; }
 
     @Override
-    public ItemClassification getItemClassification() {
-        return ItemClassification.HATCHET;
-    }
+    public ItemClassification getItemClassification() { return ItemClassification.HATCHET; }
 
     @Override
-    public EquipmentSlotGroup getActiveSlot() {
-        return EquipmentSlotGroup.MAINHAND;
-    }
+    public EquipmentSlotGroup getActiveSlot() { return EquipmentSlotGroup.MAINHAND; }
 
     @Override
-    public int getMaxDurability() {
-        return ToolGlobals.COPPER_TOOL_DURABILITY;
-    }
+    public int getMaxDurability() { return ToolGlobals.COPPER_TOOL_DURABILITY; }
 
     @Override
     public NamespacedKey getRecipeKey() {

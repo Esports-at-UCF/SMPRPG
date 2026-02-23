@@ -1,0 +1,19 @@
+{
+    "model": {
+        "type": "select",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/golden_sword"
+        },
+        "cases": [
+            {
+                "when": "smprpg:rose_gold_sword",
+                "model": {
+                    "type": "model",
+                    "model": "swords:item/rose_gold_sword"
+                }
+            }
+        ]
+    }
+}

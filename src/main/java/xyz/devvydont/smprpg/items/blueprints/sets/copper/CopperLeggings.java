@@ -19,6 +19,7 @@ import xyz.devvydont.smprpg.items.interfaces.IDyeable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.util.crafting.builders.LeggingsRecipe;
+import xyz.devvydont.smprpg.util.items.ToolGlobals;
 
 import java.util.Collection;
 import java.util.List;
@@ -32,8 +33,8 @@ public class CopperLeggings extends CopperArmorSet implements IBreakableEquipmen
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromMaterial(Material.LEATHER_LEGGINGS)),
-                new ScalarAttributeEntry(AttributeWrapper.MINING_EFFICIENCY, .05),
+                new AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromMaterial(Material.CHAINMAIL_LEGGINGS)),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 25),
                 new ScalarAttributeEntry(AttributeWrapper.MOVEMENT_SPEED, .02)
         );
     }
@@ -44,9 +45,7 @@ public class CopperLeggings extends CopperArmorSet implements IBreakableEquipmen
     }
 
     @Override
-    public int getPowerRating() {
-        return 5;
-    }
+    public int getPowerRating() { return ToolGlobals.COPPER_TOOL_POWER; }
 
     @Override
     public int getMaxDurability() {

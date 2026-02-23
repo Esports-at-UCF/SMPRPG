@@ -1,0 +1,309 @@
+package xyz.devvydont.smprpg.blockbreaking;
+
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.BlockPosition;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.destroystokyo.paper.ParticleBuilder;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionEffectType;
+import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.block.BlockLootRegistry;
+import xyz.devvydont.smprpg.block.BlockSound;
+import xyz.devvydont.smprpg.block.CustomBlock;
+import xyz.devvydont.smprpg.items.ItemClassification;
+import xyz.devvydont.smprpg.items.interfaces.IFueledEquipment;
+import xyz.devvydont.smprpg.services.AttributeService;
+import xyz.devvydont.smprpg.services.BlockBreakingService;
+import xyz.devvydont.smprpg.services.EconomyService;
+import xyz.devvydont.smprpg.services.ItemService;
+import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.formatting.Symbols;
+
+import java.util.HashMap;
+import java.util.Random;
+import java.util.Set;
+
+public class BlockDamage {
+
+	protected final SMPRPG plugin;
+    
+    private static final HashMap<String, ScheduleTask> scheduleId = new HashMap<String, ScheduleTask>();
+	
+	private static ProtocolManager manager;
+	
+	public BlockDamage() {
+		this.plugin = SMPRPG.getPlugin();
+		manager = ProtocolLibrary.getProtocolManager();
+	}
+	
+
+    protected void configureBreakingPacket(Player player, Block block) {
+		PacketContainer breakingAnimation = manager.createPacket(PacketType.Play.Server.BLOCK_BREAK_ANIMATION);
+		
+		// this enusres that the player wont conflict with another player's breaking animation
+		int entityId = player.getEntityId() + 1;
+		entityId = entityId * 1000;
+		
+		
+		breakingAnimation.getIntegers().write(0, entityId);
+        breakingAnimation.getBlockPositionModifier().write(0, new BlockPosition(block.getX(), block.getY(), block.getZ()));
+        
+        breakingTimeCheck(player, block, breakingAnimation);
+
+	}
+
+    private void breakingTimeCheck(Player player, Block block, PacketContainer breakingAnimation) {
+		double breakingTimeTicks = getBreakingTime(player, block);
+
+
+        // Check if the breakingTime is instant/unbreakable
+        if (breakingTimeTicks <= 0) {
+			if (breakingTimeTicks == -1)
+				return;
+        	playerBreakBlock(player, block);
+        	return;
+        }
+
+        startBreaking(player, breakingAnimation, breakingTimeTicks, block);
+    
+    }
+    
+    private void startBreaking(Player player, PacketContainer breakingAnimation, double breakingTimeTicks, Block originalBlock) {
+
+    	int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+        	double currentTicks = 0d;
+			double soundTicks = 0d;
+        	
+        	@Override
+            public void run() {
+                
+        		// stops breaking if player isn't actively breaking the block
+        		if (!(PacketManager.armSwinging.containsKey(player.getName()))) {
+                	Bukkit.getScheduler().cancelTask(scheduleId.get(player.getName()).taskId);
+                	scheduleId.remove(player.getName());      	
+                    
+                    // returns the breaking animation back to none
+                	breakingAnimation.getIntegers().write(1, -1);
+                    manager.sendServerPacket(player, breakingAnimation);
+                    return;
+        		}
+        		
+        		Block currentTarget = player.getTargetBlockExact(5);
+        		
+        		// removes any progress if mining from block onto air and cancels this task
+                if (currentTarget == null) {
+                	Bukkit.getScheduler().cancelTask(scheduleId.get(player.getName()).taskId);
+                	scheduleId.remove(player.getName());      	
+                    
+                    // returns the breaking animation back to none
+                	breakingAnimation.getIntegers().write(1, -1);
+                    manager.sendServerPacket(player, breakingAnimation);
+                    return;
+                }
+                
+                // breaks the block if it has been mined for a sufficient amount of time
+                if(currentTicks >= breakingTimeTicks) {
+                	// sets the final breaking animation
+                	breakingAnimation.getIntegers().write(1, 10);  // Set to 10 to remove break stage. Anything not within 0-9 unsigned byte range uses no texture.
+                    manager.sendServerPacket(player, breakingAnimation);
+
+                    playerBreakBlock(player, originalBlock);
+                    Bukkit.getScheduler().cancelTask(scheduleId.get(player.getName()).taskId);
+                    scheduleId.remove(player.getName());
+                    return;
+                } else {
+                	double multiplier = 0.1;
+                	for (int x=0; x <= 9; x++) {
+                		if (currentTicks <= (breakingTimeTicks * multiplier)) {
+                        	breakingAnimation.getIntegers().write(1, x-1);
+                            manager.sendServerPacket(player, breakingAnimation);
+                            break;
+                		}
+                		multiplier += 0.1;
+                	}
+                }
+
+				double tickInc = 1;
+				if (player.isInWater())
+					tickInc *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.UNDERWATER_MINING).getValue();
+
+				if (!player.isOnGround())
+					tickInc *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.AIRBORNE_MINING).getValue();
+
+                currentTicks = currentTicks + tickInc;
+				soundTicks++;
+				if (soundTicks % 4 == 0)
+				{
+					boolean isWoodNonNoteblock = currentTarget.getBlockSoundGroup().getHitSound() == Sound.BLOCK_WOOD_HIT && currentTarget.getType() != Material.NOTE_BLOCK;
+					if (BlockPropertiesRegistry.isCustom(currentTarget) || isWoodNonNoteblock) {
+						BlockSound blockSound = BlockPropertiesRegistry.get(currentTarget).getBlockSound();
+						String hitSound;
+						float hitVolume;
+						float hitPitch;
+						if (blockSound != null) {
+							hitSound = blockSound.HitSound;
+							hitVolume = blockSound.HitVolume;
+							hitPitch = blockSound.HitPitch;
+						}
+						else {
+							hitSound = "audio:block.wood_custom.hit";
+							hitVolume = 1.0f;
+							hitPitch = 0.25f;
+						}
+						currentTarget.getWorld().playSound(currentTarget.getLocation(), hitSound, hitVolume, hitPitch);
+					}
+				}
+            }
+    	},0L, 1L);
+    	
+    	scheduleId.put(player.getName(), new ScheduleTask(taskId, originalBlock));
+    }
+
+    public static void cancelTaskWithBlockReset(Player player) {
+    	if (scheduleId.containsKey(player.getName())) {
+        	Block block = scheduleId.get(player.getName()).block;
+    		
+    		Bukkit.getScheduler().cancelTask(scheduleId.get(player.getName()).taskId);
+        	scheduleId.remove(player.getName());
+        	
+    		
+        	// this enusres that the player wont conflict with another player's breaking animation
+    		int entityId = player.getEntityId() + 1;
+    		entityId = entityId * 1000;
+    		PacketContainer breakingAnimation = manager.createPacket(PacketType.Play.Server.BLOCK_BREAK_ANIMATION);
+    		
+    		breakingAnimation.getIntegers().write(0, entityId);
+            breakingAnimation.getBlockPositionModifier().write(0, new BlockPosition(block.getX(), block.getY(), block.getZ()));
+        	
+            // returns the breaking animation back to none
+        	breakingAnimation.getIntegers().write(1, -1);
+            manager.sendServerPacket(player, breakingAnimation);
+        }
+    }
+
+	private double getBreakingTime(Player player, Block block) {
+		double speedMultiplier = 100d;
+
+		// Check if held item has a proper tool component. If it doesn't, assume unarmed
+		var item = player.getEquipment().getItemInMainHand();
+		var blueprint = SMPRPG.getService(ItemService.class).getBlueprint(item);
+		var entry = BlockPropertiesRegistry.get(block);
+		Set<ItemClassification> preferredTools;
+
+		// Failfast if entry is null.
+		if (entry == null) {
+			player.sendMessage(ComponentUtils.alert(ComponentUtils.merge(
+					ComponentUtils.create("This block is missing block properties! Tell a developer that the following block is not defined: ", NamedTextColor.RED),
+					ComponentUtils.create(block.getBlockData().getMaterial().toString(), NamedTextColor.WHITE),
+					ComponentUtils.create("\nBlockState: ", NamedTextColor.LIGHT_PURPLE),
+					ComponentUtils.create(block.toString(), NamedTextColor.GRAY)
+			)));
+			SMPRPG.getPlugin().getLogger().warning("Unknown block entry " + block.getState() + ". Please add it to BlockPropertiesRegistry!");
+			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.75F);
+			return -1d;
+		}
+		else if (blueprint instanceof IFueledEquipment) {
+			var maxFuel = ((IFueledEquipment) blueprint).getMaxFuel(item);
+			var fuelUsed = ((IFueledEquipment) blueprint).getFuelUsed(item);
+			if ((fuelUsed >= (maxFuel - IFueledEquipment.FUEL_OFFSET))) {
+				player.sendMessage(ComponentUtils.alert(ComponentUtils.merge(
+						ComponentUtils.create("Your tool is out of fuel! Refuel it by crafting your tool with furnace fuels in a crafting grid.", NamedTextColor.RED)
+				)));
+				player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.75F);
+				return -1d;
+			}
+			preferredTools = entry.getPreferredTools();
+		}
+		else
+			preferredTools = entry.getPreferredTools();
+		boolean isPreferred = false;
+		boolean correctTool = false;
+		if (preferredTools != null) {
+			correctTool = preferredTools.contains(blueprint.getItemClassification());
+			isPreferred = correctTool || entry.getSoftRequirement();
+		}
+
+		if (isPreferred)  // Only add extra mining speed once we know this is a preferred break option
+		{
+			if (correctTool) {
+				speedMultiplier -= 100;  // Subtract our implicit 100 speed given for unarmed/non-tool options
+				speedMultiplier += AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_SPEED).getValue();
+			}
+		}
+
+		// Haste gives +100 mining speed per level, Mining Fatigue gives -100 mining speed per level.
+		if (player.hasPotionEffect(PotionEffectType.HASTE))
+			speedMultiplier += 100 * player.getPotionEffect(PotionEffectType.HASTE).getAmplifier();
+		if (player.hasPotionEffect(PotionEffectType.MINING_FATIGUE))
+			speedMultiplier -= 100 * player.getPotionEffect(PotionEffectType.MINING_FATIGUE).getAmplifier();
+
+		double damage;
+		
+		// Checks for a custom hardness.
+		float hardness;
+
+		// Failsafe, block is unbreakable if not properly defined.
+		double playerBp = AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_POWER).getValue();
+		if (playerBp >= entry.getBreakingPower()) {
+			hardness = entry.getHardness();
+			if (hardness == -1)
+				return -1d;
+		}
+		else {
+			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.5F);
+			player.sendMessage(ComponentUtils.success(ComponentUtils.merge(
+					ComponentUtils.create("You cannot break this block, as you only have a breaking power of ", NamedTextColor.RED),
+					ComponentUtils.create(Symbols.PICKAXE + String.valueOf((int) playerBp), NamedTextColor.DARK_PURPLE),
+					ComponentUtils.create(". In order to break this block, you need ", NamedTextColor.RED),
+					ComponentUtils.create(Symbols.PICKAXE + String.valueOf((int) entry.getBreakingPower()), NamedTextColor.LIGHT_PURPLE),
+					ComponentUtils.create(" breaking power.", NamedTextColor.RED)
+			)));
+			return -1d;
+		}
+		damage = speedMultiplier / hardness;
+
+		if (isPreferred)
+			damage /= 30;
+		else
+			damage /= 100;
+
+		damage = Math.max(damage, 0);  // Prevents negative mining speed.
+
+		// Instant breaking
+		if (damage > 1) {
+		  return 0d;
+		}
+
+		return Math.round(1 / damage);
+    }
+    
+    private void playerBreakBlock(Player player, Block block) {
+		BlockSound blockSound = BlockPropertiesRegistry.get(block).getBlockSound();
+		if (blockSound != null)
+			block.getWorld().playSound(block.getLocation(), blockSound.BreakSound, blockSound.BreakVolume, blockSound.BreakPitch);
+		else
+			block.getWorld().playSound(block.getLocation(), block.getBlockSoundGroup().getBreakSound(), 1.0f, 0.8f);  // This is making a WILD assumption that all block breaks use this pitch. We will need to do data entry at some point.
+		new ParticleBuilder(Particle.BLOCK)
+				.location(block.getLocation().toCenterLocation())
+				.data(block.getBlockData())
+				.count(40)
+				.offset(0.25, 0.25, 0.25)
+				.spawn();
+
+    	player.breakBlock(block);
+    }
+}

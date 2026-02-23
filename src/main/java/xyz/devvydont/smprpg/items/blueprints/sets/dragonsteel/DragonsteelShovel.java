@@ -44,6 +44,7 @@ public class DragonsteelShovel extends CustomAttributeItem implements ICraftable
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 60),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.DRAGONSTEEL_TOOL_SPEED),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemShovel.SHOVEL_ATTACK_SPEED_DEBUFF)
         );
     }
@@ -53,7 +54,7 @@ public class DragonsteelShovel extends CustomAttributeItem implements ICraftable
 
     @Override
     public ItemClassification getItemClassification() {
-        return ItemClassification.TOOL;
+        return ItemClassification.SHOVEL;
     }
 
     @Override

@@ -17,11 +17,19 @@ import java.util.List;
 
 public class ItemHatchet extends CustomAttributeItem implements IBreakableEquipment {
 
+    public double getHatchetMiningPower() {
+        return 0;
+    }
+
     public double getHatchetDamage() {
         return 1;
     }
 
     public double getHatchetFortune() {
+        return 1;
+    }
+
+    public double getHatchetSpeed() {
         return 1;
     }
 
@@ -43,8 +51,10 @@ public class ItemHatchet extends CustomAttributeItem implements IBreakableEquipm
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getHatchetMiningPower()),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getHatchetDamage()),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, HATCHET_ATTACK_SPEED_DEBUFF),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getHatchetSpeed()),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, getHatchetFortune()),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, getHatchetFortune())
         );

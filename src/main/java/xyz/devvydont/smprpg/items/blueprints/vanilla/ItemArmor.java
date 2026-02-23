@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry;
@@ -65,6 +66,54 @@ public class ItemArmor extends VanillaAttributeItem implements IBreakableEquipme
             case NETHERITE_CHESTPLATE -> 120;
             case NETHERITE_LEGGINGS -> 100;
             case NETHERITE_BOOTS -> 65;
+
+            default -> 0;
+        };
+    }
+
+    public static int getDefenseFromItemType(CustomItemType itemType) {
+
+        return switch (itemType) {
+
+            case SILVER_HELMET -> 5;
+            case SILVER_CHESTPLATE -> 7;
+            case SILVER_LEGGINGS -> 6;
+            case SILVER_BOOTS -> 4;
+
+            case TIN_HELMET -> 10;
+            case TIN_CHESTPLATE -> 15;
+            case TIN_LEGGINGS -> 13;
+            case TIN_BOOTS -> 7;
+
+            case BRONZE_HELMET -> 30;
+            case BRONZE_CHESTPLATE -> 40;
+            case BRONZE_LEGGINGS -> 35;
+            case BRONZE_BOOTS -> 20;
+
+            case ROSE_GOLD_HELMET -> 15;
+            case ROSE_GOLD_CHESTPLATE -> 20;
+            case ROSE_GOLD_LEGGINGS -> 16;
+            case ROSE_GOLD_BOOTS -> 12;
+
+            case STEEL_HELMET -> 35;
+            case STEEL_CHESTPLATE -> 50;
+            case STEEL_LEGGINGS -> 40;
+            case STEEL_BOOTS -> 25;
+
+            case MITHRIL_HELMET -> 40;
+            case MITHRIL_CHESTPLATE -> 60;
+            case MITHRIL_LEGGINGS -> 45;
+            case MITHRIL_BOOTS -> 30;
+
+            case TITANIUM_HELMET -> 45;
+            case TITANIUM_CHESTPLATE -> 70;
+            case TITANIUM_LEGGINGS -> 60;
+            case TITANIUM_BOOTS -> 40;
+
+            case ADAMANTIUM_HELMET -> 60;
+            case ADAMANTIUM_CHESTPLATE -> 90;
+            case ADAMANTIUM_LEGGINGS -> 75;
+            case ADAMANTIUM_BOOTS -> 55;
 
             default -> 0;
         };

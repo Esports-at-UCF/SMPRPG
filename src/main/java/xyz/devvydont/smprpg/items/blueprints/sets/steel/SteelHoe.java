@@ -2,8 +2,6 @@ package xyz.devvydont.smprpg.items.blueprints.sets.steel;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.Tool;
-import io.papermc.paper.registry.keys.tags.BlockTypeTagKeys;
-import net.kyori.adventure.util.TriState;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CraftingRecipe;
@@ -30,9 +28,6 @@ import java.util.List;
 public class SteelHoe extends CustomAttributeItem implements ICraftable, IBreakableEquipment {
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_IRON_TOOL), 1.0f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_HOE), 7.0f, TriState.TRUE))
             .build();
 
     public SteelHoe(ItemService itemService, CustomItemType type) {
@@ -42,14 +37,17 @@ public class SteelHoe extends CustomAttributeItem implements ICraftable, IBreaka
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 13),
-                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(Material.IRON_HOE)),
-                new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, 35)
+                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemHoe.getHoeDamage(CustomItemType.STEEL_HOE)),
+                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(CustomItemType.STEEL_HOE)),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED),
+                new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ToolGlobals.STEEL_TOOL_FORTUNE)
         );
     }
 
     @Override
-    public int getPowerRating() { return ToolGlobals.STEEL_TOOL_POWER; }
+    public int getPowerRating() {
+        return ToolGlobals.STEEL_TOOL_POWER;
+    }
 
     @Override
     public ItemClassification getItemClassification() {

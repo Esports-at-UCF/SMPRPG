@@ -1,5 +1,7 @@
 package xyz.devvydont.smprpg.gui.base
 
+import io.papermc.paper.datacomponent.DataComponentTypes
+import io.papermc.paper.datacomponent.item.CustomModelData
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -17,7 +19,6 @@ import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.util.animations.AnimationService
 import xyz.devvydont.smprpg.util.animations.blockers.WaitFor
 import xyz.devvydont.smprpg.util.animations.iterators.AnimationFrame
@@ -27,18 +28,31 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 /**
  * A menu that is displayed to a player.
  */
-abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player: Player, rows: Int, protected val parentMenu: MenuBase? = null) : Listener {
-
+abstract class MenuBase @JvmOverloads constructor(// ---------
+    //   State
+    // ---------
+    @JvmField protected val player: Player, rows: Int, parentMenu: MenuBase? = null
+) : Listener {
+    protected val parentMenu: MenuBase?
     @JvmField
-    protected val inventory: Inventory = Bukkit.createInventory(player, 9 * rows)
-
+    protected val inventory: Inventory
     @JvmField
-    protected val sounds: MenuSoundManager = MenuSoundManager(player)
+    protected val sounds: MenuSoundManager
 
     private var shouldPlayOpeningSound = false
     private var shouldPlayClosingSound = false
     private var activeAnimation: AnimationHandle? = null
-    private val buttonSlots: MutableMap<Int, MenuButtonClickHandler> = HashMap<Int, MenuButtonClickHandler>()
+    private val buttonSlots: MutableMap<Int, MenuButtonClickHandler> = HashMap()
+
+
+    // ----------------
+    //   Constructors
+    // ----------------
+    init {
+        this.inventory = Bukkit.createInventory(player, 9 * rows)
+        this.sounds = MenuSoundManager(player)
+        this.parentMenu = parentMenu
+    }
 
     // --------------
     //   Visibility
@@ -53,7 +67,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
     /**
      * Opens/updates the inventory UI to this menu.
      * Used internally to manage the sounds that are played.
-     *
+     * 
      * @param playOpeningSound True if the opening sound should be played, otherwise false.
      */
     private fun openMenu(playOpeningSound: Boolean) {
@@ -62,7 +76,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
         this.shouldPlayClosingSound = true
 
         // Open the UI
-        Bukkit.getPluginManager().registerEvents(this, plugin)
+        Bukkit.getPluginManager().registerEvents(this, SMPRPG.plugin)
         this.player.openInventory(this.inventory)
     }
 
@@ -105,8 +119,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
     //   Events
     // ----------
     @EventHandler
-    @Suppress("unused")
-    fun onHandleInventoryOpened(event: InventoryOpenEvent) {
+    fun onInventoryOpened(event: InventoryOpenEvent) {
         val eventForOtherInventory = event.inventory != this.inventory
         if (eventForOtherInventory) {
             return
@@ -120,8 +133,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
     }
 
     @EventHandler
-    @Suppress("unused")
-    fun onHandleInventoryClicked(event: InventoryClickEvent) {
+    fun onInventoryClicked(event: InventoryClickEvent) {
         val eventForOtherInventory = event.inventory != this.inventory
         if (eventForOtherInventory) {
             return
@@ -130,7 +142,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
         // Explicitly disable number key modifications.
         if (event.click == ClickType.NUMBER_KEY) {
             event.isCancelled = true
-            this.playInvalidAnimation()
+            //this.playInvalidAnimation();
             return
         }
 
@@ -149,8 +161,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
     }
 
     @EventHandler
-    @Suppress("unused")
-    fun onHandleInventoryClosed(event: InventoryCloseEvent) {
+    fun onInventoryClosed(event: InventoryCloseEvent) {
         val eventForOtherInventory = event.inventory != this.inventory
         if (eventForOtherInventory) {
             return
@@ -192,7 +203,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Gets the item stored in one of menu inventory slots.
-     *
+     * 
      * @param slotIndex The index of the inventory slot.
      * @return The item stored in the inventory slot or null if the slot is empty.
      */
@@ -206,7 +217,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
     protected val items: Array<ItemStack?>
         /**
          * Gets all the items stored in the menus inventory.
-         *
+         * 
          * @return An array containing all the item stacks stored in the menu.
          */
         get() = this.inventory.contents
@@ -214,7 +225,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
     protected val inventorySize: Int
         /**
          * Returns the size of the underlying inventory.
-         *
+         * 
          * @return The size of menu inventory.
          */
         get() = this.inventory.size
@@ -222,15 +233,12 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
     /**
      * Copies the item from the menu inventory to the players inventory.
      * Warning: This method does not delete the item from the menu inventory.
-     *
+     * 
      * @param slotIndex          The index of the item slot the item is in.
      * @param shouldDropOnGround True if any leftover items should be dropped onto the ground, otherwise false.
      */
     protected fun giveItemToPlayer(slotIndex: Int, shouldDropOnGround: Boolean) {
-        val itemStack = this.inventory.getItem(slotIndex)
-        if (itemStack == null) {
-            return
-        }
+        val itemStack = this.inventory.getItem(slotIndex) ?: return
 
         // Give the maximum amount of items to the player.
         val overflowItems = this.player.inventory.addItem(itemStack).values
@@ -246,7 +254,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Sends a message to the player that is viewing this menu inventory.
-     *
+     * 
      * @param component The component to send to the player's chat.
      */
     protected fun sendMessageToPlayer(component: Component) {
@@ -255,7 +263,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Sets the maximum size a stack can be.
-     *
+     * 
      * @param maxStackSize The maximum stack size.
      */
     protected fun setMaxStackSize(maxStackSize: Int) {
@@ -264,7 +272,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Sets one of the menu inventory slots to the specified item.
-     *
+     * 
      * @param slotIndex The inventory slot to update.
      * @param material  The material to create an item stack out of.
      */
@@ -274,7 +282,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Sets one of the menu inventory slots to the specified item.
-     *
+     * 
      * @param slotIndex The inventory slot to update.
      * @param itemStack The item to insert.
      */
@@ -286,7 +294,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Sets all the menu inventory slots to the specified item.
-     *
+     * 
      * @param material The material to create an item stack out of.
      */
     protected fun setSlots(material: Material) {
@@ -295,7 +303,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Sets all the menu inventory slots to the specified item.
-     *
+     * 
      * @param itemStack The item to insert.
      */
     protected fun setSlots(itemStack: ItemStack) {
@@ -306,7 +314,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Converts one of the menu inventory slots to be a button.
-     *
+     * 
      * @param slotIndex The inventory slot to convert.
      * @param itemStack The item to represent the button.
      * @param handler   The function to invoke when the button is pressed.
@@ -315,12 +323,12 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
         check(!slotIndexOutsideMenuBounds(slotIndex)) { "Provided slot index is outside the bounds of the menu inventory." }
 
         this.setSlot(slotIndex, itemStack)
-        this.buttonSlots.put(slotIndex, handler)
+        this.buttonSlots[slotIndex] = handler
     }
 
     /**
      * Replaces instances of an item in the menus inventory with another one.
-     *
+     * 
      * @param oldItem The item to replace.
      * @param newItem The item to replace the old item with.
      */
@@ -343,7 +351,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Removes an item from the menus inventory.
-     *
+     * 
      * @param slotIndex The index of the inventory slot to clear.
      */
     protected fun clearSlot(slotIndex: Int) {
@@ -393,13 +401,15 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Plays an animation which signifies the user performed a valid operation.
-     *
+     * 
      * @param playSound True if the success sound should be played, otherwise false.
      */
     // --------------
     //   Animations
     // --------------
-    @JvmOverloads
+    /**
+     * Plays an animation which signifies the user performed a valid operation.
+     */
     protected fun playSuccessAnimation(playSound: Boolean = true) {
         stopAnimation()
         val successBorder: ItemStack = createNamedItem(Material.LIME_STAINED_GLASS_PANE, Component.text(""))
@@ -418,10 +428,12 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Plays an animation which signifies the user performed an invalid operation.
-     *
+     * 
      * @param playSound True if the error sound should be played, otherwise false.
      */
-    @JvmOverloads
+    /**
+     * Plays an animation which signifies the user performed an invalid operation.
+     */
     protected fun playInvalidAnimation(playSound: Boolean = true) {
         stopAnimation()
         val errorBorder: ItemStack = createNamedItem(Material.RED_STAINED_GLASS_PANE, Component.text(""))
@@ -454,14 +466,20 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
     // -----------
     /**
      * Creates a context aware back/close button.
-     *
+     * 
      * @param slotIndex The slot to place the button in.
      */
     protected fun setBackButton(slotIndex: Int) {
         if (this.parentMenu == null) {
-            this.setButton(slotIndex, BUTTON_EXIT) { e: InventoryClickEvent -> this.closeMenu() }
+            this.setButton(
+                slotIndex,
+                BUTTON_EXIT
+            ) { e: InventoryClickEvent -> this.closeMenu() }
         } else {
-            this.setButton(slotIndex, BUTTON_BACK) { e: InventoryClickEvent -> this.openParentMenu() }
+            this.setButton(
+                slotIndex,
+                BUTTON_BACK
+            ) { e: InventoryClickEvent -> this.openParentMenu() }
         }
     }
 
@@ -475,7 +493,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Plays a one-shot sound on the player's client.
-     *
+     * 
      * @param sound  The sound effect to play.
      * @param volume How loud the sound should be.
      * @param pitch  The pitch of the sound effect.
@@ -485,21 +503,20 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
     // -----------
     /**
      * Plays a one-shot sound on the player's client.
-     *
+     * 
      * @param sound The sound effect to play.
      */
-    @JvmOverloads
     protected fun playSound(sound: Sound, volume: Float = 1.0f, pitch: Float = 1.0f) {
         this.player.playSound(this.player.location, sound, volume, pitch)
     }
 
     /**
      * Attempts to add the specified item to the players inventory.
-     *
+     * 
      * @param item The item to give to the player.
      */
-    protected fun giveItemToPlayer(item: ItemStack?) {
-        val overflow = this.player.inventory.addItem(item!!)
+    protected fun giveItemToPlayer(item: ItemStack) {
+        val overflow = this.player.inventory.addItem(item)
         for (overflowItem in overflow.entries) {
             this.player.world.dropItemNaturally(this.player.eyeLocation, overflowItem.value)
         }
@@ -507,7 +524,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
     /**
      * Returns if the provided slot index is outside the bounds of the menu inventory.
-     *
+     * 
      * @param slotIndex The relative or raw slot index to check.
      * @return True if it's outside the bounds, otherwise false.
      */
@@ -521,10 +538,10 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
         // -----------
         @JvmField
         protected val BORDER_NORMAL: ItemStack = createNamedItem(Material.BLACK_STAINED_GLASS_PANE, Component.text(""))
-        @JvmField
+        @JvmStatic
         protected val BUTTON_PAGE_NEXT: ItemStack =
             createNamedItem(Material.ARROW, Component.text("Next Page ->", NamedTextColor.BLUE))
-        @JvmField
+        @JvmStatic
         protected val BUTTON_PAGE_PREVIOUS: ItemStack =
             createNamedItem(Material.ARROW, Component.text("<- Previous Page", NamedTextColor.BLUE))
         @JvmField
@@ -534,9 +551,37 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
         protected val BUTTON_EXIT: ItemStack =
             createNamedItem(Material.BARRIER, Component.text("Exit", NamedTextColor.RED))
 
+        init {
+            BORDER_NORMAL.setData<CustomModelData?>(
+                DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                    .addString("smprpg:border_normal")
+                    .build()
+            )
+            BUTTON_PAGE_NEXT.setData<CustomModelData?>(
+                DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                    .addString("smprpg:icon_next_page")
+                    .build()
+            )
+            BUTTON_PAGE_PREVIOUS.setData<CustomModelData?>(
+                DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                    .addString("smprpg:icon_previous_page")
+                    .build()
+            )
+            BUTTON_BACK.setData<CustomModelData?>(
+                DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                    .addString("smprpg:icon_back")
+                    .build()
+            )
+            BUTTON_EXIT.setData<CustomModelData?>(
+                DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                    .addString("smprpg:icon_exit")
+                    .build()
+            )
+        }
+
         /**
          * Creates an item stack with a custom name.
-         *
+         * 
          * @param material The type of the item to create an item stack of.
          * @param name     The name to apply to the item stack.
          * @return The named item stack.
@@ -552,7 +597,7 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
 
         /**
          * Creates an item stack with a custom name.
-         *
+         * 
          * @param material The type of the item to create an item stack of.
          * @param name     The name to apply to the item stack.
          * @return The named item stack.
@@ -564,6 +609,29 @@ abstract class MenuBase @JvmOverloads constructor(@JvmField protected val player
             meta.displayName(name.decoration(TextDecoration.ITALIC, false))
             item.setItemMeta(meta)
             return item
+        }
+
+        /**
+         * Creates an item stack with a custom name, and marks it with no render.
+         * 
+         * @param material The type of the item to create an item stack of.
+         * @param name     The name to apply to the item stack.
+         * @return The named item stack.
+         */
+        @JvmStatic
+        protected fun createNoRenderNamedItem(material: Material, name: Component): ItemStack {
+            val item: ItemStack = createNamedItem(material, name)
+            markItemNoRender(item)
+            return item
+        }
+
+        @JvmStatic
+        protected fun markItemNoRender(item: ItemStack) {
+            item.setData<CustomModelData?>(
+                DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
+                    .addString("smprpg:no_render")
+                    .build()
+            )
         }
     }
 }

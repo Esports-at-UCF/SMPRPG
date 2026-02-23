@@ -2,33 +2,22 @@ package xyz.devvydont.smprpg.items.blueprints.fishing;
 
 import io.papermc.paper.datacomponent.item.Consumable;
 import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect;
-import net.kyori.adventure.text.Component;
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import xyz.devvydont.smprpg.SMPRPG;
+import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
-import xyz.devvydont.smprpg.items.ItemRarity;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
 import xyz.devvydont.smprpg.items.interfaces.IEdible;
-import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable;
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden;
 import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
-import xyz.devvydont.smprpg.util.formatting.Symbols;
-import xyz.devvydont.smprpg.util.persistence.PDCAdapters;
-import xyz.devvydont.smprpg.util.persistence.KeyStore;
-import xyz.devvydont.smprpg.util.rng.WeightedSelector;
 
 import java.util.List;
-import java.util.Map;
 
-import static net.kyori.adventure.text.format.NamedTextColor.YELLOW;
 import static xyz.devvydont.smprpg.util.formatting.ComponentUtils.create;
-import static xyz.devvydont.smprpg.util.formatting.ComponentUtils.merge;
 
 /**
  * Represents a blueprint for a basic fish that you can fish up.
@@ -167,7 +156,7 @@ public class FishBlueprint extends CustomItemBlueprint implements IModelOverridd
     }
 
     @Override
-    public Consumable getConsumableComponent(ItemStack item) {
+    public @NonNull Consumable getConsumableComponent(ItemStack item) {
         var component = Consumable.consumable()
                 .consumeSeconds(1.6f);
 

@@ -32,8 +32,8 @@ public class CopperBoots extends CopperArmorSet implements IBreakableEquipment, 
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromMaterial(Material.LEATHER_BOOTS)),
-                new ScalarAttributeEntry(AttributeWrapper.MINING_EFFICIENCY, .05),
+                new AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromMaterial(Material.CHAINMAIL_BOOTS)),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 25),
                 new ScalarAttributeEntry(AttributeWrapper.MOVEMENT_SPEED, .02)
         );
     }

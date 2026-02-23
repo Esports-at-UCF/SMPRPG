@@ -17,10 +17,9 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.ISmeltable
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.services.RecipeService.Companion.getRecipesFor
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
+import xyz.devvydont.smprpg.util.formatting.Symbols
 import java.util.*
 import java.util.function.Consumer
 
@@ -32,33 +31,33 @@ class MenuItemBrowser @JvmOverloads constructor(
     player: Player,
     /**
      * Retrieve the query that is currently being used for this display.
-     *
+     * 
      * @return A string representing what the user input via command.
      */
-    val query: String = ""
-) : MenuBase(player, ROWS, parent) {
+    val query: String? = ""
+) : MenuBase(player, ROWS) {
     private val queriedItems: MutableList<ItemStack> = ArrayList<ItemStack>()
     private var page = 0
 
     /**
      * Alternative constructor if the user is querying for a specific item. We only want to display items that have
      * some sort of matching string pattern with their query.
-     *
+     * 
      * @param player The player who wants to view items
      * @param query The string query the player provided within the command
      */
     /**
      * Default constructor. Used for general queries when we want to just display every single item in the game.
-     *
+     * 
      * @param player The player who wants to view items
      */
     init {
 
         // If the item cache hasn't initialized yet, go ahead and do that.
         if (ITEM_CACHE.isEmpty()) {
-            for (type in CustomItemType.entries) ITEM_CACHE.add(generate(type))
+            for (type in CustomItemType.entries) ITEM_CACHE.add(ItemService.generate(type))
             for (material in Material.entries) if (!material.isLegacy && material.isItem) ITEM_CACHE.add(
-                generate(
+                ItemService.generate(
                     material
                 )
             )
@@ -70,9 +69,12 @@ class MenuItemBrowser @JvmOverloads constructor(
         this.queryItems()
         this.render()
         event.titleOverride(
-            ComponentUtils.create(
-                "Item Directory: " + (query.ifEmpty { "All Items" }),
-                NamedTextColor.BLACK
+            ComponentUtils.merge(
+                ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.RECIPE_MENU, NamedTextColor.WHITE),  // Background
+                ComponentUtils.create(
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Item Directory: " + (if (query!!.isEmpty()) "All Items" else query),
+                    NamedTextColor.BLACK
+                )
             )
         )
     }
@@ -80,24 +82,24 @@ class MenuItemBrowser @JvmOverloads constructor(
     override fun handleInventoryClicked(event: InventoryClickEvent) {
         super.handleInventoryClicked(event)
         event.isCancelled = true
-        this.playInvalidAnimation()
+        //this.playInvalidAnimation();
     }
 
     /**
      * A query is empty if the user didn't define something to search for. Determine if we are actually querying
      * for something specific or not
-     *
+     * 
      * @return true if a query is set, false if we are just viewing everything
      */
     fun hasQuery(): Boolean {
-        return !query.isEmpty()
+        return !query.isNullOrEmpty()
     }
 
     /**
      * Use our currently defined query to return a fresh new list of items that we should render on the interface.
      * This only needs to be called when the query is either first set, or when we update the query.
      * After calling this method, the items can be viewed either via state or return value, as they will be the same list.
-     *
+     * 
      * @return A list of item stacks representing items that we should render on the display.
      */
     private fun queryItems(): MutableList<ItemStack> {
@@ -113,7 +115,7 @@ class MenuItemBrowser @JvmOverloads constructor(
 
         // When querying for items, we want to make the process as painless as possible, ignore spaces underscores etc.
         // todo use regex (i dont know it >_<) also capture more character patterns that may be present in item names
-        val simpleQuery = query.lowercase(Locale.getDefault()).replace(" ", "").replace("_", "").replace("-", "")
+        val simpleQuery = query!!.lowercase(Locale.getDefault()).replace(" ", "").replace("_", "").replace("-", "")
 
         // Loop through every custom item in the game and see if the query makes this something of interest.
         for (itemType in CustomItemType.entries) {
@@ -123,7 +125,7 @@ class MenuItemBrowser @JvmOverloads constructor(
             if (!simpleName.contains(simpleQuery)) continue
 
             // Valid!
-            this.queriedItems.add(generate(itemType))
+            this.queriedItems.add(ItemService.generate(itemType))
         }
 
         // Do vanilla items too.
@@ -137,7 +139,7 @@ class MenuItemBrowser @JvmOverloads constructor(
             if (!simpleName.contains(simpleQuery)) continue
 
             // Valid!
-            this.queriedItems.add(generate(material))
+            this.queriedItems.add(ItemService.generate(material))
         }
 
         return queriedItems
@@ -146,7 +148,7 @@ class MenuItemBrowser @JvmOverloads constructor(
     /**
      * Determine what to do when a certain item stack is clicked. For example, if a craftable item was clicked, we
      * should display a sub menu containing the recipe of the item.
-     *
+     * 
      * @param itemStack
      */
     private fun handleClick(event: InventoryClickEvent, itemStack: ItemStack) {
@@ -162,10 +164,10 @@ class MenuItemBrowser @JvmOverloads constructor(
         }
 
         // Get a clean version of the item w/o modified lore so that we can properly query recipes.
-        val clean = blueprint(itemStack)
+        val clean = ItemService.blueprint(itemStack)
         val recipes: MutableList<Recipe> = getRecipesFor(clean.generate())
         if (recipes.isEmpty() || itemStack.type == Material.AIR) {
-            this.playInvalidAnimation()
+            //this.playInvalidAnimation();
             return
         }
 
@@ -214,8 +216,7 @@ class MenuItemBrowser @JvmOverloads constructor(
             lore.addFirst(ComponentUtils.EMPTY)
 
             // If this ingredient can be crafted, insert the craftable tooltip.
-            if (blueprint is ICraftable || blueprint is ISmeltable)
-                item.editMeta(Consumer { meta: ItemMeta ->
+            if (blueprint is ICraftable || blueprint is ISmeltable) item.editMeta(Consumer { meta: ItemMeta ->
                 meta.lore(
                     lore
                 )
@@ -234,11 +235,11 @@ class MenuItemBrowser @JvmOverloads constructor(
         val displayPageMax = lastPage + 1
         this.setButton(
             (ROWS - 1) * 9,
-            createNamedItem(
-                Material.ARROW,
+            createNoRenderNamedItem(
+                Material.BLACK_STAINED_GLASS_PANE,
                 ComponentUtils.create("Previous Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD)
             )
-        ) { e: InventoryClickEvent ->
+        ) { _: InventoryClickEvent ->
             page--
             this.render()
             this.sounds.playPagePrevious()
@@ -246,22 +247,26 @@ class MenuItemBrowser @JvmOverloads constructor(
 
         this.setButton(
             (ROWS - 1) * 9 + 8,
-            createNamedItem(
-                Material.ARROW,
+            createNoRenderNamedItem(
+                Material.BLACK_STAINED_GLASS_PANE,
                 ComponentUtils.create("Next Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD)
             )
-        ) { e: InventoryClickEvent ->
+        ) { _: InventoryClickEvent ->
             page++
             this.render()
             this.sounds.playPageNext()
         }
 
         // Close button
-        this.setBackButton()
+        this.setButton((ROWS - 1) * 9 + 4, BUTTON_EXIT, MenuButtonClickHandler { _: InventoryClickEvent ->
+            this.closeMenu()
+            this.sounds.playMenuClose()
+        })
     }
 
     companion object {
         private val ITEM_CACHE: MutableList<ItemStack> = ArrayList<ItemStack>()
+
         const val ROWS: Int = 6
     }
 }

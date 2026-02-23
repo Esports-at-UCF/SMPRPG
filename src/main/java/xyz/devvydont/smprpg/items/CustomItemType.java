@@ -2,6 +2,9 @@ package xyz.devvydont.smprpg.items;
 
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.block.ore.*;
+import xyz.devvydont.smprpg.items.blueprints.block.rawmaterials.*;
+import xyz.devvydont.smprpg.items.blueprints.block.ReforgeTableBlock;
 import xyz.devvydont.smprpg.items.blueprints.boss.DiamondToolRod;
 import xyz.devvydont.smprpg.items.blueprints.boss.InfernoArrow;
 import xyz.devvydont.smprpg.items.blueprints.boss.NeptunesConch;
@@ -9,6 +12,9 @@ import xyz.devvydont.smprpg.items.blueprints.charms.LuckyCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.SpeedCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
+import xyz.devvydont.smprpg.items.blueprints.drills.LargeFuelTank;
+import xyz.devvydont.smprpg.items.blueprints.drills.MediumFuelTank;
+import xyz.devvydont.smprpg.items.blueprints.drills.SmallFuelTank;
 import xyz.devvydont.smprpg.items.blueprints.economy.CustomItemCoin;
 import xyz.devvydont.smprpg.items.blueprints.equipment.*;
 import xyz.devvydont.smprpg.items.blueprints.equipment.EnderPack;
@@ -29,6 +35,7 @@ import xyz.devvydont.smprpg.items.blueprints.resources.fishing.HolomokuCrest;
 import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
+import xyz.devvydont.smprpg.items.blueprints.sets.adamantium.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystChestplate;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystHelmet;
@@ -42,6 +49,7 @@ import xyz.devvydont.smprpg.items.blueprints.sets.bone.BoneBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.bone.BoneChestplate;
 import xyz.devvydont.smprpg.items.blueprints.sets.bone.BoneHelmet;
 import xyz.devvydont.smprpg.items.blueprints.sets.bone.BoneLeggings;
+import xyz.devvydont.smprpg.items.blueprints.sets.bronze.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.cobblestone.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.copper.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.diamond.DiamondBow;
@@ -70,6 +78,7 @@ import xyz.devvydont.smprpg.items.blueprints.sets.inferno.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.infinity.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.iron.IronBow;
 import xyz.devvydont.smprpg.items.blueprints.sets.iron.IronHatchet;
+import xyz.devvydont.smprpg.items.blueprints.sets.mithril.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.mystbloom.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.mystic.LuxeBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.mystic.LuxeChestplate;
@@ -103,10 +112,12 @@ import xyz.devvydont.smprpg.items.blueprints.sets.redstone.RedstoneBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.redstone.RedstoneChestplate;
 import xyz.devvydont.smprpg.items.blueprints.sets.redstone.RedstoneHelmet;
 import xyz.devvydont.smprpg.items.blueprints.sets.redstone.RedstoneLeggings;
+import xyz.devvydont.smprpg.items.blueprints.sets.rosegold.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.sakura.SakuraBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.sakura.SakuraChestplate;
 import xyz.devvydont.smprpg.items.blueprints.sets.sakura.SakuraHelmet;
 import xyz.devvydont.smprpg.items.blueprints.sets.sakura.SakuraLeggings;
+import xyz.devvydont.smprpg.items.blueprints.sets.silver.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.singularity.SingularityBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.singularity.SingularityChestplate;
 import xyz.devvydont.smprpg.items.blueprints.sets.singularity.SingularityHelmet;
@@ -127,6 +138,8 @@ import xyz.devvydont.smprpg.items.blueprints.sets.special.MagmaHelmet;
 import xyz.devvydont.smprpg.items.blueprints.sets.special.SpaceHelmet;
 import xyz.devvydont.smprpg.items.blueprints.sets.special.SquidHelmet;
 import xyz.devvydont.smprpg.items.blueprints.sets.steel.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.tin.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.titanium.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.undead.UndeadBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.undead.UndeadChestplate;
 import xyz.devvydont.smprpg.items.blueprints.sets.undead.UndeadHelmet;
@@ -142,6 +155,7 @@ import xyz.devvydont.smprpg.items.blueprints.sets.valiant.ValiantLeggings;
 import xyz.devvydont.smprpg.items.blueprints.sets.wood.WoodHatchet;
 import xyz.devvydont.smprpg.items.blueprints.storage.*;
 import xyz.devvydont.smprpg.items.interfaces.ICustomTextured;
+import xyz.devvydont.smprpg.items.tools.ItemDrill;
 
 public enum CustomItemType {
 
@@ -160,6 +174,12 @@ public enum CustomItemType {
     NEO_FRONTIER_LEGGINGS("Neo Frontier Leggings",     Material.IRON_LEGGINGS,      NeoFrontierLeggings.class),
     NEO_FRONTIER_BOOTS("Neo Frontier Boots",           Material.LEATHER_BOOTS,      NeoFrontierBoots.class),
 
+    // DYNAMIC TOOLS
+    DRILL("Mining Drill", Material.PRISMARINE_SHARD, ItemDrill.class),
+    SMALL_FUEL_TANK("Small Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.COMMON,    SmallFuelTank.class),
+    MEDIUM_FUEL_TANK("Medium Fuel Tank", Material.PRISMARINE_SHARD,   ItemRarity.UNCOMMON,  MediumFuelTank.class),
+    LARGE_FUEL_TANK("Large Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.RARE,      LargeFuelTank.class),
+
     // COPPER SET
     COPPER_PICKAXE("Copper Pickaxe",  Material.WOODEN_PICKAXE, CopperPickaxe.class),
     COPPER_AXE(    "Copper Axe",      Material.WOODEN_AXE,     CopperAxe.class),
@@ -172,6 +192,201 @@ public enum CustomItemType {
     COPPER_CHESTPLATE("Copper Chestplate", Material.LEATHER_CHESTPLATE, CopperChestplate.class),
     COPPER_LEGGINGS(  "Copper Leggings",   Material.LEATHER_LEGGINGS,   CopperLeggings.class),
     COPPER_BOOTS(     "Copper Boots",      Material.LEATHER_BOOTS,      CopperBoots.class),
+
+    // SILVER SET
+    RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, false, 15),
+    SILVER_INGOT("Silver Ingot",                 Material.IRON_INGOT,     ItemRarity.COMMON, SilverIngot.class),
+    SILVER_ORE("Silver Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, SilverOre.class),
+    DEEPSLATE_SILVER_ORE("Deepslate Silver Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, DeepslateSilverOre.class),
+    RAW_SILVER_BLOCK("Block of Raw Silver",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, RawSilverBlock.class),
+    SILVER_BLOCK("Block of Silver",              Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, SilverBlock.class),
+
+    SILVER_PICKAXE("Silver Pickaxe",  Material.IRON_PICKAXE, SilverPickaxe.class),
+    SILVER_AXE(    "Silver Axe",      Material.IRON_AXE,     SilverAxe.class),
+    SILVER_HOE(    "Silver Hoe",      Material.IRON_HOE,     SilverHoe.class),
+    SILVER_SHOVEL( "Silver Shovel",   Material.IRON_SHOVEL,  SilverShovel.class),
+    SILVER_SWORD(  "Silver Sword",    Material.IRON_SWORD,   SilverSword.class),
+    SILVER_HATCHET("Silver Hatchet",  Material.IRON_AXE,      ItemRarity.COMMON,   SilverHatchet.class),
+    SILVER_BOW(    "Silver Bow",      Material.BOW,            SilverBow.class),
+
+    SILVER_HELMET(    "Silver Helmet",     Material.IRON_HELMET,     SilverHelmet.class),
+    SILVER_CHESTPLATE("Silver Chestplate", Material.IRON_CHESTPLATE, SilverChestplate.class),
+    SILVER_LEGGINGS(  "Silver Leggings",   Material.IRON_LEGGINGS,   SilverLeggings.class),
+    SILVER_BOOTS(     "Silver Boots",      Material.IRON_BOOTS,      SilverBoots.class),
+
+    // TIN SET
+    RAW_TIN("Raw Tin",                     Material.RAW_IRON,       ItemRarity.COMMON, false, 5),
+    TIN_INGOT("Tin Ingot",                 Material.IRON_INGOT,     ItemRarity.COMMON, TinIngot.class),
+    TIN_ORE("Tin Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, TinOre.class),
+    DEEPSLATE_TIN_ORE("Deepslate Tin Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, DeepslateTinOre.class),
+    RAW_TIN_BLOCK("Block of Raw Tin",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, RawTinBlock.class),
+    TIN_BLOCK("Block of Tin",              Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, TinBlock.class),
+
+    TIN_PICKAXE("Tin Pickaxe",  Material.IRON_PICKAXE, TinPickaxe.class),
+    TIN_AXE(    "Tin Axe",      Material.IRON_AXE,     TinAxe.class),
+    TIN_HOE(    "Tin Hoe",      Material.IRON_HOE,     TinHoe.class),
+    TIN_SHOVEL( "Tin Shovel",   Material.IRON_SHOVEL,  TinShovel.class),
+    TIN_SWORD(  "Tin Sword",    Material.IRON_SWORD,   TinSword.class),
+    TIN_HATCHET("Tin Hatchet",  Material.IRON_AXE,      ItemRarity.COMMON,   TinHatchet.class),
+    TIN_BOW(    "Tin Bow",      Material.BOW,            TinBow.class),
+
+    TIN_HELMET(    "Tin Helmet",     Material.IRON_HELMET,     TinHelmet.class),
+    TIN_CHESTPLATE("Tin Chestplate", Material.IRON_CHESTPLATE, TinChestplate.class),
+    TIN_LEGGINGS(  "Tin Leggings",   Material.IRON_LEGGINGS,   TinLeggings.class),
+    TIN_BOOTS(     "Tin Boots",      Material.IRON_BOOTS,      TinBoots.class),
+
+    // BRONZE SET
+    BRONZE_INGOT("Bronze Ingot",                 Material.COPPER_INGOT,   ItemRarity.COMMON,   BronzeIngot.class),
+    BRONZE_BLOCK("Block of Bronze",              Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, BronzeBlock.class),
+
+    BRONZE_PICKAXE("Bronze Pickaxe",  Material.WOODEN_PICKAXE, BronzePickaxe.class),
+    BRONZE_AXE(    "Bronze Axe",      Material.WOODEN_AXE,     BronzeAxe.class),
+    BRONZE_HOE(    "Bronze Hoe",      Material.WOODEN_HOE,     BronzeHoe.class),
+    BRONZE_SHOVEL( "Bronze Shovel",   Material.WOODEN_SHOVEL,  BronzeShovel.class),
+    BRONZE_SWORD(  "Bronze Sword",    Material.WOODEN_SWORD,   BronzeSword.class),
+    BRONZE_HATCHET("Bronze Hatchet",  Material.WOODEN_AXE,      ItemRarity.COMMON,   BronzeHatchet.class),
+    BRONZE_BOW(    "Bronze Bow",      Material.BOW,            BronzeBow.class),
+
+    BRONZE_HELMET(    "Bronze Helmet",     Material.LEATHER_HELMET,     BronzeHelmet.class),
+    BRONZE_CHESTPLATE("Bronze Chestplate", Material.LEATHER_CHESTPLATE, BronzeChestplate.class),
+    BRONZE_LEGGINGS(  "Bronze Leggings",   Material.LEATHER_LEGGINGS,   BronzeLeggings.class),
+    BRONZE_BOOTS(     "Bronze Boots",      Material.LEATHER_BOOTS,      BronzeBoots.class),
+
+    // STEEL SET
+    STEEL_INGOT("Steel Ingot", Material.IRON_INGOT, ItemRarity.UNCOMMON, SteelIngot.class),
+    STEEL_BLOCK(     "Block of Steel",      Material.POISONOUS_POTATO,     ItemRarity.RARE, SteelBlock.class),
+    STEEL_TOOL_SHAFT("Steel Tool Shaft", Material.STICK, ItemRarity.UNCOMMON, SteelToolShaft.class),
+
+    STEEL_DRILL_HEAD("Steel Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillHead.class),
+    STEEL_DRILL_BASE("Steel Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillBase.class),
+
+    STEEL_PICKAXE("Steel Pickaxe",      Material.IRON_PICKAXE,      ItemRarity.UNCOMMON,   SteelPickaxe.class),
+    STEEL_AXE("Steel Axe",              Material.IRON_AXE,          ItemRarity.UNCOMMON,   SteelAxe.class),
+    STEEL_HATCHET("Steel Hatchet",      Material.IRON_AXE,          ItemRarity.UNCOMMON,   SteelHatchet.class),
+    STEEL_SWORD("Steel Sword",          Material.IRON_SWORD,        ItemRarity.UNCOMMON,   SteelSword.class),
+    STEEL_HOE("Steel Hoe",              Material.IRON_HOE,          ItemRarity.UNCOMMON,   SteelHoe.class),
+    STEEL_SHOVEL("Steel Shovel",        Material.IRON_SHOVEL,       ItemRarity.UNCOMMON,   SteelShovel.class),
+
+    STEEL_HELMET(    "Steel Helmet",     Material.IRON_HELMET,     SteelHelmet.class),
+    STEEL_CHESTPLATE("Steel Chestplate", Material.IRON_CHESTPLATE, SteelChestplate.class),
+    STEEL_LEGGINGS(  "Steel Leggings",   Material.IRON_LEGGINGS,   SteelLeggings.class),
+    STEEL_BOOTS(     "Steel Boots",      Material.IRON_BOOTS,      SteelBoots.class),
+
+    // ROSE GOLD SET
+    ROSE_GOLD_INGOT("Rose Gold Ingot",                 Material.IRON_INGOT,     ItemRarity.UNCOMMON,   RoseGoldIngot.class),
+    ROSE_GOLD_BLOCK("Block of Rose Gold",              Material.POISONOUS_POTATO,        ItemRarity.RARE, RoseGoldBlock.class),
+
+    ROSE_GOLD_DRILL_HEAD("Rose Gold Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, RoseGoldDrillHead.class),
+    ROSE_GOLD_DRILL_BASE("Rose Gold Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, RoseGoldDrillBase.class),
+
+    ROSE_GOLD_PICKAXE("Rose Gold Pickaxe",  Material.GOLDEN_PICKAXE, ItemRarity.UNCOMMON, RoseGoldPickaxe.class),
+    ROSE_GOLD_AXE(    "Rose Gold Axe",      Material.GOLDEN_AXE,     ItemRarity.UNCOMMON, RoseGoldAxe.class),
+    ROSE_GOLD_HOE(    "Rose Gold Hoe",      Material.GOLDEN_HOE,     ItemRarity.UNCOMMON, RoseGoldHoe.class),
+    ROSE_GOLD_SHOVEL( "Rose Gold Shovel",   Material.GOLDEN_SHOVEL,  ItemRarity.UNCOMMON, RoseGoldShovel.class),
+    ROSE_GOLD_SWORD(  "Rose Gold Sword",    Material.GOLDEN_SWORD,   ItemRarity.UNCOMMON, RoseGoldSword.class),
+    ROSE_GOLD_HATCHET("Rose Gold Hatchet",  Material.GOLDEN_AXE,     ItemRarity.UNCOMMON,   RoseGoldHatchet.class),
+    ROSE_GOLD_BOW(    "Rose Gold Bow",      Material.BOW,            ItemRarity.UNCOMMON, RoseGoldBow.class),
+
+    ROSE_GOLD_HELMET(    "Rose Gold Helmet",     Material.GOLDEN_HELMET,     ItemRarity.UNCOMMON, RoseGoldHelmet.class),
+    ROSE_GOLD_CHESTPLATE("Rose Gold Chestplate", Material.GOLDEN_CHESTPLATE, ItemRarity.UNCOMMON,RoseGoldChestplate.class),
+    ROSE_GOLD_LEGGINGS(  "Rose Gold Leggings",   Material.GOLDEN_LEGGINGS,   ItemRarity.UNCOMMON, RoseGoldLeggings.class),
+    ROSE_GOLD_BOOTS(     "Rose Gold Boots",      Material.GOLDEN_BOOTS,      ItemRarity.UNCOMMON, RoseGoldBoots.class),
+
+    DRAGONSTEEL_BLOCK(     "Block of Dragonsteel",      Material.POISONOUS_POTATO,     ItemRarity.LEGENDARY, DragonsteelBlock.class),
+
+    // MITHRIL SET
+    RAW_MITHRIL("Raw Mithril",                     Material.RAW_IRON,     ItemRarity.UNCOMMON,   false, 75),
+    MITHRIL_INGOT("Mithril Ingot",                 Material.IRON_INGOT,     ItemRarity.UNCOMMON,   MithrilIngot.class),
+    SPARSE_MITHRIL_ORE("Sparse Mithril Ore",       Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, SparseMithrilOre.class),
+    MITHRIL_ORE("Mithril Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, MithrilOre.class),
+    DENSE_MITHRIL_ORE("Dense Mithril Ore",         Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, DenseMithrilOre.class),
+    RAW_MITHRIL_BLOCK("Block of Raw Mithril",      Material.POISONOUS_POTATO,        ItemRarity.RARE, RawMithrilBlock.class),
+    MITHRIL_BLOCK("Block of Mithril",              Material.POISONOUS_POTATO,        ItemRarity.RARE, MithrilBlock.class),
+
+    MITHRIL_DRILL_HEAD("Mithril Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillHead.class),
+    MITHRIL_DRILL_BASE("Mithril Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillBase.class),
+
+    MITHRIL_PICKAXE("Mithril Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.UNCOMMON, MithrilPickaxe.class),
+    MITHRIL_AXE(    "Mithril Axe",      Material.DIAMOND_AXE,     ItemRarity.UNCOMMON, MithrilAxe.class),
+    MITHRIL_HOE(    "Mithril Hoe",      Material.DIAMOND_HOE,     ItemRarity.UNCOMMON, MithrilHoe.class),
+    MITHRIL_SHOVEL( "Mithril Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.UNCOMMON, MithrilShovel.class),
+    MITHRIL_SWORD(  "Mithril Sword",    Material.DIAMOND_SWORD,   ItemRarity.UNCOMMON, MithrilSword.class),
+    MITHRIL_HATCHET("Mithril Hatchet",  Material.DIAMOND_AXE,     ItemRarity.UNCOMMON,   MithrilHatchet.class),
+    MITHRIL_BOW(    "Mithril Bow",      Material.BOW,             ItemRarity.UNCOMMON, MithrilBow.class),
+
+    MITHRIL_HELMET(    "Mithril Helmet",     Material.DIAMOND_HELMET,     ItemRarity.UNCOMMON, MithrilHelmet.class),
+    MITHRIL_CHESTPLATE("Mithril Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.UNCOMMON,MithrilChestplate.class),
+    MITHRIL_LEGGINGS(  "Mithril Leggings",   Material.DIAMOND_LEGGINGS,   ItemRarity.UNCOMMON, MithrilLeggings.class),
+    MITHRIL_BOOTS(     "Mithril Boots",      Material.DIAMOND_BOOTS,      ItemRarity.UNCOMMON, MithrilBoots.class),
+
+    // TITANIUM SET
+    RAW_TITANIUM("Raw Titanium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300),
+    TITANIUM_INGOT("Titanium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   TitaniumIngot.class),
+    TITANIUM_ORE("Titanium Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, TitaniumOre.class),
+    RAW_TITANIUM_BLOCK("Block of Raw Titanium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, RawTitaniumBlock.class),
+    TITANIUM_BLOCK("Block of Titanium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, TitaniumBlock.class),
+
+    TITANIUM_DRILL_HEAD("Titanium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillHead.class),
+    TITANIUM_DRILL_BASE("Titanium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillBase.class),
+
+    TITANIUM_PICKAXE("Titanium Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, TitaniumPickaxe.class),
+    TITANIUM_AXE(    "Titanium Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, TitaniumAxe.class),
+    TITANIUM_HOE(    "Titanium Hoe",      Material.DIAMOND_HOE,     ItemRarity.RARE, TitaniumHoe.class),
+    TITANIUM_SHOVEL( "Titanium Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.RARE, TitaniumShovel.class),
+    TITANIUM_SWORD(  "Titanium Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, TitaniumSword.class),
+    TITANIUM_HATCHET("Titanium Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE,   TitaniumHatchet.class),
+    TITANIUM_BOW(    "Titanium Bow",      Material.BOW,             ItemRarity.RARE, TitaniumBow.class),
+
+    TITANIUM_HELMET(    "Titanium Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, TitaniumHelmet.class),
+    TITANIUM_CHESTPLATE("Titanium Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE,TitaniumChestplate.class),
+    TITANIUM_LEGGINGS(  "Titanium Leggings",   Material.DIAMOND_LEGGINGS,   ItemRarity.RARE, TitaniumLeggings.class),
+    TITANIUM_BOOTS(     "Titanium Boots",      Material.DIAMOND_BOOTS,      ItemRarity.RARE, TitaniumBoots.class),
+
+    // ADAMANTIUM SET
+    RAW_ADAMANTIUM("Raw Adamantium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300),
+    ADAMANTIUM_INGOT("Adamantium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   AdamantiumIngot.class),
+    ADAMANTIUM_ORE("Adamantium Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, AdamantiumOre.class),
+    RAW_ADAMANTIUM_BLOCK("Block of Raw Adamantium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, RawAdamantiumBlock.class),
+    ADAMANTIUM_BLOCK("Block of Adamantium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, AdamantiumBlock.class),
+
+    ADAMANTIUM_DRILL_HEAD("Adamantium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillHead.class),
+    ADAMANTIUM_DRILL_BASE("Adamantium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillBase.class),
+
+    ADAMANTIUM_PICKAXE("Adamantium Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, AdamantiumPickaxe.class),
+    ADAMANTIUM_AXE(    "Adamantium Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, AdamantiumAxe.class),
+    ADAMANTIUM_HOE(    "Adamantium Hoe",      Material.DIAMOND_HOE,     ItemRarity.RARE, AdamantiumHoe.class),
+    ADAMANTIUM_SHOVEL( "Adamantium Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.RARE, AdamantiumShovel.class),
+    ADAMANTIUM_SWORD(  "Adamantium Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, AdamantiumSword.class),
+    ADAMANTIUM_HATCHET("Adamantium Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE,   AdamantiumHatchet.class),
+    ADAMANTIUM_BOW(    "Adamantium Bow",      Material.BOW,             ItemRarity.RARE, AdamantiumBow.class),
+
+    ADAMANTIUM_HELMET(    "Adamantium Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, AdamantiumHelmet.class),
+    ADAMANTIUM_CHESTPLATE("Adamantium Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE,AdamantiumChestplate.class),
+    ADAMANTIUM_LEGGINGS(  "Adamantium Leggings",   Material.DIAMOND_LEGGINGS,   ItemRarity.RARE, AdamantiumLeggings.class),
+    ADAMANTIUM_BOOTS(     "Adamantium Boots",      Material.DIAMOND_BOOTS,      ItemRarity.RARE, AdamantiumBoots.class),
+
+    // SULFUR
+    SULFUR_ORE("Sulfur Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, SulfurOre.class),
+    //SULFUR_BLOCK("Block of Sulfur",              Material.POISONOUS_POTATO,        ItemRarity.RARE, SulfurOre.class),
+    SULFUR(    "Sulfur",                         Material.GUNPOWDER,               ItemRarity.UNCOMMON, false, 20),
+
+    // ONYX
+    ONYX_ORE("Onyx Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, OnyxOre.class),
+    //ONYX_BLOCK("Block of Onyx",              Material.POISONOUS_POTATO,        ItemRarity.RARE, SulfurOre.class),
+    ONYX(    "Onyx",     Material.COAL,     ItemRarity.RARE, false, 20),
+
+    // TUNGSTEN SET
+    TUNGSTEN_ORE("Tungsten Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, TungstenOre.class),
+    RAW_TUNGSTEN("Raw Tungsten",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 40),
+    //TUNGSTEN_INGOT("Tungsten Ore",                   Material.IRON_INGOT,              ItemRarity.UNCOMMON, false, 60),
+
+    // COBALT SET
+    COBALT_ORE("Cobalt Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, CobaltOre.class),
+    RAW_COBALT("Raw Cobalt",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 200),
+
+    // ORICHALCUM SET
+    ORICHALCUM_ORE("Orichalcum Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, OrichalcumOre.class),
+    RAW_ORICHALCUM("Raw Orichalcum",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 200),
 
     // COBBLESTONE SET
     COBBLESTONE_HELMET("Cobblestone Helmet",         Material.LEATHER_HELMET,        ItemRarity.UNCOMMON, CobblestoneHelmet.class),
@@ -456,20 +671,12 @@ public enum CustomItemType {
 
     // HATCHETS
     WOODEN_HATCHET("Wooden Hatchet",    Material.WOODEN_AXE,    ItemRarity.COMMON,   WoodHatchet.class),
-    STONE_HATCHET("Stone Hatchet",     Material.STONE_AXE,     ItemRarity.COMMON,   StoneHatchet.class),
+    // STONE_HATCHET("Stone Hatchet",     Material.STONE_AXE,     ItemRarity.COMMON,   StoneHatchet.class),
     COPPER_HATCHET("Copper Hatchet",    Material.WOODEN_AXE,    ItemRarity.COMMON,   CopperHatchet.class),
     IRON_HATCHET("Iron Hatchet",      Material.IRON_AXE,      ItemRarity.COMMON,   IronHatchet.class),
     GOLD_HATCHET("Golden Hatchet",      Material.GOLDEN_AXE,    ItemRarity.COMMON,   GoldHatchet.class),
     DIAMOND_HATCHET("Diamond Hatchet",   Material.DIAMOND_AXE,   ItemRarity.RARE, DiamondHatchet.class),
     NETHERITE_HATCHET("Netherite Hatchet", Material.NETHERITE_AXE, ItemRarity.EPIC,     NetheriteHatchet.class),
-
-    // STEEL TOOLS
-    STEEL_PICKAXE("Steel Pickaxe",      Material.IRON_PICKAXE,      ItemRarity.UNCOMMON,   SteelPickaxe.class),
-    STEEL_AXE("Steel Axe",              Material.IRON_AXE,          ItemRarity.UNCOMMON,   SteelAxe.class),
-    STEEL_HATCHET("Steel Hatchet",      Material.IRON_AXE,          ItemRarity.UNCOMMON,   SteelHatchet.class),
-    STEEL_SWORD("Steel Sword",          Material.IRON_SWORD,        ItemRarity.UNCOMMON,   SteelSword.class),
-    STEEL_HOE("Steel Hoe",              Material.IRON_HOE,          ItemRarity.UNCOMMON,   SteelHoe.class),
-    STEEL_SHOVEL("Steel Shovel",        Material.IRON_SHOVEL,       ItemRarity.UNCOMMON,   SteelShovel.class),
 
     // EXILED SET
     EXILED_CROSSBOW("Exiled Crossbow", Material.CROSSBOW, ItemRarity.EPIC,  ExiledCrossbow.class),
@@ -773,7 +980,6 @@ public enum CustomItemType {
     GILDED_SKULL("Gilded Skull", ItemRarity.LEGENDARY, GildedSkull.class),
 
     // DRAGON
-    STEEL_INGOT("Steel Ingot", Material.IRON_INGOT, ItemRarity.UNCOMMON, SteelIngot.class),
     DRAGONSTEEL_INGOT("Dragonsteel Ingot", Material.IRON_INGOT, ItemRarity.EPIC, DragonsteelIngot.class),
     DRAGON_SCALES(   "Dragon Scales",    Material.PHANTOM_MEMBRANE, ItemRarity.RARE, true, 50_000),
     DRACONIC_CRYSTAL("Draconic Crystal", ItemRarity.EPIC, DraconicCrystal.class),
@@ -834,6 +1040,9 @@ public enum CustomItemType {
     SINGULARITY_BOOTS(     "Singularity Boots",      Material.NETHERITE_BOOTS,      ItemRarity.MYTHIC, SingularityBoots.class),
 
     DEATH_CERTIFICATE("Death Certificate", Material.PAPER, ItemRarity.SPECIAL, DeathCertificate.class),
+
+    // BLOCKS
+    REFORGE_TABLE(     "Reforge Table",      Material.POISONOUS_POTATO,     ItemRarity.UNCOMMON, ReforgeTableBlock.class),
 
     // ADMIN UTILITY
     INFINILYTRA("Infini-lytra", Material.ELYTRA, ItemRarity.SPECIAL, InfinilytraBlueprint.class),

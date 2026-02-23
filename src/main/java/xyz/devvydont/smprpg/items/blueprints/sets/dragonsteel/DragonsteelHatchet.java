@@ -32,10 +32,7 @@ import static xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe.AXE_ATTACK_S
 public class DragonsteelHatchet extends CustomAttributeItem implements ICraftable, IBreakableEquipment {
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_DIAMOND_TOOL), 1.0f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_AXE), 11.0f, TriState.TRUE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_HOE), 8.25f, TriState.TRUE))
+            .defaultMiningSpeed(0.0001f)
             .build();
 
     public DragonsteelHatchet(ItemService itemService, CustomItemType type) {
@@ -45,8 +42,10 @@ public class DragonsteelHatchet extends CustomAttributeItem implements ICraftabl
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.DRAGONSTEEL_TOOL_MINING_POWER),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 90),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.DRAGONSTEEL_TOOL_SPEED * 0.8),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, 80),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, 80)
         );

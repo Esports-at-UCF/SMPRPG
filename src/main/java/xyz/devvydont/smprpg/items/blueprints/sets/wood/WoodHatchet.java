@@ -8,10 +8,10 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
 import xyz.devvydont.smprpg.SMPRPG;
-import xyz.devvydont.smprpg.crafting.CraftingGlobals;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemPickaxe;
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword;
@@ -27,10 +27,7 @@ import java.util.List;
 public class WoodHatchet extends ItemHatchet implements ICraftable, IBreakableEquipment {
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_WOODEN_TOOL), 1.0f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_AXE), 2.0f, TriState.TRUE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_HOE), 1.5f, TriState.TRUE))
+            .defaultMiningSpeed(0.0001f)
             .build();
 
     public WoodHatchet(ItemService itemService, CustomItemType type) {
@@ -41,6 +38,9 @@ public class WoodHatchet extends ItemHatchet implements ICraftable, IBreakableEq
     public int getPowerRating() {
         return ItemSword.getSwordRating(Material.WOODEN_SWORD);
     }
+
+    @Override
+    public double getHatchetMiningPower() { return ToolGlobals.WOOD_TOOL_MINING_POWER; }
 
     @Override
     public double getHatchetDamage() { return ItemSword.getSwordDamage(Material.WOODEN_SWORD) - 5; }
@@ -67,7 +67,21 @@ public class WoodHatchet extends ItemHatchet implements ICraftable, IBreakableEq
                 "ps",
                 " s"
         );
-        recipe.setIngredient('p', CraftingGlobals.WOODEN_PLANKS_WILDCARD);
+
+        recipe.setIngredient('p', new RecipeChoice.MaterialChoice(
+                Material.OAK_PLANKS,
+                Material.SPRUCE_PLANKS,
+                Material.BIRCH_PLANKS,
+                Material.JUNGLE_PLANKS,
+                Material.ACACIA_PLANKS,
+                Material.DARK_OAK_PLANKS,
+                Material.BAMBOO_PLANKS,
+                Material.CHERRY_PLANKS,
+                Material.MANGROVE_PLANKS,
+                Material.CRIMSON_PLANKS,
+                Material.WARPED_PLANKS,
+                Material.PALE_OAK_PLANKS
+        ));
         recipe.setIngredient('s', itemService.getCustomItem(Material.STICK));
         recipe.setCategory(CraftingBookCategory.EQUIPMENT);
         return recipe;

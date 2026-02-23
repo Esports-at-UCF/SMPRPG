@@ -1,0 +1,106 @@
+{
+  "type": "minecraft:geode",
+  "config": {
+    "blocks": {
+      "filling_provider": {
+        "type": "minecraft:weighted_state_provider",
+        "entries": [
+          {
+            "weight": 80,
+            "data": {
+              "Name": "minecraft:note_block",
+              "Properties": {
+                "instrument": "harp",
+                "note": "6",
+                "powered": "true"
+              }
+            }
+          },
+          {
+            "weight": 7,
+            "data": {
+              "Name": "minecraft:note_block",
+              "Properties": {
+                "instrument": "harp",
+                "note": "7",
+                "powered": "true"
+              }
+            }
+          }
+        ]
+      },
+      "inner_layer_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:note_block",
+          "Properties": {
+            "instrument": "harp",
+            "note": "5",
+            "powered": "true"
+          }
+        }
+      },
+      "alternate_inner_layer_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:note_block",
+          "Properties": {
+            "instrument": "harp",
+            "note": "5",
+            "powered": "true"
+          }
+        }
+      },
+      "middle_layer_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:note_block",
+          "Properties": {
+            "instrument": "harp",
+            "note": "5",
+            "powered": "true"
+          }
+        }
+      },
+      "outer_layer_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:note_block",
+          "Properties": {
+            "instrument": "harp",
+            "note": "4",
+            "powered": "true"
+          }
+        }
+      },
+      "inner_placements": [
+        {
+          "Name": "minecraft:note_block",
+          "Properties": {
+            "instrument": "harp",
+            "note": "7",
+            "powered": "true"
+          }
+        }
+      ],
+      "cannot_replace": "#minecraft:features_cannot_replace",
+      "invalid_blocks": "#minecraft:geode_invalid_blocks"
+    },
+	"invalid_blocks_threshold": 1,
+    "layers": {
+      "filling": 1.7,
+      "inner_layer": 1,
+      "middle_layer": 2,
+      "outer_layer": 3
+    },
+    "crack": {
+      "generate_crack_chance": 0,
+      "base_crack_size": 0,
+      "crack_point_offset": 0
+    },
+    "use_potential_placements_chance": 0.2,
+    "use_alternate_layer0_chance": 0,
+    "min_gen_offset": -16,
+    "max_gen_offset": 16
+  }
+}
