@@ -31,9 +31,9 @@ import static xyz.devvydont.smprpg.items.blueprints.vanilla.ItemPickaxe.PICKAXE_
 public class DragonsteelPickaxe extends CustomAttributeItem implements IBreakableEquipment, ICraftable {
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_DIAMOND_TOOL), 1.0f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_PICKAXE), 11.0f, TriState.TRUE))
+            .defaultMiningSpeed(0.0001f)
+            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_DIAMOND_TOOL), 0.0001f, TriState.FALSE))
+            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_PICKAXE), 0.0001f, TriState.TRUE))
             .build();
 
     public DragonsteelPickaxe(ItemService itemService, CustomItemType type) {
@@ -43,8 +43,10 @@ public class DragonsteelPickaxe extends CustomAttributeItem implements IBreakabl
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, 7),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 40),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, PICKAXE_ATTACK_SPEED_DEBUFF),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.DRAGONSTEEL_TOOL_SPEED),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, 100)
         );
     }

@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
@@ -27,6 +28,20 @@ public class ItemSword extends VanillaAttributeItem implements IBreakableEquipme
             case TRIDENT, IRON_SWORD -> 30;
             case STONE_SWORD -> 20;
             case WOODEN_SWORD -> 15;
+            default -> 0;
+        };
+    }
+
+    public static double getSwordDamage(CustomItemType itemType) {
+        return switch (itemType) {
+            case COPPER_SWORD -> 20;
+            case SILVER_SWORD -> 25;
+            case TIN_SWORD -> 17;
+            case BRONZE_SWORD -> 30;
+            case STEEL_SWORD -> 35;
+            case ROSE_GOLD_SWORD, MITHRIL_SWORD -> 40;
+            case TITANIUM_SWORD -> 50;
+            case ADAMANTIUM_SWORD -> 65;
             default -> 0;
         };
     }

@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -24,6 +25,7 @@ import xyz.devvydont.smprpg.services.AttributeService;
 import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.formatting.Symbols;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -40,6 +42,7 @@ public class AttributeUtil {
         DEFAULT,
         PERCENTAGE,
         SCALE_PERCENTAGE,
+        FLAT
         ;
 
         public String format(double value) {
@@ -78,7 +81,11 @@ public class AttributeUtil {
             color = NamedTextColor.LIGHT_PURPLE;
 
         // Some attributes are weird and are always percents
-        return ComponentUtils.create(result.formatTotal(option), color);
+        String formattedResult = result.formatTotal(option);
+
+        if (wrapper.key().equals(new NamespacedKey("smprpg", "mining_power")))
+            formattedResult = Symbols.PICKAXE + formattedResult;
+        return ComponentUtils.create(formattedResult, color);
     }
 
     public static Component formatAttribute(AttributeWrapper wrapper, AttributeUtil.AttributeCalculationResult result, AttributeFormattingOption option) {
@@ -97,10 +104,27 @@ public class AttributeUtil {
      */
     public static AttributeFormattingOption getAttributeFormat(AttributeWrapper wrapper) {
         return switch (wrapper) {
-            case KNOCKBACK_RESISTANCE, EXPLOSION_KNOCKBACK_RESISTANCE, SWEEPING, UNDERWATER_MINING, FALL_DAMAGE_MULTIPLIER, BURNING_TIME -> AttributeFormattingOption.SCALE_PERCENTAGE;
+            case KNOCKBACK_RESISTANCE, EXPLOSION_KNOCKBACK_RESISTANCE, SWEEPING, UNDERWATER_MINING, AIRBORNE_MINING, FALL_DAMAGE_MULTIPLIER, BURNING_TIME -> AttributeFormattingOption.SCALE_PERCENTAGE;
             case FISHING_CREATURE_CHANCE, FISHING_TREASURE_CHANCE -> AttributeFormattingOption.PERCENTAGE;
+            case MINING_POWER -> AttributeFormattingOption.FLAT;
             default -> AttributeFormattingOption.DEFAULT;
         };
+    }
+
+    /*
+     * Some attributes will display a special character next to their value, rather than a positive/negative sign.
+     */
+    public static String getSpecialAttributeCharacter(AttributeWrapper wrapper, int ctx)
+    {
+        switch (wrapper) {
+            case MINING_POWER -> {
+                if (ctx == 1)
+                    return Symbols.AXE;
+                else
+                    return Symbols.PICKAXE;
+            }
+        }
+        return "";
     }
 
     /**
@@ -124,7 +148,11 @@ public class AttributeUtil {
 
         // Query base attributes...
         for (var baseAttribute : attributeItem.getAttributeModifiers(item)) {
-            var key = AttributeModifierType.BASE.keyForItem(nameKey);
+            NamespacedKey key;
+            if (baseAttribute.getKey() == null)
+                key = AttributeModifierType.BASE.keyForItem(nameKey);
+            else
+                key = new NamespacedKey("smprpg", baseAttribute.getKey());
             modifiers.put(
                     baseAttribute.getAttribute(),
                     new SourcedAttributeModifier(baseAttribute.asModifier(key, attributeItem.getActiveSlot()), AttributeModifierType.BASE)
@@ -276,6 +304,9 @@ public class AttributeUtil {
          * @return
          */
         public String formatTotal(AttributeFormattingOption option) {
+
+            if (option == AttributeFormattingOption.FLAT)
+                return option.format(getTotal());
 
             // If normal addition operations occurred, This should just be a flat number.
             if (!percentage())

@@ -9,4 +9,8 @@ public class MultiplicativeAttributeEntry extends AttributeEntry {
         super(attribute, amount, AttributeModifier.Operation.MULTIPLY_SCALAR_1);
     }
 
+    public MultiplicativeAttributeEntry(AttributeWrapper attribute, double amount, String key) {
+        super(attribute, amount, AttributeModifier.Operation.MULTIPLY_SCALAR_1, key);
+    }
+
 }

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:scattered_ore",
+  "config": {
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "state": {
+          "Name": "minecraft:note_block",
+          "Properties": {
+            "instrument": "harp",
+            "note": "8",
+            "powered": "true"
+          }
+        }
+      }
+    ],
+    "size": 3,
+    "discard_chance_on_air_exposure": 0.0
+  }
+}

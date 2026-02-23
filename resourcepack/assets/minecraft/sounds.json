@@ -1,0 +1,20 @@
+{
+  "block.wood.break": {
+    "sounds": [
+    ],
+	"replace": true,
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.wood.hit": {
+    "sounds": [
+    ],
+	"replace": true,
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.wood.place": {
+    "sounds": [
+    ],
+	"replace": true,
+    "subtitle": "subtitles.block.generic.place"
+  }
+}

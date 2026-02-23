@@ -14,7 +14,7 @@ import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.blueprints.sets.emberclad.BoilingPickaxe
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.DropsService
-import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
+import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import xyz.devvydont.smprpg.util.world.ChunkUtil
 import java.util.function.Consumer
@@ -31,6 +31,7 @@ class BlockLootOverrideListener : ToggleableListener() {
     private fun predictDesiredFortuneAttribute(tool: ItemClassification): AttributeWrapper? {
         return when (tool) {
             ItemClassification.PICKAXE -> AttributeWrapper.MINING_FORTUNE
+            ItemClassification.DRILL -> AttributeWrapper.MINING_FORTUNE
             ItemClassification.HOE -> AttributeWrapper.FARMING_FORTUNE
             ItemClassification.AXE -> AttributeWrapper.WOODCUTTING_FORTUNE
             else -> null
@@ -43,30 +44,26 @@ class BlockLootOverrideListener : ToggleableListener() {
      * If it does, we need to determine what fortune attribute to use based on the context (the tool!)
      */
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    @Suppress("unused")
     private fun onBlockBreak(event: BlockDropItemEvent) {
-
         // If this block is ageable, then it needs to be at its max age before we consider custom logic.
-        if (event.blockState.blockData is Ageable){
-            val ageable = event.blockState.blockData as Ageable
-            if (ageable.age != ageable.maximumAge)
-                return
-        }
 
-        // If this block was placed by a player in some way use vanilla logic.
-        if (ChunkUtil.isBlockSkillInvalid(event.blockState))
-            return
+        val blockData = event.blockState.blockData
+        if (blockData is Ageable)
+            if (blockData.age != blockData.maximumAge)
+                return
+
+        // If this block was placed by a player invalidate their fortune.
+        var fortuneActive = true
+        if (ChunkUtil.isBlockSkillInvalid(event.blockState)) fortuneActive = false
 
         // Check if this block is flagged. If it isn't, let vanilla handle the logic.
-        val entry = get(event.blockState.type)
-        if (entry == null)
-            return
+        val entry = BlockLootRegistry.get(event.blockState) ?: return
 
         // The block is flagged. We need context. Essentially, we have manual checks that determine this.
         var ctx = BlockLootContext.INCORRECT_TOOL
-        val toolPreferences = entry.preferredTools
+        val toolPreferences: MutableSet<ItemClassification> = entry.preferredTools
         val itemUsedToBreak = event.player.inventory.itemInMainHand
-        val itemUsedToBreakBlueprint = blueprint(itemUsedToBreak)
+        val itemUsedToBreakBlueprint = ItemService.blueprint(itemUsedToBreak)
         val usedTool = itemUsedToBreakBlueprint.getItemClassification()
 
         // If there's no tool preference for the block or there's a tool preference match, then we are using correct tool.
@@ -81,23 +78,22 @@ class BlockLootOverrideListener : ToggleableListener() {
         if (itemUsedToBreakBlueprint is BoilingPickaxe) ctx = BlockLootContext.AUTO_SMELT
 
         // We now have context. If the block doesn't define the given context, we can let vanilla take over.
-        val loot = entry.getLootForContext(ctx)
-        if (loot.isEmpty())
-            return;
+        val loot: Collection<BlockLoot> = entry.getLootForContext(ctx)
 
         // Given the preferred tool, we can actually work out which fortune stat is ideal. No preferred tool
         // means that no fortune is applicable to this drop.
         var fortune = 0.0
-        var attribute = this.predictDesiredFortuneAttribute(usedTool)
-        if (entry.fortuneOverride != null)
-            attribute = entry.fortuneOverride
+        if (fortuneActive) {
+            var attribute = this.predictDesiredFortuneAttribute(usedTool)
+            if (entry.fortuneOverride != null) attribute = entry.fortuneOverride
 
-        // If we found one, increment the fortune to use in drop calculation.
-        // The idea here is that base fortune is 0, and 100 fortune would yield 2x drops (scalarly scales).
-        if (attribute != null) {
-            val attrInstance = instance.getAttribute<Player>(event.player, attribute)
-            if (attrInstance != null) {
-                fortune += attrInstance.getValue() / 100
+            // If we found one, increment the fortune to use in drop calculation.
+            // The idea here is that base fortune is 0, and 100 fortune would yield 2x drops (scalarly scales).
+            if (attribute != null) {
+                val attrInstance = instance.getAttribute<Player>(event.player, attribute)
+                if (attrInstance != null) {
+                    fortune += attrInstance.getValue() / 100
+                }
             }
         }
 

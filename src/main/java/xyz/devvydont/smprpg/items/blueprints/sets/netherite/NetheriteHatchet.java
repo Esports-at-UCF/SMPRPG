@@ -26,10 +26,7 @@ import java.util.List;
 public class NetheriteHatchet extends ItemHatchet implements ICraftable, IBreakableEquipment {
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_WOODEN_TOOL), 1.0f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_AXE), 9.0f, TriState.TRUE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_HOE), 6.75f, TriState.TRUE))
+            .defaultMiningSpeed(0.0001f)
             .build();
 
     public NetheriteHatchet(ItemService itemService, CustomItemType type) {
@@ -40,6 +37,9 @@ public class NetheriteHatchet extends ItemHatchet implements ICraftable, IBreaka
     public int getPowerRating() {
         return ItemSword.getSwordRating(Material.NETHERITE_SWORD);
     }
+
+    @Override
+    public double getHatchetMiningPower() { return ToolGlobals.NETHERITE_TOOL_MINING_POWER; }
 
     @Override
     public double getHatchetDamage() { return ItemSword.getSwordDamage(Material.NETHERITE_SWORD) - 25; }

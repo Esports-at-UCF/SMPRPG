@@ -2,8 +2,6 @@ package xyz.devvydont.smprpg.items.blueprints.sets.steel;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.Tool;
-import io.papermc.paper.registry.keys.tags.BlockTypeTagKeys;
-import net.kyori.adventure.util.TriState;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CraftingRecipe;
@@ -19,8 +17,6 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
-import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe;
-import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemPickaxe;
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword;
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
@@ -34,24 +30,23 @@ import static xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe.AXE_ATTACK_S
 
 public class SteelHatchet extends CustomAttributeItem implements ICraftable, IBreakableEquipment {
 
-    public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_IRON_TOOL), 1.0f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_AXE), 7.0f, TriState.TRUE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_HOE), 5.25f, TriState.TRUE))
-            .build();
-
     public SteelHatchet(ItemService itemService, CustomItemType type) {
         super(itemService, type);
     }
 
+    public static final Tool TOOL_COMP = Tool.tool()
+            .defaultMiningSpeed(0.0001f)
+            .build();
+
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 31),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.STEEL_TOOL_MINING_POWER),
+                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(CustomItemType.STEEL_SWORD) - 5),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
-                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, 28),
-                new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, 28)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED * 0.8),
+                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.STEEL_TOOL_FORTUNE * 0.8),
+                new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ToolGlobals.STEEL_TOOL_FORTUNE * 0.8)
         );
     }
 
@@ -59,19 +54,13 @@ public class SteelHatchet extends CustomAttributeItem implements ICraftable, IBr
     public int getPowerRating() { return ToolGlobals.STEEL_TOOL_POWER; }
 
     @Override
-    public ItemClassification getItemClassification() {
-        return ItemClassification.HATCHET;
-    }
+    public ItemClassification getItemClassification() { return ItemClassification.HATCHET; }
 
     @Override
-    public EquipmentSlotGroup getActiveSlot() {
-        return EquipmentSlotGroup.MAINHAND;
-    }
+    public EquipmentSlotGroup getActiveSlot() { return EquipmentSlotGroup.MAINHAND; }
 
     @Override
-    public int getMaxDurability() {
-        return ToolGlobals.STEEL_TOOL_DURABILITY;
-    }
+    public int getMaxDurability() { return ToolGlobals.STEEL_TOOL_DURABILITY; }
 
     @Override
     public NamespacedKey getRecipeKey() {

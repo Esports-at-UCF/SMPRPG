@@ -30,9 +30,6 @@ import java.util.List;
 public class CopperHoe extends CustomAttributeItem implements ICraftable, IBreakableEquipment {
 
     public static final Tool TOOL_COMP = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_STONE_TOOL), 1.0f, TriState.FALSE))
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_HOE), 5.0f, TriState.TRUE))
             .build();
 
     public CopperHoe(ItemService itemService, CustomItemType type) {
@@ -42,15 +39,16 @@ public class CopperHoe extends CustomAttributeItem implements ICraftable, IBreak
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemHoe.getHoeDamage(Material.WOODEN_HOE)),
-                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(Material.IRON_HOE) / 2),
-                new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ItemHoe.getHoeFortune(Material.WOODEN_HOE))
+                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemHoe.getHoeDamage(CustomItemType.COPPER_HOE)),
+                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(CustomItemType.COPPER_HOE)),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.COPPER_TOOL_SPEED),
+                new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ToolGlobals.COPPER_TOOL_FORTUNE)
         );
     }
 
     @Override
     public int getPowerRating() {
-        return 5;
+        return ToolGlobals.COPPER_TOOL_POWER;
     }
 
     @Override

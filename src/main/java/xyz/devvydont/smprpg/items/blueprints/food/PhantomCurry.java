@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.items.blueprints.food;
 
 import io.papermc.paper.datacomponent.item.Consumable;
 import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
@@ -41,7 +42,7 @@ public class PhantomCurry extends CustomItemBlueprint implements ISellable, IEdi
     }
 
     @Override
-    public Consumable getConsumableComponent(ItemStack item) {
+    public @NonNull Consumable getConsumableComponent(ItemStack item) {
         return Consumable.consumable()
                 .consumeSeconds(1.5f)
                 .build();

@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
@@ -30,6 +31,19 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
         };
     }
 
+    public static double getShovelDamage(CustomItemType itemType) {
+        return switch (itemType) {
+            case TIN_SHOVEL -> 5;
+            case COPPER_SHOVEL -> 10;
+            case SILVER_SHOVEL -> 15;
+            case STEEL_SHOVEL -> 20;
+            case ROSE_GOLD_SHOVEL, MITHRIL_SHOVEL -> 22;
+            case TITANIUM_SHOVEL -> 25;
+            case ADAMANTIUM_SHOVEL -> 27;
+            default -> 0;
+        };
+    }
+
     public static int getShovelRating(Material material) {
         return switch (material) {
             case NETHERITE_SHOVEL -> ToolGlobals.NETHERITE_TOOL_POWER;
@@ -42,6 +56,18 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
         };
     }
 
+    public static int getShovelSpeed(Material material) {
+        return switch (material) {
+            case NETHERITE_SHOVEL -> ToolGlobals.NETHERITE_TOOL_SPEED;
+            case DIAMOND_SHOVEL -> ToolGlobals.DIAMOND_TOOL_SPEED;
+            case GOLDEN_SHOVEL -> ToolGlobals.GOLD_TOOL_SPEED;
+            case IRON_SHOVEL -> ToolGlobals.IRON_TOOL_SPEED;
+            case STONE_SHOVEL -> ToolGlobals.STONE_TOOL_SPEED;
+            case WOODEN_SHOVEL -> ToolGlobals.WOOD_TOOL_SPEED;
+            default -> 1;
+        };
+    }
+
     public static double SHOVEL_ATTACK_SPEED_DEBUFF = -0.75;
 
     public ItemShovel(ItemService itemService, Material material) {
@@ -50,13 +76,14 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
 
     @Override
     public ItemClassification getItemClassification() {
-        return ItemClassification.TOOL;
+        return ItemClassification.SHOVEL;
     }
 
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getShovelDamage(material)),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getShovelSpeed(material)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, SHOVEL_ATTACK_SPEED_DEBUFF)
         );
     }

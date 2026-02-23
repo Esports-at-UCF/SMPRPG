@@ -8,10 +8,52 @@
         },
         "cases": [
             {
+                "when": "smprpg:silver_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/silver_ingot"
+                }
+            },
+            {
+                "when": "smprpg:tin_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/tin_ingot"
+                }
+            },
+            {
+                "when": "smprpg:rose_gold_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/rose_gold_ingot"
+                }
+            },
+            {
                 "when": "smprpg:steel_ingot",
                 "model": {
                     "type": "model",
                     "model": "materials:item/steel_ingot"
+                }
+            },
+            {
+                "when": "smprpg:mithril_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/mithril_ingot"
+                }
+            },
+            {
+                "when": "smprpg:titanium_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/titanium_ingot"
+                }
+            },
+            {
+                "when": "smprpg:adamantium_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/adamantium_ingot"
                 }
             },
             {

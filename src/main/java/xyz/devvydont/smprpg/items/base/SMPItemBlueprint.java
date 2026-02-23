@@ -18,6 +18,7 @@ import org.bukkit.inventory.meta.components.FoodComponent;
 import org.bukkit.inventory.meta.trim.ArmorTrim;
 import org.bukkit.inventory.meta.trim.TrimMaterial;
 import org.bukkit.inventory.meta.trim.TrimPattern;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment;
@@ -281,7 +282,7 @@ public abstract class SMPItemBlueprint {
             var dmg = itemStack.getData(DataComponentTypes.DAMAGE);
             itemStack.setData(DataComponentTypes.MAX_DAMAGE, breakable.getMaxDurability());
             itemStack.setData(DataComponentTypes.DAMAGE, dmg != null ? dmg : 0);
-        } else if (this instanceof ChargedItemBlueprint){
+        } else if (this instanceof ChargedItemBlueprint || this instanceof IFueledEquipment fueled){
             // Don't do anything here. We need the damage data to persist.
         }
         else {

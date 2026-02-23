@@ -31,6 +31,7 @@ public class ItemShears extends VanillaAttributeItem implements IBreakableEquipm
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 5),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, 750),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.1)
         );
     }
@@ -47,6 +48,6 @@ public class ItemShears extends VanillaAttributeItem implements IBreakableEquipm
 
     @Override
     public ItemClassification getItemClassification() {
-        return ItemClassification.TOOL;
+        return ItemClassification.SHEARS;
     }
 }

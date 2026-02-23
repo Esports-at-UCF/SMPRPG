@@ -40,11 +40,20 @@ public class AttributeEntry {
     AttributeWrapper attribute;
     double amount;
     AttributeModifier.Operation operation;
+    String key;
 
     public AttributeEntry(AttributeWrapper attribute, double amount, AttributeModifier.Operation operation) {
         this.attribute = attribute;
         this.amount = amount;
         this.operation = operation;
+        this.key = null;
+    }
+
+    public AttributeEntry(AttributeWrapper attribute, double amount, AttributeModifier.Operation operation, String key) {
+        this.attribute = attribute;
+        this.amount = amount;
+        this.operation = operation;
+        this.key = key;
     }
 
     public AttributeWrapper getAttribute() {
@@ -61,5 +70,13 @@ public class AttributeEntry {
 
     public AttributeModifier asModifier(NamespacedKey key, EquipmentSlotGroup slot) {
         return new AttributeModifier(key, amount, operation, slot);
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getKey() {
+        return this.key;
     }
 }

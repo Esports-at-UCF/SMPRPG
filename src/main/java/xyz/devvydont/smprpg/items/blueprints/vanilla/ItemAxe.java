@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
@@ -30,6 +31,30 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
         };
     }
 
+    public static double getAxeSpeed(Material material) {
+        return switch (material) {
+            case NETHERITE_AXE -> ItemPickaxe.getPickaxeSpeed(Material.NETHERITE_PICKAXE);
+            case DIAMOND_AXE -> ItemPickaxe.getPickaxeSpeed(Material.DIAMOND_PICKAXE);
+            case GOLDEN_AXE -> ItemPickaxe.getPickaxeSpeed(Material.GOLDEN_PICKAXE);
+            case IRON_AXE -> ItemPickaxe.getPickaxeSpeed(Material.IRON_PICKAXE);
+            case STONE_AXE -> ItemPickaxe.getPickaxeSpeed(Material.STONE_PICKAXE);
+            case WOODEN_AXE -> ItemPickaxe.getPickaxeSpeed(Material.WOODEN_PICKAXE);
+            default -> 0;
+        };
+    }
+
+    public static double getAxePower(Material material) {
+        return switch (material) {
+            case NETHERITE_AXE -> ToolGlobals.NETHERITE_TOOL_MINING_POWER;
+            case DIAMOND_AXE -> ToolGlobals.DIAMOND_TOOL_MINING_POWER;
+            case GOLDEN_AXE -> ToolGlobals.GOLD_TOOL_MINING_POWER;
+            case IRON_AXE -> ToolGlobals.IRON_TOOL_MINING_POWER;
+            case STONE_AXE -> ToolGlobals.STONE_TOOL_MINING_POWER;
+            case WOODEN_AXE -> ToolGlobals.WOOD_TOOL_MINING_POWER;
+            default -> 0;
+        };
+    }
+
     public static double getAxeDamage(Material material) {
         return switch (material) {
             case NETHERITE_AXE -> 100;
@@ -39,6 +64,19 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
             case STONE_AXE -> 30;
             case WOODEN_AXE -> 20;
 
+            default -> 0;
+        };
+    }
+
+    public static double getAxeDamage(CustomItemType itemType) {
+        return switch (itemType) {
+            case COPPER_AXE -> 30;
+            case TIN_AXE -> 25;
+            case SILVER_AXE -> 35;
+            case STEEL_AXE -> 50;
+            case ROSE_GOLD_AXE, MITHRIL_AXE -> 55;
+            case TITANIUM_AXE -> 65;
+            case ADAMANTIUM_AXE -> 80;
             default -> 0;
         };
     }
@@ -63,6 +101,13 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
         };
     }
 
+    public static int getAxeLumbering(CustomItemType itemType) {
+        return switch (itemType) {
+            case COPPER_AXE -> 1;
+            default -> 0;
+        };
+    }
+
     public static double AXE_ATTACK_SPEED_DEBUFF = -0.8;
 
     public ItemAxe(ItemService itemService, Material material) {
@@ -77,8 +122,10 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getAxePower(material)),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getAxeDamage(material)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getAxeSpeed(material)),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, getAxeFortune(material)),
                 new AdditiveAttributeEntry(AttributeWrapper.LUMBERING, getAxeLumbering(material))
         );

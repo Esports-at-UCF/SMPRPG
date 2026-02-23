@@ -170,8 +170,8 @@ object SkillGlobals {
     const val LUCK_LEVEL_FREQUENCY: Int = 4
 
     // The mining skill awards mining efficiency every 4 levels.
-    const val MINING_EFF_LEVEL_FREQUENCY: Int = 4
-    const val MINING_EFF_PER_4_LEVELS: Double = 5.0
+    const val MINING_SPEED_LEVEL_FREQUENCY = 4;
+    const val MINING_SPEED_PER_4_LEVELS = 40;
 
     // Woodcutting gives a small defense and critical rating boost.
     const val DEFENSE_LEVEL_FREQUENCY: Int = 2

@@ -1,7 +1,11 @@
 package xyz.devvydont.smprpg.enchantments.definitions.vanilla.overrides;
 
+import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.TypedKey;
+import io.papermc.paper.registry.keys.EnchantmentKeys;
 import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
+import io.papermc.paper.registry.set.RegistryKeySet;
+import io.papermc.paper.registry.set.RegistrySet;
 import io.papermc.paper.registry.tag.TagKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -9,18 +13,42 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
+import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
+import xyz.devvydont.smprpg.enchantments.base.AttributeEnchantment;
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment;
+import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
+import xyz.devvydont.smprpg.items.attribute.AttributeModifierType;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 
-public class EfficiencyEnchantment extends VanillaEnchantment {
+import java.util.Collection;
+import java.util.List;
 
-    public static int getMiningEfficiency(int level) {
-        return level * level + 1;
-    }
+public class EfficiencyEnchantment extends VanillaEnchantment implements AttributeEnchantment {
 
     public EfficiencyEnchantment(TypedKey<Enchantment> key) {
         super(key);
+    }
+
+    public static int getMiningEfficiency(int level) {
+        return level * 100;
+    }
+
+    @Override
+    public AttributeModifierType getAttributeModifierType() {
+        return AttributeModifierType.ENCHANTMENT;
+    }
+
+    @Override
+    public Collection<AttributeEntry> getHeldAttributes() {
+        return List.of(
+                AttributeEntry.additive(AttributeWrapper.MINING_SPEED, getMiningEfficiency(getLevel()))
+        );
+    }
+
+    @Override
+    public int getPowerRating() {
+        return getLevel() / 2;
     }
 
     @Override
@@ -31,8 +59,8 @@ public class EfficiencyEnchantment extends VanillaEnchantment {
     @Override
     public @NotNull Component getDescription() {
         return ComponentUtils.merge(
-            ComponentUtils.create("Increases mining efficiency by "),
-            ComponentUtils.create("+" + getMiningEfficiency(getLevel()), NamedTextColor.GREEN)
+                ComponentUtils.create("Increases mining speed by "),
+                ComponentUtils.create("+" + getMiningEfficiency(getLevel()), NamedTextColor.GREEN)
         );
     }
 
@@ -65,5 +93,4 @@ public class EfficiencyEnchantment extends VanillaEnchantment {
     public int getSkillRequirement() {
         return 0;
     }
-
 }

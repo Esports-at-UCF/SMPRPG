@@ -6,5 +6,40 @@
       "audio:random/breadboard_eat3"
     ],
     "subtitle": "subtitles.breadboard.eat"
+  },
+  "tools.drill.break": {
+	  "sounds": [
+		"audio:tools/drill"
+	  ],
+	  "subtitle": "Drill whirring"
+  },
+  "block.wood_custom.hit": {
+    "sounds": [
+      "step/wood1",
+      "step/wood2",
+      "step/wood3",
+      "step/wood4",
+      "step/wood5",
+      "step/wood6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.wood_custom.place": {
+    "sounds": [
+      "dig/wood1",
+      "dig/wood2",
+      "dig/wood3",
+      "dig/wood4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.wood_custom.break": {
+    "sounds": [
+      "dig/wood1",
+      "dig/wood2",
+      "dig/wood3",
+      "dig/wood4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
   }
 }

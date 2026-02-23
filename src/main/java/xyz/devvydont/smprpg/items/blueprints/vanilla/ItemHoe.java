@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
@@ -30,6 +31,18 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
         };
     }
 
+    public static double getHoeSpeed(Material material) {
+        return switch (material) {
+            case NETHERITE_HOE -> ItemPickaxe.getPickaxeSpeed(Material.NETHERITE_PICKAXE);
+            case DIAMOND_HOE -> ItemPickaxe.getPickaxeSpeed(Material.DIAMOND_PICKAXE);
+            case GOLDEN_HOE -> ItemPickaxe.getPickaxeSpeed(Material.GOLDEN_PICKAXE);
+            case IRON_HOE -> ItemPickaxe.getPickaxeSpeed(Material.IRON_PICKAXE);
+            case STONE_HOE -> ItemPickaxe.getPickaxeSpeed(Material.STONE_PICKAXE);
+            case WOODEN_HOE -> ItemPickaxe.getPickaxeSpeed(Material.WOODEN_PICKAXE);
+            default -> 0;
+        };
+    }
+
     public static double getHoeDamage(Material material) {
         return switch (material) {
             case NETHERITE_HOE -> 20;
@@ -42,6 +55,19 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
         };
     }
 
+    public static double getHoeDamage(CustomItemType itemType) {
+        return switch (itemType) {
+            case TIN_HOE -> 4;
+            case COPPER_HOE -> 5;
+            case SILVER_HOE -> 7;
+            case STEEL_HOE -> 13;
+            case ROSE_GOLD_HOE, MITHRIL_HOE -> 14;
+            case TITANIUM_HOE -> 16;
+            case ADAMANTIUM_HOE -> 20;
+            default -> 0;
+        };
+    }
+
     public static double getHoeAttackSpeedDebuff(Material material) {
         return switch (material) {
             case NETHERITE_HOE -> -0.05;
@@ -49,6 +75,13 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
             case IRON_HOE -> -0.20;
             case STONE_HOE -> -0.25;
             case WOODEN_HOE, GOLDEN_HOE -> -0.35;
+            default -> 0;
+        };
+    }
+
+    public static double getHoeAttackSpeedDebuff(CustomItemType itemType) {
+        return switch (itemType) {
+            case COPPER_HOE, SILVER_HOE, TIN_HOE, ROSE_GOLD_HOE -> -0.25;
             default -> 0;
         };
     }
@@ -79,6 +112,7 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getHoeDamage(material)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, getHoeAttackSpeedDebuff(material)),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getHoeSpeed(material)),
                 new AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, getHoeFortune(material))
         );
     }

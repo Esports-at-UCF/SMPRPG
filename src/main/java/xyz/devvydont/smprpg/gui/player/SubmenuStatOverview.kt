@@ -47,8 +47,7 @@ class SubmenuStatOverview(player: Player, private val target: LivingEntity, pare
 
         var index = -1
         for (attribute in AttributeWrapper.entries) {
-            val attributeInstance = instance.getAttribute<LivingEntity>(this.target, attribute)
-            if (attributeInstance == null) continue
+            val attributeInstance = instance.getAttribute<LivingEntity>(this.target, attribute) ?: continue
 
             index = findNextEmpty(index)
             if (index == -1) return
@@ -56,7 +55,7 @@ class SubmenuStatOverview(player: Player, private val target: LivingEntity, pare
             this.setButton(
                 index,
                 generateItemDisplay(attribute)
-            ) { e: InventoryClickEvent -> handleClick(attribute) }
+            ) { _: InventoryClickEvent -> handleClick(attribute) }
         }
 
         this.setSlot(45, this.help)
@@ -303,7 +302,7 @@ class SubmenuStatOverview(player: Player, private val target: LivingEntity, pare
             AttributeWrapper.LUCK -> Material.EMERALD
             AttributeWrapper.ARMOR -> Material.NETHERITE_CHESTPLATE
             AttributeWrapper.STRENGTH -> Material.DIAMOND_SWORD
-            AttributeWrapper.MINING_EFFICIENCY -> Material.IRON_PICKAXE
+            AttributeWrapper.MINING_POWER -> Material.IRON_PICKAXE
             AttributeWrapper.MINING_SPEED -> Material.GOLDEN_PICKAXE
             AttributeWrapper.SCALE -> Material.LADDER
             AttributeWrapper.HEALTH -> Material.APPLE
@@ -330,6 +329,7 @@ class SubmenuStatOverview(player: Player, private val target: LivingEntity, pare
             AttributeWrapper.FISHING_CREATURE_CHANCE -> Material.DROWNED_SPAWN_EGG
             AttributeWrapper.FISHING_TREASURE_CHANCE -> Material.GOLD_BLOCK
             AttributeWrapper.STEP -> Material.QUARTZ_SLAB
+            AttributeWrapper.AIRBORNE_MINING -> Material.FEATHER
             AttributeWrapper.UNDERWATER_MINING -> Material.TURTLE_HELMET
             AttributeWrapper.WATER_MOVEMENT -> Material.LEATHER_BOOTS
             AttributeWrapper.REGENERATION -> Material.GLISTERING_MELON_SLICE

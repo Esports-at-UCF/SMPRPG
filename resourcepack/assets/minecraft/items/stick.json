@@ -48,6 +48,13 @@
                     "type": "model",
                     "model": "materials:item/obsidian_tool_rod"
                 }
+            },
+            {
+                "when": "smprpg:steel_tool_shaft",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/steel_tool_shaft"
+                }
             }
         ]
     }

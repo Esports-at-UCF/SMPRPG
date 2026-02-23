@@ -43,9 +43,11 @@ public class DragonsteelAxe extends CustomAttributeItem implements ICraftable, I
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.DRAGONSTEEL_TOOL_MINING_POWER),
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 140),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
                 new AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, 25),
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.DRAGONSTEEL_TOOL_SPEED),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, 100),
                 new AdditiveAttributeEntry(AttributeWrapper.LUMBERING, 3)
         );

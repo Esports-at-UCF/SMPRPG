@@ -272,6 +272,10 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         updateBaseAttribute(AttributeWrapper.FISHING_CREATURE_CHANCE, 0);
         updateBaseAttribute(AttributeWrapper.FISHING_TREASURE_CHANCE, 0);
 
+        updateBaseAttribute(AttributeWrapper.MINING_SPEED, 0.0);
+        updateBaseAttribute(AttributeWrapper.LEGACY_MINING_SPEED, -100.0);
+        updateBaseAttribute(AttributeWrapper.AIRBORNE_MINING, 0.2);
+
 
 
         // Make sure we aren't overloading their UI with hearts

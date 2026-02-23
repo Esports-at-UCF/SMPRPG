@@ -6,24 +6,24 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
-import xyz.devvydont.smprpg.services.SpecialEffectService
 import xyz.devvydont.smprpg.listeners.block.DimensionPortalLockingListener
 import xyz.devvydont.smprpg.listeners.block.MultiBlockBreakListener
+import xyz.devvydont.smprpg.listeners.block.NoteblockOverrideListener
 import xyz.devvydont.smprpg.listeners.block.TrialChamberVaultFix
 import xyz.devvydont.smprpg.listeners.crafting.AnvilEnchantmentCombinationFixListener
 import xyz.devvydont.smprpg.listeners.damage.AbsorptionDamageFix
-import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
 import xyz.devvydont.smprpg.listeners.damage.EnvironmentalDamageListener
-import xyz.devvydont.smprpg.listeners.entity.HealthScaleListener
 import xyz.devvydont.smprpg.listeners.damage.PvPListener
 import xyz.devvydont.smprpg.listeners.damage.SlimeRapidAttackFixListener
 import xyz.devvydont.smprpg.listeners.entity.HealthRegenerationListener
+import xyz.devvydont.smprpg.listeners.entity.HealthScaleListener
 import xyz.devvydont.smprpg.listeners.entity.StructureEntitySpawnListener
 import xyz.devvydont.smprpg.loot.LootListener
 import xyz.devvydont.smprpg.services.*
 import xyz.devvydont.smprpg.util.animations.AnimationService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
+
 
 class SMPRPG : JavaPlugin() {
     /**
@@ -67,6 +67,7 @@ class SMPRPG : JavaPlugin() {
         services.add(ActionBarService()) // Broadcasts player information to player action bars.
         services.add(UnstableListenersService()) // Implements some listeners that depend on ProtocolLib.
         services.add(AnimationService()) // Mainly provides GUIs with an easy-to-use animation API.
+        services.add(BlockBreakingService())
 
         // Start all the services. Make sure nothing goes wrong.
         for (service in services) {
@@ -98,6 +99,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(TrialChamberVaultFix()) // Allows trial chambers to work with our custom item system.
         generalListeners.add(SlimeRapidAttackFixListener()) // Fixes the vanilla bug of slimes being able to attack every tick.
         generalListeners.add(MultiBlockBreakListener()) // Fixes the vanilla bug of slimes being able to attack every tick.
+        generalListeners.add(NoteblockOverrideListener())  // Overrides vanilla noteblock behavior, such that we can overload noteblock blockstates for custom ores.
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.
@@ -109,6 +111,17 @@ class SMPRPG : JavaPlugin() {
     override fun onDisable() {
         for (service in services) service.cleanup()
         for (listener in generalListeners) listener.stop()
+    }
+
+    override fun onLoad() {
+        val pack = this.server.datapackManager.getPack(pluginMeta.name + "/provided")
+        if (pack != null) {
+            if (pack.isEnabled) {
+                this.logger.info("The datapack loaded successfully!")
+            } else {
+                this.logger.warning("The datapack failed to load.")
+            }
+        }
     }
 
     companion object {
