@@ -296,7 +296,7 @@ public class FishingPoolViewerMenu extends MenuBase {
     @Override
     protected void handleInventoryClicked(InventoryClickEvent event) {
         event.setCancelled(true);
-        playInvalidAnimation();
+        playInvalidAnimation(true);
     }
 
     @Override

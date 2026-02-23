@@ -64,7 +64,7 @@ public class RoseGoldHatchet extends CustomAttributeItem implements ICraftable, 
 
     @Override
     public NamespacedKey getRecipeKey() {
-        return new NamespacedKey(SMPRPG.getInstance(), getCustomItemType().getKey() + "-recipe");
+        return new NamespacedKey(SMPRPG.getPlugin(), getCustomItemType().getKey() + "-recipe");
     }
 
     @Override

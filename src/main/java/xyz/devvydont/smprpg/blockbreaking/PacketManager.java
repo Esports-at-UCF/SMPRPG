@@ -26,7 +26,7 @@ public class PacketManager implements Listener{
 	private BlockDamage damage;
 	
 	public PacketManager() {
-		this.plugin = SMPRPG.getInstance();
+		this.plugin = SMPRPG.getPlugin();
 		manager = ProtocolLibrary.getProtocolManager();
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 		damage = new BlockDamage();

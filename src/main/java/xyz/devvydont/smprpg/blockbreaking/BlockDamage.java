@@ -41,12 +41,12 @@ public class BlockDamage {
 
 	protected final SMPRPG plugin;
     
-    private static HashMap<String, ScheduleTask> scheduleId = new HashMap<String, ScheduleTask>();
+    private static final HashMap<String, ScheduleTask> scheduleId = new HashMap<String, ScheduleTask>();
 	
 	private static ProtocolManager manager;
 	
 	public BlockDamage() {
-		this.plugin = SMPRPG.getInstance();
+		this.plugin = SMPRPG.getPlugin();
 		manager = ProtocolLibrary.getProtocolManager();
 	}
 	
@@ -212,7 +212,7 @@ public class BlockDamage {
 					ComponentUtils.create("\nBlockState: ", NamedTextColor.LIGHT_PURPLE),
 					ComponentUtils.create(block.toString(), NamedTextColor.GRAY)
 			)));
-			SMPRPG.getInstance().getLogger().warning("Unknown block entry " + block.getState() + ". Please add it to BlockPropertiesRegistry!");
+			SMPRPG.getPlugin().getLogger().warning("Unknown block entry " + block.getState() + ". Please add it to BlockPropertiesRegistry!");
 			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.75F);
 			return -1d;
 		}

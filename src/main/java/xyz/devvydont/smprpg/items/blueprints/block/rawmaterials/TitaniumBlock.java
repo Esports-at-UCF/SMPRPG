@@ -28,7 +28,7 @@ public class TitaniumBlock extends BlockBlueprint implements ICraftable {
 
     @Override
     public NamespacedKey getRecipeKey() {
-        return new NamespacedKey(SMPRPG.getInstance(), this.getCustomItemType().getKey() + "_recipe");
+        return new NamespacedKey(SMPRPG.getPlugin(), this.getCustomItemType().getKey() + "_recipe");
     }
 
     @Override

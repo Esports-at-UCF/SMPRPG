@@ -28,9 +28,9 @@ public class ItemDrill extends CustomAttributeItem implements IFueledEquipment, 
     public final String BREAK_SOUND = "audio:tools.drill.break";
     public final String DRILL_NAME_EXTENSTION = " Drill";
 
-    public static final NamespacedKey drillBaseKey = new NamespacedKey(SMPRPG.getInstance(), "drill_base");
-    public static final NamespacedKey drillHeadKey = new NamespacedKey(SMPRPG.getInstance(), "drill_head");
-    public static final NamespacedKey drillTankKey = new NamespacedKey(SMPRPG.getInstance(), "drill_tank");
+    public static final NamespacedKey drillBaseKey = new NamespacedKey(SMPRPG.getPlugin(), "drill_base");
+    public static final NamespacedKey drillHeadKey = new NamespacedKey(SMPRPG.getPlugin(), "drill_head");
+    public static final NamespacedKey drillTankKey = new NamespacedKey(SMPRPG.getPlugin(), "drill_tank");
 
     public final int DRILL_BASE_SLOT_INDEX = 0;
     public final int DRILL_HEAD_SLOT_INDEX = 1;

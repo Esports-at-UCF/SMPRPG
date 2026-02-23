@@ -8,6 +8,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.blockbreaking.BlockPropertiesRegistry
 import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent
@@ -15,7 +16,7 @@ import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.world.ChunkUtil
 import kotlin.math.max
 
-class MiningExperienceListener(val plugin: SMPRPG) : Listener {
+class MiningExperienceListener() : Listener {
 
     init {
         plugin.server.pluginManager.registerEvents(this, plugin)

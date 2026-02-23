@@ -161,7 +161,7 @@ public class NoteblockOverrideListener extends ToggleableListener {
 
     @EventHandler
     public void startPlacementDelayHandler(ServerLoadEvent event) {
-        Bukkit.getScheduler().runTaskTimer(SMPRPG.getInstance(), () -> {
+        Bukkit.getScheduler().runTaskTimer(SMPRPG.getPlugin(), () -> {
             decrementPlacementDelays();
         }, TickTime.INSTANTANEOUSLY, TickTime.TICK);
     }

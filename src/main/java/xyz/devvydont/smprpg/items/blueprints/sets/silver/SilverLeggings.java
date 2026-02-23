@@ -56,7 +56,7 @@ public class SilverLeggings extends SilverArmorSet implements IBreakableEquipmen
 
     @Override
     public NamespacedKey getRecipeKey() {
-        return new NamespacedKey(SMPRPG.getInstance(), getCustomItemType().getKey()+"-recipe");
+        return new NamespacedKey(SMPRPG.getPlugin(), getCustomItemType().getKey()+"-recipe");
     }
 
     @Override

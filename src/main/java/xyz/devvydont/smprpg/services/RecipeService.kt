@@ -86,7 +86,7 @@ class RecipeService : IService, Listener {
                 else -> CustomItemType.COMMON_FISH_ESSENCE
             }
 
-            val choices = ArrayList<ItemStack?>()
+            val choices = ArrayList<ItemStack>()
             val cookingTimeFactor = (entry.key.ordinal + 1)
 
             for (choice in entry.value)

@@ -538,8 +538,10 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
         // -----------
         @JvmField
         protected val BORDER_NORMAL: ItemStack = createNamedItem(Material.BLACK_STAINED_GLASS_PANE, Component.text(""))
+        @JvmStatic
         protected val BUTTON_PAGE_NEXT: ItemStack =
             createNamedItem(Material.ARROW, Component.text("Next Page ->", NamedTextColor.BLUE))
+        @JvmStatic
         protected val BUTTON_PAGE_PREVIOUS: ItemStack =
             createNamedItem(Material.ARROW, Component.text("<- Previous Page", NamedTextColor.BLUE))
         @JvmField
@@ -584,6 +586,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
          * @param name     The name to apply to the item stack.
          * @return The named item stack.
          */
+        @JvmStatic
         protected fun createNamedItem(material: Material, name: String?): ItemStack {
             val item = ItemStack(material)
             val meta = item.itemMeta
