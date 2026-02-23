@@ -27,6 +27,7 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
             case IRON_AXE -> ItemPickaxe.getPickaxeFortune(Material.IRON_PICKAXE);
             case STONE_AXE -> ItemPickaxe.getPickaxeFortune(Material.STONE_PICKAXE);
             case WOODEN_AXE -> ItemPickaxe.getPickaxeFortune(Material.WOODEN_PICKAXE);
+            case COPPER_AXE -> ItemPickaxe.getPickaxeFortune(Material.COPPER_PICKAXE);
             default -> 0;
         };
     }
@@ -39,6 +40,7 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
             case IRON_AXE -> ItemPickaxe.getPickaxeSpeed(Material.IRON_PICKAXE);
             case STONE_AXE -> ItemPickaxe.getPickaxeSpeed(Material.STONE_PICKAXE);
             case WOODEN_AXE -> ItemPickaxe.getPickaxeSpeed(Material.WOODEN_PICKAXE);
+            case COPPER_AXE -> ItemPickaxe.getPickaxeSpeed(Material.COPPER_PICKAXE);
             default -> 0;
         };
     }
@@ -51,6 +53,7 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
             case IRON_AXE -> ToolGlobals.IRON_TOOL_MINING_POWER;
             case STONE_AXE -> ToolGlobals.STONE_TOOL_MINING_POWER;
             case WOODEN_AXE -> ToolGlobals.WOOD_TOOL_MINING_POWER;
+            case COPPER_AXE -> ToolGlobals.COPPER_TOOL_MINING_POWER;
             default -> 0;
         };
     }
@@ -63,6 +66,7 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
             case IRON_AXE -> 35;
             case STONE_AXE -> 30;
             case WOODEN_AXE -> 20;
+            case COPPER_AXE -> 30;
 
             default -> 0;
         };
@@ -70,7 +74,6 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
 
     public static double getAxeDamage(CustomItemType itemType) {
         return switch (itemType) {
-            case COPPER_AXE -> 30;
             case TIN_AXE -> 25;
             case SILVER_AXE -> 35;
             case STEEL_AXE -> 50;
@@ -89,11 +92,12 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
             case IRON_AXE -> ToolGlobals.IRON_TOOL_POWER;
             case STONE_AXE -> ToolGlobals.STONE_TOOL_POWER;
             case WOODEN_AXE -> ToolGlobals.WOOD_TOOL_POWER;
+            case COPPER_AXE -> ToolGlobals.COPPER_TOOL_POWER;
             default -> 1;
         };
     }
 
-    public static int getAxeLumbering(Material material) {
+    public static double getAxeLumbering(Material material) {
         return switch (material) {
             case NETHERITE_AXE -> 2;
             case DIAMOND_AXE -> 1;
@@ -101,9 +105,9 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
         };
     }
 
-    public static int getAxeLumbering(CustomItemType itemType) {
+    public static double getAxeLumbering(CustomItemType itemType) {
         return switch (itemType) {
-            case COPPER_AXE -> 1;
+            case TITANIUM_AXE, ADAMANTIUM_AXE -> 1;
             default -> 0;
         };
     }
@@ -121,14 +125,26 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
 
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
-        return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getAxePower(material)),
-                new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getAxeDamage(material)),
-                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
-                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getAxeSpeed(material)),
-                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, getAxeFortune(material)),
-                new AdditiveAttributeEntry(AttributeWrapper.LUMBERING, getAxeLumbering(material))
-        );
+        double lumbering = getAxeLumbering(material);
+        // Mild hack, Minecraft will display zeroed out stats if present, even if 0 value.
+        if (lumbering > 0) {
+            return List.of(
+                    new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getAxePower(material)),
+                    new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getAxeDamage(material)),
+                    new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
+                    new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getAxeSpeed(material)),
+                    new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, getAxeFortune(material)),
+                    new AdditiveAttributeEntry(AttributeWrapper.LUMBERING, getAxeLumbering(material))
+            );
+        } else {
+            return List.of(
+                    new AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getAxePower(material)),
+                    new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getAxeDamage(material)),
+                    new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
+                    new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getAxeSpeed(material)),
+                    new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, getAxeFortune(material))
+            );
+        }
     }
 
     @Override

@@ -27,6 +27,7 @@ public class ItemPickaxe extends VanillaAttributeItem implements IBreakableEquip
             case IRON_PICKAXE -> 30;
             case STONE_PICKAXE -> 15;
             case WOODEN_PICKAXE -> 5;
+            case COPPER_PICKAXE -> ToolGlobals.COPPER_TOOL_FORTUNE;
             default -> 0;
         };
     }
@@ -39,6 +40,7 @@ public class ItemPickaxe extends VanillaAttributeItem implements IBreakableEquip
             case IRON_PICKAXE -> ToolGlobals.IRON_TOOL_SPEED;
             case STONE_PICKAXE -> ToolGlobals.STONE_TOOL_SPEED;
             case WOODEN_PICKAXE -> ToolGlobals.WOOD_TOOL_SPEED;
+            case COPPER_PICKAXE -> ToolGlobals.COPPER_TOOL_SPEED;
             default -> 0;
         };
     }
@@ -51,6 +53,7 @@ public class ItemPickaxe extends VanillaAttributeItem implements IBreakableEquip
             case IRON_PICKAXE -> ToolGlobals.IRON_TOOL_MINING_POWER;
             case STONE_PICKAXE -> ToolGlobals.STONE_TOOL_MINING_POWER;
             case WOODEN_PICKAXE -> ToolGlobals.WOOD_TOOL_MINING_POWER;
+            case COPPER_PICKAXE -> ToolGlobals.COPPER_TOOL_MINING_POWER;
             default -> 0;
         };
     }
@@ -63,6 +66,7 @@ public class ItemPickaxe extends VanillaAttributeItem implements IBreakableEquip
             case IRON_PICKAXE -> 7;
             case STONE_PICKAXE -> 5;
             case WOODEN_PICKAXE -> 4;
+            case COPPER_PICKAXE -> 5;
             default -> 0;
         };
     }
@@ -70,7 +74,6 @@ public class ItemPickaxe extends VanillaAttributeItem implements IBreakableEquip
     public static double getPickaxeDamage(CustomItemType itemType) {
         return switch (itemType) {
             case TIN_PICKAXE -> 4;
-            case COPPER_PICKAXE -> 5;
             case SILVER_PICKAXE -> 6;
             case BRONZE_PICKAXE -> 7;
             case STEEL_PICKAXE -> 10;
@@ -87,6 +90,7 @@ public class ItemPickaxe extends VanillaAttributeItem implements IBreakableEquip
             case IRON_PICKAXE -> ToolGlobals.IRON_TOOL_POWER;
             case STONE_PICKAXE -> ToolGlobals.STONE_TOOL_POWER;
             case WOODEN_PICKAXE -> ToolGlobals.WOOD_TOOL_POWER;
+            case COPPER_PICKAXE -> ToolGlobals.COPPER_TOOL_POWER;
             default -> 1;
         };
     }
@@ -132,6 +136,7 @@ public class ItemPickaxe extends VanillaAttributeItem implements IBreakableEquip
             case IRON_PICKAXE -> ToolGlobals.IRON_TOOL_DURABILITY;
             case STONE_PICKAXE -> ToolGlobals.STONE_TOOL_DURABILITY;
             case WOODEN_PICKAXE -> ToolGlobals.WOOD_TOOL_DURABILITY;
+            case COPPER_PICKAXE -> ToolGlobals.COPPER_TOOL_DURABILITY;
             default -> 1_000;
         };
     }

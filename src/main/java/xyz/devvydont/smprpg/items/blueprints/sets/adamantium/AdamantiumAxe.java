@@ -40,7 +40,8 @@ public class AdamantiumAxe extends CustomAttributeItem implements ICraftable, IB
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemAxe.getAxeDamage(CustomItemType.ADAMANTIUM_AXE)),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, AXE_ATTACK_SPEED_DEBUFF),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.ADAMANTIUM_TOOL_SPEED),
-                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.ADAMANTIUM_TOOL_FORTUNE)
+                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.ADAMANTIUM_TOOL_FORTUNE),
+                new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ItemAxe.getAxeLumbering(CustomItemType.ADAMANTIUM_AXE))
         );
     }
 

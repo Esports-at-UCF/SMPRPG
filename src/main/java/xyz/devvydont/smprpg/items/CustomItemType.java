@@ -181,17 +181,7 @@ public enum CustomItemType {
     LARGE_FUEL_TANK("Large Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.RARE,      LargeFuelTank.class),
 
     // COPPER SET
-    COPPER_PICKAXE("Copper Pickaxe",  Material.WOODEN_PICKAXE, CopperPickaxe.class),
-    COPPER_AXE(    "Copper Axe",      Material.WOODEN_AXE,     CopperAxe.class),
-    COPPER_HOE(    "Copper Hoe",      Material.WOODEN_HOE,     CopperHoe.class),
-    COPPER_SHOVEL( "Copper Shovel",   Material.WOODEN_SHOVEL,  CopperShovel.class),
-    COPPER_SWORD(  "Copper Sword",    Material.WOODEN_SWORD,   CopperSword.class),
     COPPER_BOW(    "Copper Bow",      Material.BOW,            CopperBow.class),
-
-    COPPER_HELMET(    "Copper Helmet",     Material.LEATHER_HELMET,     CopperHelmet.class),
-    COPPER_CHESTPLATE("Copper Chestplate", Material.LEATHER_CHESTPLATE, CopperChestplate.class),
-    COPPER_LEGGINGS(  "Copper Leggings",   Material.LEATHER_LEGGINGS,   CopperLeggings.class),
-    COPPER_BOOTS(     "Copper Boots",      Material.LEATHER_BOOTS,      CopperBoots.class),
 
     // SILVER SET
     RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, false, 15),
