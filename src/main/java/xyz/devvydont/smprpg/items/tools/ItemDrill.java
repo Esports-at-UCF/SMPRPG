@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.items.tools;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.ItemContainerContents;
+import io.papermc.paper.datacomponent.item.SwingAnimation;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.EquipmentSlotGroup;
@@ -141,6 +142,7 @@ public class ItemDrill extends CustomAttributeItem implements IFueledEquipment, 
         drill.setData(DataComponentTypes.CONTAINER, ItemContainerContents.containerContents(items));
         IFueledEquipment drillBlueprint = new ItemDrill(itemService, CustomItemType.DRILL);  // We need to manually create a drill blueprint class here, as the item type key has not been set yet.
         drill.setData(DataComponentTypes.MAX_DAMAGE, items.get(2).getData(DataComponentTypes.MAX_DAMAGE));
+        drill.setData(DataComponentTypes.SWING_ANIMATION, SwingAnimation.swingAnimation().type(SwingAnimation.Animation.STAB).duration(1));
         drillBlueprint.setFuelUsed(drill, 0);
         drill.editPersistentDataContainer(pdc -> pdc.set(drillBaseKey, PersistentDataType.STRING, keys[0]));
         drill.editPersistentDataContainer(pdc -> pdc.set(drillHeadKey, PersistentDataType.STRING, keys[1]));

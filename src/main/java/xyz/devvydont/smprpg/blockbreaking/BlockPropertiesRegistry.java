@@ -6498,6 +6498,13 @@ public class BlockPropertiesRegistry {
                 .blockSound(BlockSound.IRON)
                 .softRequirement(false)
                 .build());
+
+        register(CustomBlock.GRIMSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(600)
+                .breakingPower(5)
+                .blockSound(BlockSound.DEEPSLATE_GENERIC)
+                .softRequirement(false)
+                .build());
         //</editor-fold>
 
     }
