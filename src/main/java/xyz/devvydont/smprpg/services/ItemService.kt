@@ -732,6 +732,19 @@ class ItemService : IService, Listener {
             )
         }
 
+        if (blueprint is IIntelligenceScaled) {
+            lore.add(ComponentUtils.EMPTY)
+            lore.add(
+                ComponentUtils.merge(
+                    ComponentUtils.create("Mana Cost: "),
+                    ComponentUtils.create(
+                        ((blueprint.manaCost).toInt()).toString(),
+                        NamedTextColor.AQUA
+                    )
+                )
+            )
+        }
+
         // First, enchants. Are we not forcing glow? Only display enchants when we are not forcing glow (and have some).
         if (!itemStack.enchantments.isEmpty()) lore.addAll(blueprint.getEnchantsComponent(itemStack))
 

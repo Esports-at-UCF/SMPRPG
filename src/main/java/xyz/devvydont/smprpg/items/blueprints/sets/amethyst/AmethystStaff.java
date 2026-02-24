@@ -71,7 +71,7 @@ public class AmethystStaff extends CustomAttributeItem implements IBreakableEqui
 
     @Override
     public int getManaCost() {
-        return 5;
+        return 10;
     }
 
     @Override
@@ -109,8 +109,8 @@ public class AmethystStaff extends CustomAttributeItem implements IBreakableEqui
         itemStack.setData(DataComponentTypes.PIERCING_WEAPON, PiercingWeapon.piercingWeapon()
                 .dealsKnockback(false)
                 .dismounts(false)
-                .sound(SoundEventKeys.ENTITY_BLAZE_SHOOT)
-                .hitSound(SoundEventKeys.BLOCK_AMETHYST_BLOCK_RESONATE)
+                .sound(SoundEventKeys.BLOCK_AMETHYST_BLOCK_RESONATE)
+                .hitSound(SoundEventKeys.BLOCK_TRIAL_SPAWNER_EJECT_ITEM)
                 .build());
 
     }
