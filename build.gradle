@@ -53,8 +53,11 @@ tasks.withType(JavaCompile).configureEach {
 
 tasks {
     shadowJar {
-        relocate("kotlin", "xyz.devvydont.libs.kotlin")
-        relocate("kotlinx", "xyz.devvydont.libs.kotlinx")
+        def isDevRun = project.hasProperty("dev") || gradle.startParameter.taskNames.any { it.contains("runServer") }
+        if (!isDevRun) {
+            relocate("kotlin", "xyz.devvydont.libs.kotlin")
+            relocate("kotlinx", "xyz.devvydont.libs.kotlinx")
+        }
     }
     build {
         dependsOn(shadowJar)
