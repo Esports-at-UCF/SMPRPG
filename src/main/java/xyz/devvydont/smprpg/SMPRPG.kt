@@ -13,6 +13,7 @@ import xyz.devvydont.smprpg.listeners.block.TrialChamberVaultFix
 import xyz.devvydont.smprpg.listeners.crafting.AnvilEnchantmentCombinationFixListener
 import xyz.devvydont.smprpg.listeners.damage.AbsorptionDamageFix
 import xyz.devvydont.smprpg.listeners.damage.EnvironmentalDamageListener
+import xyz.devvydont.smprpg.listeners.damage.MeleeVisualListener
 import xyz.devvydont.smprpg.listeners.damage.PvPListener
 import xyz.devvydont.smprpg.listeners.damage.SlimeRapidAttackFixListener
 import xyz.devvydont.smprpg.listeners.entity.HealthRegenerationListener
@@ -103,6 +104,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(SlimeRapidAttackFixListener()) // Fixes the vanilla bug of slimes being able to attack every tick.
         generalListeners.add(MultiBlockBreakListener()) // Fixes the vanilla bug of slimes being able to attack every tick.
         generalListeners.add(NoteblockOverrideListener())  // Overrides vanilla noteblock behavior, such that we can overload noteblock blockstates for custom ores.
+        generalListeners.add(MeleeVisualListener())  // Visuals melee attack particles for weapons like staffs
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.

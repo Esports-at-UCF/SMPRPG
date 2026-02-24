@@ -55,6 +55,13 @@
                     "type": "model",
                     "model": "materials:item/steel_tool_shaft"
                 }
+            },
+            {
+                "when": "smprpg:amethyst_staff",
+                "model": {
+                    "type": "model",
+                    "model": "staffs:item/amethyst_staff"
+                }
             }
         ]
     }

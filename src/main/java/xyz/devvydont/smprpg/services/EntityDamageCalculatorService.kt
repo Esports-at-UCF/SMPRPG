@@ -22,6 +22,8 @@ import org.bukkit.potion.PotionEffectType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
+import xyz.devvydont.smprpg.events.MeleeAttackEvent
+import xyz.devvydont.smprpg.items.interfaces.IIntelligenceScaled
 import xyz.devvydont.smprpg.listeners.damage.CriticalDamageListener
 import xyz.devvydont.smprpg.listeners.damage.DamagePopupListener
 import xyz.devvydont.smprpg.listeners.damage.EnvironmentalDamageListener
@@ -164,8 +166,26 @@ class EntityDamageCalculatorService : Listener, IService {
         if (attack == null)
             return
 
+        var damage = attack.value;
+        val equipment = dealer.equipment;
+        if (equipment != null) {
+            val bp = blueprint(equipment.itemInMainHand);
+            if (bp is IIntelligenceScaled) {
+                if (dealer is Player) {
+                    val playerWrapper = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer)
+                    if (playerWrapper != null) {
+                        val int = playerWrapper.mana;
+                        damage = damage * (1 + ((int / 100.0) * bp.intelligenceScaleFactor));
+                        playerWrapper.useMana(bp.manaCost);
+                        val meleeAttackEvent = MeleeAttackEvent(playerWrapper, bp);
+                        meleeAttackEvent.callEvent();
+                    }
+                }
+            }
+        }
+
         // Set the damage
-        event.setDamage(EntityDamageEvent.DamageModifier.BASE, attack.value)
+        event.setDamage(EntityDamageEvent.DamageModifier.BASE, damage)
     }
 
     /*

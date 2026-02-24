@@ -138,7 +138,7 @@ public class BlockDamage {
                 }
 
 				double tickInc = 1;
-				if (player.isInWater())
+				if (player.isUnderWater())
 					tickInc *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.UNDERWATER_MINING).getValue();
 
 				if (!player.isOnGround())

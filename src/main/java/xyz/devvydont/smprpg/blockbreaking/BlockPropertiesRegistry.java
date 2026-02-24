@@ -6092,6 +6092,12 @@ public class BlockPropertiesRegistry {
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
+
+        register(Material.SWEET_BERRY_BUSH, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE)
+                .hardness(0)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
         //</editor-fold>
         register(Material.KELP, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
                 .hardness(0)
@@ -6226,13 +6232,43 @@ public class BlockPropertiesRegistry {
                 .softRequirement(true)
                 .build());
 
+        register(Material.WALL_TORCH, BlockPropertiesEntry.builder()
+                .hardness(0)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
         register(Material.SOUL_TORCH, BlockPropertiesEntry.builder()
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
 
+        register(Material.SOUL_WALL_TORCH, BlockPropertiesEntry.builder()
+                .hardness(0)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
+        register(Material.COPPER_TORCH, BlockPropertiesEntry.builder()
+                .hardness(0)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
+        register(Material.COPPER_WALL_TORCH, BlockPropertiesEntry.builder()
+                .hardness(0)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
         register(Material.REDSTONE_TORCH, BlockPropertiesEntry.builder()
+                .hardness(0)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
+        register(Material.REDSTONE_WALL_TORCH, BlockPropertiesEntry.builder()
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)

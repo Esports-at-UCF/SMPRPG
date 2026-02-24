@@ -11,8 +11,10 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause
 import org.bukkit.event.entity.EntityShootBowEvent
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
+import xyz.devvydont.smprpg.items.interfaces.ICantCrit
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
+import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 
 /**
@@ -86,6 +88,13 @@ class CriticalDamageListener : ToggleableListener() {
         if (event.vanillaCause != DamageCause.ENTITY_ATTACK)
             return
 
+        if (event.dealer is LivingEntity) {
+            val equipment = event.dealer.equipment;
+            if (equipment != null && ItemService.blueprint(equipment.itemInMainHand) is ICantCrit) {
+                return;
+            }
+        }
+
         // If the entity is not airborne, this can't be a crit.
         if (event.dealer.isOnGround)
             return
@@ -123,6 +132,13 @@ class CriticalDamageListener : ToggleableListener() {
         if (event.dealer !is LivingEntity)
             return
         val living = event.dealer as LivingEntity
+
+        // If the dealer does not have a critable item, ignore any calculations.
+        val equipment = living.equipment;
+        if (equipment != null) {
+            if (ItemService.blueprint(equipment.itemInMainHand) is ICantCrit)
+                return;
+        }
 
         // Check the entity for their auto crit chance.
         var chance = 0.0

@@ -37,12 +37,9 @@ import xyz.devvydont.smprpg.items.blueprints.resources.fishing.HolomokuCrest;
 import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
+import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
 import xyz.devvydont.smprpg.items.blueprints.wardrobe.WardrobeSlotToken;
 import xyz.devvydont.smprpg.items.blueprints.sets.adamantium.*;
-import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystBoots;
-import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystChestplate;
-import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystHelmet;
-import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystLeggings;
 import xyz.devvydont.smprpg.items.blueprints.sets.araxys.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.bedrock.BedrockBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.bedrock.BedrockChestplate;
@@ -410,6 +407,7 @@ public enum CustomItemType {
     AMETHYST_CHESTPLATE("Amethyst Chestplate", Material.IRON_CHESTPLATE, ItemRarity.RARE, AmethystChestplate.class),
     AMETHYST_LEGGINGS(  "Amethyst Leggings",   Material.IRON_LEGGINGS,   ItemRarity.RARE, AmethystLeggings.class),
     AMETHYST_BOOTS(     "Amethyst Boots",      Material.IRON_BOOTS,      ItemRarity.RARE, AmethystBoots.class),
+    AMETHYST_STAFF(     "Amethyst Staff",      Material.STICK,           ItemRarity.RARE, AmethystStaff.class),
 
     // SMITE SET
     SMITE_HELMET(    "Smite Helmet",         Material.CHAINMAIL_HELMET,     ItemRarity.RARE, SmiteHelmet.class),
