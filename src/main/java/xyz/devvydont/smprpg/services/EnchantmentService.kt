@@ -472,6 +472,9 @@ class EnchantmentService : IService, Listener {
         @JvmField
         val REPLENISHING: CustomEnchantment = ReplenishingBlessing("replenishing")
 
+        @JvmField
+        val APTITUDE: CustomEnchantment = AptitudeEnchantment("aptitude")
+
 
         /**
          * Enchantments to register on the server. The order you define them here will affect the order that they
@@ -483,8 +486,9 @@ class EnchantmentService : IService, Listener {
             TELEKINESIS_BLESSING,
             MERCY_BLESSING,
             VOIDSTRIDING_BLESSING,
-            REPLENISHING,  // Curses
+            REPLENISHING,
 
+            // Curses
             BINDING_CURSE,
             VANISHING_CURSE,  // Important enchantments (display first)
 
@@ -514,6 +518,7 @@ class EnchantmentService : IService, Listener {
             VITALITY,
             CALAMITY,
             WISDOM,
+            APTITUDE,
 
             AQUA_AFFINITY,
             BREACH,

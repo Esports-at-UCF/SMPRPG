@@ -5,6 +5,7 @@ import io.papermc.paper.registry.tag.TagKey;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
+import xyz.devvydont.smprpg.util.persistence.KeyStore;
 
 import java.util.Collection;
 import java.util.List;
@@ -41,6 +42,7 @@ public enum ItemClassification {
     EQUIPMENT(ItemTypeTagKeys.ENCHANTABLE_VANISHING),
     // Stuff used for crafting mainly, like ores and stuff
     CHARM(ItemTypeTagKeys.ENCHANTABLE_VANISHING),
+    TOME(ItemTypeTagKeys.ENCHANTABLE_VANISHING),
     REFORGE_STONE,
     MATERIAL,
     // Stuff that can be eaten
@@ -135,7 +137,7 @@ public enum ItemClassification {
         // todo, we can prob figure this out dynamically using item type tags but worried for rapid checks performance wise since it's a intersection operation
         return switch (this) {
             case SWORD, TRIDENT, BOW, CROSSBOW, SHORTBOW, HELMET, CHESTPLATE, LEGGINGS, BOOTS, WEAPON, MACE, AXE, TOOL, PICKAXE, HOE,
-                 ROD, CHARM, EQUIPMENT, HATCHET -> true;
+                 ROD, CHARM, EQUIPMENT, HATCHET, DRILL, TOME -> true;
             default -> false;
         };
     }

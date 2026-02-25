@@ -16,6 +16,9 @@ public class BlockPropertiesEntry {
     // What equipment type is preferable for breaking this block.
     private final @NotNull Set<ItemClassification> preferredTool;
 
+    // What equipment type, if any, will instabreak this block?
+    private final @Nullable ItemClassification[] instabreakTool;
+
     // How much health does this block have?
     private final float hardness;
 
@@ -33,8 +36,10 @@ public class BlockPropertiesEntry {
             float breakingPower,
             boolean softRequirement,
             @Nullable BlockSound blockSound,
-            @Nullable Set<ItemClassification> preferredTools) {
+            @Nullable Set<ItemClassification> preferredTools,
+            @Nullable ItemClassification[] instabreakTools) {
         this.preferredTool = ImmutableSet.copyOf(preferredTools);
+        this.instabreakTool = instabreakTools;
         this.hardness = hardness;
         this.breakingPower = breakingPower;
         this.softRequirement = softRequirement;
@@ -47,6 +52,14 @@ public class BlockPropertiesEntry {
      */
     public @Nullable Set<ItemClassification> getPreferredTools() {
         return preferredTool;
+    }
+
+    /**
+     * Get the preferred tool for this block properties entry.
+     * @return The preferred tool.
+     */
+    public @Nullable ItemClassification[] getInstabreakTools() {
+        return instabreakTool;
     }
 
     /**
@@ -104,6 +117,7 @@ public class BlockPropertiesEntry {
     public static class Builder {
 
         private @Nullable Set<ItemClassification> preferredTool = null;
+        private @Nullable ItemClassification[] instabreakTool = null;
         private float hardness = 0;
         private float breakingPower = 0;
         private boolean softRequirement = false;
@@ -111,6 +125,16 @@ public class BlockPropertiesEntry {
 
         private Builder(ItemClassification...preferredTool) {
             this.preferredTool = ImmutableSet.copyOf(preferredTool);
+        }
+
+        /**
+         * Set the list of tool classifications that can instabreak this block.
+         * @param tools The set of classifications that will instabreak the block.
+         * @return The same builder instance for proper builder pattern calls.
+         */
+        public Builder instabreakTools(ItemClassification...tools) {
+            this.instabreakTool = tools;
+            return this;
         }
 
         /**
@@ -158,7 +182,7 @@ public class BlockPropertiesEntry {
          * @return The new entry.
          */
         public BlockPropertiesEntry build() {
-            return new BlockPropertiesEntry(this.hardness, this.breakingPower, this.softRequirement, this.blockSound, this.preferredTool);
+            return new BlockPropertiesEntry(this.hardness, this.breakingPower, this.softRequirement, this.blockSound, this.preferredTool, this.instabreakTool);
         }
 
     }

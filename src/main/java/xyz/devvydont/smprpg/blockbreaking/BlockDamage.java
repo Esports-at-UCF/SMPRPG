@@ -230,6 +230,17 @@ public class BlockDamage {
 		}
 		else
 			preferredTools = entry.getPreferredTools();
+
+		// Instant breaking if this block is flagged to instabreak with this tool classification
+		var instabreakToolsArr = entry.getInstabreakTools();
+		if (instabreakToolsArr != null) {
+			var instabreakTools = Set.of(instabreakToolsArr);
+			if (instabreakTools.contains(blueprint.getItemClassification())) {
+				return 0d;
+			}
+		}
+
+
 		boolean isPreferred = false;
 		boolean correctTool = false;
 		if (preferredTools != null) {

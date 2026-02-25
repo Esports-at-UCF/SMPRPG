@@ -38,6 +38,7 @@ import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
+import xyz.devvydont.smprpg.items.blueprints.tomes.SimpleTome;
 import xyz.devvydont.smprpg.items.blueprints.wardrobe.WardrobeSlotToken;
 import xyz.devvydont.smprpg.items.blueprints.sets.adamantium.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.araxys.*;
@@ -654,6 +655,9 @@ public enum CustomItemType {
     SPEED_CHARM("Speed Charm",       Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      SpeedCharm.class),
     STRENGTH_CHARM("Strength Charm", Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      StrengthCharm.class),
     LUCKY_CHARM("Lucky Charm",       Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      LuckyCharm.class),
+
+    // TOMES
+    SIMPLE_TOME("Simple Tome",           Material.PAPER, ItemRarity.UNCOMMON,      SimpleTome.class),
 
     // BOWS
     NETHERITE_BOW("Netherite Bow", Material.BOW, ItemRarity.RARE,     NetheriteBow.class),
