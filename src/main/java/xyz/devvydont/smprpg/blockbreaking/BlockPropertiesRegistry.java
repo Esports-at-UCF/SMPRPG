@@ -5041,7 +5041,6 @@ public class BlockPropertiesRegistry {
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
-                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.BEE_NEST, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
@@ -5270,6 +5269,12 @@ public class BlockPropertiesRegistry {
 
         register(Material.NETHER_WART, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
                 .hardness(0)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
+        register(Material.COCOA, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
+                .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
                 .build());
@@ -6230,36 +6235,42 @@ public class BlockPropertiesRegistry {
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.WALL_TORCH, BlockPropertiesEntry.builder()
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SOUL_TORCH, BlockPropertiesEntry.builder()
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.SOUL_WALL_TORCH, BlockPropertiesEntry.builder()
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.COPPER_TORCH, BlockPropertiesEntry.builder()
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.COPPER_WALL_TORCH, BlockPropertiesEntry.builder()
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
         register(Material.REDSTONE_TORCH, BlockPropertiesEntry.builder()
