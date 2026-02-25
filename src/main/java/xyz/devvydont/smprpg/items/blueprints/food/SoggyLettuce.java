@@ -28,12 +28,12 @@ public class SoggyLettuce extends CustomItemBlueprint implements IEdible, ISella
 
     @Override
     public int getNutrition(ItemStack item) {
-        return 3;
+        return 4;
     }
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 5;
+        return 0;
     }
 
     @Override

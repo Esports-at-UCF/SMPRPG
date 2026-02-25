@@ -24,12 +24,12 @@ public class StaleBread extends CustomItemBlueprint implements IEdible, ISellabl
 
     @Override
     public int getNutrition(ItemStack item) {
-        return 3;
+        return 4;
     }
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 3;
+        return 0;
     }
 
     @Override

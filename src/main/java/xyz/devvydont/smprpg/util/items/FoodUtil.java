@@ -27,8 +27,7 @@ public class FoodUtil {
             case BAKED_POTATO -> 5;
             case BEETROOT -> 1;
             case BEETROOT_SOUP -> 6;
-            case BREAD -> 5;
-            case CARROT -> 3;
+            case BREAD -> 6;
             case CHORUS_FRUIT -> 4;
             case COOKED_CHICKEN -> 6;
             case COOKED_COD -> 5;
@@ -38,10 +37,8 @@ public class FoodUtil {
             case COOKED_SALMON -> 6;
             case COOKIE -> 2;
             case DRIED_KELP -> 1;
-            case ENCHANTED_GOLDEN_APPLE -> 4;
-            case GOLDEN_APPLE -> 4;
-            case GLOW_BERRIES -> 2;
-            case GOLDEN_CARROT -> 6;
+            case ENCHANTED_GOLDEN_APPLE -> 10;
+            case GOLDEN_APPLE -> 6;
             case HONEY_BOTTLE -> 6;
             case MELON_SLICE -> 2;
             case MUSHROOM_STEM -> 6;
@@ -70,7 +67,12 @@ public class FoodUtil {
     public static float getSaturation(Material material) {
 
         return switch (material) {
-            case GOLDEN_CARROT -> 20;
+            case CARROT -> 20;
+            case CHORUS_FRUIT -> 10;
+            case ENCHANTED_GOLDEN_APPLE -> 50;
+            case GOLDEN_APPLE -> 10;
+            case GLOW_BERRIES -> 10;
+            case GOLDEN_CARROT -> 80;
             default -> 0;
         };
 

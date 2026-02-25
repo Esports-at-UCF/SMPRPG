@@ -32,12 +32,12 @@ public class Caviar extends CustomItemBlueprint implements IEdible, ISellable {
 
     @Override
     public int getNutrition(ItemStack item) {
-        return 5;
+        return 50;
     }
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 20;
+        return 250;
     }
 
     @Override

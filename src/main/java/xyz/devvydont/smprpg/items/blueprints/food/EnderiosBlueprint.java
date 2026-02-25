@@ -30,12 +30,12 @@ public class EnderiosBlueprint extends CustomItemBlueprint implements IEdible, I
 
     @Override
     public int getNutrition(ItemStack item) {
-        return 3;
+        return 4;
     }
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 6;
+        return 50;
     }
 
     @Override

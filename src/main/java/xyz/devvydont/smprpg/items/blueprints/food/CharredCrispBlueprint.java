@@ -34,7 +34,7 @@ public class CharredCrispBlueprint extends CustomItemBlueprint implements IEdibl
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 2;
+        return 0;
     }
 
     @Override

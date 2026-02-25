@@ -39,7 +39,7 @@ public class BreadboardBlueprint extends CustomItemBlueprint implements IEdible,
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 2;
+        return 0;
     }
 
     @Override
