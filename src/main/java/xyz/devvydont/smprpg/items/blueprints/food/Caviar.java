@@ -49,7 +49,7 @@ public class Caviar extends CustomItemBlueprint implements IEdible, ISellable {
     public @NonNull Consumable getConsumableComponent(ItemStack item) {
         return Consumable.consumable()
                 .consumeSeconds(.4f)
-                .addEffect(ConsumeEffect.applyStatusEffects(List.of(new PotionEffect(PotionEffectType.SATURATION, (int) TickTime.minutes(5), 0, true, true)), 1f))
+                .addEffect(ConsumeEffect.applyStatusEffects(List.of(new PotionEffect(PotionEffectType.REGENERATION, (int) TickTime.minutes(5), 4, true, true)), 1f))
                 .build();
     }
 

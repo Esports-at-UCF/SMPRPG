@@ -54,7 +54,7 @@ public class EnderiosBlueprint extends CustomItemBlueprint implements IEdible, I
 
     @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 
 }

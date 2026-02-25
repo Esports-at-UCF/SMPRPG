@@ -38,7 +38,7 @@ public class SoggyLettuce extends CustomItemBlueprint implements IEdible, ISella
 
     @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 
     @Override

@@ -2,15 +2,19 @@ package xyz.devvydont.smprpg.entity.player;
 
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import com.destroystokyo.paper.event.player.PlayerPickupExperienceEvent;
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
@@ -18,6 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.base.LeveledEntity;
@@ -70,6 +75,8 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         // This is a temp fix simply due to the fact that vanilla orbs are just sentient beings and award people
         // with stupid amounts of experience for no reason...
         _entity.setLevel(Math.min(999, _entity.getLevel()));// todo: when mana becomes the xp bar, this NEEDS to be removed.
+        _entity.setSaturatedRegenRate(160);
+        _entity.setUnsaturatedRegenRate(160);
     }
 
     public void regenerateMana() {
@@ -414,6 +421,36 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         if (event.getPlayer().getLevel() == 999) {
             event.getPlayer().setExp(.9999f);
             event.setCancelled(true);
+        }
+    }
+
+    /**
+     * Prevents hunger from depleting, essentially disabling vanilla food.
+     */
+    @EventHandler
+    private void __onHungerChange(FoodLevelChangeEvent event) {
+        event.setCancelled(true);  // Cancel Vanilla event
+
+        if (event.getEntity() == getPlayer()) {
+            var item = event.getItem();
+            if (item != null) {
+                var foodComp = item.getData(DataComponentTypes.FOOD);
+                if (foodComp != null) {
+                    float foodRestoreAmt = foodComp.nutrition();
+                    @Nullable AttributeInstance maxHp = getPlayer().getAttribute(Attribute.MAX_HEALTH);
+                    if (maxHp != null)  // Sanity, should never be the case though.
+                        getPlayer().heal((foodRestoreAmt / 100.0f) * maxHp.getValue());
+
+                    if (foodComp.saturation() > 0) {
+                        var max = getMaxMana();
+                        this._mana += foodComp.saturation();
+                        this._mana = Math.min(Math.max(0, _mana), max);
+                    }
+                }
+            }
+
+            event.getEntity().setFoodLevel(20);  // Force food level to be maxed out at all times.
+            event.getEntity().setSaturation(20);
         }
     }
 

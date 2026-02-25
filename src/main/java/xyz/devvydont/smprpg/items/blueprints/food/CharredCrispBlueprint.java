@@ -52,7 +52,7 @@ public class CharredCrispBlueprint extends CustomItemBlueprint implements IEdibl
 
     @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 
 }

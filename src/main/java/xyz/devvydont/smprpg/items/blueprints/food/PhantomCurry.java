@@ -33,7 +33,7 @@ public class PhantomCurry extends CustomItemBlueprint implements ISellable, IEdi
 
     @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 
     @Override

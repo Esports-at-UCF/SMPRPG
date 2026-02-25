@@ -69,7 +69,7 @@ public class BreadboardBlueprint extends CustomItemBlueprint implements IEdible,
 
     @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 
 }

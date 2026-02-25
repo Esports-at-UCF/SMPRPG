@@ -38,7 +38,7 @@ public class PotatoChip extends CustomItemBlueprint implements IEdible, ISellabl
 
     @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 
     @Override
