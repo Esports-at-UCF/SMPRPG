@@ -38,6 +38,7 @@ import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.wood.WoodStaff;
 import xyz.devvydont.smprpg.items.blueprints.tomes.SimpleTome;
 import xyz.devvydont.smprpg.items.blueprints.wardrobe.WardrobeSlotToken;
 import xyz.devvydont.smprpg.items.blueprints.sets.adamantium.*;
@@ -302,8 +303,9 @@ public enum CustomItemType {
     MITHRIL_HOE(    "Mithril Hoe",      Material.DIAMOND_HOE,     ItemRarity.UNCOMMON, MithrilHoe.class),
     MITHRIL_SHOVEL( "Mithril Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.UNCOMMON, MithrilShovel.class),
     MITHRIL_SWORD(  "Mithril Sword",    Material.DIAMOND_SWORD,   ItemRarity.UNCOMMON, MithrilSword.class),
-    MITHRIL_HATCHET("Mithril Hatchet",  Material.DIAMOND_AXE,     ItemRarity.UNCOMMON,   MithrilHatchet.class),
+    MITHRIL_HATCHET("Mithril Hatchet",  Material.DIAMOND_AXE,     ItemRarity.UNCOMMON, MithrilHatchet.class),
     MITHRIL_BOW(    "Mithril Bow",      Material.BOW,             ItemRarity.UNCOMMON, MithrilBow.class),
+    MITHRIL_STAFF(    "Mithril Staff",  Material.STICK,           ItemRarity.RARE,     MithrilStaff.class),
 
     MITHRIL_HELMET(    "Mithril Helmet",     Material.DIAMOND_HELMET,     ItemRarity.UNCOMMON, MithrilHelmet.class),
     MITHRIL_CHESTPLATE("Mithril Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.UNCOMMON,MithrilChestplate.class),
@@ -379,8 +381,11 @@ public enum CustomItemType {
     ORICHALCUM_ORE("Orichalcum Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, OrichalcumOre.class),
     RAW_ORICHALCUM("Raw Orichalcum",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 200),
 
+    // WOODEN SET
+    WOODEN_STAFF("Wooden Staff",                     Material.STICK,              ItemRarity.COMMON,   WoodStaff.class),
+
     // COBBLESTONE SET
-    COBBLESTONE_HELMET("Cobblestone Helmet",         Material.LEATHER_HELMET,        ItemRarity.UNCOMMON, CobblestoneHelmet.class),
+    COBBLESTONE_HELMET("Cobblestone Helmet",         Material.LEATHER_HELMET,     ItemRarity.UNCOMMON, CobblestoneHelmet.class),
     COBBLESTONE_CHESTPLATE("Cobblestone Chestplate", Material.LEATHER_CHESTPLATE, ItemRarity.UNCOMMON, CobblestoneChestplate.class),
     COBBLESTONE_LEGGINGS("Cobblestone Leggings",     Material.LEATHER_LEGGINGS,   ItemRarity.UNCOMMON, CobblestoneLeggings.class),
     COBBLESTONE_BOOTS("Cobblestone Boots",           Material.LEATHER_BOOTS,      ItemRarity.UNCOMMON, CobblestoneBoots.class),
@@ -404,11 +409,11 @@ public enum CustomItemType {
     BONE_BOOTS(     "Bone Boots",          Material.LEATHER_BOOTS,      BoneBoots.class),
 
     // AMETHYST
-    AMETHYST_HELMET(    "Amethyst Helmet",     Material.IRON_HELMET   ,  ItemRarity.RARE, AmethystHelmet.class),
-    AMETHYST_CHESTPLATE("Amethyst Chestplate", Material.IRON_CHESTPLATE, ItemRarity.RARE, AmethystChestplate.class),
-    AMETHYST_LEGGINGS(  "Amethyst Leggings",   Material.IRON_LEGGINGS,   ItemRarity.RARE, AmethystLeggings.class),
-    AMETHYST_BOOTS(     "Amethyst Boots",      Material.IRON_BOOTS,      ItemRarity.RARE, AmethystBoots.class),
-    AMETHYST_STAFF(     "Amethyst Staff",      Material.STICK,           ItemRarity.RARE, AmethystStaff.class),
+    AMETHYST_HELMET(    "Amethyst Helmet",     Material.IRON_HELMET   ,  ItemRarity.RARE,     AmethystHelmet.class),
+    AMETHYST_CHESTPLATE("Amethyst Chestplate", Material.IRON_CHESTPLATE, ItemRarity.RARE,     AmethystChestplate.class),
+    AMETHYST_LEGGINGS(  "Amethyst Leggings",   Material.IRON_LEGGINGS,   ItemRarity.RARE,     AmethystLeggings.class),
+    AMETHYST_BOOTS(     "Amethyst Boots",      Material.IRON_BOOTS,      ItemRarity.RARE,     AmethystBoots.class),
+    AMETHYST_STAFF(     "Amethyst Staff",      Material.STICK,           ItemRarity.UNCOMMON, AmethystStaff.class),
 
     // SMITE SET
     SMITE_HELMET(    "Smite Helmet",         Material.CHAINMAIL_HELMET,     ItemRarity.RARE, SmiteHelmet.class),

@@ -1,0 +1,19 @@
+{
+    "model": {
+        "type": "select",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/paper"
+        },
+        "cases": [
+            {
+                "when": "smprpg:simple_tome",
+                "model": {
+                    "type": "model",
+                    "model": "tools:item/tome"
+                }
+            }
+        ]
+    }
+}

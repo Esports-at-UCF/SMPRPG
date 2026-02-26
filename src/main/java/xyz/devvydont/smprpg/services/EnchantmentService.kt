@@ -8,6 +8,7 @@ import org.bukkit.GameMode
 import org.bukkit.Registry
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.enchantments.EnchantmentOffer
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -30,6 +31,8 @@ import xyz.devvydont.smprpg.enchantments.definitions.*
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.UnknownEnchantment
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.overrides.*
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.unchanged.*
+import xyz.devvydont.smprpg.gui.economy.MenuDeposit
+import xyz.devvydont.smprpg.gui.enchantments.MenuEnchantingTable
 import java.util.*
 
 class EnchantmentService : IService, Listener {
@@ -151,8 +154,8 @@ class EnchantmentService : IService, Listener {
         if (event.inventory !is EnchantingInventory)
             return
 
-        val enchanting = event.inventory as EnchantingInventory
-        enchanting.secondary = ItemType.LAPIS_LAZULI.createItemStack(64)
+        event.isCancelled = true;
+        MenuEnchantingTable(event.player as Player).openMenu();
     }
 
     /**

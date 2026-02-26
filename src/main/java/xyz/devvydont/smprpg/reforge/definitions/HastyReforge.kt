@@ -18,7 +18,7 @@ class HastyReforge(type: ReforgeType) : ReforgeBase(type) {
 
     override val description: List<Component>
         get() = listOf<Component>(
-            ComponentUtils.create("Moderately increases mining"),
+            ComponentUtils.create("Moderately increases harvest"),
             ComponentUtils.create("speed and efficiency")
         )
 

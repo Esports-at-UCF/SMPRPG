@@ -82,5 +82,6 @@ public class Symbols {
     public static final String STONECUTTER_RECIPE_MENU = "\ub007";
     public static final String FURNACE_RECIPE_MENU = "\ub008";
     public static final String TOOL_MODIFICATION_MENU = "\ub009";
+    public static final String ENCHANTING_MENU = "\ub00A";
 
 }

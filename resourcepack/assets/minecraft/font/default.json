@@ -785,6 +785,15 @@
         },
         {
             "type": "bitmap",
+            "file": "ui:font/backgrounds/enchanting_table.png",
+            "height": 256,
+            "ascent": -4,
+            "chars": [
+                "\ub00A"
+            ]
+        },
+        {
+            "type": "bitmap",
             "file": "space:font/space_split.png",
             "ascent": -32768,
             "height": -3,

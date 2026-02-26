@@ -43,7 +43,7 @@ public class VigorousEnchantment extends CustomEnchantment implements AttributeE
     @Override
     public @NotNull Component getDescription() {
         return ComponentUtils.merge(
-            ComponentUtils.create("Increases mining speed by "),
+            ComponentUtils.create("Increases harvest speed by "),
             ComponentUtils.create("+" + getMiningSpeed(getLevel()) + "%", NamedTextColor.GREEN)
         );
     }

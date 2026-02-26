@@ -59,7 +59,7 @@ public class EfficiencyEnchantment extends VanillaEnchantment implements Attribu
     @Override
     public @NotNull Component getDescription() {
         return ComponentUtils.merge(
-                ComponentUtils.create("Increases mining speed by "),
+                ComponentUtils.create("Increases harvest speed by "),
                 ComponentUtils.create("+" + getMiningEfficiency(getLevel()), NamedTextColor.GREEN)
         );
     }

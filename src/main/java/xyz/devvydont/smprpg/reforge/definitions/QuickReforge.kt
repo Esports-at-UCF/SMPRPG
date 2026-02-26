@@ -20,7 +20,7 @@ class QuickReforge(type: ReforgeType) : ReforgeBase(type) {
 
     override val description: List<Component>
         get() = listOf<Component>(
-            ComponentUtils.create("Slightly increases mining speed"),
+            ComponentUtils.create("Slightly increases harvest speed"),
             ComponentUtils.create("when breaking blocks meant for this tool")
         )
 
