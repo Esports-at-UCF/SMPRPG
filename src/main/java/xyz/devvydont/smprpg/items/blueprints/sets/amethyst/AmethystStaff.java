@@ -4,6 +4,7 @@ import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.AttackRange;
 import io.papermc.paper.datacomponent.item.PiercingWeapon;
 import io.papermc.paper.datacomponent.item.SwingAnimation;
+import io.papermc.paper.datacomponent.item.Weapon;
 import io.papermc.paper.registry.keys.SoundEventKeys;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -128,6 +129,7 @@ public class AmethystStaff extends CustomAttributeItem implements IBreakableEqui
                 .maxReach(10.0f)
                 .maxCreativeReach(10.0f)
                 .build());
+        itemStack.setData(DataComponentTypes.WEAPON, Weapon.weapon().build());
         itemStack.setData(DataComponentTypes.SWING_ANIMATION, SwingAnimation.swingAnimation()
                 .type(SwingAnimation.Animation.STAB)
                 .duration(10)
