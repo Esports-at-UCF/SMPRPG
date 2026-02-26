@@ -476,7 +476,8 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
 
     @Override
     public int getMinecraftExperienceDropped() {
-        return super.getMinecraftExperienceDropped() * 18;
+        // return super.getMinecraftExperienceDropped() * 18;
+        return 0;
     }
 
     @Override

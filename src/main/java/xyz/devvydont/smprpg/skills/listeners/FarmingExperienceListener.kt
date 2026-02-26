@@ -48,12 +48,12 @@ class FarmingExperienceListener : Listener {
 
         val player = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.getPlayer())
         player.farmingSkill.addExperience(exp, SkillExperienceGainEvent.ExperienceSource.HARVEST)
-        val loc = event.harvestedBlock.location
-        val expToDrop = max(1, exp / 10)
-        loc.getWorld().spawn(
-            loc,
-            ExperienceOrb::class.java,
-            Consumer { orb: ExperienceOrb -> orb.experience = expToDrop })
+        // val loc = event.harvestedBlock.location
+        // val expToDrop = max(1, exp / 10)
+        // loc.getWorld().spawn(
+        //     loc,
+        //     ExperienceOrb::class.java,
+        //     Consumer { orb: ExperienceOrb -> orb.experience = expToDrop })
     }
 
     private fun getExperienceForDrops(drops: MutableCollection<ItemStack>, environment: World.Environment): Int {
@@ -98,8 +98,8 @@ class FarmingExperienceListener : Listener {
 
         val player = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.player)
         player.farmingSkill.addExperience(exp, SkillExperienceGainEvent.ExperienceSource.HARVEST)
-        val expToDrop = max(1, exp / 10)
-        event.expToDrop = expToDrop
+        // val expToDrop = max(1, exp / 10)
+        // event.expToDrop = expToDrop
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)

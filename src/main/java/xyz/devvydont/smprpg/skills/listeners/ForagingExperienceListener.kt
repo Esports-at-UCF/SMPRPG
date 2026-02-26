@@ -44,7 +44,7 @@ class ForagingExperienceListener : Listener {
 
         val skill = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.player).woodcuttingSkill
         skill.addExperience(exp, SkillExperienceGainEvent.ExperienceSource.WOODCUTTING)
-        event.expToDrop = 1
+        // event.expToDrop = 1
     }
 
     companion object {

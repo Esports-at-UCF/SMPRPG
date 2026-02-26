@@ -96,6 +96,15 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         this._mana = Math.max(0, this._mana);
     }
 
+    public void gainMana(int gained) {
+
+        if (this.getPlayer().getGameMode().isInvulnerable())
+            return;
+
+        this._mana += gained;
+        this._mana = Math.min(this._mana, getMaxMana());
+    }
+
     public ProfileDifficulty getDifficulty() {
         return SMPRPG.getService(DifficultyService.class).getDifficulty(getPlayer());
     }

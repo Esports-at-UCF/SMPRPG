@@ -541,7 +541,8 @@ public abstract class LeveledEntity<T extends Entity> implements LootSource {
      * @return
      */
     public int getMinecraftExperienceDropped() {
-        return getLevel() * 3;
+        // return getLevel() * 3;
+        return 0;
     }
 
     /**

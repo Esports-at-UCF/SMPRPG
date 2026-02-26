@@ -51,7 +51,7 @@ class MiningExperienceListener() : Listener {
         exp += getBaseExperienceForDrop(block)
         if (exp <= 0) return
 
-        event.expToDrop = max(1, exp / 10)
+        // event.expToDrop = max(1, exp / 10)
         skill.addExperience(exp, SkillExperienceGainEvent.ExperienceSource.ORE)
     }
 
