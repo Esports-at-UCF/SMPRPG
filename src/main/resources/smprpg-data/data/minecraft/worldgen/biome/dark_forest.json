@@ -76,7 +76,7 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-	  "smprpg:ore_silver", "smprpg:ore_adamantium", "smprpg:ore_tin", "smprpg:ore_obsidian"
+	  "smprpg:ore_silver", "smprpg:ore_adamantium", "smprpg:ore_tin", "smprpg:ore_obsidian", "smprpg:ore_basalt"
     ],
     [],
     [

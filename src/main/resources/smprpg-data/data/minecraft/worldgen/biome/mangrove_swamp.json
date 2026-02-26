@@ -78,7 +78,7 @@
       "minecraft:underwater_magma",
       "minecraft:disk_grass",
       "minecraft:disk_clay",
-	  "smprpg:ore_silver", "smprpg:ore_adamantium", "smprpg:ore_tin", "smprpg:ore_obsidian"
+	  "smprpg:ore_silver", "smprpg:ore_adamantium", "smprpg:ore_tin", "smprpg:ore_obsidian", "smprpg:ore_basalt"
     ],
     [],
     [
