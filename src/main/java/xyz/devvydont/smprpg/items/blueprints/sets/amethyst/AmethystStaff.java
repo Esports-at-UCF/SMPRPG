@@ -15,6 +15,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
 import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.ability.Ability;
+import xyz.devvydont.smprpg.ability.AbilityActivationMethod;
+import xyz.devvydont.smprpg.ability.AbilityCost;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
@@ -28,12 +31,13 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword;
 import xyz.devvydont.smprpg.items.interfaces.*;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ToolGlobals;
+import xyz.devvydont.smprpg.util.time.TickTime;
 
 import javax.xml.crypto.Data;
 import java.util.Collection;
 import java.util.List;
 
-public class AmethystStaff extends CustomAttributeItem implements IBreakableEquipment, ICantCrit, IIntelligenceScaled, IMeleeVisual, ICraftable {
+public class AmethystStaff extends CustomAttributeItem implements IBreakableEquipment, ICantCrit, IIntelligenceScaled, IMeleeVisual, ICraftable, IAbilityCaster {
 
     public AmethystStaff(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -120,6 +124,20 @@ public class AmethystStaff extends CustomAttributeItem implements IBreakableEqui
     public int getParticleRange() {
         return 10;
     }
+
+    @Override
+    public Collection<IAbilityCaster.AbilityEntry> getAbilities(ItemStack item) {
+        return List.of(
+                new IAbilityCaster.AbilityEntry(
+                        Ability.SHARD_STRIKE,
+                        AbilityActivationMethod.RIGHT_CLICK,
+                        AbilityCost.of(AbilityCost.Resource.MANA, 50)
+                )
+        );
+    }
+
+    @Override
+    public long getCooldown(ItemStack item) { return TickTime.seconds(1); }
 
     @Override
     public void updateItemData(ItemStack itemStack) {

@@ -6,6 +6,7 @@ import xyz.devvydont.smprpg.ability.handlers.*
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
 import java.util.function.Supplier
+import kotlin.math.roundToInt
 
 /**
  * Represents a general ability. Abilities come with names, descriptions, and handlers.
@@ -131,6 +132,43 @@ enum class Ability(val friendlyName: String, val description: List<Component>,
             )
         ),
         Supplier { HotShotAbilityHandler() }),
+
+    WITHER_SKULL(
+        "Wither Skull",
+        listOf(
+            ComponentUtils.merge(
+                ComponentUtils.create("Shoot a "),
+                ComponentUtils.create("wither skull", NamedTextColor.DARK_GRAY),
+                ComponentUtils.create(" in the direction")
+            ),
+            ComponentUtils.merge(ComponentUtils.create("you are looking at")),
+            ComponentUtils.merge(
+                ComponentUtils.create("deals "),
+                ComponentUtils.create(WitherSkullAbilityHandler.DAMAGE, NamedTextColor.RED),
+                ComponentUtils.create(" damage and applies"),
+                ComponentUtils.create(" Wither II (00:15)", NamedTextColor.RED)
+            )
+        ),
+        Supplier { WitherSkullAbilityHandler() }),
+
+    SHARD_STRIKE(
+        "Shard Strike",
+        listOf(
+            ComponentUtils.merge(
+                ComponentUtils.create("Launch an "),
+                ComponentUtils.create("amethyst shard", NamedTextColor.LIGHT_PURPLE),
+                ComponentUtils.create(" in the direction")
+            ),
+            ComponentUtils.merge(ComponentUtils.create("you are looking that")),
+            ComponentUtils.merge(
+                ComponentUtils.create("deals "),
+                ComponentUtils.create(WitherSkullAbilityHandler.DAMAGE, NamedTextColor.RED),
+                ComponentUtils.create(" damage and deals "),
+                ComponentUtils.create((WitherSkullAbilityHandler.DAMAGE * 0.25).roundToInt(), NamedTextColor.RED),
+                ComponentUtils.create(" damage one second later.")
+            )
+        ),
+        Supplier { ShardStrikeAbilityHandler() }),
 
     // Admin abilities.
     ITEM_SWEEP(

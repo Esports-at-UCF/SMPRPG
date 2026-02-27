@@ -11,22 +11,22 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityExplodeEvent
-import xyz.devvydont.smprpg.ability.handlers.HotShotAbilityHandler
+import xyz.devvydont.smprpg.ability.handlers.WitherSkullAbilityHandler
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 
 /**
  * When fireballs from Hot Shot collide with something, we need to override the damage.
  */
-class HotShotProjectileCollideListener : ToggleableListener() {
+class WitherSkullProjectileCollideListener : ToggleableListener() {
     /*
-     * When the fireball explodes, we need to ensure that it does not damage terrain and also damage nearby entities
-     * at a penalty (for missing)
+     * When the wither skull explodes, we need to ensure that it does not damage terrain,
+     * it applies wither, and also damage nearby entities at a penalty (for missing)
      */
     @EventHandler
     @Suppress("unused")
-    private fun onFireballExplode(event: EntityExplodeEvent) {
-        // If this isn't an inferno projectile we don't care
-        if (!HotShotAbilityHandler.Companion.isInfernoProjectile(event.getEntity())) return
+    private fun onSkullExplode(event: EntityExplodeEvent) {
+        // If this isn't a skull projectile we don't care
+        if (!WitherSkullAbilityHandler.Companion.isSkullProjectile(event.getEntity())) return
 
         var source: Player? = null
         if (event.entity is Projectile && (event.entity as Projectile).shooter is Player)
@@ -35,37 +35,39 @@ class HotShotProjectileCollideListener : ToggleableListener() {
         // Cancel the actual explosion part and create a safe one that doesn't break things.
         event.isCancelled = true
         event.blockList().clear()
-        for (living in event.location.getNearbyLivingEntities(HotShotAbilityHandler.Companion.EXPLOSION_RADIUS)) {
+        for (living in event.location.getNearbyLivingEntities(WitherSkullAbilityHandler.Companion.EXPLOSION_RADIUS)) {
             // Players are immune to this.
 
             if (living is Player) continue
 
             var com =  living.location.add(living.eyeLocation).multiply(0.5)  // center of mass, so we aren't favoriting head/feet
             var falloff: Double = event.location.distance(com)
-            if (falloff <= HotShotAbilityHandler.FALLOFF_GRACE)
+            if (falloff <= WitherSkullAbilityHandler.FALLOFF_GRACE)
                 falloff = 0.0
             else {
-                falloff /= HotShotAbilityHandler.Companion.EXPLOSION_RADIUS
+                falloff /= WitherSkullAbilityHandler.Companion.EXPLOSION_RADIUS
                 falloff /= 2  // Reduce by half so that falloff isn't all the way to 0
             }
-            val damage: Double = HotShotAbilityHandler.Companion.DAMAGE - (HotShotAbilityHandler.Companion.DAMAGE * falloff)
+            val damage: Double = WitherSkullAbilityHandler.Companion.DAMAGE - (WitherSkullAbilityHandler.Companion.DAMAGE * falloff)
 
             if (falloff < 0) continue
 
             if (source != null) living.killer = source
 
+            living.addPotionEffect(WitherSkullAbilityHandler.Companion.EFFECT)
             living.damage(
                 damage,
                 DamageSource.builder(DamageType.MAGIC).build()
             )
+            println(living.activePotionEffects);
         }
         ParticleBuilder(Particle.EXPLOSION)
             .location(event.location)
             .count(3)
             .offset(.5, .2, .5)
             .spawn()
-        event.getEntity().world.playSound(event.getEntity().location, Sound.ENTITY_GENERIC_EXPLODE, 1f, 1.25f)
-        HotShotAbilityHandler.Companion.removeInfernoProjectile(event.getEntity())
+        event.getEntity().world.playSound(event.getEntity().location, Sound.ENTITY_GENERIC_EXPLODE, 1f, 0.5f)
+        WitherSkullAbilityHandler.Companion.removeSkullProjectile(event.getEntity())
         event.isCancelled = true
     }
 
@@ -75,11 +77,11 @@ class HotShotProjectileCollideListener : ToggleableListener() {
      */
     @EventHandler(priority = EventPriority.LOWEST)
     @Suppress("unused")
-    fun onHotShotProjectileDamage(event: EntityDamageEvent) {
+    fun onWitherSkullProjectileDamage(event: EntityDamageEvent) {
         if (event.damageSource.directEntity == null)
             return
 
-        if (event.damageSource.directEntity!!.scoreboardTags.contains("hotshot"))
+        if (event.damageSource.directEntity!!.scoreboardTags.contains("wither_skull"))
             event.isCancelled = true
     }
 }
