@@ -6,6 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
+import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
 import xyz.devvydont.smprpg.listeners.block.DimensionPortalLockingListener
 import xyz.devvydont.smprpg.listeners.block.MultiBlockBreakListener
 import xyz.devvydont.smprpg.listeners.block.NoteblockOverrideListener
@@ -73,6 +74,7 @@ class SMPRPG : JavaPlugin() {
         services.add(AnimationService()) // Mainly provides GUIs with an easy-to-use animation API.
         services.add(BlockBreakingService())
         services.add(WardrobeService()) // Manages wardrobe slot upgrades and progression.
+        services.add(PlayerFreezeService()) // Manages player freezing, for NPCs, abilities, etc.
 
         // Start all the services. Make sure nothing goes wrong.
         for (service in services) {

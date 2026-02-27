@@ -59,7 +59,6 @@ class WitherSkullProjectileCollideListener : ToggleableListener() {
                 damage,
                 DamageSource.builder(DamageType.MAGIC).build()
             )
-            println(living.activePotionEffects);
         }
         ParticleBuilder(Particle.EXPLOSION)
             .location(event.location)

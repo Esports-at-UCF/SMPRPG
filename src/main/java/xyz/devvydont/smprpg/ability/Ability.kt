@@ -162,13 +162,29 @@ enum class Ability(val friendlyName: String, val description: List<Component>,
             ComponentUtils.merge(ComponentUtils.create("you are looking that")),
             ComponentUtils.merge(
                 ComponentUtils.create("deals "),
-                ComponentUtils.create(WitherSkullAbilityHandler.DAMAGE, NamedTextColor.RED),
-                ComponentUtils.create(" damage and deals "),
-                ComponentUtils.create((WitherSkullAbilityHandler.DAMAGE * 0.25).roundToInt(), NamedTextColor.RED),
+                ComponentUtils.create(ShardStrikeAbilityHandler.DAMAGE, NamedTextColor.RED),
+                ComponentUtils.create(" damage and deals ")
+            ),
+            ComponentUtils.merge(
+                ComponentUtils.create((ShardStrikeAbilityHandler.DAMAGE * 0.25).roundToInt(), NamedTextColor.RED),
                 ComponentUtils.create(" damage one second later.")
             )
         ),
         Supplier { ShardStrikeAbilityHandler() }),
+
+    SONIC_SMASH(
+        "Sonic Smash",
+        listOf(
+            ComponentUtils.merge(
+                ComponentUtils.create("Charge up a sonic blast that ")
+            ),
+            ComponentUtils.merge(
+                ComponentUtils.create("deals "),
+                ComponentUtils.create(WitherSkullAbilityHandler.DAMAGE, NamedTextColor.RED),
+                ComponentUtils.create(" damage to nearby enemies.")
+            )
+        ),
+        Supplier { SonicSmashAbilityHandler() }),
 
     // Admin abilities.
     ITEM_SWEEP(
