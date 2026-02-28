@@ -94,7 +94,8 @@ public class TelekinesisBlessing extends CustomEnchantment implements Listener {
                 EnchantmentService.KEEPING_BLESSING.getTypedKey(),
                 EnchantmentService.MERCY_BLESSING.getTypedKey(),
                 EnchantmentService.VOIDSTRIDING_BLESSING.getTypedKey(),
-                EnchantmentService.REPLENISHING.getTypedKey()
+                EnchantmentService.REPLENISHING.getTypedKey(),
+                EnchantmentService.IGNORANCE_BLESSING.getTypedKey()
         );
     }
 

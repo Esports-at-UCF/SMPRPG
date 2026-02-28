@@ -8,8 +8,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerInteractEvent;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.ability.AbilityContext;
+import xyz.devvydont.smprpg.ability.AbilityCost;
+import xyz.devvydont.smprpg.enchantments.definitions.IgnoranceBlessing;
+import xyz.devvydont.smprpg.events.abilities.AbilityCastEvent;
 import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster;
 import xyz.devvydont.smprpg.services.ActionBarService;
+import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.services.EntityService;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
@@ -114,8 +118,12 @@ public class AbilityCastingListener extends ToggleableListener {
             if (!ability.activation().passes(event.getAction()))
                 return;
 
+            // Update our ability cost before we check our mana usage
+            var abe = new AbilityCastEvent(ability, player, item);
+            abe.callEvent();
+
             // Check if the cost is met.
-            if (!ability.cost().canUse(player)) {
+            if (!abe.getAbilityCost().canUse(player)) {
                 SMPRPG.getService(ActionBarService.class).addActionBarComponent(event.getPlayer(), ActionBarService.ActionBarSource.MISC, ComponentUtils.create("NOT ENOUGH " + ability.cost().resource.name(), NamedTextColor.RED), 1);
                 event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, .3f, .5f);
                 return;
@@ -125,17 +133,25 @@ public class AbilityCastingListener extends ToggleableListener {
             var success = ability.ability().getHandler().execute(new AbilityContext(event.getPlayer(), event.getHand()));
             if (!success)
                 return;
-            ability.cost().spend(player);
-            SMPRPG.getService(ActionBarService.class).addActionBarComponent(
-                    event.getPlayer(),
-                    ActionBarService.ActionBarSource.MISC,
-                    ComponentUtils.merge(
-                            ComponentUtils.create(ability.ability().getFriendlyName(), NamedTextColor.GOLD),
-                            ComponentUtils.SPACE,
-                            ComponentUtils.create("-" + ability.cost().amount + ability.cost().resource.getSymbol(), ability.cost().resource.getColor())),
-                    3);
-            player.getPlayer().setCooldown(item, (int) caster.getCooldown(item));
+            __onCastAbility(abe);
         }
+    }
+
+    private void __onCastAbility(AbilityCastEvent event) {
+        var ability = event.getAbility();
+        var player = event.getPlayer();
+        var item = event.getItem();
+        IAbilityCaster bp = (IAbilityCaster) ItemService.blueprint(item);
+        event.getAbilityCost().spend(player);
+        SMPRPG.getService(ActionBarService.class).addActionBarComponent(
+                player.getPlayer(),
+                ActionBarService.ActionBarSource.MISC,
+                ComponentUtils.merge(
+                        ComponentUtils.create(ability.ability().getFriendlyName(), NamedTextColor.GOLD),
+                        ComponentUtils.SPACE,
+                        ComponentUtils.create("-" + event.getAbilityCost().amount + event.getAbilityCost().resource.getSymbol(), event.getAbilityCost().resource.getColor())),
+                3);
+        player.getPlayer().setCooldown(item, (int) bp.getCooldown(item));
     }
 
 }

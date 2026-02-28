@@ -31,7 +31,6 @@ import xyz.devvydont.smprpg.enchantments.definitions.*
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.UnknownEnchantment
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.overrides.*
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.unchanged.*
-import xyz.devvydont.smprpg.gui.economy.MenuDeposit
 import xyz.devvydont.smprpg.gui.enchantments.MenuEnchantingTable
 import java.util.*
 
@@ -392,6 +391,9 @@ class EnchantmentService : IService, Listener {
         val VOIDSTRIDING_BLESSING: CustomEnchantment = VoidstridingBlessing("voidstriding")
 
         @JvmField
+        val IGNORANCE_BLESSING: CustomEnchantment = IgnoranceBlessing("ignorance")
+
+        @JvmField
         val FORTUITY: CustomEnchantment = FortuityEnchantment("fortuity")
 
         @JvmField
@@ -479,6 +481,7 @@ class EnchantmentService : IService, Listener {
         val APTITUDE: CustomEnchantment = AptitudeEnchantment("aptitude")
 
 
+
         /**
          * Enchantments to register on the server. The order you define them here will affect the order that they
          * are displayed on items, and the default sorting mode in the /enchantments interface.
@@ -490,6 +493,7 @@ class EnchantmentService : IService, Listener {
             MERCY_BLESSING,
             VOIDSTRIDING_BLESSING,
             REPLENISHING,
+            IGNORANCE_BLESSING,
 
             // Curses
             BINDING_CURSE,

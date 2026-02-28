@@ -89,7 +89,8 @@ public class VoidstridingBlessing extends CustomEnchantment implements Listener 
                 EnchantmentService.KEEPING_BLESSING.getTypedKey(),
                 EnchantmentService.MERCY_BLESSING.getTypedKey(),
                 EnchantmentService.TELEKINESIS_BLESSING.getTypedKey(),
-                EnchantmentService.REPLENISHING.getTypedKey()
+                EnchantmentService.REPLENISHING.getTypedKey(),
+                EnchantmentService.IGNORANCE_BLESSING.getTypedKey()
         );
     }
 

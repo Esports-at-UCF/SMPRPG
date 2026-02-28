@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.ability.handlers
 
+import org.bukkit.Sound
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Fireball
 import org.bukkit.entity.Player
@@ -23,6 +24,7 @@ class HotShotAbilityHandler : AbilityHandler {
             )
         ) return false
 
+        ctx.caster.world.playSound(ctx.caster.location, Sound.ENTITY_BLAZE_SHOOT, 1f, 1f)
         val projectile = ctx.caster.launchProjectile(
             Fireball::class.java,
             ctx.caster.location.getDirection().normalize().multiply(2)
