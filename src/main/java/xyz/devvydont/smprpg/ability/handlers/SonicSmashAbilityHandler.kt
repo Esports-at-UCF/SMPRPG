@@ -9,13 +9,14 @@ import org.bukkit.damage.DamageSource
 import org.bukkit.damage.DamageType
 import org.bukkit.entity.Player
 import org.bukkit.util.Vector
-import org.checkerframework.checker.units.qual.radians
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.ability.AbilityContext
 import xyz.devvydont.smprpg.ability.AbilityHandler
-import xyz.devvydont.smprpg.ability.handlers.ShardStrikeAbilityHandler.Companion.COOLDOWN
 import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
+import xyz.devvydont.smprpg.attribute.AttributeWrapper
+import xyz.devvydont.smprpg.services.AttributeService
+import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
 import xyz.devvydont.smprpg.util.time.TickTime
 
 class SonicSmashAbilityHandler : AbilityHandler {
@@ -76,6 +77,9 @@ class SonicSmashAbilityHandler : AbilityHandler {
         SMPRPG.getService(PlayerFreezeService::class.java).removeMovementWatch(ctx.caster.uniqueId)  // Unfreeze our caster
         ctx.caster.velocity = Vector(0.0, 1.2, 0.0)
 
+        var dmg = EntityDamageCalculatorService.getIntelligenceScaledDamage(DAMAGE.toDouble() + AttributeService.instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.STRENGTH).value,
+        AttributeService.instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.INTELLIGENCE).value,
+        ABILITY_SCALING)
         for (living in ctx.caster.location.getNearbyLivingEntities(EXPLOSION_RADIUS)) {
             if (living is Player) continue  // Don't damage players
 
@@ -100,5 +104,6 @@ class SonicSmashAbilityHandler : AbilityHandler {
         const val DAMAGE: Int = 10000
         const val EXPLOSION_RADIUS: Double = 10.0
         const val COOLDOWN: Int = 10
+        const val ABILITY_SCALING: Double = 0.4
     }
 }

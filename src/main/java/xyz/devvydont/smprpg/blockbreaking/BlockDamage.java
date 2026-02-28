@@ -54,7 +54,7 @@ public class BlockDamage {
     protected void configureBreakingPacket(Player player, Block block) {
 		PacketContainer breakingAnimation = manager.createPacket(PacketType.Play.Server.BLOCK_BREAK_ANIMATION);
 		
-		// this enusres that the player wont conflict with another player's breaking animation
+		// this ensures that the player wont conflict with another player's breaking animation
 		int entityId = player.getEntityId() + 1;
 		entityId = entityId * 1000;
 		

@@ -13,9 +13,11 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.ProjectileHitEvent
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.ability.handlers.HotShotAbilityHandler
 import xyz.devvydont.smprpg.ability.handlers.ShardStrikeAbilityHandler
+import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import xyz.devvydont.smprpg.util.time.TickTime
 
@@ -38,7 +40,7 @@ class ShardStrikeCollideListener : ToggleableListener() {
 
         ParticleBuilder(Particle.BLOCK_CRUMBLE)
             .location(event.entity.location)
-            .count(12)
+            .count(24)
             .data(BlockType.AMETHYST_BLOCK.createBlockData())
             .receivers(32, true)
             .spawn()
@@ -48,7 +50,7 @@ class ShardStrikeCollideListener : ToggleableListener() {
 
             if (living is Player) continue
 
-            val damage: Double = ShardStrikeAbilityHandler.Companion.DAMAGE.toDouble()
+            val damage: Double = SMPRPG.getService(EntityDamageCalculatorService::class.java).getBaseProjectileDamage(event.entity as Projectile)
 
             if (source != null) living.killer = source
 

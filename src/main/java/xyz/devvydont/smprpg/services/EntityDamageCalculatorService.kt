@@ -175,7 +175,7 @@ class EntityDamageCalculatorService : Listener, IService {
                     val playerWrapper = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer)
                     if (playerWrapper != null) {
                         val int = playerWrapper.mana;
-                        damage = damage * (1 + ((int / 100.0) * bp.intelligenceScaleFactor));
+                        damage = getIntelligenceScaledDamage(damage, int, bp.intelligenceScaleFactor)
                         playerWrapper.useMana(bp.manaCost);
                         val meleeAttackEvent = MeleeAttackEvent(playerWrapper, bp);
                         meleeAttackEvent.callEvent();
@@ -783,6 +783,14 @@ class EntityDamageCalculatorService : Listener, IService {
         @JvmStatic
         fun calculateEffectiveHealth(health: Double, defense: Double): Double {
             return health / calculateDefenseDamageMultiplier(defense)
+        }
+
+        /**
+         * Given a base damage value, intelligence amount, and magic scaling factory, calculates the magic scaled damage.
+         */
+        @JvmStatic
+        fun getIntelligenceScaledDamage(baseDmg: Double, intelligence: Double, factor: Double): Double {
+            return baseDmg * (1 + ((intelligence / 100.0) * factor))
         }
     }
 }

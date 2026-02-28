@@ -11,7 +11,9 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityExplodeEvent
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.ability.handlers.HotShotAbilityHandler
+import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 
 /**
@@ -48,7 +50,8 @@ class HotShotProjectileCollideListener : ToggleableListener() {
                 falloff /= HotShotAbilityHandler.Companion.EXPLOSION_RADIUS
                 falloff /= 2  // Reduce by half so that falloff isn't all the way to 0
             }
-            val damage: Double = HotShotAbilityHandler.Companion.DAMAGE - (HotShotAbilityHandler.Companion.DAMAGE * falloff)
+            var damage = SMPRPG.getService(EntityDamageCalculatorService::class.java).getBaseProjectileDamage(event.entity as Projectile)
+            damage = damage - (damage * falloff)
 
             if (falloff < 0) continue
 

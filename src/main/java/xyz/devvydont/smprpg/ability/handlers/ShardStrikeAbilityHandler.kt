@@ -1,14 +1,20 @@
 package xyz.devvydont.smprpg.ability.handlers
 
+import com.comphenix.protocol.PacketType
+import com.comphenix.protocol.ProtocolLibrary
+import com.comphenix.protocol.ProtocolManager
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Entity
-import org.bukkit.entity.Fireball
 import org.bukkit.entity.Player
 import org.bukkit.entity.Snowball
+import org.bukkit.inventory.EquipmentSlot
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.ability.AbilityContext
 import xyz.devvydont.smprpg.ability.AbilityHandler
+import xyz.devvydont.smprpg.ability.handlers.HotShotAbilityHandler.Companion.ABILITY_SCALING
+import xyz.devvydont.smprpg.attribute.AttributeWrapper
+import xyz.devvydont.smprpg.services.AttributeService
 import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.time.TickTime
@@ -31,10 +37,15 @@ class ShardStrikeAbilityHandler : AbilityHandler {
             Snowball::class.java,
             ctx.caster.location.getDirection().normalize().multiply(2)
         )
+        var dmg = EntityDamageCalculatorService.getIntelligenceScaledDamage(
+            DAMAGE.toDouble() + AttributeService.instance.getOrCreateAttribute(ctx.caster,
+            AttributeWrapper.STRENGTH).value,
+            AttributeService.instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.INTELLIGENCE).value,
+            ABILITY_SCALING)
         projectile.item = ItemService.generate(Material.AMETHYST_SHARD);
         projectile.setGravity(false)
         SMPRPG.getService(EntityDamageCalculatorService::class.java)
-            .setBaseProjectileDamage(projectile, DAMAGE.toDouble())
+            .setBaseProjectileDamage(projectile, dmg)
         setShardProjectile(projectile)
         ctx.caster.world.playSound(ctx.caster.location, Sound.ENTITY_PLAYER_ATTACK_SWEEP, .4f, 1f)
 
@@ -51,6 +62,7 @@ class ShardStrikeAbilityHandler : AbilityHandler {
         const val COOLDOWN: Int = 3
         const val DAMAGE: Int = 200
         const val SHATTER_RADIUS = 2.0
+        const val ABILITY_SCALING = 0.05
 
         // We need a reference to projectiles that we shoot so that we can handle them at different stages in its life
         // since PDCs do not work during the EntityExplodeEvent.

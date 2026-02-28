@@ -109,7 +109,8 @@ public class IgnoranceBlessing extends CustomEnchantment implements Listener {
     private void __onAbilityCast(AbilityCastEvent event){
         if (event.getAbilityCost().resource == AbilityCost.Resource.MANA) {
             var ench = event.getItem().getEnchantmentLevel(this.getEnchantment());
-            event.setAbilityCost(event.getAbilityCost().reduce(getManaCostReduction(ench) / 100.0));
+            if (ench > 0)
+                event.setAbilityCost(event.getAbilityCost().reduce(getManaCostReduction(ench) / 100.0));
         }
     }
 }
