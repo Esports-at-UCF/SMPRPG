@@ -1,0 +1,12 @@
+{
+  "asset_id": "entity:pig/space_pig",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#smprpg:spawns_end_variant_farm_animals"
+      },
+      "priority": 2
+    }
+  ]
+}

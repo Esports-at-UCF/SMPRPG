@@ -1,9 +1,18 @@
 package xyz.devvydont.smprpg.entity.fishing;
 
+import com.destroystokyo.paper.entity.ai.Goal;
+import com.destroystokyo.paper.entity.ai.MobGoals;
+import com.destroystokyo.paper.entity.ai.VanillaGoal;
+import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Dolphin;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.fishing.goals.SharkAttackGoal;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
@@ -13,7 +22,7 @@ import xyz.devvydont.smprpg.util.items.QuantityLootDrop;
 import java.util.Collection;
 import java.util.List;
 
-public class Shark extends SeaCreature<LivingEntity> {
+public class Shark extends SeaCreature<LivingEntity> implements Listener {
 
     public static final int RATING_REQUIREMENT = 120;
 
