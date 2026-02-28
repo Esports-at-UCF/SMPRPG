@@ -40,6 +40,9 @@ import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.wood.WoodStaff;
 import xyz.devvydont.smprpg.items.blueprints.tomes.SimpleTome;
+import xyz.devvydont.smprpg.items.blueprints.unobtainable.shambling.ShamblingBossBoots;
+import xyz.devvydont.smprpg.items.blueprints.unobtainable.shambling.ShamblingBossChestplate;
+import xyz.devvydont.smprpg.items.blueprints.unobtainable.shambling.ShamblingBossLeggings;
 import xyz.devvydont.smprpg.items.blueprints.wardrobe.WardrobeSlotToken;
 import xyz.devvydont.smprpg.items.blueprints.sets.adamantium.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.araxys.*;
@@ -1084,7 +1087,12 @@ public enum CustomItemType {
     SPAWNER_EDITING_WAND("Spawner Editor Wand", Material.BREEZE_ROD, ItemRarity.SPECIAL, true, SpawnerEditorBlueprint.class),
 
     LEGACY_ITEM("Legacy Item", Material.PAPER, ItemRarity.SPECIAL, LegacyItemBlueprint.class),
-    DUMMY_SMITHING_RESULT("DUMMY SMITHING RESULT", Material.BARRIER, ItemRarity.SPECIAL)
+    DUMMY_SMITHING_RESULT("DUMMY SMITHING RESULT", Material.BARRIER, ItemRarity.SPECIAL),
+
+    // SLAYER BOSS ARMOR (Worn by boss, not used by players)
+    SHAMBLING_BOOTS("Shambling Boss Boots (not used by players)", Material.DIAMOND_BOOTS, ItemRarity.SPECIAL, ShamblingBossBoots.class),
+    SHAMBLING_LEGGINGS("Shambling Boss Leggings (not used by players)", Material.DIAMOND_LEGGINGS, ItemRarity.SPECIAL, ShamblingBossLeggings.class),
+    SHAMBLING_CHESTPLATE("Shambling Boss Chestplate (not used by players)", Material.DIAMOND_CHESTPLATE, ItemRarity.SPECIAL, ShamblingBossChestplate.class)
     ;
 
     public final String ItemName;

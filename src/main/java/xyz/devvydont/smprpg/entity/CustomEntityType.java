@@ -16,6 +16,7 @@ import xyz.devvydont.smprpg.entity.bosses.BlazeBoss;
 import xyz.devvydont.smprpg.entity.creatures.*;
 import xyz.devvydont.smprpg.entity.fishing.*;
 import xyz.devvydont.smprpg.entity.npc.ReforgeNPC;
+import xyz.devvydont.smprpg.entity.slayer.ShamblingAbomination;
 import xyz.devvydont.smprpg.entity.spawning.EntitySpawnCondition;
 import xyz.devvydont.smprpg.entity.spawning.EntitySpawner;
 import xyz.devvydont.smprpg.gui.base.IMenuDisplayable;
@@ -164,6 +165,9 @@ public enum CustomEntityType implements IMenuDisplayable {
             TestZombie::new),
 
     TEST_SKELETON(EntityType.SKELETON, "Test Skeleton", 5, 100, 10),
+
+    // SLAYER
+    SHAMBLING_ABOMINATION(EntityType.ZOMBIE, "Shambling Abomination", 10, 1000, 10, ShamblingAbomination::new),
 
     // NPCs
     REFORGE_NPC(EntityType.VILLAGER, "Tool Reforger", ReforgeNPC::new),
