@@ -13,6 +13,24 @@
 	  ],
 	  "subtitle": "Drill whirring"
   },
+  "events.drops.rare": {
+    "sounds": [
+      "audio:events/rare_drop"
+    ],
+    "subtitle": "Rare drop found"
+  },
+  "events.drops.epic": {
+    "sounds": [
+      "audio:events/epic_drop"
+    ],
+    "subtitle": "Epic drop found!"
+  },
+  "events.drops.legendary": {
+    "sounds": [
+      "audio:events/legendary_drop"
+    ],
+    "subtitle": "Legendary drop found!!!"
+  },
   "block.wood_custom.hit": {
     "sounds": [
       "step/wood1",

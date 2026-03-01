@@ -39,6 +39,7 @@ import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.util.crafting.ItemUtil
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.items.DropFireworkTask
+import xyz.devvydont.smprpg.util.persistence.KeyStore
 import xyz.devvydont.smprpg.util.persistence.PDCAdapters
 import xyz.devvydont.smprpg.util.tasks.VoidProtectionTask
 import xyz.devvydont.smprpg.util.time.TickTime
@@ -689,6 +690,12 @@ class DropsService : IService, Listener {
             dropAnnouncementQueue.add(Runnable {
                 for (p in Bukkit.getOnlinePlayers()) p.playSound(p.location, Sound.ENTITY_CHICKEN_EGG, 1f, 1f)
                 Bukkit.broadcast(message)
+                if (event.chance <= 0.02)  // Less than 0.2%
+                    event.player.playSound(event.player.location, KeyStore.AUDIO_LEGENDARY_DROP.toString(), 1f, 1f)  // TODO: Maybe change when we announce rare drops? They are showing up quite often.
+                else if (event.chance <= .05)  // Less than 5%
+                    event.player.playSound(event.player.location, KeyStore.AUDIO_EPIC_DROP.toString(), 1f, 1f)
+                else
+                    event.player.playSound(event.player.location, KeyStore.AUDIO_RARE_DROP.toString(), 1f, 1f)  // TODO: Maybe change when we announce rare drops? They are showing up quite often.
             })
             return
         }
@@ -703,6 +710,8 @@ class DropsService : IService, Listener {
         val message = prefix.append(ComponentUtils.create("You")).append(suffix).append(chance)
         Bukkit.getScheduler().runTaskLater(plugin, Runnable {
             event.player.sendMessage(message)
+            event.player.playSound(event.player.location, KeyStore.AUDIO_RARE_DROP.toString(), 1f, 1f)  // Infrequent enough, we can assume it's a rare drop.
+            event.player.playSound(event.player.location, Sound.ENTITY_CHICKEN_EGG, 1f, 1f)
             event.player.playSound(event.player.location, Sound.ENTITY_CHICKEN_EGG, 1f, 1f)
         }, TickTime.TICK * 5)
     }

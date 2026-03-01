@@ -49,4 +49,11 @@ public class KeyStore {
      */
     public static final NamespacedKey FISHING_ATTRIBUTE_DUAL_WIELD_NERF = key("rod_dual_wield_nerf");
 
+    // Sound Keys
+    public static final NamespacedKey AUDIO_BREADBOARD_EAT = new NamespacedKey("audio", "food.breadboard.eat");
+
+    public static final NamespacedKey AUDIO_RARE_DROP = new NamespacedKey("audio", "events.drops.rare");
+    public static final NamespacedKey AUDIO_EPIC_DROP = new NamespacedKey("audio", "events.drops.epic");
+    public static final NamespacedKey AUDIO_LEGENDARY_DROP = new NamespacedKey("audio", "events.drops.legendary");
+
 }

@@ -2,8 +2,12 @@ package xyz.devvydont.smprpg.entity.slayer.shambling
 
 import net.kyori.adventure.key.Key
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Zombie
+import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
+import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
 import xyz.devvydont.smprpg.entity.CustomEntityType

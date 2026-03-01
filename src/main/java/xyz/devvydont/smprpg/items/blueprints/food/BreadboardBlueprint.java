@@ -15,13 +15,12 @@ import xyz.devvydont.smprpg.items.interfaces.IEdible;
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden;
 import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
+import xyz.devvydont.smprpg.util.persistence.KeyStore;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
 import java.util.List;
 
 public class BreadboardBlueprint extends CustomItemBlueprint implements IEdible, ISellable, IModelOverridden {
-
-    public final NamespacedKey EatSound = new NamespacedKey("audio", "food.breadboard.eat");
 
     public BreadboardBlueprint(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -52,7 +51,7 @@ public class BreadboardBlueprint extends CustomItemBlueprint implements IEdible,
         return Consumable.consumable()
                 .consumeSeconds(1.5f)
                 .addEffect(ConsumeEffect.applyStatusEffects(List.of(new PotionEffect(PotionEffectType.GLOWING, (int) TickTime.seconds(30), 0, true, true)), .5f))
-                .sound(EatSound)
+                .sound(KeyStore.AUDIO_BREADBOARD_EAT)
                 .build();
     }
 
