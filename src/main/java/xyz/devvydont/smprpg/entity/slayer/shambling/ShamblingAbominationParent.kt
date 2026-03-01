@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
 import xyz.devvydont.smprpg.entity.CustomEntityType
+import xyz.devvydont.smprpg.entity.slayer.SlayerBossInstance
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.interfaces.ICustomTextured
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
@@ -25,6 +26,9 @@ open class ShamblingAbominationParent
  * @param entityType The entity type.
  */
     (entity: LivingEntity?, entityType: CustomEntityType?) : SlayerBossInstance<Zombie>(entity as Zombie?, entityType) {
+
+    open var attackCooldown = 10
+    open var enrageThreshold = 0.5
 
     override fun setup() {
         super.setup()

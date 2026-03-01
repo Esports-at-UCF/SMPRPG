@@ -16,9 +16,7 @@ import xyz.devvydont.smprpg.entity.bosses.BlazeBoss;
 import xyz.devvydont.smprpg.entity.creatures.*;
 import xyz.devvydont.smprpg.entity.fishing.*;
 import xyz.devvydont.smprpg.entity.npc.ReforgeNPC;
-import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationBasic;
-import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationIntermediate;
-import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationParent;
+import xyz.devvydont.smprpg.entity.slayer.shambling.*;
 import xyz.devvydont.smprpg.entity.spawning.EntitySpawnCondition;
 import xyz.devvydont.smprpg.entity.spawning.EntitySpawner;
 import xyz.devvydont.smprpg.gui.base.IMenuDisplayable;
@@ -171,9 +169,9 @@ public enum CustomEntityType implements IMenuDisplayable {
     // SLAYER
     SHAMBLING_ABOMINATION_1(EntityType.ZOMBIE, "Shambling Abomination", 10, 1_000, 10, ShamblingAbominationBasic::new),
     SHAMBLING_ABOMINATION_2(EntityType.ZOMBIE, "Shambling Abomination", 20, 25_000, 50, ShamblingAbominationIntermediate::new),
-    SHAMBLING_ABOMINATION_3(EntityType.ZOMBIE, "Shambling Abomination", 30, 300_000, 150, ShamblingAbominationParent::new),
-    SHAMBLING_ABOMINATION_4(EntityType.ZOMBIE, "Shambling Abomination", 40, 1_500_000, 500, ShamblingAbominationParent::new),
-    SHAMBLING_ABOMINATION_5(EntityType.ZOMBIE, "Shambling Abomination", 50, 10_000_000, 1_500, ShamblingAbominationParent::new),
+    SHAMBLING_ABOMINATION_3(EntityType.ZOMBIE, "Shambling Abomination", 30, 300_000, 150, ShamblingAbominationAdvanced::new),
+    SHAMBLING_ABOMINATION_4(EntityType.ZOMBIE, "Shambling Abomination", 40, 1_500_000, 500, ShamblingAbominationExpert::new),
+    SHAMBLING_ABOMINATION_5(EntityType.ZOMBIE, "Shambling Abomination", 50, 10_000_000, 1_500, ShamblingAbominationBrutal::new),
 
     // NPCs
     REFORGE_NPC(EntityType.VILLAGER, "Tool Reforger", ReforgeNPC::new),

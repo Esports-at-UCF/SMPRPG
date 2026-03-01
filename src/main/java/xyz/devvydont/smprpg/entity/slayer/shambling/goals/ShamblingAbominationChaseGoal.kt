@@ -7,14 +7,16 @@ import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.entity.Zombie
 import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationParent
 import xyz.devvydont.smprpg.util.goals.GoalUtils
 import java.util.EnumSet
 
-class ShamblingAbominationChaseGoal(val zombie : Zombie, val spawnPlayer : Player?) : Goal<Zombie> {
+class ShamblingAbominationChaseGoal(val slayer : ShamblingAbominationParent, val spawnPlayer : Player?) : Goal<Zombie> {
 
     val goalKey : GoalKey<Zombie> = GoalKey.of(Zombie::class.java, NamespacedKey(SMPRPG.Companion.plugin, "shambling_abomination_brain_goal"))
     var attackCooldown = 0
     val chaseSpeed = 1.5
+    val zombie = slayer.entity as Zombie
 
     override fun shouldActivate(): Boolean {
         if (GoalUtils.inst.getClosestPlayer(zombie, 20.0) != null) {
@@ -49,7 +51,7 @@ class ShamblingAbominationChaseGoal(val zombie : Zombie, val spawnPlayer : Playe
         var closestPlayer = GoalUtils.chaseClosestPlayer(zombie, 20.0, chaseSpeed, spawnPlayer)
         if (closestPlayer in zombie.world.getNearbyPlayers(zombie.location, 0.5) && attackCooldown <= 0) {
             zombie.attack(closestPlayer)
-            attackCooldown = 10
+            attackCooldown = slayer.attackCooldown
         }
         attackCooldown--
     }

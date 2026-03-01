@@ -38,11 +38,12 @@ class ShamblingAbominationIntermediate(entity: LivingEntity?, entityType: Custom
         // TODO: Replace with SlayerSpawnBossEvent when proper spawning tech is in.
         val entity = this.entity
         if (event.getEntity() == entity) {
-            val zombie = entity
+            val zombie = entity as Zombie
+            zombie.setAdult()
             val mobGoals = Bukkit.getMobGoals()
-            mobGoals.removeAllGoals(zombie as Zombie)
-            mobGoals.addGoal(zombie, 3, ShamblingAbominationChaseGoal(zombie, null))
-            mobGoals.addGoal(zombie, 4, ShamblingAbominationEnrageGoal(zombie, null))
+            mobGoals.removeAllGoals(zombie)
+            mobGoals.addGoal(zombie, 3, ShamblingAbominationChaseGoal(this, null))
+            mobGoals.addGoal(zombie, 4, ShamblingAbominationEnrageGoal(this, null))
         }
     }
 }

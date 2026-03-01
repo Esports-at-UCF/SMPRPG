@@ -1,4 +1,4 @@
-package xyz.devvydont.smprpg.entity.slayer.shambling
+package xyz.devvydont.smprpg.entity.slayer
 
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
@@ -10,8 +10,7 @@ import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.base.CustomEntityInstance
 import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.skills.utils.SkillExperienceReward
-import xyz.devvydont.smprpg.skills.utils.SkillExperienceReward.Companion.of
-import java.util.*
+import java.util.UUID
 
 open class SlayerCreature<T : LivingEntity?>
 /**
@@ -44,7 +43,10 @@ open class SlayerCreature<T : LivingEntity?>
     }
 
     override fun generateSkillExperienceReward(): SkillExperienceReward {
-        return of(SkillType.COMBAT, (getLevel() * 20 * getSkillExperienceMultiplier()).toInt())
+        return SkillExperienceReward.Companion.of(
+            SkillType.COMBAT,
+            (getLevel() * 20 * getSkillExperienceMultiplier()).toInt()
+        )
     }
 
     private val team: Team

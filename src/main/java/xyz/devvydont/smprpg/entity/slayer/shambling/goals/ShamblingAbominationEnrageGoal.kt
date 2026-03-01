@@ -17,16 +17,18 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
+import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationIntermediate
 import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationParent
 import xyz.devvydont.smprpg.items.interfaces.ICustomTextured
 import xyz.devvydont.smprpg.services.AttributeService
 import java.util.*
 
-class ShamblingAbominationEnrageGoal(val zombie : Zombie, val spawnPlayer : Player?) : Goal<Zombie> {
+class ShamblingAbominationEnrageGoal(val slayer : ShamblingAbominationParent, val spawnPlayer : Player?) : Goal<Zombie> {
 
     val goalKey : GoalKey<Zombie> = GoalKey.of(Zombie::class.java, NamespacedKey(SMPRPG.Companion.plugin, "shambling_abomination_enrage_goal"))
     val multiplierKey : NamespacedKey = NamespacedKey(SMPRPG.plugin, "shambling_abomination_enrage")
     var activated = false
+    val zombie = slayer.entity as Zombie
 
     override fun shouldActivate(): Boolean {
         val maxHp = zombie.getAttribute(Attribute.MAX_HEALTH)
@@ -34,7 +36,7 @@ class ShamblingAbominationEnrageGoal(val zombie : Zombie, val spawnPlayer : Play
             return false
 
         if (maxHp != null) {
-           if (zombie.health <= (maxHp.value * 0.5)) {
+           if (zombie.health <= (maxHp.value * slayer.enrageThreshold)) {
                 return true
            }
         }
@@ -64,10 +66,25 @@ class ShamblingAbominationEnrageGoal(val zombie : Zombie, val spawnPlayer : Play
             activated = true
 
             // Multiply outgoing damage by 50%
-            val attributeInst = AttributeService.instance.getOrCreateAttribute(zombie, AttributeWrapper.STRENGTH)
-            attributeInst.addModifier(AttributeModifier(multiplierKey, 0.5, AttributeModifier.Operation.MULTIPLY_SCALAR_1))
+            if (!(slayer is ShamblingAbominationIntermediate)) {  // We onlt want T3+ Shambling Abominations to get the strength increase, T2 is fine with just attack rate.
+                val strInst = AttributeService.instance.getOrCreateAttribute(zombie, AttributeWrapper.STRENGTH)
+                strInst.addModifier(
+                    AttributeModifier(
+                        multiplierKey,
+                        0.5,
+                        AttributeModifier.Operation.MULTIPLY_SCALAR_1
+                    )
+                )
+            }
 
-            // Update asset ID on all of the equipment
+            // Speed em up by 25%
+            val speedInst = AttributeService.instance.getOrCreateAttribute(zombie, AttributeWrapper.MOVEMENT_SPEED)
+            speedInst.addModifier(AttributeModifier(multiplierKey, 0.5, AttributeModifier.Operation.MULTIPLY_SCALAR_1))
+
+            // Attacks twice as fast
+            slayer.attackCooldown /= 2
+
+            // Update asset ID on all the equipment
             val zombieEq = zombie.equipment
             val head = ItemStack(Material.PLAYER_HEAD)
             val meta = head.itemMeta as SkullMeta

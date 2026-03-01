@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.slayer.shambling.goals.ShamblingAbominationChaseGoal
+import xyz.devvydont.smprpg.entity.slayer.shambling.goals.ShamblingAbominationEnrageGoal
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop
@@ -16,20 +17,20 @@ import xyz.devvydont.smprpg.util.items.LootDrop
 import xyz.devvydont.smprpg.util.items.QuantityLootDrop
 import java.util.List
 
-class ShamblingAbominationBasic(entity: LivingEntity?, entityType: CustomEntityType?) : ShamblingAbominationParent(entity as Zombie?, entityType) {
+class ShamblingAbominationAdvanced(entity: LivingEntity?, entityType: CustomEntityType?) : ShamblingAbominationParent(entity as Zombie?, entityType) {
     override fun getItemDrops(): MutableCollection<LootDrop?>? {
         return List.of<LootDrop?>(
-            QuantityLootDrop(generate(Material.ROTTEN_FLESH), 5, 16, this),
-            ChancedItemDrop(generate(CustomItemType.PREMIUM_FLESH), 20, this),
-            ChancedItemDrop(generate(CustomItemType.ENCHANTED_FLESH), 100, this)
+            QuantityLootDrop(generate(Material.ROTTEN_FLESH), 24, 48, this),
+            QuantityLootDrop(generate(CustomItemType.PREMIUM_FLESH), 1, 2, this),
+            ChancedItemDrop(generate(CustomItemType.ENCHANTED_FLESH), 50, this)
         )
     }
 
     override fun updateAttributes() {
         super.updateAttributes()
-        updateBaseAttribute(AttributeWrapper.KNOCKBACK_RESISTANCE, 0.25)
-        updateBaseAttribute(AttributeWrapper.SCALE, 1.0)
-        updateBaseAttribute(AttributeWrapper.DEFENSE, 25.0)
+        updateBaseAttribute(AttributeWrapper.KNOCKBACK_RESISTANCE, 0.5)
+        updateBaseAttribute(AttributeWrapper.SCALE, 1.1)
+        updateBaseAttribute(AttributeWrapper.DEFENSE, 150.0)
     }
 
     @EventHandler
@@ -42,6 +43,7 @@ class ShamblingAbominationBasic(entity: LivingEntity?, entityType: CustomEntityT
             val mobGoals = Bukkit.getMobGoals()
             mobGoals.removeAllGoals(zombie)
             mobGoals.addGoal(zombie, 3, ShamblingAbominationChaseGoal(this, null))
+            mobGoals.addGoal(zombie, 4, ShamblingAbominationEnrageGoal(this, null))
         }
     }
 }
