@@ -42,7 +42,7 @@ class ShamblingAbominationAdvanced(entity: LivingEntity?, entityType: CustomEnti
             zombie.setAdult()
             val mobGoals = Bukkit.getMobGoals()
             mobGoals.removeAllGoals(zombie)
-            mobGoals.addGoal(zombie, 3, ShamblingAbominationChaseGoal(this, null))
+            mobGoals.addGoal(zombie, 3, ShamblingAbominationChaseGoal(this, null, 1.7))
             mobGoals.addGoal(zombie, 4, ShamblingAbominationEnrageGoal(this, null))
         }
     }

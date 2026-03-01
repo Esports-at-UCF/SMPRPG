@@ -37,6 +37,9 @@ import xyz.devvydont.smprpg.items.blueprints.resources.fishing.HolomokuCrest;
 import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
+import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableCleaver;
+import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableHalberd;
+import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableMachete;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.wood.WoodStaff;
 import xyz.devvydont.smprpg.items.blueprints.tomes.SimpleTome;
@@ -633,6 +636,13 @@ public enum CustomItemType {
     XENOHUNTER_LEGGINGS(  "Xenohunter Leggings",    Material.NETHERITE_LEGGINGS,   ItemRarity.LEGENDARY, XenohunterLeggings.class),
     XENOHUNTER_BOOTS(     "Xenohunter Boots",       Material.NETHERITE_BOOTS,      ItemRarity.LEGENDARY, XenohunterBoots.class),
     XENOHUNTER_ROD(       "Xenohunter Rod",         Material.FISHING_ROD,          ItemRarity.LEGENDARY, XenohunterRod.class),
+
+    // SLAYER
+
+    // ABOMINABLE
+    ABOMINABLE_CLEAVER(     "Abominable Cleaver",  Material.GOLDEN_SWORD,     ItemRarity.RARE, AbominableCleaver.class),
+    ABOMINABLE_MACHETE(     "Abominable Machete",  Material.DIAMOND_SWORD,     ItemRarity.EPIC, AbominableMachete.class),
+    ABOMINABLE_HALBERD(     "Abominable Halberd",  Material.NETHERITE_SWORD,     ItemRarity.LEGENDARY, AbominableHalberd.class),
 
     IRON_ROD("Iron Rod", Material.FISHING_ROD, ItemRarity.COMMON, WaterRod.class),
     DIAMOND_ROD("Diamond Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, WaterRod.class),

@@ -10,6 +10,7 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.slayer.shambling.goals.ShamblingAbominationChaseGoal
 import xyz.devvydont.smprpg.entity.slayer.shambling.goals.ShamblingAbominationEnrageGoal
+import xyz.devvydont.smprpg.entity.slayer.shambling.goals.ShamblingAbominationImplodeGoal
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop
@@ -41,8 +42,9 @@ class ShamblingAbominationExpert(entity: LivingEntity?, entityType: CustomEntity
             zombie.setAdult()
             val mobGoals = Bukkit.getMobGoals()
             mobGoals.removeAllGoals(zombie)
-            mobGoals.addGoal(zombie, 3, ShamblingAbominationChaseGoal(this, null))
+            mobGoals.addGoal(zombie, 3, ShamblingAbominationChaseGoal(this, null, 1.8))
             mobGoals.addGoal(zombie, 4, ShamblingAbominationEnrageGoal(this, null))
+            mobGoals.addGoal(zombie, 5, ShamblingAbominationImplodeGoal(this, null, 10, 250.0))
         }
     }
 }

@@ -153,8 +153,8 @@ class EnchantmentService : IService, Listener {
         if (event.inventory !is EnchantingInventory)
             return
 
-        event.isCancelled = true;
-        MenuEnchantingTable(event.player as Player).openMenu();
+        //event.isCancelled = true;
+        //MenuEnchantingTable(event.player as Player).openMenu();
     }
 
     /**

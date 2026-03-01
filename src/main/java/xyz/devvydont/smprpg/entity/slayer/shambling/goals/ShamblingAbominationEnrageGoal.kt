@@ -25,7 +25,6 @@ import java.util.*
 
 class ShamblingAbominationEnrageGoal(val slayer : ShamblingAbominationParent, val spawnPlayer : Player?) : Goal<Zombie> {
 
-    val goalKey : GoalKey<Zombie> = GoalKey.of(Zombie::class.java, NamespacedKey(SMPRPG.Companion.plugin, "shambling_abomination_enrage_goal"))
     val multiplierKey : NamespacedKey = NamespacedKey(SMPRPG.plugin, "shambling_abomination_enrage")
     var activated = false
     val zombie = slayer.entity as Zombie
@@ -44,7 +43,7 @@ class ShamblingAbominationEnrageGoal(val slayer : ShamblingAbominationParent, va
     }
 
     override fun getKey(): GoalKey<Zombie> {
-        return goalKey
+        return GOAL_KEY
     }
 
     override fun getTypes(): EnumSet<GoalType> {
@@ -79,7 +78,7 @@ class ShamblingAbominationEnrageGoal(val slayer : ShamblingAbominationParent, va
 
             // Speed em up by 25%
             val speedInst = AttributeService.instance.getOrCreateAttribute(zombie, AttributeWrapper.MOVEMENT_SPEED)
-            speedInst.addModifier(AttributeModifier(multiplierKey, 0.5, AttributeModifier.Operation.MULTIPLY_SCALAR_1))
+            speedInst.addModifier(AttributeModifier(multiplierKey, 0.25, AttributeModifier.Operation.MULTIPLY_SCALAR_1))
 
             // Attacks twice as fast
             slayer.attackCooldown /= 2
@@ -106,6 +105,10 @@ class ShamblingAbominationEnrageGoal(val slayer : ShamblingAbominationParent, va
 
             zombie.world.playSound(zombie, Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1f, 0.5f)
         }
+    }
+
+    companion object {
+        val GOAL_KEY : GoalKey<Zombie> = GoalKey.of(Zombie::class.java, NamespacedKey(SMPRPG.Companion.plugin, "shambling_abomination_enrage_goal"))
     }
 
 }

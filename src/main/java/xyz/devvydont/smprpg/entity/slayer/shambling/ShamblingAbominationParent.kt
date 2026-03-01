@@ -1,15 +1,17 @@
 package xyz.devvydont.smprpg.entity.slayer.shambling
 
+import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent
 import net.kyori.adventure.key.Key
 import org.bukkit.Material
-import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Zombie
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
-import org.bukkit.event.entity.EntityDeathEvent
+import org.bukkit.event.entity.EntityAirChangeEvent
+import org.bukkit.event.entity.EntityTransformEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
+import org.bukkit.metadata.MetadataValue
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.slayer.SlayerBossInstance
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -52,6 +54,12 @@ open class ShamblingAbominationParent
 
     override fun getSkillExperienceMultiplier(): Double {
         return 10.0
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    fun onTransform(event : EntityTransformEvent) {
+        if (event.entity == this.entity)
+            event.isCancelled = true
     }
 
     companion object {

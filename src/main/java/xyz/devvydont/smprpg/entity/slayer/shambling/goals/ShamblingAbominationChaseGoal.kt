@@ -11,12 +11,11 @@ import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationParent
 import xyz.devvydont.smprpg.util.goals.GoalUtils
 import java.util.EnumSet
 
-class ShamblingAbominationChaseGoal(val slayer : ShamblingAbominationParent, val spawnPlayer : Player?) : Goal<Zombie> {
+class ShamblingAbominationChaseGoal(val slayer : ShamblingAbominationParent, val spawnPlayer : Player?, val chaseSpeed : Double) : Goal<Zombie> {
 
-    val goalKey : GoalKey<Zombie> = GoalKey.of(Zombie::class.java, NamespacedKey(SMPRPG.Companion.plugin, "shambling_abomination_brain_goal"))
-    var attackCooldown = 0
-    val chaseSpeed = 1.5
+    var attackClock = 0
     val zombie = slayer.entity as Zombie
+    var stopped = false
 
     override fun shouldActivate(): Boolean {
         if (GoalUtils.inst.getClosestPlayer(zombie, 20.0) != null) {
@@ -27,7 +26,7 @@ class ShamblingAbominationChaseGoal(val slayer : ShamblingAbominationParent, val
     }
 
     override fun getKey(): GoalKey<Zombie> {
-        return goalKey
+        return GOAL_KEY
     }
 
     override fun getTypes(): EnumSet<GoalType> {
@@ -39,21 +38,29 @@ class ShamblingAbominationChaseGoal(val slayer : ShamblingAbominationParent, val
     }
 
     override fun start() {
+        stopped = false
         zombie.target = GoalUtils.inst.getClosestPlayer(zombie, 20.0)
     }
 
     override fun stop() {
         zombie.target = null
+        stopped = true
         zombie.pathfinder.stopPathfinding()
     }
 
     override fun tick() {
-        var closestPlayer = GoalUtils.chaseClosestPlayer(zombie, 20.0, chaseSpeed, spawnPlayer)
-        if (closestPlayer in zombie.world.getNearbyPlayers(zombie.location, 0.5) && attackCooldown <= 0) {
-            zombie.attack(closestPlayer)
-            attackCooldown = slayer.attackCooldown
+        if (!stopped) {
+            var closestPlayer = GoalUtils.chaseClosestPlayer(zombie, 20.0, chaseSpeed, spawnPlayer)
+            if (closestPlayer in zombie.world.getNearbyPlayers(zombie.location, 0.5) && attackClock <= 0) {
+                zombie.attack(closestPlayer)
+                attackClock = slayer.attackCooldown
+            }
+            attackClock--
         }
-        attackCooldown--
+    }
+
+    companion object {
+        val GOAL_KEY : GoalKey<Zombie> = GoalKey.of(Zombie::class.java, NamespacedKey(SMPRPG.Companion.plugin, "shambling_abomination_brain_goal"))
     }
 
 }
