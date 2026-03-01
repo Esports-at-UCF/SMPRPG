@@ -1,4 +1,4 @@
-package xyz.devvydont.smprpg.entity.slayer
+package xyz.devvydont.smprpg.entity.slayer.shambling
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor

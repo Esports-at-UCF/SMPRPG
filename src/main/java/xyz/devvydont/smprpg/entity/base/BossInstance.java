@@ -27,7 +27,7 @@ import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.components.DamageTracker;
 import xyz.devvydont.smprpg.entity.interfaces.IDamageTrackable;
-import xyz.devvydont.smprpg.entity.slayer.SlayerBossInstance;
+import xyz.devvydont.smprpg.entity.slayer.shambling.SlayerBossInstance;
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
 import xyz.devvydont.smprpg.events.CustomItemDropRollEvent;
 import xyz.devvydont.smprpg.services.AttributeService;

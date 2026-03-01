@@ -1,20 +1,16 @@
-package xyz.devvydont.smprpg.entity.slayer
+package xyz.devvydont.smprpg.entity.slayer.shambling
 
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Bukkit
-import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
-import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.player.PlayerFishEvent
 import org.bukkit.scoreboard.Team
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.base.CustomEntityInstance
 import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.skills.utils.SkillExperienceReward
 import xyz.devvydont.smprpg.skills.utils.SkillExperienceReward.Companion.of
-import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.*
 
 open class SlayerCreature<T : LivingEntity?>

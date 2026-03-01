@@ -1,21 +1,16 @@
-package xyz.devvydont.smprpg.entity.slayer.goals
+package xyz.devvydont.smprpg.entity.slayer.shambling.goals
 
 import com.destroystokyo.paper.entity.ai.Goal
 import com.destroystokyo.paper.entity.ai.GoalKey
 import com.destroystokyo.paper.entity.ai.GoalType
-import org.bukkit.GameMode
 import org.bukkit.NamespacedKey
-import org.bukkit.entity.LivingEntity
-import org.bukkit.entity.Pig
 import org.bukkit.entity.Player
 import org.bukkit.entity.Zombie
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.util.goals.GoalUtils
 import java.util.EnumSet
-import kotlin.compareTo
-import kotlin.dec
 
-class ShamblingAbominationBrainGoal(val zombie : Zombie, val spawnPlayer : Player?) : Goal<Zombie> {
+class ShamblingAbominationChaseGoal(val zombie : Zombie, val spawnPlayer : Player?) : Goal<Zombie> {
 
     val goalKey : GoalKey<Zombie> = GoalKey.of(Zombie::class.java, NamespacedKey(SMPRPG.Companion.plugin, "shambling_abomination_brain_goal"))
     var attackCooldown = 0
