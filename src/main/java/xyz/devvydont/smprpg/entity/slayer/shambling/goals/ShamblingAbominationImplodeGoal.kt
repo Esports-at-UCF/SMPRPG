@@ -96,7 +96,7 @@ class ShamblingAbominationImplodeGoal(val slayer : ShamblingAbominationParent,
                 // Damage all participants in a 10 block radius
                 for (participant in slayer.activelyInvolvedPlayers) {
                     if (participant.location.distance(zombie.location) <= 10.0) {
-                        participant.damage(implosionDamage)
+                        participant.damage(implosionDamage, zombie)
                         participant.playSound(participant, Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f)
                     }
                 }

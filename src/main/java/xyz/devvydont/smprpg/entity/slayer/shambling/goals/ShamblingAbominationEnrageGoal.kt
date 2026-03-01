@@ -65,7 +65,7 @@ class ShamblingAbominationEnrageGoal(val slayer : ShamblingAbominationParent, va
             activated = true
 
             // Multiply outgoing damage by 50%
-            if (!(slayer is ShamblingAbominationIntermediate)) {  // We onlt want T3+ Shambling Abominations to get the strength increase, T2 is fine with just attack rate.
+            if (!(slayer is ShamblingAbominationIntermediate)) {  // We only want T3+ Shambling Abominations to get the strength increase, T2 is fine with just attack rate.
                 val strInst = AttributeService.instance.getOrCreateAttribute(zombie, AttributeWrapper.STRENGTH)
                 strInst.addModifier(
                     AttributeModifier(

@@ -1,17 +1,14 @@
 package xyz.devvydont.smprpg.entity.slayer.shambling
 
-import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent
 import net.kyori.adventure.key.Key
 import org.bukkit.Material
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Zombie
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
-import org.bukkit.event.entity.EntityAirChangeEvent
 import org.bukkit.event.entity.EntityTransformEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
-import org.bukkit.metadata.MetadataValue
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.slayer.SlayerBossInstance
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -36,19 +33,27 @@ open class ShamblingAbominationParent
         super.setup()
 
         // Setup equipment for boss
+        val equipment = _entity!!.equipment
         val head = ItemStack(Material.PLAYER_HEAD)
         val meta = head.itemMeta as SkullMeta
         meta.playerProfile = ICustomTextured.getProfile(headTexture)
         head.setItemMeta(meta)
-        _entity!!.equipment?.setHelmet(head)
+        equipment?.setHelmet(head)
 
-        _entity.equipment?.setChestplate(generate(CustomItemType.SHAMBLING_CHESTPLATE))
+        equipment?.setChestplate(generate(CustomItemType.SHAMBLING_CHESTPLATE))
 
         val leggings = generate(CustomItemType.SHAMBLING_LEGGINGS)
-        _entity.equipment?.setLeggings(leggings)
+        equipment?.setLeggings(leggings)
 
         val boots = generate(CustomItemType.SHAMBLING_BOOTS)
-        _entity.equipment?.setBoots(boots)
+        equipment?.setBoots(boots)
+
+        equipment?.setItemInMainHandDropChance(0f)
+        equipment?.setItemInOffHandDropChance(0f)
+        equipment?.setHelmetDropChance(0f)
+        equipment?.setChestplateDropChance(0f)
+        equipment?.setLeggingsDropChance(0f)
+        equipment?.setBootsDropChance(0f)
 
     }
 

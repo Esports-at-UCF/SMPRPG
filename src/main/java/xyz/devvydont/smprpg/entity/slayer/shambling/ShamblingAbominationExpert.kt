@@ -16,6 +16,7 @@ import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop
 import xyz.devvydont.smprpg.util.items.LootDrop
 import xyz.devvydont.smprpg.util.items.QuantityLootDrop
+import xyz.devvydont.smprpg.util.time.TickTime
 import java.util.List
 
 class ShamblingAbominationExpert(entity: LivingEntity?, entityType: CustomEntityType?) : ShamblingAbominationParent(entity as Zombie?, entityType) {
@@ -44,7 +45,7 @@ class ShamblingAbominationExpert(entity: LivingEntity?, entityType: CustomEntity
             mobGoals.removeAllGoals(zombie)
             mobGoals.addGoal(zombie, 3, ShamblingAbominationChaseGoal(this, null, 1.8))
             mobGoals.addGoal(zombie, 4, ShamblingAbominationEnrageGoal(this, null))
-            mobGoals.addGoal(zombie, 5, ShamblingAbominationImplodeGoal(this, null, 10, 250.0))
+            mobGoals.addGoal(zombie, 5, ShamblingAbominationImplodeGoal(this, null, TickTime.seconds(10).toInt(), 250.0))
         }
     }
 }
