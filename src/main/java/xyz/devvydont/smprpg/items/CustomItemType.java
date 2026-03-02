@@ -36,6 +36,8 @@ import xyz.devvydont.smprpg.items.blueprints.resources.fishing.EtherealFiber;
 import xyz.devvydont.smprpg.items.blueprints.resources.fishing.HolomokuCrest;
 import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFlesh;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFleshFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
 import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableCleaver;
 import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableHalberd;
@@ -639,7 +641,13 @@ public enum CustomItemType {
 
     // SLAYER
 
-    // ABOMINABLE
+    // SHAMBLING ABOMINATION
+
+    NECROTIC_FLESH(      "Necrotic Flesh",          Material.ROTTEN_FLESH,       ItemRarity.UNCOMMON,      false, NecroticFlesh.class),
+    PREMIUM_NECROTIC_FLESH("Premium Necrotic Flesh", Material.ROTTEN_FLESH, ItemRarity.RARE, true, NecroticFleshFamilyBlueprint.class),
+    ENCHANTED_NECROTIC_FLESH(    "Enchanted Necrotic Flesh",        Material.ROTTEN_FLESH,       ItemRarity.EPIC,    true, NecroticFleshFamilyBlueprint.class),
+    NECROTIC_FLESH_SINGULARITY(    "Necrotic Flesh Singularity",        Material.ROTTEN_FLESH,       ItemRarity.LEGENDARY,    true, NecroticFleshFamilyBlueprint.class),
+
     ABOMINABLE_CLEAVER(     "Abominable Cleaver",  Material.GOLDEN_SWORD,     ItemRarity.RARE, AbominableCleaver.class),
     ABOMINABLE_MACHETE(     "Abominable Machete",  Material.DIAMOND_SWORD,     ItemRarity.EPIC, AbominableMachete.class),
     ABOMINABLE_HALBERD(     "Abominable Halberd",  Material.NETHERITE_SWORD,     ItemRarity.LEGENDARY, AbominableHalberd.class),

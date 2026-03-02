@@ -1,4 +1,4 @@
-package xyz.devvydont.smprpg.items.blueprints.resources.mob;
+package xyz.devvydont.smprpg.items.blueprints.resources.slayer;
 
 import io.papermc.paper.datacomponent.item.Consumable;
 import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect;
@@ -20,15 +20,16 @@ import xyz.devvydont.smprpg.util.time.TickTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FleshFamilyBlueprint extends CustomCompressableBlueprint implements IEdible, IConsumable {
+public class NecroticFleshFamilyBlueprint extends CustomCompressableBlueprint implements IEdible, IConsumable {
 
     public static final List<CompressionRecipeMember> COMPRESSION_FLOW = List.of(
-            new CompressionRecipeMember(new MaterialWrapper(Material.ROTTEN_FLESH)),
-            new CompressionRecipeMember(new MaterialWrapper(CustomItemType.PREMIUM_FLESH)),
-            new CompressionRecipeMember(new MaterialWrapper(CustomItemType.ENCHANTED_FLESH))
+            new CompressionRecipeMember(new MaterialWrapper(CustomItemType.NECROTIC_FLESH)),
+            new CompressionRecipeMember(new MaterialWrapper(CustomItemType.PREMIUM_NECROTIC_FLESH)),
+            new CompressionRecipeMember(new MaterialWrapper(CustomItemType.ENCHANTED_NECROTIC_FLESH)),
+            new CompressionRecipeMember(new MaterialWrapper(CustomItemType.NECROTIC_FLESH_SINGULARITY))
     );
 
-    public FleshFamilyBlueprint(ItemService itemService, CustomItemType type) {
+    public NecroticFleshFamilyBlueprint(ItemService itemService, CustomItemType type) {
         super(itemService, type);
     }
 
@@ -39,20 +40,12 @@ public class FleshFamilyBlueprint extends CustomCompressableBlueprint implements
 
     @Override
     public int getNutrition(ItemStack item) {
-        return switch (getCustomItemType()) {
-            case ENCHANTED_FLESH -> 12;
-            case PREMIUM_FLESH -> 4;
-            default -> 2;
-        };
+        return 1;
     }
 
     @Override
     public float getSaturation(ItemStack item) {
-        return switch (getCustomItemType()) {
-            case ENCHANTED_FLESH -> 12;
-            case PREMIUM_FLESH -> 4;
-            default -> 2;
-        };
+        return 1;
     }
 
     @Override
@@ -65,19 +58,26 @@ public class FleshFamilyBlueprint extends CustomCompressableBlueprint implements
 
         var effects = new ArrayList<ConsumeEffect>();
 
-        if (getCustomItemType().equals(CustomItemType.ENCHANTED_FLESH))
+        if (getCustomItemType().equals(CustomItemType.NECROTIC_FLESH_SINGULARITY))
             effects.add(ConsumeEffect.applyStatusEffects(List.of(
-                    new PotionEffect(PotionEffectType.ABSORPTION, (int) TickTime.minutes(5), 2),
-                    new PotionEffect(PotionEffectType.NIGHT_VISION, (int) TickTime.minutes(5), 0)
+                    new PotionEffect(PotionEffectType.WITHER, (int) TickTime.minutes(5), 9),
+                    new PotionEffect(PotionEffectType.BLINDNESS, (int) TickTime.minutes(5), 1),
+                    new PotionEffect(PotionEffectType.DARKNESS, (int) TickTime.minutes(5), 1)
             ), 1f));
 
-        if (getCustomItemType().equals(CustomItemType.PREMIUM_FLESH))
+        if (getCustomItemType().equals(CustomItemType.ENCHANTED_NECROTIC_FLESH))
             effects.add(ConsumeEffect.applyStatusEffects(List.of(
-                    new PotionEffect(PotionEffectType.ABSORPTION, (int) TickTime.minutes(5), 0)
+                    new PotionEffect(PotionEffectType.WITHER, (int) TickTime.minutes(5), 4),
+                    new PotionEffect(PotionEffectType.BLINDNESS, (int) TickTime.minutes(5), 0)
+            ), 1f));
+
+        if (getCustomItemType().equals(CustomItemType.PREMIUM_NECROTIC_FLESH))
+            effects.add(ConsumeEffect.applyStatusEffects(List.of(
+                    new PotionEffect(PotionEffectType.WITHER, (int) TickTime.minutes(5), 2)
             ), 1f));
 
         return Consumable.consumable()
-                .consumeSeconds(4)
+                .consumeSeconds(10)
                 .addEffects(effects)
                 .build();
     }

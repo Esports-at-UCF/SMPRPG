@@ -25,6 +25,8 @@ class ShamblingAbominationBrutal(entity: LivingEntity?, entityType: CustomEntity
 
     override fun getItemDrops(): MutableCollection<LootDrop?>? {
         return List.of<LootDrop?>(
+            QuantityLootDrop(generate(CustomItemType.ENCHANTED_NECROTIC_FLESH), 1, 2, this),
+            ChancedItemDrop(generate(CustomItemType.NECROTIC_FLESH_SINGULARITY), 50, this),
             QuantityLootDrop(generate(CustomItemType.PREMIUM_FLESH), 12, 20, this),
             QuantityLootDrop(generate(CustomItemType.ENCHANTED_FLESH), 1, 3, this)
         )

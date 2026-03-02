@@ -95,7 +95,7 @@ public class AbominableMachete extends CustomAttributeItem implements Listener, 
         recipe.shape("fff", "fcf", "fff");
         recipe.setCategory(CraftingBookCategory.EQUIPMENT);
         recipe.setIngredient('c', ItemService.generate(CustomItemType.ABOMINABLE_CLEAVER));
-        recipe.setIngredient('f', ItemService.generate(CustomItemType.ENCHANTED_FLESH));
+        recipe.setIngredient('f', ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH));
         return recipe;
     }
 

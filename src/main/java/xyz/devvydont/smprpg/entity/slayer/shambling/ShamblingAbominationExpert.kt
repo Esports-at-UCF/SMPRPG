@@ -22,6 +22,8 @@ import java.util.List
 class ShamblingAbominationExpert(entity: LivingEntity?, entityType: CustomEntityType?) : ShamblingAbominationParent(entity as Zombie?, entityType) {
     override fun getItemDrops(): MutableCollection<LootDrop?>? {
         return List.of<LootDrop?>(
+            QuantityLootDrop(generate(CustomItemType.PREMIUM_NECROTIC_FLESH), 5, 8, this),
+            ChancedItemDrop(generate(CustomItemType.ENCHANTED_NECROTIC_FLESH), 5, this),
             QuantityLootDrop(generate(CustomItemType.PREMIUM_FLESH), 4, 7, this),
             ChancedItemDrop(generate(CustomItemType.ENCHANTED_FLESH), 5, this)
         )

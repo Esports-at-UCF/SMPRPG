@@ -97,7 +97,7 @@ public class AbominableHalberd extends CustomAttributeItem implements Listener, 
         recipe.shape("fff", "fmf", "fff");
         recipe.setCategory(CraftingBookCategory.EQUIPMENT);
         recipe.setIngredient('m', ItemService.generate(CustomItemType.ABOMINABLE_MACHETE));
-        recipe.setIngredient('f', ItemService.generate(CustomItemType.ENCHANTED_FLESH));
+        recipe.setIngredient('f', ItemService.generate(CustomItemType.NECROTIC_FLESH_SINGULARITY));
         return recipe;
     }
 
