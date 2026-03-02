@@ -40,7 +40,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     protected val sounds: MenuSoundManager
 
     private var shouldPlayOpeningSound = false
-    private var shouldPlayClosingSound = false
+    protected var shouldPlayClosingSound = false
     private var activeAnimation: AnimationHandle? = null
     private val buttonSlots: MutableMap<Int, MenuButtonClickHandler> = HashMap()
 

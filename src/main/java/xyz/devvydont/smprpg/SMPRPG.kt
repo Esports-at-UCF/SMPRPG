@@ -22,6 +22,7 @@ import xyz.devvydont.smprpg.listeners.entity.HealthRegenerationListener
 import xyz.devvydont.smprpg.listeners.entity.HealthScaleListener
 import xyz.devvydont.smprpg.listeners.entity.StructureEntitySpawnListener
 import xyz.devvydont.smprpg.loot.LootListener
+import xyz.devvydont.smprpg.market.MarketService
 import xyz.devvydont.smprpg.services.*
 import xyz.devvydont.smprpg.util.animations.AnimationService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -75,6 +76,7 @@ class SMPRPG : JavaPlugin() {
         services.add(BlockBreakingService())
         services.add(WardrobeService()) // Manages wardrobe slot upgrades and progression.
         services.add(PlayerFreezeService()) // Manages player freezing, for NPCs, abilities, etc.
+        services.add(MarketService()) // Manages the auction house and bazaar marketplace systems.
 
         // Start all the services. Make sure nothing goes wrong.
         for (service in services) {

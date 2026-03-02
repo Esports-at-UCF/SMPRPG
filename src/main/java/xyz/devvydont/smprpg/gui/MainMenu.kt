@@ -14,8 +14,9 @@ import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.fishing.gui.LootTypeChancesMenu
 import xyz.devvydont.smprpg.gui.base.MenuBase
-import xyz.devvydont.smprpg.gui.base.MenuButtonClickHandler
 import xyz.devvydont.smprpg.gui.enchantments.MagicMenu
+import xyz.devvydont.smprpg.market.gui.auction.MenuAuctionBrowser
+import xyz.devvydont.smprpg.market.gui.bazaar.MenuBazaarBrowser
 import xyz.devvydont.smprpg.gui.items.MenuItemBrowser
 import xyz.devvydont.smprpg.gui.player.InterfaceStats
 import xyz.devvydont.smprpg.gui.player.InterfaceWardrobe
@@ -116,6 +117,20 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
         ) { e: InventoryClickEvent -> this.openSubMenu(MagicMenu(this.player, this)) }
 
         this.setButton(
+            AUCTION_HOUSE_INDEX,
+            this.auctionHouseDisplay
+        ) { e: InventoryClickEvent ->
+            this.openSubMenu(MenuAuctionBrowser(this.player, this))
+        }
+
+        this.setButton(
+            BAZAAR_INDEX,
+            this.bazaarDisplay
+        ) { e: InventoryClickEvent ->
+            this.openSubMenu(MenuBazaarBrowser(this.player, this))
+        }
+
+        this.setButton(
             DIFFICULTY_INDEX,
             this.difficultyDisplay
         ) { e: InventoryClickEvent ->
@@ -134,6 +149,30 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
             this.playInvalidAnimation()
         }
     }
+
+    private val auctionHouseDisplay: ItemStack
+        get() {
+            return InterfaceUtil.getNamedItemWithDescription(
+                Material.GOLD_INGOT,
+                ComponentUtils.create("Auction House", NamedTextColor.GOLD),
+                ComponentUtils.create("Buy and sell items with other players!"),
+                ComponentUtils.create("List items for auction or buy them now."),
+                ComponentUtils.EMPTY,
+                ComponentUtils.create("Click to open the Auction House!", NamedTextColor.YELLOW)
+            )
+        }
+
+    private val bazaarDisplay: ItemStack
+        get() {
+            return InterfaceUtil.getNamedItemWithDescription(
+                Material.EMERALD,
+                ComponentUtils.create("Bazaar", NamedTextColor.GREEN),
+                ComponentUtils.create("Instantly buy and sell resources!"),
+                ComponentUtils.create("Prices shift based on supply and demand."),
+                ComponentUtils.EMPTY,
+                ComponentUtils.create("Click to open the Bazaar!", NamedTextColor.YELLOW)
+            )
+        }
 
     private val difficultyDisplay: ItemStack
         get() {
@@ -393,6 +432,9 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
         private const val MAGIC_INDEX = 23
         private const val WOODCUTTING_INDEX = 24
         private const val FARMING_INDEX = 25
+
+        private const val AUCTION_HOUSE_INDEX = 30
+        private const val BAZAAR_INDEX = 32
 
         private const val DIFFICULTY_INDEX = 41
         private const val SETTINGS_INDEX = 42
