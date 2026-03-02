@@ -70,6 +70,9 @@ open class ShamblingAbominationParent
     companion object {
         val headTexture : String = "http://textures.minecraft.net/texture/1fc0184473fe882d2895ce7cbc8197bd40ff70bf10d3745de97b6c2a9c5fc78f"
         val headTextureAngry : String = "http://textures.minecraft.net/texture/ba7bb34471508b4b20cb35c37a1dd6e8afa7f2d5388822138837caf59c2195d8"
-        val enragedAssetId : Key = Key.key("shambling_boss_enrage");
+        val enragedAssetId : Key = Key.key("shambling_boss_enrage")
+
+        @JvmField
+        val SPAWN_MOB_FLAG : String = "shambling_abomination"
     }
 }

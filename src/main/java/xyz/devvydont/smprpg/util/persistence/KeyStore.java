@@ -49,6 +49,11 @@ public class KeyStore {
      */
     public static final NamespacedKey FISHING_ATTRIBUTE_DUAL_WIELD_NERF = key("rod_dual_wield_nerf");
 
+    /**
+     * Used on slayer spawn entity PDCs to flag them for slayer quests
+     */
+    public static final NamespacedKey SLAYER_SPAWN_TYPE = key("slayer_spawn_type");
+
     // Sound Keys
     public static final NamespacedKey AUDIO_BREADBOARD_EAT = new NamespacedKey("audio", "food.breadboard.eat");
 
