@@ -23,6 +23,7 @@ import xyz.devvydont.smprpg.commands.items.CommandReforge
 import xyz.devvydont.smprpg.commands.items.CommandSearchItem
 import xyz.devvydont.smprpg.commands.player.*
 import xyz.devvydont.smprpg.fishing.gui.LootTypeChancesMenu
+import xyz.devvydont.smprpg.fishing.gui.MenuSlayer
 import xyz.devvydont.smprpg.gui.MainMenu
 import xyz.devvydont.smprpg.gui.MenuReforgeBrowser
 import xyz.devvydont.smprpg.gui.economy.MenuDeposit
@@ -74,6 +75,7 @@ class SMPRPGBootstrapper : PluginBootstrap {
             ICommand.SimplePlayerCommand("trash", { player -> MenuTrashItems(player).openMenu()}),
             ICommand.SimplePlayerCommand("enchantments", { player -> EnchantmentMenu(player).openMenu()}),
             ICommand.SimplePlayerCommand("reforges", { player -> MenuReforgeBrowser(player).openMenu()}),
+            ICommand.SimplePlayerCommand("slayer", { player -> MenuSlayer(player).openMenu()}),
         )
 
         val manager: LifecycleEventManager<BootstrapContext> = context.lifecycleManager

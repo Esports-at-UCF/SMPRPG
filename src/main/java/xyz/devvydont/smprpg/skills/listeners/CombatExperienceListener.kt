@@ -6,7 +6,9 @@ import org.bukkit.event.entity.EntityDeathEvent
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.entity.interfaces.IDamageTrackable
 import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent
+import xyz.devvydont.smprpg.events.slayer.SlayerQuestEarnExperienceEvent
 import xyz.devvydont.smprpg.services.EntityService
+import xyz.devvydont.smprpg.skills.SkillType
 import kotlin.math.min
 
 class CombatExperienceListener() : Listener {
@@ -45,6 +47,8 @@ class CombatExperienceListener() : Listener {
 
             val player = SMPRPG.getService(EntityService::class.java).getPlayerInstance(entry.key)
             experience.apply(player, SkillExperienceGainEvent.ExperienceSource.KILL)
+            val slayerEvent = SlayerQuestEarnExperienceEvent(player, dead, experience.value(SkillType.COMBAT))
+            slayerEvent.callEvent()
         }
     }
 }

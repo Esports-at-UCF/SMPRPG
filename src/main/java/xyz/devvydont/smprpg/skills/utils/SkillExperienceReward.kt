@@ -47,6 +47,10 @@ class SkillExperienceReward {
             add(entry.key, (entry.value * multiplier).toInt())
     }
 
+    fun value(type: SkillType) : Int {
+        return amounts.getValue(type)
+    }
+
     companion object {
         @JvmStatic
         fun empty(): SkillExperienceReward {

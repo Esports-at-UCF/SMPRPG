@@ -1,12 +1,11 @@
-package xyz.devvydont.smprpg.events
+package xyz.devvydont.smprpg.events.slayer
 
-import org.bukkit.entity.Player
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 import xyz.devvydont.smprpg.entity.base.LeveledEntity
-import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
+import xyz.devvydont.smprpg.entity.player.LeveledPlayer
 
-class SlayerSpawnBossEvent(@JvmField val entity: LeveledEntity<*>, val spawner : Player) : Event() {
+class SlayerQuestEarnExperienceEvent(val player : LeveledPlayer, val mobKilled : LeveledEntity<*>, val experience : Int) : Event() {
     override fun getHandlers(): HandlerList {
         return handlerList
     }
