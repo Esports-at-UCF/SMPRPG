@@ -12,6 +12,10 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
 import xyz.devvydont.smprpg.commands.ICommand
 import xyz.devvydont.smprpg.commands.ICommandBase
 import xyz.devvydont.smprpg.commands.LegacyCommand
+import xyz.devvydont.smprpg.market.commands.CommandAuctionHouse
+import xyz.devvydont.smprpg.market.commands.CommandBazaar
+import xyz.devvydont.smprpg.market.gui.auction.MenuAuctionBrowser
+import xyz.devvydont.smprpg.market.gui.bazaar.MenuBazaarBrowser
 import xyz.devvydont.smprpg.commands.admin.CommandAttribute
 import xyz.devvydont.smprpg.commands.admin.CommandEcoAdmin
 import xyz.devvydont.smprpg.commands.admin.CommandSimulateFishing
@@ -74,6 +78,10 @@ class SMPRPGBootstrapper : PluginBootstrap {
             ICommand.SimplePlayerCommand("trash", { player -> MenuTrashItems(player).openMenu()}),
             ICommand.SimplePlayerCommand("enchantments", { player -> EnchantmentMenu(player).openMenu()}),
             ICommand.SimplePlayerCommand("reforges", { player -> MenuReforgeBrowser(player).openMenu()}),
+            CommandAuctionHouse(),
+            ICommand.SimplePlayerCommand("auctionhouse", { player -> MenuAuctionBrowser(player).openMenu()}),
+            CommandBazaar(),
+            ICommand.SimplePlayerCommand("bazaar", { player -> MenuBazaarBrowser(player).openMenu()}),
         )
 
         val manager: LifecycleEventManager<BootstrapContext> = context.lifecycleManager
