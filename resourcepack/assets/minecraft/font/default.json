@@ -792,6 +792,24 @@
                 "\ub00A"
             ]
         },
+		{
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/slayer_menu_main.png",
+            "height": 256,
+            "ascent": -4,
+            "chars": [
+                "\ub00B"
+            ]
+        },
+		{
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/slayer_menu_shambling.png",
+            "height": 256,
+            "ascent": 34,
+            "chars": [
+                "\ub00C"
+            ]
+        },
         {
             "type": "bitmap",
             "file": "space:font/space_split.png",

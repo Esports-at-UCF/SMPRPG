@@ -18,6 +18,7 @@ import xyz.devvydont.smprpg.slayer.quest.SlayerClassification
 import xyz.devvydont.smprpg.slayer.quest.SlayerQuest
 import xyz.devvydont.smprpg.slayer.quest.SlayerType
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
+import xyz.devvydont.smprpg.util.formatting.Symbols
 
 /**
  * A menu that allows a player to view their current "fishing context", so they know what they are rolling for.
@@ -63,6 +64,7 @@ class MenuSlayerQuest : MenuBase {
             SLAYERS_START, getNamedItemWithDescription(
                 CustomItemType.NECROTIC_FLESH,
                 ComponentUtils.create("Shambling Abomination I", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
+                ComponentUtils.create("Basic", NamedTextColor.DARK_GRAY, TextDecoration.UNDERLINED),
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Not-so-shambling Gait", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
                 ComponentUtils.create("The Shambling Abomination will"),
@@ -79,6 +81,7 @@ class MenuSlayerQuest : MenuBase {
             SLAYERS_START + 1, getNamedItemWithDescription(
                 CustomItemType.NECROTIC_FLESH,
                 ComponentUtils.create("Shambling Abomination II", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
+                ComponentUtils.create("Intermediate", NamedTextColor.DARK_GRAY, TextDecoration.UNDERLINED),
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Ferocious Frenzy", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
                 ComponentUtils.create("The Shambling Abomination will"),
@@ -104,6 +107,7 @@ class MenuSlayerQuest : MenuBase {
             SLAYERS_START + 2, getNamedItemWithDescription(
                 CustomItemType.NECROTIC_FLESH,
                 ComponentUtils.create("Shambling Abomination III", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
+                ComponentUtils.create("Advanced", NamedTextColor.DARK_GRAY, TextDecoration.UNDERLINED),
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Furious Frenzy", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
                 ComponentUtils.merge(
@@ -131,6 +135,7 @@ class MenuSlayerQuest : MenuBase {
             SLAYERS_START + 3, getNamedItemWithDescription(
                 CustomItemType.NECROTIC_FLESH,
                 ComponentUtils.create("Shambling Abomination IV", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
+                ComponentUtils.create("Expert", NamedTextColor.DARK_GRAY, TextDecoration.UNDERLINED),
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Spontaneous Human(?) Combustion", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
                 ComponentUtils.merge(
@@ -160,6 +165,7 @@ class MenuSlayerQuest : MenuBase {
             SLAYERS_START + 4, getNamedItemWithDescription(
                 CustomItemType.NECROTIC_FLESH,
                 ComponentUtils.create("Shambling Abomination V", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
+                ComponentUtils.create("Brutal", NamedTextColor.DARK_GRAY, TextDecoration.UNDERLINED),
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Syphon", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
                 ComponentUtils.merge(
@@ -206,25 +212,35 @@ class MenuSlayerQuest : MenuBase {
     }
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
-        event.titleOverride(Component.text("Slayer"))
+        // TODO: Make this adapt to other SlayerTypes
+        event.titleOverride(
+            ComponentUtils.merge(
+                ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SLAYER_SHAMBLING_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Slayer",
+                    NamedTextColor.BLACK
+                )
+            )
+        )
     }
 
     override fun handleInventoryClicked(event: InventoryClickEvent) {
         event.setCancelled(true)
-        this.playInvalidAnimation(true)
     }
 
     fun startQuest(slayerInfo : SlayerClassification) {
         val questOwner = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
         val quest = SlayerQuest(questOwner, slayerInfo)
-        if (!SMPRPG.getService(SlayerService::class.java).registerQuest(quest)) {
-            playInvalidAnimation()
+        if (!SMPRPG.getService(SlayerService::class.java).canStartQuest(quest)) {
+            player.playSound(player.location, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
             return
         }
 
-        // If we get here, we have started the quest.
-        player.playSound(player, Sound.ENTITY_WITHER_DEATH, 1.0f, 1.5f)
-        closeMenu()
+        openSubMenu(
+            MenuSlayerQuestConfirmDialog(
+                player, this, slayerInfo
+            )
+        )
     }
 
     companion object {

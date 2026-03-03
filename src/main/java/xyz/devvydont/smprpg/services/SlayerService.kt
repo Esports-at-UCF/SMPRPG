@@ -54,7 +54,7 @@ class SlayerService : IService, Listener {
                     player.world.playSound(player.location, Sound.ENTITY_ZOMBIE_VILLAGER_CONVERTED, 1f, pitch)
                     player.world.playSound(player.location, Sound.ENTITY_WITHER_SHOOT, 0.5f, pitch - 0.5f)
                     pitch += .05f
-                    player.world.spawnParticle(Particle.FLAME, locCopy, 20, 0.05, 0.01, 0.05, 0.01)
+                    player.world.spawnParticle(Particle.FLAME, location, 20, 0.25, 1.0, 0.25, 0.01)
                     player.world.spawnParticle(Particle.TRIAL_SPAWNER_DETECTION_OMINOUS, locCopy, 40, 0.1, 0.2, 0.1, 0.02)
                     player.world.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, locCopy, 10, 0.0, 0.0, 0.0, 0.0175)
 
@@ -77,7 +77,7 @@ class SlayerService : IService, Listener {
         }.runTaskTimer(plugin, TickTime.INSTANTANEOUSLY, TickTime.INSTANTANEOUSLY)
     }
 
-    fun registerQuest(quest : SlayerQuest) : Boolean {
+    fun canStartQuest(quest : SlayerQuest) : Boolean {
 
         // Don't register if we already have a quest active for this player.
         if (quest.owner.player.player!!.uniqueId in playersToQuests.keys) {
@@ -93,10 +93,16 @@ class SlayerService : IService, Listener {
             return false
         }
 
-        // They can afford it, take their money and start the quest.
-        ecoService.spendMoney(quest.owner.player, quest.cost.toLong())
-        playersToQuests[quest.owner.player.player!!.uniqueId] = quest
+        // They can afford to start the quest, and aren't in a quest currently.
         return true
+    }
+
+    fun registerQuest(quest : SlayerQuest) {
+        // This method is UNCHECKED!
+        // Only call this directly if you know what you are doing,
+        // or if you ran checks beforehand (see canStartQuest)
+        SMPRPG.getService(EconomyService::class.java).spendMoney(quest.owner.player, quest.cost.toLong())
+        playersToQuests[quest.owner.player.player!!.uniqueId] = quest
     }
 
     @EventHandler

@@ -14,6 +14,7 @@ import xyz.devvydont.smprpg.gui.slayer.MenuSlayerQuest
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.slayer.quest.SlayerType
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
+import xyz.devvydont.smprpg.util.formatting.Symbols
 
 /**
  * A menu that allows a player to view their current "fishing context", so they know what they are rolling for.
@@ -76,13 +77,22 @@ class MenuSlayer : MenuBase {
     }
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
-        event.titleOverride(Component.text("Slayer"))
+        event.titleOverride(
+            ComponentUtils.merge(
+                ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SLAYER_MAIN_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Slayer",
+                    NamedTextColor.BLACK
+                )
+            )
+        )
     }
 
     override fun handleInventoryClicked(event: InventoryClickEvent) {
         event.setCancelled(true)
         this.playInvalidAnimation(true)
     }
+
 
     companion object {
         // GUI positions.

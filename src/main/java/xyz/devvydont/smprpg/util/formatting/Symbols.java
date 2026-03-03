@@ -7,6 +7,7 @@ public class Symbols {
     public static final String HEART = "❤";
     public static final String MANA = "\uD83C\uDF1F";
     public static final String SHIELD = "⛊";
+    public static final String SWORD = "\uD83D\uDDE1";
     public static final String SKULL = "☠";
     public static final String SPADE = "♠";
     public static final String CLOVER = "☘";
@@ -83,5 +84,7 @@ public class Symbols {
     public static final String FURNACE_RECIPE_MENU = "\ub008";
     public static final String TOOL_MODIFICATION_MENU = "\ub009";
     public static final String ENCHANTING_MENU = "\ub00A";
+    public static final String SLAYER_MAIN_MENU = "\ub00B";
+    public static final String SLAYER_SHAMBLING_MENU = "\ub00C";
 
 }
