@@ -34,8 +34,7 @@ import kotlin.math.roundToInt
 
 class ShamblingAbominationImplodeGoal(val slayer : ShamblingAbominationParent,
                                       val spawnPlayer : Player?,
-                                      var timeBetweenImplosions : Int = TickTime.seconds(10).toInt(),
-                                      val implosionDamage : Double = 500.0) : Goal<Zombie> {
+                                      var timeBetweenImplosions : Int = TickTime.seconds(10).toInt()) : Goal<Zombie> {
 
     var implosionClock = timeBetweenImplosions
     val zombie = slayer.entity as Zombie
@@ -73,7 +72,7 @@ class ShamblingAbominationImplodeGoal(val slayer : ShamblingAbominationParent,
             val enrageGoal: ShamblingAbominationEnrageGoal = Bukkit.getMobGoals().getGoal(zombie, ShamblingAbominationEnrageGoal.GOAL_KEY) as ShamblingAbominationEnrageGoal
             if (enrageGoal.activated) {
                 clockMod = 2
-                timeBetweenImplosions = timeBetweenImplosions / clockMod
+                timeBetweenImplosions /= clockMod
                 implosionClock = timeBetweenImplosions
                 enrageCheckPassed = true
             }
@@ -100,9 +99,10 @@ class ShamblingAbominationImplodeGoal(val slayer : ShamblingAbominationParent,
                 implosionClock = timeBetweenImplosions
 
                 // Damage all participants in a 10 block radius
+                val damage = 500.0  // This damage value actually doesn't matter. the damage is overridden during an event handler anyway.
                 for (participant in slayer.activelyInvolvedPlayers) {
                     if (participant.location.distance(zombie.location) <= 10.0) {
-                        participant.damage(implosionDamage, DamageSource.builder(DamageType.EXPLOSION).withCausingEntity(zombie).withDirectEntity(zombie).build())
+                        participant.damage(damage, DamageSource.builder(DamageType.EXPLOSION).withCausingEntity(zombie).withDirectEntity(zombie).build())
                         participant.playSound(participant, Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f)
                     }
                 }

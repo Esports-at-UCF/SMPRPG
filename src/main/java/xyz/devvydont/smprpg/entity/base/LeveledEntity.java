@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
@@ -560,7 +561,7 @@ public abstract class LeveledEntity<T extends Entity> implements LootSource {
      * @return
      */
     @Nullable
-    public Collection<LootDrop> getItemDrops() {
+    public Collection<@NotNull LootDrop> getItemDrops() {
         return null;
     }
 

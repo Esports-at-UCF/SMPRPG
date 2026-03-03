@@ -7,13 +7,12 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Zombie
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
-import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityTransformEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.slayer.SlayerBossInstance
+import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.interfaces.ICustomTextured
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
@@ -40,7 +39,7 @@ open class ShamblingAbominationParent
         val equipment = _entity!!.equipment
         val head = ItemStack(Material.PLAYER_HEAD)
         val meta = head.itemMeta as SkullMeta
-        meta.playerProfile = ICustomTextured.getProfile(headTexture)
+        meta.playerProfile = ICustomTextured.getProfile(HEAD_TEXTURE)
         head.setItemMeta(meta)
         equipment?.setHelmet(head)
 
@@ -52,12 +51,12 @@ open class ShamblingAbominationParent
         val boots = generate(CustomItemType.SHAMBLING_BOOTS)
         equipment?.setBoots(boots)
 
-        equipment?.setItemInMainHandDropChance(0f)
-        equipment?.setItemInOffHandDropChance(0f)
-        equipment?.setHelmetDropChance(0f)
-        equipment?.setChestplateDropChance(0f)
-        equipment?.setLeggingsDropChance(0f)
-        equipment?.setBootsDropChance(0f)
+        equipment?.itemInMainHandDropChance = 0f
+        equipment?.itemInOffHandDropChance = 0f
+        equipment?.helmetDropChance = 0f
+        equipment?.chestplateDropChance = 0f
+        equipment?.leggingsDropChance = 0f
+        equipment?.bootsDropChance = 0f
 
     }
 
@@ -72,16 +71,19 @@ open class ShamblingAbominationParent
     }
 
     companion object {
-        val headTexture : String = "http://textures.minecraft.net/texture/1fc0184473fe882d2895ce7cbc8197bd40ff70bf10d3745de97b6c2a9c5fc78f"
-        val headTextureAngry : String = "http://textures.minecraft.net/texture/ba7bb34471508b4b20cb35c37a1dd6e8afa7f2d5388822138837caf59c2195d8"
+        const val HEAD_TEXTURE : String = "http://textures.minecraft.net/texture/1fc0184473fe882d2895ce7cbc8197bd40ff70bf10d3745de97b6c2a9c5fc78f"
+        const val HEAD_TEXTURE_ANGRY : String = "http://textures.minecraft.net/texture/ba7bb34471508b4b20cb35c37a1dd6e8afa7f2d5388822138837caf59c2195d8"
         val enragedAssetId : Key = Key.key("shambling_boss_enrage")
 
-        @JvmField
-        val SPAWN_MOB_FLAG : String = "shambling_abomination"
+        const val SPAWN_MOB_FLAG : String = "shambling_abomination"
     }
 
-    fun onImplodeDamage(event : EntityDamageByEntityEvent) {
-        val source = event.damageSource
+    /**
+     * Event that fixes damage calculation for the implosion ability.
+     */
+    @EventHandler(priority = EventPriority.HIGH)  // HIGH priority -- right before difficulty adjustment, but after base damage adjustment.
+    fun onImplodeDamage(event : CustomEntityDamageByEntityEvent) {
+        val source = event.originalEvent.damageSource
         if (entity == source.causingEntity) {
             if (source.damageType == DamageType.EXPLOSION) {
                 event.setDamage(explosionDamage)  // Completely overrides any damage modifiers present

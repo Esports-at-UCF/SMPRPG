@@ -87,7 +87,7 @@ class ShamblingAbominationEnrageGoal(val slayer : ShamblingAbominationParent, va
             val zombieEq = zombie.equipment
             val head = ItemStack(Material.PLAYER_HEAD)
             val meta = head.itemMeta as SkullMeta
-            meta.playerProfile = ICustomTextured.getProfile(ShamblingAbominationParent.headTextureAngry)
+            meta.playerProfile = ICustomTextured.getProfile(ShamblingAbominationParent.HEAD_TEXTURE_ANGRY)
             head.setItemMeta(meta)
             zombieEq.setHelmet(head)
 
