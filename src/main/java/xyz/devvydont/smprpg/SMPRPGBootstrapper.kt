@@ -75,6 +75,7 @@ class SMPRPGBootstrapper : PluginBootstrap {
             ICommand.SimplePlayerCommand("difficulty", { player -> MenuDifficultyChooser(player).openMenu()}),
             ICommand.SimplePlayerCommand("fishing", { player -> LootTypeChancesMenu(player).openMenu()}),
             ICommand.SimplePlayerCommand("deposit", { player -> MenuDeposit(player).openMenu()}),
+            ICommand.SimplePlayerCommand("sell", { player -> MenuDeposit(player).openMenu()}),
             ICommand.SimplePlayerCommand("withdrawal", { player -> MenuWithdraw(player).openMenu()}),
             ICommand.SimplePlayerCommand("trash", { player -> MenuTrashItems(player).openMenu()}),
             ICommand.SimplePlayerCommand("enchantments", { player -> EnchantmentMenu(player).openMenu()}),
