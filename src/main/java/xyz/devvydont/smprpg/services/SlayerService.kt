@@ -1,11 +1,13 @@
 package xyz.devvydont.smprpg.services
 
-import com.destroystokyo.paper.ParticleBuilder
+import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Location
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
+import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.scheduler.BukkitRunnable
@@ -16,9 +18,10 @@ import xyz.devvydont.smprpg.events.slayer.SlayerBossDeathEvent
 import xyz.devvydont.smprpg.events.slayer.SlayerQuestEarnExperienceEvent
 import xyz.devvydont.smprpg.events.slayer.SlayerSpawnBossEvent
 import xyz.devvydont.smprpg.slayer.quest.SlayerQuest
+import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import xyz.devvydont.smprpg.util.time.TickTime
-import java.util.UUID
+import java.util.*
 
 class SlayerService : IService, Listener {
 
@@ -97,7 +100,7 @@ class SlayerService : IService, Listener {
     }
 
     @EventHandler
-    fun onSlayerDeath(event: SlayerBossDeathEvent) {
+    fun onSlayerBossDied(event: SlayerBossDeathEvent) {
         val quest = event.slayer.quest
         val player = quest!!.owner.player.player!!
         if (quest in playersToQuests.values) {
@@ -106,8 +109,24 @@ class SlayerService : IService, Listener {
         player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1f, 2f)
     }
 
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)  // We ignoreCancelled=true so that in the event the death was cancelled, we don't stop the slayer.
+    fun onPlayerDiedWhileSlayerActive(event: PlayerDeathEvent) {
+
+        // If the player that died is not doing a quest, we don't care
+        val playerQuest = playersToQuests[event.player.uniqueId]
+        if (playerQuest == null)
+            return
+
+        // Attempt to despawn the entity and remove the quest. they failed.
+        playerQuest.bossEntity?.entity?.remove()
+        playersToQuests.remove(event.player.uniqueId)
+        event.player.playSound(event.player.location, Sound.ENTITY_WARDEN_SONIC_BOOM, 1f, .1f)
+        event.player.sendMessage(ComponentUtils.alert(ComponentUtils.create("You failed your slayer quest because you died!",
+            NamedTextColor.RED)))
+    }
+
     @EventHandler
-    fun removeSlayerOnLogout(event: PlayerQuitEvent) {
+    fun onPlayerLogoutWhileSlayerActive(event: PlayerQuitEvent) {
         val uuid = event.player.uniqueId
         if (uuid in playersToQuests.keys) {
             val quest : SlayerQuest? = playersToQuests.get(event.player.uniqueId)
