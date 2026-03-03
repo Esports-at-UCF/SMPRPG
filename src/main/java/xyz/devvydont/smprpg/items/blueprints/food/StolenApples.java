@@ -28,12 +28,12 @@ public class StolenApples extends CustomItemBlueprint implements IEdible, ISella
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 4;
+        return 0;
     }
 
     @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 
     @Override

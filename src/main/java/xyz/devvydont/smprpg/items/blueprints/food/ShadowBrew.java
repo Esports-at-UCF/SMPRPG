@@ -35,12 +35,12 @@ public class ShadowBrew extends CustomItemBlueprint implements ISellable, IEdibl
 
     @Override
     public int getNutrition(ItemStack item) {
-        return 1;
+        return 0;
     }
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 10;
+        return 200;
     }
 
     @Override

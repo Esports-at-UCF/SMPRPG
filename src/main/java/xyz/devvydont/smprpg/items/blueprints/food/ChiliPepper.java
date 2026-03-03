@@ -28,12 +28,12 @@ public class ChiliPepper extends CustomItemBlueprint implements IEdible, ISellab
 
     @Override
     public int getNutrition(ItemStack item) {
-        return 2;
+        return 0;
     }
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 6;
+        return 100;
     }
 
     @Override
@@ -51,6 +51,6 @@ public class ChiliPepper extends CustomItemBlueprint implements IEdible, ISellab
 
     @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 }
