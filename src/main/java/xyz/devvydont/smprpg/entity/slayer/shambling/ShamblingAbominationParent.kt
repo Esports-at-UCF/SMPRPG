@@ -80,12 +80,11 @@ open class ShamblingAbominationParent
         val SPAWN_MOB_FLAG : String = "shambling_abomination"
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
     fun onImplodeDamage(event : EntityDamageByEntityEvent) {
         val source = event.damageSource
         if (entity == source.causingEntity) {
             if (source.damageType == DamageType.EXPLOSION) {
-                event.setDamage(explosionDamage)
+                event.setDamage(explosionDamage)  // Completely overrides any damage modifiers present
             }
         }
     }
