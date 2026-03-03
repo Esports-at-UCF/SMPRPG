@@ -1,8 +1,7 @@
-package xyz.devvydont.smprpg.fishing.gui
+package xyz.devvydont.smprpg.gui.slayer
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -10,16 +9,8 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
 import xyz.devvydont.smprpg.SMPRPG
-import xyz.devvydont.smprpg.attribute.AttributeWrapper
-import xyz.devvydont.smprpg.entity.CustomEntityType
-import xyz.devvydont.smprpg.entity.fishing.SeaCreature
-import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationParent
-import xyz.devvydont.smprpg.fishing.loot.FishingLootType
-import xyz.devvydont.smprpg.fishing.loot.FishingLootTypeSelector
-import xyz.devvydont.smprpg.fishing.utils.FishingContext
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItemWithDescription
 import xyz.devvydont.smprpg.gui.base.MenuBase
-import xyz.devvydont.smprpg.gui.base.MenuButtonClickHandler
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.SlayerService
@@ -74,9 +65,14 @@ class MenuSlayerQuest : MenuBase {
                 ComponentUtils.create("Shambling Abomination I", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Not-so-shambling Gait", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
-                ComponentUtils.create("The Shambling Abomination will", NamedTextColor.GRAY),
-                ComponentUtils.create("chase you down at a relatively", NamedTextColor.GRAY),
-                ComponentUtils.create("quick pace, and strike when close.", NamedTextColor.GRAY)
+                ComponentUtils.create("The Shambling Abomination will"),
+                ComponentUtils.create("chase you down at a relatively"),
+                ComponentUtils.create("quick pace, and strike when close."),
+                ComponentUtils.EMPTY,
+                ComponentUtils.merge(ComponentUtils.create("Cost: "), ComponentUtils.money(SlayerClassification.SHAMBLING_HORROR_1.cost)),
+                ComponentUtils.merge(ComponentUtils.create("Exp Needed: "), ComponentUtils.create(String.format("%,d", SlayerClassification.SHAMBLING_HORROR_1.xpToSpawn),
+                    NamedTextColor.AQUA))
+
             ), { e: InventoryClickEvent? -> startQuest(SlayerClassification.SHAMBLING_HORROR_1)})
 
         this.setButton(
@@ -85,18 +81,23 @@ class MenuSlayerQuest : MenuBase {
                 ComponentUtils.create("Shambling Abomination II", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Ferocious Frenzy", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
-                ComponentUtils.create("The Shambling Abomination will", NamedTextColor.GRAY),
-                ComponentUtils.create("drastically speed up at half health,", NamedTextColor.GRAY),
+                ComponentUtils.create("The Shambling Abomination will"),
+                ComponentUtils.create("drastically speed up at half health,"),
                 ComponentUtils.merge(
-                    ComponentUtils.create("and ", NamedTextColor.GRAY),
+                    ComponentUtils.create("and "),
                     ComponentUtils.create("double", NamedTextColor.RED),
-                    ComponentUtils.create(" its attack rate.", NamedTextColor.GRAY),
+                    ComponentUtils.create(" its attack rate."),
                 ),
                 ComponentUtils.EMPTY,
                 ComponentUtils.merge(
                     ComponentUtils.create("Shambling Abomination II", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
-                    ComponentUtils.create(" also inherits", NamedTextColor.GRAY)),
-                ComponentUtils.create("all abilities from previous boss tiers.", NamedTextColor.GRAY)
+                    ComponentUtils.create(" also inherits")),
+                ComponentUtils.create("all abilities from previous boss tiers."),
+                ComponentUtils.EMPTY,
+                ComponentUtils.merge(ComponentUtils.create("Cost: "), ComponentUtils.money(SlayerClassification.SHAMBLING_HORROR_2.cost)),
+                ComponentUtils.merge(ComponentUtils.create("Exp Needed: "), ComponentUtils.create(String.format("%,d", SlayerClassification.SHAMBLING_HORROR_2.xpToSpawn),
+                    NamedTextColor.AQUA))
+
             ), { e: InventoryClickEvent? -> startQuest(SlayerClassification.SHAMBLING_HORROR_2)})
 
         this.setButton(
@@ -106,20 +107,24 @@ class MenuSlayerQuest : MenuBase {
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Furious Frenzy", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
                 ComponentUtils.merge(
-                    ComponentUtils.create("The ", NamedTextColor.GRAY),
+                    ComponentUtils.create("The "),
                     ComponentUtils.create("Ferocious Frenzy", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
-                    ComponentUtils.create(" ability now also grants", NamedTextColor.GRAY),
+                    ComponentUtils.create(" ability now also grants"),
                 ),
                 ComponentUtils.merge(
-                    ComponentUtils.create("a ", NamedTextColor.GRAY),
+                    ComponentUtils.create("a "),
                     ComponentUtils.create("50%", NamedTextColor.RED),
-                    ComponentUtils.create(" increase in strength when activated.", NamedTextColor.GRAY),
+                    ComponentUtils.create(" increase in strength when activated."),
                 ),
                 ComponentUtils.EMPTY,
                 ComponentUtils.merge(
                     ComponentUtils.create("Shambling Abomination III", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
-                    ComponentUtils.create(" also inherits", NamedTextColor.GRAY)),
-                ComponentUtils.create("all abilities from previous boss tiers.", NamedTextColor.GRAY)
+                    ComponentUtils.create(" also inherits")),
+                ComponentUtils.create("all abilities from previous boss tiers."),
+                ComponentUtils.EMPTY,
+                ComponentUtils.merge(ComponentUtils.create("Cost: "), ComponentUtils.money(SlayerClassification.SHAMBLING_HORROR_3.cost)),
+                ComponentUtils.merge(ComponentUtils.create("Exp Needed: "), ComponentUtils.create(String.format("%,d", SlayerClassification.SHAMBLING_HORROR_3.xpToSpawn),
+                    NamedTextColor.AQUA))
             ), { e: InventoryClickEvent? -> startQuest(SlayerClassification.SHAMBLING_HORROR_3)})
 
         this.setButton(
@@ -129,22 +134,26 @@ class MenuSlayerQuest : MenuBase {
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Spontaneous Human(?) Combustion", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
                 ComponentUtils.merge(
-                    ComponentUtils.create("The ", NamedTextColor.GRAY),
+                    ComponentUtils.create("The "),
                     ComponentUtils.create("Shambling Horror", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
-                    ComponentUtils.create(" will implode every", NamedTextColor.GRAY),
+                    ComponentUtils.create(" will implode every"),
                 ),
                 ComponentUtils.merge(
                     ComponentUtils.create("10 seconds", NamedTextColor.RED),
-                    ComponentUtils.create(", dealing ", NamedTextColor.GRAY),
+                    ComponentUtils.create(", dealing "),
                     ComponentUtils.create("500", NamedTextColor.RED),
-                    ComponentUtils.create(" true damage to players ", NamedTextColor.GRAY),
+                    ComponentUtils.create(" true damage to players "),
                 ),
-                ComponentUtils.create("that are caught in range.", NamedTextColor.GRAY),
+                ComponentUtils.create("that are caught in range."),
                 ComponentUtils.EMPTY,
                 ComponentUtils.merge(
                     ComponentUtils.create("Shambling Abomination IV", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
-                    ComponentUtils.create(" also inherits", NamedTextColor.GRAY)),
-                ComponentUtils.create("all abilities from previous boss tiers.", NamedTextColor.GRAY)
+                    ComponentUtils.create(" also inherits")),
+                ComponentUtils.create("all abilities from previous boss tiers."),
+                ComponentUtils.EMPTY,
+                ComponentUtils.merge(ComponentUtils.create("Cost: "), ComponentUtils.money(SlayerClassification.SHAMBLING_HORROR_4.cost)),
+                ComponentUtils.merge(ComponentUtils.create("Exp Needed: "), ComponentUtils.create(String.format("%,d", SlayerClassification.SHAMBLING_HORROR_4.xpToSpawn),
+                    NamedTextColor.AQUA))
             ), { e: InventoryClickEvent? -> startQuest(SlayerClassification.SHAMBLING_HORROR_4)})
 
         this.setButton(
@@ -156,38 +165,42 @@ class MenuSlayerQuest : MenuBase {
                 ComponentUtils.merge(
                     ComponentUtils.create("The "),
                     ComponentUtils.create("Shambling Abomination", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
-                    ComponentUtils.create(" will syphon ", NamedTextColor.GRAY),
+                    ComponentUtils.create(" will syphon "),
                     ComponentUtils.create("10%", NamedTextColor.RED),
-                    ComponentUtils.create(" of your max health every 3", NamedTextColor.GRAY)),
+                    ComponentUtils.create(" of your max health every 3")),
                 ComponentUtils.merge(
-                    ComponentUtils.create("seconds, and return ", NamedTextColor.GRAY),
+                    ComponentUtils.create("seconds, and return "),
                     ComponentUtils.create("1000x", NamedTextColor.RED),
-                    ComponentUtils.create(" the syphoned amount as healing to itself.", NamedTextColor.GRAY),
+                    ComponentUtils.create(" the syphoned amount as healing to itself."),
                 ),
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Ragnarok Rage", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
                 ComponentUtils.merge(
                     ComponentUtils.create("Furious Frenzy", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
-                    ComponentUtils.create(" now triggers at ", NamedTextColor.GRAY),
+                    ComponentUtils.create(" now triggers at "),
                     ComponentUtils.create("35%", NamedTextColor.RED),
-                    ComponentUtils.create(" health,", NamedTextColor.GRAY),
+                    ComponentUtils.create(" health,"),
                 ),
                 ComponentUtils.merge(
                     ComponentUtils.create("quickens", NamedTextColor.RED),
-                    ComponentUtils.create(" the rate that ", NamedTextColor.GRAY),
+                    ComponentUtils.create(" the rate that "),
                     ComponentUtils.create("Spontaneous Human(?) Combustion", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED)),
                 ComponentUtils.merge(
-                    ComponentUtils.create("triggers by", NamedTextColor.GRAY),
+                    ComponentUtils.create("triggers by"),
                     ComponentUtils.create(" 2x", NamedTextColor.RED),
-                    ComponentUtils.create(", and increases the true damage dealt to ", NamedTextColor.GRAY),
+                    ComponentUtils.create(", and increases the true damage dealt to "),
                     ComponentUtils.create("1000", NamedTextColor.RED),
-                    ComponentUtils.create(".", NamedTextColor.GRAY)
+                    ComponentUtils.create(".")
                 ),
                 ComponentUtils.EMPTY,
                 ComponentUtils.merge(
                     ComponentUtils.create("Shambling Abomination V", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
-                    ComponentUtils.create(" also inherits", NamedTextColor.GRAY)),
-                ComponentUtils.create("all abilities from previous boss tiers.", NamedTextColor.GRAY)
+                    ComponentUtils.create(" also inherits")),
+                ComponentUtils.create("all abilities from previous boss tiers."),
+                ComponentUtils.EMPTY,
+                ComponentUtils.merge(ComponentUtils.create("Cost: "), ComponentUtils.money(SlayerClassification.SHAMBLING_HORROR_5.cost)),
+                ComponentUtils.merge(ComponentUtils.create("Exp Needed: "), ComponentUtils.create(String.format("%,d", SlayerClassification.SHAMBLING_HORROR_5.xpToSpawn),
+                    NamedTextColor.AQUA))
             ), { e: InventoryClickEvent? -> startQuest(SlayerClassification.SHAMBLING_HORROR_5)})
         //</editor-fold>
     }

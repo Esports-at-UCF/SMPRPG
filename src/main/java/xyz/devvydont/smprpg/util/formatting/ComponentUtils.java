@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import xyz.devvydont.smprpg.services.EconomyService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -276,6 +277,25 @@ public final class ComponentUtils {
     }
 
     /**
+     * Creates a text component that displays colored formatted money w/ the symbol.
+     * @param cost The amount.
+     * @return A text component.
+     */
+    public static Component money(int cost) {
+        return money(cost, NamedTextColor.GOLD);
+    }
+
+    /**
+     * Creates a text component that displays colored formatted money w/ the symbol.
+     * @param cost The amount.
+     * @param color The color to use.
+     * @return A text component.
+     */
+    public static Component money(int cost, TextColor color) {
+        return create(EconomyService.formatMoney(cost), color);
+    }
+
+    /**
      * Creates a text component that displays a power level.
      *
      * @param level The level to display.
@@ -309,4 +329,6 @@ public final class ComponentUtils {
         components.addAll(original);
         return components;
     }
+
+
 }
