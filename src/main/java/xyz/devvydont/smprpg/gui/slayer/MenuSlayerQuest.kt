@@ -24,13 +24,17 @@ import xyz.devvydont.smprpg.util.formatting.Symbols
  * A menu that allows a player to view their current "fishing context", so they know what they are rolling for.
  */
 class MenuSlayerQuest : MenuBase {
-    constructor(player: Player, slayerType : SlayerType) : super(player, 5) {
+    constructor(player: Player, type : SlayerType) : super(player, 5) {
+        slayerType = type
         render()
     }
 
-    constructor(player: Player, parentMenu: MenuBase?, slayerType : SlayerType) : super(player, 5, parentMenu) {
+    constructor(player: Player, parentMenu: MenuBase?, type : SlayerType) : super(player, 5, parentMenu) {
+        slayerType = type
         render()
     }
+
+    var slayerType : SlayerType
 
     /**
      * Render the menu.
@@ -73,7 +77,11 @@ class MenuSlayerQuest : MenuBase {
                 ComponentUtils.EMPTY,
                 ComponentUtils.merge(ComponentUtils.create("Cost: "), ComponentUtils.money(SlayerClassification.SHAMBLING_HORROR_1.cost)),
                 ComponentUtils.merge(ComponentUtils.create("Exp Needed: "), ComponentUtils.create(String.format("%,d", SlayerClassification.SHAMBLING_HORROR_1.xpToSpawn),
-                    NamedTextColor.AQUA))
+                    NamedTextColor.AQUA)),
+                ComponentUtils.merge(
+                    ComponentUtils.create("Rewards: "),
+                    getSlayerXpComponent(SlayerClassification.SHAMBLING_HORROR_1)
+                )
 
             ), { e: InventoryClickEvent? -> startQuest(SlayerClassification.SHAMBLING_HORROR_1)})
 
@@ -99,7 +107,11 @@ class MenuSlayerQuest : MenuBase {
                 ComponentUtils.EMPTY,
                 ComponentUtils.merge(ComponentUtils.create("Cost: "), ComponentUtils.money(SlayerClassification.SHAMBLING_HORROR_2.cost)),
                 ComponentUtils.merge(ComponentUtils.create("Exp Needed: "), ComponentUtils.create(String.format("%,d", SlayerClassification.SHAMBLING_HORROR_2.xpToSpawn),
-                    NamedTextColor.AQUA))
+                    NamedTextColor.AQUA)),
+                ComponentUtils.merge(
+                    ComponentUtils.create("Rewards: "),
+                    getSlayerXpComponent(SlayerClassification.SHAMBLING_HORROR_2)
+                )
 
             ), { e: InventoryClickEvent? -> startQuest(SlayerClassification.SHAMBLING_HORROR_2)})
 
@@ -128,7 +140,11 @@ class MenuSlayerQuest : MenuBase {
                 ComponentUtils.EMPTY,
                 ComponentUtils.merge(ComponentUtils.create("Cost: "), ComponentUtils.money(SlayerClassification.SHAMBLING_HORROR_3.cost)),
                 ComponentUtils.merge(ComponentUtils.create("Exp Needed: "), ComponentUtils.create(String.format("%,d", SlayerClassification.SHAMBLING_HORROR_3.xpToSpawn),
-                    NamedTextColor.AQUA))
+                    NamedTextColor.AQUA)),
+                ComponentUtils.merge(
+                    ComponentUtils.create("Rewards: "),
+                    getSlayerXpComponent(SlayerClassification.SHAMBLING_HORROR_3)
+                )
             ), { e: InventoryClickEvent? -> startQuest(SlayerClassification.SHAMBLING_HORROR_3)})
 
         this.setButton(
@@ -158,7 +174,11 @@ class MenuSlayerQuest : MenuBase {
                 ComponentUtils.EMPTY,
                 ComponentUtils.merge(ComponentUtils.create("Cost: "), ComponentUtils.money(SlayerClassification.SHAMBLING_HORROR_4.cost)),
                 ComponentUtils.merge(ComponentUtils.create("Exp Needed: "), ComponentUtils.create(String.format("%,d", SlayerClassification.SHAMBLING_HORROR_4.xpToSpawn),
-                    NamedTextColor.AQUA))
+                    NamedTextColor.AQUA)),
+                ComponentUtils.merge(
+                    ComponentUtils.create("Rewards: "),
+                    getSlayerXpComponent(SlayerClassification.SHAMBLING_HORROR_4)
+                )
             ), { e: InventoryClickEvent? -> startQuest(SlayerClassification.SHAMBLING_HORROR_4)})
 
         this.setButton(
@@ -206,16 +226,23 @@ class MenuSlayerQuest : MenuBase {
                 ComponentUtils.EMPTY,
                 ComponentUtils.merge(ComponentUtils.create("Cost: "), ComponentUtils.money(SlayerClassification.SHAMBLING_HORROR_5.cost)),
                 ComponentUtils.merge(ComponentUtils.create("Exp Needed: "), ComponentUtils.create(String.format("%,d", SlayerClassification.SHAMBLING_HORROR_5.xpToSpawn),
-                    NamedTextColor.AQUA))
+                    NamedTextColor.AQUA)),
+                ComponentUtils.merge(
+                    ComponentUtils.create("Rewards: "),
+                    getSlayerXpComponent(SlayerClassification.SHAMBLING_HORROR_5)
+                )
             ), { e: InventoryClickEvent? -> startQuest(SlayerClassification.SHAMBLING_HORROR_5)})
         //</editor-fold>
     }
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
-        // TODO: Make this adapt to other SlayerTypes
+        var bgAsset = ""
+        when (slayerType) {
+            SlayerType.SHAMBLING_ABOMINATION -> bgAsset = Symbols.SLAYER_SHAMBLING_MENU
+        }
         event.titleOverride(
             ComponentUtils.merge(
-                ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SLAYER_SHAMBLING_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(Symbols.OFFSET_NEG_1 + bgAsset, NamedTextColor.WHITE),
                 ComponentUtils.create(
                     Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Slayer",
                     NamedTextColor.BLACK
@@ -226,6 +253,12 @@ class MenuSlayerQuest : MenuBase {
 
     override fun handleInventoryClicked(event: InventoryClickEvent) {
         event.setCancelled(true)
+    }
+
+    fun getSlayerXpComponent(classification : SlayerClassification) : Component {
+        return ComponentUtils.merge(
+            ComponentUtils.create(String.format("%,d", classification.slayerXpReward), NamedTextColor.LIGHT_PURPLE),
+            ComponentUtils.create(" Slayer Experience", NamedTextColor.LIGHT_PURPLE))
     }
 
     fun startQuest(slayerInfo : SlayerClassification) {

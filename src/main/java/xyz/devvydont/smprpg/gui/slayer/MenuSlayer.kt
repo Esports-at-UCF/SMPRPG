@@ -90,7 +90,6 @@ class MenuSlayer : MenuBase {
 
     override fun handleInventoryClicked(event: InventoryClickEvent) {
         event.setCancelled(true)
-        this.playInvalidAnimation(true)
     }
 
 
