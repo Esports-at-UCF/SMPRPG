@@ -2,10 +2,13 @@ package xyz.devvydont.smprpg.entity.slayer.shambling
 
 import net.kyori.adventure.key.Key
 import org.bukkit.Material
+import org.bukkit.damage.DamageType
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Zombie
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
+import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityTransformEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
@@ -28,6 +31,7 @@ open class ShamblingAbominationParent
 
     open var attackCooldown = 10
     open var enrageThreshold = 0.5
+    open var explosionDamage = 500.0
 
     override fun setup() {
         super.setup()
@@ -74,5 +78,15 @@ open class ShamblingAbominationParent
 
         @JvmField
         val SPAWN_MOB_FLAG : String = "shambling_abomination"
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    fun onImplodeDamage(event : EntityDamageByEntityEvent) {
+        val source = event.damageSource
+        if (entity == source.causingEntity) {
+            if (source.damageType == DamageType.EXPLOSION) {
+                event.setDamage(explosionDamage)
+            }
+        }
     }
 }

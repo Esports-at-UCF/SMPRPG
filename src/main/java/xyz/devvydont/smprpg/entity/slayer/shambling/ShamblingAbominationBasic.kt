@@ -40,6 +40,8 @@ class ShamblingAbominationBasic(entity: LivingEntity?, entityType: CustomEntityT
         if (event.getEntity() == entity) {
             val zombie = entity as Zombie
             zombie.setAdult()
+            if (entity.vehicle != null)
+                entity.vehicle!!.removePassenger(entity)
             val mobGoals = Bukkit.getMobGoals()
             mobGoals.removeAllGoals(zombie)
             mobGoals.addGoal(zombie, 3, ShamblingAbominationChaseGoal(this, null, 1.5))

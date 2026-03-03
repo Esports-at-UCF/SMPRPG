@@ -43,11 +43,13 @@ class ShamblingAbominationExpert(entity: LivingEntity?, entityType: CustomEntity
         if (event.getEntity() == entity) {
             val zombie = entity as Zombie
             zombie.setAdult()
+            if (entity.vehicle != null)
+                entity.vehicle!!.removePassenger(entity)
             val mobGoals = Bukkit.getMobGoals()
             mobGoals.removeAllGoals(zombie)
             mobGoals.addGoal(zombie, 3, ShamblingAbominationChaseGoal(this, null, 1.8))
             mobGoals.addGoal(zombie, 4, ShamblingAbominationEnrageGoal(this, null))
-            mobGoals.addGoal(zombie, 5, ShamblingAbominationImplodeGoal(this, null, TickTime.seconds(10).toInt(), 250.0))
+            mobGoals.addGoal(zombie, 5, ShamblingAbominationImplodeGoal(this, null, TickTime.seconds(10).toInt(), explosionDamage))
         }
     }
 }

@@ -11,10 +11,13 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDeathEvent
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.base.CustomBossInstance
+import xyz.devvydont.smprpg.events.slayer.SlayerBossDeathEvent
+import xyz.devvydont.smprpg.slayer.quest.SlayerQuest
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
-open class SlayerBossInstance<T>(T : LivingEntity?, entityType: CustomEntityType?) : CustomBossInstance<LivingEntity?>(T, entityType),
-    Listener {
+open class SlayerBossInstance<T>(T : LivingEntity?, entityType: CustomEntityType?) : CustomBossInstance<LivingEntity?>(T, entityType), Listener {
+
+    var quest : SlayerQuest? = null
 
     override fun getNameColor(): TextColor? {
         return NamedTextColor.DARK_PURPLE
@@ -33,5 +36,8 @@ open class SlayerBossInstance<T>(T : LivingEntity?, entityType: CustomEntityType
         _entity.world.playSound(_entity.location, Sound.BLOCK_TRIAL_SPAWNER_SPAWN_MOB, 1f, 0.2f)
         _entity.world.playSound(_entity.location, Sound.BLOCK_TRIAL_SPAWNER_SPAWN_MOB, 1f, 0.4f)
         _entity.world.playSound(_entity.location, Sound.ENTITY_WITHER_SPAWN, 1f, 2.0f)
+
+        val slayerBossDeathEvent = SlayerBossDeathEvent(this)
+        slayerBossDeathEvent.callEvent()
     }
 }

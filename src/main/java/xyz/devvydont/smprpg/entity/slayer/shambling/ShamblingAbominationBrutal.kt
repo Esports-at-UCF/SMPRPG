@@ -22,6 +22,7 @@ import java.util.List
 
 class ShamblingAbominationBrutal(entity: LivingEntity?, entityType: CustomEntityType?) : ShamblingAbominationParent(entity as Zombie?, entityType) {
     override var enrageThreshold = 0.35
+    override var explosionDamage = 1_000.0
 
     override fun getItemDrops(): MutableCollection<LootDrop?>? {
         return List.of<LootDrop?>(
@@ -46,11 +47,13 @@ class ShamblingAbominationBrutal(entity: LivingEntity?, entityType: CustomEntity
         if (event.getEntity() == entity) {
             val zombie = entity as Zombie
             zombie.setAdult()
+            if (entity.vehicle != null)
+                entity.vehicle!!.removePassenger(entity)
             val mobGoals = Bukkit.getMobGoals()
             mobGoals.removeAllGoals(zombie)
             mobGoals.addGoal(zombie, 0, ShamblingAbominationChaseGoal(this, null, 2.0))
             mobGoals.addGoal(zombie, 1, ShamblingAbominationEnrageGoal(this, null))
-            mobGoals.addGoal(zombie, 2, ShamblingAbominationImplodeGoal(this, null, TickTime.seconds(10).toInt(), 1000.0))
+            mobGoals.addGoal(zombie, 2, ShamblingAbominationImplodeGoal(this, null, TickTime.seconds(10).toInt(), explosionDamage))
             mobGoals.addGoal(zombie, 3, ShamblingAbominationSyphonGoal(this, null, 0.1))
         }
     }

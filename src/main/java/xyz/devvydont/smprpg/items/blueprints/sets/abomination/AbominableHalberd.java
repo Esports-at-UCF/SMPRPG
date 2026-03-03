@@ -147,7 +147,7 @@ public class AbominableHalberd extends CustomAttributeItem implements Listener, 
 
     @EventHandler
     public void __onReceiveDamageFromBoss(CustomEntityDamageByEntityEvent event) {
-        // Is the attacker a shambling horror?
+        // Is the attacker a shambling abomination?
         var isBoss = (SMPRPG.getService(EntityService.class).getEntityInstance(event.dealer) instanceof ShamblingAbominationParent);
         if (isBoss) {
             // Is the attacker holding the halberd?

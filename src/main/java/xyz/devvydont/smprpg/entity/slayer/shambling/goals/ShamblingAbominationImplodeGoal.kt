@@ -14,6 +14,8 @@ import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
+import org.bukkit.damage.DamageSource
+import org.bukkit.damage.DamageType
 import org.bukkit.entity.Player
 import org.bukkit.entity.Zombie
 import org.bukkit.inventory.EquipmentSlot
@@ -83,12 +85,12 @@ class ShamblingAbominationImplodeGoal(val slayer : ShamblingAbominationParent,
                 val mobGoals = Bukkit.getMobGoals()
                 chaseGoal = mobGoals.getGoal(zombie, ShamblingAbominationChaseGoal.GOAL_KEY) as ShamblingAbominationChaseGoal
                 chaseGoal?.stop()
-                warnExplosion(1.2f, 1.0)
+                warnExplosion(1.0f, 1.0)
             }
-            40 -> warnExplosion(1.4f, 2.0)
-            30 -> warnExplosion(1.6f, 3.0)
-            20 -> warnExplosion(1.8f, 4.0)
-            10 -> warnExplosion(2.0f, 5.0)
+            40 -> warnExplosion(1.1f, 2.0)
+            30 -> warnExplosion(1.2f, 3.0)
+            20 -> warnExplosion(1.3f, 4.0)
+            10 -> warnExplosion(1.4f, 5.0)
             0 -> {
                 // Reset the cycle
                 implosionClock = timeBetweenImplosions
@@ -96,7 +98,7 @@ class ShamblingAbominationImplodeGoal(val slayer : ShamblingAbominationParent,
                 // Damage all participants in a 10 block radius
                 for (participant in slayer.activelyInvolvedPlayers) {
                     if (participant.location.distance(zombie.location) <= 10.0) {
-                        participant.damage(implosionDamage, zombie)
+                        participant.damage(implosionDamage, DamageSource.builder(DamageType.EXPLOSION).withCausingEntity(zombie).withDirectEntity(zombie).build())
                         participant.playSound(participant, Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f)
                     }
                 }
@@ -115,7 +117,7 @@ class ShamblingAbominationImplodeGoal(val slayer : ShamblingAbominationParent,
     }
 
     fun warnExplosion(pitch : Float, radius : Double) {
-        zombie.world.playSound(zombie.location, Sound.BLOCK_PORTAL_TRAVEL, 1f, pitch)
+        zombie.world.playSound(zombie.location, Sound.BLOCK_END_PORTAL_SPAWN, 0.75f, pitch)
         ParticleBuilder(Particle.EFFECT)
             .location(zombie.location)
             .count(512)

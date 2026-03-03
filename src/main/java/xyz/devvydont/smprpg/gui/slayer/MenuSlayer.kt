@@ -39,11 +39,6 @@ class MenuSlayer : MenuBase {
         render()
     }
 
-    init {
-        //val quest = SlayerQuest(SMPRPG.getService(EntityService::class.java).getPlayerInstance(player), 100, CustomEntityType.SHAMBLING_ABOMINATION_1, ShamblingAbominationParent.SPAWN_MOB_FLAG)
-        //plugin.server.pluginManager.registerEvents(quest, plugin)
-    }
-
     /**
      * Render the menu.
      */
@@ -88,7 +83,7 @@ class MenuSlayer : MenuBase {
                 ComponentUtils.create("this affront to the living preys", NamedTextColor.GRAY),
                 ComponentUtils.create("on those who dare awaken it.", NamedTextColor.GRAY)
             ), { e: InventoryClickEvent? ->
-                MenuSlayerQuest(this.player, this, SlayerType.SHAMBLING_HORROR).openMenu()
+                MenuSlayerQuest(this.player, this, SlayerType.SHAMBLING_ABOMINATION).openMenu()
             })
     }
 

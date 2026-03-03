@@ -77,6 +77,7 @@ class SMPRPG : JavaPlugin() {
         services.add(WardrobeService()) // Manages wardrobe slot upgrades and progression.
         services.add(PlayerFreezeService()) // Manages player freezing, for NPCs, abilities, etc.
         services.add(MarketService()) // Manages the auction house and bazaar marketplace systems.
+        services.add(SlayerService()) // Manages slayer quests
 
         // Start all the services. Make sure nothing goes wrong.
         for (service in services) {
