@@ -11,7 +11,8 @@ enum class SkillType(val rewards: SkillRewardContainer) {
     MINING(MiningSkillRewards()),
     MAGIC(MagicSkillRewards()),
     FARMING(FarmingSkillRewards()),
-    FISHING(FishingSkillRewards());
+    FISHING(FishingSkillRewards()),
+    SLAYER(SlayerSkillRewards());
 
     val identifier: String = "skill_${name.lowercase()}"
 

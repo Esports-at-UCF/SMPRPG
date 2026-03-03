@@ -166,7 +166,7 @@ object SkillGlobals {
 
     // The magic skill gives intelligence and luck.
     const val INT_PER_LEVEL: Double = 5.0
-    const val LUCK_PER_4_LEVELS: Double = 4.0
+    const val LUCK_PER_4_LEVELS: Double = 2.0
     const val LUCK_LEVEL_FREQUENCY: Int = 4
 
     // The mining skill awards mining efficiency every 4 levels.
@@ -178,6 +178,11 @@ object SkillGlobals {
     const val DEFENSE_PER_2_LEVELS: Double = 4.0
     const val LUMBERING_LEVEL_FREQUENCY: Int = 10
     const val LUMBERING_PER_10_LEVELS: Int = 1
+
+    // Slayer gives a tiny amount of global proficiency, and average luck
+    const val PROFICIENCY_PER_LEVEL : Double = 0.5
+    const val SLAYER_LUCK_PER_10_LEVELS : Double = 5.0
+    const val SLAYER_LUCK_LEVEL_FREQUENCY : Int = 10
 
 
     /**

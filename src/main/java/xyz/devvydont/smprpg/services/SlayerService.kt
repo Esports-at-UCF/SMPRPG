@@ -113,6 +113,8 @@ class SlayerService : IService, Listener {
             playersToQuests.remove(player.uniqueId)
         }
         player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1f, 2f)
+
+        event.slayer.generateSkillExperienceReward()
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)  // We ignoreCancelled=true so that in the event the death was cancelled, we don't stop the slayer.

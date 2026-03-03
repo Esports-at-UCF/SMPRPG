@@ -12,6 +12,9 @@ import org.bukkit.event.entity.EntityDeathEvent
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.base.CustomBossInstance
 import xyz.devvydont.smprpg.events.slayer.SlayerBossDeathEvent
+import xyz.devvydont.smprpg.skills.SkillType
+import xyz.devvydont.smprpg.skills.utils.SkillExperienceReward
+import xyz.devvydont.smprpg.skills.utils.SkillExperienceReward.Companion.of
 import xyz.devvydont.smprpg.slayer.quest.SlayerQuest
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
@@ -25,6 +28,13 @@ open class SlayerBossInstance<T>(T : LivingEntity?, entityType: CustomEntityType
 
     override fun getNameComponent(): Component {
         return ComponentUtils.create(getEntityName(), getNameColor(), TextDecoration.BOLD)
+    }
+
+    override fun generateSkillExperienceReward(): SkillExperienceReward? {
+        val slayerXp = quest?.classification!!.slayerXpReward
+        val reward = of(SkillType.COMBAT, (slayerXp / 2.0).toInt())
+        reward.add(SkillType.SLAYER, slayerXp)
+        return reward
     }
 
     @EventHandler()

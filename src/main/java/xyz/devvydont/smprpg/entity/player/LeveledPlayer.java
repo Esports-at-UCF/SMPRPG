@@ -43,6 +43,7 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
     private final SkillInstance farmingSkill;
     private final SkillInstance woodcuttingSkill;
     private final SkillInstance magicSkill;
+    private final SkillInstance slayerSkill;
 
     private BukkitTask _manaRegenerateTask;
     private double _mana = 0;
@@ -58,6 +59,7 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         this.farmingSkill = skillService.getNewSkillInstance(entity, SkillType.FARMING);
         this.woodcuttingSkill = skillService.getNewSkillInstance(entity, SkillType.WOODCUTTING);
         this.magicSkill = skillService.getNewSkillInstance(entity, SkillType.MAGIC);
+        this.slayerSkill = skillService.getNewSkillInstance(entity, SkillType.SLAYER);
 
         this._config = EntityConfiguration.PLAYER;
     }
@@ -133,6 +135,10 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         return magicSkill;
     }
 
+    public SkillInstance getSlayerSkill() {
+        return slayerSkill;
+    }
+
     public Collection<SkillInstance> getSkills() {
         return List.of(
                 getCombatSkill(),
@@ -140,7 +146,8 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
                 getFishingSkill(),
                 getFarmingSkill(),
                 getWoodcuttingSkill(),
-                getMagicSkill()
+                getMagicSkill(),
+                getSlayerSkill()
         );
     }
 
