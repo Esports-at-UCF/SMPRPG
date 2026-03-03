@@ -53,17 +53,15 @@ class BazaarCategoryNode(
             val roots = mutableMapOf<String, Bucket>()
 
             for (item in items) {
-                val segments = item.category.split("/", limit = 2)
+                val segments = item.category.split("/")
                 val rootName = segments[0]
                 val rootBucket = roots.getOrPut(rootName) { Bucket() }
 
-                if (segments.size == 1) {
-                    rootBucket.directItems.add(item)
-                } else {
-                    val childName = segments[1]
-                    val childBucket = rootBucket.childBuckets.getOrPut(childName) { Bucket() }
-                    childBucket.directItems.add(item)
+                var currentBucket = rootBucket
+                for (i in 1 until segments.size) {
+                    currentBucket = currentBucket.childBuckets.getOrPut(segments[i]) { Bucket() }
                 }
+                currentBucket.directItems.add(item)
             }
 
             fun buildNode(name: String, path: String, bucket: Bucket): BazaarCategoryNode {

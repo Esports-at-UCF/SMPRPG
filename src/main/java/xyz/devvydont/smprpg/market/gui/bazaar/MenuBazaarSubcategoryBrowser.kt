@@ -24,7 +24,7 @@ class MenuBazaarSubcategoryBrowser(
 ) : MenuBase(player, ROWS, parentMenu) {
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
-        event.titleOverride(Component.text("Bazaar - ${node.name}"))
+        event.titleOverride(Component.text(buildTitle(node.path)))
         render()
     }
 
@@ -59,12 +59,16 @@ class MenuBazaarSubcategoryBrowser(
             )
 
             setButton(slot, item) { _: InventoryClickEvent ->
-                openSubMenu(MenuBazaarCategory(
-                    player,
-                    "Bazaar - ${node.name} - ${child.name}",
-                    { bazaarManager.getItemsByPath(child.path) },
-                    this
-                ))
+                if (child.hasChildren) {
+                    openSubMenu(MenuBazaarSubcategoryBrowser(player, child, this))
+                } else {
+                    openSubMenu(MenuBazaarCategory(
+                        player,
+                        buildTitle(child.path),
+                        { bazaarManager.getItemsByPath(child.path) },
+                        this
+                    ))
+                }
             }
         }
 
@@ -85,7 +89,7 @@ class MenuBazaarSubcategoryBrowser(
             setButton(slot, item) { _: InventoryClickEvent ->
                 openSubMenu(MenuBazaarCategory(
                     player,
-                    "Bazaar - ${node.name} - Other",
+                    buildTitle(node.path) + " - Other",
                     { bazaarManager.getItemsByPath(node.path) },
                     this
                 ))
@@ -96,5 +100,8 @@ class MenuBazaarSubcategoryBrowser(
     companion object {
         private const val ROWS = 4
         private const val ROW_CENTER = 13
+
+        fun buildTitle(path: String): String =
+            "Bazaar - " + path.replace("/", " - ")
     }
 }
