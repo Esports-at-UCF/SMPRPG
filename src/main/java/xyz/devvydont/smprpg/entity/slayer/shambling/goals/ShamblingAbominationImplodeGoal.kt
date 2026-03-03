@@ -85,12 +85,16 @@ class ShamblingAbominationImplodeGoal(val slayer : ShamblingAbominationParent,
                 val mobGoals = Bukkit.getMobGoals()
                 chaseGoal = mobGoals.getGoal(zombie, ShamblingAbominationChaseGoal.GOAL_KEY) as ShamblingAbominationChaseGoal
                 chaseGoal?.stop()
-                warnExplosion(1.0f, 1.0)
+                warnExplosion(1.4f, 1.0)
             }
-            40 -> warnExplosion(1.1f, 2.0)
-            30 -> warnExplosion(1.2f, 3.0)
-            20 -> warnExplosion(1.3f, 4.0)
-            10 -> warnExplosion(1.4f, 5.0)
+            40 -> warnExplosion(1.0f, 2.0)
+            30 -> warnExplosion(1.6f, 3.0)
+            20 -> warnExplosion(1.1f, 4.0)
+            10 -> warnExplosion(1.8f, 5.0)
+            8 -> zombie.world.playSound(zombie.location, Sound.BLOCK_NOTE_BLOCK_PLING, 0.75f, 2f)
+            6 -> zombie.world.playSound(zombie.location, Sound.BLOCK_NOTE_BLOCK_PLING, 0.75f, 2f)
+            4 -> zombie.world.playSound(zombie.location, Sound.BLOCK_NOTE_BLOCK_PLING, 0.75f, 2f)
+            2 -> zombie.world.playSound(zombie.location, Sound.BLOCK_NOTE_BLOCK_PLING, 0.75f, 2f)
             0 -> {
                 // Reset the cycle
                 implosionClock = timeBetweenImplosions
