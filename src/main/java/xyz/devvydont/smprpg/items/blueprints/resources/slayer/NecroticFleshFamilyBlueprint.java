@@ -39,13 +39,11 @@ public class NecroticFleshFamilyBlueprint extends CustomCompressableBlueprint im
     }
 
     @Override
-    public int getNutrition(ItemStack item) {
-        return 1;
-    }
+    public int getNutrition(ItemStack item) { return 0; }
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 1;
+        return 0.0f;
     }
 
     @Override

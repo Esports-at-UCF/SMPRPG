@@ -35,17 +35,17 @@ public class InfinifoodBlueprint extends CustomItemBlueprint implements IEdible,
 
     @Override
     public int getNutrition(ItemStack item) {
-        return 8;
+        return 50;
     }
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 8;
+        return 500.0f;
     }
 
     @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 
     @Override
