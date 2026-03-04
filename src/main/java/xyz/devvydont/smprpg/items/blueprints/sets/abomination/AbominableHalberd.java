@@ -1,5 +1,11 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.abomination;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.AttackRange;
+import io.papermc.paper.datacomponent.item.PiercingWeapon;
+import io.papermc.paper.datacomponent.item.SwingAnimation;
+import io.papermc.paper.datacomponent.item.Weapon;
+import io.papermc.paper.registry.keys.SoundEventKeys;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -106,6 +112,17 @@ public class AbominableHalberd extends CustomAttributeItem implements Listener, 
         return List.of(
                 ItemService.generate(Material.ROTTEN_FLESH)
         );
+    }
+
+    @Override
+    public void updateItemData(ItemStack itemStack) {
+        super.updateItemData(itemStack);
+        itemStack.setData(DataComponentTypes.ATTACK_RANGE, AttackRange.attackRange()
+                .hitboxMargin(0.3f)
+                .maxReach(4.0f)
+                .maxCreativeReach(4.0f)
+                .build());
+
     }
 
     @Override
