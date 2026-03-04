@@ -53,7 +53,7 @@ public class AbominableMachete extends CustomAttributeItem implements Listener, 
         components.add(AbilityUtil.getAbilityComponent("Taste for Blood (Passive)"));
         components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create((int) DAMAGE_MULT + "x", NamedTextColor.GREEN)).append(ComponentUtils.create(" damage")));
         components.add(ComponentUtils.create("against ").append(ComponentUtils.create("Shambling Abominations", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD)).append(ComponentUtils.create(".")));
-        components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create("25%", NamedTextColor.RED)).append(ComponentUtils.create(" damage to any other mobs.")));
+        components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create("10%", NamedTextColor.RED)).append(ComponentUtils.create(" damage to any other mobs.")));
         components.add(ComponentUtils.create("Attacks heal ").append(ComponentUtils.create("+" + (int) HEAL_AMOUNT, NamedTextColor.RED)).append(ComponentUtils.create(Symbols.HEART, NamedTextColor.RED)).append(ComponentUtils.create(" on critical hits.")));
 
         return components;
@@ -92,9 +92,10 @@ public class AbominableMachete extends CustomAttributeItem implements Listener, 
     @Override
     public CraftingRecipe getCustomRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(getRecipeKey(), generate());
-        recipe.shape("fff", "fcf", "fff");
+        recipe.shape("fvf", "fcf", "fvf");
         recipe.setCategory(CraftingBookCategory.EQUIPMENT);
         recipe.setIngredient('c', ItemService.generate(CustomItemType.ABOMINABLE_CLEAVER));
+        recipe.setIngredient('v', ItemService.generate(CustomItemType.REVILED_VISCERA));
         recipe.setIngredient('f', ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH));
         return recipe;
     }
@@ -131,9 +132,9 @@ public class AbominableMachete extends CustomAttributeItem implements Listener, 
         // Is the attacked mob a shambling abomination?
         var isBoss = (SMPRPG.getService(EntityService.class).getEntityInstance(event.damaged) instanceof ShamblingAbominationParent);
         if (!isBoss) {
-            // If it isn't, we quarter our damage instead of sextuple it.
+            // If it isn't, we reduce our damage instead of sextuple it.
             // This makes it not viable outside of slayer usage.
-            event.multiplyDamage(0.25);
+            event.multiplyDamage(0.1);
         } else {
             event.multiplyDamage(DAMAGE_MULT);
         }

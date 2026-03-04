@@ -20,7 +20,9 @@ class ShamblingAbominationIntermediate(entity: LivingEntity?, entityType: Custom
             QuantityLootDrop(generate(CustomItemType.NECROTIC_FLESH), 4, 12, this),
             QuantityLootDrop(generate(Material.ROTTEN_FLESH), 16, 32, this),
             ChancedItemDrop(generate(CustomItemType.PREMIUM_FLESH), 10, this),
-            ChancedItemDrop(generate(CustomItemType.ENCHANTED_FLESH), 70, this)
+            ChancedItemDrop(generate(CustomItemType.ENCHANTED_FLESH), 70, this),
+
+            ChancedItemDrop(generate(CustomItemType.REVILED_VISCERA), 100, this)
         )
     }
 

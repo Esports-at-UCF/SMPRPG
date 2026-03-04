@@ -38,6 +38,9 @@ import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFlesh;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFleshFamilyBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.NecronomiconExcerpts;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.ReviledViscera;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.VisceralAmalgamation;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
 import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableCleaver;
 import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableHalberd;
@@ -647,6 +650,10 @@ public enum CustomItemType {
     PREMIUM_NECROTIC_FLESH("Premium Necrotic Flesh", Material.ROTTEN_FLESH, ItemRarity.RARE, true, NecroticFleshFamilyBlueprint.class),
     ENCHANTED_NECROTIC_FLESH(    "Enchanted Necrotic Flesh",        Material.ROTTEN_FLESH,       ItemRarity.EPIC,    true, NecroticFleshFamilyBlueprint.class),
     NECROTIC_FLESH_SINGULARITY(    "Necrotic Flesh Singularity",        Material.ROTTEN_FLESH,       ItemRarity.LEGENDARY,    true, NecroticFleshFamilyBlueprint.class),
+
+    REVILED_VISCERA("Reviled Viscera", Material.ROTTEN_FLESH, ItemRarity.RARE, ReviledViscera.class),
+    VISCERAL_AMALGAMATION("Visceral Amalgamation", Material.ROTTEN_FLESH, ItemRarity.RARE, VisceralAmalgamation.class),
+    NECRONOMICON_EXCERPTS("Necronomicon Excerpts", Material.PAPER, ItemRarity.LEGENDARY, NecronomiconExcerpts.class),
 
     ABOMINABLE_CLEAVER(     "Abominable Cleaver",  Material.GOLDEN_SWORD,     ItemRarity.RARE, AbominableCleaver.class),
     ABOMINABLE_MACHETE(     "Abominable Machete",  Material.DIAMOND_SWORD,     ItemRarity.EPIC, AbominableMachete.class),

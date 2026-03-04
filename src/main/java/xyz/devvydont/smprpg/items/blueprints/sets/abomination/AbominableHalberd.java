@@ -60,7 +60,7 @@ public class AbominableHalberd extends CustomAttributeItem implements Listener, 
         components.add(AbilityUtil.getAbilityComponent("Divine Executioner (Passive)"));
         components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create((int) DAMAGE_MULT + "x", NamedTextColor.GREEN)).append(ComponentUtils.create(" damage")));
         components.add(ComponentUtils.create("against ").append(ComponentUtils.create("Shambling Abominations", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD)).append(ComponentUtils.create(".")));
-        components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create("25%", NamedTextColor.RED)).append(ComponentUtils.create(" damage to any other mobs.")));
+        components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create("10%", NamedTextColor.RED)).append(ComponentUtils.create(" damage to any other mobs.")));
         components.add(ComponentUtils.create("Attacks heal ").append(ComponentUtils.create("+" + (int) HEAL_AMOUNT, NamedTextColor.RED)).append(ComponentUtils.create(Symbols.HEART, NamedTextColor.RED)).append(ComponentUtils.create(" on critical hits.")));
         components.add(ComponentUtils.create("Receive ").append(ComponentUtils.create((int) BOSS_DAMAGE_REDUCTION + "%", NamedTextColor.GREEN)).append(ComponentUtils.create(" less damage from")).append(ComponentUtils.create(" Shambling Abominations", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD)).append(ComponentUtils.create(".")));
 
@@ -100,10 +100,11 @@ public class AbominableHalberd extends CustomAttributeItem implements Listener, 
     @Override
     public CraftingRecipe getCustomRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(getRecipeKey(), generate());
-        recipe.shape("fff", "fmf", "fff");
+        recipe.shape("faf", "fmf", "faf");
         recipe.setCategory(CraftingBookCategory.EQUIPMENT);
         recipe.setIngredient('m', ItemService.generate(CustomItemType.ABOMINABLE_MACHETE));
         recipe.setIngredient('f', ItemService.generate(CustomItemType.NECROTIC_FLESH_SINGULARITY));
+        recipe.setIngredient('a', ItemService.generate(CustomItemType.VISCERAL_AMALGAMATION));
         return recipe;
     }
 
@@ -152,7 +153,7 @@ public class AbominableHalberd extends CustomAttributeItem implements Listener, 
         if (!isBoss) {
             // If it isn't, we quarter our damage instead of sextuple it.
             // This makes it not viable outside of slayer usage.
-            event.multiplyDamage(0.25);
+            event.multiplyDamage(0.1);
         } else {
             event.multiplyDamage(DAMAGE_MULT);
         }
@@ -185,5 +186,4 @@ public class AbominableHalberd extends CustomAttributeItem implements Listener, 
             event.multiplyDamage(1.0 - (BOSS_DAMAGE_REDUCTION / 100.0));
         }
     }
-
 }

@@ -51,7 +51,7 @@ public class AbominableCleaver extends CustomAttributeItem implements Listener, 
         components.add(AbilityUtil.getAbilityComponent("Hack Away (Passive)"));
         components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create((int) DAMAGE_MULT + "x", NamedTextColor.GREEN)).append(ComponentUtils.create(" damage")));
         components.add(ComponentUtils.create("against ").append(ComponentUtils.create("Shambling Abominations", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD)).append(ComponentUtils.create(".")));
-        components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create("25%", NamedTextColor.RED)).append(ComponentUtils.create(" damage to any other mobs.")));
+        components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create("10%", NamedTextColor.RED)).append(ComponentUtils.create(" damage to any other mobs.")));
 
         return components;
     }
@@ -91,7 +91,7 @@ public class AbominableCleaver extends CustomAttributeItem implements Listener, 
         recipe.shape("ffs", "fs ", "s  ");
         recipe.setCategory(CraftingBookCategory.EQUIPMENT);
         recipe.setIngredient('s', ItemService.generate(Material.STICK));
-        recipe.setIngredient('f', ItemService.generate(CustomItemType.ENCHANTED_FLESH));
+        recipe.setIngredient('f', ItemService.generate(CustomItemType.PREMIUM_NECROTIC_FLESH));
         return recipe;
     }
 
@@ -125,9 +125,9 @@ public class AbominableCleaver extends CustomAttributeItem implements Listener, 
 
         // Is the attacked mob a shambling abomination?
         if (!(SMPRPG.getService(EntityService.class).getEntityInstance(event.damaged) instanceof ShamblingAbominationParent)) {
-            // If it isn't, we quarter our damage instead of quadruple it.
+            // If it isn't, we reduce our damage instead of quadruple it.
             // This makes it not viable outside of slayer usage.
-            event.multiplyDamage(0.25);
+            event.multiplyDamage(0.1);
             return;
         }
 

@@ -53,7 +53,7 @@ public class NecroticFlesh extends CustomItemBlueprint implements ISellable, IEd
      */
     @Override
     public int getWorth(ItemStack item) {
-        return 300 * item.getAmount();
+        return 30 * item.getAmount();
     }
 
     @Override
