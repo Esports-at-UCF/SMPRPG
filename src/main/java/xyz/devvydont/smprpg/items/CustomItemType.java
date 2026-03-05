@@ -43,9 +43,7 @@ import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.ReviledVisce
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.UndigestedBrains;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.VisceralAmalgamation;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
-import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableCleaver;
-import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableHalberd;
-import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableMachete;
+import xyz.devvydont.smprpg.items.blueprints.sets.abomination.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.wood.WoodStaff;
 import xyz.devvydont.smprpg.items.blueprints.tomes.Necronomicon;
@@ -662,6 +660,10 @@ public enum CustomItemType {
     ABOMINABLE_MACHETE(     "Abominable Machete",  Material.DIAMOND_SWORD,    ItemRarity.EPIC, AbominableMachete.class),
     ABOMINABLE_HALBERD(     "Abominable Halberd",  Material.NETHERITE_SWORD,  ItemRarity.LEGENDARY, AbominableHalberd.class),
     NECRONOMICON(           "Necronomicon",        Material.PAPER,            ItemRarity.LEGENDARY, Necronomicon.class),
+    ABOMINABLE_HELMET("Abominable Helmet", Material.DIAMOND_HELMET, ItemRarity.EPIC, AbominationHelmet.class),
+    ABOMINABLE_CHESTPLATE("Abominable Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.EPIC, AbominationChestplate.class),
+    ABOMINABLE_LEGGINGS("Abominable Leggings", Material.DIAMOND_LEGGINGS, ItemRarity.EPIC, AbominationLeggings.class),
+    ABOMINABLE_BOOTS("Abominable Boots", Material.DIAMOND_BOOTS, ItemRarity.EPIC, AbominationBoots.class),
 
     IRON_ROD("Iron Rod", Material.FISHING_ROD, ItemRarity.COMMON, WaterRod.class),
     DIAMOND_ROD("Diamond Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, WaterRod.class),

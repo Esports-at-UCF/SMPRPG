@@ -104,7 +104,7 @@ public class AbominableCleaver extends CustomAttributeItem implements Listener, 
 
     @Override
     public int getMaxDurability() {
-        return 50_000;
+        return 1_000;
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)

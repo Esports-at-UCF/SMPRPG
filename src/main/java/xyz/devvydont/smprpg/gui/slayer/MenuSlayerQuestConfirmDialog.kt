@@ -2,11 +2,9 @@ package xyz.devvydont.smprpg.gui.slayer
 
 import io.papermc.paper.dialog.DialogResponseView
 import io.papermc.paper.registry.data.dialog.body.DialogBody
-import io.papermc.paper.registry.data.dialog.input.DialogInput
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
@@ -14,7 +12,6 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.gui.base.MenuDialog
 import xyz.devvydont.smprpg.items.CustomItemType
-import xyz.devvydont.smprpg.market.gui.auction.DialogAuctionSettings
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.SlayerService
@@ -36,7 +33,7 @@ class MenuSlayerQuestConfirmDialog(
 
     override fun dialogBody(): List<DialogBody> {
         val itemService = SMPRPG.getService(ItemService::class.java)
-        var item : ItemStack? = null
+        var item : ItemStack?
         when (slayerClassification.slayerType) {
             SlayerType.SHAMBLING_ABOMINATION -> item = itemService.getCustomItem(CustomItemType.NECROTIC_FLESH)
         }
@@ -76,10 +73,6 @@ class MenuSlayerQuestConfirmDialog(
                 )
             ))
         )
-    }
-
-    override fun dialogInputs(): List<DialogInput> {
-        return super.dialogInputs()
     }
 
     override fun onConfirm(response: DialogResponseView) {

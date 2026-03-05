@@ -109,7 +109,7 @@ public class AbominableMachete extends CustomAttributeItem implements Listener, 
 
     @Override
     public int getMaxDurability() {
-        return 50_000;
+        return 10_000;
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
