@@ -40,6 +40,7 @@ import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFlesh;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFleshFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.NecronomiconExcerpts;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.ReviledViscera;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.UndigestedBrains;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.VisceralAmalgamation;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
 import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableCleaver;
@@ -47,6 +48,7 @@ import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableHalberd;
 import xyz.devvydont.smprpg.items.blueprints.sets.abomination.AbominableMachete;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.wood.WoodStaff;
+import xyz.devvydont.smprpg.items.blueprints.tomes.Necronomicon;
 import xyz.devvydont.smprpg.items.blueprints.tomes.SimpleTome;
 import xyz.devvydont.smprpg.items.blueprints.unobtainable.shambling.ShamblingBossBoots;
 import xyz.devvydont.smprpg.items.blueprints.unobtainable.shambling.ShamblingBossChestplate;
@@ -653,11 +655,13 @@ public enum CustomItemType {
 
     REVILED_VISCERA("Reviled Viscera", Material.ROTTEN_FLESH, ItemRarity.RARE, ReviledViscera.class),
     VISCERAL_AMALGAMATION("Visceral Amalgamation", Material.ROTTEN_FLESH, ItemRarity.RARE, VisceralAmalgamation.class),
+    UNDIGESTED_BRAINS("Undigested Brains", Material.COCOA_BEANS, ItemRarity.EPIC, UndigestedBrains.class),
     NECRONOMICON_EXCERPTS("Necronomicon Excerpts", Material.PAPER, ItemRarity.LEGENDARY, NecronomiconExcerpts.class),
 
     ABOMINABLE_CLEAVER(     "Abominable Cleaver",  Material.GOLDEN_SWORD,     ItemRarity.RARE, AbominableCleaver.class),
-    ABOMINABLE_MACHETE(     "Abominable Machete",  Material.DIAMOND_SWORD,     ItemRarity.EPIC, AbominableMachete.class),
-    ABOMINABLE_HALBERD(     "Abominable Halberd",  Material.NETHERITE_SWORD,     ItemRarity.LEGENDARY, AbominableHalberd.class),
+    ABOMINABLE_MACHETE(     "Abominable Machete",  Material.DIAMOND_SWORD,    ItemRarity.EPIC, AbominableMachete.class),
+    ABOMINABLE_HALBERD(     "Abominable Halberd",  Material.NETHERITE_SWORD,  ItemRarity.LEGENDARY, AbominableHalberd.class),
+    NECRONOMICON(           "Necronomicon",        Material.PAPER,            ItemRarity.LEGENDARY, Necronomicon.class),
 
     IRON_ROD("Iron Rod", Material.FISHING_ROD, ItemRarity.COMMON, WaterRod.class),
     DIAMOND_ROD("Diamond Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, WaterRod.class),

@@ -22,6 +22,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import xyz.devvydont.smprpg.util.time.TickTime
 import java.util.*
+import kotlin.math.roundToInt
 
 class SlayerService : IService, Listener {
 
@@ -164,12 +165,17 @@ class SlayerService : IService, Listener {
                 ) == quest.spawnKeyValue
             ) {
                 // Heck yeah, time to add xp to this quest.
-                quest.xpEarned += event.experience
 
-                println("Experience: " + quest.xpEarned + "/" + quest.xpRequired)
+                // But first, we need to cap the xp earned if it's far too high.
+                // We don't want slayer bosses chaining one after another
+                if (event.experience > (quest.xpRequired / 2))
+                    quest.xpEarned += (quest.xpRequired / 2)
+                else
+                    quest.xpEarned += event.experience
 
                 // Have we hit the threshold for this boss yet? If so, spawn it.
-                spawnSlayerBoss(quest, event.mobKilled.entity.location)
+                if (quest.xpEarned >= quest.xpRequired)
+                    spawnSlayerBoss(quest, event.mobKilled.entity.location)
             }
         }
     }

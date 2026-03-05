@@ -1,5 +1,8 @@
 package xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CraftingRecipe;
@@ -11,13 +14,15 @@ import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
+import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable;
 import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
+import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 
 import java.util.Collection;
 import java.util.List;
 
-public class VisceralAmalgamation extends CustomItemBlueprint implements ICraftable, ISellable {
+public class VisceralAmalgamation extends CustomItemBlueprint implements ICraftable, ISellable, IHeaderDescribable {
 
     public VisceralAmalgamation(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -41,6 +46,27 @@ public class VisceralAmalgamation extends CustomItemBlueprint implements ICrafta
     @Override
     public int getWorth(ItemStack item) {
         return 138_172 * item.getAmount();
+    }
+
+    @Override
+    public List<Component> getHeader(ItemStack itemStack) {
+        return List.of(
+                ComponentUtils.merge(
+                    ComponentUtils.create("A horrifying concoction consisting of "),
+                    ComponentUtils.create("absurd amounts", NamedTextColor.DARK_RED)
+                ),
+                ComponentUtils.merge(
+
+                    ComponentUtils.create("of "),
+                    ComponentUtils.create("flesh at various stages of decomposition, ", NamedTextColor.RED)
+                ),
+                ComponentUtils.create("chunks of viscera and gored remains, ", NamedTextColor.GOLD),
+                ComponentUtils.create("and of course, to bind it all together..."),
+                ComponentUtils.merge(
+                    ComponentUtils.create("slime", NamedTextColor.GREEN, TextDecoration.BOLD),
+                    ComponentUtils.create(".")
+                )
+        );
     }
 
     @Override

@@ -10,12 +10,14 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityTransformEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
+import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.slayer.SlayerBossInstance
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.interfaces.ICustomTextured
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
+import xyz.devvydont.smprpg.util.persistence.KeyStore
 
 open class ShamblingAbominationParent
 /**
@@ -58,6 +60,10 @@ open class ShamblingAbominationParent
         equipment?.leggingsDropChance = 0f
         equipment?.bootsDropChance = 0f
 
+        // Shambling Abominations can also spawn other quests.
+        // This encourages collaborative slayer gameplay.
+        _entity.getPersistentDataContainer()
+            .set(KeyStore.SLAYER_SPAWN_TYPE, PersistentDataType.STRING, SPAWN_MOB_FLAG)
     }
 
     override fun getSkillExperienceMultiplier(): Double {
