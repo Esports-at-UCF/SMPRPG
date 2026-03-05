@@ -37,7 +37,7 @@ class SlayerService : IService, Listener {
 
     fun spawnSlayerBoss(quest : SlayerQuest, location : Location) {
         // Update the FSM
-        quest.questState = SlayerQuest.SlayerQuestState.BOSS_ACTIVE
+        quest.questState = SlayerQuest.SlayerQuestState.BOSS_SPAWNING
 
         object : BukkitRunnable() {
             private var clock = 0
@@ -61,6 +61,7 @@ class SlayerService : IService, Listener {
 
                 }
                 clock++
+                quest.spawnCountdown = clock
                 if (clock > 40) {
                     val entity = SMPRPG.getService(EntityService::class.java).spawnCustomEntity(quest.bossToSpawn, location);
                     val slayer = entity as SlayerBossInstance<*>
@@ -69,6 +70,7 @@ class SlayerService : IService, Listener {
                     player.world.playSound(location, Sound.ENTITY_GENERIC_EXPLODE, 1f, 0.5f)
                     slayer.quest = quest
                     quest.bossEntity = entity
+                    quest.questState = SlayerQuest.SlayerQuestState.BOSS_ACTIVE
 
                     // Fire off a slayer spawn boss event for bukkit tracking
                     SlayerSpawnBossEvent(entity, quest.owner.player).callEvent()

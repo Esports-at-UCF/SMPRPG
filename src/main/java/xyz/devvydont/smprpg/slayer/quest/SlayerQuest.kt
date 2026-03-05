@@ -27,6 +27,7 @@ class SlayerQuest(val owner: LeveledPlayer,  val classification: SlayerClassific
     enum class SlayerQuestState {
         PREQUEST,  // Used in confirmation state
         XP_COLLECTION,
+        BOSS_SPAWNING,
         BOSS_ACTIVE,
         CANCELLED,
         COMPLETE  // Not currently used, quests complete on kill
@@ -46,15 +47,19 @@ class SlayerQuest(val owner: LeveledPlayer,  val classification: SlayerClassific
         0f,
         BossBar.Color.PURPLE,
         BossBar.Overlay.NOTCHED_10)
+    var spawnCountdown : Int = 40
 
     init {
         progressBar.addViewer(owner.player)
         object : BukkitRunnable() {
             override fun run() {
-                if (questState != SlayerQuestState.XP_COLLECTION) {
-                    progressBar.removeViewer(owner.player)
-                    this.cancel()
-                    return
+                when (questState) {
+                    SlayerQuestState.XP_COLLECTION, SlayerQuestState.BOSS_SPAWNING -> heartbeat()
+                    else -> {
+                        progressBar.removeViewer(owner.player)
+                        this.cancel()
+                        return
+                    }
                 }
 
                 heartbeat()
@@ -63,16 +68,27 @@ class SlayerQuest(val owner: LeveledPlayer,  val classification: SlayerClassific
     }
 
     fun heartbeat() {
-        progressBar.name(
-            ComponentUtils.merge(
-                ComponentUtils.create(bossToSpawn.Name, NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
-                ComponentUtils.create("     "),
-                ComponentUtils.create(xpEarned.toString() + "XP", NamedTextColor.AQUA),
-                ComponentUtils.create("/"),
-                ComponentUtils.create(xpRequired.toString() + "XP", NamedTextColor.DARK_AQUA)
+        if (questState == SlayerQuestState.XP_COLLECTION) {
+            progressBar.name(
+                ComponentUtils.merge(
+                    ComponentUtils.create(bossToSpawn.Name, NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
+                    ComponentUtils.create("     "),
+                    ComponentUtils.create(xpEarned.toString() + "XP", NamedTextColor.AQUA),
+                    ComponentUtils.create("/"),
+                    ComponentUtils.create(xpRequired.toString() + "XP", NamedTextColor.DARK_AQUA)
+                )
             )
-        )
-        progressBar.progress((xpEarned.toFloat() / xpRequired.toFloat()))  // We need to cast both values, otherwise integer division rounds it to death
+            progressBar.progress((xpEarned.toFloat() / xpRequired.toFloat()))  // We need to cast both values, otherwise integer division rounds it to death
+        }
+        else if (questState == SlayerQuestState.BOSS_SPAWNING) {
+            progressBar.color(BossBar.Color.RED)
+            progressBar.overlay(BossBar.Overlay.PROGRESS)
+            progressBar.progress(1.0f - (spawnCountdown.toFloat() / 40f))
+            progressBar.name(ComponentUtils.merge(
+                ComponentUtils.create(bossToSpawn.Name, NamedTextColor.DARK_PURPLE, TextDecoration.BOLD, TextDecoration.UNDERLINED),
+                ComponentUtils.create(" SPAWNING!!!", NamedTextColor.DARK_RED, TextDecoration.BOLD, TextDecoration.UNDERLINED),
+            ))
+        }
     }
 
     fun cleanup() {
