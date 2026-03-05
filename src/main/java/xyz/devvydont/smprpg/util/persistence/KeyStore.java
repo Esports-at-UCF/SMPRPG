@@ -1,6 +1,11 @@
 package xyz.devvydont.smprpg.util.persistence;
 
+import io.papermc.paper.registry.RegistryKey;
+import io.papermc.paper.registry.tag.TagKey;
+import net.kyori.adventure.key.Key;
 import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemType;
+import xyz.devvydont.smprpg.SMPRPG;
 
 /**
  * Stores various common {@link org.bukkit.NamespacedKey} globals to make code less spaghetti.
@@ -53,6 +58,9 @@ public class KeyStore {
      * Used on slayer spawn entity PDCs to flag them for slayer quests
      */
     public static final NamespacedKey SLAYER_SPAWN_TYPE = key("slayer_spawn_type");
+
+    // Tag Keys
+    public static final TagKey<ItemType> ENCHANTABLE_TOME = TagKey.create(RegistryKey.ITEM, Key.key(NAMESPACE, "enchantable/tome"));
 
     // Sound Keys
     public static final NamespacedKey AUDIO_BREADBOARD_EAT = new NamespacedKey("audio", "food.breadboard.eat");

@@ -136,8 +136,8 @@ class SMPRPGBootstrapper : PluginBootstrap {
 
     override fun bootstrap(bootstrapContext: BootstrapContext) {
         bootstrapCommands(bootstrapContext)
+        bootstrapDatapack(bootstrapContext)  // We MUST bootstrap datapack first to have access to tags on enchantment definitions.
         bootstrapEnchantments(bootstrapContext)
-        bootstrapDatapack(bootstrapContext)
     }
 
 

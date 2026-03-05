@@ -16,6 +16,7 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeModifierType;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.formatting.Symbols;
+import xyz.devvydont.smprpg.util.persistence.KeyStore;
 
 import java.util.Collection;
 import java.util.List;
@@ -59,7 +60,7 @@ public class AptitudeEnchantment extends CustomEnchantment implements AttributeE
 
     @Override
     public TagKey<ItemType> getItemTypeTag() {
-        return ItemTypeTagKeys.ENCHANTABLE_VANISHING;
+        return KeyStore.ENCHANTABLE_TOME;
     }
 
     @Override
