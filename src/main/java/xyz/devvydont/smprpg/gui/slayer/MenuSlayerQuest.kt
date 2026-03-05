@@ -266,6 +266,7 @@ class MenuSlayerQuest : MenuBase {
         val quest = SlayerQuest(questOwner, slayerInfo)
         if (!SMPRPG.getService(SlayerService::class.java).canStartQuest(quest)) {
             player.playSound(player.location, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
+            quest.cleanup()
             return
         }
 

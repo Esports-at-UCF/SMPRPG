@@ -85,6 +85,7 @@ class MenuSlayerQuestConfirmDialog(
     override fun onConfirm(response: DialogResponseView) {
         val questOwner = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
         val quest = SlayerQuest(questOwner, slayerClassification)
+        quest.questState = SlayerQuest.SlayerQuestState.XP_COLLECTION
         SMPRPG.getService(SlayerService::class.java).registerQuest(quest)
         player.playSound(player, Sound.ENTITY_WITHER_DEATH, 1.0f, 1.5f)
         closeMenu()

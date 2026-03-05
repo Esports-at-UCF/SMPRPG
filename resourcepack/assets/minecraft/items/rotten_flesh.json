@@ -28,11 +28,25 @@
                     "model": "materials:item/necrotic_flesh"
                 }
             },
-			            {
+			{
                 "when": "smprpg:necrotic_flesh_singularity",
                 "model": {
                     "type": "model",
                     "model": "materials:item/necrotic_flesh"
+                }
+            },
+			{
+                "when": "smprpg:reviled_viscera",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/reviled_viscera"
+                }
+            },
+			{
+                "when": "smprpg:visceral_amalgamation",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/visceral_amalgamation"
                 }
             }
         ]

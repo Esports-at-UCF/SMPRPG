@@ -174,8 +174,10 @@ class SlayerService : IService, Listener {
                     quest.xpEarned += event.experience
 
                 // Have we hit the threshold for this boss yet? If so, spawn it.
-                if (quest.xpEarned >= quest.xpRequired)
+                if (quest.xpEarned >= quest.xpRequired) {
+                    quest.xpEarned = quest.xpRequired  // Do this to prevent visual weirdness
                     spawnSlayerBoss(quest, event.mobKilled.entity.location)
+                }
             }
         }
     }
