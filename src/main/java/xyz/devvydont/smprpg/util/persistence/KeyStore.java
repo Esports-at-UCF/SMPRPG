@@ -1,9 +1,11 @@
 package xyz.devvydont.smprpg.util.persistence;
 
+import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.tag.TagKey;
 import net.kyori.adventure.key.Key;
 import org.bukkit.NamespacedKey;
+import org.bukkit.generator.structure.Structure;
 import org.bukkit.inventory.ItemType;
 import xyz.devvydont.smprpg.SMPRPG;
 
@@ -59,8 +61,14 @@ public class KeyStore {
      */
     public static final NamespacedKey SLAYER_SPAWN_TYPE = key("slayer_spawn_type");
 
+    // Easy access use to RegistryAccess, for code readability
+    private static final RegistryAccess access = RegistryAccess.registryAccess();
+
     // Tag Keys
     public static final TagKey<ItemType> ENCHANTABLE_TOME = TagKey.create(RegistryKey.ITEM, Key.key(NAMESPACE, "enchantable/tome"));
+
+    // Structure Keys
+    public static final Structure CASTLE_DWELLING = access.getRegistry(RegistryKey.STRUCTURE).get(Key.key(NAMESPACE, "castle_dwelling"));
 
     // Sound Keys
     public static final NamespacedKey AUDIO_BREADBOARD_EAT = new NamespacedKey("audio", "food.breadboard.eat");

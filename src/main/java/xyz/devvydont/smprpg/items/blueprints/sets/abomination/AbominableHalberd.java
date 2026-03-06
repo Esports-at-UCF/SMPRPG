@@ -138,7 +138,7 @@ public class AbominableHalberd extends CustomAttributeItem implements Listener, 
         if (itemStack.getPersistentDataContainer().getOrDefault(MODE_KEY, PersistentDataType.BOOLEAN, false)) {
             itemStack.setData(DataComponentTypes.SWING_ANIMATION, SwingAnimation.swingAnimation()
                     .type(SwingAnimation.Animation.STAB)
-                    .duration(24)
+                    .duration(12)
                     .build());
             itemStack.setData(DataComponentTypes.PIERCING_WEAPON, PiercingWeapon.piercingWeapon()
                     .sound(SoundEventKeys.ITEM_SPEAR_ATTACK)

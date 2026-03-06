@@ -3,13 +3,16 @@ package xyz.devvydont.smprpg.entity.creatures;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
 import xyz.devvydont.smprpg.entity.base.CustomEntityInstance;
+import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationParent;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
 import xyz.devvydont.smprpg.util.items.LootDrop;
+import xyz.devvydont.smprpg.util.persistence.KeyStore;
 
 import java.util.Collection;
 import java.util.List;
@@ -38,6 +41,8 @@ public class UndeadArcher<T extends LivingEntity> extends CustomEntityInstance<T
         living.getEquipment().setChestplate(getAttributelessItem(Material.CHAINMAIL_CHESTPLATE));
 
         living.getEquipment().setItemInMainHand(getAttributelessItem(Material.BOW));
+
+        _entity.getPersistentDataContainer().set(KeyStore.SLAYER_SPAWN_TYPE, PersistentDataType.STRING, ShamblingAbominationParent.SPAWN_MOB_FLAG);
     }
 
     @Override

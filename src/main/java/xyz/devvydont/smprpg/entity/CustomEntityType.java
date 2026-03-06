@@ -21,6 +21,7 @@ import xyz.devvydont.smprpg.entity.spawning.EntitySpawnCondition;
 import xyz.devvydont.smprpg.entity.spawning.EntitySpawner;
 import xyz.devvydont.smprpg.gui.base.IMenuDisplayable;
 import xyz.devvydont.smprpg.services.EntityService;
+import xyz.devvydont.smprpg.util.persistence.KeyStore;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.function.BiFunction;
@@ -30,10 +31,18 @@ public enum CustomEntityType implements IMenuDisplayable {
 
     // Mobs that spawn in castles.
     CASTLE_DWELLER(EntityType.ZOMBIE_VILLAGER, "Castle Dweller",
-            15, 400, 40, CastleDweller::new),
+            15, 400, 40,
+            CastleDweller::new,
+            EntitySpawnCondition.StructureSpawnCondition
+                    .structure(KeyStore.CASTLE_DWELLING)
+                    .withChance(.90f)),
 
     UNDEAD_ARCHER(EntityType.SKELETON, "Undead Archer",
-            15, 350, 25, UndeadArcher::new),
+            15, 350, 25,
+            UndeadArcher::new,
+            EntitySpawnCondition.StructureSpawnCondition
+                    .structure(KeyStore.CASTLE_DWELLING)
+                    .withChance(.10f)),
 
     // Mobs that spawn in woodland mansions.
     MANSION_SPIDER(EntityType.SPIDER, "Mansion Spider",
