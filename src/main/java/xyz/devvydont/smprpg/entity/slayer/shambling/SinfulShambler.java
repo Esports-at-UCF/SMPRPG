@@ -54,6 +54,8 @@ public class SinfulShambler extends CustomEntityInstance<Zombie> {
         if (hp != null)
             hp.clearModifiers();
 
+        _entity.setAdult();
+
         _entity.getPersistentDataContainer().set(KeyStore.SLAYER_SPAWN_TYPE, PersistentDataType.STRING, ShamblingAbominationParent.SPAWN_MOB_FLAG);
         hp.save(_entity, AttributeWrapper.HEALTH);
     }

@@ -116,6 +116,7 @@ public class CustomEntityInstance<T extends Entity> extends LeveledEntity<T> imp
     }
 
     protected ItemStack getAttributelessItem(CustomItemType itemType) {
+        // TODO: Figure out why items generated with custom item type retain their attributes even when cleared.
         ItemStack item = ItemService.generate(itemType);
         item.editMeta(meta -> {
             meta.setAttributeModifiers(null);

@@ -1,8 +1,12 @@
 package xyz.devvydont.smprpg.entity.slayer.shambling;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.Equippable;
+import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Zombie;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -50,14 +54,26 @@ public class RemorselessAbomination extends CustomEntityInstance<Zombie> {
         head.setItemMeta(meta);
 
         _entity.getEquipment().setHelmet(head);
-        _entity.getEquipment().setChestplate(getAttributelessItem(CustomItemType.ABOMINABLE_CHESTPLATE));
-        _entity.getEquipment().setLeggings(getAttributelessItem(CustomItemType.ABOMINABLE_LEGGINGS));
-        _entity.getEquipment().setBoots(getAttributelessItem(CustomItemType.ABOMINABLE_BOOTS));
+
+        // Instead of using the actual Abominable armor, we are going to spoof it using asset IDs
+        // We do this so that we don't have listener interference with damage reduction.
+        var assetKey = Key.key("abomination");
+        ItemStack chest = getAttributelessItem(Material.IRON_CHESTPLATE);
+        chest.setData(DataComponentTypes.EQUIPPABLE, Equippable.equippable(EquipmentSlot.CHEST).assetId(assetKey).build());
+        ItemStack legs = getAttributelessItem(Material.IRON_LEGGINGS);
+        legs.setData(DataComponentTypes.EQUIPPABLE, Equippable.equippable(EquipmentSlot.LEGS).assetId(assetKey).build());
+        ItemStack boots = getAttributelessItem(Material.IRON_CHESTPLATE);
+        boots.setData(DataComponentTypes.EQUIPPABLE, Equippable.equippable(EquipmentSlot.FEET).assetId(assetKey).build());
+        _entity.getEquipment().setChestplate(chest);
+        _entity.getEquipment().setLeggings(legs);
+        _entity.getEquipment().setBoots(boots);
 
         // Patch to remove the chance of spawning in w/ the "zombie leader bonus" modifier. This is a vanilla mechanic.
         var hp = AttributeService.getInstance().getAttribute(_entity, AttributeWrapper.HEALTH);
         if (hp != null)
             hp.clearModifiers();
+
+        _entity.setAdult();
 
         _entity.getPersistentDataContainer().set(KeyStore.SLAYER_SPAWN_TYPE, PersistentDataType.STRING, ShamblingAbominationParent.SPAWN_MOB_FLAG);
         hp.save(_entity, AttributeWrapper.HEALTH);
