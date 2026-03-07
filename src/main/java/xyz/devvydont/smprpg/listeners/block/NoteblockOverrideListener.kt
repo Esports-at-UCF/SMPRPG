@@ -216,4 +216,18 @@ class NoteblockOverrideListener : ToggleableListener() {
             decrementPlacementDelays()
         }, TickTime.INSTANTANEOUSLY, TickTime.TICK)
     }
+
+    @EventHandler
+    fun onNoteblockCatchFire(event: BlockIgniteEvent) {
+        // TODO: Very rudimentary hacky way to do this, should be done more gracefully with block properties later
+        if (event.block.type == Material.NOTE_BLOCK)
+            event.isCancelled = true
+    }
+
+    @EventHandler
+    fun onNoteblockDestroyedByFire(event: BlockBurnEvent) {
+        // TODO: Very rudimentary hacky way to do this, should be done more gracefully with block properties later
+        if (event.block.type == Material.NOTE_BLOCK)
+            event.isCancelled = true
+    }
 }
