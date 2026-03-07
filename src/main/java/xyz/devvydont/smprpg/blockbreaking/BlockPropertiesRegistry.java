@@ -1583,6 +1583,36 @@ public class BlockPropertiesRegistry {
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
+
+        register(Material.COPPER_CHAIN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.COPPER_CHEST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.COPPER_GOLEM_STATUE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.COPPER_LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(350)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.COPPER_BARS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
         //</editor-fold>
         //<editor-fold desc="Exposed Copper">
         register(Material.EXPOSED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
@@ -1635,6 +1665,36 @@ public class BlockPropertiesRegistry {
 
         register(Material.EXPOSED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.EXPOSED_COPPER_CHAIN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.EXPOSED_COPPER_CHEST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.EXPOSED_COPPER_GOLEM_STATUE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.EXPOSED_COPPER_LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(350)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.EXPOSED_COPPER_BARS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
@@ -1693,6 +1753,36 @@ public class BlockPropertiesRegistry {
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
+
+        register(Material.WEATHERED_COPPER_CHAIN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WEATHERED_COPPER_CHEST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WEATHERED_COPPER_GOLEM_STATUE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WEATHERED_COPPER_LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(350)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WEATHERED_COPPER_BARS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
         //</editor-fold>
         //<editor-fold desc="Oxidized Copper">
         register(Material.OXIDIZED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
@@ -1745,6 +1835,36 @@ public class BlockPropertiesRegistry {
 
         register(Material.OXIDIZED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.OXIDIZED_COPPER_CHAIN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.OXIDIZED_COPPER_CHEST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.OXIDIZED_COPPER_GOLEM_STATUE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.OXIDIZED_COPPER_LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(350)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.OXIDIZED_COPPER_BARS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
@@ -1804,6 +1924,36 @@ public class BlockPropertiesRegistry {
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
+
+        register(Material.WAXED_COPPER_CHAIN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_COPPER_CHEST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_COPPER_GOLEM_STATUE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_COPPER_LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(350)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_COPPER_BARS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
         //</editor-fold>
         //<editor-fold desc="Waxed Exposed Copper">
         register(Material.WAXED_EXPOSED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
@@ -1856,6 +2006,36 @@ public class BlockPropertiesRegistry {
 
         register(Material.WAXED_EXPOSED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_EXPOSED_COPPER_CHAIN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_EXPOSED_COPPER_CHEST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_EXPOSED_COPPER_GOLEM_STATUE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_EXPOSED_COPPER_LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(350)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_EXPOSED_COPPER_BARS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
@@ -1914,6 +2094,36 @@ public class BlockPropertiesRegistry {
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
+
+        register(Material.WAXED_WEATHERED_COPPER_CHAIN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_WEATHERED_COPPER_CHEST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_WEATHERED_COPPER_GOLEM_STATUE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_WEATHERED_COPPER_LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(350)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_WEATHERED_COPPER_BARS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
         //</editor-fold>
         //<editor-fold desc="Waxed Oxidized Copper">
         register(Material.WAXED_OXIDIZED_COPPER, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
@@ -1966,6 +2176,36 @@ public class BlockPropertiesRegistry {
 
         register(Material.WAXED_OXIDIZED_COPPER_BULB, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_OXIDIZED_COPPER_CHAIN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_OXIDIZED_COPPER_CHEST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_OXIDIZED_COPPER_GOLEM_STATUE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(300)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_OXIDIZED_COPPER_LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(350)
+                .breakingPower(1)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WAXED_OXIDIZED_COPPER_BARS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
@@ -3658,6 +3898,20 @@ public class BlockPropertiesRegistry {
                 .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
+        register(Material.OAK_WALL_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(50)
+                .breakingPower(0)
+                .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
+        register(Material.OAK_SHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(200)
+                .breakingPower(0)
+                .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
         register(Material.OAK_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
                 .hardness(20)
                 .breakingPower(0)
@@ -3765,6 +4019,20 @@ public class BlockPropertiesRegistry {
 
         register(Material.SPRUCE_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(50)
+                .breakingPower(0)
+                .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
+        register(Material.SPRUCE_WALL_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(50)
+                .breakingPower(0)
+                .softRequirement(true)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
+        register(Material.SPRUCE_SHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(200)
                 .breakingPower(0)
                 .softRequirement(true)
                 .blockSound(BlockSound.WOOD_GENERIC)
@@ -3882,6 +4150,20 @@ public class BlockPropertiesRegistry {
                 .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
+        register(Material.BIRCH_WALL_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(62)
+                .breakingPower(1)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
+        register(Material.BIRCH_SHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(250)
+                .breakingPower(1)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
         register(Material.BIRCH_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
                 .hardness(25)
                 .breakingPower(1)
@@ -3989,6 +4271,20 @@ public class BlockPropertiesRegistry {
 
         register(Material.JUNGLE_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(62)
+                .breakingPower(1)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
+        register(Material.JUNGLE_WALL_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(62)
+                .breakingPower(1)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
+        register(Material.JUNGLE_SHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(250)
                 .breakingPower(1)
                 .softRequirement(false)
                 .blockSound(BlockSound.WOOD_GENERIC)
@@ -4106,6 +4402,20 @@ public class BlockPropertiesRegistry {
                 .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
+        register(Material.ACACIA_WALL_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(87)
+                .breakingPower(2)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
+        register(Material.ACACIA_SHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(350)
+                .breakingPower(2)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
         register(Material.ACACIA_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
                 .hardness(35)
                 .breakingPower(2)
@@ -4213,6 +4523,20 @@ public class BlockPropertiesRegistry {
 
         register(Material.DARK_OAK_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(87)
+                .breakingPower(2)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
+        register(Material.DARK_OAK_WALL_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(87)
+                .breakingPower(2)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
+        register(Material.DARK_OAK_SHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(350)
                 .breakingPower(2)
                 .softRequirement(false)
                 .blockSound(BlockSound.WOOD_GENERIC)
@@ -4326,6 +4650,18 @@ public class BlockPropertiesRegistry {
                 .breakingPower(2)
                 .softRequirement(false)
                 .build());
+
+        register(Material.BAMBOO_WALL_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(87)
+                .breakingPower(2)
+                .softRequirement(false)
+                .build());
+
+        register(Material.BAMBOO_SHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(350)
+                .breakingPower(2)
+                .softRequirement(false)
+                .build());
         //</editor-fold>
         //<editor-fold desc="Cherry">
         register(Material.CHERRY_LOG, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
@@ -4414,6 +4750,18 @@ public class BlockPropertiesRegistry {
 
         register(Material.CHERRY_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(125)
+                .breakingPower(3)
+                .softRequirement(false)
+                .build());
+
+        register(Material.CHERRY_WALL_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(125)
+                .breakingPower(3)
+                .softRequirement(false)
+                .build());
+
+        register(Material.CHERRY_SHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(500)
                 .breakingPower(3)
                 .softRequirement(false)
                 .build());
@@ -4544,6 +4892,20 @@ public class BlockPropertiesRegistry {
                 .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
+        register(Material.MANGROVE_WALL_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(125)
+                .breakingPower(3)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
+        register(Material.MANGROVE_SHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(125)
+                .breakingPower(3)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
         register(Material.MANGROVE_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
                 .hardness(50)
                 .breakingPower(3)
@@ -4656,6 +5018,27 @@ public class BlockPropertiesRegistry {
                 .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
+        register(Material.PALE_OAK_WALL_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(187)
+                .breakingPower(4)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
+        register(Material.PALE_OAK_SHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(187)
+                .breakingPower(4)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
+        register(Material.CREAKING_HEART, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(2000)
+                .breakingPower(4)
+                .softRequirement(false)
+                .blockSound(BlockSound.WOOD_GENERIC)
+                .build());
+
         register(Material.PALE_OAK_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
                 .hardness(75)
                 .breakingPower(4)
@@ -4749,6 +5132,18 @@ public class BlockPropertiesRegistry {
 
         register(Material.CRIMSON_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
+                .breakingPower(5)
+                .softRequirement(false)
+                .build());
+
+        register(Material.CRIMSON_WALL_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(250)
+                .breakingPower(5)
+                .softRequirement(false)
+                .build());
+
+        register(Material.CRIMSON_SHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(1000)
                 .breakingPower(5)
                 .softRequirement(false)
                 .build());
@@ -4852,6 +5247,18 @@ public class BlockPropertiesRegistry {
 
         register(Material.WARPED_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
                 .hardness(250)
+                .breakingPower(5)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WARPED_WALL_HANGING_SIGN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(250)
+                .breakingPower(5)
+                .softRequirement(false)
+                .build());
+
+        register(Material.WARPED_SHELF, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+                .hardness(1000)
                 .breakingPower(5)
                 .softRequirement(false)
                 .build());
