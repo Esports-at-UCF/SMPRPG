@@ -182,6 +182,12 @@ public enum CustomEntityType implements IMenuDisplayable {
     SHAMBLING_ABOMINATION_4(EntityType.ZOMBIE, "Shambling Abomination", 40, 1_500_000, 500, ShamblingAbominationExpert::new),
     SHAMBLING_ABOMINATION_5(EntityType.ZOMBIE, "Shambling Abomination", 50, 10_000_000, 1_500, ShamblingAbominationBrutal::new),
 
+    SINFUL_SHAMBLER(EntityType.ZOMBIE, "Sinful Shambler", 25, 20_000, 50, SinfulShambler::new),
+    REMORSELESS_ABOMINATION(EntityType.ZOMBIE, "Remorseless Abomination", 32, 250_000, 250, RemorselessAbomination::new),
+    WRETCHED_ABOMINATION(EntityType.ZOMBIE, "Wretched Abomination", 36, 500_000, 400, WretchedAbomination::new),
+    SHAMBLING_MALFEASANT(EntityType.ZOMBIE, "Shambling Malfeasant", 42, 1_000_000, 800, ShamblingMalfeasant::new),
+    REMORSEFUL_ABOMINATION(EntityType.ZOMBIE, "Remorseful Abomination", 48, 2_400_000, 1_200, RemorsefulAbomination::new),
+
     // NPCs
     REFORGE_NPC(EntityType.VILLAGER, "Tool Reforger", ReforgeNPC::new),
 

@@ -42,6 +42,7 @@ import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.formatting.Symbols;
 import xyz.devvydont.smprpg.util.items.AbilityUtil;
+import xyz.devvydont.smprpg.util.persistence.KeyStore;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -62,8 +63,10 @@ public class AbominableHalberd extends CustomAttributeItem implements Listener, 
     public List<Component> getHeader(ItemStack itemStack) {
         List<Component> components = new ArrayList<>();
         components.add(AbilityUtil.getAbilityComponent("Divine Executioner (Passive)"));
-        components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create((int) DAMAGE_MULT + "x", NamedTextColor.GREEN)).append(ComponentUtils.create(" damage")));
-        components.add(ComponentUtils.create("against ").append(ComponentUtils.create("Shambling Abominations", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD)).append(ComponentUtils.create(".")));
+        components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create((int) DAMAGE_MULT + "x", NamedTextColor.GREEN)).append(ComponentUtils.create(" damage against")));
+        components.add(ComponentUtils.merge(
+                ComponentUtils.create("Shambling Abominations", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
+                ComponentUtils.create(" and associated mobs.")));
         components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create("10%", NamedTextColor.RED)).append(ComponentUtils.create(" damage to any other mobs.")));
         components.add(ComponentUtils.create("Attacks heal ").append(ComponentUtils.create("+" + (int) HEAL_AMOUNT, NamedTextColor.RED)).append(ComponentUtils.create(Symbols.HEART, NamedTextColor.RED)).append(ComponentUtils.create(" on critical hits.")));
         components.add(ComponentUtils.create("Receive ").append(ComponentUtils.create((int) BOSS_DAMAGE_REDUCTION + "%", NamedTextColor.GREEN)).append(ComponentUtils.create(" less damage from")).append(ComponentUtils.create(" Shambling Abominations", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD)).append(ComponentUtils.create(".")));
@@ -181,8 +184,10 @@ public class AbominableHalberd extends CustomAttributeItem implements Listener, 
         if (event.isIndirect())
             return;
 
-        // Is the attacked mob a shambling abomination?
-        var isBoss = (SMPRPG.getService(EntityService.class).getEntityInstance(event.damaged) instanceof ShamblingAbominationParent);
+        // Is the attacked mob a shambling abomination or associated?
+        var entity = SMPRPG.getService(EntityService.class).getEntityInstance(event.damaged);
+        var isBoss = (entity.getEntity().getPersistentDataContainer()
+                        .getOrDefault(KeyStore.SLAYER_SPAWN_TYPE, PersistentDataType.STRING, "").equals(ShamblingAbominationParent.SPAWN_MOB_FLAG));
         if (!isBoss) {
             // If it isn't, we quarter our damage instead of sextuple it.
             // This makes it not viable outside of slayer usage.
@@ -199,7 +204,9 @@ public class AbominableHalberd extends CustomAttributeItem implements Listener, 
     @EventHandler
     public void __onReceiveDamageFromBoss(CustomEntityDamageByEntityEvent event) {
         // Is the attacker a shambling abomination?
-        var isBoss = (SMPRPG.getService(EntityService.class).getEntityInstance(event.dealer) instanceof ShamblingAbominationParent);
+        var entity = SMPRPG.getService(EntityService.class).getEntityInstance(event.damaged);
+        var isBoss = (entity.getEntity().getPersistentDataContainer()
+                .getOrDefault(KeyStore.SLAYER_SPAWN_TYPE, PersistentDataType.STRING, "").equals(ShamblingAbominationParent.SPAWN_MOB_FLAG));
         if (isBoss) {
             // Is the attacker holding the halberd?
             if (!(event.damaged instanceof LivingEntity living))

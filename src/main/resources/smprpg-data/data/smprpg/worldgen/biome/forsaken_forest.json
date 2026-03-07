@@ -5,7 +5,8 @@
 	},
     "minecraft:gameplay/monsters_burn": false,
     "minecraft:visual/fog_start_distance": 16,
-    "minecraft:visual/fog_end_distance": 32
+    "minecraft:visual/fog_end_distance": 32,
+    "minecraft:audio/music_volume": 0.0
   },
   "carvers": [
     "minecraft:cave",

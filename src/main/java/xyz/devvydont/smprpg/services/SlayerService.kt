@@ -176,9 +176,38 @@ class SlayerService : IService, Listener {
                     quest.xpEarned += event.experience
 
                 // Have we hit the threshold for this boss yet? If so, spawn it.
+                // If we haven't, roll a 25% chance to spawn a special mob
+                val specialSpawns = quest.classification.specialSpawns;
                 if (quest.xpEarned >= quest.xpRequired) {
                     quest.xpEarned = quest.xpRequired  // Do this to prevent visual weirdness
                     spawnSlayerBoss(quest, event.mobKilled.entity.location)
+                }
+                else if (specialSpawns != null) {
+                    if (Math.random() <= 0.25) {
+                        object : BukkitRunnable() {
+                            private var clock = 0
+                            private var location = event.mobKilled.entity.location
+
+                            override fun run() {
+                                val player = quest.owner.player
+                                val locCopy = event.mobKilled.entity.location
+                                val randRoll = Math.random();
+                                locCopy.y += 0.5 + randRoll
+                                locCopy.x -= randRoll;
+                                locCopy.z += randRoll;
+                                if (clock % 2 == 0) {
+                                    player.world.playSound(player.location, Sound.ENTITY_GENERIC_EXPLODE, 1f, (1f + randRoll.toFloat()))
+                                    player.world.spawnParticle(Particle.EXPLOSION, locCopy, 0, -1.5, 0.0, 0.0, 0.0)
+                                }
+                                clock++
+                                if (clock > 20) {
+                                    SMPRPG.getService(EntityService::class.java).spawnCustomEntity(specialSpawns.random(), location);
+                                    player.world.playSound(location, Sound.ENTITY_GHAST_HURT, 1f, 1f)
+                                    this.cancel()
+                                }
+                            }
+                        }.runTaskTimer(plugin, TickTime.INSTANTANEOUSLY, TickTime.INSTANTANEOUSLY)
+                    }
                 }
             }
         }
