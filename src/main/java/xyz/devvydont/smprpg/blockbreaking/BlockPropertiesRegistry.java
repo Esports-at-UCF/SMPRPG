@@ -304,7 +304,7 @@ public class BlockPropertiesRegistry {
                 .build());
 
         register(Material.BUDDING_AMETHYST, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(150)
+                .hardness(600)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());
