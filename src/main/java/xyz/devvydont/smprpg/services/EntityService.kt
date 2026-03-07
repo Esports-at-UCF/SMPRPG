@@ -34,6 +34,7 @@ import xyz.devvydont.smprpg.entity.bosses.LeveledDragon
 import xyz.devvydont.smprpg.entity.bosses.LeveledElderGuardian
 import xyz.devvydont.smprpg.entity.bosses.LeveledWarden
 import xyz.devvydont.smprpg.entity.bosses.LeveledWither
+import xyz.devvydont.smprpg.entity.creatures.CastleDweller
 import xyz.devvydont.smprpg.entity.interfaces.IDamageTrackable
 import xyz.devvydont.smprpg.entity.player.LeveledPlayer
 import xyz.devvydont.smprpg.entity.vanilla.*
@@ -333,6 +334,8 @@ class EntityService : IService, Listener {
         entity.resetLevel()
 
         val leveledSpawnEvent = LeveledEntitySpawnEvent(entity)
+        if (entity is CastleDweller)
+            println("dweller spotted")
         leveledSpawnEvent.callEvent()
 
         entity.updateAttributes()
@@ -514,11 +517,12 @@ class EntityService : IService, Listener {
             CreatureSpawnEvent.SpawnReason.NATURAL,
             CreatureSpawnEvent.SpawnReason.DEFAULT
         )
+
         if (!naturalReasons.contains(event.spawnReason))
             return
 
         // DO NOT do this with bosses. This will break ender dragons.
-        if (event.getEntity() is Boss)
+        if (event.entity is Boss)
             return
 
         // Determine eligible creatures that can spawn in its place

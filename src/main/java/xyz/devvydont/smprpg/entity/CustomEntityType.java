@@ -33,16 +33,30 @@ public enum CustomEntityType implements IMenuDisplayable {
     CASTLE_DWELLER(EntityType.ZOMBIE_VILLAGER, "Castle Dweller",
             15, 400, 40,
             CastleDweller::new,
-            EntitySpawnCondition.StructureSpawnCondition
-                    .structure(KeyStore.CASTLE_DWELLING)
-                    .withChance(.90f)),
+            EntitySpawnCondition.ComplexSpawnCondition
+                    .withConditions(
+                            EntitySpawnCondition.StructureSpawnCondition
+                                    .structure(KeyStore.CASTLE_DWELLING)
+                                    .withChance(1f),  // All zombie villagers spawn as dwellers in the structure
+                            EntitySpawnCondition.BlockSpawnCondition
+                                    .blocks(Material.POLISHED_TUFF, Material.DARK_OAK_PLANKS, Material.COARSE_DIRT)
+                                    .withChance(1f)
+                    )
+            ),
 
     UNDEAD_ARCHER(EntityType.SKELETON, "Undead Archer",
             15, 350, 25,
             UndeadArcher::new,
-            EntitySpawnCondition.StructureSpawnCondition
-                    .structure(KeyStore.CASTLE_DWELLING)
-                    .withChance(.10f)),
+            EntitySpawnCondition.ComplexSpawnCondition
+                    .withConditions(
+                            EntitySpawnCondition.StructureSpawnCondition
+                                    .structure(KeyStore.CASTLE_DWELLING)
+                                    .withChance(1f),  // All skeletons spawn as undead archers in the structure
+                            EntitySpawnCondition.BlockSpawnCondition
+                                    .blocks(Material.POLISHED_TUFF, Material.DARK_OAK_PLANKS, Material.COARSE_DIRT)
+                                    .withChance(1f)
+                    )
+            ),
 
     // Mobs that spawn in woodland mansions.
     MANSION_SPIDER(EntityType.SPIDER, "Mansion Spider",

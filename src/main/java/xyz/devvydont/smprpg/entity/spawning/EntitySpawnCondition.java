@@ -1,11 +1,13 @@
 package xyz.devvydont.smprpg.entity.spawning;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.structure.GeneratedStructure;
 import org.bukkit.generator.structure.Structure;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public interface EntitySpawnCondition {
@@ -101,9 +103,33 @@ public interface EntitySpawnCondition {
         }
     }
 
+    class BlockSpawnCondition extends SpawnCondition {
+
+        public static BlockSpawnCondition blocks(Material... blockMaterials) {
+            return new BlockSpawnCondition(blockMaterials);
+        }
+
+        private List<Material> _blockMaterials = new ArrayList<>();
+
+        public BlockSpawnCondition(Material... blockMaterials) {
+            this._blockMaterials.addAll(Arrays.asList(blockMaterials));
+        }
+
+        @Override
+        public boolean valid(Location location) {
+            var locCopy = location.clone();
+            locCopy.setY(locCopy.getBlockY() - 1);
+            var blockMatBelow = location.getWorld().getBlockAt(locCopy).getType();
+            System.out.println(this._blockMaterials);
+            System.out.println(blockMatBelow);
+            System.out.println(this._blockMaterials.contains(blockMatBelow));
+            return this._blockMaterials.contains(blockMatBelow);
+        }
+    }
+
     class ComplexSpawnCondition extends SpawnCondition {
 
-        static EntitySpawnCondition withConditions(EntitySpawnCondition... conditions) {
+        public static EntitySpawnCondition withConditions(EntitySpawnCondition... conditions) {
             var condition = new ComplexSpawnCondition();
             for (EntitySpawnCondition other : conditions)
                 condition = condition.withCondition(other);
