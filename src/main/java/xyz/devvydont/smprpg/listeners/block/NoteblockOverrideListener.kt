@@ -63,8 +63,8 @@ class NoteblockOverrideListener : ToggleableListener() {
             var item = event.item
             val player = event.getPlayer()
             if (item != null) {
+                // Check for vanilla like blocks, and allow placements still.
                 if (item.type.isBlock) {
-
                     val blockData = item.type.createBlockData()
                     if (placementDelays.getOrDefault(player, 0)!! <= 0) {
                         val blockDest = event.clickedBlock!!.getRelative(event.blockFace)
@@ -86,15 +86,13 @@ class NoteblockOverrideListener : ToggleableListener() {
                             blockDest.type = item.type
                             blockDest.blockData = blockData
                             placementDelays.put(player, 4)
-                            val blockSound = BlockPropertiesRegistry.get(blockDest)!!.blockSound
-                            if (blockSound != null) {
-                                blockDest.world.playSound(
-                                    blockDest.location,
-                                    blockSound.PlaceSound,
-                                    blockSound.PlaceVolume,
-                                    blockSound.PlacePitch
-                                )
-                            }
+                            val soundGroup = blockData.soundGroup
+                            blockDest.world.playSound(
+                                blockDest.location,
+                                soundGroup.placeSound,
+                                1f,
+                                0.8f
+                            )
                             if (player.gameMode != GameMode.CREATIVE)
                                 item.setAmount(item.getAmount() - 1)
                         }
