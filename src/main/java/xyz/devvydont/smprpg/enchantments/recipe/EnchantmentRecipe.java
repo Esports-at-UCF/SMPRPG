@@ -9,10 +9,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
 public class EnchantmentRecipe implements Keyed {
+    int power;
     NamespacedKey key;
     Set<ItemStack> ingredients;
 
-    public EnchantmentRecipe(@NotNull NamespacedKey key, @NotNull ItemStack... ingredients) {
+    public EnchantmentRecipe(@NotNull NamespacedKey key, int power, @NotNull ItemStack... ingredients) {
+        this.power = power;
         this.key = key;
         this.ingredients = ImmutableSet.copyOf(ingredients);
     }
@@ -24,5 +26,9 @@ public class EnchantmentRecipe implements Keyed {
 
     public Set<ItemStack> getIngredients() {
         return ingredients;
+    }
+
+    public int getPower() {
+        return power;
     }
 }

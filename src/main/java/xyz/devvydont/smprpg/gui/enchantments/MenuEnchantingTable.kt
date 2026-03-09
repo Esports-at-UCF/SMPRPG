@@ -17,12 +17,14 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.event.inventory.InventoryType
+import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
+import xyz.devvydont.smprpg.entity.player.LeveledPlayer
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.gui.items.MenuReforge.Companion.BUTTON_SLOT
@@ -33,7 +35,9 @@ import xyz.devvydont.smprpg.reforge.ReforgeType
 import xyz.devvydont.smprpg.services.EconomyService
 import xyz.devvydont.smprpg.services.EconomyService.Companion.formatMoney
 import xyz.devvydont.smprpg.services.EnchantmentService
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.services.SkillService
 import xyz.devvydont.smprpg.util.extensions.takeIfPresent
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
@@ -41,6 +45,7 @@ import java.util.function.Consumer
 
 const val ITEM_SLOT = 13;
 const val SCROLL_SLOT = 10;
+const val BOOKSHELF_SLOT = 44;
 val       INGREDIENT_SLOTS = intArrayOf(30, 31, 32, 39, 40, 41);
 
 val       WHITELISTED_SLOTS = intArrayOf(ITEM_SLOT, SCROLL_SLOT)
@@ -52,7 +57,7 @@ enum class ActionButtonState {
     ENABLED
 }
 
-class MenuEnchantingTable(owner: Player) : MenuBase(owner, 5) {
+class MenuEnchantingTable(owner: Player, private val shelfPower: Int) : MenuBase(owner, 5) {
     private var actionButtonState = ActionButtonState.DISABLED
 
     init {
@@ -81,13 +86,15 @@ class MenuEnchantingTable(owner: Player) : MenuBase(owner, 5) {
         super.handleInventoryClicked(event)
         val slot = event.slot
 
-        // TODO: Do shift click logic
+        if (event.clickedInventory == null) return
+
         if (event.isShiftClick) {
-            event.isCancelled = true
+            handleShiftClicks(event)
+            actionButtonState = ActionButtonState.CALCULATING
+            Bukkit.getScheduler()
+                .runTaskLater(plugin, Runnable { setSlot(ACTION_SLOT, generateEnchantButton()) }, 0L)
             return
         }
-        if (event.clickedInventory == null) return
-        if (event.clickedInventory != this.inventory) return
 
         // If we are clicking in the player inventory allow it to happen. We need to allow them to manage items.
         if (event.clickedInventory!!.type == InventoryType.PLAYER) {
@@ -134,7 +141,6 @@ class MenuEnchantingTable(owner: Player) : MenuBase(owner, 5) {
                     return
                 }
             }
-            val enchantItem = event.inventory.getItem(ITEM_SLOT)
             actionButtonState = ActionButtonState.CALCULATING
             Bukkit.getScheduler()
                 .runTaskLater(plugin, Runnable { setSlot(ACTION_SLOT, generateEnchantButton()) }, 0L)
@@ -224,6 +230,29 @@ class MenuEnchantingTable(owner: Player) : MenuBase(owner, 5) {
             })
             return book.withType(Material.BARRIER)
         }
+
+        val reqLevel = recipe.power
+        val lvlPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
+        if (reqLevel > lvlPlayer.magicSkill.level) {
+            lore.add(ComponentUtils.EMPTY)
+            lore.add(ComponentUtils.create("Your magic level is not high enough to apply this enchantment!", NamedTextColor.RED))
+            lore.add(ComponentUtils.create("Required level: $reqLevel", NamedTextColor.RED))
+            book.editMeta(Consumer { meta: ItemMeta? ->
+                meta!!.lore(ComponentUtils.cleanItalics(lore))
+            })
+            return book.withType(Material.BARRIER)
+        }
+
+        if (shelfPower < reqLevel) {
+            lore.add(ComponentUtils.EMPTY)
+            lore.add(ComponentUtils.create("Your bookshelf power is not high enough to apply this enchantment!", NamedTextColor.RED))
+            lore.add(ComponentUtils.create("Required level: $reqLevel", NamedTextColor.RED))
+            book.editMeta(Consumer { meta: ItemMeta? ->
+                meta!!.lore(ComponentUtils.cleanItalics(lore))
+            })
+            return book.withType(Material.BARRIER)
+        }
+
         var i = 0
         val ingredients = recipe.ingredients!!
         if (ingredients.size > 6)
@@ -259,6 +288,28 @@ class MenuEnchantingTable(owner: Player) : MenuBase(owner, 5) {
         })
 
         return book.withType(Material.ENCHANTED_BOOK)
+    }
+
+    fun generateBookshelfButton() : ItemStack {
+        val shelf = getNamedItem(
+            Material.BOOKSHELF,
+            ComponentUtils.create("Bookshelf Power", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false)
+        )
+        val lore: MutableList<Component?> = ArrayList()
+        lore.add(ComponentUtils.EMPTY)
+        lore.add(ComponentUtils.create("Bookshelf Power increases the maximum potential", NamedTextColor.DARK_GRAY))
+        lore.add(ComponentUtils.create("for enchantments from this table. Each Bookshelf", NamedTextColor.DARK_GRAY))
+        lore.add(ComponentUtils.create("grants 1 Bookshelf Power.", NamedTextColor.DARK_GRAY))
+        lore.add(ComponentUtils.EMPTY)
+        lore.add(ComponentUtils.merge(
+            ComponentUtils.create("This Enchanting Table currently has ", NamedTextColor.GRAY),
+            ComponentUtils.create(shelfPower, NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD),
+            ComponentUtils.create(" Bookshelf Power.", NamedTextColor.GRAY)
+        ))
+        shelf.editMeta(Consumer { meta: ItemMeta? ->
+            meta!!.lore(ComponentUtils.cleanItalics(lore))
+        })
+        return shelf
     }
 
     fun validateEnchant(itemToEnchant : ItemStack?, scrollItem : ItemStack?) : Boolean {
@@ -327,6 +378,71 @@ class MenuEnchantingTable(owner: Player) : MenuBase(owner, 5) {
             this.clearSlot(slotIdx)
         }
         this.setSlot(ACTION_SLOT, generateEnchantButton())
+        this.setSlot(BOOKSHELF_SLOT, generateBookshelfButton())
+    }
+
+    fun handleShiftClicks(event : InventoryClickEvent) {
+        val fromInv : Inventory
+        val toInv : Inventory
+
+        if (event.clickedInventory!!.type == InventoryType.PLAYER) {
+            fromInv = player.inventory
+            toInv = this.inventory
+        }
+        else if (event.clickedInventory == this.inventory) {
+            fromInv = this.inventory
+            toInv = player.inventory
+
+            if (event.slot !in WHITELISTED_SLOTS) {
+                event.isCancelled = true
+                return
+            }
+        }
+        else
+            return
+
+        val clickedItem = event.clickedInventory!!.getItem(event.slot)
+        if (clickedItem == null)
+            return
+
+        val clickedBp = ItemService.blueprint(clickedItem)
+        if (clickedBp is DynamicEnchantingScroll) {
+            val scrollItem = this.inventory.getItem(SCROLL_SLOT)
+            if (toInv == this.inventory) {
+                // Scroll slot is empty, fill it up
+                if (scrollItem == null) {
+                    toInv.setItem(SCROLL_SLOT, clickedItem)
+                    // Remove entire stack since it filled the slot.
+                    fromInv.setItem(event.slot, null)
+                }
+                else {
+                    val maxStack = scrollItem.maxStackSize
+
+                    // Scroll is already full, return
+                    if (scrollItem.amount == maxStack)
+                        return
+
+                    if (scrollItem.isSimilar(clickedItem)) {
+                        val maxRemovable = maxStack - scrollItem.amount
+                        val removed = clickedItem.amount - maxRemovable
+                        scrollItem.amount = maxStack + removed
+                    }
+                }
+            }
+        }
+        else {
+            // Anything else goes into the item slot, as long as there is room.
+            if (toInv == this.inventory) {
+                if (toInv.getItem(ITEM_SLOT) == null) {
+                    val clickedItem = event.clickedInventory!!.getItem(event.slot)
+                    if (clickedItem == null)
+                        return
+
+                    toInv.setItem(ITEM_SLOT, clickedItem)
+                    fromInv.setItem(event.slot, null)
+                }
+            }
+        }
     }
 
     @EventHandler

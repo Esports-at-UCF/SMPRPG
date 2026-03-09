@@ -5,7 +5,9 @@ import io.papermc.paper.registry.RegistryKey
 import io.papermc.paper.registry.TypedKey
 import io.papermc.paper.registry.keys.EnchantmentKeys
 import org.bukkit.GameMode
+import org.bukkit.Material
 import org.bukkit.Registry
+import org.bukkit.block.EnchantingTable
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.enchantments.EnchantmentOffer
 import org.bukkit.entity.Player
@@ -18,10 +20,12 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.event.inventory.InventoryType
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EnchantingInventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ItemType
 import org.bukkit.inventory.meta.ItemMeta
+import org.bukkit.util.BoundingBox
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
@@ -144,17 +148,45 @@ class EnchantmentService : IService, Listener {
     }
 
     /**
+     * Returns the bookshelf power of an enchanting table at a given location
+     */
+
+    fun getShelfPower(table : EnchantingTable) : Int {
+        val tableLoc = table.location
+
+        // Not a huge fan of this algorithm, I tried using bounding boxes
+        // This also does not account for raytracing from the table origin (yet)
+        var numShelves = 0
+        for (x in -7..7) {
+            for (y in 0..7) {
+                for(z in -7..7) {
+                    var blockAt = table.block.getRelative(x, y, z)
+                    if (blockAt.type == Material.BOOKSHELF)
+                        numShelves++
+                }
+            }
+        }
+        return numShelves
+    }
+
+    /**
      * When opening an enchanting GUI, the lapis lazuli slot should always be filled.
      */
     @EventHandler
     @Suppress("unused")
-    private fun onOpenEnchantInterface(event: InventoryOpenEvent) {
+    private fun onInteractEnchantingTable(event: PlayerInteractEvent) {
+        if (event.action.isRightClick) {
+            if (event.clickedBlock?.type == Material.ENCHANTING_TABLE && !event.player.isSneaking) {
+                event.isCancelled = true
+                val table = event.clickedBlock?.state as EnchantingTable
+                val shelfPower = getShelfPower(table)
 
-        if (event.inventory !is EnchantingInventory)
-            return
+                // TODO: Table upgrades
 
-        event.isCancelled = true
-        MenuEnchantingTable(event.player as Player).openMenu();
+                // table.persistentDataContainer
+                MenuEnchantingTable(event.player, shelfPower).openMenu();
+            }
+        }
     }
 
     /**

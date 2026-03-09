@@ -8,6 +8,7 @@ import io.papermc.paper.registry.tag.TagKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
@@ -25,6 +26,8 @@ import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment;
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
+import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ActionBarService;
 import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
@@ -37,6 +40,19 @@ public class MercyBlessing extends CustomEnchantment implements Listener {
 
     public MercyBlessing(String id) {
         super(id);
+    }
+
+    @Override
+    public EnchantmentRecipe getRecipe(int level) {
+        switch (level) {
+            case 1 -> {
+                var totem = getIngredientStack(Material.TOTEM_OF_UNDYING, 4);
+                var gapple = getIngredientStack(Material.ENCHANTED_GOLDEN_APPLE, 1);
+                var lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 8);
+                return new EnchantmentRecipe(getRecipeKey(level), 60, totem, gapple, lapis);
+            }
+            default -> { return null; }
+        }
     }
 
     @Override

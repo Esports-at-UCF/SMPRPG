@@ -9,6 +9,7 @@ import io.papermc.paper.registry.tag.TagKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -20,6 +21,8 @@ import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment;
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
+import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 
@@ -27,6 +30,19 @@ public class KeepingBlessing extends CustomEnchantment implements Listener {
 
     public KeepingBlessing(String id) {
         super(id);
+    }
+
+    @Override
+    public EnchantmentRecipe getRecipe(int level) {
+        switch (level) {
+            case 1 -> {
+                var slime = getIngredientStack(CustomItemType.PREMIUM_SLIME, 4);
+                var matrix = getIngredientStack(CustomItemType.DISPLACEMENT_MATRIX, 1);
+                var lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 8);
+                return new EnchantmentRecipe(getRecipeKey(level), 20, slime, matrix, lapis);
+            }
+            default -> { return null; }
+        }
     }
 
     @Override

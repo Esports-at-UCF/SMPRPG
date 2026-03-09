@@ -59,40 +59,40 @@ public class SharpnessEnchantment extends VanillaEnchantment implements Attribut
                 var amethyst = getIngredientStack(Material.AMETHYST_SHARD, 20);
                 var flint = getIngredientStack(Material.FLINT, 5);
                 var lapis = getIngredientStack(Material.LAPIS_LAZULI, 8);
-                return new EnchantmentRecipe(getRecipeKey(level), amethyst, flint, lapis);
+                return new EnchantmentRecipe(getRecipeKey(level), 0, amethyst, flint, lapis);
             }
             case 2 -> {
                 var amethyst = getIngredientStack(Material.AMETHYST_SHARD, 40);
                 var flint = getIngredientStack(Material.FLINT, 10);
                 var lapis = getIngredientStack(Material.LAPIS_LAZULI, 16);
-                return new EnchantmentRecipe(getRecipeKey(level), amethyst, flint, lapis);
+                return new EnchantmentRecipe(getRecipeKey(level), 5, amethyst, flint, lapis);
             }
             case 3 -> {
                 var amethyst = getIngredientStack(Material.AMETHYST_SHARD, 80);
                 var flint = getIngredientStack(Material.FLINT, 20);
                 var lapis = getIngredientStack(Material.LAPIS_LAZULI, 32);
-                return new EnchantmentRecipe(getRecipeKey(level), amethyst, flint, lapis);
+                return new EnchantmentRecipe(getRecipeKey(level), 15, amethyst, flint, lapis);
             }
             case 4 -> {
                 var amethyst = getIngredientStack(Material.AMETHYST_BLOCK, 40);
                 var flint = getIngredientStack(Material.FLINT, 40);
                 var quartz = getIngredientStack(Material.QUARTZ, 10);
                 var lapis = getIngredientStack(Material.LAPIS_LAZULI, 64);
-                return new EnchantmentRecipe(getRecipeKey(level), amethyst, flint, quartz, lapis);
+                return new EnchantmentRecipe(getRecipeKey(level), 20, amethyst, flint, quartz, lapis);
             }
             case 5 -> {
                 var amethyst = getIngredientStack(Material.AMETHYST_BLOCK, 80);
                 var flint = getIngredientStack(Material.FLINT, 80);
                 var quartz = getIngredientStack(Material.QUARTZ, 40);
                 var lapis = getIngredientStack(Material.LAPIS_BLOCK, 16);
-                return new EnchantmentRecipe(getRecipeKey(level), amethyst, flint, quartz, lapis);
+                return new EnchantmentRecipe(getRecipeKey(level), 30, amethyst, flint, quartz, lapis);
             }
             case 6 -> {
                 var amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST, 18);
                 var flint = getIngredientStack(CustomItemType.ENCHANTED_FLINT, 2);
                 var quartz = getIngredientStack(Material.QUARTZ, 80);
                 var lapis = getIngredientStack(Material.LAPIS_BLOCK, 32);
-                return new EnchantmentRecipe(getRecipeKey(level), amethyst, flint, quartz, lapis);
+                return new EnchantmentRecipe(getRecipeKey(level), 40, amethyst, flint, quartz, lapis);
             }
             case 7 -> {
                 var amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST, 36);
@@ -100,7 +100,7 @@ public class SharpnessEnchantment extends VanillaEnchantment implements Attribut
                 var quartz = getIngredientStack(CustomItemType.ENCHANTED_QUARTZ, 18);
                 var diamond = getIngredientStack(Material.DIAMOND, 20);
                 var lapis = getIngredientStack(Material.LAPIS_BLOCK, 64);
-                return new EnchantmentRecipe(getRecipeKey(level), amethyst, flint, quartz, diamond, lapis);
+                return new EnchantmentRecipe(getRecipeKey(level), 60, amethyst, flint, quartz, diamond, lapis);
             }
             case 8 -> {
                 var amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST, 72);
@@ -108,7 +108,7 @@ public class SharpnessEnchantment extends VanillaEnchantment implements Attribut
                 var quartz = getIngredientStack(CustomItemType.ENCHANTED_QUARTZ, 36);
                 var diamond = getIngredientStack(Material.DIAMOND, 40);
                 var lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16);
-                return new EnchantmentRecipe(getRecipeKey(level), amethyst, flint, quartz, diamond, lapis);
+                return new EnchantmentRecipe(getRecipeKey(level), 70, amethyst, flint, quartz, diamond, lapis);
             }
             case 9 -> {
                 var amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 8);
@@ -117,7 +117,7 @@ public class SharpnessEnchantment extends VanillaEnchantment implements Attribut
                 var diamond = getIngredientStack(Material.DIAMOND, 80);
                 var dragonsteel = getIngredientStack(CustomItemType.DRAGONSTEEL_INGOT, 2);
                 var lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 32);
-                return new EnchantmentRecipe(getRecipeKey(level), amethyst, flint, quartz, diamond, dragonsteel, lapis);
+                return new EnchantmentRecipe(getRecipeKey(level), 80, amethyst, flint, quartz, diamond, dragonsteel, lapis);
             }
             case 10 -> {
                 var amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 16);
@@ -126,7 +126,7 @@ public class SharpnessEnchantment extends VanillaEnchantment implements Attribut
                 var diamond = getIngredientStack(CustomItemType.ENCHANTED_DIAMOND, 2);
                 var dragonsteel = getIngredientStack(CustomItemType.DRAGONSTEEL_INGOT, 4);
                 var lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 64);
-                return new EnchantmentRecipe(getRecipeKey(level), amethyst, flint, quartz, diamond, dragonsteel, lapis);
+                return new EnchantmentRecipe(getRecipeKey(level), 90, amethyst, flint, quartz, diamond, dragonsteel, lapis);
             }
             default -> { return null; }
         }
