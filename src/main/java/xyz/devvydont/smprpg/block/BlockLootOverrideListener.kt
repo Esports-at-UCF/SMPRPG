@@ -59,6 +59,10 @@ class BlockLootOverrideListener : ToggleableListener() {
         // Check if this block is flagged. If it isn't, let vanilla handle the logic.
         val entry = BlockLootRegistry.get(event.blockState) ?: return
 
+        // Check if this block is flagged to never trigger fortune.
+        if (entry.dontUseFortune)
+            fortuneActive = false
+
         // The block is flagged. We need context. Essentially, we have manual checks that determine this.
         var ctx = BlockLootContext.INCORRECT_TOOL
         val toolPreferences: MutableSet<ItemClassification> = entry.preferredTools

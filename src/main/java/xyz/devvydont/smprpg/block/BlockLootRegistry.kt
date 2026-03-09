@@ -747,6 +747,7 @@ object BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
+                .ignoresFortune()
                 .build()
         )
     }
