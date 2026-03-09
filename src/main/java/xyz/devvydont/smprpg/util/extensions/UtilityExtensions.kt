@@ -2,8 +2,17 @@ package xyz.devvydont.smprpg.util.extensions
 
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
+import xyz.devvydont.smprpg.services.ItemService
 
-fun Inventory.takeIfPresent(vararg req: Pair<ItemStack, Int>): Boolean {
+fun Inventory.takeIfPresent(vararg r: Pair<ItemStack, Int>): Boolean {
+
+    val req : MutableSet<Pair<ItemStack, Int>> = HashSet()
+    for (i in r) {
+        val bp = ItemService.blueprint(i.first)
+        val realItem = bp.generate()
+        bp.updateItemData(realItem)
+        req.add(Pair<ItemStack, Int>(realItem, i.second))
+    }
 
     if (req.isEmpty()) return true
 

@@ -13,15 +13,19 @@ import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlotGroup;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe;
+import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.services.EntityService;
+import xyz.devvydont.smprpg.services.ItemService;
 
 public abstract class CustomEnchantment implements Cloneable {
 
@@ -145,6 +149,20 @@ public abstract class CustomEnchantment implements Cloneable {
 
     public EnchantmentRecipe getRecipe(int level) {
         return null;
+    }
+
+    public static ItemStack getIngredientStack(Material mat, int qty) {
+        var itemStack = ItemService.generate(mat);
+        itemStack.setAmount(qty);
+        itemStack.editMeta(meta -> meta.setMaxStackSize(99));
+        return itemStack;
+    }
+
+    public static ItemStack getIngredientStack(CustomItemType type, int qty) {
+        var itemStack = ItemService.generate(type);
+        itemStack.setAmount(qty);
+        itemStack.editMeta(meta -> meta.setMaxStackSize(99));
+        return itemStack;
     }
 
     public int getLevel() {

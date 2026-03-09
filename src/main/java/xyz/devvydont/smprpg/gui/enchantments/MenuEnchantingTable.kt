@@ -71,10 +71,10 @@ class MenuEnchantingTable(owner: Player) : MenuBase(owner, 5) {
                 )
             )
         )
+        this.setMaxStackSize(100)
 
         // Render the UI
         this.render()
-        this.setMaxStackSize(100)
     }
 
     override fun handleInventoryClicked(event: InventoryClickEvent) {
@@ -189,8 +189,19 @@ class MenuEnchantingTable(owner: Player) : MenuBase(owner, 5) {
             }
 
             // Scroll and Input both exist at this point, only case left for invalid check is invalid enchantment
+            val enchant = getEnchant(scroll)!!
             lore.add(ComponentUtils.EMPTY)
-            lore.add(ComponentUtils.create("This enchantment cannot be applied to this item!", NamedTextColor.RED))
+            var hasConflict = false
+            for (ench in input.enchantments.keys) {
+                if (enchant.conflictsWith(ench) && ench.key != enchant.key) {
+                    hasConflict = true
+                    lore.add(ComponentUtils.create("This enchantment conflicts with one or more enchantments!", NamedTextColor.RED))
+                    break
+                }
+            }
+
+            if (!hasConflict)
+                lore.add(ComponentUtils.create("This enchantment cannot be applied to this item!", NamedTextColor.RED))
             book.editMeta(Consumer { meta: ItemMeta? ->
                 meta!!.lore(ComponentUtils.cleanItalics(lore))
             })
@@ -202,9 +213,12 @@ class MenuEnchantingTable(owner: Player) : MenuBase(owner, 5) {
         val enchantLevel = input!!.getEnchantmentLevel(enchant) + 1
         var recipe = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant)?.getRecipe(enchantLevel)
         if (recipe == null) {
-            // Either this recipe isn't implemented, or we are max level. Assume latter.
+            // Either this recipe isn't implemented, or we are max level.
             lore.add(ComponentUtils.EMPTY)
-            lore.add(ComponentUtils.create("This enchantment has already reached its maximum potential!", NamedTextColor.RED))
+            if (enchantLevel > enchant.maxLevel)
+                lore.add(ComponentUtils.create("This enchantment has already reached its maximum potential!", NamedTextColor.GOLD))
+            else
+                lore.add(ComponentUtils.create("This is a missing recipe! Contact a developer to let them know.", NamedTextColor.RED))
             book.editMeta(Consumer { meta: ItemMeta? ->
                 meta!!.lore(ComponentUtils.cleanItalics(lore))
             })
@@ -221,7 +235,11 @@ class MenuEnchantingTable(owner: Player) : MenuBase(owner, 5) {
 
         // Do we have the required materials to enchant?
         for (ingredient in ingredients) {
-            if (!(player.inventory.containsAtLeast(ingredient, ingredient.amount))) {
+            // We need to use the base blueprint for the item, as we adjust the item stack size for display
+            val bp = ItemService.blueprint(ingredient)
+            val trueIngr = bp.generate()
+            bp.updateItemData(trueIngr)
+            if (!(player.inventory.containsAtLeast(trueIngr, ingredient.amount))) {
                 lore.add(ComponentUtils.EMPTY)
                 lore.add(ComponentUtils.create("This enchantment is missing reagents!", NamedTextColor.RED))
                 book.editMeta(Consumer { meta: ItemMeta? ->
@@ -240,20 +258,23 @@ class MenuEnchantingTable(owner: Player) : MenuBase(owner, 5) {
             meta.setEnchantmentGlintOverride(true)
         })
 
-        return book
+        return book.withType(Material.ENCHANTED_BOOK)
     }
 
     fun validateEnchant(itemToEnchant : ItemStack?, scrollItem : ItemStack?) : Boolean {
         if (itemToEnchant == null) {
-            println("itemToEnchant: $itemToEnchant")
             return false
         }
         val scrollItem = this.getItem(SCROLL_SLOT)
-        println("scrollItem:  $scrollItem")
         if (scrollItem != null) {
             val enchant : Enchantment = getEnchant(scrollItem)!!
-            if (enchant.canEnchantItem(itemToEnchant))
+            if (enchant.canEnchantItem(itemToEnchant)) {  // canEnchant does not check for conflicts, so we now need to check for that.
+                for (ench in itemToEnchant.enchantments.keys) {
+                    if (ench.conflictsWith(enchant) && ench.key != enchant.key)  // Failfast if we find a conflicting enchantment
+                        return false
+                }
                 return true
+            }
         }
         return false
     }

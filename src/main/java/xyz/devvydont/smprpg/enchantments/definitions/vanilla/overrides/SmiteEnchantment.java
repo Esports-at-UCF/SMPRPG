@@ -50,119 +50,76 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
     public EnchantmentRecipe getRecipe(int level) {
         switch (level) {
             case 1 -> {
-                var silver = ItemService.generate(CustomItemType.SILVER_INGOT);
-                silver.setAmount(5);
-                var flesh = ItemService.generate(Material.ROTTEN_FLESH);
-                flesh.setAmount(2);
-                var lapis = ItemService.generate(Material.LAPIS_LAZULI);
-                lapis.setAmount(8);
+                var silver = getIngredientStack(CustomItemType.SILVER_INGOT, 5);
+                var flesh = getIngredientStack(Material.ROTTEN_FLESH, 2);
+                var lapis = getIngredientStack(Material.LAPIS_LAZULI, 8);
                 return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, lapis);
             }
             case 2 -> {
-                var silver = ItemService.generate(CustomItemType.SILVER_INGOT);
-                silver.setAmount(10);
-                var flesh = ItemService.generate(Material.ROTTEN_FLESH);
-                flesh.setAmount(5);
-                var lapis = ItemService.generate(Material.LAPIS_LAZULI);
-                lapis.setAmount(16);
+                var silver = getIngredientStack(CustomItemType.SILVER_INGOT, 10);
+                var flesh = getIngredientStack(Material.ROTTEN_FLESH, 4);
+                var lapis = getIngredientStack(Material.LAPIS_LAZULI, 16);
                 return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, lapis);
             }
             case 3 -> {
-                var silver = ItemService.generate(CustomItemType.SILVER_INGOT);
-                silver.setAmount(20);
-                var flesh = ItemService.generate(CustomItemType.PREMIUM_FLESH);
-                flesh.setAmount(2);
-                var lapis = ItemService.generate(Material.LAPIS_LAZULI);
-                lapis.setAmount(32);
+                var silver = getIngredientStack(CustomItemType.SILVER_INGOT, 20);
+                var flesh = getIngredientStack(Material.ROTTEN_FLESH, 8);
+                var lapis = getIngredientStack(Material.LAPIS_LAZULI, 32);
                 return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, lapis);
             }
             case 4 -> {
-                var silver = ItemService.generate(CustomItemType.SILVER_INGOT);
-                silver.setAmount(64);
-                var flesh = ItemService.generate(CustomItemType.PREMIUM_FLESH);
-                flesh.setAmount(4);
-                var necrotic = ItemService.generate(CustomItemType.PREMIUM_NECROTIC_FLESH);
-                necrotic.setAmount(4);
-                var lapis = ItemService.generate(Material.LAPIS_LAZULI);
-                lapis.setAmount(64);
+                var silver = getIngredientStack(CustomItemType.SILVER_INGOT, 40);
+                var flesh = getIngredientStack(Material.ROTTEN_FLESH, 16);
+                var necrotic = getIngredientStack(CustomItemType.PREMIUM_NECROTIC_FLESH, 16);
+                var lapis = getIngredientStack(Material.LAPIS_LAZULI, 64);
                 return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, lapis);
             }
             case 5 -> {
-                var silver = ItemService.generate(CustomItemType.SILVER_BLOCK);
-                silver.setAmount(8);
-                var flesh = ItemService.generate(CustomItemType.ENCHANTED_FLESH);
-                flesh.setAmount(1);
-                var necrotic = ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH);
-                necrotic.setAmount(1);
-                var lapis = ItemService.generate(Material.LAPIS_BLOCK);
-                lapis.setAmount(16);
+                var silver = getIngredientStack(CustomItemType.SILVER_INGOT, 80);
+                var flesh = getIngredientStack(Material.ROTTEN_FLESH, 32);
+                var necrotic = getIngredientStack(CustomItemType.PREMIUM_NECROTIC_FLESH, 32);
+                var lapis = getIngredientStack(Material.LAPIS_BLOCK, 16);
                 return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, lapis);
             }
             case 6 -> {
-                var silver = ItemService.generate(CustomItemType.SILVER_BLOCK);
-                silver.setAmount(12);
-                var flesh = ItemService.generate(CustomItemType.ENCHANTED_FLESH);
-                flesh.setAmount(2);
-                var necrotic = ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH);
-                necrotic.setAmount(2);
-                var lapis = ItemService.generate(Material.LAPIS_BLOCK);
-                lapis.setAmount(32);
+                var silver = getIngredientStack(CustomItemType.SILVER_BLOCK, 18);
+                var flesh = getIngredientStack(Material.ROTTEN_FLESH, 64);
+                var necrotic = getIngredientStack(CustomItemType.PREMIUM_NECROTIC_FLESH, 64);
+                var lapis = getIngredientStack(Material.LAPIS_BLOCK, 32);
                 return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, lapis);
             }
             case 7 -> {
-                var silver = ItemService.generate(CustomItemType.SILVER_BLOCK);
-                silver.setAmount(16);
-                var flesh = ItemService.generate(CustomItemType.ENCHANTED_FLESH);
-                flesh.setAmount(4);
-                var necrotic = ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH);
-                necrotic.setAmount(4);
-                var viscera = ItemService.generate(CustomItemType.REVILED_VISCERA);
-                viscera.setAmount(1);
-                var lapis = ItemService.generate(Material.LAPIS_BLOCK);
-                lapis.setAmount(64);
+                var silver = getIngredientStack(CustomItemType.SILVER_BLOCK, 36);
+                var flesh = getIngredientStack(CustomItemType.PREMIUM_FLESH, 15);
+                var necrotic = getIngredientStack(CustomItemType.ENCHANTED_NECROTIC_FLESH, 15);
+                var viscera = getIngredientStack(CustomItemType.REVILED_VISCERA, 1);
+                var lapis = getIngredientStack(Material.LAPIS_BLOCK, 64);
                 return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, viscera, lapis);
             }
             case 8 -> {
-                var silver = ItemService.generate(CustomItemType.SILVER_BLOCK);
-                silver.setAmount(20);
-                var flesh = ItemService.generate(CustomItemType.ENCHANTED_FLESH);
-                flesh.setAmount(8);
-                var necrotic = ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH);
-                necrotic.setAmount(8);
-                var viscera = ItemService.generate(CustomItemType.REVILED_VISCERA);
-                viscera.setAmount(2);
-                var lapis = ItemService.generate(CustomItemType.ENCHANTED_LAPIS);
-                lapis.setAmount(16);
+                var silver = getIngredientStack(CustomItemType.SILVER_BLOCK, 72);
+                var flesh = getIngredientStack(CustomItemType.PREMIUM_FLESH, 30);
+                var necrotic = getIngredientStack(CustomItemType.ENCHANTED_NECROTIC_FLESH, 30);
+                var viscera = getIngredientStack(CustomItemType.REVILED_VISCERA, 2);
+                var lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16);
                 return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, viscera, lapis);
             }
             case 9 -> {
-                var silver = ItemService.generate(CustomItemType.SILVER_BLOCK);
-                silver.setAmount(24);
-                var flesh = ItemService.generate(CustomItemType.ENCHANTED_FLESH);
-                flesh.setAmount(12);
-                var necrotic = ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH);
-                necrotic.setAmount(12);
-                var viscera = ItemService.generate(CustomItemType.REVILED_VISCERA);
-                viscera.setAmount(3);
-                var amalgamation = ItemService.generate(CustomItemType.VISCERAL_AMALGAMATION);
-                amalgamation.setAmount(1);
-                var lapis = ItemService.generate(CustomItemType.ENCHANTED_LAPIS);
-                lapis.setAmount(32);
+                var silver = getIngredientStack(CustomItemType.ENCHANTED_SILVER, 8);
+                var flesh = getIngredientStack(CustomItemType.PREMIUM_FLESH, 45);
+                var necrotic = getIngredientStack(CustomItemType.ENCHANTED_NECROTIC_FLESH, 45);
+                var viscera = getIngredientStack(CustomItemType.REVILED_VISCERA, 3);
+                var amalgamation = getIngredientStack(CustomItemType.VISCERAL_AMALGAMATION, 1);
+                var lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 32);
                 return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, viscera, amalgamation, lapis);
             }
             case 10 -> {
-                var silver = ItemService.generate(CustomItemType.SILVER_BLOCK);
-                silver.setAmount(32);
-                var flesh = ItemService.generate(CustomItemType.ENCHANTED_FLESH);
-                flesh.setAmount(16);
-                var necrotic = ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH);
-                necrotic.setAmount(16);
-                var viscera = ItemService.generate(CustomItemType.REVILED_VISCERA);
-                viscera.setAmount(4);
-                var amalgamation = ItemService.generate(CustomItemType.VISCERAL_AMALGAMATION);
-                amalgamation.setAmount(2);
-                var lapis = ItemService.generate(CustomItemType.ENCHANTED_LAPIS);
-                lapis.setAmount(64);
+                var silver = getIngredientStack(CustomItemType.ENCHANTED_SILVER, 16);
+                var flesh = getIngredientStack(CustomItemType.PREMIUM_FLESH, 60);
+                var necrotic = getIngredientStack(CustomItemType.ENCHANTED_NECROTIC_FLESH, 60);
+                var viscera = getIngredientStack(CustomItemType.REVILED_VISCERA, 4);
+                var amalgamation = getIngredientStack(CustomItemType.VISCERAL_AMALGAMATION, 2);
+                var lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 64);
                 return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, viscera, amalgamation, lapis);
             }
             default -> { return null; }

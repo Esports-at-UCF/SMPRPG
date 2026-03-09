@@ -199,11 +199,15 @@ public enum CustomItemType {
 
     // SILVER SET
     RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, false, 15),
-    SILVER_INGOT("Silver Ingot",                 Material.IRON_INGOT,     ItemRarity.COMMON, SilverIngot.class),
     SILVER_ORE("Silver Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, SilverOre.class),
     DEEPSLATE_SILVER_ORE("Deepslate Silver Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, DeepslateSilverOre.class),
     RAW_SILVER_BLOCK("Block of Raw Silver",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, RawSilverBlock.class),
-    SILVER_BLOCK("Block of Silver",              Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, SilverBlock.class),
+
+    SILVER_INGOT("Silver Ingot",                          Material.IRON_INGOT,        ItemRarity.COMMON,    SilverIngot.class),
+    SILVER_BLOCK("Block of Silver",                       Material.POISONOUS_POTATO,  ItemRarity.UNCOMMON,  SilverBlock.class),
+    ENCHANTED_SILVER("Enchanted Silver",                  Material.IRON_INGOT,        ItemRarity.RARE,      true, SilverFamilyBlueprint.class),
+    ENCHANTED_SILVER_BLOCK("Enchanted Block of Silver",   Material.POISONOUS_POTATO,  ItemRarity.EPIC,      true, SilverFamilyBlueprint.class),
+    SILVER_SINGULARITY("Silver Singularity",              Material.IRON_INGOT,        ItemRarity.LEGENDARY, true, SilverFamilyBlueprint.class),
 
     SILVER_PICKAXE("Silver Pickaxe",  Material.IRON_PICKAXE, SilverPickaxe.class),
     SILVER_AXE(    "Silver Axe",      Material.IRON_AXE,     SilverAxe.class),

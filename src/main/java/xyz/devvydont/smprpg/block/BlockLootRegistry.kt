@@ -519,6 +519,7 @@ object BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
+                .ignoresFortune()
                 .build()
         )
 
@@ -553,6 +554,7 @@ object BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TIN_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TIN_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.TIN_BLOCK)))
+                .ignoresFortune()
                 .build()
         )
 
@@ -587,6 +589,7 @@ object BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
+                .ignoresFortune()
                 .build()
         )
 
@@ -627,6 +630,7 @@ object BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.MITHRIL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.MITHRIL_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.MITHRIL_BLOCK)))
+                .ignoresFortune()
                 .build()
         )
 
@@ -651,6 +655,7 @@ object BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TITANIUM_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TITANIUM_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.TITANIUM_BLOCK)))
+                .ignoresFortune()
                 .build()
         )
 
@@ -675,6 +680,7 @@ object BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ADAMANTIUM_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ADAMANTIUM_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ADAMANTIUM_BLOCK)))
+                .ignoresFortune()
                 .build()
         )
 
@@ -739,6 +745,7 @@ object BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
+                .ignoresFortune()
                 .build()
         )
 
