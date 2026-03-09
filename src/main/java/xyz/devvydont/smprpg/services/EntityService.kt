@@ -334,8 +334,6 @@ class EntityService : IService, Listener {
         entity.resetLevel()
 
         val leveledSpawnEvent = LeveledEntitySpawnEvent(entity)
-        if (entity is CastleDweller)
-            println("dweller spotted")
         leveledSpawnEvent.callEvent()
 
         entity.updateAttributes()

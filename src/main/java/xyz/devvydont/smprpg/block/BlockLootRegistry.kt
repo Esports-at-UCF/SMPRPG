@@ -695,6 +695,46 @@ object BlockLootRegistry {
         )
 
         register(
+            CustomBlock.GRIMSTONE_DIAMOND_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.DIAMOND), 3.0))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_DIAMOND_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.DIAMOND), 3.0))
+                .build()
+        )
+
+        register(
+            CustomBlock.GRIMSTONE_IRON_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.IRON_INGOT), 3.0))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_IRON_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.RAW_IRON), 3.0))
+                .build()
+        )
+
+        register(
+            CustomBlock.GRIMSTONE_GOLD_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.LAPIS_LAZULI), 3.0))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_GOLD_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.RAW_GOLD), 3.0))
+                .build()
+        )
+
+        register(
+            CustomBlock.GRIMSTONE_SILVER_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.LAPIS_LAZULI), 3.0))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_SILVER_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_SILVER), 3.0))
+                .build()
+        )
+
+        register(
+            CustomBlock.GRIMSTONE_LAPIS_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.LAPIS_LAZULI), 6.0))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_LAPIS_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.LAPIS_LAZULI), 6.0))
+                .build()
+        )
+
+        register(
             CustomBlock.DRAGONSTEEL_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))

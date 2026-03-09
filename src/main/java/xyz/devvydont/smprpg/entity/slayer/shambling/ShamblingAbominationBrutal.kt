@@ -27,6 +27,7 @@ class ShamblingAbominationBrutal(entity: LivingEntity?, entityType: CustomEntity
             QuantityLootDrop(generate(CustomItemType.PREMIUM_FLESH), 12, 20, this),
             QuantityLootDrop(generate(CustomItemType.ENCHANTED_FLESH), 1, 3, this),
 
+            ChancedItemDrop(LOOT_SMITE_SCROLL, 20, this),
             ChancedItemDrop(generate(CustomItemType.REVILED_VISCERA), 15, this),
             ChancedItemDrop(generate(CustomItemType.UNDIGESTED_BRAINS), 100, this),
             ChancedItemDrop(generate(CustomItemType.NECRONOMICON_EXCERPTS), 200, this),

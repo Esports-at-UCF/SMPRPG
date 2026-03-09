@@ -13,11 +13,13 @@ import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe;
 import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.services.EntityService;
 
@@ -135,6 +137,14 @@ public abstract class CustomEnchantment implements Cloneable {
 
     public void setKey(Key key) {
         this.key = key;
+    }
+
+    public NamespacedKey getRecipeKey(int level) {
+        return new NamespacedKey(SMPRPG.getPlugin(), getKey().value().toLowerCase() + String.format("%s-recipe", level));
+    }
+
+    public EnchantmentRecipe getRecipe(int level) {
+        return null;
     }
 
     public int getLevel() {

@@ -54,7 +54,12 @@ public enum CustomBlock {
     ORICHALCUM_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(12), true)),
     ONYX_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(13), true)),
     GRIMSTONE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(14), true)),
-    COBBLED_GRIMSTONE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(15), true));
+    COBBLED_GRIMSTONE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(15), true)),
+    GRIMSTONE_DIAMOND_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(16), true)),
+    GRIMSTONE_IRON_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(17), true)),
+    GRIMSTONE_GOLD_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(18), true)),
+    GRIMSTONE_SILVER_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(19), true)),
+    GRIMSTONE_LAPIS_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(20), true));
     //</editor-fold>
 
     public final Material BlockMaterial;

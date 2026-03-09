@@ -10,11 +10,13 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityTransformEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
+import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.slayer.SlayerBossInstance
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
 import xyz.devvydont.smprpg.items.CustomItemType
+import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
 import xyz.devvydont.smprpg.items.interfaces.ICustomTextured
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.persistence.KeyStore
@@ -33,6 +35,19 @@ open class ShamblingAbominationParent
     open var attackCooldown = 10
     open var enrageThreshold = 0.5
     open var explosionDamage = 500.0
+
+    open val LOOT_SMITE_SCROLL : ItemStack = generate(CustomItemType.ENCHANTING_SCROLL)
+
+    init {
+        LOOT_SMITE_SCROLL.editPersistentDataContainer(
+            { pdc: PersistentDataContainer? ->
+                pdc!!.set(
+                    DynamicEnchantingScroll.SCROLL_ENCHANT_TYPE_KEY,
+                    PersistentDataType.STRING,
+                    "minecraft:smite"
+                )
+            })
+    }
 
     override fun setup() {
         super.setup()

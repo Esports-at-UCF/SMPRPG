@@ -74,6 +74,7 @@ public class Symbols {
     public static final String SATURATION_FULL = "\ua00B";
     public static final String SATURATION_HALF = "\ua00C";
 
+    public static final String OVERLAY_BG_OFFSET_STANDARD = OFFSET_NEG_128 + OFFSET_NEG_32 + OFFSET_NEG_2;
     public static final String REFORGE_BACKGROUND = "\ub001";
     public static final String RECIPE_MENU = "\ub002";
     public static final String TRASH_MENU = "\ub003";

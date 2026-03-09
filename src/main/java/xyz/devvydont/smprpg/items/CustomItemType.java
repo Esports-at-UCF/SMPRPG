@@ -36,6 +36,7 @@ import xyz.devvydont.smprpg.items.blueprints.resources.fishing.EtherealFiber;
 import xyz.devvydont.smprpg.items.blueprints.resources.fishing.HolomokuCrest;
 import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
+import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFlesh;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFleshFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.NecronomiconExcerpts;
@@ -1087,6 +1088,11 @@ public enum CustomItemType {
 
     GRIMSTONE("Grimstone", Material.POISONOUS_POTATO, ItemRarity.COMMON, GrimstoneBlock.class),
     COBBLED_GRIMSTONE("Cobbled Grimstone", Material.POISONOUS_POTATO, ItemRarity.COMMON, CobbledGrimstoneBlock.class),
+    GRIMSTONE_DIAMOND_ORE("Grimstone Diamond Ore", Material.POISONOUS_POTATO, ItemRarity.COMMON, GrimstoneDiamondOre.class),
+    GRIMSTONE_IRON_ORE("Grimstone Iron Ore", Material.POISONOUS_POTATO, ItemRarity.COMMON, GrimstoneIronOre.class),
+    GRIMSTONE_GOLD_ORE("Grimstone Gold Ore", Material.POISONOUS_POTATO, ItemRarity.COMMON, GrimstoneGoldOre.class),
+    GRIMSTONE_SILVER_ORE("Grimstone Silver Ore", Material.POISONOUS_POTATO, ItemRarity.COMMON, GrimstoneSilverOre.class),
+    GRIMSTONE_LAPIS_ORE("Grimstone Lapis Ore", Material.POISONOUS_POTATO, ItemRarity.COMMON, GrimstoneLapisOre.class),
 
     // ADMIN UTILITY
     INFINILYTRA("Infini-lytra", Material.ELYTRA, ItemRarity.SPECIAL, InfinilytraBlueprint.class),
@@ -1123,7 +1129,10 @@ public enum CustomItemType {
     // SLAYER BOSS ARMOR (Worn by boss, not used by players)
     SHAMBLING_BOOTS("Shambling Boss Boots (not used by players)", Material.DIAMOND_BOOTS, ItemRarity.SPECIAL, ShamblingBossBoots.class),
     SHAMBLING_LEGGINGS("Shambling Boss Leggings (not used by players)", Material.DIAMOND_LEGGINGS, ItemRarity.SPECIAL, ShamblingBossLeggings.class),
-    SHAMBLING_CHESTPLATE("Shambling Boss Chestplate (not used by players)", Material.DIAMOND_CHESTPLATE, ItemRarity.SPECIAL, ShamblingBossChestplate.class)
+    SHAMBLING_CHESTPLATE("Shambling Boss Chestplate (not used by players)", Material.DIAMOND_CHESTPLATE, ItemRarity.SPECIAL, ShamblingBossChestplate.class),
+
+    // ENCHANTING SCROLLS
+    ENCHANTING_SCROLL("Scroll of Imbuement", Material.PAPER, ItemRarity.RARE, DynamicEnchantingScroll.class)
     ;
 
     public final String ItemName;

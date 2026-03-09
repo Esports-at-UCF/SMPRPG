@@ -120,9 +120,6 @@ public interface EntitySpawnCondition {
             var locCopy = location.clone();
             locCopy.setY(locCopy.getBlockY() - 1);
             var blockMatBelow = location.getWorld().getBlockAt(locCopy).getType();
-            System.out.println(this._blockMaterials);
-            System.out.println(blockMatBelow);
-            System.out.println(this._blockMaterials.contains(blockMatBelow));
             return this._blockMaterials.contains(blockMatBelow);
         }
     }

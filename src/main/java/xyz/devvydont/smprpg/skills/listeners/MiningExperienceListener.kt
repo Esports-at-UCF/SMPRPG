@@ -76,6 +76,11 @@ class MiningExperienceListener() : Listener {
                     CustomBlock.ADAMANTIUM_ORE -> 200
                     CustomBlock.GRIMSTONE -> 4
                     CustomBlock.COBBLED_GRIMSTONE -> 4
+                    CustomBlock.GRIMSTONE_IRON_ORE -> 42
+                    CustomBlock.GRIMSTONE_LAPIS_ORE -> 48
+                    CustomBlock.GRIMSTONE_SILVER_ORE -> 60
+                    CustomBlock.GRIMSTONE_GOLD_ORE -> 72
+                    CustomBlock.GRIMSTONE_DIAMOND_ORE -> 150
                     else -> 0
                 }
             }
@@ -112,8 +117,10 @@ class MiningExperienceListener() : Listener {
                 Material.LAPIS_LAZULI -> 3
                 Material.REDSTONE -> 4
                 Material.REDSTONE_BLOCK -> 15
-                Material.LAPIS_ORE, Material.REDSTONE_ORE -> 18
-                Material.DEEPSLATE_LAPIS_ORE, Material.DEEPSLATE_REDSTONE_ORE -> 54
+                Material.REDSTONE_ORE -> 18
+                Material.LAPIS_ORE -> 8
+                Material.DEEPSLATE_REDSTONE_ORE -> 54
+                Material.DEEPSLATE_LAPIS_ORE -> 24
                 Material.DIAMOND_ORE, Material.DIAMOND -> 25
                 Material.DEEPSLATE_DIAMOND_ORE -> 75
                 Material.EMERALD_ORE, Material.EMERALD -> 100

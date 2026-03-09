@@ -6966,6 +6966,41 @@ public class BlockPropertiesRegistry {
                 .blockSound(BlockSound.BLACKSTONE_GENERIC)
                 .softRequirement(false)
                 .build());
+
+        register(CustomBlock.GRIMSTONE_DIAMOND_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(750)
+                .breakingPower(5)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.GRIMSTONE_IRON_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(750)
+                .breakingPower(5)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.GRIMSTONE_GOLD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(750)
+                .breakingPower(5)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.GRIMSTONE_SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(750)
+                .breakingPower(5)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.GRIMSTONE_LAPIS_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(750)
+                .breakingPower(5)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
+                .softRequirement(false)
+                .build());
         //</editor-fold>
 
     }

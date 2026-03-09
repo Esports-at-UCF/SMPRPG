@@ -153,6 +153,7 @@ class NoteblockOverrideListener : ToggleableListener() {
                         blockSound.PlacePitch
                     )
                 }
+                player.swingHand(event.hand!!)
                 if (player.getGameMode() != GameMode.CREATIVE)
                     item.setAmount(item.getAmount() - 1)
             }

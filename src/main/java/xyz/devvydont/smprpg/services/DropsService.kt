@@ -672,6 +672,7 @@ class DropsService : IService, Listener {
             NamedTextColor.YELLOW
         )
         val player = SMPRPG.getService(ChatService::class.java).getPlayerDisplay(event.player)
+        blueprint(event.item).updateItemData(event.item)
         val item = event.item.displayName().hoverEvent(event.item.asHoverEvent())
         val suffix: Component = ComponentUtils.create(" found ").append(item).append(ComponentUtils.create(" from "))
             .append(event.source.getAsComponent()).append(ComponentUtils.create("!"))

@@ -9,6 +9,7 @@ import io.papermc.paper.registry.set.RegistrySet;
 import io.papermc.paper.registry.tag.TagKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -21,7 +22,10 @@ import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil;
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment;
+import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe;
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
+import xyz.devvydont.smprpg.items.CustomItemType;
+import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 
 public class SmiteEnchantment extends VanillaEnchantment implements Listener {
@@ -40,6 +44,129 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
 
     public SmiteEnchantment(TypedKey<Enchantment> key) {
         super(key);
+    }
+
+    @Override
+    public EnchantmentRecipe getRecipe(int level) {
+        switch (level) {
+            case 1 -> {
+                var silver = ItemService.generate(CustomItemType.SILVER_INGOT);
+                silver.setAmount(5);
+                var flesh = ItemService.generate(Material.ROTTEN_FLESH);
+                flesh.setAmount(2);
+                var lapis = ItemService.generate(Material.LAPIS_LAZULI);
+                lapis.setAmount(8);
+                return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, lapis);
+            }
+            case 2 -> {
+                var silver = ItemService.generate(CustomItemType.SILVER_INGOT);
+                silver.setAmount(10);
+                var flesh = ItemService.generate(Material.ROTTEN_FLESH);
+                flesh.setAmount(5);
+                var lapis = ItemService.generate(Material.LAPIS_LAZULI);
+                lapis.setAmount(16);
+                return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, lapis);
+            }
+            case 3 -> {
+                var silver = ItemService.generate(CustomItemType.SILVER_INGOT);
+                silver.setAmount(20);
+                var flesh = ItemService.generate(CustomItemType.PREMIUM_FLESH);
+                flesh.setAmount(2);
+                var lapis = ItemService.generate(Material.LAPIS_LAZULI);
+                lapis.setAmount(32);
+                return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, lapis);
+            }
+            case 4 -> {
+                var silver = ItemService.generate(CustomItemType.SILVER_INGOT);
+                silver.setAmount(64);
+                var flesh = ItemService.generate(CustomItemType.PREMIUM_FLESH);
+                flesh.setAmount(4);
+                var necrotic = ItemService.generate(CustomItemType.PREMIUM_NECROTIC_FLESH);
+                necrotic.setAmount(4);
+                var lapis = ItemService.generate(Material.LAPIS_LAZULI);
+                lapis.setAmount(64);
+                return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, lapis);
+            }
+            case 5 -> {
+                var silver = ItemService.generate(CustomItemType.SILVER_BLOCK);
+                silver.setAmount(8);
+                var flesh = ItemService.generate(CustomItemType.ENCHANTED_FLESH);
+                flesh.setAmount(1);
+                var necrotic = ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH);
+                necrotic.setAmount(1);
+                var lapis = ItemService.generate(Material.LAPIS_BLOCK);
+                lapis.setAmount(16);
+                return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, lapis);
+            }
+            case 6 -> {
+                var silver = ItemService.generate(CustomItemType.SILVER_BLOCK);
+                silver.setAmount(12);
+                var flesh = ItemService.generate(CustomItemType.ENCHANTED_FLESH);
+                flesh.setAmount(2);
+                var necrotic = ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH);
+                necrotic.setAmount(2);
+                var lapis = ItemService.generate(Material.LAPIS_BLOCK);
+                lapis.setAmount(32);
+                return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, lapis);
+            }
+            case 7 -> {
+                var silver = ItemService.generate(CustomItemType.SILVER_BLOCK);
+                silver.setAmount(16);
+                var flesh = ItemService.generate(CustomItemType.ENCHANTED_FLESH);
+                flesh.setAmount(4);
+                var necrotic = ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH);
+                necrotic.setAmount(4);
+                var viscera = ItemService.generate(CustomItemType.REVILED_VISCERA);
+                viscera.setAmount(1);
+                var lapis = ItemService.generate(Material.LAPIS_BLOCK);
+                lapis.setAmount(64);
+                return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, viscera, lapis);
+            }
+            case 8 -> {
+                var silver = ItemService.generate(CustomItemType.SILVER_BLOCK);
+                silver.setAmount(20);
+                var flesh = ItemService.generate(CustomItemType.ENCHANTED_FLESH);
+                flesh.setAmount(8);
+                var necrotic = ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH);
+                necrotic.setAmount(8);
+                var viscera = ItemService.generate(CustomItemType.REVILED_VISCERA);
+                viscera.setAmount(2);
+                var lapis = ItemService.generate(CustomItemType.ENCHANTED_LAPIS);
+                lapis.setAmount(16);
+                return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, viscera, lapis);
+            }
+            case 9 -> {
+                var silver = ItemService.generate(CustomItemType.SILVER_BLOCK);
+                silver.setAmount(24);
+                var flesh = ItemService.generate(CustomItemType.ENCHANTED_FLESH);
+                flesh.setAmount(12);
+                var necrotic = ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH);
+                necrotic.setAmount(12);
+                var viscera = ItemService.generate(CustomItemType.REVILED_VISCERA);
+                viscera.setAmount(3);
+                var amalgamation = ItemService.generate(CustomItemType.VISCERAL_AMALGAMATION);
+                amalgamation.setAmount(1);
+                var lapis = ItemService.generate(CustomItemType.ENCHANTED_LAPIS);
+                lapis.setAmount(32);
+                return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, viscera, amalgamation, lapis);
+            }
+            case 10 -> {
+                var silver = ItemService.generate(CustomItemType.SILVER_BLOCK);
+                silver.setAmount(32);
+                var flesh = ItemService.generate(CustomItemType.ENCHANTED_FLESH);
+                flesh.setAmount(16);
+                var necrotic = ItemService.generate(CustomItemType.ENCHANTED_NECROTIC_FLESH);
+                necrotic.setAmount(16);
+                var viscera = ItemService.generate(CustomItemType.REVILED_VISCERA);
+                viscera.setAmount(4);
+                var amalgamation = ItemService.generate(CustomItemType.VISCERAL_AMALGAMATION);
+                amalgamation.setAmount(2);
+                var lapis = ItemService.generate(CustomItemType.ENCHANTED_LAPIS);
+                lapis.setAmount(64);
+                return new EnchantmentRecipe(getRecipeKey(level), silver, flesh, necrotic, viscera, amalgamation, lapis);
+            }
+            default -> { return null; }
+        }
     }
 
     @Override

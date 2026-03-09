@@ -4,6 +4,7 @@ import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.registry.TypedKey;
 import io.papermc.paper.registry.event.RegistryEvents;
 import net.kyori.adventure.key.Key;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment;
@@ -50,5 +51,8 @@ public abstract class VanillaEnchantment extends CustomEnchantment {
         return getTypedKey().key();
     }
 
+    public NamespacedKey getRecipeKey(int level) {
+        return new NamespacedKey(Key.MINECRAFT_NAMESPACE, getKey().value().toLowerCase() + String.format("%s-recipe", level));
+    }
 
 }
