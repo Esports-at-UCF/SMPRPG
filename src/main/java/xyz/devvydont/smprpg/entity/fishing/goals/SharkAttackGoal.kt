@@ -7,17 +7,22 @@ import org.bukkit.GameMode
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Dolphin
 import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Pig
 import org.bukkit.entity.Player
 import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.util.goals.GoalUtils
 import java.util.*
 
 
-class SharkAttackGoal(val shark : Dolphin) : Goal<Dolphin> {
+class SharkAttackGoal(val dolphin: Dolphin) : Goal<Dolphin> {
 
     val goalKey : GoalKey<Dolphin> = GoalKey.of(Dolphin::class.java, NamespacedKey(SMPRPG.plugin, "shark_attack"))
+    val armorStand = dolphin.vehicle!!
+    var attackClock = 0
+    var teleportClock = 10
 
     override fun shouldActivate(): Boolean {
-        if (getClosestPlayer() != null) {
+        if (GoalUtils.inst.getClosestPlayer(dolphin, 20.0) != null) {
             return true
         }
         else
@@ -32,47 +37,34 @@ class SharkAttackGoal(val shark : Dolphin) : Goal<Dolphin> {
         return EnumSet.of(GoalType.TARGET, GoalType.MOVE)
     }
 
-    private fun getClosestPlayer(): Player? {
-        val nearbyPlayers: MutableCollection<Player> = shark.getWorld().getNearbyPlayers(
-            shark.getLocation(),
-            20.0,
-            { player -> !player.isDead() && (player.getGameMode() !== GameMode.SPECTATOR && player.getGameMode() !== GameMode.CREATIVE) && player.isValid() })
-        var closestDistance = -1.0
-        var closestPlayer: Player? = null
-        for (player in nearbyPlayers) {
-            val distance = player.getLocation().distanceSquared(shark.getLocation())
-            if (closestDistance != -1.0 && !(distance < closestDistance)) {
-                continue
-            }
-            println(distance)
-            closestDistance = distance
-            closestPlayer = player
-        }
-        return closestPlayer
-    }
-
     override fun shouldStayActive(): Boolean {
         return shouldActivate();
     }
 
     override fun start() {
-        shark.target = getClosestPlayer()
+        dolphin.target = GoalUtils.chaseClosestPlayer(dolphin, 20.0, 1.0)
     }
 
     override fun stop() {
-        shark.target = null
-        shark.pathfinder.stopPathfinding()
+        dolphin.target = null
+        dolphin.pathfinder.stopPathfinding()
     }
 
     override fun tick() {
-        shark.remainingAir = 2000
-        var closestPlayer = getClosestPlayer() as LivingEntity
-        shark.setTarget(closestPlayer)
-        if (shark.getLocation().distanceSquared(closestPlayer.getLocation()) < 6.25) {
-            shark.getPathfinder().stopPathfinding()
-        } else {
-            shark.getPathfinder().moveTo(closestPlayer, 10.0)
+        val closestPlayer = GoalUtils.chaseClosestPlayer(dolphin, 20.0, 1.0)
+        dolphin.lookAt(closestPlayer)
+        if (closestPlayer in dolphin.world.getNearbyPlayers(dolphin.location, 0.125) && attackClock <= 0) {
+            dolphin.attack(closestPlayer)
+            attackClock = 10
         }
+        if (teleportClock <= 0) {
+            val locCopy = closestPlayer.location.clone()
+            locCopy.y -= 2
+            armorStand.teleport(locCopy)
+            teleportClock = 4
+        }
+        teleportClock--
+        attackClock--
     }
 
 }

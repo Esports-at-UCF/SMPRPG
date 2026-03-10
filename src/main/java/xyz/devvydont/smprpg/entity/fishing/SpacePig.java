@@ -3,8 +3,10 @@ package xyz.devvydont.smprpg.entity.fishing;
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.damage.DamageType;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
@@ -48,23 +50,15 @@ public class SpacePig extends SeaCreature<Pig> {
         var boots = ItemService.generate(Material.LEATHER_BOOTS);
         boots.addUnsafeEnchantment(EnchantmentService.VOIDSTRIDING_BLESSING.getEnchantment(), 1);
         _entity.getEquipment().setBoots(boots);
+
+        var mobGoals = Bukkit.getMobGoals();
+        mobGoals.removeAllGoals(_entity);
+        mobGoals.addGoal(_entity, 3, new SpacePigAttackGoal(_entity));
     }
 
     @Override
     public void updateAttributes() {
         super.updateAttributes();
         updateBaseAttribute(AttributeWrapper.GRAVITY, .05);
-    }
-
-    @EventHandler
-    private void onSpacePigSpawn(EntityAddToWorldEvent event) {
-        var entity = this.getEntity();
-        if (event.getEntity().equals(entity)) {
-            Pig pig = (Pig) entity;
-            pig.setAware(true);
-            var mobGoals = Bukkit.getMobGoals();
-            mobGoals.removeAllGoals(pig);
-            mobGoals.addGoal(pig, 3, new SpacePigAttackGoal(pig));
-        }
     }
 }

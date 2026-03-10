@@ -48,7 +48,7 @@ class SkillExperienceReward {
     }
 
     fun value(type: SkillType) : Int {
-        return amounts.getValue(type)
+        return amounts.getOrDefault(type, 0)
     }
 
     companion object {

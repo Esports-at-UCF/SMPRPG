@@ -52,7 +52,8 @@ class ShamblingAbominationChaseGoal(val slayer : ShamblingAbominationParent, val
     override fun tick() {
         if (!stopped) {
             var closestPlayer = GoalUtils.chaseClosestPlayer(zombie, 20.0, chaseSpeed, spawnPlayer)
-            if (closestPlayer in zombie.world.getNearbyPlayers(zombie.location, 0.5) && attackClock <= 0) {
+            zombie.lookAt(closestPlayer)
+            if (closestPlayer in zombie.world.getNearbyPlayers(zombie.location, 1.0) && attackClock <= 0) {
                 zombie.attack(closestPlayer)
                 attackClock = slayer.attackCooldown
             }

@@ -1,14 +1,15 @@
 package xyz.devvydont.smprpg.entity.fishing;
 
-import com.destroystokyo.paper.entity.ai.Goal;
-import com.destroystokyo.paper.entity.ai.MobGoals;
-import com.destroystokyo.paper.entity.ai.VanillaGoal;
-import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Dolphin;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
@@ -17,17 +18,29 @@ import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
 import xyz.devvydont.smprpg.util.items.LootDrop;
-import xyz.devvydont.smprpg.util.items.QuantityLootDrop;
 
 import java.util.Collection;
 import java.util.List;
 
-public class Shark extends SeaCreature<LivingEntity> implements Listener {
+public class Shark extends SeaCreature<Dolphin> implements Listener {
 
     public static final int RATING_REQUIREMENT = 120;
 
     public Shark(LivingEntity entity, CustomEntityType entityType) {
-        super(entity, entityType);
+        super((Dolphin) entity, entityType);
+    }
+
+    @Override
+    public void setup() {
+        super.setup();
+        var location = _entity.getLocation();
+        var armorStand = location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND, CreatureSpawnEvent.SpawnReason.CUSTOM);
+        armorStand.addPassenger(_entity);
+        armorStand.setInvisible(true);
+
+        var mobGoals = Bukkit.getMobGoals();
+        mobGoals.removeAllGoals(_entity);
+        mobGoals.addGoal(_entity, 3, new SharkAttackGoal(_entity));
     }
 
     @Override
@@ -42,5 +55,22 @@ public class Shark extends SeaCreature<LivingEntity> implements Listener {
             new ChancedItemDrop(ItemService.generate(CustomItemType.SHARK_FIN), 1, this),
             new ChancedItemDrop(ItemService.generate(CustomItemType.PREDATOR_TOOTH), 50, this)
         );
+    }
+
+    @EventHandler
+    public void onSharkDrownOrCram(EntityDamageEvent event) {
+        if (event.getEntity() == _entity) {
+            var dmgType = event.getDamageSource().getDamageType();
+            if (dmgType == DamageType.IN_WALL || dmgType == DamageType.DROWN) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onSharkDeath(EntityDeathEvent event) {
+        if (event.getEntity() == _entity) {
+            _entity.getVehicle().remove();
+        }
     }
 }

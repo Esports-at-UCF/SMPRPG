@@ -3,23 +3,20 @@ package xyz.devvydont.smprpg.entity.fishing.goals
 import com.destroystokyo.paper.entity.ai.Goal
 import com.destroystokyo.paper.entity.ai.GoalKey
 import com.destroystokyo.paper.entity.ai.GoalType
-import org.bukkit.GameMode
 import org.bukkit.NamespacedKey
-import org.bukkit.entity.Dolphin
-import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Pig
-import org.bukkit.entity.Player
 import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.util.goals.GoalUtils
 import java.util.*
 
 
 class SpacePigAttackGoal(val pig : Pig) : Goal<Pig> {
 
     val goalKey : GoalKey<Pig> = GoalKey.of(Pig::class.java, NamespacedKey(SMPRPG.plugin, "space_pig_attack"))
-    var attackCooldown = 0
+    var attackClock = 0
 
     override fun shouldActivate(): Boolean {
-        if (getClosestPlayer() != null) {
+        if (GoalUtils.inst.getClosestPlayer(pig, 20.0) != null) {
             return true
         }
         else
@@ -34,30 +31,12 @@ class SpacePigAttackGoal(val pig : Pig) : Goal<Pig> {
         return EnumSet.of(GoalType.TARGET, GoalType.MOVE)
     }
 
-    private fun getClosestPlayer(): Player? {
-        val nearbyPlayers: MutableCollection<Player> = pig.getWorld().getNearbyPlayers(
-            pig.getLocation(),
-            20.0,
-            { player -> !player.isDead() && (player.getGameMode() !== GameMode.SPECTATOR && player.getGameMode() !== GameMode.CREATIVE) && player.isValid() })
-        var closestDistance = -1.0
-        var closestPlayer: Player? = null
-        for (player in nearbyPlayers) {
-            val distance = player.getLocation().distanceSquared(pig.getLocation())
-            if (closestDistance != -1.0 && !(distance < closestDistance)) {
-                continue
-            }
-            closestDistance = distance
-            closestPlayer = player
-        }
-        return closestPlayer
-    }
-
     override fun shouldStayActive(): Boolean {
         return shouldActivate();
     }
 
     override fun start() {
-        pig.target = getClosestPlayer()
+        pig.target = GoalUtils.chaseClosestPlayer(pig, 20.0, 1.0)
     }
 
     override fun stop() {
@@ -66,18 +45,12 @@ class SpacePigAttackGoal(val pig : Pig) : Goal<Pig> {
     }
 
     override fun tick() {
-        var closestPlayer = getClosestPlayer() as LivingEntity
-        pig.setTarget(closestPlayer)
-        if (closestPlayer in pig.world.getNearbyPlayers(pig.location, 2.0) && attackCooldown <= 0) {
+        var closestPlayer = GoalUtils.chaseClosestPlayer(pig, 20.0, 1.0)
+        if (closestPlayer in pig.world.getNearbyPlayers(pig.location, 0.75) && attackClock <= 0) {
             pig.attack(closestPlayer)
-            attackCooldown = 10
+            attackClock = 10
         }
-        attackCooldown--
-        if (pig.getLocation().distanceSquared(closestPlayer.getLocation()) < 6.25) {
-            pig.getPathfinder().stopPathfinding()
-        } else {
-            pig.getPathfinder().moveTo(closestPlayer, 3.0)
-        }
+        attackClock--
     }
 
 }
