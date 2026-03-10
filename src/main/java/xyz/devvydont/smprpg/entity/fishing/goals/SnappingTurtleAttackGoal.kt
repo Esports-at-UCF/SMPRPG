@@ -5,25 +5,27 @@ import com.destroystokyo.paper.entity.ai.GoalKey
 import com.destroystokyo.paper.entity.ai.GoalType
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Pig
+import org.bukkit.entity.Turtle
+import org.bukkit.util.Vector
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.util.goals.GoalUtils
 import java.util.*
 
 
-class SpacePigAttackGoal(val pig : Pig) : Goal<Pig> {
+class SnappingTurtleAttackGoal(val turtle : Turtle) : Goal<Turtle> {
 
-    val goalKey : GoalKey<Pig> = GoalKey.of(Pig::class.java, NamespacedKey(SMPRPG.plugin, "space_pig_attack"))
+    val goalKey : GoalKey<Turtle> = GoalKey.of(Turtle::class.java, NamespacedKey(SMPRPG.plugin, "snapping_turtle_attack"))
     var attackClock = 0
 
     override fun shouldActivate(): Boolean {
-        if (GoalUtils.inst.getClosestPlayer(pig, 20.0) != null) {
+        if (GoalUtils.inst.getClosestPlayer(turtle, 20.0) != null) {
             return true
         }
         else
             return false
     }
 
-    override fun getKey(): GoalKey<Pig> {
+    override fun getKey(): GoalKey<Turtle> {
         return goalKey
     }
 
@@ -36,19 +38,19 @@ class SpacePigAttackGoal(val pig : Pig) : Goal<Pig> {
     }
 
     override fun start() {
-        pig.target = GoalUtils.chaseClosestPlayer(pig, 20.0, 1.0)
+        turtle.target = GoalUtils.chaseClosestPlayer(turtle, 20.0, 1.0)
     }
 
     override fun stop() {
-        pig.target = null
-        pig.pathfinder.stopPathfinding()
+        turtle.target = null
+        turtle.pathfinder.stopPathfinding()
     }
 
     override fun tick() {
-        var closestPlayer = GoalUtils.chaseClosestPlayer(pig, 20.0, 1.0)
-        pig.lookAt(closestPlayer)
-        if (closestPlayer in pig.world.getNearbyPlayers(pig.location, 0.75) && attackClock <= 0) {
-            pig.attack(closestPlayer)
+        var closestPlayer = GoalUtils.chaseClosestPlayer(turtle, 20.0, 5.0)
+        turtle.lookAt(closestPlayer)
+        if (closestPlayer in turtle.world.getNearbyPlayers(turtle.location, 0.75) && attackClock <= 0) {
+            turtle.attack(closestPlayer)
             attackClock = 10
         }
         attackClock--
