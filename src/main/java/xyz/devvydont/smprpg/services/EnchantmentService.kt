@@ -5,9 +5,12 @@ import io.papermc.paper.registry.RegistryKey
 import io.papermc.paper.registry.TypedKey
 import io.papermc.paper.registry.keys.EnchantmentKeys
 import org.bukkit.GameMode
+import org.bukkit.Instrument
 import org.bukkit.Material
 import org.bukkit.Registry
+import org.bukkit.block.Block
 import org.bukkit.block.EnchantingTable
+import org.bukkit.block.data.type.NoteBlock
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.enchantments.EnchantmentOffer
 import org.bukkit.entity.Player
@@ -152,8 +155,6 @@ class EnchantmentService : IService, Listener {
      */
 
     fun getShelfPower(table : EnchantingTable) : Int {
-        val tableLoc = table.location
-
         // Not a huge fan of this algorithm, I tried using bounding boxes
         // This also does not account for raytracing from the table origin (yet)
         var numShelves = 0
@@ -169,6 +170,22 @@ class EnchantmentService : IService, Listener {
         return numShelves
     }
 
+
+    fun getRuneArrayList(table : EnchantingTable) : ArrayList<NoteBlock> {
+        val runes = ArrayList<NoteBlock>()
+        for (x in -1..1) {
+                for(z in -1..1) {
+                    val blockAt = table.block.getRelative(x, -1, z)
+                    if (blockAt.type == Material.NOTE_BLOCK) {
+                        val nb = blockAt.blockData as NoteBlock
+                        if ((nb.instrument == Instrument.BANJO) && (!nb.isPowered))
+                            runes.add(nb)
+                    }
+                }
+            }
+        return runes
+    }
+
     /**
      * When opening an enchanting GUI, the lapis lazuli slot should always be filled.
      */
@@ -180,11 +197,12 @@ class EnchantmentService : IService, Listener {
                 event.isCancelled = true
                 val table = event.clickedBlock?.state as EnchantingTable
                 val shelfPower = getShelfPower(table)
+                val runeBlocks = getRuneArrayList(table)
 
                 // TODO: Table upgrades
 
                 // table.persistentDataContainer
-                MenuEnchantingTable(event.player, shelfPower).openMenu();
+                MenuEnchantingTable(event.player, shelfPower, runeBlocks).openMenu();
             }
         }
     }

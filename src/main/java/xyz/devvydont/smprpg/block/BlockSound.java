@@ -70,7 +70,13 @@ public enum BlockSound {
                               "minecraft:block.gilded_blackstone.place", 0.8f, 1.0f,
                               "minecraft:block.gilded_blackstone.hit", 0.5f, 0.25f,
                               "minecraft:block.gilded_blackstone.fall", 0.75f, 0.5f,
-                              "minecraft:block.gilded_blackstone.step", 1.0f, 0.15f);
+                              "minecraft:block.gilded_blackstone.step", 1.0f, 0.15f),
+
+    RUNE("audio:block.rune.break", 0.8f, 1.0f,
+                               "audio:block.rune.place", 0.8f, 1.0f,
+                               "audio:block.rune.hit", 0.5f, 0.25f,
+                               "audio:block.rune.fall", 0.75f, 0.5f,
+                               "audio:block.rune.step", 1.0f, 0.15f);
 
     public final String BreakSound;
     public final String PlaceSound;

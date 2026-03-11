@@ -9,6 +9,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
+import org.bukkit.block.data.type.NoteBlock
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -57,7 +58,7 @@ enum class ActionButtonState {
     ENABLED
 }
 
-class MenuEnchantingTable(owner: Player, private val shelfPower: Int) : MenuBase(owner, 5) {
+class MenuEnchantingTable(owner: Player, private val shelfPower: Int, private val runeBlocks : ArrayList<NoteBlock>) : MenuBase(owner, 5) {
     private var actionButtonState = ActionButtonState.DISABLED
 
     init {

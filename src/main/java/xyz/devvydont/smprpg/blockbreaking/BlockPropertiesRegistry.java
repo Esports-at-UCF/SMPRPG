@@ -7001,6 +7001,62 @@ public class BlockPropertiesRegistry {
                 .blockSound(BlockSound.BLACKSTONE_GENERIC)
                 .softRequirement(false)
                 .build());
+
+        register(CustomBlock.RUNE_BLANK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(4)
+                .blockSound(BlockSound.RUNE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RUNE_POTENTIAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(4)
+                .blockSound(BlockSound.RUNE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RUNE_AMBITION, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(4)
+                .blockSound(BlockSound.RUNE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RUNE_MEMORIZATION, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(4)
+                .blockSound(BlockSound.RUNE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RUNE_GREED, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(4)
+                .blockSound(BlockSound.RUNE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RUNE_INSIGHT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(4)
+                .blockSound(BlockSound.RUNE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RUNE_FORTUITY, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(4)
+                .blockSound(BlockSound.RUNE)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RUNE_DIVINITY, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(500)
+                .breakingPower(4)
+                .blockSound(BlockSound.RUNE)
+                .softRequirement(false)
+                .build());
         //</editor-fold>
 
     }

@@ -59,5 +59,54 @@
       "dig/wood4"
     ],
     "subtitle": "subtitles.block.generic.break"
+  },
+  "block.rune.break": {
+    "sounds": [
+      "audio:block/rune/place1",
+      "audio:block/rune/place2",
+      "audio:block/rune/place3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.rune.fall": {
+    "sounds": [
+      "block/basalt/step1",
+      "block/basalt/step2",
+      "block/basalt/step3",
+      "block/basalt/step4",
+      "block/basalt/step5",
+      "block/basalt/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.rune.hit": {
+    "sounds": [
+      "block/basalt/step1",
+      "block/basalt/step2",
+      "block/basalt/step3",
+      "block/basalt/step4",
+      "block/basalt/step5",
+      "block/basalt/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.rune.place": {
+    "sounds": [
+      "audio:block/rune/place1",
+      "audio:block/rune/place2",
+      "audio:block/rune/place3"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.rune.step": {
+    "sounds": [
+      "block/basalt/step1",
+      "block/basalt/step2",
+      "block/basalt/step3",
+      "block/basalt/step4",
+      "block/basalt/step5",
+      "block/basalt/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
   }
 }

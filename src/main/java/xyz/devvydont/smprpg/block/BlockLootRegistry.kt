@@ -757,6 +757,78 @@ object BlockLootRegistry {
                 .ignoresFortune()
                 .build()
         )
+
+        register(
+            CustomBlock.RUNE_BLANK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_BLANK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_BLANK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_BLANK)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CustomBlock.RUNE_POTENTIAL, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_POTENTIAL)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_POTENTIAL)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_POTENTIAL)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CustomBlock.RUNE_AMBITION, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_AMBITION)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_AMBITION)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_AMBITION)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CustomBlock.RUNE_MEMORIZATION, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_MEMORIZATION)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_MEMORIZATION)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_MEMORIZATION)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CustomBlock.RUNE_GREED, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_GREED)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_GREED)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_GREED)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CustomBlock.RUNE_INSIGHT, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_INSIGHT)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_INSIGHT)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_INSIGHT)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CustomBlock.RUNE_FORTUITY, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_FORTUITY)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_FORTUITY)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_FORTUITY)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CustomBlock.RUNE_DIVINITY, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_DIVINITY)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_DIVINITY)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_DIVINITY)))
+                .ignoresFortune()
+                .build()
+        )
     }
 
     fun register(material: Material?, entry: BlockLootEntry?) {

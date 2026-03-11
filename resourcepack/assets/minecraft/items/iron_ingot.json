@@ -14,6 +14,20 @@
                     "model": "materials:item/silver_ingot"
                 }
             },
+			            {
+                "when": "smprpg:enchanted_silver",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/silver_ingot"
+                }
+            },
+			            {
+                "when": "smprpg:silver_singularity",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/silver_ingot"
+                }
+            },
             {
                 "when": "smprpg:tin_ingot",
                 "model": {

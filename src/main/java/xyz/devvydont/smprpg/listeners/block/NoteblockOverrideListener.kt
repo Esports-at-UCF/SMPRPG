@@ -229,4 +229,20 @@ class NoteblockOverrideListener : ToggleableListener() {
         if (event.block.type == Material.NOTE_BLOCK)
             event.isCancelled = true
     }
+
+    @EventHandler
+    fun onPistonExtend(event: BlockPistonExtendEvent) {
+        for (block in event.blocks) {
+            if (block.type == Material.NOTE_BLOCK)
+                event.isCancelled = true
+        }
+    }
+
+    @EventHandler
+    fun onPistonRetract(event: BlockPistonRetractEvent) {
+        for (block in event.blocks) {
+            if (block.type == Material.NOTE_BLOCK)
+                event.isCancelled = true
+        }
+    }
 }

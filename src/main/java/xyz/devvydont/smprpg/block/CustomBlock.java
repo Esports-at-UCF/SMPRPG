@@ -59,7 +59,18 @@ public enum CustomBlock {
     GRIMSTONE_IRON_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(17), true)),
     GRIMSTONE_GOLD_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(18), true)),
     GRIMSTONE_SILVER_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(19), true)),
-    GRIMSTONE_LAPIS_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(20), true));
+    GRIMSTONE_LAPIS_ORE(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.PIANO, new Note(20), true)),
+    //</editor-fold>
+
+    //<editor-fold desc="Noteblocks: Banjo, unpowered (RESERVED FOR ENCHANTING TABLE RUNES)">
+    RUNE_BLANK(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.BANJO, new Note(0), false)),
+    RUNE_POTENTIAL(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.BANJO, new Note(1), false)),
+    RUNE_AMBITION(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.BANJO, new Note(2), false)),
+    RUNE_MEMORIZATION(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.BANJO, new Note(3), false)),
+    RUNE_GREED(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.BANJO, new Note(4), false)),
+    RUNE_INSIGHT(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.BANJO, new Note(5), false)),
+    RUNE_FORTUITY(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.BANJO, new Note(6), false)),
+    RUNE_DIVINITY(Material.NOTE_BLOCK, BlockDataBuilders.newNoteBlockData(Instrument.BANJO, new Note(7), false));
     //</editor-fold>
 
     public final Material BlockMaterial;

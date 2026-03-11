@@ -7,6 +7,7 @@ import xyz.devvydont.smprpg.items.blueprints.block.decoration.GrimstoneBlock;
 import xyz.devvydont.smprpg.items.blueprints.block.ore.*;
 import xyz.devvydont.smprpg.items.blueprints.block.rawmaterials.*;
 import xyz.devvydont.smprpg.items.blueprints.block.ReforgeTableBlock;
+import xyz.devvydont.smprpg.items.blueprints.block.runes.*;
 import xyz.devvydont.smprpg.items.blueprints.boss.DiamondToolRod;
 import xyz.devvydont.smprpg.items.blueprints.boss.InfernoArrow;
 import xyz.devvydont.smprpg.items.blueprints.boss.NeptunesConch;
@@ -1097,6 +1098,15 @@ public enum CustomItemType {
     GRIMSTONE_GOLD_ORE("Grimstone Gold Ore", Material.POISONOUS_POTATO, ItemRarity.COMMON, GrimstoneGoldOre.class),
     GRIMSTONE_SILVER_ORE("Grimstone Silver Ore", Material.POISONOUS_POTATO, ItemRarity.COMMON, GrimstoneSilverOre.class),
     GRIMSTONE_LAPIS_ORE("Grimstone Lapis Ore", Material.POISONOUS_POTATO, ItemRarity.COMMON, GrimstoneLapisOre.class),
+
+    RUNE_BLANK("Unattuned Enchantment Rune", Material.POISONOUS_POTATO, ItemRarity.UNCOMMON, RuneBlank.class),
+    RUNE_POTENTIAL("Rune of Potential", Material.POISONOUS_POTATO, ItemRarity.RARE, RunePotential.class),
+    RUNE_AMBITION("Rune of Ambition", Material.POISONOUS_POTATO, ItemRarity.RARE, RuneAmbition.class),
+    RUNE_MEMORIZATION("Rune of Memorization", Material.POISONOUS_POTATO, ItemRarity.RARE, RuneMemorization.class),
+    RUNE_GREED("Rune of Greed", Material.POISONOUS_POTATO, ItemRarity.RARE, RuneGreed.class),
+    RUNE_INSIGHT("Rune of Insight", Material.POISONOUS_POTATO, ItemRarity.RARE, RuneInsight.class),
+    RUNE_FORTUITY("Rune of Fortuity", Material.POISONOUS_POTATO, ItemRarity.RARE, RuneFortuity.class),
+    RUNE_DIVINITY("Rune of Divinity", Material.POISONOUS_POTATO, ItemRarity.EPIC, RuneDivinity.class),
 
     // ADMIN UTILITY
     INFINILYTRA("Infini-lytra", Material.ELYTRA, ItemRarity.SPECIAL, InfinilytraBlueprint.class),

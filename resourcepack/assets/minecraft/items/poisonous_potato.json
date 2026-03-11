@@ -28,6 +28,13 @@
                     "model": "blocks:block/silver_block"
                 }
             },
+						{
+                "when": "smprpg:enchanted_silver_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/silver_block"
+                }
+            },
 			{
                 "when": "smprpg:raw_silver_block",
                 "model": {
@@ -279,7 +286,98 @@
                     "type": "model",
                     "model": "blocks:block/cobbled_grimstone"
                 }
-            }
+            },
+			{
+                "when": "smprpg:grimstone_diamond_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/grimstone_diamond_ore"
+                }
+            },
+			{
+                "when": "smprpg:grimstone_iron_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/grimstone_iron_ore"
+                }
+            },
+			{
+                "when": "smprpg:grimstone_gold_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/grimstone_gold_ore"
+                }
+            },
+			{
+                "when": "smprpg:grimstone_silver_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/grimstone_silver_ore"
+                }
+            },
+			{
+                "when": "smprpg:grimstone_lapis_ore",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/grimstone_lapis_ore"
+                }
+            },
+			{
+                "when": "smprpg:rune_blank",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/rune_blank"
+                }
+            },
+			{
+                "when": "smprpg:rune_potential",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/rune_potential"
+                }
+            },
+			{
+                "when": "smprpg:rune_ambition",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/rune_ambition"
+                }
+            },
+			{
+                "when": "smprpg:rune_memorization",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/rune_memorization"
+                }
+            },
+			{
+                "when": "smprpg:rune_greed",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/rune_greed"
+                }
+            },
+			{
+                "when": "smprpg:rune_insight",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/rune_insight"
+                }
+            },
+			{
+                "when": "smprpg:rune_fortuity",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/rune_fortuity"
+                }
+            },
+			{
+                "when": "smprpg:rune_divinity",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/rune_divinity"
+                }
+            }			
         ]
     }
 }
