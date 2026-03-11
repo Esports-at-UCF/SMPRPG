@@ -85,6 +85,9 @@ public class IgnoranceBlessing extends CustomEnchantment implements Listener {
     }
 
     @Override
+    public boolean isBlessing() { return true; }
+
+    @Override
     public EquipmentSlotGroup getEquipmentSlotGroup() {
         return EquipmentSlotGroup.HEAD;
     }

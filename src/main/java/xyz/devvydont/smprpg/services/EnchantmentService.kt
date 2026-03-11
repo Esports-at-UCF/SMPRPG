@@ -31,6 +31,7 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.util.BoundingBox
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
+import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.calculator.EnchantmentCalculator
 import xyz.devvydont.smprpg.enchantments.calculator.EnchantmentCalculator.EnchantmentSlot
@@ -151,42 +152,6 @@ class EnchantmentService : IService, Listener {
     }
 
     /**
-     * Returns the bookshelf power of an enchanting table at a given location
-     */
-
-    fun getShelfPower(table : EnchantingTable) : Int {
-        // Not a huge fan of this algorithm, I tried using bounding boxes
-        // This also does not account for raytracing from the table origin (yet)
-        var numShelves = 0
-        for (x in -7..7) {
-            for (y in 0..7) {
-                for(z in -7..7) {
-                    var blockAt = table.block.getRelative(x, y, z)
-                    if (blockAt.type == Material.BOOKSHELF)
-                        numShelves++
-                }
-            }
-        }
-        return numShelves
-    }
-
-
-    fun getRuneArrayList(table : EnchantingTable) : ArrayList<NoteBlock> {
-        val runes = ArrayList<NoteBlock>()
-        for (x in -1..1) {
-                for(z in -1..1) {
-                    val blockAt = table.block.getRelative(x, -1, z)
-                    if (blockAt.type == Material.NOTE_BLOCK) {
-                        val nb = blockAt.blockData as NoteBlock
-                        if ((nb.instrument == Instrument.BANJO) && (!nb.isPowered))
-                            runes.add(nb)
-                    }
-                }
-            }
-        return runes
-    }
-
-    /**
      * When opening an enchanting GUI, the lapis lazuli slot should always be filled.
      */
     @EventHandler
@@ -196,13 +161,11 @@ class EnchantmentService : IService, Listener {
             if (event.clickedBlock?.type == Material.ENCHANTING_TABLE && !event.player.isSneaking) {
                 event.isCancelled = true
                 val table = event.clickedBlock?.state as EnchantingTable
-                val shelfPower = getShelfPower(table)
-                val runeBlocks = getRuneArrayList(table)
 
                 // TODO: Table upgrades
 
                 // table.persistentDataContainer
-                MenuEnchantingTable(event.player, shelfPower, runeBlocks).openMenu();
+                MenuEnchantingTable(event.player, table).openMenu();
             }
         }
     }

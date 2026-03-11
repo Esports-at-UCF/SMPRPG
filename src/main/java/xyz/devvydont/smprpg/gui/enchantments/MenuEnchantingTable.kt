@@ -1,5 +1,8 @@
 package xyz.devvydont.smprpg.gui.enchantments
 
+import io.papermc.paper.datacomponent.DataComponentType
+import io.papermc.paper.datacomponent.DataComponentTypes
+import io.papermc.paper.datacomponent.item.CustomModelData
 import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent
 import io.papermc.paper.registry.RegistryKey
 import io.papermc.paper.registry.TypedKey
@@ -9,11 +12,10 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
-import org.bukkit.block.data.type.NoteBlock
+import org.bukkit.block.EnchantingTable
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
-import org.bukkit.event.inventory.InventoryAction
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
@@ -24,24 +26,18 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
-import xyz.devvydont.smprpg.enchantments.CustomEnchantment
-import xyz.devvydont.smprpg.entity.player.LeveledPlayer
+import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.base.MenuBase
-import xyz.devvydont.smprpg.gui.items.MenuReforge.Companion.BUTTON_SLOT
-import xyz.devvydont.smprpg.gui.items.MenuReforge.Companion.INPUT_SLOT
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
-import xyz.devvydont.smprpg.reforge.ReforgeType
-import xyz.devvydont.smprpg.services.EconomyService
-import xyz.devvydont.smprpg.services.EconomyService.Companion.formatMoney
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.SkillService
 import xyz.devvydont.smprpg.util.extensions.takeIfPresent
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
+import java.util.HashMap
 import java.util.function.Consumer
 
 const val ITEM_SLOT = 13;
@@ -50,6 +46,10 @@ const val BOOKSHELF_SLOT = 44;
 val       INGREDIENT_SLOTS = intArrayOf(30, 31, 32, 39, 40, 41);
 
 val       WHITELISTED_SLOTS = intArrayOf(ITEM_SLOT, SCROLL_SLOT)
+val       RUNE_SLOTS = intArrayOf(18, 19, 20, 27, 28, 29, 36, 37, 38)
+val       RUNE_POS_OFFSETS = arrayOf(Pair(-1, -1), Pair(0, -1), Pair(1, -1),
+                                     Pair(-1, 0),  Pair(0, 0),  Pair(1, 0),
+                                     Pair(-1, 1),  Pair(0, 1),  Pair(1, 1))
 const val ACTION_SLOT = 16
 
 enum class ActionButtonState {
@@ -58,8 +58,21 @@ enum class ActionButtonState {
     ENABLED
 }
 
-class MenuEnchantingTable(owner: Player, private val shelfPower: Int, private val runeBlocks : ArrayList<NoteBlock>) : MenuBase(owner, 5) {
+enum class RuneType(val runeBlock: CustomBlock, val runeItem : CustomItemType) {
+    RUNE_BLANK(CustomBlock.RUNE_BLANK, CustomItemType.RUNE_BLANK),
+    RUNE_POTENTIAL(CustomBlock.RUNE_POTENTIAL, CustomItemType.RUNE_POTENTIAL),
+    RUNE_AMBITION(CustomBlock.RUNE_AMBITION, CustomItemType.RUNE_AMBITION),
+    RUNE_MEMORIZATION(CustomBlock.RUNE_MEMORIZATION, CustomItemType.RUNE_MEMORIZATION),
+    RUNE_GREED(CustomBlock.RUNE_GREED, CustomItemType.RUNE_GREED),
+    RUNE_INSIGHT(CustomBlock.RUNE_INSIGHT, CustomItemType.RUNE_INSIGHT),
+    RUNE_FORTUITY(CustomBlock.RUNE_FORTUITY, CustomItemType.RUNE_FORTUITY),
+    RUNE_DIVINITY(CustomBlock.RUNE_DIVINITY, CustomItemType.RUNE_DIVINITY)
+}
+
+class MenuEnchantingTable(owner: Player, private val enchantingTable: EnchantingTable) : MenuBase(owner, 5) {
     private var actionButtonState = ActionButtonState.DISABLED
+    private val runeBlocks : MutableMap<RuneType, Int> = getRuneMap(enchantingTable)
+    private val shelfPower = getShelfPower(enchantingTable)
 
     init {
         this.sounds.setMenuOpen(Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1f, 1f)
@@ -72,7 +85,7 @@ class MenuEnchantingTable(owner: Player, private val shelfPower: Int, private va
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.ENCHANTING_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OVERLAY_BG_OFFSET_STANDARD + "Enchant",
+                    Symbols.OVERLAY_BG_OFFSET_STANDARD + Symbols.OFFSET_NEG_8 + Symbols.OFFSET_NEG_3 + "Enchant",
                     NamedTextColor.BLACK
                 )
             )
@@ -232,7 +245,7 @@ class MenuEnchantingTable(owner: Player, private val shelfPower: Int, private va
             return book.withType(Material.BARRIER)
         }
 
-        val reqLevel = recipe.power
+        val reqLevel = getRequiredLevelForRecipe(recipe.power)
         val lvlPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
         if (reqLevel > lvlPlayer.magicSkill.level) {
             lore.add(ComponentUtils.EMPTY)
@@ -254,8 +267,28 @@ class MenuEnchantingTable(owner: Player, private val shelfPower: Int, private va
             return book.withType(Material.BARRIER)
         }
 
+        val customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant)
+        val numDivinityRunes = runeBlocks.getOrDefault(RuneType.RUNE_DIVINITY, 0)
+        if (numDivinityRunes < 4 && customEnch!!.isBlessing) {
+            lore.add(ComponentUtils.EMPTY)
+            lore.add(ComponentUtils.merge(
+                ComponentUtils.create("You do not have enough ", NamedTextColor.RED),
+                ComponentUtils.create("Runes of Divinity", NamedTextColor.DARK_PURPLE),
+                ComponentUtils.create(" to apply this blessing!", NamedTextColor.RED)))
+            lore.add(ComponentUtils.merge(
+                ComponentUtils.create("You have: ", NamedTextColor.RED),
+                ComponentUtils.create(numDivinityRunes, NamedTextColor.DARK_AQUA),
+                ComponentUtils.create("/", NamedTextColor.GRAY),
+                ComponentUtils.create(4, NamedTextColor.AQUA)
+            ))
+            book.editMeta(Consumer { meta: ItemMeta? ->
+                meta!!.lore(ComponentUtils.cleanItalics(lore))
+            })
+            return book.withType(Material.BARRIER)
+        }
+
         var i = 0
-        val ingredients = recipe.ingredients!!
+        val ingredients = getDiscountedIngredients(recipe.ingredients!!.toSet())
         if (ingredients.size > 6)
             throw IllegalStateException("Enchanting recipes cannot be longer than 6 ItemStacks.")
         for (ingredient in ingredients) {
@@ -343,11 +376,30 @@ class MenuEnchantingTable(owner: Player, private val shelfPower: Int, private va
         val enchantItem : ItemStack = this.getItem(ITEM_SLOT)!!
         val enchantLevel = enchantItem.getEnchantmentLevel(enchant) + 1
         var recipe = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant)?.getRecipe(enchantLevel)
-        val ingredients = recipe!!.ingredients!!
+        val ingredients = getDiscountedIngredients(recipe!!.ingredients!!.toSet())
 
         if (player.inventory.takeIfPresent(*ingredients.toTypedArray())) {
+            val numMemorizationRunes = runeBlocks.getOrDefault(RuneType.RUNE_MEMORIZATION, 0)
+            val numFortuityRunes = runeBlocks.getOrDefault(RuneType.RUNE_FORTUITY, 0)
+            val proficiencyBonus = runeBlocks.getOrDefault(RuneType.RUNE_POTENTIAL, 0) + (runeBlocks.getOrDefault(RuneType.RUNE_INSIGHT, 0) * 4)
+            val random = Math.random()
+
             enchantItem.addEnchantment(enchant, enchantItem.getEnchantmentLevel(enchant) + 1)
-            scrollItem.amount--
+            if (numFortuityRunes > 0) {
+                if (random <= numFortuityRunes * 0.0025)
+                    attemptDoubleEnchant(enchantItem, enchantLevel, enchant, proficiencyBonus)
+            }
+            if (numMemorizationRunes > 0) {
+                // Roll 5% per Memorization rune to not consume scroll.
+                if ((numMemorizationRunes * 0.05) > random)
+                    scrollItem.amount--
+                else {
+                    player.playSound(player.location, Sound.ENTITY_MOOSHROOM_CONVERT, 1f, 2f)
+                    player.playSound(player.location, Sound.ITEM_BOOK_PAGE_TURN, 1f, 1.25f)
+                }
+            }
+            else
+                scrollItem.amount--
             player.playSound(player.location, Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1f, 1f)
             ItemService.blueprint(enchantItem).updateItemData(enchantItem)
             generateEnchantButton()
@@ -380,6 +432,25 @@ class MenuEnchantingTable(owner: Player, private val shelfPower: Int, private va
         }
         this.setSlot(ACTION_SLOT, generateEnchantButton())
         this.setSlot(BOOKSHELF_SLOT, generateBookshelfButton())
+
+        var i = 0
+        for (slotIdx in RUNE_SLOTS) {
+            val xz = RUNE_POS_OFFSETS.get(i)
+            val blockData = enchantingTable.block.getRelative(xz.first, -1, xz.second).blockData
+            for (runeType in RuneType.entries) {
+                if (runeType.runeBlock.BlockData == blockData) {
+                    val item = ItemService.generate(runeType.runeItem)
+                    val modelData = item.getData(DataComponentTypes.CUSTOM_MODEL_DATA)
+                    item.setData(DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData().addString(modelData!!.strings().get(0) + "_ui"))
+                    // Rune directly under table will glow
+                    if (i == 4)
+                        item.editMeta { meta -> meta.setEnchantmentGlintOverride(true) }
+                    this.setSlot(slotIdx, item)
+                    break
+                }
+            }
+            i++
+        }
     }
 
     fun handleShiftClicks(event : InventoryClickEvent) {
@@ -444,6 +515,106 @@ class MenuEnchantingTable(owner: Player, private val shelfPower: Int, private va
                 }
             }
         }
+    }
+
+    /**
+     * Returns the bookshelf power of an enchanting table at a given location
+     */
+
+    fun getShelfPower(table : EnchantingTable) : Int {
+        // Not a huge fan of this algorithm, I tried using bounding boxes
+        // This also does not account for raytracing from the table origin (yet)
+        var numShelves = 0
+        for (x in -7..7) {
+            for (y in 0..7) {
+                for(z in -7..7) {
+                    var blockAt = table.block.getRelative(x, y, z)
+                    if (blockAt.type == Material.BOOKSHELF)
+                        numShelves++
+                }
+            }
+        }
+        return numShelves
+    }
+
+
+    fun getRuneMap(table : EnchantingTable) : MutableMap<RuneType, Int> {
+        val runes = HashMap<RuneType, Int>()
+        var inc = 1
+        for (x in -1..1) {
+            for(z in -1..1) {
+                val blockAt = table.block.getRelative(x, -1, z)
+                if (x == 0 && z == 0) // Block directly under table is counted twice
+                    inc = 2
+                else
+                    inc = 1
+                when (blockAt.blockData) {
+                    CustomBlock.RUNE_BLANK.BlockData -> {
+                        val value = runes[RuneType.RUNE_BLANK] ?: 0
+                        runes[RuneType.RUNE_BLANK] = value + inc
+                    }
+                    CustomBlock.RUNE_POTENTIAL.BlockData -> {
+                        val value = runes[RuneType.RUNE_POTENTIAL] ?: 0
+                        runes[RuneType.RUNE_POTENTIAL] = value + inc
+                    }
+                    CustomBlock.RUNE_AMBITION.BlockData -> {
+                        val value = runes[RuneType.RUNE_AMBITION] ?: 0
+                        runes[RuneType.RUNE_AMBITION] = value + inc
+                    }
+                    CustomBlock.RUNE_MEMORIZATION.BlockData -> {
+                        val value = runes[RuneType.RUNE_MEMORIZATION] ?: 0
+                        runes[RuneType.RUNE_MEMORIZATION] = value + inc
+                    }
+                    CustomBlock.RUNE_GREED.BlockData -> {
+                        val value = runes[RuneType.RUNE_GREED] ?: 0
+                        runes[RuneType.RUNE_GREED] = value + inc
+                    }
+                    CustomBlock.RUNE_INSIGHT.BlockData -> {
+                        val value = runes[RuneType.RUNE_INSIGHT] ?: 0
+                        runes[RuneType.RUNE_INSIGHT] = value + inc
+                    }
+                    CustomBlock.RUNE_FORTUITY.BlockData -> {
+                        val value = runes[RuneType.RUNE_FORTUITY] ?: 0
+                        runes[RuneType.RUNE_FORTUITY] = value + inc
+                    }
+                    CustomBlock.RUNE_DIVINITY.BlockData -> {
+                        val value = runes[RuneType.RUNE_DIVINITY] ?: 0
+                        runes[RuneType.RUNE_DIVINITY] = value + 1  // Divinity is hardcoded to NOT be boosted by extra bonus from being under table.
+                    }
+                }
+            }
+        }
+        return runes
+    }
+
+    fun getRequiredLevelForRecipe(power : Int) : Int {
+        val discount = 1 - (runeBlocks.getOrDefault(RuneType.RUNE_AMBITION, 0) * 0.02)
+        return (power * discount).toInt()
+    }
+
+    fun getDiscountedIngredients(ingredients : Set<ItemStack>) : Set<ItemStack> {
+        val discount =  1 - (runeBlocks.getOrDefault(RuneType.RUNE_GREED, 0) * 0.015)
+        for (ingredient in ingredients)
+            ingredient.amount = Math.ceil(ingredient.amount * discount).toInt()
+        return ingredients
+    }
+
+    fun attemptDoubleEnchant(enchantItem : ItemStack, enchantLevel : Int, enchant : Enchantment, proficiencyBonus : Int) {
+        // Can't double enchant past max level.
+        if ((enchantLevel + 1) >= enchant.maxLevel) {
+            return
+        }
+
+        // Check that we meet the magic level requirement for the next tier of enchantment.
+        val nextRecipe = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant)?.getRecipe(enchantLevel + 1)
+        val lvlPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
+        if (getRequiredLevelForRecipe(nextRecipe!!.power) > lvlPlayer.magicSkill.level) {
+            return
+        }
+
+        enchantItem.addEnchantment(enchant, enchantItem.getEnchantmentLevel(enchant) + 1)
+        player.playSound(player.location, Sound.BLOCK_BEACON_ACTIVATE, 1f, 2f)
+        player.playSound(player.location, Sound.BLOCK_BEACON_POWER_SELECT, 1f, 2f)
     }
 
     @EventHandler

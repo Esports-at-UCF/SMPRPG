@@ -177,6 +177,8 @@ public abstract class CustomEnchantment implements Cloneable {
 
     public abstract int getWeight();
 
+    public boolean isBlessing() { return false; };
+
     public @NotNull EnchantmentRegistryEntry.EnchantmentCost getMinimumCost() {
         return EnchantmentRegistryEntry.EnchantmentCost.of(1, 1);
     }

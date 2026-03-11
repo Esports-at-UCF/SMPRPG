@@ -79,6 +79,9 @@ public class TelekinesisBlessing extends CustomEnchantment implements Listener {
     }
 
     @Override
+    public boolean isBlessing() { return true; }
+
+    @Override
     public EquipmentSlotGroup getEquipmentSlotGroup() {
         return EquipmentSlotGroup.HEAD;
     }

@@ -6,6 +6,7 @@ import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
+import org.bukkit.block.TileState
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -57,6 +58,7 @@ class NoteblockOverrideListener : ToggleableListener() {
 
     @EventHandler(priority = EventPriority.LOW)
     fun onRightClickNoteblock(event: PlayerInteractEvent) {
+        // Checks for VANILLA blocks right clicking onto custom blocks.
         if (event.action == Action.RIGHT_CLICK_BLOCK && event.clickedBlock!!.type == Material.NOTE_BLOCK)
         {
             event.isCancelled = true
@@ -68,7 +70,7 @@ class NoteblockOverrideListener : ToggleableListener() {
                     val blockData = item.type.createBlockData()
                     if (placementDelays.getOrDefault(player, 0)!! <= 0) {
                         val blockDest = event.clickedBlock!!.getRelative(event.blockFace)
-                        if (blockDest.canPlace(blockData)) {
+                        if (blockDest.isReplaceable && blockDest.canPlace(blockData)) {
                             val placeEvent = BlockPlaceEvent(
                                 blockDest,
                                 blockDest.state,
@@ -123,12 +125,18 @@ class NoteblockOverrideListener : ToggleableListener() {
             if (placementDelays.getOrDefault(player, 0)!! > 0)
                 return
 
+
             val item = event.item
             if (item == null) return
             event.setCancelled(true)
             val blockEnum = bp.getCustomBlock()
             val blockDest = event.getClickedBlock()!!.getRelative(event.getBlockFace())
-            if (blockDest.canPlace(blockEnum.BlockData)) {
+
+            // Cancel placements on tile entities if holding custom block and not sneaking
+            if (event.clickedBlock!!.state is TileState && !player.isSneaking)
+                return
+
+            if (blockDest.isReplaceable && blockDest.canPlace(blockEnum.BlockData)) {
                 val placeEvent = BlockPlaceEvent(
                     blockDest,
                     blockDest.getState(),

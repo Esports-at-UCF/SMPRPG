@@ -74,6 +74,9 @@ public class VoidstridingBlessing extends CustomEnchantment implements Listener 
     }
 
     @Override
+    public boolean isBlessing() { return true; }
+
+    @Override
     public TagKey<ItemType> getItemTypeTag() {
         return ItemTypeTagKeys.ENCHANTABLE_FOOT_ARMOR;
     }

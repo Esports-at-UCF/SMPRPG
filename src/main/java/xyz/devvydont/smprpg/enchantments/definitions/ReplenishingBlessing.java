@@ -76,6 +76,9 @@ public class ReplenishingBlessing extends CustomEnchantment implements Listener 
     }
 
     @Override
+    public boolean isBlessing() { return true; }
+
+    @Override
     public EquipmentSlotGroup getEquipmentSlotGroup() {
         return EquipmentSlotGroup.MAINHAND;
     }

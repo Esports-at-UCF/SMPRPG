@@ -330,10 +330,24 @@
                 }
             },
 			{
+                "when": "smprpg:rune_blank_ui",
+                "model": {
+                    "type": "model",
+                    "model": "ui:item/rune_blank"
+                }
+            },
+			{
                 "when": "smprpg:rune_potential",
                 "model": {
                     "type": "model",
                     "model": "blocks:block/rune_potential"
+                }
+            },
+			{
+                "when": "smprpg:rune_potential_ui",
+                "model": {
+                    "type": "model",
+                    "model": "ui:item/rune_potential"
                 }
             },
 			{
@@ -344,10 +358,24 @@
                 }
             },
 			{
+                "when": "smprpg:rune_ambition_ui",
+                "model": {
+                    "type": "model",
+                    "model": "ui:item/rune_ambition"
+                }
+            },
+			{
                 "when": "smprpg:rune_memorization",
                 "model": {
                     "type": "model",
                     "model": "blocks:block/rune_memorization"
+                }
+            },
+			{
+                "when": "smprpg:rune_memorization_ui",
+                "model": {
+                    "type": "model",
+                    "model": "ui:item/rune_memorization"
                 }
             },
 			{
@@ -358,10 +386,24 @@
                 }
             },
 			{
+                "when": "smprpg:rune_greed_ui",
+                "model": {
+                    "type": "model",
+                    "model": "ui:item/rune_greed"
+                }
+            },
+			{
                 "when": "smprpg:rune_insight",
                 "model": {
                     "type": "model",
                     "model": "blocks:block/rune_insight"
+                }
+            },
+			{
+                "when": "smprpg:rune_insight_ui",
+                "model": {
+                    "type": "model",
+                    "model": "ui:item/rune_insight"
                 }
             },
 			{
@@ -372,12 +414,26 @@
                 }
             },
 			{
+                "when": "smprpg:rune_fortuity_ui",
+                "model": {
+                    "type": "model",
+                    "model": "ui:item/rune_fortuity"
+                }
+            },
+			{
                 "when": "smprpg:rune_divinity",
                 "model": {
                     "type": "model",
                     "model": "blocks:block/rune_divinity"
                 }
-            }			
+            },
+			{
+                "when": "smprpg:rune_divinity_ui",
+                "model": {
+                    "type": "model",
+                    "model": "ui:item/rune_divinity"
+                }
+            }
         ]
     }
 }
