@@ -12,6 +12,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.enchantments.CustomEnchantment;
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
@@ -87,5 +88,15 @@ public class DynamicEnchantingScroll extends CustomItemBlueprint implements IHea
                 return ItemRarity.SPECIAL;
         }
         return getDefaultRarity();
+    }
+
+    public static ItemStack getScrollWithEnchantment(CustomEnchantment enchant) {
+        var scroll = ItemService.generate(CustomItemType.ENCHANTING_SCROLL);
+        scroll.editPersistentDataContainer(pdc ->
+        pdc.set(DynamicEnchantingScroll.SCROLL_ENCHANT_TYPE_KEY,
+                PersistentDataType.STRING,
+                enchant.getKey().value()));
+        ItemService.blueprint(scroll).updateItemData(scroll);
+        return scroll;
     }
 }

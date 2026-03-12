@@ -165,6 +165,8 @@ class EnchantmentService : IService, Listener {
                 // TODO: Table upgrades
 
                 // table.persistentDataContainer
+
+                println(EnchantmentService.AMPLIFICATION_BLESSING.key)
                 MenuEnchantingTable(event.player, table).openMenu();
             }
         }

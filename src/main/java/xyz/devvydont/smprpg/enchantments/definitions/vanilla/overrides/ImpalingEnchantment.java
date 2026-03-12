@@ -16,6 +16,7 @@ import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil;
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.fishing.SeaCreature;
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
 import xyz.devvydont.smprpg.services.EntityService;
@@ -89,7 +90,7 @@ public class ImpalingEnchantment extends VanillaEnchantment implements Listener 
 
         // Check if the damaged entity is either a sea creature or wet.
         var valid = event.damaged.isInWater() || event.damaged.isInRain();
-        if (SMPRPG.getService(EntityService.class).getEntityInstance(damaged) instanceof SeaCreature)
+        if (SMPRPG.getService(EntityService.class).getEntityInstance(damaged).mobTypes.contains(MobType.SEA_CREATURE))
             valid = true;
 
         if (!valid)

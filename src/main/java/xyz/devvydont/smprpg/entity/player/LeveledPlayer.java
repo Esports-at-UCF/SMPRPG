@@ -72,7 +72,7 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
 
     @Override
     public void setup() {
-        mobTypes.set(0, MobType.HUMANOID);
+        mobTypes.add(MobType.HUMANOID);
 
         super.setup();
         startManaTask();

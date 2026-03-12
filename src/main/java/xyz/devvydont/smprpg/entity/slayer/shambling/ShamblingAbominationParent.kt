@@ -39,17 +39,6 @@ open class ShamblingAbominationParent
 
     open val LOOT_SMITE_SCROLL : ItemStack = generate(CustomItemType.ENCHANTING_SCROLL)
 
-    init {
-        LOOT_SMITE_SCROLL.editPersistentDataContainer(
-            { pdc: PersistentDataContainer? ->
-                pdc!!.set(
-                    DynamicEnchantingScroll.SCROLL_ENCHANT_TYPE_KEY,
-                    PersistentDataType.STRING,
-                    "minecraft:smite"
-                )
-            })
-    }
-
     override fun setup() {
         mobTypes.add(MobType.BOSS);
         mobTypes.add(MobType.UNDEAD);
