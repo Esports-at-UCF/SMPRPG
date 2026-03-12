@@ -1,4 +1,4 @@
-package xyz.devvydont.smprpg.enchantments.definitions.vanilla.overrides;
+package xyz.devvydont.smprpg.enchantments.definitions;
 
 import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.TypedKey;
@@ -19,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
+import xyz.devvydont.smprpg.enchantments.CustomEnchantment;
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil;
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment;
@@ -26,26 +27,24 @@ import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe;
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.EnchantmentService;
-import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.persistence.KeyStore;
 
-public class SmiteEnchantment extends VanillaEnchantment implements Listener {
+public class VigilanteEnchantment extends CustomEnchantment implements Listener {
 
     public static int getPercentageIncrease(int level) {
         return level * 30;
     }
 
-    public static boolean isUndead(EntityType type) {
+    public static boolean isIllager(EntityType type) {
         return switch (type) {
-            case ZOMBIE, ZOMBIE_VILLAGER, ZOMBIE_HORSE, ZOMBIFIED_PIGLIN, DROWNED, HUSK, ZOGLIN, WITHER,
-                 WITHER_SKELETON, PHANTOM, SKELETON, SKELETON_HORSE, BOGGED, STRAY -> true;
+            case ILLUSIONER, VINDICATOR, PILLAGER, EVOKER, VEX, RAVAGER, WITCH -> true;
             default -> false;
         };
     }
 
-    public SmiteEnchantment(TypedKey<Enchantment> key) {
-        super(key);
+    public VigilanteEnchantment(String id) {
+        super(id);
     }
 
     @Override
@@ -130,7 +129,7 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
 
     @Override
     public @NotNull Component getDisplayName() {
-        return ComponentUtils.create("Smite");
+        return ComponentUtils.create("Vigilante");
     }
 
     @Override
@@ -139,7 +138,7 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
             ComponentUtils.create("Increases damage dealt by "),
             ComponentUtils.create("+" + getPercentageIncrease(getLevel()) + "%", NamedTextColor.GREEN),
             ComponentUtils.create(" against "),
-            ComponentUtils.create("the undead", NamedTextColor.RED)
+            ComponentUtils.create("Illagers", NamedTextColor.RED)
         );
     }
 
@@ -174,10 +173,10 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onDamageUndead(CustomEntityDamageByEntityEvent event) {
+    public void onDamageIllager(CustomEntityDamageByEntityEvent event) {
 
-        // Skip non undead
-        if (!isUndead(event.damaged.getType()))
+        // Skip non illager
+        if (!isIllager(event.damaged.getType()))
             return;
 
         // Skip entity if they aren't alive
@@ -200,7 +199,7 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
      */
     @NotNull
     public RegistryKeySet<Enchantment> getConflictingEnchantments() {
-        return RegistrySet.keySet(RegistryKey.ENCHANTMENT, EnchantmentService.VIGILANTE.getTypedKey(), EnchantmentKeys.BANE_OF_ARTHROPODS, EnchantmentService.VIGILANTE.getTypedKey());
+        return RegistrySet.keySet(RegistryKey.ENCHANTMENT, EnchantmentKeys.SMITE, EnchantmentKeys.BANE_OF_ARTHROPODS, EnchantmentService.GENESIS.getTypedKey());
     }
 
     @Override

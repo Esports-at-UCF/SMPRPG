@@ -1146,7 +1146,7 @@ public enum CustomItemType {
     SHAMBLING_CHESTPLATE("Shambling Boss Chestplate (not used by players)", Material.DIAMOND_CHESTPLATE, ItemRarity.SPECIAL, ShamblingBossChestplate.class),
 
     // ENCHANTING SCROLLS
-    ENCHANTING_SCROLL("Scroll of Imbuement", Material.PAPER, ItemRarity.RARE, DynamicEnchantingScroll.class)
+    ENCHANTING_SCROLL("Scroll of Imbuement", Material.PAPER, ItemRarity.RARE, true, DynamicEnchantingScroll.class)
     ;
 
     public final String ItemName;

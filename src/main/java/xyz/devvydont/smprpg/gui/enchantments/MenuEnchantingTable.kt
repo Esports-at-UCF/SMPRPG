@@ -40,6 +40,7 @@ import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.util.extensions.addEnchantment
 import xyz.devvydont.smprpg.util.extensions.takeIfPresent
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
@@ -218,6 +219,7 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
             val enchant = getEnchant(scroll)!!
             lore.add(ComponentUtils.EMPTY)
             var hasConflict = false
+
             for (ench in input.enchantments.keys) {
                 if (enchant.conflictsWith(ench) && ench.key != enchant.key) {
                     hasConflict = true
@@ -236,8 +238,9 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
 
         // Populate our recipe components
         val enchant = getEnchant(scroll)!!
+        val customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant)
         val enchantLevel = input!!.getEnchantmentLevel(enchant) + 1
-        var recipe = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant)?.getRecipe(enchantLevel)
+        var recipe = customEnch?.getRecipe(enchantLevel)
         if (recipe == null) {
             // Either this recipe isn't implemented, or we are max level.
             lore.add(ComponentUtils.EMPTY)
@@ -273,7 +276,6 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
             return book.withType(Material.BARRIER)
         }
 
-        val customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant)
         val numDivinityRunes = runeBlocks.getOrDefault(RuneType.RUNE_DIVINITY, 0)
         if (numDivinityRunes < 4 && customEnch!!.isBlessing) {
             lore.add(ComponentUtils.EMPTY)
@@ -359,7 +361,9 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
         val scrollItem = this.getItem(SCROLL_SLOT)
         if (scrollItem != null) {
             val enchant : Enchantment = getEnchant(scrollItem)!!
-            if (enchant.canEnchantItem(itemToEnchant)) {  // canEnchant does not check for conflicts, so we now need to check for that.
+            val customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant)
+            val blueprint = ItemService.blueprint(itemToEnchant)
+            if (blueprint.getItemClassification().getItemTagKeys().contains(customEnch!!.itemTypeTag)) {
                 for (ench in itemToEnchant.enchantments.keys) {
                     if (ench.conflictsWith(enchant) && ench.key != enchant.key)  // Failfast if we find a conflicting enchantment
                         return false
@@ -399,11 +403,12 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
             profInst.save(player, AttributeWrapper.MAGIC_PROFICIENCY)
             val random = Math.random()
 
-            enchantItem.addEnchantment(enchant, enchantItem.getEnchantmentLevel(enchant) + 1)
+            val customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant)!!
+            enchantItem.addEnchantment(customEnch, enchantItem.getEnchantmentLevel(enchant) + 1)
             val enchantEvent = CustomEnchantItemEvent(player, enchantingTable.block, enchantItem, enchant, enchantLevel)
             enchantEvent.callEvent()
             if (numFortuityRunes > 0) {
-                if (random <= numFortuityRunes * 0.25) {
+                if (random <= numFortuityRunes * 0.0025) {
                     if (attemptDoubleEnchant(enchantItem, enchantLevel, enchant))
                         enchantEvent.callEvent()
                 }

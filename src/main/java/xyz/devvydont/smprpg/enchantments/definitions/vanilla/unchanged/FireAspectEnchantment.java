@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.UnchangedEnchantment;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.persistence.KeyStore;
 
 public class FireAspectEnchantment extends UnchangedEnchantment {
 
@@ -36,7 +37,7 @@ public class FireAspectEnchantment extends UnchangedEnchantment {
 
     @Override
     public TagKey<ItemType> getItemTypeTag() {
-        return ItemTypeTagKeys.ENCHANTABLE_SWEEPING;
+        return ItemTypeTagKeys.ENCHANTABLE_WEAPON;
     }
 
     @Override

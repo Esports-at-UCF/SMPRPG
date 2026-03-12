@@ -12,8 +12,10 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
+import xyz.devvydont.smprpg.items.ItemRarity;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
 import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable;
 import xyz.devvydont.smprpg.items.interfaces.ISellable;
@@ -59,11 +61,31 @@ public class DynamicEnchantingScroll extends CustomItemBlueprint implements IHea
 
     @Override
     public List<Component> getHeader(ItemStack itemStack) {
-        var enchantKey = itemStack.getPersistentDataContainer().getOrDefault(SCROLL_ENCHANT_TYPE_KEY, PersistentDataType.STRING, Enchantment.SHARPNESS.getKey().toString());
+        var enchantKey = itemStack.getPersistentDataContainer().getOrDefault(SCROLL_ENCHANT_TYPE_KEY, PersistentDataType.STRING, Enchantment.SMITE.getKey().toString());
         var enchant = SMPRPG.getService(EnchantmentService.class).getEnchantment(TypedKey.create(RegistryKey.ENCHANTMENT, enchantKey));
         var color = enchant.description().color().equals(NamedTextColor.WHITE) ? NamedTextColor.DARK_GRAY : enchant.description().color();
         return List.of(
                 enchant.displayName(0).decorate(TextDecoration.ITALIC).color(color)
         );
+    }
+
+    @Override
+    public ItemRarity getRarity(ItemStack item) {
+        var enchantKey = item.getPersistentDataContainer().getOrDefault(SCROLL_ENCHANT_TYPE_KEY, PersistentDataType.STRING, Enchantment.SMITE.getKey().toString());
+        var enchant = SMPRPG.getService(EnchantmentService.class).getEnchantment(TypedKey.create(RegistryKey.ENCHANTMENT, enchantKey));
+        if (enchant != null) {
+            var weight = enchant.getWeight();
+            if (weight == EnchantmentRarity.COMMON.getWeight())
+                return ItemRarity.RARE;
+            else if (weight == EnchantmentRarity.UNCOMMON.getWeight() || weight == EnchantmentRarity.CURSE.getWeight())
+                return ItemRarity.EPIC;
+            else if (weight == EnchantmentRarity.RARE.getWeight())
+                return ItemRarity.LEGENDARY;
+            else if (weight == EnchantmentRarity.BLESSING.getWeight())
+                return ItemRarity.MYTHIC;
+            else if (weight == EnchantmentRarity.ARTIFACT.getWeight())
+                return ItemRarity.SPECIAL;
+        }
+        return getDefaultRarity();
     }
 }

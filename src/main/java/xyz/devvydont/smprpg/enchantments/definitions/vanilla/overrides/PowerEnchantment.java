@@ -21,6 +21,12 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * NOTE:
+ * Power is deprecated. Blessing of Amplification is instead used for universal damage.
+ */
+
+@Deprecated
 public class PowerEnchantment extends VanillaEnchantment implements AttributeEnchantment {
 
     public PowerEnchantment(TypedKey<Enchantment> key) {
@@ -39,7 +45,6 @@ public class PowerEnchantment extends VanillaEnchantment implements AttributeEnc
     @Override
     public Collection<AttributeEntry> getHeldAttributes() {
         return List.of(
-                AttributeEntry.multiplicative(AttributeWrapper.STRENGTH, getDamageIncrease(getLevel()) / 100.0)
         );
     }
 
@@ -56,8 +61,7 @@ public class PowerEnchantment extends VanillaEnchantment implements AttributeEnc
     @Override
     public @NotNull Component getDescription() {
         return ComponentUtils.merge(
-            ComponentUtils.create("Increases damage by "),
-            ComponentUtils.create("+" + getDamageIncrease(getLevel()) + "%", NamedTextColor.GREEN)
+                ComponentUtils.create("Deprecated enchantment. This should not appear.", NamedTextColor.DARK_RED)
         );
     }
 
@@ -78,7 +82,7 @@ public class PowerEnchantment extends VanillaEnchantment implements AttributeEnc
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.COMMON.getWeight();
+        return EnchantmentRarity.ARTIFACT.getWeight();
     }
 
     @Override

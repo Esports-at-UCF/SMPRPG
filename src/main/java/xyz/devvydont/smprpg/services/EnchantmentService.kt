@@ -342,8 +342,8 @@ class EnchantmentService : IService, Listener {
         @JvmField
         val PIERCING: CustomEnchantment = PiercingEnchantment(EnchantmentKeys.PIERCING)
 
-        @JvmField
-        val POWER: CustomEnchantment = PowerEnchantment(EnchantmentKeys.POWER)
+        //@JvmField
+        //val POWER: CustomEnchantment = PowerEnchantment(EnchantmentKeys.POWER)
 
         @JvmField
         val PROJECTILE_PROTECTION: CustomEnchantment = ProjectileProtectionEnchantment(EnchantmentKeys.PROJECTILE_PROTECTION)
@@ -363,8 +363,8 @@ class EnchantmentService : IService, Listener {
         @JvmField
         val RIPTIDE: CustomEnchantment = RiptideEnchantment(EnchantmentKeys.RIPTIDE)
 
-        @JvmField
-        val SHARPNESS: CustomEnchantment = SharpnessEnchantment(EnchantmentKeys.SHARPNESS)
+        //@JvmField
+        //val SHARPNESS: CustomEnchantment = SharpnessEnchantment(EnchantmentKeys.SHARPNESS)
 
         @JvmField
         val SILK_TOUCH: CustomEnchantment = SilkTouchEnchantment(EnchantmentKeys.SILK_TOUCH)
@@ -405,6 +405,9 @@ class EnchantmentService : IService, Listener {
 
         @JvmField
         val IGNORANCE_BLESSING: CustomEnchantment = IgnoranceBlessing("ignorance")
+
+        @JvmField
+        val AMPLIFICATION_BLESSING: CustomEnchantment = AmplificationBlessing("amplification")
 
         @JvmField
         val FORTUITY: CustomEnchantment = FortuityEnchantment("fortuity")
@@ -449,6 +452,9 @@ class EnchantmentService : IService, Listener {
         val FIRST_STRIKE: CustomEnchantment = FirstStrikeEnchantment("first_strike")
 
         @JvmField
+        val GENESIS: CustomEnchantment = GenesisEnchantment("genesis")
+
+        @JvmField
         val DOUBLE_TAP: CustomEnchantment = DoubleTapEnchantment("double_tap")
 
         @JvmField
@@ -462,6 +468,9 @@ class EnchantmentService : IService, Listener {
 
         @JvmField
         val WISDOM: CustomEnchantment = WisdomEnchantment("wisdom")
+
+        @JvmField
+        val VIGILANTE: CustomEnchantment = VigilanteEnchantment("vigilante")
 
         @JvmField
         val VITALITY: CustomEnchantment = VitalityEnchantment("vitality")
@@ -507,15 +516,16 @@ class EnchantmentService : IService, Listener {
             VOIDSTRIDING_BLESSING,
             REPLENISHING,
             IGNORANCE_BLESSING,
+            AMPLIFICATION_BLESSING,
 
             // Curses
             BINDING_CURSE,
             VANISHING_CURSE,  // Important enchantments (display first)
 
-            SHARPNESS,
-            POWER,
             SMITE,
             BANE_OF_ARTHROPODS,
+            VIGILANTE,
+            GENESIS,
 
             BLESSED,
             STABILIZED,

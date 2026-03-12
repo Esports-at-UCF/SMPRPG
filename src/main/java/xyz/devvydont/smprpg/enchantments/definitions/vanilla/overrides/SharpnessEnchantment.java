@@ -29,6 +29,12 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * NOTE:
+ * Sharpness is deprecated. Blessing of Amplification is instead used for universal damage.
+ */
+
+@Deprecated
 public class SharpnessEnchantment extends VanillaEnchantment implements AttributeEnchantment {
 
     public SharpnessEnchantment(TypedKey<Enchantment> key) {
@@ -43,7 +49,6 @@ public class SharpnessEnchantment extends VanillaEnchantment implements Attribut
     @Override
     public Collection<AttributeEntry> getHeldAttributes() {
         return List.of(
-                AttributeEntry.multiplicative(AttributeWrapper.STRENGTH, getLevel() * 10 / 100.0)
         );
     }
 
@@ -140,8 +145,7 @@ public class SharpnessEnchantment extends VanillaEnchantment implements Attribut
     @Override
     public @NotNull Component getDescription() {
         return ComponentUtils.merge(
-            ComponentUtils.create("Increases damage by "),
-            ComponentUtils.create("+" + getLevel() * 10 + "%", NamedTextColor.GREEN)
+            ComponentUtils.create("Deprecated enchantment. This should not appear.", NamedTextColor.DARK_RED)
         );
     }
 
@@ -162,7 +166,7 @@ public class SharpnessEnchantment extends VanillaEnchantment implements Attribut
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.COMMON.getWeight();
+        return EnchantmentRarity.ARTIFACT.getWeight();
     }
 
     @Override

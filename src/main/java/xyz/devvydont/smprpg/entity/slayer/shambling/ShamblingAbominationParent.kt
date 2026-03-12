@@ -44,7 +44,7 @@ open class ShamblingAbominationParent
                 pdc!!.set(
                     DynamicEnchantingScroll.SCROLL_ENCHANT_TYPE_KEY,
                     PersistentDataType.STRING,
-                    "minecraft:smite"
+                    "smprpg:amplification"
                 )
             })
     }

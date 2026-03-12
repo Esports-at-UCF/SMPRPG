@@ -22,6 +22,7 @@ import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil;
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment;
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
+import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 
 public class BaneOfArthropodsEnchantment extends VanillaEnchantment implements Listener {
@@ -73,7 +74,7 @@ public class BaneOfArthropodsEnchantment extends VanillaEnchantment implements L
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.UNCOMMON.getWeight();
+        return EnchantmentRarity.COMMON.getWeight();
     }
 
     @Override
@@ -113,6 +114,6 @@ public class BaneOfArthropodsEnchantment extends VanillaEnchantment implements L
      */
     @NotNull
     public RegistryKeySet<Enchantment> getConflictingEnchantments() {
-        return RegistrySet.keySet(RegistryKey.ENCHANTMENT, EnchantmentKeys.SMITE, EnchantmentKeys.SHARPNESS);
+        return RegistrySet.keySet(RegistryKey.ENCHANTMENT, EnchantmentKeys.SMITE, EnchantmentService.VIGILANTE.getTypedKey(), EnchantmentService.VIGILANTE.getTypedKey());
     }
 }

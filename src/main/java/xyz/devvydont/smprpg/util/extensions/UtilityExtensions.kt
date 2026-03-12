@@ -1,7 +1,10 @@
 package xyz.devvydont.smprpg.util.extensions
 
+import com.google.common.base.Preconditions
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
+import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.services.ItemService
 
 fun Inventory.takeIfPresent(vararg r: Pair<ItemStack, Int>): Boolean {
@@ -63,4 +66,18 @@ fun Inventory.takeIfPresent(vararg req : ItemStack) : Boolean {
         itemsToTake.add(Pair(i, i.amount))
     }
     return takeIfPresent(*itemsToTake.toTypedArray())
+}
+
+/**
+ * Shorthand for addEnchantment that allows for CustomEnchantment support
+ * Also overrides the canEnchant functionality to work with ItemTypeTags
+ */
+fun ItemStack.addEnchantment(enchant: CustomEnchantment, level: Int) {
+    val blueprint = ItemService.blueprint(this)
+    val canEnchant = blueprint.getItemClassification().getItemTagKeys().contains(enchant.itemTypeTag)
+    Preconditions.checkArgument(enchant != null, "CustomEnchantment cannot be null")
+    require(!((level < enchant.enchantment.getStartLevel()) || (level > enchant.getMaxLevel()))) { "Enchantment level is either too low or too high (given " + level + ", bounds are " + enchant.enchantment.startLevel + " to " + enchant.enchantment.maxLevel + ")" }
+    require(canEnchant) { "Specified enchantment cannot be applied to this itemstack" }
+
+    addUnsafeEnchantment(enchant.enchantment, level)
 }
