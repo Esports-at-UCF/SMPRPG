@@ -6,6 +6,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Turtle;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.fishing.goals.SnappingTurtleAttackGoal;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.LootDrop;
@@ -35,6 +36,10 @@ public class SnappingTurtle extends SeaCreature<Turtle> {
 
     @Override
     public void setup() {
+        mobTypes.add(MobType.SEA_CREATURE);
+        mobTypes.add(MobType.AQUATIC);
+        mobTypes.add(MobType.ANIMAL);
+
         super.setup();
 
         var mobGoals = Bukkit.getMobGoals();

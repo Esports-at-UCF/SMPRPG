@@ -9,6 +9,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.CustomEntityInstance;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.interfaces.ICustomTextured;
@@ -37,6 +38,8 @@ public class RemorsefulAbomination extends CustomEntityInstance<Zombie> {
 
     @Override
     public void setup() {
+        mobTypes.add(MobType.UNDEAD);
+
         super.setup();
 
         _entity.getEquipment().setHelmet(null);

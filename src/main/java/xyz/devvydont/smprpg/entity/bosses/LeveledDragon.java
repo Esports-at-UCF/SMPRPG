@@ -15,6 +15,7 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.services.SpecialEffectService;
 import xyz.devvydont.smprpg.effects.tasks.DisintegratingEffect;
 import xyz.devvydont.smprpg.entity.base.BossInstance;
@@ -52,6 +53,11 @@ public class LeveledDragon extends BossInstance<EnderDragon> implements Listener
 
     @Override
     public void setup() {
+        mobTypes.add(MobType.BOSS);
+        mobTypes.add(MobType.DRACONIC);
+        mobTypes.add(MobType.ENDER);
+        mobTypes.add(MobType.AIRBORNE);
+
         super.setup();
         this.updateBaseAttribute(AttributeWrapper.ARMOR, 0);
         this.updateBaseAttribute(AttributeWrapper.KNOCKBACK_RESISTANCE, 100);

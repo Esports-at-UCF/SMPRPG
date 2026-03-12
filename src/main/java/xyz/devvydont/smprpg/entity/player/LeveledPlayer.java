@@ -25,6 +25,7 @@ import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.LeveledEntity;
 import xyz.devvydont.smprpg.entity.components.EntityConfiguration;
 import xyz.devvydont.smprpg.items.interfaces.IAttributeItem;
@@ -71,6 +72,8 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
 
     @Override
     public void setup() {
+        mobTypes.set(0, MobType.HUMANOID);
+
         super.setup();
         startManaTask();
 

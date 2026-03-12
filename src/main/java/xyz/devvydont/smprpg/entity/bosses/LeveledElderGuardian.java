@@ -6,6 +6,7 @@ import org.bukkit.entity.ElderGuardian;
 import org.bukkit.entity.EntityType;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.BossInstance;
 import xyz.devvydont.smprpg.entity.base.VanillaEntity;
 import xyz.devvydont.smprpg.entity.components.EntityConfiguration;
@@ -27,6 +28,9 @@ public class LeveledElderGuardian extends BossInstance<ElderGuardian> {
 
     @Override
     public void setup() {
+        mobTypes.add(MobType.BOSS);
+        mobTypes.add(MobType.AQUATIC);
+
         super.setup();
         this.updateBaseAttribute(AttributeWrapper.ARMOR, 0);
     }

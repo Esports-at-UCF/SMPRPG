@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.SkullMeta
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.entity.CustomEntityType
+import xyz.devvydont.smprpg.entity.MobType
 import xyz.devvydont.smprpg.entity.slayer.SlayerBossInstance
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -44,12 +45,15 @@ open class ShamblingAbominationParent
                 pdc!!.set(
                     DynamicEnchantingScroll.SCROLL_ENCHANT_TYPE_KEY,
                     PersistentDataType.STRING,
-                    "smprpg:amplification"
+                    "minecraft:smite"
                 )
             })
     }
 
     override fun setup() {
+        mobTypes.add(MobType.BOSS);
+        mobTypes.add(MobType.UNDEAD);
+
         super.setup()
 
         // Setup equipment for boss

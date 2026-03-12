@@ -5,6 +5,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.CustomEntityInstance;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
@@ -42,6 +43,14 @@ public class FierySylph<T extends LivingEntity> extends CustomEntityInstance<T> 
 
                 new ChancedItemDrop(ItemService.generate(CustomItemType.INFERNO_ARROW), 150, this)
         );
+    }
+
+    @Override
+    public void setup() {
+        mobTypes.add(MobType.NETHER);
+        mobTypes.add(MobType.ELEMENTAL);
+
+        super.setup();
     }
 
 }

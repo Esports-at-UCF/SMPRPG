@@ -9,6 +9,7 @@ import org.bukkit.event.entity.SlimeSplitEvent;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
@@ -37,6 +38,15 @@ public class Cinderling extends SeaCreature<LivingEntity> implements Listener {
         return List.of(
                 new ChancedItemDrop(ItemService.generate(CustomItemType.CINDERITE), 2, this)
         );
+    }
+
+    @Override
+    public void setup() {
+        mobTypes.add(MobType.SEA_CREATURE);
+        mobTypes.add(MobType.NETHER);
+        mobTypes.add(MobType.CUBIC);
+
+        super.setup();
     }
 
     /*

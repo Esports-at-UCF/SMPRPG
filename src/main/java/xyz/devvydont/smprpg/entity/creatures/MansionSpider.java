@@ -5,6 +5,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Spider;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.CustomEntityInstance;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
@@ -35,5 +36,12 @@ public class MansionSpider extends CustomEntityInstance<Spider> {
                 new ChancedItemDrop(ItemService.generate(CustomItemType.ENCHANTED_STRING), 1100, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.ENCHANTED_SPIDER_EYE), 700, this)
         );
+    }
+
+    @Override
+    public void setup() {
+        mobTypes.add(MobType.ARTHROPOD);
+
+        super.setup();
     }
 }

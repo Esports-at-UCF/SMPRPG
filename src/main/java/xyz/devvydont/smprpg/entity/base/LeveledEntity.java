@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.EntityGlobals;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.components.EntityConfiguration;
 import xyz.devvydont.smprpg.services.EntityDamageCalculatorService;
 import xyz.devvydont.smprpg.services.AttributeService;
@@ -28,13 +29,15 @@ import xyz.devvydont.smprpg.util.formatting.Symbols;
 import xyz.devvydont.smprpg.util.items.LootDrop;
 import xyz.devvydont.smprpg.util.items.LootSource;
 
-import java.util.Collection;
+import java.util.*;
 
 public abstract class LeveledEntity<T extends Entity> implements LootSource {
 
     protected final SMPRPG _plugin;
     protected final T _entity;
     private int _initialLevel;  // The level that was detected at setup time. Never changes after that.
+    public ArrayList<MobType> mobTypes = new ArrayList<>();
+    private boolean _setupFinished = false;
 
     protected EntityConfiguration _config = EntityConfiguration.DEFAULT;
 
@@ -85,6 +88,9 @@ public abstract class LeveledEntity<T extends Entity> implements LootSource {
      */
     public void setup() {
 
+        if (_setupFinished)
+            return;
+
         // Tag this entity class so we can construct it later.
         this.applyPersistentEntityClassTag();
 
@@ -101,6 +107,8 @@ public abstract class LeveledEntity<T extends Entity> implements LootSource {
         // If this entity is tamed by a player, scale them to their owner. Fails silently if they don't exist.
         if (_entity instanceof Tameable tameable && tameable.getOwnerUniqueId() != null)
             this.copyLevel(Bukkit.getEntity(tameable.getOwnerUniqueId()));
+
+        _setupFinished = true;
     }
 
     /**
@@ -173,6 +181,17 @@ public abstract class LeveledEntity<T extends Entity> implements LootSource {
      * Generates the bracketed power component to display in a nametag. This is usually the prefix
      * @return A Component of the current entity level
      */
+    public Component getMobTypesComponent() {
+        Component retVal = ComponentUtils.EMPTY;
+        for (MobType type : mobTypes)
+            retVal = retVal.append(ComponentUtils.create(type.getSymbol(), type.getSymbolColor()));
+        return retVal;
+    }
+
+    /**
+     * Generates the bracketed power component to display in a nametag. This is usually the prefix
+     * @return A Component of the current entity level
+     */
     public Component getPowerComponent() {
         return ComponentUtils.powerLevelPrefix(getLevel());
     }
@@ -219,6 +238,7 @@ public abstract class LeveledEntity<T extends Entity> implements LootSource {
     public Component getFullComponent() {
         return ComponentUtils.merge(
                 getPowerComponent(), ComponentUtils.create(" "),
+                getMobTypesComponent(), ComponentUtils.create(" "),
                 getNameComponent(), ComponentUtils.create(" "),
                 getHealthComponent()
         );

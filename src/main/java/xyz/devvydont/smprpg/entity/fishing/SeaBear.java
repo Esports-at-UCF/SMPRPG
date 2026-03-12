@@ -6,6 +6,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.PolarBear;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.fishing.goals.SeaBearAttackGoal;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.EnchantmentService;
@@ -37,6 +38,10 @@ public class SeaBear extends SeaCreature<PolarBear> {
 
     @Override
     public void setup() {
+        mobTypes.add(MobType.SEA_CREATURE);
+        mobTypes.add(MobType.AQUATIC);
+        mobTypes.add(MobType.ANIMAL);
+
         super.setup();
 
         var kbItem = ItemService.generate(Material.STONE);

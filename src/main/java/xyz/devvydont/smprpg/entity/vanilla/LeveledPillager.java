@@ -5,6 +5,7 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Pillager;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.VanillaEntity;
 import xyz.devvydont.smprpg.services.AttributeService;
 
@@ -16,6 +17,9 @@ public class LeveledPillager extends VanillaEntity<Pillager> {
 
     @Override
     public void setup() {
+        mobTypes.add(MobType.HUMANOID);
+        mobTypes.add(MobType.ILLAGER);
+
         super.setup();
         var attr = SMPRPG.getService(AttributeService.class).getAttribute(_entity, AttributeWrapper.STRENGTH);
 

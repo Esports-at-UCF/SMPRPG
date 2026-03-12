@@ -19,13 +19,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
+import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil;
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment;
 import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe;
+import xyz.devvydont.smprpg.entity.MobType;
+import xyz.devvydont.smprpg.entity.base.LeveledEntity;
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.EnchantmentService;
+import xyz.devvydont.smprpg.services.EntityService;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.persistence.KeyStore;
@@ -36,12 +40,10 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
         return level * 30;
     }
 
-    public static boolean isUndead(EntityType type) {
-        return switch (type) {
-            case ZOMBIE, ZOMBIE_VILLAGER, ZOMBIE_HORSE, ZOMBIFIED_PIGLIN, DROWNED, HUSK, ZOGLIN, WITHER,
-                 WITHER_SKELETON, PHANTOM, SKELETON, SKELETON_HORSE, BOGGED, STRAY -> true;
-            default -> false;
-        };
+    public static boolean isUndead(LeveledEntity<?> entity) {
+        if (entity.mobTypes.contains(MobType.UNDEAD))
+            return true;
+        return false;
     }
 
     public SmiteEnchantment(TypedKey<Enchantment> key) {
@@ -177,7 +179,7 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
     public void onDamageUndead(CustomEntityDamageByEntityEvent event) {
 
         // Skip non undead
-        if (!isUndead(event.damaged.getType()))
+        if (!isUndead(SMPRPG.getService(EntityService.class).getEntityInstance(event.damaged)))
             return;
 
         // Skip entity if they aren't alive

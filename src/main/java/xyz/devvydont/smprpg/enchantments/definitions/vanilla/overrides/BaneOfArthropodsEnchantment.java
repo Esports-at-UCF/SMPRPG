@@ -18,11 +18,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
+import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil;
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment;
+import xyz.devvydont.smprpg.entity.MobType;
+import xyz.devvydont.smprpg.entity.base.LeveledEntity;
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
 import xyz.devvydont.smprpg.services.EnchantmentService;
+import xyz.devvydont.smprpg.services.EntityService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 
 public class BaneOfArthropodsEnchantment extends VanillaEnchantment implements Listener {
@@ -31,11 +35,10 @@ public class BaneOfArthropodsEnchantment extends VanillaEnchantment implements L
         return SmiteEnchantment.getPercentageIncrease(level);
     }
 
-    public static boolean isArthropod(EntityType type) {
-        return switch (type) {
-            case SPIDER, CAVE_SPIDER, BEE, SILVERFISH, ENDERMITE -> true;
-            default -> false;
-        };
+    public static boolean isArthropod(LeveledEntity<?> entity) {
+        if (entity.mobTypes.contains(MobType.ARTHROPOD))
+            return true;
+        return false;
     }
 
     public BaneOfArthropodsEnchantment(TypedKey<Enchantment> key) {
@@ -91,7 +94,7 @@ public class BaneOfArthropodsEnchantment extends VanillaEnchantment implements L
     public void onDamageArthropod(CustomEntityDamageByEntityEvent event) {
 
         // Skip non arthropods
-        if (!isArthropod(event.damaged.getType()))
+        if (!isArthropod(SMPRPG.getService(EntityService.class).getEntityInstance(event.damaged)))
             return;
 
         // Skip entity if they aren't alive

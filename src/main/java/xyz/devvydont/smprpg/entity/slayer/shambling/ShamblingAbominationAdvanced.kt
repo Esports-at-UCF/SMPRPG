@@ -22,7 +22,7 @@ class ShamblingAbominationAdvanced(entity: LivingEntity?, entityType: CustomEnti
             QuantityLootDrop(generate(CustomItemType.PREMIUM_FLESH), 1, 2, this),
             ChancedItemDrop(generate(CustomItemType.ENCHANTED_FLESH), 50, this),
 
-            ChancedItemDrop(LOOT_SMITE_SCROLL, 1, this),
+            ChancedItemDrop(LOOT_SMITE_SCROLL, 65, this),
             ChancedItemDrop(generate(CustomItemType.UNDIGESTED_BRAINS), 333, this),
             ChancedItemDrop(generate(CustomItemType.REVILED_VISCERA), 50, this)
         )

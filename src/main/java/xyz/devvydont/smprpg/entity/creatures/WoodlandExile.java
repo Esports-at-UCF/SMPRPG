@@ -5,6 +5,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.CustomEntityInstance;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
@@ -26,6 +27,9 @@ public class WoodlandExile<T extends LivingEntity> extends CustomEntityInstance<
 
     @Override
     public void setup() {
+        mobTypes.add(MobType.HUMANOID);
+        mobTypes.add(MobType.ILLAGER);
+
         super.setup();
         removeEquipment();
         setNoDropEquipment();

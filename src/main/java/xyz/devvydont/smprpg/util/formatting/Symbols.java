@@ -35,6 +35,26 @@ public class Symbols {
     public static final String PICKAXE = "⛏";
     public static final String AXE = "\uD83E\uDE93";
 
+    public static final String MOB_TYPE_AIRBORNE = "✈";
+    public static final String MOB_TYPE_ANIMAL = "☮";
+    public static final String MOB_TYPE_AQUATIC = "\uD83C\uDF0A";
+    public static final String MOB_TYPE_ARTHROPOD = "\uD83D\uDD77";
+    public static final String MOB_TYPE_BOSS = "\uD83D\uDC7F";
+    public static final String MOB_TYPE_CONSTRUCT = "\uD83E\uDD16";
+    public static final String MOB_TYPE_CUBIC = "\uD83D\uDD32";
+    public static final String MOB_TYPE_DRACONIC = "\uD83D\uDC09";
+    public static final String MOB_TYPE_ELEMENTAL = "\uD83E\uDDEA";
+    public static final String MOB_TYPE_ENDER = "\uD83E\uDDFF";
+    public static final String MOB_TYPE_FAE = "\uD83E\uDDDA";
+    public static final String MOB_TYPE_HUMANOID = "\uD83D\uDEB9";
+    public static final String MOB_TYPE_ILLAGER = "⚔";
+    public static final String MOB_TYPE_NETHER = "\uD83D\uDD25";
+    public static final String MOB_TYPE_PLANT = "\uD83E\uDD66";
+    public static final String MOB_TYPE_RARE = "\uD83E\uDE8E";
+    public static final String MOB_TYPE_SCULK = "\uD83D\uDC42";
+    public static final String MOB_TYPE_SEA_CREATURE = "⚓";
+    public static final String MOB_TYPE_UNDEAD = "☠";
+
     public static final String OFFSET_NEG_1 = "\uF801";
     public static final String OFFSET_NEG_2 = "\uF802";
     public static final String OFFSET_NEG_3 = "\uF803";

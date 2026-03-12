@@ -1,0 +1,20 @@
+package xyz.devvydont.smprpg.entity.vanilla;
+
+import org.bukkit.entity.Bee;
+import xyz.devvydont.smprpg.entity.MobType;
+import xyz.devvydont.smprpg.entity.base.VanillaEntity;
+
+public class LeveledBreeze extends VanillaEntity<Bee> {
+
+    public LeveledBreeze(Bee entity) {
+        super(entity);
+    }
+
+    @Override
+    public void setup() {
+        mobTypes.add(MobType.AIRBORNE);
+        mobTypes.add(MobType.ELEMENTAL);
+
+        super.setup();
+    }
+}

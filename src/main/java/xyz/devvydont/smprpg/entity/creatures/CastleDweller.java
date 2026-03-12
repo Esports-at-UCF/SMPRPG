@@ -9,6 +9,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.CustomEntityInstance;
 import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationParent;
 import xyz.devvydont.smprpg.items.CustomItemType;
@@ -36,6 +37,9 @@ public class CastleDweller extends CustomEntityInstance<ZombieVillager> {
 
     @Override
     public void setup() {
+        mobTypes.add(MobType.UNDEAD);
+        mobTypes.add(MobType.HUMANOID);
+
         super.setup();
         var professions = new java.util.ArrayList<>(RegistryAccess.registryAccess().getRegistry(RegistryKey.VILLAGER_PROFESSION).stream().toList());
         Collections.shuffle(professions);

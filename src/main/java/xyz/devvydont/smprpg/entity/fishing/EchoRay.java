@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.entity.fishing;
 import org.bukkit.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
@@ -29,6 +30,15 @@ public class EchoRay extends SeaCreature<LivingEntity> {
         return List.of(
                 new ChancedItemDrop(ItemService.generate(CustomItemType.ECHO_MEMBRANE), 2, this)
         );
+    }
+
+    @Override
+    public void setup() {
+        mobTypes.add(MobType.SEA_CREATURE);
+        mobTypes.add(MobType.ENDER);
+        mobTypes.add(MobType.AIRBORNE);
+
+        super.setup();
     }
 
 }

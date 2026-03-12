@@ -18,13 +18,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
+import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment;
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil;
 import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe;
+import xyz.devvydont.smprpg.entity.MobType;
+import xyz.devvydont.smprpg.entity.base.LeveledEntity;
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.EnchantmentService;
+import xyz.devvydont.smprpg.services.EntityService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 
 public class GenesisEnchantment extends CustomEnchantment implements Listener {
@@ -33,11 +37,10 @@ public class GenesisEnchantment extends CustomEnchantment implements Listener {
         return level * 30;
     }
 
-    public static boolean isEnder(EntityType type) {
-        return switch (type) {
-            case ENDERMAN, ENDER_DRAGON, PHANTOM, ENDERMITE -> true;
-            default -> false;
-        };
+    public static boolean isEnder(LeveledEntity<?> entity) {
+        if (entity.mobTypes.contains(MobType.ENDER))
+            return true;
+        return false;
     }
 
     public GenesisEnchantment(String id) {
@@ -173,7 +176,7 @@ public class GenesisEnchantment extends CustomEnchantment implements Listener {
     public void onDamageIllager(CustomEntityDamageByEntityEvent event) {
 
         // Skip non ender
-        if (!isEnder(event.damaged.getType()))
+        if (!isEnder(SMPRPG.getService(EntityService.class).getEntityInstance(event.damaged)))
             return;
 
         // Skip entity if they aren't alive

@@ -22,6 +22,7 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.services.SpecialEffectService;
 import xyz.devvydont.smprpg.effects.tasks.OverheatingEffect;
 import xyz.devvydont.smprpg.effects.tasks.TetheredEffect;
@@ -170,6 +171,10 @@ public class BlazeBoss extends CustomBossInstance<Blaze> implements Listener {
 
     @Override
     public void setup() {
+        mobTypes.add(MobType.BOSS);
+        mobTypes.add(MobType.NETHER);
+        mobTypes.add(MobType.ELEMENTAL);
+
         super.setup();
         this.updateBaseAttribute(AttributeWrapper.ARMOR, 0);
     }

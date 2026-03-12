@@ -6,6 +6,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
@@ -25,6 +26,15 @@ public class Magmapotamus extends SeaCreature<Hoglin> {
      */
     public Magmapotamus(LivingEntity entity, CustomEntityType entityType) {
         super((Hoglin) entity, entityType);
+    }
+
+    @Override
+    public void setup() {
+        mobTypes.add(MobType.SEA_CREATURE);
+        mobTypes.add(MobType.NETHER);
+        mobTypes.add(MobType.ANIMAL);
+
+        super.setup();
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.bukkit.entity.Phantom;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
@@ -25,6 +26,15 @@ public class Nidhogg extends SeaCreature<Phantom> {
      */
     public Nidhogg(LivingEntity entity, CustomEntityType entityType) {
         super((Phantom) entity, entityType);
+    }
+
+    @Override
+    public void setup() {
+        mobTypes.add(MobType.SEA_CREATURE);
+        mobTypes.add(MobType.RARE);
+        mobTypes.add(MobType.ENDER);
+
+        super.setup();
     }
 
     @Override

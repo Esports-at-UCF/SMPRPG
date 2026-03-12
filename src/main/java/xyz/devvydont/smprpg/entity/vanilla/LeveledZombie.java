@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.entity.vanilla;
 import org.bukkit.Material;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.VanillaEntity;
 
 public class LeveledZombie extends VanillaEntity<Zombie> {
@@ -13,6 +14,9 @@ public class LeveledZombie extends VanillaEntity<Zombie> {
 
     @Override
     public void setup() {
+        mobTypes.add(MobType.UNDEAD);
+        mobTypes.add(MobType.HUMANOID);
+
         super.setup();
 
         // Remove enchantments from zombie's items

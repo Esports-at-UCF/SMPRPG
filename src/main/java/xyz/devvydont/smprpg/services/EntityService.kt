@@ -34,7 +34,6 @@ import xyz.devvydont.smprpg.entity.bosses.LeveledDragon
 import xyz.devvydont.smprpg.entity.bosses.LeveledElderGuardian
 import xyz.devvydont.smprpg.entity.bosses.LeveledWarden
 import xyz.devvydont.smprpg.entity.bosses.LeveledWither
-import xyz.devvydont.smprpg.entity.creatures.CastleDweller
 import xyz.devvydont.smprpg.entity.interfaces.IDamageTrackable
 import xyz.devvydont.smprpg.entity.player.LeveledPlayer
 import xyz.devvydont.smprpg.entity.vanilla.*
@@ -73,19 +72,78 @@ class EntityService : IService, Listener {
 
         plugin.logger.info(String.format("Registered %s custom entity types", entityResolver.size))
 
+        vanillaEntityHandlers.put(EntityType.BAT, LeveledBat::class.java)
+        vanillaEntityHandlers.put(EntityType.CHICKEN, LeveledChicken::class.java)
+        vanillaEntityHandlers.put(EntityType.COW, LeveledCow::class.java)
+        vanillaEntityHandlers.put(EntityType.PIG, LeveledPig::class.java)
+        vanillaEntityHandlers.put(EntityType.SHEEP, LeveledSheep::class.java)
+        vanillaEntityHandlers.put(EntityType.CAMEL, LeveledCamel::class.java)
+        vanillaEntityHandlers.put(EntityType.DONKEY, LeveledDonkey::class.java)
+        vanillaEntityHandlers.put(EntityType.HORSE, LeveledHorse::class.java)
+        vanillaEntityHandlers.put(EntityType.MULE, LeveledMule::class.java)
+        vanillaEntityHandlers.put(EntityType.CAT, LeveledCat::class.java)
+        vanillaEntityHandlers.put(EntityType.PARROT, LeveledParrot::class.java)
+        vanillaEntityHandlers.put(EntityType.WOLF, LeveledWolf::class.java)
+        vanillaEntityHandlers.put(EntityType.ARMADILLO, LeveledArmadillo::class.java)
+        vanillaEntityHandlers.put(EntityType.BEE, LeveledBee::class.java)
+        vanillaEntityHandlers.put(EntityType.FOX, LeveledFox::class.java)
+        vanillaEntityHandlers.put(EntityType.GOAT, LeveledGoat::class.java)
+        vanillaEntityHandlers.put(EntityType.LLAMA, LeveledLlama::class.java)
+        vanillaEntityHandlers.put(EntityType.OCELOT, LeveledOcelot::class.java)
+        vanillaEntityHandlers.put(EntityType.PANDA, LeveledPanda::class.java)
+        vanillaEntityHandlers.put(EntityType.POLAR_BEAR, LeveledPolarBear::class.java)
+        vanillaEntityHandlers.put(EntityType.RABBIT, LeveledRabbit::class.java)
+
+        vanillaEntityHandlers.put(EntityType.AXOLOTL, LeveledAxolotl::class.java)
+        vanillaEntityHandlers.put(EntityType.COD, LeveledCod::class.java)
+        vanillaEntityHandlers.put(EntityType.DOLPHIN, LeveledDolphin::class.java)
+        vanillaEntityHandlers.put(EntityType.FROG, LeveledFrog::class.java)
+        vanillaEntityHandlers.put(EntityType.GLOW_SQUID, LeveledGlowSquid::class.java)
+        vanillaEntityHandlers.put(EntityType.NAUTILUS, LeveledNautilus::class.java)
+        vanillaEntityHandlers.put(EntityType.PUFFERFISH, LeveledPufferfish::class.java)
+        vanillaEntityHandlers.put(EntityType.SALMON, LeveledSalmon::class.java)
+        vanillaEntityHandlers.put(EntityType.SQUID, LeveledSquid::class.java)
+        vanillaEntityHandlers.put(EntityType.TADPOLE, LeveledTadpole::class.java)
+        vanillaEntityHandlers.put(EntityType.TROPICAL_FISH, LeveledTropicalFish::class.java)
+        vanillaEntityHandlers.put(EntityType.TURTLE, LeveledTurtle::class.java)
+
+        vanillaEntityHandlers.put(EntityType.MOOSHROOM, LeveledMushroomCow::class.java)
+        vanillaEntityHandlers.put(EntityType.SNIFFER, LeveledSniffer::class.java)
+
+        vanillaEntityHandlers.put(EntityType.IRON_GOLEM, LeveledIronGolem::class.java)
+        vanillaEntityHandlers.put(EntityType.COPPER_GOLEM, LeveledCopperGolem::class.java)
+        vanillaEntityHandlers.put(EntityType.SNOW_GOLEM, LeveledSnowGolem::class.java)
+
         vanillaEntityHandlers.put(EntityType.ZOMBIE, LeveledZombie::class.java)
         vanillaEntityHandlers.put(EntityType.SKELETON, LeveledSkeleton::class.java)
+        vanillaEntityHandlers.put(EntityType.PARCHED, LeveledParched::class.java)
         vanillaEntityHandlers.put(EntityType.STRAY, LeveledStray::class.java)
         vanillaEntityHandlers.put(EntityType.BOGGED, LeveledBogged::class.java)
+        vanillaEntityHandlers.put(EntityType.DROWNED, LeveledDrowned::class.java)
         vanillaEntityHandlers.put(EntityType.SPIDER, LeveledSpider::class.java)
         vanillaEntityHandlers.put(EntityType.CAVE_SPIDER, LeveledSpider::class.java)
         vanillaEntityHandlers.put(EntityType.CREEPER, LeveledCreeper::class.java)
+        vanillaEntityHandlers.put(EntityType.HUSK, LeveledZombie::class.java)
+        vanillaEntityHandlers.put(EntityType.GHAST, LeveledGhast::class.java)
+        vanillaEntityHandlers.put(EntityType.HAPPY_GHAST, LeveledHappyGhast::class.java)
+        vanillaEntityHandlers.put(EntityType.HOGLIN, LeveledHoglin::class.java)
+        vanillaEntityHandlers.put(EntityType.ZOGLIN, LeveledZoglin::class.java)
+        vanillaEntityHandlers.put(EntityType.PIGLIN, LeveledPiglin::class.java)
+        vanillaEntityHandlers.put(EntityType.PIGLIN_BRUTE, LeveledPiglinBrute::class.java)
+        vanillaEntityHandlers.put(EntityType.ZOMBIFIED_PIGLIN, LeveledPiglin::class.java)
+        vanillaEntityHandlers.put(EntityType.STRIDER, LeveledStrider::class.java)
         vanillaEntityHandlers.put(EntityType.ENDERMAN, LeveledEnderman::class.java)
+        vanillaEntityHandlers.put(EntityType.PHANTOM, LeveledPhantom::class.java)
         vanillaEntityHandlers.put(EntityType.ENDER_DRAGON, LeveledDragon::class.java)
         vanillaEntityHandlers.put(EntityType.WITHER, LeveledWither::class.java)
         vanillaEntityHandlers.put(EntityType.GUARDIAN, LeveledGuardian::class.java)
         vanillaEntityHandlers.put(EntityType.ELDER_GUARDIAN, LeveledElderGuardian::class.java)
         vanillaEntityHandlers.put(EntityType.WARDEN, LeveledWarden::class.java)
+
+        vanillaEntityHandlers.put(EntityType.SKELETON_HORSE, LeveledSkeletonHorse::class.java)
+        vanillaEntityHandlers.put(EntityType.ZOMBIE_HORSE, LeveledZombieHorse::class.java)
+        vanillaEntityHandlers.put(EntityType.CAMEL_HUSK, LeveledCamelHusk::class.java)
+        vanillaEntityHandlers.put(EntityType.ZOMBIE_NAUTILUS, LeveledZombieNautilus::class.java)
 
         vanillaEntityHandlers.put(EntityType.SLIME, LeveledSizedCube::class.java)
         vanillaEntityHandlers.put(EntityType.MAGMA_CUBE, LeveledSizedCube::class.java)
@@ -94,6 +152,15 @@ class EntityService : IService, Listener {
         vanillaEntityHandlers.put(EntityType.WITHER_SKELETON, LeveledWitherSkeleton::class.java)
 
         vanillaEntityHandlers.put(EntityType.VILLAGER, LeveledVillager::class.java)
+        vanillaEntityHandlers.put(EntityType.ZOMBIE_VILLAGER, LeveledZombieVillager::class.java)
+        vanillaEntityHandlers.put(EntityType.WANDERING_TRADER, LeveledWanderingTrader::class.java)
+        vanillaEntityHandlers.put(EntityType.TRADER_LLAMA, LeveledTraderLlama::class.java)
+        vanillaEntityHandlers.put(EntityType.VINDICATOR, LeveledVindicator::class.java)
+        vanillaEntityHandlers.put(EntityType.ILLUSIONER, LeveledIllusioner::class.java)
+        vanillaEntityHandlers.put(EntityType.WITCH, LeveledWitch::class.java)
+        vanillaEntityHandlers.put(EntityType.EVOKER, LeveledEvoker::class.java)
+        vanillaEntityHandlers.put(EntityType.VEX, LeveledVex::class.java)
+        vanillaEntityHandlers.put(EntityType.RAVAGER, LeveledRavager::class.java)
         vanillaEntityHandlers.put(EntityType.PILLAGER, LeveledPillager::class.java)
 
         vanillaEntityHandlers.put(EntityType.ARMOR_STAND, LeveledArmorStand::class.java)
@@ -329,8 +396,6 @@ class EntityService : IService, Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     private fun onEntitySpawnForTheFirstTime(event: CreatureSpawnEvent) {
         val entity = getEntityInstance(event.getEntity())
-        entity.setup()
-        trackEntity(entity)
         entity.resetLevel()
 
         val leveledSpawnEvent = LeveledEntitySpawnEvent(entity)
