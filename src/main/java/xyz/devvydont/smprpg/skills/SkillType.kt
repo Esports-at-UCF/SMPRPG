@@ -1,18 +1,19 @@
 package xyz.devvydont.smprpg.skills
 
 import org.bukkit.NamespacedKey
+import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.skills.rewards.SkillRewardContainer
 import xyz.devvydont.smprpg.skills.rewards.definitions.*
 import xyz.devvydont.smprpg.util.formatting.MinecraftStringUtils
 
-enum class SkillType(val rewards: SkillRewardContainer) {
-    COMBAT(CombatSkillRewards()),
-    WOODCUTTING(WoodcuttingSkillRewards()),
-    MINING(MiningSkillRewards()),
-    MAGIC(MagicSkillRewards()),
-    FARMING(FarmingSkillRewards()),
-    FISHING(FishingSkillRewards()),
-    SLAYER(SlayerSkillRewards());
+enum class SkillType(val rewards: SkillRewardContainer, val proficiencyAttribute : AttributeWrapper) {
+    COMBAT(CombatSkillRewards(), AttributeWrapper.COMBAT_PROFICIENCY),
+    WOODCUTTING(WoodcuttingSkillRewards(), AttributeWrapper.WOODCUTTING_PROFICIENCY),
+    MINING(MiningSkillRewards(), AttributeWrapper.MINING_PROFICIENCY),
+    MAGIC(MagicSkillRewards(), AttributeWrapper.MAGIC_PROFICIENCY),
+    FARMING(FarmingSkillRewards(), AttributeWrapper.FARMING_PROFICIENCY),
+    FISHING(FishingSkillRewards(), AttributeWrapper.FISHING_PROFICIENCY),
+    SLAYER(SlayerSkillRewards(), AttributeWrapper.SLAYER_PROFICIENCY);
 
     val identifier: String = "skill_${name.lowercase()}"
 

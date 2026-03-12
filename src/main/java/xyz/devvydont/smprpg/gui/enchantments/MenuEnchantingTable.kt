@@ -1,6 +1,5 @@
 package xyz.devvydont.smprpg.gui.enchantments
 
-import io.papermc.paper.datacomponent.DataComponentType
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.CustomModelData
 import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent
@@ -11,7 +10,9 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.Sound
+import org.bukkit.attribute.AttributeModifier
 import org.bukkit.block.EnchantingTable
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
@@ -26,18 +27,22 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
+import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.block.CustomBlock
+import xyz.devvydont.smprpg.events.CustomEnchantItemEvent
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.UndigestedBrains
+import xyz.devvydont.smprpg.services.AttributeService
+import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.extensions.takeIfPresent
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
-import java.util.HashMap
 import java.util.function.Consumer
 
 const val ITEM_SLOT = 13;
@@ -73,6 +78,7 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
     private var actionButtonState = ActionButtonState.DISABLED
     private val runeBlocks : MutableMap<RuneType, Int> = getRuneMap(enchantingTable)
     private val shelfPower = getShelfPower(enchantingTable)
+    private val runeProfKey = NamespacedKey(plugin, "rune_magic_proficiency_bonus")
 
     init {
         this.sounds.setMenuOpen(Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1f, 1f)
@@ -381,13 +387,26 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
         if (player.inventory.takeIfPresent(*ingredients.toTypedArray())) {
             val numMemorizationRunes = runeBlocks.getOrDefault(RuneType.RUNE_MEMORIZATION, 0)
             val numFortuityRunes = runeBlocks.getOrDefault(RuneType.RUNE_FORTUITY, 0)
-            val proficiencyBonus = runeBlocks.getOrDefault(RuneType.RUNE_POTENTIAL, 0) + (runeBlocks.getOrDefault(RuneType.RUNE_INSIGHT, 0) * 4)
+            val proficiencyBonus = (runeBlocks.getOrDefault(RuneType.RUNE_POTENTIAL, 0) * 2) + (runeBlocks.getOrDefault(RuneType.RUNE_INSIGHT, 0) * 8)
+            val profInst = instance.getOrCreateAttribute(player, AttributeWrapper.MAGIC_PROFICIENCY)
+            profInst.addModifier(
+                AttributeModifier(
+                    runeProfKey,
+                    proficiencyBonus.toDouble(),
+                    AttributeModifier.Operation.ADD_NUMBER
+                )
+            )
+            profInst.save(player, AttributeWrapper.MAGIC_PROFICIENCY)
             val random = Math.random()
 
             enchantItem.addEnchantment(enchant, enchantItem.getEnchantmentLevel(enchant) + 1)
+            val enchantEvent = CustomEnchantItemEvent(player, enchantingTable.block, enchantItem, enchant, enchantLevel)
+            enchantEvent.callEvent()
             if (numFortuityRunes > 0) {
-                if (random <= numFortuityRunes * 0.0025)
-                    attemptDoubleEnchant(enchantItem, enchantLevel, enchant, proficiencyBonus)
+                if (random <= numFortuityRunes * 0.25) {
+                    if (attemptDoubleEnchant(enchantItem, enchantLevel, enchant))
+                        enchantEvent.callEvent()
+                }
             }
             if (numMemorizationRunes > 0) {
                 // Roll 5% per Memorization rune to not consume scroll.
@@ -402,6 +421,8 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
                 scrollItem.amount--
             player.playSound(player.location, Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1f, 1f)
             ItemService.blueprint(enchantItem).updateItemData(enchantItem)
+            profInst.removeModifier(runeProfKey)
+            profInst.save(player, AttributeWrapper.MAGIC_PROFICIENCY)
             generateEnchantButton()
             return true
         }
@@ -599,22 +620,23 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
         return ingredients
     }
 
-    fun attemptDoubleEnchant(enchantItem : ItemStack, enchantLevel : Int, enchant : Enchantment, proficiencyBonus : Int) {
+    fun attemptDoubleEnchant(enchantItem : ItemStack, enchantLevel : Int, enchant : Enchantment) : Boolean {
         // Can't double enchant past max level.
         if ((enchantLevel + 1) >= enchant.maxLevel) {
-            return
+            return false
         }
 
         // Check that we meet the magic level requirement for the next tier of enchantment.
         val nextRecipe = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant)?.getRecipe(enchantLevel + 1)
         val lvlPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
         if (getRequiredLevelForRecipe(nextRecipe!!.power) > lvlPlayer.magicSkill.level) {
-            return
+            return false
         }
 
         enchantItem.addEnchantment(enchant, enchantItem.getEnchantmentLevel(enchant) + 1)
         player.playSound(player.location, Sound.BLOCK_BEACON_ACTIVATE, 1f, 2f)
         player.playSound(player.location, Sound.BLOCK_BEACON_POWER_SELECT, 1f, 2f)
+        return true
     }
 
     @EventHandler

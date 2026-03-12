@@ -26,7 +26,7 @@ public class RuneFortuity extends BlockBlueprint implements IFooterDescribable {
     @Override
     public List<Component> getFooter(ItemStack itemStack) {
         return List.of(
-                ComponentUtils.create("When placed under an Enchanting Table:", NamedTextColor.LIGHT_PURPLE),
+                ComponentUtils.create("When placed under an Enchanting Table (3x3):", NamedTextColor.LIGHT_PURPLE),
                 ComponentUtils.merge(
                         ComponentUtils.create("Enchantments have a ", NamedTextColor.GRAY),
                         ComponentUtils.create("+" + 0.25 + "%", NamedTextColor.DARK_PURPLE),

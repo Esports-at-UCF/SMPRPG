@@ -467,6 +467,69 @@ public enum AttributeWrapper {
                     create(" you earn.")
             )),
 
+    COMBAT_PROFICIENCY("Combat Proficiency",
+            AttributeCategory.SPECIAL,
+            AttributeType.HELPFUL,
+            merge(
+                    create("How much extra "),
+                    create("combat experience", GREEN),
+                    create(" you earn.")
+            )),
+
+    MINING_PROFICIENCY("Mining Proficiency",
+            AttributeCategory.SPECIAL,
+            AttributeType.HELPFUL,
+            merge(
+                    create("How much extra "),
+                    create("mining experience", GREEN),
+                    create(" you earn.")
+            )),
+
+    FISHING_PROFICIENCY("Fishing Proficiency",
+            AttributeCategory.SPECIAL,
+            AttributeType.HELPFUL,
+            merge(
+                    create("How much extra "),
+                    create("fishing experience", GREEN),
+                    create(" you earn.")
+            )),
+
+    FARMING_PROFICIENCY("Farming Proficiency",
+            AttributeCategory.SPECIAL,
+            AttributeType.HELPFUL,
+            merge(
+                    create("How much extra "),
+                    create("farming experience", GREEN),
+                    create(" you earn.")
+            )),
+
+    WOODCUTTING_PROFICIENCY("Woodcutting Proficiency",
+            AttributeCategory.SPECIAL,
+            AttributeType.HELPFUL,
+            merge(
+                    create("How much extra "),
+                    create("woodcutting experience", GREEN),
+                    create(" you earn.")
+            )),
+
+    MAGIC_PROFICIENCY("Magic Proficiency",
+            AttributeCategory.SPECIAL,
+            AttributeType.HELPFUL,
+            merge(
+                    create("How much extra "),
+                    create("magic experience", GREEN),
+                    create(" you earn.")
+            )),
+
+    SLAYER_PROFICIENCY("Slayer Proficiency",
+            AttributeCategory.SPECIAL,
+            AttributeType.HELPFUL,
+            merge(
+                    create("How much extra "),
+                    create("slayer experience", GREEN),
+                    create(" you earn.")
+            )),
+
     ZOMBIE_REINFORCEMENTS(Attribute.SPAWN_REINFORCEMENTS,
             "Zombie Reinforcements",
             AttributeCategory.SPECIAL,

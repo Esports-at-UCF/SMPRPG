@@ -26,17 +26,17 @@ public class RunePotential extends BlockBlueprint implements IFooterDescribable 
     @Override
     public List<Component> getFooter(ItemStack itemStack) {
         return List.of(
-                ComponentUtils.create("When placed under an Enchanting Table:", NamedTextColor.LIGHT_PURPLE),
+                ComponentUtils.create("When placed under an Enchanting Table (3x3):", NamedTextColor.LIGHT_PURPLE),
                 ComponentUtils.merge(
                         ComponentUtils.create("Grants ", NamedTextColor.GRAY),
-                        ComponentUtils.create("+" + 1 + " Magic Proficiency", NamedTextColor.DARK_PURPLE),
+                        ComponentUtils.create("+" + 2 + " Magic Proficiency", NamedTextColor.DARK_PURPLE),
                         ComponentUtils.create(".", NamedTextColor.GRAY)
                 ),
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("When placed directly under an Enchanting Table:", NamedTextColor.LIGHT_PURPLE),
                 ComponentUtils.merge(
                         ComponentUtils.create("Grants ", NamedTextColor.GRAY),
-                        ComponentUtils.create("+" + 2 + " Magic Proficiency", NamedTextColor.DARK_PURPLE),
+                        ComponentUtils.create("+" + 4 + " Magic Proficiency", NamedTextColor.DARK_PURPLE),
                         ComponentUtils.create(".", NamedTextColor.GRAY)
                 )
         );

@@ -216,7 +216,7 @@ public abstract class CustomEnchantment implements Cloneable {
         return SMPRPG.getService(EnchantmentService.class).getEnchantment(getTypedKey());
     }
 
-    public int getMagicExperience() {
+    public int getMagicExperience(int level) {
         // 100-1000 XP for level bonus
         int levelBonus = (int) (getLevel()/(double)getMaxLevel() * 900 + 100);
         // Rarity multiplier, rarer enchants provide better bonuses
@@ -224,6 +224,10 @@ public abstract class CustomEnchantment implements Cloneable {
         int rarityBonus = (int) (1.0 / (getWeight() + 1.0)) * 900 + 100;
 
         return levelBonus + rarityBonus;
+    }
+
+    public int getMagicExperience() {
+        return getMagicExperience(0);
     }
 
     @Override

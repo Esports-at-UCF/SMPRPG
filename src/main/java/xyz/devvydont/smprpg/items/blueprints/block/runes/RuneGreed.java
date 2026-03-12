@@ -26,7 +26,7 @@ public class RuneGreed extends BlockBlueprint implements IFooterDescribable {
     @Override
     public List<Component> getFooter(ItemStack itemStack) {
         return List.of(
-                ComponentUtils.create("When placed under an Enchanting Table:", NamedTextColor.LIGHT_PURPLE),
+                ComponentUtils.create("When placed under an Enchanting Table (3x3):", NamedTextColor.LIGHT_PURPLE),
                 ComponentUtils.merge(
                         ComponentUtils.create("Reduces reagent requirements by ", NamedTextColor.GRAY),
                         ComponentUtils.create("1.5%", NamedTextColor.DARK_PURPLE),

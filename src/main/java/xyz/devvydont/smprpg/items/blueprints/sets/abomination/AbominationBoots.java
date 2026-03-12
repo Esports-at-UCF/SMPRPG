@@ -88,6 +88,8 @@ public class AbominationBoots extends AbominationArmorSet implements IBreakableE
         if (killer != null) {
             if (entity.getPersistentDataContainer().getOrDefault(KeyStore.SLAYER_SPAWN_TYPE, PersistentDataType.STRING,"").equals(ShamblingAbominationParent.SPAWN_MOB_FLAG)) {
                 var item = killer.getInventory().getItem(EquipmentSlot.FEET);
+                if (!(ItemService.blueprint(item) instanceof AbominationBoots))
+                    return;
                 int nextMilestone = getNextKillMilestone(item);
                 int kills = item.getPersistentDataContainer().getOrDefault(killstoreKey, PersistentDataType.INTEGER, 0);
                 item.editPersistentDataContainer(

@@ -200,4 +200,9 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
     public RegistryKeySet<Enchantment> getConflictingEnchantments() {
         return RegistrySet.keySet(RegistryKey.ENCHANTMENT, EnchantmentKeys.SHARPNESS, EnchantmentKeys.BANE_OF_ARTHROPODS);
     }
+
+    @Override
+    public int getMagicExperience() {
+        return getLevel() * 200 * (1 + (getLevel() * 3 / getMaxLevel()));
+    }
 }

@@ -26,7 +26,7 @@ public class RuneDivinity extends BlockBlueprint implements IFooterDescribable {
     @Override
     public List<Component> getFooter(ItemStack itemStack) {
         return List.of(
-                ComponentUtils.create("When 4 Runes are placed under an Enchanting Table:", NamedTextColor.LIGHT_PURPLE),
+                ComponentUtils.create("When 4 Runes are placed under an Enchanting Table (3x3):", NamedTextColor.LIGHT_PURPLE),
                 ComponentUtils.merge(
                         ComponentUtils.create("Unlocks the ability to apply ", NamedTextColor.GRAY),
                         ComponentUtils.create("Blessings ", NamedTextColor.YELLOW),
