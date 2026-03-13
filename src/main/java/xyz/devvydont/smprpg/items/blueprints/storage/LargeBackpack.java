@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.storage;
 
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
@@ -26,8 +27,8 @@ public class LargeBackpack extends BackpackBase implements IModelOverridden, ICr
     }
 
     @Override
-    public Material getDisplayMaterial() {
-        return Material.BLUE_BUNDLE;
+    public Key getDisplayKey() {
+        return IModelOverridden.ofMaterial(Material.BLUE_BUNDLE);
     }
 
     @Override

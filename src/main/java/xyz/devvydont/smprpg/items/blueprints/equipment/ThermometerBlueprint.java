@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.equipment;
 
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
@@ -72,8 +73,8 @@ public class ThermometerBlueprint extends CustomItemBlueprint implements Listene
     }
 
     @Override
-    public Material getDisplayMaterial() {
-        return Material.REDSTONE_TORCH;
+    public Key getDisplayKey() {
+        return IModelOverridden.ofMaterial(Material.REDSTONE_TORCH);
     }
 
     @Override

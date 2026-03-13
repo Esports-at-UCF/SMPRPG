@@ -1,6 +1,7 @@
 package xyz.devvydont.smprpg.items.blueprints.tomes;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
@@ -29,8 +30,8 @@ public class SimpleTome extends CustomAttributeItem implements IModelOverridden 
     }
 
     @Override
-    public Material getDisplayMaterial() {
-        return Material.PAPER;
+    public Key getDisplayKey() {
+        return IModelOverridden.ofMaterial(Material.PAPER);
     }
 
     @Override

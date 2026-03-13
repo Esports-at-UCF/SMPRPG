@@ -308,7 +308,7 @@ public abstract class SMPItemBlueprint {
 
         // Apply a model override if desired.
         if (this instanceof IModelOverridden overridden)
-            itemStack.setData(DataComponentTypes.ITEM_MODEL, IModelOverridden.ofMaterial(overridden.getDisplayMaterial()));
+            itemStack.setData(DataComponentTypes.ITEM_MODEL, overridden.getDisplayKey());
 
         // Apply custom texture data if present. This also will remove the ability to equip it.
         if (this instanceof ICustomTextured textured) {

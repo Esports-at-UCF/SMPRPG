@@ -1,6 +1,7 @@
 package xyz.devvydont.smprpg.items.blueprints.equipment;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import net.kyori.adventure.key.Key;
 import org.bukkit.*;
 import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.EquipmentSlotGroup;
@@ -113,8 +114,8 @@ public class TransmissionWand extends CustomAttributeItem implements ICraftable,
     }
 
     @Override
-    public Material getDisplayMaterial() {
-        return Material.DIAMOND_SHOVEL;
+    public Key getDisplayKey() {
+        return IModelOverridden.ofMaterial(Material.DIAMOND_SHOVEL);
     }
 
 }

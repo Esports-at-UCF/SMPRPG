@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.inferno;
 
+import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CraftingRecipe;
@@ -32,8 +33,8 @@ public class InfernoSaber extends CustomAttributeItem implements ICraftable, IMo
     }
 
     @Override
-    public Material getDisplayMaterial() {
-        return Material.BLAZE_ROD;
+    public Key getDisplayKey() {
+        return IModelOverridden.ofMaterial(Material.BLAZE_ROD);
     }
 
     @Override

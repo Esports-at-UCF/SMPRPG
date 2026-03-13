@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.items.blueprints.fishing;
 
 import io.papermc.paper.datacomponent.item.Consumable;
 import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect;
+import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -118,16 +119,8 @@ public class FishBlueprint extends CustomItemBlueprint implements IModelOverridd
      * @return The material texture override.
      */
     @Override
-    public Material getDisplayMaterial() {
-        return switch (this.getCustomItemType()) {
-            // case CATFISH -> Material.CAT_SPAWN_EGG;
-            // case LIONFISH -> Material.FOX_SPAWN_EGG;
-            // case COD, PIKE, GUPPY -> Material.COD;
-            // case SALMON, BLISTERFISH -> Material.SALMON;
-            // case PUFFERFISH, VOIDFIN -> Material.PUFFERFISH;
-            // case CLOWNFISH -> Material.TROPICAL_FISH;
-            default -> this.getCustomItemType().DisplayMaterial;
-        };
+    public Key getDisplayKey() {
+        return IModelOverridden.ofMaterial(this.getCustomItemType().DisplayMaterial);
     }
 
     @Override
