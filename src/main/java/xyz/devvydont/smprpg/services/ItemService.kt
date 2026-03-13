@@ -92,6 +92,7 @@ class ItemService : IService, Listener {
         listeners.add(BackpackInteractionListener())
         listeners.add(AbilityCastingListener())
         listeners.add(CustomItemFurnacePreventions())
+        listeners.add(VelocitySensitiveItemListener())
     }
 
     @Throws(RuntimeException::class)

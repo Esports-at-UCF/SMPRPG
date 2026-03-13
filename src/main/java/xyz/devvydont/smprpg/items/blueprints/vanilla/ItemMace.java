@@ -23,7 +23,7 @@ import xyz.devvydont.smprpg.services.ItemService;
 import java.util.Collection;
 import java.util.List;
 
-public class ItemMace extends VanillaAttributeItem implements IBreakableEquipment, IMace, Listener {
+public class ItemMace extends VanillaAttributeItem implements IBreakableEquipment, IMace {
 
     public static final int MACE_POWER_RATING = 30;
     public static final int MACE_DURABILITY = 10_000;
@@ -36,7 +36,7 @@ public class ItemMace extends VanillaAttributeItem implements IBreakableEquipmen
 
     @Override
     public double getVelocityMultiplier() {
-        return 1.0;
+        return 0.5;
     }
 
     @Override
@@ -72,34 +72,5 @@ public class ItemMace extends VanillaAttributeItem implements IBreakableEquipmen
         return MACE_DURABILITY;
     }
 
-    /**
-     * Maces have the special property of dealing increased damage based on how fast the person is falling.
-     * @param event
-     */
-    @EventHandler(ignoreCancelled = true)
-    private void __onMaceDamage(CustomEntityDamageByEntityEvent event) {
 
-        // Can the damaging entity hold equipment?
-        if (!(event.dealer instanceof LivingEntity livingEntity))
-            return;
-
-        var equipment = livingEntity.getEquipment();
-        if (equipment == null)
-            return;
-
-        // Are they holding a mace?
-        var item = equipment.getItemInMainHand();
-        var blueprint = itemService.getBlueprint(item);
-        if (!(blueprint instanceof IMace))
-            return;
-
-
-        // Falling?
-        if (livingEntity.isOnGround())
-            return;
-
-        // Multiply damage by their downwards velocity.
-        var downwardsVelocity = livingEntity.getVelocity().getY();
-        Bukkit.broadcast(Component.text(downwardsVelocity));
-    }
 }
