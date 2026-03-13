@@ -5,6 +5,7 @@ import com.destroystokyo.paper.event.block.BlockDestroyEvent
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.title.Title
 import org.bukkit.*
 import org.bukkit.block.Block
 import org.bukkit.block.BlockState
@@ -222,6 +223,13 @@ class LootService : IService, Listener {
         if (!entity.hasLootTable())
             return
 
+        if (event.player.gameMode == GameMode.SPECTATOR) {
+            event.isCancelled = true
+            event.player.showTitle(Title.title(ComponentUtils.EMPTY, ComponentUtils.error("You cannot open loot chests in spectator mode!"), 5, 60, 40))
+            event.player.playSound(event.player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 1.0f, 1.0f)
+            return
+        }
+
         handleLootableInteraction(event, event.player, entity)
     }
 
@@ -245,6 +253,13 @@ class LootService : IService, Listener {
 
         if (!state.hasLootTable())
             return
+
+        if (event.player.gameMode == GameMode.SPECTATOR) {
+            event.isCancelled = true
+            event.player.showTitle(Title.title(ComponentUtils.EMPTY, ComponentUtils.error("You cannot open loot chests in spectator mode!"), 5, 60, 40))
+            event.player.playSound(event.player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 1.0f, 1.0f)
+            return
+        }
 
         handleLootableInteraction(event, event.player, state)
     }
