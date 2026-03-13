@@ -2,9 +2,8 @@ package xyz.devvydont.smprpg.gui.enchantments
 
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.CustomModelData
+import io.papermc.paper.datacomponent.item.ItemEnchantments
 import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent
-import io.papermc.paper.registry.RegistryKey
-import io.papermc.paper.registry.TypedKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -34,8 +33,6 @@ import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
-import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.UndigestedBrains
-import xyz.devvydont.smprpg.services.AttributeService
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
@@ -436,15 +433,7 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
 
     fun getEnchant(scroll : ItemStack?) : Enchantment? {
         if (scroll != null) {
-            val enchantId = scroll.persistentDataContainer.getOrDefault(
-                DynamicEnchantingScroll.SCROLL_ENCHANT_TYPE_KEY,
-                PersistentDataType.STRING, ""
-            )
-            val enchant: Enchantment = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(
-                TypedKey.create(
-                    RegistryKey.ENCHANTMENT, enchantId
-                )
-            )
+            val enchant = scroll.getData(DataComponentTypes.STORED_ENCHANTMENTS)!!.enchantments().keys.toTypedArray()[0]
             return enchant
         }
         return null

@@ -28,7 +28,12 @@ public class EchoRay extends SeaCreature<LivingEntity> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.ECHO_MEMBRANE), 2, this)
+                new ChancedItemDrop(ItemService.generate(CustomItemType.ECHO_MEMBRANE), 2, this),
+                new ChancedItemDrop(lureScroll, 500, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 500, this),
+                new ChancedItemDrop(impalingScroll, 500, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 500, this),
+                new ChancedItemDrop(treasureHunterScroll, 500, this)
         );
     }
 

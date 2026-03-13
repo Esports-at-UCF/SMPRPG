@@ -36,7 +36,11 @@ public class Cinderling extends SeaCreature<LivingEntity> implements Listener {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.CINDERITE), 2, this)
+                new ChancedItemDrop(ItemService.generate(CustomItemType.CINDERITE), 2, this),
+                new ChancedItemDrop(lureScroll, 800, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 800, this),
+                new ChancedItemDrop(impalingScroll, 800, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 800, this)
         );
     }
 

@@ -38,7 +38,12 @@ public class SpacePig extends SeaCreature<Pig> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.SPACE_HELMET), 1000, this)
+                new ChancedItemDrop(ItemService.generate(CustomItemType.SPACE_HELMET), 1000, this),
+                new ChancedItemDrop(lureScroll, 300, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 300, this),
+                new ChancedItemDrop(impalingScroll, 300, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 300, this),
+                new ChancedItemDrop(treasureHunterScroll, 300, this)
         );
     }
 

@@ -19,6 +19,7 @@ import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
 import xyz.devvydont.smprpg.items.interfaces.ICustomTextured
+import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 
@@ -37,7 +38,7 @@ open class ShamblingAbominationParent
     open var enrageThreshold = 0.5
     open var explosionDamage = 500.0
 
-    open val LOOT_SMITE_SCROLL : ItemStack = generate(CustomItemType.ENCHANTING_SCROLL)
+    open val LOOT_SMITE_SCROLL : ItemStack = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.SMITE)
 
     override fun setup() {
         mobTypes.add(MobType.BOSS);

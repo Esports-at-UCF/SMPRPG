@@ -33,6 +33,7 @@ public class LeveledCreeper extends VanillaEntity<Creeper> {
     @Override
     public void setup() {
         mobTypes.add(MobType.CUBIC);
+        mobTypes.add(MobType.PLANT);
         mobTypes.add(MobType.ELEMENTAL);
 
         super.setup();

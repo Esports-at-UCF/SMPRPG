@@ -39,6 +39,11 @@ public class Kraken extends SeaCreature<LivingEntity> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
+                new ChancedItemDrop(lureScroll, 100, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 100, this),
+                new ChancedItemDrop(impalingScroll, 100, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 100, this),
+                new ChancedItemDrop(treasureHunterScroll, 100, this)
         );
     }
 }

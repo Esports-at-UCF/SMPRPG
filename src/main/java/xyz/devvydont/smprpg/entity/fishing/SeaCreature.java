@@ -10,12 +10,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
 import xyz.devvydont.smprpg.entity.base.CustomEntityInstance;
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
+import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll;
 import xyz.devvydont.smprpg.items.interfaces.IFishingRod;
+import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.skills.SkillType;
 import xyz.devvydont.smprpg.skills.utils.SkillExperienceReward;
@@ -36,6 +39,12 @@ public class SeaCreature<T extends LivingEntity> extends CustomEntityInstance<T>
     private @Nullable UUID spawnedBy = null;
 
     private final String _team = "smprpg:sea_creatures";
+
+    public final ItemStack impalingScroll = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.IMPALING);
+    public final ItemStack lureScroll = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.LURE);
+    public final ItemStack luckOfTheSeaScroll = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.LUCK_OF_THE_SEA);
+    public final ItemStack abyssalInstinctScroll = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.ABYSSAL_INSTINCT);
+    public final ItemStack treasureHunterScroll = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.TREASURE_HUNTER);
 
     /**
      * An unsafe constructor to use to allow dynamic creation of custom entities.

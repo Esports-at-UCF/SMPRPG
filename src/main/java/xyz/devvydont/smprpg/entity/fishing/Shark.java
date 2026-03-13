@@ -58,7 +58,10 @@ public class Shark extends SeaCreature<Dolphin> implements Listener {
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
             new ChancedItemDrop(ItemService.generate(CustomItemType.SHARK_FIN), 1, this),
-            new ChancedItemDrop(ItemService.generate(CustomItemType.PREDATOR_TOOTH), 50, this)
+            new ChancedItemDrop(ItemService.generate(CustomItemType.PREDATOR_TOOTH), 50, this),
+                new ChancedItemDrop(lureScroll, 800, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 800, this),
+                new ChancedItemDrop(impalingScroll, 800, this)
         );
     }
 

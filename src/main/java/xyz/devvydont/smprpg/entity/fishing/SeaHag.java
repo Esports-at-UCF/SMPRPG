@@ -32,7 +32,10 @@ public class SeaHag extends SeaCreature<LivingEntity> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-            new ChancedItemDrop(ItemService.generate(CustomItemType.HEXED_CLOTH), 1, this)
+            new ChancedItemDrop(ItemService.generate(CustomItemType.HEXED_CLOTH), 1, this),
+                new ChancedItemDrop(lureScroll, 700, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 700, this),
+                new ChancedItemDrop(impalingScroll, 700, this)
         );
     }
 }

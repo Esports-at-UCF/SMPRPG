@@ -9,6 +9,7 @@ import xyz.devvydont.smprpg.entity.CustomEntityType;
 import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.fishing.goals.SnappingTurtleAttackGoal;
 import xyz.devvydont.smprpg.services.ItemService;
+import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
 import xyz.devvydont.smprpg.util.items.LootDrop;
 import xyz.devvydont.smprpg.util.items.QuantityLootDrop;
 
@@ -50,7 +51,9 @@ public class SnappingTurtle extends SeaCreature<Turtle> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new QuantityLootDrop(ItemService.generate(Material.TURTLE_SCUTE), 1, 2, this)
+                new QuantityLootDrop(ItemService.generate(Material.TURTLE_SCUTE), 1, 2, this),
+                new ChancedItemDrop(lureScroll, 900, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 900, this)
         );
     }
 }

@@ -56,7 +56,11 @@ public class SeaBear extends SeaCreature<PolarBear> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.MIDNIGHT_HIDE), 1, this)
+                new ChancedItemDrop(ItemService.generate(CustomItemType.MIDNIGHT_HIDE), 1, this),
+                new ChancedItemDrop(lureScroll, 600, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 600, this),
+                new ChancedItemDrop(impalingScroll, 600, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 600, this)
         );
     }
 }

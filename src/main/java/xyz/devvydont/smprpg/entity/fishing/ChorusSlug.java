@@ -50,7 +50,12 @@ public class ChorusSlug extends SeaCreature<Endermite> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.ERRATIC_SLIME), 1, this)
+                new ChancedItemDrop(ItemService.generate(CustomItemType.ERRATIC_SLIME), 1, this),
+                new ChancedItemDrop(lureScroll, 400, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 400, this),
+                new ChancedItemDrop(impalingScroll, 400, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 400, this),
+                new ChancedItemDrop(treasureHunterScroll, 400, this)
         );
     }
 }

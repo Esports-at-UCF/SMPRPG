@@ -1,5 +1,7 @@
 package xyz.devvydont.smprpg.gui.player
 
+import io.papermc.paper.datacomponent.DataComponentTypes
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.util.TriState
@@ -7,11 +9,7 @@ import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
-import org.bukkit.event.inventory.InventoryAction
-import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.event.inventory.InventoryCloseEvent
-import org.bukkit.event.inventory.InventoryOpenEvent
-import org.bukkit.event.inventory.InventoryType
+import org.bukkit.event.inventory.*
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.entity.player.EquipmentSet
@@ -22,6 +20,7 @@ import xyz.devvydont.smprpg.gui.InterfaceUtil
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.ItemClassification
+import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.WardrobeService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -170,13 +169,18 @@ class InterfaceWardrobe(parent: MenuBase?, viewer: Player, val target: Player) :
             lore.add(ComponentUtils.EMPTY)
             lore.add(ComponentUtils.create("Click to view upgrades!", NamedTextColor.YELLOW))
 
+            val upgradeButton = InterfaceUtil.getNamedItemWithDescription(
+                Material.CLAY_BALL,
+                ComponentUtils.create("Upgrade Slots", NamedTextColor.GREEN),
+                lore
+            )
+            upgradeButton.setData(
+                DataComponentTypes.ITEM_MODEL,
+                IModelOverridden.ofMaterial(Material.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
+            )
             this.setButton(
                 47,
-                InterfaceUtil.getNamedItemWithDescription(
-                    Material.NETHERITE_UPGRADE_SMITHING_TEMPLATE,
-                    ComponentUtils.create("Upgrade Slots", NamedTextColor.GREEN),
-                    lore
-                )
+                upgradeButton
             ) { _: InventoryClickEvent ->
                 savePage()
                 this.openSubMenu(InterfaceWardrobeUpgrades(this.player, this))

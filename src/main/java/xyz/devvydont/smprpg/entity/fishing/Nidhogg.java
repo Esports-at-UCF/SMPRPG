@@ -40,7 +40,12 @@ public class Nidhogg extends SeaCreature<Phantom> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.ECHO_MEMBRANE), 1, this)
+                new ChancedItemDrop(ItemService.generate(CustomItemType.ECHO_MEMBRANE), 1, this),
+                new ChancedItemDrop(lureScroll, 1, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 1, this),
+                new ChancedItemDrop(impalingScroll, 1, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 1, this),
+                new ChancedItemDrop(treasureHunterScroll, 1, this)
         );
     }
 

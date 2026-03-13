@@ -54,7 +54,12 @@ public class GhostKraken extends SeaCreature<Ghast> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.SPOOKY_TENDRIL), 1, this)
+                new ChancedItemDrop(ItemService.generate(CustomItemType.SPOOKY_TENDRIL), 1, this),
+                new ChancedItemDrop(lureScroll, 600, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 600, this),
+                new ChancedItemDrop(impalingScroll, 600, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 600, this),
+                new ChancedItemDrop(treasureHunterScroll, 600, this)
         );
     }
 }

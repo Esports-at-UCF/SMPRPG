@@ -109,6 +109,7 @@ class EntityService : IService, Listener {
 
         vanillaEntityHandlers.put(EntityType.MOOSHROOM, LeveledMushroomCow::class.java)
         vanillaEntityHandlers.put(EntityType.SNIFFER, LeveledSniffer::class.java)
+        vanillaEntityHandlers.put(EntityType.CREAKING, LeveledCreaking::class.java)
 
         vanillaEntityHandlers.put(EntityType.IRON_GOLEM, LeveledIronGolem::class.java)
         vanillaEntityHandlers.put(EntityType.COPPER_GOLEM, LeveledCopperGolem::class.java)
@@ -155,6 +156,7 @@ class EntityService : IService, Listener {
         vanillaEntityHandlers.put(EntityType.ZOMBIE_VILLAGER, LeveledZombieVillager::class.java)
         vanillaEntityHandlers.put(EntityType.WANDERING_TRADER, LeveledWanderingTrader::class.java)
         vanillaEntityHandlers.put(EntityType.TRADER_LLAMA, LeveledTraderLlama::class.java)
+        vanillaEntityHandlers.put(EntityType.ALLAY, LeveledAllay::class.java)
         vanillaEntityHandlers.put(EntityType.VINDICATOR, LeveledVindicator::class.java)
         vanillaEntityHandlers.put(EntityType.ILLUSIONER, LeveledIllusioner::class.java)
         vanillaEntityHandlers.put(EntityType.WITCH, LeveledWitch::class.java)

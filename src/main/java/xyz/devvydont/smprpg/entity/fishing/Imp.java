@@ -7,6 +7,8 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
 import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.items.CustomItemType;
+import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll;
+import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
 import xyz.devvydont.smprpg.util.items.LootDrop;
@@ -40,5 +42,18 @@ public class Imp extends SeaCreature<Blaze> {
     public void updateAttributes() {
         super.updateAttributes();
         updateBaseAttribute(AttributeWrapper.SCALE, .5);
+    }
+
+    @Override
+    public @Nullable Collection<LootDrop> getItemDrops() {
+        var fireAspectScroll = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.FIRE_ASPECT);
+        return List.of(
+                new ChancedItemDrop(lureScroll, 700, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 700, this),
+                new ChancedItemDrop(impalingScroll, 700, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 700, this),
+                new ChancedItemDrop(treasureHunterScroll, 700, this),
+                new ChancedItemDrop(fireAspectScroll, 200, this)
+        );
     }
 }

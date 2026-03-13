@@ -44,7 +44,12 @@ public class FlamingSiren extends SeaCreature<Bogged> {
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
                 new ChancedItemDrop(ItemService.generate(CustomItemType.DISSIPATING_SEA_SHELL), 1, this),
-                new ChancedItemDrop(ItemService.generate(CustomItemType.HYPNOTIC_EYE), 25, this)
+                new ChancedItemDrop(ItemService.generate(CustomItemType.HYPNOTIC_EYE), 25, this),
+                new ChancedItemDrop(lureScroll, 400, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 400, this),
+                new ChancedItemDrop(impalingScroll, 400, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 400, this),
+                new ChancedItemDrop(treasureHunterScroll, 400, this)
         );
     }
 }

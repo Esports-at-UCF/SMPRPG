@@ -31,8 +31,6 @@ class LootListener : ToggleableListener() {
         HashMap<NamespacedKey?, CustomLootTable?>()
 
     init {
-        val scrollItem = generate(CustomItemType.ENCHANTING_SCROLL);
-
         val SCROLL_EFFICIENCY = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.EFFICIENCY)
         val SCROLL_FORTUNE = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.FORTUNE)
 
@@ -52,6 +50,7 @@ class LootListener : ToggleableListener() {
                 LootTableMember(generate(CustomItemType.SILVER_COIN)).withChance(.2f).withMax(5)
             )
         )
+
 
         lootTableAdditions.put(
             LootTables.END_CITY_TREASURE.key, CustomLootTable(

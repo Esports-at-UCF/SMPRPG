@@ -46,7 +46,12 @@ public class Magmapotamus extends SeaCreature<Hoglin> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.FLAMEBROILED_PORKCHOP), 1, this)
+                new ChancedItemDrop(ItemService.generate(CustomItemType.FLAMEBROILED_PORKCHOP), 1, this),
+                new ChancedItemDrop(lureScroll, 300, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 300, this),
+                new ChancedItemDrop(impalingScroll, 300, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 300, this),
+                new ChancedItemDrop(treasureHunterScroll, 300, this)
         );
     }
 }
