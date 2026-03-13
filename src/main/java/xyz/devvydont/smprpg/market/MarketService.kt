@@ -1,6 +1,8 @@
 package xyz.devvydont.smprpg.market
 
+import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Sound
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
@@ -74,16 +76,23 @@ class MarketService : IService, Listener {
         val player = event.player
         val playerUUID = player.uniqueId.toString()
 
+        val cmd = "/ah claim"
+        val cmdHoverTooltip = ComponentUtils.merge(
+            ComponentUtils.create("Click to run "),
+            ComponentUtils.create(cmd, NamedTextColor.GREEN),
+            ComponentUtils.create("!"),
+        )
+
         if (auctionManager.hasUnclaimedItems(playerUUID)) {
-            player.sendMessage(
-                ComponentUtils.alert(
-                    ComponentUtils.merge(
-                        ComponentUtils.create("You have unclaimed auction items! Use "),
-                        ComponentUtils.create("/ah claim", NamedTextColor.GREEN),
-                        ComponentUtils.create(" to collect them.")
-                    )
-                )
+            val msg = ComponentUtils.merge(
+                ComponentUtils.create("You have unclaimed auction items! Use ", NamedTextColor.GOLD),
+                ComponentUtils.create(cmd, NamedTextColor.GREEN)
+                    .clickEvent(ClickEvent.runCommand(cmd))
+                    .hoverEvent(cmdHoverTooltip),
+                ComponentUtils.create(" to collect them.", NamedTextColor.GOLD)
             )
+            player.sendMessage(ComponentUtils.alert(msg, NamedTextColor.GREEN))
+            player.playSound(player.location, Sound.ENTITY_VILLAGER_YES, 1f, 1f)
         }
     }
 }
