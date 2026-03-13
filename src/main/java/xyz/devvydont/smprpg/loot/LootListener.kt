@@ -33,6 +33,7 @@ class LootListener : ToggleableListener() {
     init {
         val SCROLL_EFFICIENCY = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.EFFICIENCY)
         val SCROLL_FORTUNE = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.FORTUNE)
+        val SCROLL_BLESSED = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.BLESSED)
 
 
         lootTableAdditions.put(
@@ -51,6 +52,12 @@ class LootListener : ToggleableListener() {
             )
         )
 
+        lootTableAdditions.put(
+            LootTables.RUINED_PORTAL.key, CustomLootTable(
+                LootTableMember(SCROLL_BLESSED).withChance(.2f).withMax(2),
+                LootTableMember(generate(CustomItemType.SILVER_COIN)).withChance(.2f).withMax(5)
+            )
+        )
 
         lootTableAdditions.put(
             LootTables.END_CITY_TREASURE.key, CustomLootTable(
