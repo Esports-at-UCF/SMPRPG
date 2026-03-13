@@ -219,6 +219,9 @@ class LootService : IService, Listener {
         if (entity !is StorageMinecart)
             return
 
+        if (!entity.hasLootTable())
+            return
+
         handleLootableInteraction(event, event.player, entity)
     }
 
