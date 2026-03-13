@@ -127,6 +127,9 @@ public abstract class CustomShortbow extends CustomAttributeItem implements IHea
         if (event.getItem().containsEnchantment(Enchantment.INFINITY))
             arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
 
+        if (event.getItem().containsEnchantment(Enchantment.FIRE_ASPECT))
+            arrow.setFireTicks(100);
+
         // We should be good to shoot an arrow. Manually call the shoot bow event so plugins can modify it.
         // This will also cause the damage listener to set the damage as intended on the arrow so we don't have to that
         EntityShootBowEvent bowEvent = new EntityShootBowEvent(event.getPlayer(), item, consumable, arrow, event.getHand(), 0.5f, shouldConsume);
