@@ -47,6 +47,8 @@ import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.VisceralAmal
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
 import xyz.devvydont.smprpg.items.blueprints.sets.abomination.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.breeze.BreezeborneStaff;
+import xyz.devvydont.smprpg.items.blueprints.sets.leather.LeatherConicalHat;
 import xyz.devvydont.smprpg.items.blueprints.sets.wood.WoodStaff;
 import xyz.devvydont.smprpg.items.blueprints.tomes.Necronomicon;
 import xyz.devvydont.smprpg.items.blueprints.tomes.SimpleTome;
@@ -401,6 +403,9 @@ public enum CustomItemType {
     // WOODEN SET
     WOODEN_STAFF("Wooden Staff",                     Material.STICK,              ItemRarity.COMMON,   WoodStaff.class),
 
+    // LEATHER SET
+    LEATHER_CONICAL_HAT("Leather Conical Hat", Material.LEATHER_HELMET, ItemRarity.COMMON, LeatherConicalHat.class),
+
     // COBBLESTONE SET
     COBBLESTONE_HELMET("Cobblestone Helmet",         Material.LEATHER_HELMET,     ItemRarity.UNCOMMON, CobblestoneHelmet.class),
     COBBLESTONE_CHESTPLATE("Cobblestone Chestplate", Material.LEATHER_CHESTPLATE, ItemRarity.UNCOMMON, CobblestoneChestplate.class),
@@ -482,6 +487,9 @@ public enum CustomItemType {
     EMERALD_CHESTPLATE("Emerald Chestplate",     Material.DIAMOND_CHESTPLATE, ItemRarity.RARE, EmeraldChestplate.class),
     EMERALD_LEGGINGS(  "Emerald Leggings",       Material.DIAMOND_LEGGINGS,   ItemRarity.RARE, EmeraldLeggings.class),
     EMERALD_BOOTS(     "Emerald Boots",          Material.DIAMOND_BOOTS,      ItemRarity.RARE, EmeraldBoots.class),
+
+    // BREEZE/TRIAL CHAMBERS
+    BREEZEBORNE_STAFF(    "Breezeborne Staff",  Material.STICK,           ItemRarity.RARE,     BreezeborneStaff.class),
 
     // REAVER
     REAVER_HELMET("Reaver Helmet",         Material.BLACK_STAINED_GLASS, ItemRarity.EPIC, ReaverHelmet.class),

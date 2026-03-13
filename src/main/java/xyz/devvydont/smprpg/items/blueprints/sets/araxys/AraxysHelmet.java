@@ -1,6 +1,7 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.araxys;
 
 import io.papermc.paper.datacomponent.item.Equippable;
+import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
@@ -26,8 +27,8 @@ public class AraxysHelmet extends AraxysArmorPiece implements IBreakableEquipmen
     }
 
     @Override
-    public Material getDisplayMaterial() {
-        return Material.SPAWNER;
+    public Key getDisplayKey() {
+        return IModelOverridden.ofMaterial(Material.SPAWNER);
     }
 
     @Override

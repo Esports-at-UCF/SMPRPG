@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.items.blueprints.food;
 import io.papermc.paper.datacomponent.item.Consumable;
 import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect;
 import io.papermc.paper.registry.keys.SoundEventKeys;
+import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -67,8 +68,8 @@ public class ShadowBrew extends CustomItemBlueprint implements ISellable, IEdibl
      * @return The material this item should render as.
      */
     @Override
-    public Material getDisplayMaterial() {
-        return Material.OMINOUS_BOTTLE;
+    public Key getDisplayKey() {
+        return IModelOverridden.ofMaterial(Material.OMINOUS_BOTTLE);
     }
 
     /**

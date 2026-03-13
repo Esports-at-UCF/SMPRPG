@@ -12,7 +12,7 @@ public interface IModelOverridden {
      * This allows you to change how an item looks without affecting its behavior.
      * @return The material this item should render as.
      */
-    Material getDisplayMaterial();
+    Key getDisplayKey();
 
     /**
      * Retrieve the model data of a material. Can be used as a shortcut for filling out this interface.

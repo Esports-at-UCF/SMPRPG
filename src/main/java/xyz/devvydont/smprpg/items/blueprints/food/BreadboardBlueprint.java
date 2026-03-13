@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.items.blueprints.food;
 
 import io.papermc.paper.datacomponent.item.Consumable;
 import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect;
+import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -62,8 +63,8 @@ public class BreadboardBlueprint extends CustomItemBlueprint implements IEdible,
      * @return The material this item should render as.
      */
     @Override
-    public Material getDisplayMaterial() {
-        return Material.IRON_TRAPDOOR;
+    public Key getDisplayKey() {
+        return IModelOverridden.ofMaterial(Material.IRON_TRAPDOOR);
     }
 
     @Override
