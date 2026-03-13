@@ -78,6 +78,7 @@ class SMPRPG : JavaPlugin() {
         services.add(PlayerFreezeService()) // Manages player freezing, for NPCs, abilities, etc.
         services.add(MarketService()) // Manages the auction house and bazaar marketplace systems.
         services.add(SlayerService()) // Manages slayer quests
+        services.add(LootService()) // Manages client sided, refreshable loot containers
 
         // Start all the services. Make sure nothing goes wrong.
         for (service in services) {
