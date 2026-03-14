@@ -34,7 +34,7 @@ public class BreachEnchantment extends VanillaEnchantment implements Listener {
             case 3 -> 600;
             case 4 -> 1000;
             case 5 -> 2000;
-            default -> getDefensePiercing(level) + (level-5)*1000;
+            default -> 1000 * level + 2000;
         };
     }
 

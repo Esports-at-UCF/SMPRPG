@@ -22,6 +22,7 @@ import xyz.devvydont.smprpg.commands.admin.CommandSimulateFishing
 import xyz.devvydont.smprpg.commands.admin.CommandSteal
 import xyz.devvydont.smprpg.commands.entity.CommandSummon
 import xyz.devvydont.smprpg.commands.inventory.CommandPeek
+import xyz.devvydont.smprpg.commands.items.CommandEnchant
 import xyz.devvydont.smprpg.commands.items.CommandGiveItem
 import xyz.devvydont.smprpg.commands.items.CommandReforge
 import xyz.devvydont.smprpg.commands.items.CommandSearchItem
@@ -54,6 +55,7 @@ class SMPRPGBootstrapper : PluginBootstrap {
             CommandPeek("peek"),
 
             // New commands that use the new API.
+            CommandEnchant("enchant"),  // Override for the vanilla enchant command.
             CommandSteal(),
             CommandAttribute(),
             CommandEcoAdmin(),
