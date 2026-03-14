@@ -489,7 +489,7 @@ public enum CustomItemType {
     EMERALD_BOOTS(     "Emerald Boots",          Material.DIAMOND_BOOTS,      ItemRarity.RARE, EmeraldBoots.class),
 
     // BREEZE/TRIAL CHAMBERS
-    BREEZEBORNE_STAFF(    "Breezeborne Staff",  Material.STICK,           ItemRarity.RARE,     BreezeborneStaff.class),
+    BREEZEBORNE_STAFF(    "Breezeborne Staff",  Material.STICK,           ItemRarity.LEGENDARY,     BreezeborneStaff.class),
 
     // REAVER
     REAVER_HELMET("Reaver Helmet",         Material.BLACK_STAINED_GLASS, ItemRarity.EPIC, ReaverHelmet.class),

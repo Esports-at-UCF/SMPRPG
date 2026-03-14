@@ -141,7 +141,9 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
             ComponentUtils.create("Increases damage dealt by "),
             ComponentUtils.create("+" + getPercentageIncrease(getLevel()) + "%", NamedTextColor.GREEN),
             ComponentUtils.create(" against "),
-            ComponentUtils.create("the undead", NamedTextColor.RED)
+            ComponentUtils.create(MobType.UNDEAD.getSymbol(), MobType.UNDEAD.getSymbolColor()),
+            ComponentUtils.create(" Undead", NamedTextColor.RED),
+            ComponentUtils.create(" mobs.")
         );
     }
 

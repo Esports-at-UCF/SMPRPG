@@ -8,10 +8,14 @@ import io.papermc.paper.datacomponent.item.Weapon;
 import io.papermc.paper.event.player.PlayerArmSwingEvent;
 import io.papermc.paper.registry.keys.SoundEventKeys;
 import net.kyori.adventure.key.Key;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.WindCharge;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.CraftingRecipe;
@@ -19,11 +23,14 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.ability.Ability;
 import xyz.devvydont.smprpg.ability.AbilityActivationMethod;
 import xyz.devvydont.smprpg.ability.AbilityCost;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
@@ -32,19 +39,25 @@ import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
 import xyz.devvydont.smprpg.items.interfaces.*;
 import xyz.devvydont.smprpg.services.ItemService;
+import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.formatting.Symbols;
+import xyz.devvydont.smprpg.util.items.AbilityUtil;
 import xyz.devvydont.smprpg.util.items.ToolGlobals;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class BreezeborneStaff extends CustomAttributeItem implements IBreakableEquipment, ICantCrit, IIntelligenceScaled, IMeleeVisual, ICraftable, IAbilityCaster, Listener, IModelOverridden {
+public class BreezeborneStaff extends CustomAttributeItem implements IBreakableEquipment, ICantCrit, IIntelligenceScaled, IMeleeVisual, ICraftable,
+        IAbilityCaster, IModelOverridden, IHeaderDescribable, Listener {
 
     public BreezeborneStaff(ItemService itemService, CustomItemType type) {
         super(itemService, type);
     }
 
     private boolean windchargeCooldown = false;
+    private double DAMAGE_MULT = 3.0;
 
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
@@ -58,6 +71,19 @@ public class BreezeborneStaff extends CustomAttributeItem implements IBreakableE
     @Override
     public int getPowerRating() {
         return 30;
+    }
+
+    @Override
+    public List<Component> getHeader(ItemStack itemStack) {
+        List<Component> components = new ArrayList<>();
+        components.add(AbilityUtil.getAbilityComponent("Air Shot (Passive)"));
+        components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create((int) DAMAGE_MULT + "x", NamedTextColor.GREEN)).append(ComponentUtils.create(" damage")));
+        components.add(ComponentUtils.create("against mobs that are not grounded."));
+        components.add(ComponentUtils.EMPTY);
+        components.add(AbilityUtil.getAbilityComponent("Wind-Attuned (Passive)"));
+        components.add(ComponentUtils.create("Your mage beam attack will ocassionally launch ").append(ComponentUtils.create("wind charges", NamedTextColor.AQUA).append(ComponentUtils.create("."))));
+
+        return components;
     }
 
     @Override
@@ -105,7 +131,7 @@ public class BreezeborneStaff extends CustomAttributeItem implements IBreakableE
 
     @Override
     public int getManaCost() {
-        return 20;
+        return 30;
     }
 
     @Override
@@ -120,12 +146,12 @@ public class BreezeborneStaff extends CustomAttributeItem implements IBreakableE
 
     @Override
     public int getParticleDensity() {
-        return 22;
+        return 26;
     }
 
     @Override
     public int getParticleRange() {
-        return 11;
+        return 13;
     }
 
     @Override
@@ -133,8 +159,8 @@ public class BreezeborneStaff extends CustomAttributeItem implements IBreakableE
         super.updateItemData(itemStack);
         itemStack.setData(DataComponentTypes.ATTACK_RANGE, AttackRange.attackRange()
                 .hitboxMargin(0.2f)
-                .maxReach(11.0f)
-                .maxCreativeReach(11.0f)
+                .maxReach(13.0f)
+                .maxCreativeReach(13.0f)
                 .build());
         itemStack.setData(DataComponentTypes.WEAPON, Weapon.weapon().build());
         itemStack.setData(DataComponentTypes.SWING_ANIMATION, SwingAnimation.swingAnimation()
@@ -167,7 +193,7 @@ public class BreezeborneStaff extends CustomAttributeItem implements IBreakableE
     }
 
     @EventHandler
-    public void onPlayerLeftClick(PlayerArmSwingEvent event) {
+    public void __onPlayerLeftClick(PlayerArmSwingEvent event) {
         var player = event.getPlayer();
 
         if (!isItemOfType(player.getEquipment().getItemInMainHand()))
@@ -182,6 +208,35 @@ public class BreezeborneStaff extends CustomAttributeItem implements IBreakableE
             );
             windchargeCooldown = true;
             Bukkit.getScheduler().runTaskLater(SMPRPG.getPlugin(), () -> this.windchargeCooldown = false, TickTime.HALF_SECOND);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void __onAirshotHit(CustomEntityDamageByEntityEvent event) {
+
+        // Is the attacked target a living entity?
+        if (!(event.damaged instanceof LivingEntity attacked))
+            return;
+
+        // Did the attacker use the cutlass?
+        if (!(event.dealer instanceof LivingEntity living))
+            return;
+
+        if (living.getEquipment() == null)
+            return;
+
+        if (!isItemOfType(living.getEquipment().getItemInMainHand()))
+            return;
+
+        // Is this a direct event?
+        if (event.isIndirect())
+            return;
+
+        // Increase our damage if they are in the air.
+        if (!attacked.isOnGround()) {
+            event.multiplyDamage(DAMAGE_MULT);
+            attacked.getWorld().playSound(attacked.getLocation(), Sound.ENTITY_BREEZE_CHARGE, .5f, 2.0f);
+            attacked.getWorld().spawnParticle(Particle.END_ROD, attacked.getEyeLocation(), 5);
         }
     }
 

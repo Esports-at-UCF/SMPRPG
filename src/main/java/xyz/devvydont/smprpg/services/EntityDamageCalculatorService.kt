@@ -173,13 +173,11 @@ class EntityDamageCalculatorService : Listener, IService {
             if (bp is IIntelligenceScaled) {
                 if (dealer is Player) {
                     val playerWrapper = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer)
-                    if (playerWrapper != null) {
-                        val int = playerWrapper.mana;
-                        damage = getIntelligenceScaledDamage(damage, int, bp.intelligenceScaleFactor)
-                        playerWrapper.useMana(bp.manaCost);
-                        val meleeAttackEvent = MeleeAttackEvent(playerWrapper, bp);
-                        meleeAttackEvent.callEvent();
-                    }
+                    val int = playerWrapper.mana;
+                    damage = getIntelligenceScaledDamage(damage, int, bp.intelligenceScaleFactor)
+                    playerWrapper.useMana(bp.manaCost);
+                    val meleeAttackEvent = MeleeAttackEvent(playerWrapper, bp);
+                    meleeAttackEvent.callEvent();
                 }
             }
         }

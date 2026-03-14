@@ -33,6 +33,7 @@ public class LeveledWither extends BossInstance<Wither> {
     @Override
     public void setup() {
         mobTypes.add(MobType.BOSS);
+        mobTypes.add(MobType.NETHER);
         mobTypes.add(MobType.UNDEAD);
         mobTypes.add(MobType.CONSTRUCT);
 
