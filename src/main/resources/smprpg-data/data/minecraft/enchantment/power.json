@@ -19,12 +19,12 @@
   },
   "exclusive_set": "#minecraft:exclusive_set/damage",
   "max_cost": {
-    "base": 1000,
+    "base": 1100,
     "per_level_above_first": 11
   },
   "max_level": 5,
   "min_cost": {
-    "base": 1100,
+    "base": 1000,
     "per_level_above_first": 11
   },
   "primary_items": [],
@@ -32,5 +32,5 @@
     "mainhand"
   ],
   "supported_items": [],
-  "weight": 10
+  "weight": 1
 }

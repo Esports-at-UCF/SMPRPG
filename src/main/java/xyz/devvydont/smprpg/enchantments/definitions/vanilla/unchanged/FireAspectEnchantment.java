@@ -59,7 +59,7 @@ public class FireAspectEnchantment extends UnchangedEnchantment {
 
     @Override
     public TagKey<ItemType> getItemTypeTag() {
-        return ItemTypeTagKeys.ENCHANTABLE_WEAPON;
+        return ItemTypeTagKeys.ENCHANTABLE_FIRE_ASPECT;
     }
 
     @Override

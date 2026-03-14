@@ -69,7 +69,12 @@ public class DynamicEnchantingScroll extends CustomItemBlueprint implements IHea
     @Override
     public List<Component> getHeader(ItemStack itemStack) {
         Enchantment enchant = (Enchantment) itemStack.getData(DataComponentTypes.STORED_ENCHANTMENTS).enchantments().keySet().toArray()[0];
-        var color = enchant.description().color().equals(NamedTextColor.WHITE) ? NamedTextColor.GRAY : enchant.description().color();
+        var color = enchant.description().color();
+        if (color != null)
+            color = color.equals(NamedTextColor.WHITE) ? NamedTextColor.GRAY : enchant.description().color();
+        else {
+            color = NamedTextColor.DARK_RED;
+        }
         return List.of(
                 enchant.displayName(0).color(color)
         );

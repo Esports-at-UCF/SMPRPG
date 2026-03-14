@@ -433,9 +433,6 @@ class EnchantmentService : IService, Listener {
         val BLESSED: CustomEnchantment = BlessedEnchantment("blessed")
 
         @JvmField
-        val STABILIZED: CustomEnchantment = StabilizedEnchantment("stabilized")
-
-        @JvmField
         val PROFICIENT: CustomEnchantment = ProficientEnchantment("proficient")
 
         @JvmField
@@ -464,6 +461,9 @@ class EnchantmentService : IService, Listener {
 
         @JvmField
         val EXECUTE: CustomEnchantment = ExecuteEnchantment("execute")
+
+        @JvmField
+        val PROSECUTE: CustomEnchantment = ProsecuteEnchantment("prosecute")
 
         @JvmField
         val SYPHON: CustomEnchantment = SyphonEnchantment("syphon")
@@ -527,10 +527,8 @@ class EnchantmentService : IService, Listener {
             SMITE,
             BANE_OF_ARTHROPODS,
             VIGILANTE,
-            GENESIS,
-
             BLESSED,
-            STABILIZED,
+            GENESIS,
 
             SERRATED,
             OPPORTUNIST,
@@ -538,6 +536,7 @@ class EnchantmentService : IService, Listener {
             FIRST_STRIKE,
             DOUBLE_TAP,
             EXECUTE,
+            PROSECUTE,
 
             INFINITY,
 

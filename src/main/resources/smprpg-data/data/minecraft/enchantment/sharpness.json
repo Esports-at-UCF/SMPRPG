@@ -27,10 +27,10 @@
     "base": 1100,
     "per_level_above_first": 11
   },
-  "primary_items": "#minecraft:enchantable/melee_weapon",
+  "primary_items": [],
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/sharp_weapon",
-  "weight": 10
+  "supported_items": [],
+  "weight": 1
 }

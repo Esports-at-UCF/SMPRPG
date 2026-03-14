@@ -3,6 +3,7 @@
 import com.destroystokyo.paper.ParticleBuilder
 import com.destroystokyo.paper.event.block.BlockDestroyEvent
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent
+import io.papermc.paper.datacomponent.DataComponentTypes
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.title.Title
@@ -34,7 +35,9 @@ import org.bukkit.loot.LootTable
 import org.bukkit.loot.LootTables
 import org.bukkit.persistence.PersistentDataHolder
 import org.bukkit.persistence.PersistentDataType
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
+import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.*
 
@@ -203,6 +206,7 @@ class LootService : IService, Listener {
         }
 
         table.fillInventory(popupInventory, rng, ctx)
+        sanitizeLootInventory(popupInventory)
         holder.persistentDataContainer.set(key, PersistentDataType.BYTE_ARRAY, serializeItemCollection(popupInventory))
         holder.persistentDataContainer.set(getPlayerTimestampKey(player), PersistentDataType.LONG, now)
 
@@ -211,6 +215,33 @@ class LootService : IService, Listener {
 
         player.openInventory(popupInventory)
         lootContainerViewers[player.uniqueId] = LootInventoryContext(block, entity, popupInventory)
+    }
+
+    fun sanitizeLootInventory(inventory : Inventory) {
+        var i = -1
+        for (item in inventory.storageContents) {
+            i++
+            if (item == null)
+                continue
+
+            // Wipe emeralds from chests.
+            if (item.type == Material.EMERALD) {
+                val shard = ItemStack(Material.AMETHYST_SHARD)
+                shard.amount = item.amount
+                inventory.setItem(i, shard)
+            }
+
+            // Convert Enchanted Books into scrolls.
+            if (item.type == Material.ENCHANTED_BOOK) {
+                var enchants = item.getData(DataComponentTypes.STORED_ENCHANTMENTS)?.enchantments()
+                if (enchants != null) {
+                    // Grab random enchant from the book. That will become our scroll enchantment
+                    var customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchants.keys.random())
+                    val scroll = DynamicEnchantingScroll.getScrollWithEnchantment(customEnch)
+                    inventory.setItem(i, scroll)
+                }
+            }
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)

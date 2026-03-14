@@ -173,7 +173,7 @@ public class GenesisEnchantment extends CustomEnchantment implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onDamageIllager(CustomEntityDamageByEntityEvent event) {
+    public void onDamageEnder(CustomEntityDamageByEntityEvent event) {
 
         // Skip non ender
         if (!isEnder(SMPRPG.getService(EntityService.class).getEntityInstance(event.damaged)))

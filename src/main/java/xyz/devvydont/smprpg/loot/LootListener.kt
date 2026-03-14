@@ -8,7 +8,9 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.world.LootGenerateEvent
 import org.bukkit.generator.structure.GeneratedStructure
+import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
+import org.bukkit.loot.LootTable
 import org.bukkit.loot.LootTables
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.calculator.EnchantmentCalculator

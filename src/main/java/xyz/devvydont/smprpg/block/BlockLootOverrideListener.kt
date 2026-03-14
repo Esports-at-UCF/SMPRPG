@@ -77,9 +77,8 @@ class BlockLootOverrideListener : ToggleableListener() {
         // If we are using silk touch on our tool because of the enchantment...
         if (itemUsedToBreak.containsEnchantment(Enchantment.SILK_TOUCH)) ctx = BlockLootContext.SILK_TOUCH
 
-        // todo: turn boiling pick maybe into enchant? It is more sustainable that way.
-        // If we are using boiling touch... (auto smelt)
-        if (itemUsedToBreakBlueprint is BoilingPickaxe) ctx = BlockLootContext.AUTO_SMELT
+        // If we are using fire aspect... (auto smelt)
+        if (itemUsedToBreak.containsEnchantment(Enchantment.FIRE_ASPECT)) ctx = BlockLootContext.AUTO_SMELT
 
         // We now have context. If the block doesn't define the given context, we can let vanilla take over.
         val loot: Collection<BlockLoot> = entry.getLootForContext(ctx)
