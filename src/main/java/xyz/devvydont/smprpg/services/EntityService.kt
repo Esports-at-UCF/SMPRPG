@@ -167,6 +167,7 @@ class EntityService : IService, Listener {
 
         vanillaEntityHandlers.put(EntityType.ARMOR_STAND, LeveledArmorStand::class.java)
 
+        vanillaEntityHandlers.put(EntityType.MANNEQUIN, LeveledMannequin::class.java)
         vanillaEntityHandlers.put(EntityType.BLOCK_DISPLAY, LeveledDisplay::class.java)
         vanillaEntityHandlers.put(EntityType.ITEM_DISPLAY, LeveledDisplay::class.java)
         vanillaEntityHandlers.put(EntityType.TEXT_DISPLAY, LeveledDisplay::class.java)

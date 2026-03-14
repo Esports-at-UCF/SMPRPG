@@ -39,6 +39,7 @@ import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.util.crafting.ItemUtil
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.items.DropFireworkTask
+import xyz.devvydont.smprpg.util.items.DropHaloTask
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import xyz.devvydont.smprpg.util.persistence.PDCAdapters
 import xyz.devvydont.smprpg.util.tasks.VoidProtectionTask
@@ -533,7 +534,7 @@ class DropsService : IService, Listener {
         event.getEntity().isCustomNameVisible = nameVisible
 
         // If this is a drop and the rarity is above rare, add the firework task
-        if (getFlag(event.getEntity()) == DropFlag.LOOT && rarity.ordinal >= ItemRarity.RARE.ordinal) DropFireworkTask.start(
+        if (getFlag(event.getEntity()) == DropFlag.LOOT && rarity.ordinal >= ItemRarity.RARE.ordinal) DropHaloTask.start(
             event.getEntity()
         )
     }
