@@ -29,7 +29,7 @@ import xyz.devvydont.smprpg.util.items.ToolGlobals;
 import java.util.Collection;
 import java.util.List;
 
-public class WoodStaff extends CustomAttributeItem implements IBreakableEquipment, ICantCrit, IIntelligenceScaled, IMeleeVisual, ICraftable {
+public class WoodStaff extends CustomAttributeItem implements IBreakableEquipment, ICantCrit, IMageBeam, ICraftable {
 
     public WoodStaff(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -39,8 +39,9 @@ public class WoodStaff extends CustomAttributeItem implements IBreakableEquipmen
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 7),
-                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.5),
-                new AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 10)
+                new AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 10),
+                new AdditiveAttributeEntry(AttributeWrapper.ARCANE_RATING, 10),
+                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.5)
         );
     }
 
@@ -84,11 +85,6 @@ public class WoodStaff extends CustomAttributeItem implements IBreakableEquipmen
     @Override
     public int getMaxDurability() {
         return ToolGlobals.WOOD_TOOL_DURABILITY;
-    }
-
-    @Override
-    public double getIntelligenceScaleFactor() {
-        return 0.1;
     }
 
     @Override

@@ -74,6 +74,17 @@ public enum AttributeWrapper {
                     create(".")
             )),
 
+    ARCANE_RATING("Arcane Rating",
+            AttributeCategory.COMBAT,
+            AttributeType.HELPFUL,
+            merge(
+                    create("The "),
+                    create("damage", RED),
+                    create(" multiplier when performing "),
+                    create("magical", BLUE),
+                    create(" attacks.")
+            )),
+
     STRENGTH(Attribute.ATTACK_DAMAGE,
             "Strength",
             AttributeCategory.COMBAT,

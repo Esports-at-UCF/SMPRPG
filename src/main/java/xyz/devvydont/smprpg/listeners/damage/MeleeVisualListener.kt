@@ -1,14 +1,10 @@
 package xyz.devvydont.smprpg.listeners.damage
 
-import net.kyori.adventure.text.Component
-import org.bukkit.Bukkit
-import org.bukkit.Particle
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
-import org.bukkit.event.player.PlayerInteractAtEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import xyz.devvydont.smprpg.events.MeleeAttackEvent
-import xyz.devvydont.smprpg.items.interfaces.IMeleeVisual
+import xyz.devvydont.smprpg.items.interfaces.IMageBeam
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import xyz.devvydont.smprpg.util.particles.ParticleUtil
@@ -19,7 +15,7 @@ class MeleeVisualListener : ToggleableListener() {
         val entity = event.entity.entity;
         if (entity is LivingEntity) {
             val eyeLoc = entity.eyeLocation;
-            if (event.blueprint is IMeleeVisual) {
+            if (event.blueprint is IMageBeam) {
                 val bp = event.blueprint;
                 ParticleUtil.spawnParticlesBetweenTwoPoints(bp.hitParticle, entity.world,
                     eyeLoc.add(eyeLoc.direction).toVector(),
@@ -44,7 +40,7 @@ class MeleeVisualListener : ToggleableListener() {
 
         val player = event.player;
         val bp = ItemService.blueprint(player.inventory.itemInMainHand)
-        if (bp is IMeleeVisual) {
+        if (bp is IMageBeam) {
             val eyeLoc = player.eyeLocation
             ParticleUtil.spawnParticlesBetweenTwoPoints(bp.missParticle, player.world,
                 eyeLoc.add(eyeLoc.direction).toVector(),

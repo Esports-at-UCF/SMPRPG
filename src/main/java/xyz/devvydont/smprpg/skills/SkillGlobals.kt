@@ -166,8 +166,10 @@ object SkillGlobals {
 
     // The magic skill gives intelligence and luck.
     const val INT_PER_LEVEL: Double = 5.0
-    const val LUCK_PER_4_LEVELS: Double = 2.0
-    const val LUCK_LEVEL_FREQUENCY: Int = 4
+    const val ARCANE_RATING_PER_4_LEVELS: Double = 4.0
+    const val ARCANE_RATING_FREQUENCY : Int = 4
+    const val LUCK_PER_10_LEVELS: Double = 10.0
+    const val LUCK_LEVEL_FREQUENCY: Int = 10
 
     // The mining skill awards mining efficiency every 4 levels.
     const val MINING_SPEED_LEVEL_FREQUENCY = 4;

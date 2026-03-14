@@ -66,7 +66,7 @@ public class KeyStore {
 
     // Tag Keys
     public static final TagKey<ItemType> ENCHANTABLE_TOME = TagKey.create(RegistryKey.ITEM, Key.key(NAMESPACE, "enchantable/tome"));
-    public static final TagKey<ItemType> ENCHANTABLE_DAMAGE_ENCHANT = TagKey.create(RegistryKey.ITEM, Key.key(NAMESPACE, "enchantable/damage_enchant"));
+    public static final TagKey<ItemType> ENCHANTABLE_APTITUDE = TagKey.create(RegistryKey.ITEM, Key.key(NAMESPACE, "enchantable/aptitude"));
 
     // Structure Keys
     public static final Structure CASTLE_DWELLING = access.getRegistry(RegistryKey.STRUCTURE).get(Key.key(NAMESPACE, "castle_dwelling"));

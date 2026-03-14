@@ -10,21 +10,17 @@ import io.papermc.paper.registry.keys.SoundEventKeys;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.WindCharge;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.ability.Ability;
 import xyz.devvydont.smprpg.ability.AbilityActivationMethod;
@@ -40,16 +36,14 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
 import xyz.devvydont.smprpg.items.interfaces.*;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
-import xyz.devvydont.smprpg.util.formatting.Symbols;
 import xyz.devvydont.smprpg.util.items.AbilityUtil;
-import xyz.devvydont.smprpg.util.items.ToolGlobals;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class BreezeborneStaff extends CustomAttributeItem implements IBreakableEquipment, ICantCrit, IIntelligenceScaled, IMeleeVisual, ICraftable,
+public class BreezeborneStaff extends CustomAttributeItem implements IBreakableEquipment, ICantCrit, IMageBeam, ICraftable,
         IAbilityCaster, IModelOverridden, IHeaderDescribable, Listener {
 
     public BreezeborneStaff(ItemService itemService, CustomItemType type) {
@@ -63,8 +57,9 @@ public class BreezeborneStaff extends CustomAttributeItem implements IBreakableE
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 180),
-                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.5),
-                new AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 160)
+                new AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 160),
+                new AdditiveAttributeEntry(AttributeWrapper.ARCANE_RATING, 25),
+                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.5)
         );
     }
 
@@ -122,11 +117,6 @@ public class BreezeborneStaff extends CustomAttributeItem implements IBreakableE
     @Override
     public int getMaxDurability() {
         return 10_000;
-    }
-
-    @Override
-    public double getIntelligenceScaleFactor() {
-        return 0.25;
     }
 
     @Override

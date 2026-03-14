@@ -16,6 +16,7 @@ import xyz.devvydont.smprpg.ability.AbilityHandler
 import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.services.AttributeService
+import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
 import xyz.devvydont.smprpg.util.time.TickTime
 
@@ -77,17 +78,22 @@ class SonicSmashAbilityHandler : AbilityHandler {
         SMPRPG.getService(PlayerFreezeService::class.java).removeMovementWatch(ctx.caster.uniqueId)  // Unfreeze our caster
         ctx.caster.velocity = Vector(0.0, 1.2, 0.0)
 
-        var dmg = EntityDamageCalculatorService.getIntelligenceScaledDamage(DAMAGE.toDouble() + AttributeService.instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.STRENGTH).value,
-        AttributeService.instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.INTELLIGENCE).value,
-        ABILITY_SCALING)
+        var dmg = EntityDamageCalculatorService.getIntelligenceScaledDamage(
+            ShardStrikeAbilityHandler.Companion.DAMAGE.toDouble() + instance.getOrCreateAttribute(ctx.caster,
+                AttributeWrapper.STRENGTH).value,
+            instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.INTELLIGENCE).value,
+            ShardStrikeAbilityHandler.Companion.ABILITY_SCALING + instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.ARCANE_RATING).value)
         for (living in ctx.caster.location.getNearbyLivingEntities(EXPLOSION_RADIUS)) {
             if (living is Player) continue  // Don't damage players
 
             living.killer = ctx.caster as Player
 
             living.damage(
-                DAMAGE.toDouble(),
-                DamageSource.builder(DamageType.MAGIC).build()
+                dmg,
+                DamageSource.builder(DamageType.MAGIC)
+                    .withDirectEntity(ctx.caster)
+                    .withCausingEntity(ctx.caster)
+                    .withDamageLocation(ctx.caster.location).build()
             )
 
             ctx.caster.world.playSound(ctx.caster.location, Sound.ENTITY_WARDEN_SONIC_BOOM, 1f, 1f)

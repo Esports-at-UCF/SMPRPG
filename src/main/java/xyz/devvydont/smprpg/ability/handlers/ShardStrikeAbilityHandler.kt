@@ -1,20 +1,15 @@
 package xyz.devvydont.smprpg.ability.handlers
 
-import com.comphenix.protocol.PacketType
-import com.comphenix.protocol.ProtocolLibrary
-import com.comphenix.protocol.ProtocolManager
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.entity.Snowball
-import org.bukkit.inventory.EquipmentSlot
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.ability.AbilityContext
 import xyz.devvydont.smprpg.ability.AbilityHandler
-import xyz.devvydont.smprpg.ability.handlers.HotShotAbilityHandler.Companion.ABILITY_SCALING
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
-import xyz.devvydont.smprpg.services.AttributeService
+import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.time.TickTime
@@ -38,10 +33,10 @@ class ShardStrikeAbilityHandler : AbilityHandler {
             ctx.caster.location.getDirection().normalize().multiply(2)
         )
         var dmg = EntityDamageCalculatorService.getIntelligenceScaledDamage(
-            DAMAGE.toDouble() + AttributeService.instance.getOrCreateAttribute(ctx.caster,
+            DAMAGE.toDouble() + instance.getOrCreateAttribute(ctx.caster,
             AttributeWrapper.STRENGTH).value,
-            AttributeService.instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.INTELLIGENCE).value,
-            ABILITY_SCALING)
+            instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.INTELLIGENCE).value,
+            ABILITY_SCALING + instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.ARCANE_RATING).value)
         projectile.item = ItemService.generate(Material.AMETHYST_SHARD);
         projectile.setGravity(false)
         SMPRPG.getService(EntityDamageCalculatorService::class.java)

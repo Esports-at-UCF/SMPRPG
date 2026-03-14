@@ -22,11 +22,19 @@ class MagicSkillRewards : SkillRewardContainer() {
             SkillGlobals.INT_PER_LEVEL
         )
 
-        // Add luck every 4 levels. Ideally, this doesn't get out of control.
+        // Add arcane rating every 4 levels.
+        this.addAttributeRewardEveryXLevels(
+            AttributeWrapper.ARCANE_RATING,
+            AttributeModifier.Operation.ADD_NUMBER,
+            SkillGlobals.ARCANE_RATING_PER_4_LEVELS,
+            SkillGlobals.ARCANE_RATING_FREQUENCY
+        )
+
+        // Add luck every 10 levels. Ideally, this doesn't get out of control.
         this.addAttributeRewardEveryXLevels(
             AttributeWrapper.LUCK,
             AttributeModifier.Operation.ADD_NUMBER,
-            SkillGlobals.LUCK_PER_4_LEVELS,
+            SkillGlobals.LUCK_PER_10_LEVELS,
             SkillGlobals.LUCK_LEVEL_FREQUENCY
         )
 

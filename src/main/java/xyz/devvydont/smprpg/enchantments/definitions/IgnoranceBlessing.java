@@ -65,9 +65,7 @@ public class IgnoranceBlessing extends CustomEnchantment implements Listener {
     }
 
     @Override
-    public TagKey<ItemType> getItemTypeTag() {
-        return ItemTypeTagKeys.ENCHANTABLE_WEAPON;
-    }
+    public TagKey<ItemType> getItemTypeTag() { return ItemTypeTagKeys.ENCHANTABLE_WEAPON; }
 
     @Override
     public int getAnvilCost() {
@@ -89,7 +87,7 @@ public class IgnoranceBlessing extends CustomEnchantment implements Listener {
 
     @Override
     public EquipmentSlotGroup getEquipmentSlotGroup() {
-        return EquipmentSlotGroup.HEAD;
+        return EquipmentSlotGroup.ANY;
     }
 
     @Override

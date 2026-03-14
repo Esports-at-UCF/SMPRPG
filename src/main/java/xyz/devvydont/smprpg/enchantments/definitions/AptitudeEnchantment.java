@@ -52,15 +52,16 @@ public class AptitudeEnchantment extends CustomEnchantment implements AttributeE
     @Override
     public @NotNull Component getDescription() {
         return ComponentUtils.merge(
-            ComponentUtils.create("Increases intelligence by "),
-            ComponentUtils.create("+" + getIntelligenceIncrease(getLevel()), NamedTextColor.GREEN),
-            ComponentUtils.create(Symbols.MANA, NamedTextColor.AQUA)
+                ComponentUtils.create("Increases "),
+                ComponentUtils.create(AttributeWrapper.INTELLIGENCE.DisplayName, NamedTextColor.GOLD),
+                ComponentUtils.create(" by "),
+                ComponentUtils.create("+" + getIntelligenceIncrease(getLevel()), NamedTextColor.AQUA)
         );
     }
 
     @Override
     public TagKey<ItemType> getItemTypeTag() {
-        return KeyStore.ENCHANTABLE_TOME;
+        return KeyStore.ENCHANTABLE_APTITUDE;
     }
 
     @Override
@@ -80,7 +81,7 @@ public class AptitudeEnchantment extends CustomEnchantment implements AttributeE
 
     @Override
     public EquipmentSlotGroup getEquipmentSlotGroup() {
-        return EquipmentSlotGroup.OFFHAND;
+        return EquipmentSlotGroup.ANY;
     }
 
     @Override

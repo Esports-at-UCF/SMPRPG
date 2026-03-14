@@ -29,7 +29,7 @@ import xyz.devvydont.smprpg.util.items.ToolGlobals;
 import java.util.Collection;
 import java.util.List;
 
-public class MithrilStaff extends CustomAttributeItem implements IBreakableEquipment, ICantCrit, IIntelligenceScaled, IMeleeVisual, ICraftable {
+public class MithrilStaff extends CustomAttributeItem implements IBreakableEquipment, ICantCrit, IMageBeam, ICraftable {
 
     public MithrilStaff(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -39,8 +39,9 @@ public class MithrilStaff extends CustomAttributeItem implements IBreakableEquip
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 25),
-                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.5),
-                new AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 60)
+                new AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 60),
+                new AdditiveAttributeEntry(AttributeWrapper.ARCANE_RATING, 20),
+                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.5)
         );
     }
 
@@ -85,11 +86,6 @@ public class MithrilStaff extends CustomAttributeItem implements IBreakableEquip
     @Override
     public int getMaxDurability() {
         return ToolGlobals.TITANIUM_TOOL_DURABILITY;
-    }
-
-    @Override
-    public double getIntelligenceScaleFactor() {
-        return 0.2;
     }
 
     @Override

@@ -10,6 +10,7 @@ import xyz.devvydont.smprpg.ability.AbilityContext
 import xyz.devvydont.smprpg.ability.AbilityHandler
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.services.AttributeService
+import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
 import xyz.devvydont.smprpg.util.time.TickTime
 import java.util.*
@@ -32,10 +33,10 @@ class HotShotAbilityHandler : AbilityHandler {
             Fireball::class.java,
             ctx.caster.location.getDirection().normalize().multiply(2)
         )
-        var dmg = EntityDamageCalculatorService.getIntelligenceScaledDamage(DAMAGE.toDouble() + AttributeService.instance.getOrCreateAttribute(ctx.caster,
+        var dmg = EntityDamageCalculatorService.getIntelligenceScaledDamage(DAMAGE.toDouble() + instance.getOrCreateAttribute(ctx.caster,
             AttributeWrapper.STRENGTH).value,
-            AttributeService.instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.INTELLIGENCE).value,
-            ABILITY_SCALING)
+            instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.INTELLIGENCE).value,
+            ABILITY_SCALING + instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.ARCANE_RATING).value)
         SMPRPG.getService(EntityDamageCalculatorService::class.java)
             .setBaseProjectileDamage(projectile, dmg)
         setInfernoProjectile(projectile)

@@ -24,20 +24,16 @@ import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry;
-import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
-import xyz.devvydont.smprpg.items.blueprints.sets.inferno.InfernoArmorSet;
-import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword;
 import xyz.devvydont.smprpg.items.interfaces.*;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ToolGlobals;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
-import javax.xml.crypto.Data;
 import java.util.Collection;
 import java.util.List;
 
-public class AmethystStaff extends CustomAttributeItem implements IBreakableEquipment, ICantCrit, IIntelligenceScaled, IMeleeVisual, ICraftable, IAbilityCaster {
+public class AmethystStaff extends CustomAttributeItem implements IBreakableEquipment, ICantCrit, IMageBeam, ICraftable, IAbilityCaster {
 
     public AmethystStaff(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -47,8 +43,9 @@ public class AmethystStaff extends CustomAttributeItem implements IBreakableEqui
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 15),
-                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.5),
-                new AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 25)
+                new AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 25),
+                new AdditiveAttributeEntry(AttributeWrapper.ARCANE_RATING, 15),
+                new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.5)
         );
     }
 
@@ -93,11 +90,6 @@ public class AmethystStaff extends CustomAttributeItem implements IBreakableEqui
     @Override
     public int getMaxDurability() {
         return ToolGlobals.IRON_TOOL_DURABILITY;
-    }
-
-    @Override
-    public double getIntelligenceScaleFactor() {
-        return 0.15;
     }
 
     @Override

@@ -424,6 +424,9 @@ class EnchantmentService : IService, Listener {
         val LEECH: CustomEnchantment = LeechEnchantment("leech")
 
         @JvmField
+        val BURDEN: CustomEnchantment = BurdenEnchantment("burden")
+
+        @JvmField
         val TRACING: CustomEnchantment = BossTracingEnchantment("tracing")
 
         @JvmField
@@ -467,9 +470,6 @@ class EnchantmentService : IService, Listener {
 
         @JvmField
         val CALAMITY: CustomEnchantment = CalamityEnchantment("calamity")
-
-        @JvmField
-        val WISDOM: CustomEnchantment = WisdomEnchantment("wisdom")
 
         @JvmField
         val VIGILANTE: CustomEnchantment = VigilanteEnchantment("vigilante")
@@ -549,7 +549,6 @@ class EnchantmentService : IService, Listener {
             INSIGHT,
             VITALITY,
             CALAMITY,
-            WISDOM,
             APTITUDE,
 
             AQUA_AFFINITY,
@@ -592,6 +591,7 @@ class EnchantmentService : IService, Listener {
             VIGOROUS,
             FORTUITY,
             LEECH,
+            BURDEN,
             SYPHON,
             PROFICIENT,
             SPEEDSTER,

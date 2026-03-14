@@ -31,7 +31,7 @@ public class EfficiencyEnchantment extends VanillaEnchantment implements Attribu
     }
 
     public static int getMiningEfficiency(int level) {
-        return level * 100;
+        return level * 150;
     }
 
     @Override

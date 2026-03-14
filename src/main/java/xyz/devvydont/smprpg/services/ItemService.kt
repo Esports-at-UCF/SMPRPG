@@ -733,13 +733,13 @@ class ItemService : IService, Listener {
             )
         }
 
-        if (blueprint is IIntelligenceScaled) {
+        if (blueprint is IMageBeam) {
             lore.add(ComponentUtils.EMPTY)
             lore.add(
                 ComponentUtils.merge(
                     ComponentUtils.create("Mana Cost: "),
                     ComponentUtils.create(
-                        ((blueprint.manaCost).toInt()).toString(),
+                        (blueprint.manaCost).toString(),
                         NamedTextColor.AQUA
                     )
                 )

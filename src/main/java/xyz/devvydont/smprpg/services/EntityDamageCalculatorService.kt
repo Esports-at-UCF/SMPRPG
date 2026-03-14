@@ -23,7 +23,7 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
 import xyz.devvydont.smprpg.events.MeleeAttackEvent
-import xyz.devvydont.smprpg.items.interfaces.IIntelligenceScaled
+import xyz.devvydont.smprpg.items.interfaces.IMageBeam
 import xyz.devvydont.smprpg.listeners.damage.CriticalDamageListener
 import xyz.devvydont.smprpg.listeners.damage.DamagePopupListener
 import xyz.devvydont.smprpg.listeners.damage.EnvironmentalDamageListener
@@ -170,11 +170,12 @@ class EntityDamageCalculatorService : Listener, IService {
         val equipment = dealer.equipment;
         if (equipment != null) {
             val bp = blueprint(equipment.itemInMainHand);
-            if (bp is IIntelligenceScaled) {
+            if (bp is IMageBeam) {
                 if (dealer is Player) {
                     val playerWrapper = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer)
                     val int = playerWrapper.mana;
-                    damage = getIntelligenceScaledDamage(damage, int, bp.intelligenceScaleFactor)
+                    val arcRatingInst = instance.getOrCreateAttribute(dealer, AttributeWrapper.ARCANE_RATING)
+                    damage = getIntelligenceScaledDamage(damage, int, arcRatingInst.value)
                     playerWrapper.useMana(bp.manaCost);
                     val meleeAttackEvent = MeleeAttackEvent(playerWrapper, bp);
                     meleeAttackEvent.callEvent();
@@ -788,7 +789,7 @@ class EntityDamageCalculatorService : Listener, IService {
          */
         @JvmStatic
         fun getIntelligenceScaledDamage(baseDmg: Double, intelligence: Double, factor: Double): Double {
-            return baseDmg * (1 + ((intelligence / 100.0) * factor))
+            return baseDmg * (1 + ((intelligence / 100.0) * (factor / 100.0)))
         }
     }
 }
