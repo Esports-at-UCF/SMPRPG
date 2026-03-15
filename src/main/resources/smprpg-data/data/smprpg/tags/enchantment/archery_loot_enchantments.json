@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:bane_of_arthropods",
+    "minecraft:smite",
+    "minecraft:unbreaking",
+
+    "smprpg:snipe",
+    "smprpg:tracing",
+    "smprpg:velocity",
+    "smprpg:vigilante",
+
+    "smprpg:amplification"
+  ]
+}

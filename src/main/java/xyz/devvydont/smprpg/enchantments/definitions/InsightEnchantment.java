@@ -16,6 +16,7 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeModifierType;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.persistence.KeyStore;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,8 +27,15 @@ public class InsightEnchantment extends CustomEnchantment implements AttributeEn
         super(id);
     }
 
-    public static int getIntelligenceIncrease(int level) {
-        return MendingEnchantment.getRegeneration(level);
+    public static int getAracneRatingIncrease(int level) {
+        return switch (level) {
+            case 1 -> 5;
+            case 2 -> 10;
+            case 3 -> 15;
+            case 4 -> 25;
+            case 5 -> 40;
+            default -> 0;
+        };
     }
 
     @Override
@@ -39,15 +47,15 @@ public class InsightEnchantment extends CustomEnchantment implements AttributeEn
     public @NotNull Component getDescription() {
         return ComponentUtils.merge(
                 ComponentUtils.create("Increases "),
-                ComponentUtils.create(AttributeWrapper.INTELLIGENCE.DisplayName, NamedTextColor.GOLD),
+                ComponentUtils.create(AttributeWrapper.ARCANE_RATING.DisplayName, NamedTextColor.GOLD),
                 ComponentUtils.create(" by "),
-                ComponentUtils.create("+" + getIntelligenceIncrease(getLevel()), NamedTextColor.AQUA)
+                ComponentUtils.create("+" + getAracneRatingIncrease(getLevel()), NamedTextColor.AQUA)
         );
     }
 
     @Override
     public TagKey<ItemType> getItemTypeTag() {
-        return ItemTypeTagKeys.ENCHANTABLE_ARMOR;
+        return ItemTypeTagKeys.ENCHANTABLE_WEAPON;
     }
 
     @Override
@@ -83,7 +91,7 @@ public class InsightEnchantment extends CustomEnchantment implements AttributeEn
     @Override
     public Collection<AttributeEntry> getHeldAttributes() {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, getIntelligenceIncrease(getLevel()))
+                new AdditiveAttributeEntry(AttributeWrapper.ARCANE_RATING, getAracneRatingIncrease(getLevel()))
         );
     }
 

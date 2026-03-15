@@ -15,17 +15,12 @@ import org.bukkit.block.TileState
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.entity.minecart.StorageMinecart
-import org.bukkit.event.Cancellable
-import org.bukkit.event.EventHandler
-import org.bukkit.event.EventPriority
-import org.bukkit.event.HandlerList
-import org.bukkit.event.Listener
+import org.bukkit.event.*
 import org.bukkit.event.block.Action
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockExplodeEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
-import org.bukkit.event.player.PlayerInteractAtEntityEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.Inventory
@@ -37,6 +32,8 @@ import org.bukkit.persistence.PersistentDataHolder
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
+import xyz.devvydont.smprpg.attribute.AttributeWrapper
+import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.*
@@ -52,7 +49,7 @@ class LootService : IService, Listener {
     /**
      * How long in milliseconds chests should restock per player.
      */
-    val RESTOCK_COOLDOWN: Long = 24 * 60 * 60 * 1000
+    val RESTOCK_COOLDOWN: Long = 1//24 * 60 * 60 * 1000
 
     val rng = Random()
     val lootContainerViewers = HashMap<UUID, LootInventoryContext>()
@@ -187,7 +184,9 @@ class LootService : IService, Listener {
             if (holder is StorageMinecart && holder.lootTable != null)
                 table = holder.lootTable!!
         }
-        val ctx = LootContext.Builder(loc).build()
+        val playerLuck : Float = (AttributeService.instance.getOrCreateAttribute(player, AttributeWrapper.LUCK).value / 100.0).toFloat()
+        println(playerLuck)
+        val ctx = LootContext.Builder(loc).luck(playerLuck).build()
 
         // Handle the easy case where we only need to read already present items.
         if (playerLoot != null && restocksIn > 0) {
@@ -239,6 +238,18 @@ class LootService : IService, Listener {
                     var customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchants.keys.random())
                     val scroll = DynamicEnchantingScroll.getScrollWithEnchantment(customEnch)
                     inventory.setItem(i, scroll)
+                }
+            }
+
+            // Convert poisonous potatoes into SMPRPG items
+            // We use poisonous potatoes in the loot tables as a placeholder item, then supply the custom item ID as a component to decipher
+            if (item.type == Material.POISONOUS_POTATO) {
+                val itemService = SMPRPG.getService(ItemService::class.java)
+                var itemKey = item.persistentDataContainer.getOrDefault(itemService.itemTypeKey, PersistentDataType.STRING, "")
+                if (itemKey != null) {
+                    val newItem = itemService.getCustomItem(itemKey)
+                    newItem!!.amount = item.amount
+                    inventory.setItem(i, newItem)
                 }
             }
         }

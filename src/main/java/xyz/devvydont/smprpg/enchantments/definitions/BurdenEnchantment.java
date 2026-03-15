@@ -37,7 +37,7 @@ public class BurdenEnchantment extends CustomEnchantment implements Listener {
 
     @Override
     public @NotNull Component getDisplayName() {
-        return ComponentUtils.create("Leech");
+        return ComponentUtils.create("Burden");
     }
 
     @Override

@@ -166,7 +166,6 @@ class EnchantmentService : IService, Listener {
 
                 // table.persistentDataContainer
 
-                println(EnchantmentService.AMPLIFICATION_BLESSING.key)
                 MenuEnchantingTable(event.player, table).openMenu();
             }
         }
