@@ -117,6 +117,11 @@ public class BaneOfArthropodsEnchantment extends VanillaEnchantment implements L
      */
     @NotNull
     public RegistryKeySet<Enchantment> getConflictingEnchantments() {
-        return RegistrySet.keySet(RegistryKey.ENCHANTMENT, EnchantmentKeys.SMITE, EnchantmentService.VIGILANTE.getTypedKey(), EnchantmentService.VIGILANTE.getTypedKey());
+        return RegistrySet.keySet(RegistryKey.ENCHANTMENT,
+                EnchantmentKeys.SMITE,
+                EnchantmentService.BLESSED.getTypedKey(),
+                EnchantmentService.GENESIS.getTypedKey(),
+                EnchantmentService.VIGILANTE.getTypedKey(),
+                EnchantmentService.MUFFLE.getTypedKey());
     }
 }

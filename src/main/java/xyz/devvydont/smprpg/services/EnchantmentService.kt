@@ -411,6 +411,9 @@ class EnchantmentService : IService, Listener {
         val AMPLIFICATION_BLESSING: CustomEnchantment = AmplificationBlessing("amplification")
 
         @JvmField
+        val AERIAL_AFFINITY: CustomEnchantment = AerialAffinity("aerial_affinity")
+
+        @JvmField
         val FORTUITY: CustomEnchantment = FortuityEnchantment("fortuity")
 
         @JvmField
@@ -454,6 +457,9 @@ class EnchantmentService : IService, Listener {
 
         @JvmField
         val GENESIS: CustomEnchantment = GenesisEnchantment("genesis")
+
+        @JvmField
+        val MUFFLE: CustomEnchantment = MuffleEnchantment("muffle")
 
         @JvmField
         val DOUBLE_TAP: CustomEnchantment = DoubleTapEnchantment("double_tap")
@@ -528,6 +534,7 @@ class EnchantmentService : IService, Listener {
             VIGILANTE,
             BLESSED,
             GENESIS,
+            MUFFLE,
 
             SERRATED,
             OPPORTUNIST,
@@ -585,6 +592,7 @@ class EnchantmentService : IService, Listener {
             WIND_BURST,
             MENDING,
 
+            AERIAL_AFFINITY,
             CLIMBING,
             VIGOROUS,
             FORTUITY,

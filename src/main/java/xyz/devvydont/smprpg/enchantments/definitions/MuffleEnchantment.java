@@ -1,7 +1,6 @@
-package xyz.devvydont.smprpg.enchantments.definitions.vanilla.overrides;
+package xyz.devvydont.smprpg.enchantments.definitions;
 
 import io.papermc.paper.registry.RegistryKey;
-import io.papermc.paper.registry.TypedKey;
 import io.papermc.paper.registry.keys.EnchantmentKeys;
 import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
 import io.papermc.paper.registry.set.RegistryKeySet;
@@ -11,7 +10,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -20,9 +18,9 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.enchantments.CustomEnchantment;
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil;
-import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment;
 import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe;
 import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.LeveledEntity;
@@ -30,24 +28,22 @@ import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.services.EntityService;
-import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
-import xyz.devvydont.smprpg.util.persistence.KeyStore;
 
-public class SmiteEnchantment extends VanillaEnchantment implements Listener {
+public class MuffleEnchantment extends CustomEnchantment implements Listener {
 
     public static int getPercentageIncrease(int level) {
         return level * 30;
     }
 
-    public static boolean isUndead(LeveledEntity<?> entity) {
-        if (entity.mobTypes.contains(MobType.UNDEAD))
+    public static boolean isSculk(LeveledEntity<?> entity) {
+        if (entity.mobTypes.contains(MobType.SCULK))
             return true;
         return false;
     }
 
-    public SmiteEnchantment(TypedKey<Enchantment> key) {
-        super(key);
+    public MuffleEnchantment(String id) {
+        super(id);
     }
 
     @Override
@@ -132,7 +128,7 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
 
     @Override
     public @NotNull Component getDisplayName() {
-        return ComponentUtils.create("Smite");
+        return ComponentUtils.create("Vigilante");
     }
 
     @Override
@@ -141,9 +137,7 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
             ComponentUtils.create("Increases damage dealt by "),
             ComponentUtils.create("+" + getPercentageIncrease(getLevel()) + "%", NamedTextColor.GREEN),
             ComponentUtils.create(" against "),
-            ComponentUtils.create(MobType.UNDEAD.getSymbol(), MobType.UNDEAD.getSymbolColor()),
-            ComponentUtils.create(" Undead", NamedTextColor.RED),
-            ComponentUtils.create(" mobs.")
+            ComponentUtils.create("Sculk mobs", NamedTextColor.RED)
         );
     }
 
@@ -178,10 +172,10 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onDamageUndead(CustomEntityDamageByEntityEvent event) {
+    public void onDamageIllager(CustomEntityDamageByEntityEvent event) {
 
-        // Skip non undead
-        if (!isUndead(SMPRPG.getService(EntityService.class).getEntityInstance(event.damaged)))
+        // Skip non illager
+        if (!isSculk(SMPRPG.getService(EntityService.class).getEntityInstance(event.damaged)))
             return;
 
         // Skip entity if they aren't alive
@@ -205,11 +199,11 @@ public class SmiteEnchantment extends VanillaEnchantment implements Listener {
     @NotNull
     public RegistryKeySet<Enchantment> getConflictingEnchantments() {
         return RegistrySet.keySet(RegistryKey.ENCHANTMENT,
-                EnchantmentService.VIGILANTE.getTypedKey(),
+                EnchantmentKeys.SMITE,
                 EnchantmentKeys.BANE_OF_ARTHROPODS,
                 EnchantmentService.BLESSED.getTypedKey(),
                 EnchantmentService.GENESIS.getTypedKey(),
-                EnchantmentService.MUFFLE.getTypedKey());
+                EnchantmentService.VIGILANTE.getTypedKey());
     }
 
     @Override

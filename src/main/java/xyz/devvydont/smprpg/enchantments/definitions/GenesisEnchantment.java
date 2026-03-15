@@ -199,7 +199,12 @@ public class GenesisEnchantment extends CustomEnchantment implements Listener {
      */
     @NotNull
     public RegistryKeySet<Enchantment> getConflictingEnchantments() {
-        return RegistrySet.keySet(RegistryKey.ENCHANTMENT, EnchantmentKeys.SMITE, EnchantmentKeys.BANE_OF_ARTHROPODS, EnchantmentService.VIGILANTE.getTypedKey());
+        return RegistrySet.keySet(RegistryKey.ENCHANTMENT,
+                EnchantmentKeys.SMITE,
+                EnchantmentKeys.BANE_OF_ARTHROPODS,
+                EnchantmentService.BLESSED.getTypedKey(),
+                EnchantmentService.VIGILANTE.getTypedKey(),
+                EnchantmentService.MUFFLE.getTypedKey());
     }
 
     @Override

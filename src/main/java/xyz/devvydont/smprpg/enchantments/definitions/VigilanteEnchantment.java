@@ -202,7 +202,12 @@ public class VigilanteEnchantment extends CustomEnchantment implements Listener 
      */
     @NotNull
     public RegistryKeySet<Enchantment> getConflictingEnchantments() {
-        return RegistrySet.keySet(RegistryKey.ENCHANTMENT, EnchantmentKeys.SMITE, EnchantmentKeys.BANE_OF_ARTHROPODS, EnchantmentService.GENESIS.getTypedKey());
+        return RegistrySet.keySet(RegistryKey.ENCHANTMENT,
+                EnchantmentKeys.SMITE,
+                EnchantmentKeys.BANE_OF_ARTHROPODS,
+                EnchantmentService.BLESSED.getTypedKey(),
+                EnchantmentService.GENESIS.getTypedKey(),
+                EnchantmentService.MUFFLE.getTypedKey());
     }
 
     @Override

@@ -33,7 +33,6 @@ import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
-import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.*
@@ -49,7 +48,7 @@ class LootService : IService, Listener {
     /**
      * How long in milliseconds chests should restock per player.
      */
-    val RESTOCK_COOLDOWN: Long = 1//24 * 60 * 60 * 1000
+    val RESTOCK_COOLDOWN: Long = 24 * 60 * 60 * 1000
 
     val rng = Random()
     val lootContainerViewers = HashMap<UUID, LootInventoryContext>()
@@ -185,7 +184,6 @@ class LootService : IService, Listener {
                 table = holder.lootTable!!
         }
         val playerLuck : Float = (AttributeService.instance.getOrCreateAttribute(player, AttributeWrapper.LUCK).value / 100.0).toFloat()
-        println(playerLuck)
         val ctx = LootContext.Builder(loc).luck(playerLuck).build()
 
         // Handle the easy case where we only need to read already present items.

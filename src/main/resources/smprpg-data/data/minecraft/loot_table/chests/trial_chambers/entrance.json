@@ -3,14 +3,14 @@
   "pools": [
     {
       "_comment": "SCROLL ROLLS",
-      "bonus_rolls": 0.5,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "functions": [
             {
               "function": "minecraft:enchant_randomly",
-              "options": "#smprpg:archery_loot_enchantments"
+              "options": "#smprpg:melee_loot_generic_enchantments"
             }
           ],
           "name": "minecraft:book"
@@ -20,7 +20,7 @@
     },
     {
       "_comment": "COIN ROLLS",
-      "bonus_rolls": 1.2,
+      "bonus_rolls": 0.8,
       "entries": [
         {
           "type": "minecraft:item",
@@ -77,17 +77,6 @@
           "weight": 10
         },
         {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_custom_data",
-              "tag": {"PublicBukkitValues": {"smprpg:item-type": "gold_coin"}}
-            }
-          ],
-          "name": "minecraft:poisonous_potato",
-          "weight": 1
-        },
-        {
           "type": "minecraft:empty",
           "weight": 12
         }
@@ -95,62 +84,18 @@
       "rolls": 1.0
     },
     {
-      "rolls": {
-        "type": "minecraft:uniform",
-        "max": 2.0,
-        "min": 1.0
-      },
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [],
-          "name": "minecraft:bow",
-          "weight": 20
-        },
-        {
-          "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_custom_data",
-              "tag": {"PublicBukkitValues": {"smprpg:item-type": "iron_bow"}}
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:poisonous_potato",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_custom_data",
-              "tag": {"PublicBukkitValues": {"smprpg:item-type": "copper_bow"}}
-            }
-          ],
-          "name": "minecraft:poisonous_potato",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_custom_data",
-              "tag": {"PublicBukkitValues": {"smprpg:item-type": "mithril_bow"}}
-            }
-          ],
-          "name": "minecraft:poisonous_potato",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_custom_data",
-              "tag": {"PublicBukkitValues": {"smprpg:item-type": "titanium_bow"}}
-            }
-          ],
-          "name": "minecraft:poisonous_potato",
-          "weight": 1
+          "name": "minecraft:trial_key"
         },
         {
           "type": "minecraft:item",
@@ -159,17 +104,66 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 48.0,
-                "min": 16.0
+                "max": 5.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:stick",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:wooden_axe",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 8.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:honeycomb",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 10.0,
+                "min": 5.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "minecraft:arrow",
-          "weight": 90
+          "weight": 10
         }
-      ]
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 3.0,
+        "min": 2.0
+      }
     }
   ],
-  "random_sequence": "minecraft:chests/igloo_chest"
+  "random_sequence": "minecraft:chests/trial_chambers/entrance"
 }
