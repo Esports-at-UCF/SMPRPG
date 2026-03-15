@@ -49,6 +49,7 @@ import xyz.devvydont.smprpg.items.blueprints.sets.abomination.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.breeze.BreezeborneStaff;
 import xyz.devvydont.smprpg.items.blueprints.sets.leather.LeatherConicalHat;
+import xyz.devvydont.smprpg.items.blueprints.sets.tungsten.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.wood.WoodStaff;
 import xyz.devvydont.smprpg.items.blueprints.tomes.Necronomicon;
 import xyz.devvydont.smprpg.items.blueprints.tomes.SimpleTome;
@@ -227,11 +228,15 @@ public enum CustomItemType {
 
     // TIN SET
     RAW_TIN("Raw Tin",                     Material.RAW_IRON,       ItemRarity.COMMON, false, 5),
-    TIN_INGOT("Tin Ingot",                 Material.IRON_INGOT,     ItemRarity.COMMON, TinIngot.class),
     TIN_ORE("Tin Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, TinOre.class),
     DEEPSLATE_TIN_ORE("Deepslate Tin Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, DeepslateTinOre.class),
     RAW_TIN_BLOCK("Block of Raw Tin",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, RawTinBlock.class),
+
+    TIN_INGOT("Tin Ingot",                 Material.IRON_INGOT,     ItemRarity.COMMON, TinIngot.class),
     TIN_BLOCK("Block of Tin",              Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, TinBlock.class),
+    ENCHANTED_TIN("Enchanted Tin",                  Material.IRON_INGOT,        ItemRarity.RARE,      true, TinFamilyBlueprint.class),
+    ENCHANTED_TIN_BLOCK("Enchanted Block of Tin",   Material.POISONOUS_POTATO,  ItemRarity.EPIC,      true, TinFamilyBlueprint.class),
+    TIN_SINGULARITY("Tin Singularity",              Material.IRON_INGOT,        ItemRarity.LEGENDARY, true, TinFamilyBlueprint.class),
 
     TIN_PICKAXE("Tin Pickaxe",  Material.IRON_PICKAXE, TinPickaxe.class),
     TIN_AXE(    "Tin Axe",      Material.IRON_AXE,     TinAxe.class),
@@ -307,12 +312,16 @@ public enum CustomItemType {
 
     // MITHRIL SET
     RAW_MITHRIL("Raw Mithril",                     Material.RAW_IRON,     ItemRarity.UNCOMMON,   false, 75),
-    MITHRIL_INGOT("Mithril Ingot",                 Material.IRON_INGOT,     ItemRarity.UNCOMMON,   MithrilIngot.class),
     SPARSE_MITHRIL_ORE("Sparse Mithril Ore",       Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, SparseMithrilOre.class),
     MITHRIL_ORE("Mithril Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, MithrilOre.class),
     DENSE_MITHRIL_ORE("Dense Mithril Ore",         Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, DenseMithrilOre.class),
     RAW_MITHRIL_BLOCK("Block of Raw Mithril",      Material.POISONOUS_POTATO,        ItemRarity.RARE, RawMithrilBlock.class),
+
+    MITHRIL_INGOT("Mithril Ingot",                 Material.IRON_INGOT,     ItemRarity.UNCOMMON,   MithrilIngot.class),
     MITHRIL_BLOCK("Block of Mithril",              Material.POISONOUS_POTATO,        ItemRarity.RARE, MithrilBlock.class),
+    ENCHANTED_MITHRIL("Enchanted Mithril",                  Material.IRON_INGOT,        ItemRarity.EPIC,      true, MithrilFamilyBlueprint.class),
+    ENCHANTED_MITHRIL_BLOCK("Enchanted Block of Mithril",   Material.POISONOUS_POTATO,  ItemRarity.LEGENDARY,      true, MithrilFamilyBlueprint.class),
+    MITHRIL_SINGULARITY("Mithril Singularity",              Material.IRON_INGOT,        ItemRarity.MYTHIC, true, MithrilFamilyBlueprint.class),
 
     MITHRIL_DRILL_HEAD("Mithril Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillHead.class),
     MITHRIL_DRILL_BASE("Mithril Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillBase.class),
@@ -332,11 +341,15 @@ public enum CustomItemType {
     MITHRIL_BOOTS(     "Mithril Boots",      Material.DIAMOND_BOOTS,      ItemRarity.UNCOMMON, MithrilBoots.class),
 
     // TITANIUM SET
-    RAW_TITANIUM("Raw Titanium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300),
-    TITANIUM_INGOT("Titanium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   TitaniumIngot.class),
     TITANIUM_ORE("Titanium Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, TitaniumOre.class),
+    RAW_TITANIUM("Raw Titanium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300),
     RAW_TITANIUM_BLOCK("Block of Raw Titanium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, RawTitaniumBlock.class),
+
+    TITANIUM_INGOT("Titanium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   TitaniumIngot.class),
     TITANIUM_BLOCK("Block of Titanium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, TitaniumBlock.class),
+    ENCHANTED_TITANIUM("Enchanted Titanium",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, TitaniumFamilyBlueprint.class),
+    ENCHANTED_TITANIUM_BLOCK("Enchanted Block of Titanium",   Material.POISONOUS_POTATO,  ItemRarity.MYTHIC,      true, TitaniumFamilyBlueprint.class),
+    TITANIUM_SINGULARITY("Titanium Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, TitaniumFamilyBlueprint.class),
 
     TITANIUM_DRILL_HEAD("Titanium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillHead.class),
     TITANIUM_DRILL_BASE("Titanium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillBase.class),
@@ -356,10 +369,14 @@ public enum CustomItemType {
 
     // ADAMANTIUM SET
     RAW_ADAMANTIUM("Raw Adamantium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300),
-    ADAMANTIUM_INGOT("Adamantium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   AdamantiumIngot.class),
     ADAMANTIUM_ORE("Adamantium Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, AdamantiumOre.class),
     RAW_ADAMANTIUM_BLOCK("Block of Raw Adamantium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, RawAdamantiumBlock.class),
+
+    ADAMANTIUM_INGOT("Adamantium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   AdamantiumIngot.class),
     ADAMANTIUM_BLOCK("Block of Adamantium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, AdamantiumBlock.class),
+    ENCHANTED_ADAMANTIUM("Enchanted Adamantium",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, AdamantiumFamilyBlueprint.class),
+    ENCHANTED_ADAMANTIUM_BLOCK("Enchanted Block of Adamantium",   Material.POISONOUS_POTATO,  ItemRarity.MYTHIC,      true, AdamantiumFamilyBlueprint.class),
+    ADAMANTIUM_SINGULARITY("Adamantium Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, AdamantiumFamilyBlueprint.class),
 
     ADAMANTIUM_DRILL_HEAD("Adamantium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillHead.class),
     ADAMANTIUM_DRILL_BASE("Adamantium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillBase.class),
@@ -373,32 +390,65 @@ public enum CustomItemType {
     ADAMANTIUM_BOW(    "Adamantium Bow",      Material.BOW,             ItemRarity.RARE, AdamantiumBow.class),
 
     ADAMANTIUM_HELMET(    "Adamantium Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, AdamantiumHelmet.class),
-    ADAMANTIUM_CHESTPLATE("Adamantium Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE,AdamantiumChestplate.class),
+    ADAMANTIUM_CHESTPLATE("Adamantium Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE, AdamantiumChestplate.class),
     ADAMANTIUM_LEGGINGS(  "Adamantium Leggings",   Material.DIAMOND_LEGGINGS,   ItemRarity.RARE, AdamantiumLeggings.class),
     ADAMANTIUM_BOOTS(     "Adamantium Boots",      Material.DIAMOND_BOOTS,      ItemRarity.RARE, AdamantiumBoots.class),
 
     // SULFUR
     SULFUR_ORE("Sulfur Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, SulfurOre.class),
-    //SULFUR_BLOCK("Block of Sulfur",              Material.POISONOUS_POTATO,        ItemRarity.RARE, SulfurOre.class),
+    SULFUR_TREATED_TOOL_SHAFT(    "Sulfur Treated Shaft",      Material.STICK,     ItemRarity.UNCOMMON, SteelToolShaft.class),
+
     SULFUR(    "Sulfur",                         Material.GUNPOWDER,               ItemRarity.UNCOMMON, false, 20),
+    SULFUR_BLOCK("Block of Sulfur",              Material.POISONOUS_POTATO,        ItemRarity.RARE, SulfurBlock.class),
+    ENCHANTED_SULFUR("Enchanted Sulfur",                  Material.GUNPOWDER,        ItemRarity.EPIC,      true, SulfurFamilyBlueprint.class),
+    ENCHANTED_SULFUR_BLOCK("Enchanted Block of Sulfur",   Material.POISONOUS_POTATO,  ItemRarity.LEGENDARY,      true, SulfurFamilyBlueprint.class),
+    SULFUR_SINGULARITY("Sulfur Singularity",              Material.GUNPOWDER,        ItemRarity.MYTHIC, true, SulfurFamilyBlueprint.class),
 
     // ONYX
     ONYX_ORE("Onyx Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, OnyxOre.class),
-    //ONYX_BLOCK("Block of Onyx",              Material.POISONOUS_POTATO,        ItemRarity.RARE, SulfurOre.class),
-    ONYX(    "Onyx",     Material.COAL,     ItemRarity.RARE, false, 20),
+    ONYX_BLOCK("Block of Onyx",              Material.POISONOUS_POTATO,        ItemRarity.RARE, OnyxBlock.class),
+    ONYX(    "Onyx",     Material.COAL,      ItemRarity.RARE, false, 500),
 
     // TUNGSTEN SET
     TUNGSTEN_ORE("Tungsten Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, TungstenOre.class),
     RAW_TUNGSTEN("Raw Tungsten",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 40),
-    //TUNGSTEN_INGOT("Tungsten Ore",                   Material.IRON_INGOT,              ItemRarity.UNCOMMON, false, 60),
+    RAW_TUNGSTEN_BLOCK("Block of Raw Tungsten",      Material.POISONOUS_POTATO,        ItemRarity.RARE, RawTungstenBlock.class),
+
+    TUNGSTEN_INGOT("Tungsten Ingot",                 Material.IRON_INGOT,              ItemRarity.UNCOMMON, false, 60),
+    TUNGSTEN_BLOCK("Block of Tungsten",              Material.POISONOUS_POTATO,        ItemRarity.RARE, TungstenBlock.class),
+    ENCHANTED_TUNGSTEN("Enchanted Tungsten",                  Material.IRON_INGOT,        ItemRarity.EPIC,      true, TungstenFamilyBlueprint.class),
+    ENCHANTED_TUNGSTEN_BLOCK("Enchanted Block of Tungsten",   Material.POISONOUS_POTATO,  ItemRarity.LEGENDARY,      true, TungstenFamilyBlueprint.class),
+    TUNGSTEN_SINGULARITY("Tungsten Singularity",              Material.IRON_INGOT,        ItemRarity.MYTHIC, true, TungstenFamilyBlueprint.class),
+
+    // TUNGSTEN_DRILL_HEAD("Tungsten Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, AdamantiumDrillHead.class),
+    // TUNGSTEN_DRILL_BASE("Tungsten Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, AdamantiumDrillBase.class),
+
+    TUNGSTEN_PICKAXE("Tungsten Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.UNCOMMON, TungstenPickaxe.class),
+    TUNGSTEN_AXE(    "Tungsten Axe",      Material.DIAMOND_AXE,     ItemRarity.UNCOMMON, TungstenAxe.class),
+    TUNGSTEN_HOE(    "Tungsten Hoe",      Material.DIAMOND_HOE,     ItemRarity.UNCOMMON, TungstenHoe.class),
+    TUNGSTEN_SHOVEL( "Tungsten Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.UNCOMMON, TungstenShovel.class),
+    TUNGSTEN_SWORD(  "Tungsten Sword",    Material.DIAMOND_SWORD,   ItemRarity.UNCOMMON, TungstenSword.class),
+    TUNGSTEN_HATCHET("Tungsten Hatchet",  Material.DIAMOND_AXE,     ItemRarity.UNCOMMON, TungstenHatchet.class),
+    TUNGSTEN_BOW(    "Tungsten Bow",      Material.BOW,             ItemRarity.UNCOMMON, TungstenBow.class),
+
+    TUNGSTEN_HELMET(    "Tungsten Helmet",     Material.DIAMOND_HELMET,     ItemRarity.UNCOMMON, TungstenHelmet.class),
+    TUNGSTEN_CHESTPLATE("Tungsten Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.UNCOMMON, TungstenChestplate.class),
+    TUNGSTEN_LEGGINGS(  "Tungsten Leggings",   Material.DIAMOND_LEGGINGS,   ItemRarity.UNCOMMON, TungstenLeggings.class),
+    TUNGSTEN_BOOTS(     "Tungsten Boots",      Material.DIAMOND_BOOTS,      ItemRarity.UNCOMMON, TungstenBoots.class),
 
     // COBALT SET
     COBALT_ORE("Cobalt Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, CobaltOre.class),
-    RAW_COBALT("Raw Cobalt",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 200),
+    RAW_COBALT("Raw Cobalt",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 100),
+    RAW_COBALT_BLOCK("Block of Raw Cobalt",      Material.POISONOUS_POTATO,        ItemRarity.RARE, RawCobaltBlock.class),
+    COBALT_INGOT("Cobalt Ingot",                 Material.IRON_INGOT,              ItemRarity.UNCOMMON, false, 150),
+    COBALT_BLOCK("Block of Cobalt",              Material.POISONOUS_POTATO,        ItemRarity.RARE, CobaltBlock.class),
 
     // ORICHALCUM SET
     ORICHALCUM_ORE("Orichalcum Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, OrichalcumOre.class),
-    RAW_ORICHALCUM("Raw Orichalcum",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 200),
+    RAW_ORICHALCUM("Raw Orichalcum",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 100),
+    RAW_ORICHALCUM_BLOCK("Block of Raw Orichalcum",      Material.POISONOUS_POTATO,        ItemRarity.RARE, RawOrichalcumBlock.class),
+    ORICHALCUM_INGOT("Orichalcum Ingot",                 Material.IRON_INGOT,              ItemRarity.UNCOMMON, false, 150),
+    ORICHALCUM_BLOCK("Block of Orichalcum",              Material.POISONOUS_POTATO,        ItemRarity.RARE, OrichalcumBlock.class),
 
     // WOODEN SET
     WOODEN_STAFF("Wooden Staff",                     Material.STICK,              ItemRarity.COMMON,   WoodStaff.class),

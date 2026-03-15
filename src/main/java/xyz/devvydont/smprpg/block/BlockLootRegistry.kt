@@ -311,6 +311,14 @@ object BlockLootRegistry {
                 .build()
         )
 
+        register(
+            Material.NETHERRACK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.NETHER_BRICK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(Material.NETHERRACK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.NETHERRACK)))
+                .build()
+        )
+
         // Woodcutting.
         register(
             Material.OAK_LOG, BlockLootEntry.Companion.builder()
@@ -737,6 +745,54 @@ object BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.LAPIS_LAZULI), 6.0))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_LAPIS_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.LAPIS_LAZULI), 6.0))
+                .build()
+        )
+
+        register(
+            CustomBlock.SULFUR_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SULFUR), 6.0))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SULFUR_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SULFUR), 6.0))
+                .build()
+        )
+
+        register(
+            CustomBlock.SULFUR_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SULFUR_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SULFUR_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SULFUR_BLOCK)))
+                .build()
+        )
+
+        register(
+            CustomBlock.TUNGSTEN_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TUNGSTEN_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TUNGSTEN_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TUNGSTEN)))
+                .build()
+        )
+
+        register(
+            CustomBlock.COBALT_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.COBALT_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.COBALT_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_COBALT)))
+                .build()
+        )
+
+        register(
+            CustomBlock.ORICHALCUM_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ORICHALCUM_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ORICHALCUM_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_ORICHALCUM)))
+                .build()
+        )
+
+        register(
+            CustomBlock.ONYX_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ONYX)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ONYX_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ONYX)))
                 .build()
         )
 

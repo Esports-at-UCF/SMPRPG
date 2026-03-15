@@ -176,14 +176,14 @@ class SlayerService : IService, Listener {
                     quest.xpEarned += event.experience
 
                 // Have we hit the threshold for this boss yet? If so, spawn it.
-                // If we haven't, roll a 25% chance to spawn a special mob
+                // If we haven't, roll a 5% chance to spawn a special mob
                 val specialSpawns = quest.classification.specialSpawns;
                 if (quest.xpEarned >= quest.xpRequired) {
                     quest.xpEarned = quest.xpRequired  // Do this to prevent visual weirdness
                     spawnSlayerBoss(quest, event.mobKilled.entity.location)
                 }
                 else if (specialSpawns != null) {
-                    if (Math.random() <= 0.25) {
+                    if (Math.random() <= 0.05) {
                         object : BukkitRunnable() {
                             private var clock = 0
                             private var location = event.mobKilled.entity.location

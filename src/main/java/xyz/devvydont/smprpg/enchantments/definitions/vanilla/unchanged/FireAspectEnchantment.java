@@ -34,7 +34,10 @@ public class FireAspectEnchantment extends UnchangedEnchantment {
     public @NotNull Component getDescription() {
         return ComponentUtils.merge(
             ComponentUtils.create("Ignites enemies for "),
-            ComponentUtils.create(getSecondsOfBurn(getLevel()) + "s", NamedTextColor.GOLD)
+            ComponentUtils.create(getSecondsOfBurn(getLevel()) + "s", NamedTextColor.GOLD),
+            ComponentUtils.create(" and "),
+            ComponentUtils.create("smelts", NamedTextColor.RED),
+            ComponentUtils.create(" drops")
         );
     }
 

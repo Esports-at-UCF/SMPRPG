@@ -17,6 +17,7 @@ import xyz.devvydont.smprpg.items.interfaces.ICraftable;
 import xyz.devvydont.smprpg.items.interfaces.IDyeable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.crafting.builders.BootsRecipe;
+import xyz.devvydont.smprpg.util.items.ToolGlobals;
 
 import java.util.Collection;
 import java.util.List;
@@ -42,7 +43,7 @@ public class AdamantiumBoots extends AdamantiumArmorSet implements IBreakableEqu
 
     @Override
     public int getPowerRating() {
-        return 5;
+        return ToolGlobals.TUNGSTEN_TOOL_POWER;
     }
 
     @Override

@@ -10,12 +10,13 @@ import xyz.devvydont.smprpg.block.CustomBlock;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
+import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
 
 import java.util.Collection;
 import java.util.List;
 
-public class TinBlock extends BlockBlueprint implements ICraftable {
+public class TinBlock extends BlockBlueprint implements ICraftable, ISellable {
 
     public TinBlock(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -49,5 +50,10 @@ public class TinBlock extends BlockBlueprint implements ICraftable {
         return List.of(
                 itemService.getCustomItem(CustomItemType.TIN_INGOT)
         );
+    }
+
+    @Override
+    public int getWorth(ItemStack item) {
+        return (CustomItemType.TIN_INGOT.Worth * 9) * item.getAmount();
     }
 }

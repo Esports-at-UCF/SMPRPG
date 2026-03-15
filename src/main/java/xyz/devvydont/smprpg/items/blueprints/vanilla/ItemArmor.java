@@ -121,6 +121,11 @@ public class ItemArmor extends VanillaAttributeItem implements IBreakableEquipme
             case ADAMANTIUM_LEGGINGS -> 75;
             case ADAMANTIUM_BOOTS -> 55;
 
+            case TUNGSTEN_HELMET -> 45;
+            case TUNGSTEN_CHESTPLATE -> 70;
+            case TUNGSTEN_LEGGINGS -> 60;
+            case TUNGSTEN_BOOTS -> 40;
+
             default -> 0;
         };
     }

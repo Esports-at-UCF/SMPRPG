@@ -12,12 +12,13 @@ import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.sets.fishing.nocturnum.RuinationSet;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
+import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
 
 import java.util.Collection;
 import java.util.List;
 
-public class RawAdamantiumBlock extends BlockBlueprint implements ICraftable {
+public class RawAdamantiumBlock extends BlockBlueprint implements ICraftable, ISellable {
 
     public RawAdamantiumBlock(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -51,5 +52,10 @@ public class RawAdamantiumBlock extends BlockBlueprint implements ICraftable {
         return List.of(
                 itemService.getCustomItem(CustomItemType.RAW_ADAMANTIUM)
         );
+    }
+
+    @Override
+    public int getWorth(ItemStack item) {
+        return (CustomItemType.RAW_ADAMANTIUM.Worth * 9) * item.getAmount();
     }
 }

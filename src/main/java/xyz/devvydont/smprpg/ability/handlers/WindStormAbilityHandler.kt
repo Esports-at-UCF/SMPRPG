@@ -5,6 +5,7 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.Fireball
 import org.bukkit.entity.Player
 import org.bukkit.entity.WindCharge
+import org.bukkit.util.Vector
 import org.w3c.dom.Attr
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.ability.AbilityContext
@@ -29,9 +30,9 @@ class WindStormAbilityHandler : AbilityHandler {
         ) return false
 
         ctx.caster.world.playSound(ctx.caster.location, Sound.ENTITY_BREEZE_DEATH, 1f, 0.5f)
-        val baseVec = ctx.caster.location.getDirection().normalize().multiply(2)
-        for (i in 0..16) {
-            val angledVec =  baseVec.clone().rotateAroundY(24.0 * i)
+        val baseVec = Vector(2, 0, 2)
+        for (i in 0..40) {
+            val angledVec =  baseVec.clone().rotateAroundY(9.0 * i)
             val projectile = ctx.caster.launchProjectile(
                 WindCharge::class.java,
                 angledVec

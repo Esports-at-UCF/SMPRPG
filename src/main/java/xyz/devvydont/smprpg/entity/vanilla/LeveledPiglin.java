@@ -1,12 +1,12 @@
 package xyz.devvydont.smprpg.entity.vanilla;
 
-import org.bukkit.entity.PiglinAbstract;
+import org.bukkit.entity.Piglin;
 import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.VanillaEntity;
 
-public class LeveledPiglin extends VanillaEntity<PiglinAbstract> {
+public class LeveledPiglin extends VanillaEntity<Piglin> {
 
-    public LeveledPiglin(PiglinAbstract entity) {
+    public LeveledPiglin(Piglin entity) {
         super(entity);
     }
 

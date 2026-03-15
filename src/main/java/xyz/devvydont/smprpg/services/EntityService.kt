@@ -131,7 +131,7 @@ class EntityService : IService, Listener {
         vanillaEntityHandlers.put(EntityType.ZOGLIN, LeveledZoglin::class.java)
         vanillaEntityHandlers.put(EntityType.PIGLIN, LeveledPiglin::class.java)
         vanillaEntityHandlers.put(EntityType.PIGLIN_BRUTE, LeveledPiglinBrute::class.java)
-        vanillaEntityHandlers.put(EntityType.ZOMBIFIED_PIGLIN, LeveledPiglin::class.java)
+        vanillaEntityHandlers.put(EntityType.ZOMBIFIED_PIGLIN, LeveledZombifiedPiglin::class.java)
         vanillaEntityHandlers.put(EntityType.STRIDER, LeveledStrider::class.java)
         vanillaEntityHandlers.put(EntityType.ENDERMAN, LeveledEnderman::class.java)
         vanillaEntityHandlers.put(EntityType.PHANTOM, LeveledPhantom::class.java)

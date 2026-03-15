@@ -3,7 +3,10 @@ package xyz.devvydont.smprpg.items.interfaces;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.items.CustomItemType;
 
 public interface IModelOverridden {
 
@@ -21,5 +24,9 @@ public interface IModelOverridden {
      */
     static Key ofMaterial(Material material) {
         return ItemStack.of(material).getData(DataComponentTypes.ITEM_MODEL);
+    }
+
+    static Key ofItemType(CustomItemType type) {
+        return new NamespacedKey(SMPRPG.getPlugin(), type.getKey());
     }
 }

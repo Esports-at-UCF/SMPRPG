@@ -40,7 +40,7 @@ public class ItemSword extends VanillaAttributeItem implements IBreakableEquipme
             case BRONZE_SWORD -> 30;
             case STEEL_SWORD -> 35;
             case ROSE_GOLD_SWORD, MITHRIL_SWORD -> 40;
-            case TITANIUM_SWORD -> 50;
+            case TITANIUM_SWORD, TUNGSTEN_SWORD -> 50;
             case ADAMANTIUM_SWORD -> 65;
             default -> 0;
         };

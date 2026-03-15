@@ -10,12 +10,13 @@ import xyz.devvydont.smprpg.block.CustomBlock;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
+import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
 
 import java.util.Collection;
 import java.util.List;
 
-public class TitaniumBlock extends BlockBlueprint implements ICraftable {
+public class TitaniumBlock extends BlockBlueprint implements ICraftable, ISellable {
 
     public TitaniumBlock(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -49,5 +50,10 @@ public class TitaniumBlock extends BlockBlueprint implements ICraftable {
         return List.of(
                 itemService.getCustomItem(CustomItemType.TITANIUM_INGOT)
         );
+    }
+
+    @Override
+    public int getWorth(ItemStack item) {
+        return (CustomItemType.TITANIUM_INGOT.Worth * 9) * item.getAmount();
     }
 }

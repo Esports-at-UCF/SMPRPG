@@ -1,12 +1,13 @@
 package xyz.devvydont.smprpg.entity.vanilla;
 
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.PigZombie;
 import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.VanillaEntity;
 
-public class LeveledZombifiedPiglin extends VanillaEntity<Entity> {
+public class LeveledZombifiedPiglin extends VanillaEntity<PigZombie> {
 
-    public LeveledZombifiedPiglin(Entity entity) {
+    public LeveledZombifiedPiglin(PigZombie entity) {
         super(entity);
     }
 

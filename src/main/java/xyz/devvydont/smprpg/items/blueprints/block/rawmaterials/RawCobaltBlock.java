@@ -1,0 +1,59 @@
+package xyz.devvydont.smprpg.items.blueprints.block.rawmaterials;
+
+import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.CraftingRecipe;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.recipe.CraftingBookCategory;
+import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.block.CustomBlock;
+import xyz.devvydont.smprpg.items.CustomItemType;
+import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint;
+import xyz.devvydont.smprpg.items.interfaces.ICraftable;
+import xyz.devvydont.smprpg.items.interfaces.ISellable;
+import xyz.devvydont.smprpg.services.ItemService;
+
+import java.util.Collection;
+import java.util.List;
+
+public class RawCobaltBlock extends BlockBlueprint implements ICraftable, ISellable {
+
+    public RawCobaltBlock(ItemService itemService, CustomItemType type) {
+        super(itemService, type);
+    }
+
+    @Override
+    public CustomBlock getCustomBlock() {
+        return CustomBlock.RAW_COBALT_BLOCK;
+    }
+
+    @Override
+    public NamespacedKey getRecipeKey() {
+        return new NamespacedKey(SMPRPG.getPlugin(), this.getCustomItemType().getKey() + "_recipe");
+    }
+
+    @Override
+    public CraftingRecipe getCustomRecipe() {
+        var recipe = new ShapedRecipe(this.getRecipeKey(), generate());
+        recipe.shape(
+                "ccc",
+                "ccc",
+                "ccc"
+        );
+        recipe.setIngredient('c', ItemService.generate(CustomItemType.RAW_COBALT));
+        recipe.setCategory(CraftingBookCategory.MISC);
+        return recipe;
+    }
+
+    @Override
+    public Collection<ItemStack> unlockedBy() {
+        return List.of(
+                itemService.getCustomItem(CustomItemType.RAW_COBALT)
+        );
+    }
+
+    @Override
+    public int getWorth(ItemStack item) {
+        return (CustomItemType.RAW_COBALT.Worth * 9) * item.getAmount();
+    }
+}

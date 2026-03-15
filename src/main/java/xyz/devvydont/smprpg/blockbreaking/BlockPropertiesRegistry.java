@@ -299,7 +299,7 @@ public class BlockPropertiesRegistry {
 
         register(Material.ANCIENT_DEBRIS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(3000)
-                .breakingPower(5)
+                .breakingPower(7)
                 .softRequirement(false)
                 .build());
 
@@ -6943,6 +6943,83 @@ public class BlockPropertiesRegistry {
                 .hardness(5000)
                 .breakingPower(5)
                 .blockSound(BlockSound.TITANIUM_METAL)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.SULFUR_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(600)
+                .breakingPower(4)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.SULFUR_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(600)
+                .breakingPower(4)
+                .blockSound(BlockSound.METAL_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RAW_TUNGSTEN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(750)
+                .breakingPower(5)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.TUNGSTEN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(750)
+                .breakingPower(5)
+                .blockSound(BlockSound.METAL_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.TUNGSTEN_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(750)
+                .breakingPower(5)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RAW_COBALT_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(900)
+                .breakingPower(6)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.COBALT_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(900)
+                .breakingPower(6)
+                .blockSound(BlockSound.METAL_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.COBALT_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(900)
+                .breakingPower(6)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.RAW_ORICHALCUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(900)
+                .breakingPower(6)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.ORICHALCUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(900)
+                .breakingPower(6)
+                .blockSound(BlockSound.METAL_GENERIC)
+                .softRequirement(false)
+                .build());
+
+        register(CustomBlock.ORICHALCUM_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(900)
+                .breakingPower(6)
+                .blockSound(BlockSound.BLACKSTONE_GENERIC)
                 .softRequirement(false)
                 .build());
 

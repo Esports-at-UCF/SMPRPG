@@ -96,10 +96,10 @@ public class ToolGlobals {
     public static final int TITANIUM_TOOL_FORTUNE = 45;
     public static final int ADAMANTIUM_TOOL_FORTUNE = 90;
 
-    public static final int TUNGSTEN_TOOL_FORTUNE = 70;
+    public static final int TUNGSTEN_TOOL_FORTUNE = 50;
     public static final int COBALT_TOOL_FORTUNE = 60;
 
-    public static final int ORICHALCUM_TOOL_FORTUNE = 100;
+    public static final int ORICHALCUM_TOOL_FORTUNE = 80;
 
     public static final int NETHERITE_TOOL_FORTUNE = 120;
 
@@ -163,7 +163,7 @@ public class ToolGlobals {
     public static final int ADAMANTIUM_TOOL_MINING_POWER = 5;
 
     public static final int TUNGSTEN_TOOL_MINING_POWER = 6;
-    public static final int COBALT_TOOL_MINING_POWER = 6;
+    public static final int COBALT_TOOL_MINING_POWER = 7;
 
     public static final int ORICHALCUM_TOOL_MINING_POWER = 7;
 

@@ -81,6 +81,11 @@ class MiningExperienceListener() : Listener {
                     CustomBlock.GRIMSTONE_SILVER_ORE -> 60
                     CustomBlock.GRIMSTONE_GOLD_ORE -> 72
                     CustomBlock.GRIMSTONE_DIAMOND_ORE -> 150
+
+                    CustomBlock.SULFUR_ORE -> 15
+                    CustomBlock.TUNGSTEN_ORE -> 50
+                    CustomBlock.COBALT_ORE -> 100
+                    CustomBlock.ORICHALCUM_ORE -> 100
                     else -> 0
                 }
             }

@@ -78,7 +78,7 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
             case SILVER_AXE -> 35;
             case STEEL_AXE -> 50;
             case ROSE_GOLD_AXE, MITHRIL_AXE -> 55;
-            case TITANIUM_AXE -> 65;
+            case TITANIUM_AXE, TUNGSTEN_AXE -> 65;
             case ADAMANTIUM_AXE -> 80;
             default -> 0;
         };
