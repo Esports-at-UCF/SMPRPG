@@ -1,9 +1,13 @@
 package xyz.devvydont.smprpg.enchantments.definitions;
 
+import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
+import io.papermc.paper.registry.set.RegistryKeySet;
+import io.papermc.paper.registry.set.RegistrySet;
 import io.papermc.paper.registry.tag.TagKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
@@ -14,6 +18,7 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeModifierType;
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 
 import java.util.Collection;
@@ -22,13 +27,7 @@ import java.util.List;
 public class VigorousEnchantment extends CustomEnchantment implements AttributeEnchantment {
 
     public static int getMiningSpeed(int level) {
-        return switch (level) {
-            case 0 -> 0;
-            case 1 -> 15;
-            case 2 -> 30;
-            case 3 -> 50;
-            default -> 30 * level + getMiningSpeed(3);
-        };
+        return level * 10;
     }
 
     public VigorousEnchantment(String id) {
@@ -88,6 +87,18 @@ public class VigorousEnchantment extends CustomEnchantment implements AttributeE
         return List.of(
                 new ScalarAttributeEntry(AttributeWrapper.MINING_SPEED, getMiningSpeed(getLevel()) / 100.0)
         );
+    }
+
+    /**
+     * A set of enchantments that this enchantment conflicts with.
+     * If there are none, this enchantment has no conflicts
+     *
+     * @return
+     */
+    @NotNull
+    public RegistryKeySet<Enchantment> getConflictingEnchantments() {
+        return RegistrySet.keySet(RegistryKey.ENCHANTMENT,
+                EnchantmentService.MINERS_FERVOR.getTypedKey());
     }
 
     @Override

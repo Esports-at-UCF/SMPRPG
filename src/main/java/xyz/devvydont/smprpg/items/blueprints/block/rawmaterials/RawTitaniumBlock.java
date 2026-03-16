@@ -54,6 +54,11 @@ public class RawTitaniumBlock extends BlockBlueprint implements ICraftable, ISel
 
     @Override
     public int getWorth(ItemStack item) {
-        return (CustomItemType.RAW_TITANIUM.Worth * 9) * item.getAmount();
+        var ingot = itemService.getCustomItem(CustomItemType.RAW_TITANIUM);
+        var bp = ItemService.blueprint(ingot);
+        if (bp instanceof ISellable) {
+            return (((ISellable) bp).getWorth(ingot) * 9) * item.getAmount();
+        }
+        return 0;
     }
 }

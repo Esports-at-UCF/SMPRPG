@@ -2,8 +2,6 @@ package xyz.devvydont.smprpg.services
 
 import com.destroystokyo.paper.event.inventory.PrepareResultEvent
 import io.papermc.paper.datacomponent.DataComponentTypes
-import io.papermc.paper.datacomponent.item.Consumable
-import io.papermc.paper.datacomponent.item.FoodProperties
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -47,7 +45,7 @@ import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint
-import xyz.devvydont.smprpg.items.blueprints.drills.FuelTankBlueprint
+import xyz.devvydont.smprpg.items.tools.drills.FuelTankBlueprint
 import xyz.devvydont.smprpg.items.blueprints.potion.PotionBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource
 import xyz.devvydont.smprpg.items.blueprints.vanilla.*

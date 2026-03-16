@@ -15,9 +15,11 @@ import xyz.devvydont.smprpg.items.blueprints.charms.LuckyCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.SpeedCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
-import xyz.devvydont.smprpg.items.blueprints.drills.LargeFuelTank;
-import xyz.devvydont.smprpg.items.blueprints.drills.MediumFuelTank;
-import xyz.devvydont.smprpg.items.blueprints.drills.SmallFuelTank;
+import xyz.devvydont.smprpg.items.blueprints.sets.cobalt.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.orichalcum.*;
+import xyz.devvydont.smprpg.items.tools.drills.LargeFuelTank;
+import xyz.devvydont.smprpg.items.tools.drills.MediumFuelTank;
+import xyz.devvydont.smprpg.items.tools.drills.SmallFuelTank;
 import xyz.devvydont.smprpg.items.blueprints.economy.CustomItemCoin;
 import xyz.devvydont.smprpg.items.blueprints.equipment.*;
 import xyz.devvydont.smprpg.items.blueprints.equipment.EnderPack;
@@ -440,15 +442,55 @@ public enum CustomItemType {
     COBALT_ORE("Cobalt Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, CobaltOre.class),
     RAW_COBALT("Raw Cobalt",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 100),
     RAW_COBALT_BLOCK("Block of Raw Cobalt",      Material.POISONOUS_POTATO,        ItemRarity.RARE, RawCobaltBlock.class),
-    COBALT_INGOT("Cobalt Ingot",                 Material.IRON_INGOT,              ItemRarity.UNCOMMON, false, 150),
-    COBALT_BLOCK("Block of Cobalt",              Material.POISONOUS_POTATO,        ItemRarity.RARE, CobaltBlock.class),
+
+    COBALT_INGOT("Cobalt Ingot",                 Material.IRON_INGOT,              ItemRarity.RARE, false, 150),
+    COBALT_BLOCK("Block of Cobalt",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, CobaltBlock.class),
+    ENCHANTED_COBALT("Enchanted Cobalt",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, CobaltFamilyBlueprint.class),
+    ENCHANTED_COBALT_BLOCK("Enchanted Block of Cobalt",   Material.POISONOUS_POTATO,  ItemRarity.MYTHIC,      true, CobaltFamilyBlueprint.class),
+    COBALT_SINGULARITY("Cobalt Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, CobaltFamilyBlueprint.class),
+
+    // COBALT_DRILL_HEAD("Cobalt Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, CobaltDrillHead.class),
+    // COBALT_DRILL_BASE("Cobalt Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, CobaltDrillBASE.class),
+
+    COBALT_PICKAXE("Cobalt Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, CobaltPickaxe.class),
+    COBALT_AXE(    "Cobalt Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, CobaltAxe.class),
+    COBALT_HOE(    "Cobalt Hoe",      Material.DIAMOND_HOE,     ItemRarity.RARE, CobaltHoe.class),
+    COBALT_SHOVEL( "Cobalt Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.RARE, CobaltShovel.class),
+    COBALT_SWORD(  "Cobalt Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, CobaltSword.class),
+    COBALT_HATCHET("Cobalt Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE, CobaltHatchet.class),
+    COBALT_BOW(    "Cobalt Bow",      Material.BOW,             ItemRarity.RARE, CobaltBow.class),
+
+    COBALT_HELMET(    "Cobalt Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, CobaltHelmet.class),
+    COBALT_CHESTPLATE("Cobalt Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE, CobaltChestplate.class),
+    COBALT_LEGGINGS(  "Cobalt Leggings",   Material.DIAMOND_LEGGINGS,   ItemRarity.RARE, CobaltLeggings.class),
+    COBALT_BOOTS(     "Cobalt Boots",      Material.DIAMOND_BOOTS,      ItemRarity.RARE, CobaltBoots.class),
 
     // ORICHALCUM SET
-    ORICHALCUM_ORE("Orichalcum Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, OrichalcumOre.class),
-    RAW_ORICHALCUM("Raw Orichalcum",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 100),
-    RAW_ORICHALCUM_BLOCK("Block of Raw Orichalcum",      Material.POISONOUS_POTATO,        ItemRarity.RARE, RawOrichalcumBlock.class),
-    ORICHALCUM_INGOT("Orichalcum Ingot",                 Material.IRON_INGOT,              ItemRarity.UNCOMMON, false, 150),
-    ORICHALCUM_BLOCK("Block of Orichalcum",              Material.POISONOUS_POTATO,        ItemRarity.RARE, OrichalcumBlock.class),
+    ORICHALCUM_ORE("Orichalcum Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, OrichalcumOre.class),
+    RAW_ORICHALCUM("Raw Orichalcum",                     Material.RAW_IRON,                ItemRarity.RARE, false, 100),
+    RAW_ORICHALCUM_BLOCK("Block of Raw Orichalcum",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, RawOrichalcumBlock.class),
+
+    ORICHALCUM_INGOT("Orichalcum Ingot",                 Material.IRON_INGOT,              ItemRarity.RARE, false, 150),
+    ORICHALCUM_BLOCK("Block of Orichalcum",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, OrichalcumBlock.class),
+    ENCHANTED_ORICHALCUM("Enchanted Orichalcum",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, OrichalcumFamilyBlueprint.class),
+    ENCHANTED_ORICHALCUM_BLOCK("Enchanted Block of Orichalcum",   Material.POISONOUS_POTATO,  ItemRarity.MYTHIC,      true, OrichalcumFamilyBlueprint.class),
+    ORICHALCUM_SINGULARITY("Orichalcum Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, OrichalcumFamilyBlueprint.class),
+
+    // ORICHALCUM_DRILL_HEAD("Orichalcum Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, OrichalcumDrillHead.class),
+    // ORICHALCUM_DRILL_BASE("Orichalcum Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, OrichalcumDrillBase.class),
+
+    ORICHALCUM_PICKAXE("Orichalcum Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, OrichalcumPickaxe.class),
+    ORICHALCUM_AXE(    "Orichalcum Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, OrichalcumAxe.class),
+    ORICHALCUM_HOE(    "Orichalcum Hoe",      Material.DIAMOND_HOE,     ItemRarity.RARE, OrichalcumHoe.class),
+    ORICHALCUM_SHOVEL( "Orichalcum Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.RARE, OrichalcumShovel.class),
+    ORICHALCUM_SWORD(  "Orichalcum Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, OrichalcumSword.class),
+    ORICHALCUM_HATCHET("Orichalcum Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE, OrichalcumHatchet.class),
+    ORICHALCUM_BOW(    "Orichalcum Bow",      Material.BOW,             ItemRarity.RARE, OrichalcumBow.class),
+
+    ORICHALCUM_HELMET(    "Orichalcum Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, OrichalcumHelmet.class),
+    ORICHALCUM_CHESTPLATE("Orichalcum Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE, OrichalcumChestplate.class),
+    ORICHALCUM_LEGGINGS(  "Orichalcum Leggings",   Material.DIAMOND_LEGGINGS,   ItemRarity.RARE, OrichalcumLeggings.class),
+    ORICHALCUM_BOOTS(     "Orichalcum Boots",      Material.DIAMOND_BOOTS,      ItemRarity.RARE, OrichalcumBoots.class),
 
     // WOODEN SET
     WOODEN_STAFF("Wooden Staff",                     Material.STICK,              ItemRarity.COMMON,   WoodStaff.class),
@@ -647,7 +689,7 @@ public enum CustomItemType {
     PRELUDE_CHESTPLATE("Prelude to Chaos Chestplate",     Material.NETHERITE_CHESTPLATE, ItemRarity.LEGENDARY,  PreludeChestplate.class),
     PRELUDE_LEGGINGS(  "Prelude to Chaos Leggings",       Material.NETHERITE_LEGGINGS,   ItemRarity.LEGENDARY,  PreludeLeggings.class),
     PRELUDE_BOOTS(     "Prelude to Chaos Boots",          Material.NETHERITE_BOOTS,      ItemRarity.LEGENDARY,  PreludeBoots.class),
-    
+
     // ALL AROUND FISHING
     MURKY_HELMET(    "Murky Helmet",     Material.LEATHER_HELMET,     ItemRarity.COMMON, MurkySet.class),
     MURKY_CHESTPLATE("Murky Chestplate", Material.LEATHER_CHESTPLATE, ItemRarity.COMMON, MurkySet.class),

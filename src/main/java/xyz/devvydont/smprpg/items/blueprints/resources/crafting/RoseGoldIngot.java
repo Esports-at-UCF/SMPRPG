@@ -69,6 +69,6 @@ public class RoseGoldIngot extends CustomItemBlueprint implements ISellable, ICr
      */
     @Override
     public int getWorth(ItemStack item) {
-        return 350;
+        return 350 * item.getAmount();
     }
 }

@@ -37,9 +37,10 @@ public class ItemShovel extends VanillaAttributeItem implements IBreakableEquipm
             case TIN_SHOVEL -> 5;
             case SILVER_SHOVEL -> 15;
             case STEEL_SHOVEL -> 20;
-            case ROSE_GOLD_SHOVEL, MITHRIL_SHOVEL -> 22;
+            case ROSE_GOLD_SHOVEL, MITHRIL_SHOVEL, COBALT_SHOVEL -> 22;
             case TITANIUM_SHOVEL, TUNGSTEN_SHOVEL -> 25;
             case ADAMANTIUM_SHOVEL -> 27;
+            case ORICHALCUM_SHOVEL -> 29;
             default -> 0;
         };
     }

@@ -38,5 +38,5 @@ public class AdamantiumDrillBase extends CustomItemBlueprint implements IModular
     }
 
     @Override
-    public String getComponentPrefix() { return "Steel"; }
+    public String getComponentPrefix() { return "Adamantium"; }
 }

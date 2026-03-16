@@ -32,7 +32,7 @@ public class ToolGlobals {
 
     public static final int TUNGSTEN_TOOL_DURABILITY = 6_000;
 
-    public static final int COBALT_TOOL_DURABILITY = 7_500;
+    public static final int COBALT_TOOL_DURABILITY = 5_000;
     public static final int ORICHALCUM_TOOL_DURABILITY = 10_000;
 
     public static final int NETHERITE_TOOL_DURABILITY = 15_000;

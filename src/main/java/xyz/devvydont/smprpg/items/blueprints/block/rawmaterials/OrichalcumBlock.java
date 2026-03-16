@@ -54,6 +54,11 @@ public class OrichalcumBlock extends BlockBlueprint implements ICraftable, ISell
 
     @Override
     public int getWorth(ItemStack item) {
-        return (CustomItemType.ORICHALCUM_INGOT.Worth * 9) * item.getAmount();
+        var ingot = itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT);
+        var bp = ItemService.blueprint(ingot);
+        if (bp instanceof ISellable) {
+            return (((ISellable) bp).getWorth(ingot) * 9) * item.getAmount();
+        }
+        return 0;
     }
 }

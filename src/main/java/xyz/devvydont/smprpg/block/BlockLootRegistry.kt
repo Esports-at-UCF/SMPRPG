@@ -761,6 +761,7 @@ object BlockLootRegistry {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SULFUR_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SULFUR_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SULFUR_BLOCK)))
+                .ignoresFortune()
                 .build()
         )
 
@@ -773,10 +774,53 @@ object BlockLootRegistry {
         )
 
         register(
+            CustomBlock.RAW_TUNGSTEN_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TUNGSTEN_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_TUNGSTEN_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TUNGSTEN_BLOCK)))
+                .build()
+        )
+
+        register(
+            CustomBlock.TUNGSTEN_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TUNGSTEN_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TUNGSTEN_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.TUNGSTEN_BLOCK)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
             CustomBlock.COBALT_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.COBALT_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.COBALT_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_COBALT)))
+                .build()
+        )
+
+        register(
+            CustomBlock.COBALT_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.COBALT_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.COBALT_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_COBALT)))
+                .build()
+        )
+
+        register(
+            CustomBlock.RAW_COBALT_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.COBALT_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_COBALT_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_COBALT_BLOCK)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CustomBlock.COBALT_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.COBALT_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.COBALT_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.COBALT_BLOCK)))
+                .ignoresFortune()
                 .build()
         )
 
@@ -789,10 +833,36 @@ object BlockLootRegistry {
         )
 
         register(
+            CustomBlock.RAW_ORICHALCUM_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ORICHALCUM_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_ORICHALCUM_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_ORICHALCUM_BLOCK)))
+                .build()
+        )
+
+        register(
+            CustomBlock.ORICHALCUM_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ORICHALCUM_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ORICHALCUM_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ORICHALCUM_BLOCK)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
             CustomBlock.ONYX_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ONYX)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ONYX_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ONYX)))
+                .build()
+        )
+
+        register(
+            CustomBlock.ONYX_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ONYX_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ONYX_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ONYX_BLOCK)))
+                .ignoresFortune()
                 .build()
         )
 

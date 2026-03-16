@@ -38,6 +38,7 @@ class AcceleratedReforge(type: ReforgeType) : ReforgeBase(type) {
                 ItemRarity.RARE -> .20f
                 ItemRarity.EPIC -> .30f
                 ItemRarity.LEGENDARY -> .40f
+                ItemRarity.ARTIFICE -> .40f
                 ItemRarity.MYTHIC -> .50f
                 ItemRarity.DIVINE -> .65f
                 ItemRarity.TRANSCENDENT -> .8f

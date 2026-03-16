@@ -77,9 +77,10 @@ public class ItemPickaxe extends VanillaAttributeItem implements IBreakableEquip
             case SILVER_PICKAXE -> 6;
             case BRONZE_PICKAXE -> 7;
             case STEEL_PICKAXE -> 10;
-            case ROSE_GOLD_PICKAXE, MITHRIL_PICKAXE -> 12;
+            case ROSE_GOLD_PICKAXE, MITHRIL_PICKAXE, COBALT_PICKAXE -> 12;
             case TITANIUM_PICKAXE, TUNGSTEN_PICKAXE -> 15;
             case ADAMANTIUM_PICKAXE -> 18;
+            case ORICHALCUM_PICKAXE -> 24;
             default -> 0;
         };
     }

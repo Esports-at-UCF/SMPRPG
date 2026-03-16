@@ -126,6 +126,16 @@ public class ItemArmor extends VanillaAttributeItem implements IBreakableEquipme
             case TUNGSTEN_LEGGINGS -> 60;
             case TUNGSTEN_BOOTS -> 40;
 
+            case COBALT_HELMET -> 60;
+            case COBALT_CHESTPLATE -> 90;
+            case COBALT_LEGGINGS -> 75;
+            case COBALT_BOOTS -> 55;
+
+            case ORICHALCUM_HELMET -> 70;
+            case ORICHALCUM_CHESTPLATE -> 105;
+            case ORICHALCUM_LEGGINGS -> 90;
+            case ORICHALCUM_BOOTS -> 60;
+
             default -> 0;
         };
     }

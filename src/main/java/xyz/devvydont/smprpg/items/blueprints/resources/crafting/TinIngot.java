@@ -73,6 +73,6 @@ public class TinIngot extends CustomItemBlueprint implements ISmeltable, ISellab
      */
     @Override
     public int getWorth(ItemStack item) {
-        return 10;
+        return 10 * item.getAmount();
     }
 }

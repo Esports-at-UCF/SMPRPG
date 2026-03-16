@@ -77,9 +77,10 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
             case TIN_AXE -> 25;
             case SILVER_AXE -> 35;
             case STEEL_AXE -> 50;
-            case ROSE_GOLD_AXE, MITHRIL_AXE -> 55;
+            case ROSE_GOLD_AXE, MITHRIL_AXE, COBALT_AXE -> 55;
             case TITANIUM_AXE, TUNGSTEN_AXE -> 65;
             case ADAMANTIUM_AXE -> 80;
+            case ORICHALCUM_AXE -> 90;
             default -> 0;
         };
     }
@@ -107,7 +108,8 @@ public class ItemAxe extends VanillaAttributeItem implements IBreakableEquipment
 
     public static double getAxeLumbering(CustomItemType itemType) {
         return switch (itemType) {
-            case TITANIUM_AXE, ADAMANTIUM_AXE -> 1;
+            case TITANIUM_AXE, ADAMANTIUM_AXE, COBALT_AXE, ORICHALCUM_AXE -> 1;
+            case DRAGONSTEEL_AXE -> 3;
             default -> 0;
         };
     }

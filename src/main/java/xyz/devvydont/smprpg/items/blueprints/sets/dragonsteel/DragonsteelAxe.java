@@ -17,6 +17,7 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
+import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe;
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
 import xyz.devvydont.smprpg.services.ItemService;
@@ -49,7 +50,7 @@ public class DragonsteelAxe extends CustomAttributeItem implements ICraftable, I
                 new AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, 25),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.DRAGONSTEEL_TOOL_SPEED),
                 new AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, 100),
-                new AdditiveAttributeEntry(AttributeWrapper.LUMBERING, 3)
+                new AdditiveAttributeEntry(AttributeWrapper.LUMBERING, ItemAxe.getAxeLumbering(_type))
         );
     }
 

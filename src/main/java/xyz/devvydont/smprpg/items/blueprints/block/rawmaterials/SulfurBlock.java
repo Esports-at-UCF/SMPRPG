@@ -54,6 +54,11 @@ public class SulfurBlock extends BlockBlueprint implements ICraftable, ISellable
 
     @Override
     public int getWorth(ItemStack item) {
-        return (CustomItemType.SULFUR.Worth * 9) * item.getAmount();
+        var dust = itemService.getCustomItem(CustomItemType.SULFUR);
+        var bp = ItemService.blueprint(dust);
+        if (bp instanceof ISellable) {
+            return (((ISellable) bp).getWorth(dust) * 9) * item.getAmount();
+        }
+        return 0;
     }
 }

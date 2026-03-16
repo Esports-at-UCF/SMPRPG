@@ -27,10 +27,15 @@ import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.services.EntityService;
 import xyz.devvydont.smprpg.services.ItemService;
 
+import java.util.Collection;
+import java.util.List;
+
 public abstract class CustomEnchantment implements Cloneable {
 
     public static final int UNAPPLIED = -1;
     private boolean bootstrapped = false;
+    // Placeholder value, VERY near white by default but used to flag in lore generation
+    public static final TextColor ARTIFICE_COLOR = TextColor.color(16_711_422);
 
     public boolean isBootstrapped() {
         return bootstrapped;
@@ -130,6 +135,10 @@ public abstract class CustomEnchantment implements Cloneable {
     }
 
     public abstract @NotNull Component getDescription();
+
+    public @NotNull Collection<Component> getLongDescription() {
+        return List.of();
+    }
 
     public @NotNull RegistryKeySet<@NotNull ItemType> getSupportedItems(RegistryComposeEvent<Enchantment, EnchantmentRegistryEntry.@NotNull Builder> event) {
         return event.getOrCreateTag(getItemTypeTag());

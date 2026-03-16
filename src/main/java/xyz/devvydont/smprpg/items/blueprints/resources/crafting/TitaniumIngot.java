@@ -74,6 +74,6 @@ public class TitaniumIngot extends CustomItemBlueprint implements ISmeltable, IS
      */
     @Override
     public int getWorth(ItemStack item) {
-        return 600;
+        return 600 * item.getAmount();
     }
 }

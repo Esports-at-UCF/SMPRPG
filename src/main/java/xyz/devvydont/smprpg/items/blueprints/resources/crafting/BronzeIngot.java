@@ -69,6 +69,6 @@ public class BronzeIngot extends CustomItemBlueprint implements ISellable, ICraf
      */
     @Override
     public int getWorth(ItemStack item) {
-        return 50;
+        return 50 * item.getAmount();
     }
 }

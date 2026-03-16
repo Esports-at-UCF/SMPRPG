@@ -91,6 +91,8 @@ public class DynamicEnchantingScroll extends CustomItemBlueprint implements IHea
                 return ItemRarity.EPIC;
             else if (weight == EnchantmentRarity.RARE.getWeight())
                 return ItemRarity.LEGENDARY;
+            else if (weight == EnchantmentRarity.ARTIFICE.getWeight())
+                return ItemRarity.ARTIFICE;
             else if (weight == EnchantmentRarity.BLESSING.getWeight())
                 return ItemRarity.MYTHIC;
             else if (weight == EnchantmentRarity.ARTIFACT.getWeight())

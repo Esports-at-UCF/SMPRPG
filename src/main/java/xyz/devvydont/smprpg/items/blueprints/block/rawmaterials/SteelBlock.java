@@ -54,6 +54,11 @@ public class SteelBlock extends BlockBlueprint implements ICraftable, ISellable 
 
     @Override
     public int getWorth(ItemStack item) {
-        return (CustomItemType.STEEL_INGOT.Worth * 9) * item.getAmount();
+        var ingot = itemService.getCustomItem(CustomItemType.STEEL_INGOT);
+        var bp = ItemService.blueprint(ingot);
+        if (bp instanceof ISellable) {
+            return (((ISellable) bp).getWorth(ingot) * 9) * item.getAmount();
+        }
+        return 0;
     }
 }

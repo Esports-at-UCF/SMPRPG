@@ -9,6 +9,7 @@ import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.block.CustomBlock;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.resources.crafting.MithrilIngot;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
 import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
@@ -54,6 +55,11 @@ public class MithrilBlock extends BlockBlueprint implements ICraftable, ISellabl
 
     @Override
     public int getWorth(ItemStack item) {
-        return (CustomItemType.MITHRIL_INGOT.Worth * 9) * item.getAmount();
+        var ingot = itemService.getCustomItem(CustomItemType.MITHRIL_INGOT);
+        var bp = ItemService.blueprint(ingot);
+        if (bp instanceof ISellable) {
+            return (((ISellable) bp).getWorth(ingot) * 9) * item.getAmount();
+        }
+        return 0;
     }
 }

@@ -54,6 +54,11 @@ public class OnyxBlock extends BlockBlueprint implements ICraftable, ISellable {
 
     @Override
     public int getWorth(ItemStack item) {
-        return (CustomItemType.ONYX.Worth * 9) * item.getAmount();
+        var gem = itemService.getCustomItem(CustomItemType.ONYX);
+        var bp = ItemService.blueprint(gem);
+        if (bp instanceof ISellable) {
+            return (((ISellable) bp).getWorth(gem) * 9) * item.getAmount();
+        }
+        return 0;
     }
 }

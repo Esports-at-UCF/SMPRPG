@@ -54,6 +54,11 @@ public class RawTinBlock extends BlockBlueprint implements ICraftable, ISellable
 
     @Override
     public int getWorth(ItemStack item) {
-        return (CustomItemType.RAW_TIN.Worth * 9) * item.getAmount();
+        var ingot = itemService.getCustomItem(CustomItemType.RAW_TIN);
+        var bp = ItemService.blueprint(ingot);
+        if (bp instanceof ISellable) {
+            return (((ISellable) bp).getWorth(ingot) * 9) * item.getAmount();
+        }
+        return 0;
     }
 }

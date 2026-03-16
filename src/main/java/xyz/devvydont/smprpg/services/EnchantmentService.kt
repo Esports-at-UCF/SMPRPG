@@ -509,6 +509,9 @@ class EnchantmentService : IService, Listener {
         @JvmField
         val APTITUDE: CustomEnchantment = AptitudeEnchantment("aptitude")
 
+        @JvmField
+        val MINERS_FERVOR: CustomEnchantment = MinersFervorArtificeEnchantment("miners_fervor")
+
 
 
         /**
@@ -528,6 +531,9 @@ class EnchantmentService : IService, Listener {
             // Curses
             BINDING_CURSE,
             VANISHING_CURSE,  // Important enchantments (display first)
+
+            // Artifice Enchantments
+            MINERS_FERVOR,
 
             SMITE,
             BANE_OF_ARTHROPODS,

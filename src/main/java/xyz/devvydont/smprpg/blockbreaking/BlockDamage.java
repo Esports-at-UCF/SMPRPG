@@ -24,12 +24,10 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.block.BlockLootRegistry;
 import xyz.devvydont.smprpg.block.BlockSound;
 import xyz.devvydont.smprpg.block.CustomBlock;
+import xyz.devvydont.smprpg.enchantments.definitions.MinersFervorArtificeEnchantment;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.interfaces.IFueledEquipment;
-import xyz.devvydont.smprpg.services.AttributeService;
-import xyz.devvydont.smprpg.services.BlockBreakingService;
-import xyz.devvydont.smprpg.services.EconomyService;
-import xyz.devvydont.smprpg.services.ItemService;
+import xyz.devvydont.smprpg.services.*;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.formatting.Symbols;
 
@@ -231,6 +229,13 @@ public class BlockDamage {
 		else
 			preferredTools = entry.getPreferredTools();
 
+		// Do a quick attribute scan to remove Miner's Fervor modifier if we aren't holding a properly enchanted item.
+		if (!item.containsEnchantment(EnchantmentService.MINERS_FERVOR.getEnchantment())) {
+			var miningSpeedInst = AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_SPEED);
+			miningSpeedInst.removeModifier(MinersFervorArtificeEnchantment.MODIFIER_KEY);
+			miningSpeedInst.save(player, AttributeWrapper.MINING_SPEED);
+		}
+
 		// Instant breaking if this block is flagged to instabreak with this tool classification
 		var instabreakToolsArr = entry.getInstabreakTools();
 		if (instabreakToolsArr != null) {
@@ -239,7 +244,6 @@ public class BlockDamage {
 				return 0d;
 			}
 		}
-
 
 		boolean isPreferred = false;
 		boolean correctTool = false;

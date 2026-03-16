@@ -5,10 +5,14 @@ import io.papermc.paper.datacomponent.item.CustomModelData;
 import io.papermc.paper.datacomponent.item.Enchantable;
 import io.papermc.paper.datacomponent.item.Equippable;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ArmorMeta;
@@ -192,11 +196,23 @@ public abstract class SMPItemBlueprint {
         List<Component> lines = new ArrayList<>();
         lines.add(ComponentUtils.EMPTY);
         for (CustomEnchantment enchantment : SMPRPG.getService(EnchantmentService.class).getCustomEnchantments(meta)) {
-            Component name = enchantment.getEnchantment().displayName(enchantment.getLevel()).color(enchantment.getEnchantColor());
+            var color = enchantment.getEnchantColor();
+            Component name;
+            if (color == CustomEnchantment.ARTIFICE_COLOR) {
+                name = ComponentUtils.gradient(PlainTextComponentSerializer.plainText().serialize(enchantment.getEnchantment().displayName(enchantment.getLevel())), NamedTextColor.DARK_PURPLE, TextColor.color(255, 0,0)).decorate(TextDecoration.ITALIC);;
+            } else {
+                name = enchantment.getEnchantment().displayName(enchantment.getLevel()).color(enchantment.getEnchantColor());
+            }
             name = ComponentUtils.create(Symbols.SPARKLES + " ", NamedTextColor.LIGHT_PURPLE).append(name);
             lines.add(name);
-            if (meta.getEnchants().size() <= 9)
-                lines.add(enchantment.getDescription());
+            if (meta.getEnchants().size() <= 9) {
+                if (!enchantment.getLongDescription().isEmpty()) {
+                    lines.addAll(enchantment.getLongDescription());
+                }
+                else {
+                    lines.add(enchantment.getDescription());
+                }
+            }
         }
         lines.add(ComponentUtils.create("Enchantments: " + meta.getEnchants().size() + "/" + getMaxAllowedEnchantments(item), NamedTextColor.DARK_GRAY));
         return lines;

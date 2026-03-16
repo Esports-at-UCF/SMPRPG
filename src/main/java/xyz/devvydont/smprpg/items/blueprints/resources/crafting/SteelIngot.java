@@ -74,6 +74,6 @@ public class SteelIngot extends CustomItemBlueprint implements ISmeltable, ISell
      */
     @Override
     public int getWorth(ItemStack item) {
-        return 50;
+        return 50 * item.getAmount();
     }
 }

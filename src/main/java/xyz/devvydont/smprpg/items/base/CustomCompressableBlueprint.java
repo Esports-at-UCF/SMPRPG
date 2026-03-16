@@ -164,8 +164,9 @@ public abstract class CustomCompressableBlueprint extends CustomItemBlueprint im
         if (firstMaterial.isVanilla())
             worth = VanillaResource.getMaterialValue(firstMaterial.material());
         // If the item is custom check if the blueprint is sellable and use that.
-        else if (firstMaterial.isCustom() && itemService.getBlueprint(firstMaterial.getCustom()) instanceof ISellable sellable)
+        else if (firstMaterial.isCustom() && itemService.getBlueprint(firstMaterial.getCustom()) instanceof ISellable sellable) {
             worth = sellable.getWorth(firstMaterial.get(itemService));
+            }
 
         return amount * worth * itemStack.getAmount();
     }

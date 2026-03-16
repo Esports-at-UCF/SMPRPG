@@ -62,9 +62,10 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
             case TIN_HOE -> 4;
             case SILVER_HOE -> 7;
             case STEEL_HOE -> 13;
-            case ROSE_GOLD_HOE, MITHRIL_HOE -> 14;
+            case ROSE_GOLD_HOE, MITHRIL_HOE, COBALT_HOE -> 14;
             case TITANIUM_HOE, TUNGSTEN_HOE -> 16;
             case ADAMANTIUM_HOE -> 20;
+            case ORICHALCUM_HOE -> 20;
             default -> 0;
         };
     }
@@ -85,6 +86,8 @@ public class ItemHoe extends VanillaAttributeItem implements IBreakableEquipment
             case SILVER_HOE, TIN_HOE, ROSE_GOLD_HOE, MITHRIL_HOE -> -0.25;
             case BRONZE_HOE, STEEL_HOE -> -0.2;
             case TITANIUM_HOE, ADAMANTIUM_HOE -> -0.15;
+            case COBALT_HOE -> -0.075;
+            case DRAGONSTEEL_HOE -> -0.025;
             default -> 0;
         };
     }

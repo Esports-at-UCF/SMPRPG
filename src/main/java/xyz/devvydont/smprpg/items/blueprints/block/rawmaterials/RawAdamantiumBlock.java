@@ -56,6 +56,11 @@ public class RawAdamantiumBlock extends BlockBlueprint implements ICraftable, IS
 
     @Override
     public int getWorth(ItemStack item) {
-        return (CustomItemType.RAW_ADAMANTIUM.Worth * 9) * item.getAmount();
+        var ingot = itemService.getCustomItem(CustomItemType.RAW_ADAMANTIUM);
+        var bp = ItemService.blueprint(ingot);
+        if (bp instanceof ISellable) {
+            return (((ISellable) bp).getWorth(ingot) * 9) * item.getAmount();
+        }
+        return 0;
     }
 }

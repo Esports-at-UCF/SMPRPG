@@ -84,6 +84,7 @@ class WitheredReforge(type: ReforgeType) : ReforgeBase(type), Listener {
                 ItemRarity.RARE -> .5f
                 ItemRarity.EPIC -> .55f
                 ItemRarity.LEGENDARY -> .65f
+                ItemRarity.ARTIFICE -> .65f
                 ItemRarity.MYTHIC -> .7f
                 ItemRarity.DIVINE -> .75f
                 ItemRarity.TRANSCENDENT -> .75f

@@ -73,6 +73,6 @@ public class AdamantiumIngot extends CustomItemBlueprint implements ISmeltable, 
      */
     @Override
     public int getWorth(ItemStack item) {
-        return 1000;
+        return 1000 * item.getAmount();
     }
 }

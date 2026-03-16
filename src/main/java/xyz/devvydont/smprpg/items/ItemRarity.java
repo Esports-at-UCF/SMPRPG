@@ -16,7 +16,8 @@ public enum ItemRarity {
     MYTHIC(NamedTextColor.LIGHT_PURPLE),
     DIVINE(NamedTextColor.AQUA),
     TRANSCENDENT(NamedTextColor.RED),
-    SPECIAL(NamedTextColor.DARK_RED)
+    SPECIAL(NamedTextColor.DARK_RED),
+    ARTIFICE(NamedTextColor.YELLOW)
     ;
 
     public final NamedTextColor color;

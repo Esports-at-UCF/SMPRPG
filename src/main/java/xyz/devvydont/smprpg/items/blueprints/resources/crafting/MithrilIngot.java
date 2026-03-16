@@ -74,6 +74,6 @@ public class MithrilIngot extends CustomItemBlueprint implements ISmeltable, ISe
      */
     @Override
     public int getWorth(ItemStack item) {
-        return 150;
+        return 150 * item.getAmount();
     }
 }
