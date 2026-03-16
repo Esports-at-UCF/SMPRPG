@@ -27,6 +27,11 @@ public class FireAspectEnchantment extends UnchangedEnchantment {
     }
 
     @Override
+    public int getWeight() {
+        return EnchantmentRarity.UNCOMMON.getWeight();
+    }
+
+    @Override
     public @NotNull Component getDisplayName() {
         return ComponentUtils.create("Fire Aspect");
     }
@@ -69,10 +74,5 @@ public class FireAspectEnchantment extends UnchangedEnchantment {
     @Override
     public int getSkillRequirement() {
         return 16;
-    }
-
-    @Override
-    public int getWeight() {
-        return EnchantmentRarity.UNCOMMON.getWeight();
     }
 }

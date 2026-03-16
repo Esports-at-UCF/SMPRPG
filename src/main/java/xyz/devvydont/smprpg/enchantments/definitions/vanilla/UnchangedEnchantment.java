@@ -26,7 +26,8 @@ public abstract class UnchangedEnchantment extends VanillaEnchantment {
 
         context.getLifecycleManager().registerEventHandler(RegistryEvents.ENCHANTMENT.entryAdd()
                 .newHandler(event -> event.builder()
-                        .description(getDisplayName()))
+                        .description(getDisplayName())
+                        .weight(getWeight()))
                 // Configure the handled to only be called for the Vanilla sharpness enchantment.
                 .filter(getTypedKey())
         );
