@@ -9,6 +9,7 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
+import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.UnchangedEnchantment;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 
@@ -50,5 +51,10 @@ public class BindingCurseEnchantment extends UnchangedEnchantment {
     @Override
     public int getSkillRequirementToAvoid() {
         return 10;
+    }
+
+    @Override
+    public int getWeight() {
+        return EnchantmentRarity.CURSE.getWeight();
     }
 }

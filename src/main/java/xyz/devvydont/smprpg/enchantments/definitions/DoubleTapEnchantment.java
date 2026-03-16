@@ -72,7 +72,7 @@ public class DoubleTapEnchantment extends CustomEnchantment implements Listener 
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.UNCOMMON.getWeight();
+        return EnchantmentRarity.COMMON.getWeight();
     }
 
     @Override

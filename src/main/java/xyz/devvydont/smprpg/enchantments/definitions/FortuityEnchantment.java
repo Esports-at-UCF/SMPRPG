@@ -72,7 +72,7 @@ public class FortuityEnchantment extends CustomEnchantment implements AttributeE
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.UNCOMMON.getWeight();
+        return EnchantmentRarity.RARE.getWeight();
     }
 
     @Override

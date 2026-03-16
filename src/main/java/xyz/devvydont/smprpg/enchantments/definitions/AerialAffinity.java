@@ -58,7 +58,7 @@ public class AerialAffinity extends CustomEnchantment implements AttributeEnchan
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.COMMON.getWeight();
+        return EnchantmentRarity.RARE.getWeight();
     }
 
     @Override

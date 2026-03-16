@@ -158,7 +158,7 @@ public class MuffleEnchantment extends CustomEnchantment implements Listener {
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.COMMON.getWeight();
+        return EnchantmentRarity.UNCOMMON.getWeight();
     }
 
     @Override

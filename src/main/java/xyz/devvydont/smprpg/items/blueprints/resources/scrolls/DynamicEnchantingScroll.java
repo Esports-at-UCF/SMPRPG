@@ -9,7 +9,9 @@ import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -26,6 +28,7 @@ import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable;
 import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.services.ItemService;
+import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 
 import java.util.List;
 
@@ -70,8 +73,13 @@ public class DynamicEnchantingScroll extends CustomItemBlueprint implements IHea
     public List<Component> getHeader(ItemStack itemStack) {
         Enchantment enchant = (Enchantment) itemStack.getData(DataComponentTypes.STORED_ENCHANTMENTS).enchantments().keySet().toArray()[0];
         var color = enchant.description().color();
-        if (color != null)
+        if (color != null) {
+            if (getRarity(itemStack) == ItemRarity.ARTIFICE) {
+                var textComp = SMPRPG.getService(EnchantmentService.class).getEnchantment(enchant).getDisplayName();
+                return List.of(ComponentUtils.gradient(PlainTextComponentSerializer.plainText().serialize(textComp), NamedTextColor.DARK_PURPLE, TextColor.color(255, 0,0)).decorate(TextDecoration.ITALIC));
+            }
             color = color.equals(NamedTextColor.WHITE) ? NamedTextColor.GRAY : enchant.description().color();
+        }
         else {
             color = NamedTextColor.DARK_RED;
         }

@@ -70,7 +70,7 @@ public class FeatherFallingEnchantment extends VanillaEnchantment implements Att
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.UNCOMMON.getWeight();
+        return EnchantmentRarity.COMMON.getWeight();
     }
 
     @Override

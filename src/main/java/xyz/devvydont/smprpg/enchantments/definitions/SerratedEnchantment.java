@@ -71,7 +71,7 @@ public class SerratedEnchantment extends CustomEnchantment implements AttributeE
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.UNCOMMON.getWeight();
+        return EnchantmentRarity.COMMON.getWeight();
     }
 
     @Override

@@ -15,6 +15,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
+import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil;
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.UnchangedEnchantment;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
@@ -48,6 +49,11 @@ public class ThornsEnchantment extends UnchangedEnchantment implements Listener 
             ComponentUtils.create(String.valueOf(getReflectDamage(getLevel())), NamedTextColor.RED),
             ComponentUtils.create(" damage when hurt")
         );
+    }
+
+    @Override
+    public int getWeight() {
+        return EnchantmentRarity.COMMON.getWeight();
     }
 
     @Override

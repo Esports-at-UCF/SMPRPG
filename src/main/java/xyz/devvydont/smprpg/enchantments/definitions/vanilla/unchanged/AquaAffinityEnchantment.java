@@ -8,6 +8,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
+import xyz.devvydont.smprpg.enchantments.EnchantmentRarity;
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.UnchangedEnchantment;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 
@@ -39,5 +40,10 @@ public class AquaAffinityEnchantment extends UnchangedEnchantment {
     @Override
     public int getSkillRequirement() {
         return 18;
+    }
+
+    @Override
+    public int getWeight() {
+        return EnchantmentRarity.UNCOMMON.getWeight();
     }
 }

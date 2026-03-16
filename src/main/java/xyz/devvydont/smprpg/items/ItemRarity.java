@@ -73,11 +73,11 @@ public enum ItemRarity {
 
     public Component applyDecoration(Component component) {
 
-        // Legendary and lower only has a color
-        if (this.ordinal() <= LEGENDARY.ordinal())
+        // Artifice and lower only has a color
+        if (this.ordinal() <= ARTIFICE.ordinal())
             return component.color(this.color);
 
-        // > Legendary adds the magic text on both sides, and then whole component is wrapped in the color.
+        // > Artifice adds the magic text on both sides, and then whole component is wrapped in the color.
         return ComponentUtils.merge(
             ComponentUtils.create("o ", this.color).decoration(TextDecoration.OBFUSCATED, true),
             component.decoration(TextDecoration.OBFUSCATED, false).color(this.color),

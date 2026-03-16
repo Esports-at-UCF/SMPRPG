@@ -70,7 +70,7 @@ public class FireProtectionEnchantment extends VanillaEnchantment implements Lis
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.UNCOMMON.getWeight();
+        return EnchantmentRarity.COMMON.getWeight();
     }
 
     @Override

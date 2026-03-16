@@ -64,7 +64,7 @@ public class SnipeEnchantment extends CustomEnchantment implements Listener {
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.UNCOMMON.getWeight();
+        return EnchantmentRarity.RARE.getWeight();
     }
 
     @Override

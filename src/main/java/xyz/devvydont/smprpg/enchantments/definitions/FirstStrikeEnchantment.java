@@ -72,7 +72,7 @@ public class FirstStrikeEnchantment extends CustomEnchantment implements Listene
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.UNCOMMON.getWeight();
+        return EnchantmentRarity.COMMON.getWeight();
     }
 
     @Override

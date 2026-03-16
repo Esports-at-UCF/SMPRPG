@@ -68,7 +68,7 @@ public class OpportunistEnchantment extends CustomEnchantment implements Attribu
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.UNCOMMON.getWeight();
+        return EnchantmentRarity.RARE.getWeight();
     }
 
     @Override

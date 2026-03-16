@@ -184,8 +184,19 @@ public abstract class SMPItemBlueprint {
      * @return How many enchants this item can have.
      */
     public int getMaxAllowedEnchantments(ItemStack item) {
-        int rarityScore = getRarity(item).ordinal();
-        return rarityScore * 2 + 1;
+        var blueprint = ItemService.blueprint(item);
+        switch (blueprint.getRarity(item)) {
+            case ItemRarity.COMMON: return 1;
+            case ItemRarity.UNCOMMON: return 3;
+            case ItemRarity.RARE: return 5;
+            case ItemRarity.EPIC: return 7;
+            case ItemRarity.LEGENDARY: return 9;
+            case ItemRarity.ARTIFICE, ItemRarity.MYTHIC: return 11;
+            case ItemRarity.DIVINE: return 13;
+            case ItemRarity.TRANSCENDENT: return 15;
+            case ItemRarity.SPECIAL: return 17;
+            default: return 0;
+        }
     }
 
     /**

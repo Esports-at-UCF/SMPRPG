@@ -77,7 +77,7 @@ public class BlessedEnchantment extends CustomEnchantment implements Listener {
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.RARE.getWeight();
+        return EnchantmentRarity.COMMON.getWeight();
     }
 
     @Override

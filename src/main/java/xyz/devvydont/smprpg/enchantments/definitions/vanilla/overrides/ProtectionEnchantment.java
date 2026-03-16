@@ -78,7 +78,7 @@ public class ProtectionEnchantment extends VanillaEnchantment implements Attribu
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.COMMON.getWeight();
+        return EnchantmentRarity.UNCOMMON.getWeight();
     }
 
     @Override

@@ -27,7 +27,7 @@ import java.util.List;
 public class VigorousEnchantment extends CustomEnchantment implements AttributeEnchantment {
 
     public static int getMiningSpeed(int level) {
-        return level * 10;
+        return level * 30;
     }
 
     public VigorousEnchantment(String id) {
@@ -64,7 +64,7 @@ public class VigorousEnchantment extends CustomEnchantment implements AttributeE
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.UNCOMMON.getWeight();
+        return EnchantmentRarity.RARE.getWeight();
     }
 
     @Override

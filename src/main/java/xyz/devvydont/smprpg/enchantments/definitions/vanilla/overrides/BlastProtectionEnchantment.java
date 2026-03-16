@@ -71,7 +71,7 @@ public class BlastProtectionEnchantment extends VanillaEnchantment implements At
 
     @Override
     public int getWeight() {
-        return EnchantmentRarity.UNCOMMON.getWeight();
+        return EnchantmentRarity.COMMON.getWeight();
     }
 
     @Override
