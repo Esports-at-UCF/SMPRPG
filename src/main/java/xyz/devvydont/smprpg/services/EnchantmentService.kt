@@ -512,6 +512,9 @@ class EnchantmentService : IService, Listener {
         @JvmField
         val MINERS_FERVOR: CustomEnchantment = MinersFervorArtificeEnchantment("miners_fervor")
 
+        @JvmField
+        val ONE_FOR_ALL: CustomEnchantment = OneForAllArtificeEnchantment("one_for_all")
+
 
 
         /**
@@ -534,6 +537,7 @@ class EnchantmentService : IService, Listener {
 
             // Artifice Enchantments
             MINERS_FERVOR,
+            ONE_FOR_ALL,
 
             SMITE,
             BANE_OF_ARTHROPODS,

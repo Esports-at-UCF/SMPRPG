@@ -137,7 +137,6 @@ public class MinersFervorArtificeEnchantment extends CustomEnchantment implement
         return ComponentUtils.create("Miner's Fervor");
     }
 
-
     @Override
     public @NotNull TextColor getEnchantColor() {
         return ARTIFICE_COLOR;

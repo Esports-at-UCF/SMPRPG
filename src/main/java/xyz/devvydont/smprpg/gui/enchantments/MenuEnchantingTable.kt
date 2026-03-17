@@ -6,6 +6,7 @@ import io.papermc.paper.datacomponent.item.ItemEnchantments
 import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -28,6 +29,7 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.block.CustomBlock
+import xyz.devvydont.smprpg.enchantments.definitions.OneForAllArtificeEnchantment
 import xyz.devvydont.smprpg.events.CustomEnchantItemEvent
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.base.MenuBase
@@ -217,11 +219,27 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
             lore.add(ComponentUtils.EMPTY)
             var hasConflict = false
 
-            for (ench in input.enchantments.keys) {
-                if (enchant.conflictsWith(ench) && ench.key != enchant.key) {
-                    hasConflict = true
-                    lore.add(ComponentUtils.create("This enchantment conflicts with one or more enchantments!", NamedTextColor.RED))
-                    break
+            // Special case check for OFA, super short.
+            if (enchant.key == EnchantmentService.ONE_FOR_ALL.key && input.enchantments.keys.size > 0) {
+                hasConflict = true
+                lore.add(ComponentUtils.merge(
+                    ComponentUtils.gradient("One For All", NamedTextColor.DARK_PURPLE, TextColor.color(255, 0, 0)),
+                    ComponentUtils.create(" is not compatible with any other enchantments!", NamedTextColor.RED)
+                ))
+            }
+
+            if (!hasConflict) {
+                for (ench in input.enchantments.keys) {
+                    if (enchant.conflictsWith(ench) && ench.key != enchant.key) {
+                        hasConflict = true
+                        lore.add(
+                            ComponentUtils.create(
+                                "This enchantment conflicts with one or more enchantments!",
+                                NamedTextColor.RED
+                            )
+                        )
+                        break
+                    }
                 }
             }
 

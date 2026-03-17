@@ -49,7 +49,7 @@ public class VigorousEnchantment extends CustomEnchantment implements AttributeE
 
     @Override
     public TagKey<ItemType> getItemTypeTag() {
-        return ItemTypeTagKeys.ENCHANTABLE_CHEST_ARMOR;
+        return ItemTypeTagKeys.ENCHANTABLE_MINING;
     }
 
     @Override
