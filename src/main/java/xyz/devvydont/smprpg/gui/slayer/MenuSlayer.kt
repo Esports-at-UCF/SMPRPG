@@ -74,6 +74,24 @@ class MenuSlayer : MenuBase {
             ), { e: InventoryClickEvent? ->
                 MenuSlayerQuest(this.player, this, SlayerType.SHAMBLING_ABOMINATION).openMenu()
             })
+
+        // Illager Warlock
+        this.setButton(
+            SLAYERS_START + 2, getNamedItemWithDescription(
+                CustomItemType.SPELL_POWDER,
+                ComponentUtils.create("Illager Warlock", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
+                ComponentUtils.EMPTY,
+                ComponentUtils.create("Once just a mere wizard, this"),
+                ComponentUtils.merge(
+                    ComponentUtils.create("Illager has mastered "),
+                    ComponentUtils.create("the arcane arts", NamedTextColor.AQUA),
+                    ComponentUtils.create(","),
+                ),
+                ComponentUtils.create("and has nigh-complete control"),
+                ComponentUtils.create("of the world around them.")
+            ), { e: InventoryClickEvent? ->
+                MenuSlayerQuest(this.player, this, SlayerType.ILLAGER_WARLOCK).openMenu()
+            })
     }
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {

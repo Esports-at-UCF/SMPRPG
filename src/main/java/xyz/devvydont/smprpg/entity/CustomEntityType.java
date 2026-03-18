@@ -16,6 +16,9 @@ import xyz.devvydont.smprpg.entity.bosses.BlazeBoss;
 import xyz.devvydont.smprpg.entity.creatures.*;
 import xyz.devvydont.smprpg.entity.fishing.*;
 import xyz.devvydont.smprpg.entity.npc.ReforgeNPC;
+import xyz.devvydont.smprpg.entity.slayer.illager.IllagerWarlockBasic;
+import xyz.devvydont.smprpg.entity.slayer.illager.RavagerFamiliar;
+import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationBasic;
 import xyz.devvydont.smprpg.entity.slayer.shambling.*;
 import xyz.devvydont.smprpg.entity.spawning.EntitySpawnCondition;
 import xyz.devvydont.smprpg.entity.spawning.EntitySpawner;
@@ -190,6 +193,8 @@ public enum CustomEntityType implements IMenuDisplayable {
     TEST_SKELETON(EntityType.SKELETON, "Test Skeleton", 5, 100, 10),
 
     // SLAYER
+
+    // SHAMBLING ABOMINATION
     SHAMBLING_ABOMINATION_1(EntityType.ZOMBIE, "Shambling Abomination", 10, 1_000, 10, ShamblingAbominationBasic::new),
     SHAMBLING_ABOMINATION_2(EntityType.ZOMBIE, "Shambling Abomination", 20, 25_000, 50, ShamblingAbominationIntermediate::new),
     SHAMBLING_ABOMINATION_3(EntityType.ZOMBIE, "Shambling Abomination", 30, 300_000, 150, ShamblingAbominationAdvanced::new),
@@ -201,6 +206,15 @@ public enum CustomEntityType implements IMenuDisplayable {
     WRETCHED_ABOMINATION(EntityType.ZOMBIE, "Wretched Abomination", 36, 500_000, 400, WretchedAbomination::new),
     SHAMBLING_MALFEASANT(EntityType.ZOMBIE, "Shambling Malfeasant", 42, 1_000_000, 800, ShamblingMalfeasant::new),
     REMORSEFUL_ABOMINATION(EntityType.ZOMBIE, "Remorseful Abomination", 48, 2_400_000, 1_200, RemorsefulAbomination::new),
+
+    // ILLAGER WARLOCK
+    ILLAGER_WARLOCK_1(EntityType.EVOKER, "Illager Warlock", 20, 10_000, 100, IllagerWarlockBasic::new),
+    ILLAGER_WARLOCK_2(EntityType.EVOKER, "Illager Warlock", 30, 100_000, 200, IllagerWarlockBasic::new),
+    ILLAGER_WARLOCK_3(EntityType.EVOKER, "Illager Warlock", 40, 600_000, 500, IllagerWarlockBasic::new),
+    ILLAGER_WARLOCK_4(EntityType.EVOKER, "Illager Warlock", 50, 2_000_000, 1_000, IllagerWarlockBasic::new),
+    ILLAGER_WARLOCK_5(EntityType.EVOKER, "Illager Warlock", 60, 7_500_000, 2_000, IllagerWarlockBasic::new),
+
+    RAVAGER_FAMILIAR(EntityType.RAVAGER, "Ravager Familiar", 35, 250_000, 250, RavagerFamiliar::new),
 
     // NPCs
     REFORGE_NPC(EntityType.VILLAGER, "Tool Reforger", ReforgeNPC::new),

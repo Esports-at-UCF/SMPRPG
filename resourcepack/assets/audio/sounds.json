@@ -108,5 +108,11 @@
       "block/basalt/step6"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.illager_warlock.cast_toss": {
+    "sounds": [
+      "audio:entity/illager_warlock/cast_toss"
+    ],
+    "subtitle": "subtitles.entity.evoker.cast_spell"
   }
 }

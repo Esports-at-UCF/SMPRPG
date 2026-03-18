@@ -104,6 +104,30 @@
         "instrument=harp,note=12,powered=false": {
             "model": "blocks:block/raw_adamantium_block"
         },
+        "instrument=harp,note=13,powered=false": {
+            "model": "blocks:block/sulfur_block"
+        },
+        "instrument=harp,note=14,powered=false": {
+            "model": "blocks:block/raw_tungsten_block"
+        },
+        "instrument=harp,note=15,powered=false": {
+            "model": "blocks:block/tungsten_block"
+        },
+        "instrument=harp,note=16,powered=false": {
+            "model": "blocks:block/raw_cobalt_block"
+        },
+        "instrument=harp,note=17,powered=false": {
+            "model": "blocks:block/cobalt_block"
+        },
+        "instrument=harp,note=18,powered=false": {
+            "model": "blocks:block/raw_orichalcum_block"
+        },
+        "instrument=harp,note=19,powered=false": {
+            "model": "blocks:block/orichalcum_block"
+        },
+        "instrument=harp,note=20,powered=false": {
+            "model": "blocks:block/onyx_block"
+        },
         "instrument=harp,note=22,powered=false": {
             "model": "blocks:block/dragonsteel_block"
         },

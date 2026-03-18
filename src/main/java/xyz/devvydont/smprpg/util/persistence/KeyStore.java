@@ -78,4 +78,6 @@ public class KeyStore {
     public static final NamespacedKey AUDIO_EPIC_DROP = new NamespacedKey("audio", "events.drops.epic");
     public static final NamespacedKey AUDIO_LEGENDARY_DROP = new NamespacedKey("audio", "events.drops.legendary");
 
+    public static final NamespacedKey AUDIO_ILLAGER_WARLOCK_TOSS_CAST = new NamespacedKey("audio", "entity.illager_warlock.cast_toss");
+
 }

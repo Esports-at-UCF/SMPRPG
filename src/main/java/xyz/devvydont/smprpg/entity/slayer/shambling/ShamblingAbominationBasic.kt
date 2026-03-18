@@ -8,7 +8,7 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.slayer.shambling.goals.ShamblingAbominationChaseGoal
 import xyz.devvydont.smprpg.items.CustomItemType
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
+import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop
 import xyz.devvydont.smprpg.util.items.LootDrop
 import xyz.devvydont.smprpg.util.items.QuantityLootDrop
@@ -16,12 +16,12 @@ import xyz.devvydont.smprpg.util.items.QuantityLootDrop
 class ShamblingAbominationBasic(entity: LivingEntity?, entityType: CustomEntityType?) : ShamblingAbominationParent(entity as Zombie?, entityType) {
     override fun getItemDrops(): List<LootDrop> {
         return listOf(
-            QuantityLootDrop(generate(CustomItemType.NECROTIC_FLESH), 1, 3, this),
-            QuantityLootDrop(generate(Material.ROTTEN_FLESH), 5, 16, this),
-            ChancedItemDrop(generate(CustomItemType.PREMIUM_FLESH), 20, this),
-            ChancedItemDrop(generate(CustomItemType.ENCHANTED_FLESH), 100, this),
+            QuantityLootDrop(ItemService.Companion.generate(CustomItemType.NECROTIC_FLESH), 1, 3, this),
+            QuantityLootDrop(ItemService.Companion.generate(Material.ROTTEN_FLESH), 5, 16, this),
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.PREMIUM_FLESH), 20, this),
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.ENCHANTED_FLESH), 100, this),
 
-            ChancedItemDrop(generate(CustomItemType.REVILED_VISCERA), 200, this)
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.REVILED_VISCERA), 200, this)
         )
     }
 

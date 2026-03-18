@@ -15,6 +15,9 @@ import xyz.devvydont.smprpg.items.blueprints.charms.LuckyCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.SpeedCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowder;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.cobalt.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.orichalcum.*;
 import xyz.devvydont.smprpg.items.tools.drills.LargeFuelTank;
@@ -42,10 +45,6 @@ import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFlesh;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFleshFamilyBlueprint;
-import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.NecronomiconExcerpts;
-import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.ReviledViscera;
-import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.UndigestedBrains;
-import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.VisceralAmalgamation;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
 import xyz.devvydont.smprpg.items.blueprints.sets.abomination.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
@@ -770,6 +769,15 @@ public enum CustomItemType {
     ABOMINABLE_CHESTPLATE("Abominable Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.EPIC, AbominationChestplate.class),
     ABOMINABLE_LEGGINGS("Abominable Leggings", Material.DIAMOND_LEGGINGS, ItemRarity.EPIC, AbominationLeggings.class),
     ABOMINABLE_BOOTS("Abominable Boots", Material.DIAMOND_BOOTS, ItemRarity.EPIC, AbominationBoots.class),
+
+    // ILLAGER WARLOCK
+
+    SPELL_POWDER(      "Spell Powder",          Material.GUNPOWDER,       ItemRarity.UNCOMMON,      false, SpellPowder.class),
+    PREMIUM_SPELL_POWDER("Premium Spell Powder", Material.GUNPOWDER, ItemRarity.RARE, true, SpellPowderFamilyBlueprint.class),
+    ENCHANTED_SPELL_POWDER(    "Enchanted Spell Powder",        Material.GUNPOWDER,       ItemRarity.EPIC,    true, SpellPowderFamilyBlueprint.class),
+    SPELL_POWDER_SINGULARITY(    "Spell Powder Singularity",        Material.GUNPOWDER,       ItemRarity.LEGENDARY,    true, SpellPowderFamilyBlueprint.class),
+
+    HORN_OF_WARLOCK("Horn of Warlock", Material.FLINT, ItemRarity.RARE, HornOfWarlock.class),
 
     IRON_ROD("Iron Rod", Material.FISHING_ROD, ItemRarity.COMMON, WaterRod.class),
     DIAMOND_ROD("Diamond Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, WaterRod.class),

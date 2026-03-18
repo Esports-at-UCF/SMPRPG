@@ -810,6 +810,24 @@
                 "\ub00C"
             ]
         },
+				{
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/slayer_menu_piglin.png",
+            "height": 256,
+            "ascent": 34,
+            "chars": [
+                "\ub00D"
+            ]
+        },
+				{
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/slayer_menu_illager.png",
+            "height": 256,
+            "ascent": 34,
+            "chars": [
+                "\ub00E"
+            ]
+        },
         {
             "type": "bitmap",
             "file": "space:font/space_split.png",

@@ -64,6 +64,13 @@
                 }
             },
 			{
+                "when": "smprpg:enchanted_tin_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/tin_block"
+                }
+            },
+			{
                 "when": "smprpg:raw_tin_block",
                 "model": {
                     "type": "model",
@@ -127,6 +134,13 @@
                 }
             },
 			{
+                "when": "smprpg:enchanted_mithril_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/mithril_block"
+                }
+            },
+			{
                 "when": "smprpg:titanium_ore",
                 "model": {
                     "type": "model",
@@ -142,6 +156,13 @@
             },
 			{
                 "when": "smprpg:titanium_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/titanium_block"
+                }
+            },
+			{
+                "when": "smprpg:enchanted_titanium_block",
                 "model": {
                     "type": "model",
                     "model": "blocks:block/titanium_block"
@@ -169,6 +190,13 @@
                 }
             },
 			{
+                "when": "smprpg:enchanted_adamantium_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/adamantium_block"
+                }
+            },
+			{
                 "when": "smprpg:sulfur_ore",
                 "model": {
                     "type": "model",
@@ -177,6 +205,13 @@
             },
 			{
                 "when": "smprpg:sulfur_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/sulfur_block"
+                }
+            },
+			{
+                "when": "smprpg:enchanted_sulfur_block",
                 "model": {
                     "type": "model",
                     "model": "blocks:block/sulfur_block"
@@ -212,6 +247,13 @@
             },
 			{
                 "when": "smprpg:tungsten_block",
+                "model": {
+                    "type": "model",
+                    "model": "blocks:block/tungsten_block"
+                }
+            },
+			{
+                "when": "smprpg:enchanted_tungsten_block",
                 "model": {
                     "type": "model",
                     "model": "blocks:block/tungsten_block"

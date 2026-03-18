@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.slayer.quest
 
 import com.google.common.collect.ImmutableList
 import xyz.devvydont.smprpg.entity.CustomEntityType
+import xyz.devvydont.smprpg.entity.slayer.illager.IllagerWarlockParent
 import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationParent
 
 enum class SlayerClassification(val slayerType : SlayerType,
@@ -11,42 +12,86 @@ enum class SlayerClassification(val slayerType : SlayerType,
                                 val cost : Int,
                                 val slayerXpReward : Int,
                                 val specialSpawns : ImmutableList<CustomEntityType>?) {
+
+    //<editor-fold desc="Shambling Abomination">
     SHAMBLING_HORROR_1(SlayerType.SHAMBLING_ABOMINATION,
         CustomEntityType.SHAMBLING_ABOMINATION_1,
         ShamblingAbominationParent.SPAWN_MOB_FLAG,
         300,
-        1000,
+        1_000,
         50,
         null),
     SHAMBLING_HORROR_2(SlayerType.SHAMBLING_ABOMINATION,
         CustomEntityType.SHAMBLING_ABOMINATION_2,
         ShamblingAbominationParent.SPAWN_MOB_FLAG,
         750,
-        2500,
+        2_500,
         200,
         null),
     SHAMBLING_HORROR_3(SlayerType.SHAMBLING_ABOMINATION,
         CustomEntityType.SHAMBLING_ABOMINATION_3,
         ShamblingAbominationParent.SPAWN_MOB_FLAG,
-        1875,
-        10000,
+        1_875,
+        10_000,
         800,
         ImmutableList.of(CustomEntityType.SINFUL_SHAMBLER)
     ),
     SHAMBLING_HORROR_4(SlayerType.SHAMBLING_ABOMINATION,
         CustomEntityType.SHAMBLING_ABOMINATION_4,
         ShamblingAbominationParent.SPAWN_MOB_FLAG,
-        4700,
-        50000,
-        3200,
+        4_700,
+        50_000,
+        3_200,
         ImmutableList.of(CustomEntityType.REMORSELESS_ABOMINATION, CustomEntityType.WRETCHED_ABOMINATION)
     ),
     SHAMBLING_HORROR_5(SlayerType.SHAMBLING_ABOMINATION,
         CustomEntityType.SHAMBLING_ABOMINATION_5,
         ShamblingAbominationParent.SPAWN_MOB_FLAG,
-        11750,
-        100000,
-        12800,
+        11_750,
+        100_000,
+        12_800,
         ImmutableList.of(CustomEntityType.SHAMBLING_MALFEASANT, CustomEntityType.REMORSEFUL_ABOMINATION)
+    ),
+    //</editor-fold>
+
+    //<editor-fold desc="Illager Warlock">
+    ILLAGER_WARLOCK_1(SlayerType.ILLAGER_WARLOCK,
+    CustomEntityType.ILLAGER_WARLOCK_1,
+    IllagerWarlockParent.SPAWN_MOB_FLAG,
+    750,
+    1_000,
+    200,
+    null),
+    ILLAGER_WARLOCK_2(SlayerType.ILLAGER_WARLOCK,
+    CustomEntityType.ILLAGER_WARLOCK_2,
+    IllagerWarlockParent.SPAWN_MOB_FLAG,
+    1_875,
+    2_500,
+    800,
+    null),
+    ILLAGER_WARLOCK_3(SlayerType.ILLAGER_WARLOCK,
+    CustomEntityType.ILLAGER_WARLOCK_3,
+    IllagerWarlockParent.SPAWN_MOB_FLAG,
+    4_690,
+    10_000,
+    3_200,
+    ImmutableList.of(CustomEntityType.RAVAGER_FAMILIAR)
+    ),
+    ILLAGER_WARLOCK_4(SlayerType.ILLAGER_WARLOCK,
+    CustomEntityType.ILLAGER_WARLOCK_4,
+    IllagerWarlockParent.SPAWN_MOB_FLAG,
+    11_720,
+    50_000,
+    12_800,
+    ImmutableList.of(CustomEntityType.REMORSELESS_ABOMINATION, CustomEntityType.WRETCHED_ABOMINATION)
+    ),
+    ILLAGER_WARLOCK_5(SlayerType.ILLAGER_WARLOCK,
+    CustomEntityType.ILLAGER_WARLOCK_5,
+    IllagerWarlockParent.SPAWN_MOB_FLAG,
+    29_300,
+    100_000,
+    51_200,
+    ImmutableList.of(CustomEntityType.SHAMBLING_MALFEASANT, CustomEntityType.REMORSEFUL_ABOMINATION)
     )
+    //</editor-fold>
 }

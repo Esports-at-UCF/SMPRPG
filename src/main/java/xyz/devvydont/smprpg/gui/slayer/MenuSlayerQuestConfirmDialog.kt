@@ -5,6 +5,7 @@ import io.papermc.paper.registry.data.dialog.body.DialogBody
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
@@ -36,6 +37,8 @@ class MenuSlayerQuestConfirmDialog(
         var item : ItemStack?
         when (slayerClassification.slayerType) {
             SlayerType.SHAMBLING_ABOMINATION -> item = itemService.getCustomItem(CustomItemType.NECROTIC_FLESH)
+            SlayerType.PIGLIN_WARLORD -> item = itemService.getCustomItem(Material.COOKED_PORKCHOP)
+            SlayerType.ILLAGER_WARLOCK -> item = itemService.getCustomItem(CustomItemType.SPELL_POWDER)
         }
 
         // TODO: Potentially obfuscate stats until player has killed that boss tier?

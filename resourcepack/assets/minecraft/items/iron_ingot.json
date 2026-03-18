@@ -35,6 +35,20 @@
                     "model": "materials:item/tin_ingot"
                 }
             },
+			{
+                "when": "smprpg:enchanted_tin",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/tin_ingot"
+                }
+            },
+			            {
+                "when": "smprpg:tin_singularity",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/tin_ingot"
+                }
+            },
             {
                 "when": "smprpg:rose_gold_ingot",
                 "model": {
@@ -56,8 +70,36 @@
                     "model": "materials:item/mithril_ingot"
                 }
             },
+			{
+                "when": "smprpg:enchanted_mithril",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/mithril_ingot"
+                }
+            },
+			            {
+                "when": "smprpg:mithril_singularity",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/mithril_ingot"
+                }
+            },
             {
                 "when": "smprpg:titanium_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/titanium_ingot"
+                }
+            },
+			{
+                "when": "smprpg:enchanted_titanium",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/titanium_ingot"
+                }
+            },
+			            {
+                "when": "smprpg:titanium_singularity",
                 "model": {
                     "type": "model",
                     "model": "materials:item/titanium_ingot"
@@ -68,6 +110,55 @@
                 "model": {
                     "type": "model",
                     "model": "materials:item/adamantium_ingot"
+                }
+            },
+			{
+                "when": "smprpg:enchanted_adamantium",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/adamantium_ingot"
+                }
+            },
+			            {
+                "when": "smprpg:adamantium_singularity",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/adamantium_ingot"
+                }
+            },
+            {
+                "when": "smprpg:tungsten_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/tungsten_ingot"
+                }
+            },
+			{
+                "when": "smprpg:enchanted_tungsten",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/tungsten_ingot"
+                }
+            },
+			            {
+                "when": "smprpg:tungsten_singularity",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/tungsten_ingot"
+                }
+            },
+            {
+                "when": "smprpg:cobalt_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/cobalt_ingot"
+                }
+            },
+            {
+                "when": "smprpg:orichalcum_ingot",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/orichalcum_ingot"
                 }
             },
             {

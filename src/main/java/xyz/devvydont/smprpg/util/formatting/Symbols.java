@@ -107,5 +107,7 @@ public class Symbols {
     public static final String ENCHANTING_MENU = "\ub00A";
     public static final String SLAYER_MAIN_MENU = "\ub00B";
     public static final String SLAYER_SHAMBLING_MENU = "\ub00C";
+    public static final String SLAYER_PIGLIN_MENU = "\ub00D";
+    public static final String SLAYER_ILLAGER_MENU = "\ub00E";
 
 }
