@@ -21,6 +21,9 @@ import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
 import xyz.devvydont.smprpg.util.time.TickTime
 
 class SonicSmashAbilityHandler : AbilityHandler {
+
+    override val cooldown: Long get() = TickTime.seconds(COOLDOWN)
+
     /**
      * Attempts to execute the ability.
      *
@@ -109,7 +112,7 @@ class SonicSmashAbilityHandler : AbilityHandler {
     companion object {
         const val DAMAGE: Int = 10000
         const val EXPLOSION_RADIUS: Double = 10.0
-        const val COOLDOWN: Int = 10
+        const val COOLDOWN: Long = 10
         const val ABILITY_SCALING: Double = 0.4
     }
 }

@@ -9,7 +9,7 @@ import xyz.devvydont.smprpg.entity.MobType
 import xyz.devvydont.smprpg.entity.base.CustomEntityInstance
 import xyz.devvydont.smprpg.entity.slayer.illager.IllagerWarlockParent
 import xyz.devvydont.smprpg.items.CustomItemType
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
+import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop
 import xyz.devvydont.smprpg.util.items.LootDrop
 import xyz.devvydont.smprpg.util.persistence.KeyStore
@@ -36,22 +36,22 @@ class WoodlandExile<T : LivingEntity?> : CustomEntityInstance<T?> {
         _entity.persistentDataContainer.set(
             KeyStore.SLAYER_SPAWN_TYPE,
             PersistentDataType.STRING,
-            IllagerWarlockParent.SPAWN_MOB_FLAG
+            IllagerWarlockParent.Companion.SPAWN_MOB_FLAG
         )
     }
 
     override fun getItemDrops(): Collection<LootDrop>? {
         return List.of<LootDrop?>(
-            ChancedItemDrop(generate(CustomItemType.POTATO_CHIP), 2, this),
-            ChancedItemDrop(generate(Material.EMERALD), 5, this),
-            ChancedItemDrop(generate(Material.EMERALD_BLOCK), 90, this),
-            ChancedItemDrop(generate(CustomItemType.ENCHANTED_EMERALD), 1250, this),
-            ChancedItemDrop(generate(CustomItemType.ENCHANTED_EMERALD_BLOCK), 80000, this),
-            ChancedItemDrop(generate(CustomItemType.STRENGTH_CHARM), 750, this),
-            ChancedItemDrop(generate(CustomItemType.LUCKY_CHARM), 750, this),
-            ChancedItemDrop(generate(CustomItemType.SPEED_CHARM), 850, this),
-            ChancedItemDrop(generate(CustomItemType.EXILED_CROSSBOW), 700, this),
-            ChancedItemDrop(generate(CustomItemType.EXILED_AXE), 700, this)
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.POTATO_CHIP), 2, this),
+            ChancedItemDrop(ItemService.Companion.generate(Material.EMERALD), 5, this),
+            ChancedItemDrop(ItemService.Companion.generate(Material.EMERALD_BLOCK), 90, this),
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.ENCHANTED_EMERALD), 1250, this),
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.ENCHANTED_EMERALD_BLOCK), 80000, this),
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.STRENGTH_CHARM), 750, this),
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.LUCKY_CHARM), 750, this),
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.SPEED_CHARM), 850, this),
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.EXILED_CROSSBOW), 700, this),
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.EXILED_AXE), 700, this)
         )
     }
 }

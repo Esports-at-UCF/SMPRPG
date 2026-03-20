@@ -11,26 +11,27 @@ import xyz.devvydont.smprpg.entity.slayer.illager.goals.IllagerWarlockSpellGoal
 import xyz.devvydont.smprpg.entity.slayer.illager.goals.IllagerWarlockSpellGoal.SpellType
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop
 import xyz.devvydont.smprpg.util.items.LootDrop
 import xyz.devvydont.smprpg.util.items.QuantityLootDrop
 
-class IllagerWarlockBasic(entity: LivingEntity?, entityType: CustomEntityType?) : IllagerWarlockParent(entity as Evoker?, entityType) {
+class IllagerWarlockIntermediate(entity: LivingEntity?, entityType: CustomEntityType?) : IllagerWarlockParent(entity as Evoker?, entityType) {
     override fun getItemDrops(): List<LootDrop> {
         return listOf(
-            QuantityLootDrop(ItemService.Companion.generate(CustomItemType.SPELL_POWDER), 1, 3, this),
-            QuantityLootDrop(ItemService.Companion.generate(Material.EMERALD), 5, 16, this),
-            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.PREMIUM_SPELL_POWDER), 20, this),
-            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.ENCHANTED_SPELL_POWDER), 100, this),
+            QuantityLootDrop(generate(CustomItemType.SPELL_POWDER), 4, 12, this),
+            QuantityLootDrop(generate(Material.EMERALD), 16, 32, this),
+            ChancedItemDrop(generate(Material.EMERALD_BLOCK), 10, this),
+            ChancedItemDrop(generate(CustomItemType.ENCHANTED_EMERALD), 70, this),
 
-            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.HORN_OF_WARLOCK), 200, this)
+            ChancedItemDrop(generate(CustomItemType.HORN_OF_WARLOCK), 100, this)
         )
     }
 
     override fun updateAttributes() {
         super.updateAttributes()
-        updateBaseAttribute(AttributeWrapper.KNOCKBACK_RESISTANCE, 0.8)
-        updateBaseAttribute(AttributeWrapper.DEFENSE, 75.0)
+        updateBaseAttribute(AttributeWrapper.KNOCKBACK_RESISTANCE, 0.85)
+        updateBaseAttribute(AttributeWrapper.DEFENSE, 125.0)
     }
 
     override fun setup() {
@@ -38,9 +39,11 @@ class IllagerWarlockBasic(entity: LivingEntity?, entityType: CustomEntityType?) 
         val evoker = entity as Evoker
         val mobGoals = Bukkit.getMobGoals()
         mobGoals.removeAllGoals(evoker)
-        mobGoals.addGoal(evoker, 3, IllagerWarlockSpellGoal(this, null, 30, mapOf(
-            Pair(SpellType.TELEPORT, 0.5),
-            Pair(SpellType.FIREBALL, 0.45)
+        mobGoals.addGoal(evoker, 3, IllagerWarlockAuraCloudGoal(this, null, 3.0))
+        mobGoals.addGoal(evoker, 3, IllagerWarlockSpellGoal(this, null, 28, mapOf(
+            Pair(SpellType.TELEPORT, 0.35),
+            Pair(SpellType.FIREBALL, 0.35),
+            Pair(SpellType.FANGS, 0.3),
         )))
     }
 }

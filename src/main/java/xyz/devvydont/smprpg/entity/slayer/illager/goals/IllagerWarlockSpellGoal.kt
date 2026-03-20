@@ -45,22 +45,29 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
     enum class TeleportType {
         BEHIND_PLAYER,
         SHORT_RANDOM,
-        LONG_RANDOM
+        LONG_RANDOM,
+        TELEPORT_TO_ME  // Only used when nobody is nearby, not rolled in random
     }
 
     enum class FangType {
         LINE,
         ENCIRCLE,
-        SELF_ENCIRCLE,
-        // CHASE // Maybe reserve this one for a special attack at a threshold?
+        SELF_ENCIRCLE
     }
 
-    val evoker = slayer.entity as Evoker
-    var spellClock = spellCastFrequency
-    var nextSpell : SpellType = SpellType.TELEPORT
-    val spells : ArrayList<SpellType> = ArrayList()
-    var lastGroundedY : Double = 0.0
+    val evoker                        = slayer.entity as Evoker     // This Illager Warlock's vanilla entity object
+    var spellClock                    = spellCastFrequency          // Internal clock, reduced by 1 every tick. Used for spell decisions
+    var nextSpell : SpellType         = SpellType.TELEPORT          // The next spell that is queued in the spellcast loop
+    val spells : ArrayList<SpellType> = ArrayList()                 // Weighted ArrayList of spells that this Illager Warlock can use.
+    var lastGroundedY : Double        = 0.0                         // Storage variable for the last Y value that this Illager Warlock was grounded at. Used for fangs.
     val freezeService = SMPRPG.getService(PlayerFreezeService::class.java)
+    var movementFrozen                = false                       // Boolean flag for if this Illager Warlock should pathfind towards players
+    var previousSpell                 = SpellType.TELEPORT          // Previous spell cache, used for spell decisions
+    var nextCast : Int                = spellCastFrequency          // How many ticks on spellcast loop cycle should elapse before a new spell is cast.
+
+    // Teleport spell vars
+    val validRandomTypes = ArrayList<TeleportType>()                // Valid types of TeleportType that can be rolled in the random teleport choice
+    var teleportType : TeleportType? = TeleportType.BEHIND_PLAYER   // Type of teleport to be used for a teleport spell.
 
     init {
         for (spellOption in spellOptions) {
@@ -68,6 +75,11 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
             for (i in 1..range) {
                 spells.add(spellOption.key)
             }
+        }
+
+        for (teleportType in TeleportType.entries) {
+            if (teleportType != TeleportType.TELEPORT_TO_ME)
+                validRandomTypes.add(teleportType)
         }
     }
 
@@ -82,7 +94,7 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
     }
 
     override fun getTypes(): EnumSet<GoalType> {
-        return EnumSet.of(GoalType.TARGET, GoalType.MOVE)
+        return EnumSet.of(GoalType.MOVE)
     }
 
     override fun shouldStayActive(): Boolean {
@@ -106,16 +118,43 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
         // Keep an eye on our closest target.
         val closestPlayer : Player? = GoalUtils.inst.getClosestPlayer(evoker, 20.0)
         if (closestPlayer != null) {
-            evoker.pathfinder.moveTo(closestPlayer, 0.25)
+            if (movementFrozen)
+                evoker.pathfinder.stopPathfinding()
+            else
+                evoker.pathfinder.moveTo(closestPlayer, 0.25)
             evoker.lookAt(closestPlayer)
         }
 
         // As long as our spell clock is active, we need to be selecting generic spells.
         if (spellClock > 0) {
             spellClock--
-            if (spellClock == 20) {
+            if (spellClock == nextCast) {
                 // Time to pick a spell!
+
+                // First pick from our weighted spells, then we will do some logic to refine our choice
                 nextSpell = spells.random()
+                val numPlayersVeryNearby = evoker.world.getNearbyPlayers(evoker.location, 8.0).size
+                val numPlayersNearby = evoker.world.getNearbyPlayers(evoker.location, 20.0).size
+
+                if (SpellType.TOSS in spells) {
+                    // Crowd control for toss spell
+                    // No need to crowd control if it's just one player nearby, just rely on regular weighted chance to toss.
+
+                    if (numPlayersVeryNearby != 1) {
+                        // If at least 60% of the actively involved players are right next to the boss, he needs to yeet them away
+                        if (numPlayersVeryNearby >= slayer.activelyInvolvedPlayers.size * 0.6) {
+                            nextSpell = SpellType.TOSS
+                        }
+                    }
+                }
+
+                if (nextSpell == SpellType.TELEPORT) {
+                    // Nobody in a 20 block radius? Force them to us.
+                    if (numPlayersNearby == 0) {
+                        teleportType = TeleportType.TELEPORT_TO_ME
+                    }
+                }
+
                 when (nextSpell) {
                     SpellType.TELEPORT, SpellType.VEX, SpellType.FANGS -> {
                         evoker.world.playSound(evoker.location, Sound.ENTITY_EVOKER_PREPARE_SUMMON, 1f, 1f)
@@ -138,6 +177,8 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
                         evoker.spell = Spellcaster.Spell.BLINDNESS
 
                         val nearbyPlayers = evoker.world.getNearbyPlayers(evoker.location, 20.0)
+                        movementFrozen = true
+
                         for (player in slayer.activelyInvolvedPlayers) {
                             // Throw nearby players
                             if (player in nearbyPlayers) {
@@ -167,12 +208,16 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
             if (spellClock == 0) {
                 // Time to cast the spell!
                 spellClock = spellCastFrequency
+                nextCast = spellClock - 1
                 evoker.spell = Spellcaster.Spell.NONE  // Clear our spell
 
                 when (nextSpell) {
                     SpellType.TELEPORT -> {
                         // Pick a random teleport type to do
-                        val type = TeleportType.entries.toTypedArray().random()
+
+                        var type = teleportType
+                        if (teleportType == null)
+                            type = validRandomTypes.random()
                         when (type) {
                             TeleportType.BEHIND_PLAYER -> {
                                 var player = slayer.activelyInvolvedPlayers.random()
@@ -180,12 +225,22 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
                                     player.location.block // Block the player is currently positioned at (relative to feet)
                                         .getRelative(player.facing.oppositeFace) // Get block facing the OPPOSITE direction that the player is facing (facing east = get block west of the player)
                                         .location // Return the location of that block
-                                teleportTo(behindLocation)
+                                teleportTo(evoker, behindLocation)
                             }
 
-                            TeleportType.SHORT_RANDOM -> teleportRandomlySafe(3.0)
-                            TeleportType.LONG_RANDOM -> teleportRandomlySafe(6.0)
+                            TeleportType.SHORT_RANDOM -> teleportRandomlySafe(evoker, 3.0)
+                            TeleportType.LONG_RANDOM -> teleportRandomlySafe(evoker, 6.0)
+                            TeleportType.TELEPORT_TO_ME -> {
+                                for (player in slayer.activelyInvolvedPlayers) {
+                                    teleportRandomlySafe(player, 8.0)
+                                }
+                            }
+
+                            null -> throw IllegalStateException("Illager Warlock tried to use 'null' TeleportType!")
                         }
+                        spellClock = (spellCastFrequency / 2)  // Teleport casts directly into another spell
+                        nextCast = spellClock - 1
+                        teleportType = null
                     }
 
                     SpellType.FIREBALL -> {
@@ -285,14 +340,15 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
 
                     SpellType.TOSS -> {
                         spellClock += TickTime.seconds(1).toInt()  // Give 1 second extra to the spellClock to let this longer spell cast.
+                        movementFrozen = false
                     }
                 }
-
+                previousSpell = nextSpell  // Cache our previously used spell for our spell choice logic
             }
         }
     }
 
-    fun teleportRandomlySafe(diameter : Double) : Boolean {
+    fun teleportRandomlySafe(entity : Entity, diameter : Double) : Boolean {
         var teleported = false
         val startLoc = evoker.location
         val destLoc = startLoc.clone()
@@ -305,17 +361,17 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
             var yAttempts = 0
 
             // Loop through (diameter) times until we find a collidable block to stand on (so block above should NOT be collidable)
-            if (!evoker.world.getBlockAt(destLoc).isPassable) {
+            if (!entity.world.getBlockAt(destLoc).isPassable) {
                 while (yAttempts < diameter) {
                     destLoc.y++
                     yAttempts++
-                    if (evoker.world.getBlockAt(destLoc).isPassable)
+                    if (entity.world.getBlockAt(destLoc).isPassable)
                         break
                 }
             }
 
             // If the block we found isn't collidable, it means we found a safe place to teleport.
-            var blockAt = evoker.world.getBlockAt(destLoc)
+            var blockAt = entity.world.getBlockAt(destLoc)
             if (blockAt.isPassable) {
                 teleported = true
                 break
@@ -323,17 +379,17 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
         }
 
         if (teleported) {
-            teleportTo(destLoc)
-            evoker.world.playSound(evoker.location, Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f)
+            teleportTo(entity, destLoc)
+            entity.world.playSound(entity.location, Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f)
         }
 
         return teleported
     }
 
-    fun teleportTo(location : Location) {
-        evoker.world.spawnParticle(Particle.WITCH, evoker.location, 100, 0.2, 0.0, 0.2, 1.0)
-        evoker.teleport(location)
-        evoker.world.playSound(evoker.location, Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f)
+    fun teleportTo(entity : Entity, location : Location) {
+        entity.world.spawnParticle(Particle.WITCH, evoker.location, 100, 0.2, 0.0, 0.2, 1.0)
+        entity.teleport(location)
+        entity.world.playSound(evoker.location, Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f)
     }
 
     fun spawnFang(location : Location) : EvokerFangs {

@@ -9,13 +9,15 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.ability.AbilityContext
 import xyz.devvydont.smprpg.ability.AbilityHandler
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
-import xyz.devvydont.smprpg.services.AttributeService
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
 import xyz.devvydont.smprpg.util.time.TickTime
 import java.util.*
 
 class HotShotAbilityHandler : AbilityHandler {
+
+    override val cooldown : Long get() = COOLDOWN
+
     /**
      * Attempts to execute the ability.
      *
@@ -51,7 +53,7 @@ class HotShotAbilityHandler : AbilityHandler {
     }
 
     companion object {
-        const val COOLDOWN: Int = 3
+        val COOLDOWN: Long = TickTime.seconds(3)
         const val DAMAGE: Int = 10000
         const val EXPLOSION_RADIUS: Double = 5.0
         const val FALLOFF_GRACE = 2.0

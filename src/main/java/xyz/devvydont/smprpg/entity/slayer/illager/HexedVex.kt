@@ -1,7 +1,7 @@
 package xyz.devvydont.smprpg.entity.slayer.illager
 
 import org.bukkit.entity.Entity
-import org.bukkit.entity.Ravager
+import org.bukkit.entity.Vex
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.entity.CustomEntityType
@@ -17,13 +17,14 @@ import xyz.devvydont.smprpg.util.items.QuantityLootDrop
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import java.util.List
 
-class RavagerFamiliar(entity: Ravager?, entityType: CustomEntityType?) :
-    CustomEntityInstance<Ravager?>(entity, entityType) {
-    constructor(entity: Entity?, type: CustomEntityType?) : this(entity as Ravager?, type)
+class HexedVex(entity: Vex?, entityType: CustomEntityType?) :
+    CustomEntityInstance<Vex?>(entity, entityType) {
+    constructor(entity: Entity?, type: CustomEntityType?) : this(entity as Vex?, type)
 
     override fun setup() {
+        mobTypes.add(MobType.FAE)
         mobTypes.add(MobType.ILLAGER)
-        mobTypes.add(MobType.ANIMAL)
+        mobTypes.add(MobType.AIRBORNE)
 
         super.setup()
 
@@ -41,16 +42,16 @@ class RavagerFamiliar(entity: Ravager?, entityType: CustomEntityType?) :
 
     override fun updateAttributes() {
         super.updateAttributes()
-        updateBaseAttribute(AttributeWrapper.SCALE, 0.5)
+        updateBaseAttribute(AttributeWrapper.SCALE, 2.0)
     }
 
     override fun getItemDrops(): Collection<LootDrop>? {
         return listOf(
-            QuantityLootDrop(generate(CustomItemType.SPELL_POWDER), 1, 3, this)
+            QuantityLootDrop(generate(CustomItemType.SPELL_POWDER), 2, 3, this)
         )
     }
 
     override fun generateSkillExperienceReward(): SkillExperienceReward {
-        return of(SkillType.COMBAT, 3910)
+        return of(SkillType.COMBAT, 5860)
     }
 }

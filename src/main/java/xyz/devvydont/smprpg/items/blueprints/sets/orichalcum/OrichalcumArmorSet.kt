@@ -19,7 +19,7 @@ abstract class OrichalcumArmorSet(itemService: ItemService?, type: CustomItemTyp
     }
 
     override fun getPowerRating(): Int {
-        return ToolStats.TUNGSTEN.power
+        return ToolStats.ORICHALCUM.power
     }
 
     open fun getCraftingMaterial(): ItemStack = itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT)
@@ -33,6 +33,6 @@ abstract class OrichalcumArmorSet(itemService: ItemService?, type: CustomItemTyp
     }
 
     companion object {
-        private val key = Key.key(plugin, "tungsten")
+        private val key = Key.key(plugin, "orichalcum")
     }
 }

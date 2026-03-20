@@ -50,7 +50,6 @@ public class BreezeborneStaff extends CustomAttributeItem implements IBreakableE
         super(itemService, type);
     }
 
-    private boolean windchargeCooldown = false;
     private double DAMAGE_MULT = 3.0;
 
     @Override
@@ -74,9 +73,6 @@ public class BreezeborneStaff extends CustomAttributeItem implements IBreakableE
         components.add(AbilityUtil.getAbilityComponent("Air Shot (Passive)"));
         components.add(ComponentUtils.create("Attacks deal ").append(ComponentUtils.create((int) DAMAGE_MULT + "x", NamedTextColor.GREEN)).append(ComponentUtils.create(" damage")));
         components.add(ComponentUtils.create("against mobs that are not grounded."));
-        components.add(ComponentUtils.EMPTY);
-        components.add(AbilityUtil.getAbilityComponent("Wind-Attuned (Passive)"));
-        components.add(ComponentUtils.create("Your mage beam attack will ocassionally launch ").append(ComponentUtils.create("wind charges", NamedTextColor.AQUA).append(ComponentUtils.create("."))));
 
         return components;
     }
@@ -171,8 +167,13 @@ public class BreezeborneStaff extends CustomAttributeItem implements IBreakableE
         return List.of(
                 new IAbilityCaster.AbilityEntry(
                         Ability.WIND_STORM,
-                        AbilityActivationMethod.RIGHT_CLICK,
+                        AbilityActivationMethod.SNEAK_RIGHT_CLICK,
                         AbilityCost.of(AbilityCost.Resource.MANA, 200)
+                ),
+                new IAbilityCaster.AbilityEntry(
+                        Ability.WIND_ATTUNED,
+                        AbilityActivationMethod.EXCLUSIVE_RIGHT_CLICK,
+                        AbilityCost.of(AbilityCost.Resource.MANA, 10)
                 )
         );
     }
@@ -180,25 +181,6 @@ public class BreezeborneStaff extends CustomAttributeItem implements IBreakableE
     @Override
     public long getCooldown(ItemStack item) {
         return TickTime.seconds(3);
-    }
-
-    @EventHandler
-    public void __onPlayerLeftClick(PlayerArmSwingEvent event) {
-        var player = event.getPlayer();
-
-        if (!isItemOfType(player.getEquipment().getItemInMainHand()))
-            return;
-
-        if (!windchargeCooldown) {
-            var location = player.getLocation();
-            player.getWorld().playSound(location, Sound.ENTITY_BREEZE_DEATH, 1f, 0.5f);
-            player.launchProjectile(
-                    WindCharge.class,
-                    location.getDirection().normalize().multiply(2)
-            );
-            windchargeCooldown = true;
-            Bukkit.getScheduler().runTaskLater(SMPRPG.getPlugin(), () -> this.windchargeCooldown = false, TickTime.HALF_SECOND);
-        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)

@@ -1,28 +1,38 @@
 package xyz.devvydont.smprpg.entity.slayer.illager
 
+import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent
 import io.papermc.paper.datacomponent.DataComponentTypes
+import io.papermc.paper.datacomponent.item.DeathProtection
+import io.papermc.paper.datacomponent.item.DyedItemColor
+import net.kyori.adventure.key.Key
 import org.bukkit.Bukkit
+import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeInstance
-import org.bukkit.entity.Evoker
-import org.bukkit.entity.Fireball
-import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
+import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.EntityExplodeEvent
+import org.bukkit.event.entity.EntityRemoveEvent
 import org.bukkit.event.entity.EntityResurrectEvent
 import org.bukkit.event.entity.EntityTransformEvent
+import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.MobType
 import xyz.devvydont.smprpg.entity.slayer.SlayerBossInstance
+import xyz.devvydont.smprpg.entity.slayer.illager.goals.AuraType
 import xyz.devvydont.smprpg.items.CustomItemType
-import xyz.devvydont.smprpg.services.AttributeService
+import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
+import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
+import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import xyz.devvydont.smprpg.util.time.TickTime
 
@@ -38,6 +48,13 @@ open class IllagerWarlockParent
     (entity: LivingEntity?, entityType: CustomEntityType?) : SlayerBossInstance<Evoker>(entity as Evoker?, entityType) {
 
     val fireballs = ArrayList<Fireball>()
+    var revived : Boolean = false
+    var shieldDisplay : ItemDisplay? = null
+
+    open val LOOT_APTITUDE_SCROLL : ItemStack = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.APTITUDE)
+    open val LOOT_INSIGHT_SCROLL : ItemStack = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.INSIGHT)
+    open val LOOT_BURDEN_SCROLL : ItemStack = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.BURDEN)
+    open val LOOT_VIGILANTE_SCROLL : ItemStack = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.VIGILANTE)
 
     override fun setup() {
         mobTypes.add(MobType.BOSS);
@@ -46,14 +63,25 @@ open class IllagerWarlockParent
 
         super.setup()
 
-        // Setup equipment for boss
-        val equipment = _entity!!.equipment
+        // Set up our shield display
+        this.shieldDisplay = _entity!!.world.spawnEntity(_entity.location, EntityType.ITEM_DISPLAY) as ItemDisplay
 
-        equipment?.setItemInOffHand(ItemService.generate(Material.TOTEM_OF_UNDYING))
-        val helmet = ItemService.generate(Material.DISPENSER)
+        val haloItem = generate(Material.STICK)
+        haloItem.setData<Key>(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:illager_warlock_shield"))
+        haloItem.setData(DataComponentTypes.DYED_COLOR, AuraType.DAMAGE.color)
+        shieldDisplay!!.setItemStack(haloItem)
+        shieldDisplay!!.setItemDisplayTransform(ItemDisplay.ItemDisplayTransform.GROUND)
+
+        // Setup equipment for boss
+        val equipment = _entity.equipment
+
+        val totem = generate(Material.TOTEM_OF_UNDYING)
+        totem.setData(DataComponentTypes.DEATH_PROTECTION, DeathProtection.deathProtection().build())
+        equipment?.setItemInOffHand(totem)
+        val helmet = generate(Material.DISPENSER)
         helmet.setData(DataComponentTypes.ITEM_MODEL, HOOD_KEY)
         equipment?.setHelmet(helmet)
-        equipment?.setItemInMainHand(ItemService.generate(CustomItemType.SIMPLE_TOME))
+        equipment?.setItemInMainHand(generate(CustomItemType.SIMPLE_TOME))
 
         equipment?.itemInMainHandDropChance = 0f
         equipment?.itemInOffHandDropChance = 0f
@@ -72,10 +100,11 @@ open class IllagerWarlockParent
         return 20.0
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    fun onTransform(event : EntityTransformEvent) {
-        if (event.entity == this.entity)
-            event.isCancelled = true
+    @EventHandler
+    fun onRemoveEntity(event : EntityRemoveFromWorldEvent) {
+        if (event.entity == this.entity) {
+            this.shieldDisplay!!.remove()
+        }
     }
 
     @EventHandler
@@ -94,6 +123,7 @@ open class IllagerWarlockParent
                 val maxHp: AttributeInstance? = entity.getAttribute(Attribute.MAX_HEALTH)
                 entity.heal(maxHp!!.value)
             }, TickTime.TICK)
+            this.revived = true
         }
     }
 

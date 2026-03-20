@@ -16,8 +16,7 @@ import xyz.devvydont.smprpg.entity.bosses.BlazeBoss;
 import xyz.devvydont.smprpg.entity.creatures.*;
 import xyz.devvydont.smprpg.entity.fishing.*;
 import xyz.devvydont.smprpg.entity.npc.ReforgeNPC;
-import xyz.devvydont.smprpg.entity.slayer.illager.IllagerWarlockBasic;
-import xyz.devvydont.smprpg.entity.slayer.illager.RavagerFamiliar;
+import xyz.devvydont.smprpg.entity.slayer.illager.*;
 import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationBasic;
 import xyz.devvydont.smprpg.entity.slayer.shambling.*;
 import xyz.devvydont.smprpg.entity.spawning.EntitySpawnCondition;
@@ -209,12 +208,16 @@ public enum CustomEntityType implements IMenuDisplayable {
 
     // ILLAGER WARLOCK
     ILLAGER_WARLOCK_1(EntityType.EVOKER, "Illager Warlock", 20, 10_000, 100, IllagerWarlockBasic::new),
-    ILLAGER_WARLOCK_2(EntityType.EVOKER, "Illager Warlock", 30, 100_000, 200, IllagerWarlockBasic::new),
-    ILLAGER_WARLOCK_3(EntityType.EVOKER, "Illager Warlock", 40, 600_000, 500, IllagerWarlockBasic::new),
-    ILLAGER_WARLOCK_4(EntityType.EVOKER, "Illager Warlock", 50, 2_000_000, 1_000, IllagerWarlockBasic::new),
-    ILLAGER_WARLOCK_5(EntityType.EVOKER, "Illager Warlock", 60, 7_500_000, 2_000, IllagerWarlockBasic::new),
+    ILLAGER_WARLOCK_2(EntityType.EVOKER, "Illager Warlock", 30, 100_000, 200, IllagerWarlockIntermediate::new),
+    ILLAGER_WARLOCK_3(EntityType.EVOKER, "Illager Warlock", 40, 600_000, 500, IllagerWarlockAdvanced::new),
+    ILLAGER_WARLOCK_4(EntityType.EVOKER, "Illager Warlock", 50, 2_000_000, 1_000, IllagerWarlockExpert::new),
+    ILLAGER_WARLOCK_5(EntityType.EVOKER, "Illager Warlock", 60, 7_500_000, 2_000, IllagerWarlockBrutal::new),
 
-    RAVAGER_FAMILIAR(EntityType.RAVAGER, "Ravager Familiar", 35, 250_000, 250, RavagerFamiliar::new),
+    ILLAGER_POPPET(EntityType.PILLAGER, "Illager Poppet", 35, 250_000, 0, IllagerPoppet::new),
+    RAVAGER_FAMILIAR(EntityType.RAVAGER, "Ravager Familiar", 42, 250_000, 350, RavagerFamiliar::new),
+    HEXED_VEX(EntityType.VEX, "Hexed Vex", 46, 250_000, 400, HexedVex::new),
+    WARLOCK_APPRENTICE(EntityType.EVOKER, "Warlock Apprentice", 52, 250_000, 1250, WarlockApprentice::new),
+    WARLOCK_SHADOW(EntityType.EVOKER, "Warlock Shadow", 58, 250_000, 1500, WarlockShadow::new),
 
     // NPCs
     REFORGE_NPC(EntityType.VILLAGER, "Tool Reforger", ReforgeNPC::new),

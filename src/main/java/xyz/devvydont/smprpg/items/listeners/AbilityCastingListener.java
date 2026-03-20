@@ -115,8 +115,8 @@ public class AbilityCastingListener extends ToggleableListener {
         for (var ability : abilities) {
 
             // Skip if click type isn't correct.
-            if (!ability.activation().passes(event.getAction()))
-                return;
+            if (!ability.activation().passes(event.getAction(), event.getPlayer()))
+                continue;
 
             // Update our ability cost before we check our mana usage
             var abe = new AbilityCastEvent(ability, player, item);
@@ -126,13 +126,13 @@ public class AbilityCastingListener extends ToggleableListener {
             if (!abe.getAbilityCost().canUse(player)) {
                 SMPRPG.getService(ActionBarService.class).addActionBarComponent(event.getPlayer(), ActionBarService.ActionBarSource.MISC, ComponentUtils.create("NOT ENOUGH " + ability.cost().resource.name(), NamedTextColor.RED), 1);
                 event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, .3f, .5f);
-                return;
+                continue;
             }
 
             // Execute!
             var success = ability.ability().getHandler().execute(new AbilityContext(event.getPlayer(), event.getHand()));
             if (!success)
-                return;
+                continue;
             __onCastAbility(abe);
         }
     }
@@ -141,7 +141,6 @@ public class AbilityCastingListener extends ToggleableListener {
         var ability = event.getAbility();
         var player = event.getPlayer();
         var item = event.getItem();
-        IAbilityCaster bp = (IAbilityCaster) ItemService.blueprint(item);
         event.getAbilityCost().spend(player);
         SMPRPG.getService(ActionBarService.class).addActionBarComponent(
                 player.getPlayer(),
@@ -151,7 +150,7 @@ public class AbilityCastingListener extends ToggleableListener {
                         ComponentUtils.SPACE,
                         ComponentUtils.create("-" + event.getAbilityCost().amount + event.getAbilityCost().resource.getSymbol(), event.getAbilityCost().resource.getColor())),
                 3);
-        player.getPlayer().setCooldown(item, (int) bp.getCooldown(item));
+        player.getPlayer().setCooldown(item, (int) ability.ability().getHandler().getCooldown());
     }
 
 }

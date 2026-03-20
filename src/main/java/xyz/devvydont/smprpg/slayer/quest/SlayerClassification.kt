@@ -75,7 +75,7 @@ enum class SlayerClassification(val slayerType : SlayerType,
     4_690,
     10_000,
     3_200,
-    ImmutableList.of(CustomEntityType.RAVAGER_FAMILIAR)
+    ImmutableList.of(CustomEntityType.ILLAGER_POPPET)
     ),
     ILLAGER_WARLOCK_4(SlayerType.ILLAGER_WARLOCK,
     CustomEntityType.ILLAGER_WARLOCK_4,
@@ -83,7 +83,7 @@ enum class SlayerClassification(val slayerType : SlayerType,
     11_720,
     50_000,
     12_800,
-    ImmutableList.of(CustomEntityType.REMORSELESS_ABOMINATION, CustomEntityType.WRETCHED_ABOMINATION)
+    ImmutableList.of(CustomEntityType.RAVAGER_FAMILIAR, CustomEntityType.HEXED_VEX)
     ),
     ILLAGER_WARLOCK_5(SlayerType.ILLAGER_WARLOCK,
     CustomEntityType.ILLAGER_WARLOCK_5,
@@ -91,7 +91,7 @@ enum class SlayerClassification(val slayerType : SlayerType,
     29_300,
     100_000,
     51_200,
-    ImmutableList.of(CustomEntityType.SHAMBLING_MALFEASANT, CustomEntityType.REMORSEFUL_ABOMINATION)
+    ImmutableList.of(CustomEntityType.WARLOCK_APPRENTICE, CustomEntityType.WARLOCK_SHADOW)
     )
     //</editor-fold>
 }

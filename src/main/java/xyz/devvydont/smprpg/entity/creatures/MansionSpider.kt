@@ -21,7 +21,7 @@ class MansionSpider : CustomEntityInstance<Spider?> {
     constructor(entity: Spider?, entityType: CustomEntityType?) : super(entity, entityType)
 
     override fun getItemDrops(): Collection<LootDrop>? {
-        return List.of<LootDrop?>(
+        return listOf(
             ChancedItemDrop(generate(CustomItemType.COTTON_CANDY), 2, this),
             ChancedItemDrop(generate(Material.STRING), 2, this),
             ChancedItemDrop(generate(Material.SPIDER_EYE), 2, this),

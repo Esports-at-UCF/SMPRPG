@@ -14,6 +14,9 @@ import xyz.devvydont.smprpg.util.time.TickTime
 import java.util.*
 
 class WitherSkullAbilityHandler : AbilityHandler {
+
+    override val cooldown: Long get() = TickTime.seconds(COOLDOWN)
+
     /**
      * Attempts to execute the ability.
      *
@@ -37,7 +40,7 @@ class WitherSkullAbilityHandler : AbilityHandler {
 
         if (ctx.caster is Player && ctx.hand != null) ctx.caster.setCooldown(
             ctx.caster.equipment.getItem(ctx.hand), TickTime.seconds(
-                COOLDOWN.toLong()
+                COOLDOWN
             ).toInt()
         )
 
@@ -45,7 +48,7 @@ class WitherSkullAbilityHandler : AbilityHandler {
     }
 
     companion object {
-        const val COOLDOWN: Int = 15
+        const val COOLDOWN: Long = 15
         const val DAMAGE: Int = 10000
         const val EXPLOSION_RADIUS: Double = 4.0
         const val FALLOFF_GRACE: Double = 1.5

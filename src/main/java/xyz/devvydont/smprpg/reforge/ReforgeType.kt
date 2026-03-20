@@ -24,6 +24,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     // HP oriented
     HEALTHY(
         HealthyReforge::class.java,
+        ItemClassification.TOME,
         ItemClassification.HELMET,
         ItemClassification.CHESTPLATE,
         ItemClassification.LEGGINGS,
@@ -32,6 +33,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     ),
     HEARTY(
         HeartyReforge::class.java,
+        ItemClassification.TOME,
         ItemClassification.HELMET,
         ItemClassification.CHESTPLATE,
         ItemClassification.LEGGINGS,
@@ -60,6 +62,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     // KNOCKBACK oriented
     FIRM(
         FirmReforge::class.java,
+        ItemClassification.TOME,
         ItemClassification.HELMET,
         ItemClassification.CHESTPLATE,
         ItemClassification.LEGGINGS,
@@ -68,6 +71,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     ),
     HEAVY(
         HeavyReforge::class.java,
+        ItemClassification.TOME,
         ItemClassification.HELMET,
         ItemClassification.CHESTPLATE,
         ItemClassification.LEGGINGS,
@@ -76,6 +80,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     ),
     HEFTY(
         HeftyReforge::class.java,
+        ItemClassification.TOME,
         ItemClassification.HELMET,
         ItemClassification.CHESTPLATE,
         ItemClassification.LEGGINGS,
@@ -122,6 +127,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     // Movement Speed oriented
     LIGHT(
         LightReforge::class.java,
+        ItemClassification.TOME,
         ItemClassification.HELMET,
         ItemClassification.CHESTPLATE,
         ItemClassification.LEGGINGS,
@@ -133,6 +139,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     ),
     SWIFT(
         SwiftReforge::class.java,
+        ItemClassification.TOME,
         ItemClassification.HELMET,
         ItemClassification.CHESTPLATE,
         ItemClassification.LEGGINGS,
@@ -141,6 +148,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     ),
     AGILE(
         AgileReforge::class.java,
+        ItemClassification.TOME,
         ItemClassification.HELMET,
         ItemClassification.CHESTPLATE,
         ItemClassification.LEGGINGS,
@@ -191,6 +199,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     // Luck oriented
     LUCKY(
         LuckyReforge::class.java,
+        ItemClassification.STAFF,
+        ItemClassification.TOME,
         ItemClassification.HELMET,
         ItemClassification.CHESTPLATE,
         ItemClassification.LEGGINGS,
@@ -212,6 +222,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     ),
     COPIOUS(
         CopiousReforge::class.java,
+        ItemClassification.STAFF,
+        ItemClassification.TOME,
         ItemClassification.HELMET,
         ItemClassification.CHESTPLATE,
         ItemClassification.LEGGINGS,
@@ -235,6 +247,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     // DAMAGE (melee)
     SPICY(
         SpicyReforge::class.java,
+        ItemClassification.STAFF,
         ItemClassification.SWORD,
         ItemClassification.TRIDENT,
         ItemClassification.WEAPON,
@@ -260,6 +273,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     ),
     POWERFUL(
         PowerfulReforge::class.java,
+        ItemClassification.STAFF,
         ItemClassification.BOW,
         ItemClassification.SHORTBOW,
         ItemClassification.CROSSBOW,
@@ -272,6 +286,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     DULL(DullReforge::class.java, ItemClassification.SWORD, ItemClassification.CHARM),
     SLUGGISH(
         SluggishReforge::class.java,
+        ItemClassification.STAFF,
         ItemClassification.SWORD,
         ItemClassification.TRIDENT,
         ItemClassification.WEAPON,
@@ -282,6 +297,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     ),
     STINGING(
         StingingReforge::class.java,
+        ItemClassification.STAFF,
         ItemClassification.SWORD,
         ItemClassification.TRIDENT,
         ItemClassification.WEAPON,
@@ -295,6 +311,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
 
     RAPID(
         RapidReforge::class.java,
+        ItemClassification.STAFF,
         ItemClassification.SWORD,
         ItemClassification.TRIDENT,
         ItemClassification.WEAPON,
@@ -307,6 +324,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     // REACH
     REACHING(
         ReachingReforge::class.java,
+        ItemClassification.STAFF,
         ItemClassification.TOOL,
         ItemClassification.SWORD,
         ItemClassification.TRIDENT,
@@ -321,6 +339,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     ),
     EXTENDED(
         ExtendedReforge::class.java,
+        ItemClassification.STAFF,
         ItemClassification.TOOL,
         ItemClassification.SWORD,
         ItemClassification.TRIDENT,
@@ -345,6 +364,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
     ),  // MAX Movement Speed
     WITHERED(
         WitheredReforge::class.java,
+        ItemClassification.STAFF,
         ItemClassification.SWORD,
         ItemClassification.AXE,
         ItemClassification.BOW,
@@ -363,8 +383,22 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.BOOTS,
         ItemClassification.CHARM
     ),
+    CRYPTIC(
+        CrypticReforge::class.java,
+        ItemClassification.STAFF,
+        ItemClassification.SWORD,
+        ItemClassification.AXE,
+        ItemClassification.BOW,
+        ItemClassification.CROSSBOW,
+        ItemClassification.SHORTBOW,
+        ItemClassification.TRIDENT,
+        ItemClassification.MACE,
+        ItemClassification.TOOL,
+        ItemClassification.CHARM
+    ),
     CRYSTALLIZED(
         CrystallizedReforge::class.java,
+        ItemClassification.STAFF,
         ItemClassification.SWORD,
         ItemClassification.AXE,
         ItemClassification.BOW,

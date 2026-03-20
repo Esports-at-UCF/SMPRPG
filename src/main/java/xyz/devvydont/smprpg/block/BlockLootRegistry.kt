@@ -726,7 +726,7 @@ object BlockLootRegistry {
 
         register(
             CustomBlock.GRIMSTONE_GOLD_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.LAPIS_LAZULI), 3.0))
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.GOLD_INGOT), 3.0))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_GOLD_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.RAW_GOLD), 3.0))
                 .build()
@@ -734,7 +734,7 @@ object BlockLootRegistry {
 
         register(
             CustomBlock.GRIMSTONE_SILVER_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.LAPIS_LAZULI), 3.0))
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_INGOT), 3.0))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_SILVER_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_SILVER), 3.0))
                 .build()

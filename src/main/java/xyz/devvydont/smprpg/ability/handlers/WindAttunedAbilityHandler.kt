@@ -1,23 +1,17 @@
 package xyz.devvydont.smprpg.ability.handlers
 
-import org.bukkit.Material
 import org.bukkit.Sound
-import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
-import org.bukkit.entity.Snowball
+import org.bukkit.entity.WindCharge
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.ability.AbilityContext
 import xyz.devvydont.smprpg.ability.AbilityHandler
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
-import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.util.time.TickTime
-import java.util.*
 
-class ShardStrikeAbilityHandler : AbilityHandler {
-
-    override val cooldown: Long get() = TickTime.seconds(COOLDOWN)
+class WindAttunedAbilityHandler : AbilityHandler {
+    override val cooldown: Long get() = COOLDOWN
 
     /**
      * Attempts to execute the ability.
@@ -32,7 +26,7 @@ class ShardStrikeAbilityHandler : AbilityHandler {
         ) return false
 
         val projectile = ctx.caster.launchProjectile(
-            Snowball::class.java,
+            WindCharge::class.java,
             ctx.caster.location.getDirection().normalize().multiply(2)
         )
         var dmg = EntityDamageCalculatorService.getIntelligenceScaledDamage(
@@ -40,43 +34,20 @@ class ShardStrikeAbilityHandler : AbilityHandler {
             AttributeWrapper.STRENGTH).value,
             instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.INTELLIGENCE).value,
             ABILITY_SCALING + instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.ARCANE_RATING).value)
-        projectile.item = ItemService.generate(Material.AMETHYST_SHARD);
-        projectile.setGravity(false)
         SMPRPG.getService(EntityDamageCalculatorService::class.java)
             .setBaseProjectileDamage(projectile, dmg)
-        setShardProjectile(projectile)
-        ctx.caster.world.playSound(ctx.caster.location, Sound.ENTITY_PLAYER_ATTACK_SWEEP, .4f, 1f)
+        ctx.caster.getWorld().playSound(ctx.caster.location, Sound.ENTITY_BREEZE_DEATH, 1f, 0.5f)
 
         if (ctx.caster is Player && ctx.hand != null) ctx.caster.setCooldown(
-            ctx.caster.equipment.getItem(ctx.hand), TickTime.seconds(
-                COOLDOWN.toLong()
-            ).toInt()
+            ctx.caster.equipment.getItem(ctx.hand), COOLDOWN.toInt()
         )
 
         return true
     }
 
     companion object {
-        const val COOLDOWN: Long = 3
-        const val DAMAGE: Int = 200
-        const val SHATTER_RADIUS = 2.0
+        const val COOLDOWN: Long = 10
+        const val DAMAGE: Int = 5
         const val ABILITY_SCALING = 0.05
-
-        // We need a reference to projectiles that we shoot so that we can handle them at different stages in its life
-        // since PDCs do not work during the EntityExplodeEvent.
-        private val projectiles: MutableMap<UUID, Entity> = HashMap<UUID, Entity>()
-
-        fun isShardProjectile(projectile: Entity): Boolean {
-            return projectiles.containsKey(projectile.uniqueId)
-        }
-
-        fun setShardProjectile(projectile: Entity) {
-            projectiles.put(projectile.uniqueId, projectile)
-            projectile.addScoreboardTag("shard_strike")
-        }
-
-        fun removeShardProjectile(projectile: Entity) {
-            projectiles.remove(projectile.uniqueId)
-        }
     }
 }

@@ -298,6 +298,6 @@ class AnvilEnchantmentCombinationFixListener : ToggleableListener() {
         val result = event.inventory.firstItem!!.clone()
         reforge.apply(result)
         event.result = result
-        event.view.repairCost = reforgeApplicator.getExperienceCost()
+        event.view.repairCost = 0
     }
 }

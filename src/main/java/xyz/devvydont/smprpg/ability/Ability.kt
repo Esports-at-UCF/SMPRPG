@@ -184,6 +184,18 @@ enum class Ability(val friendlyName: String, val description: List<Component>,
         ),
         Supplier { WindStormAbilityHandler() }),
 
+    WIND_ATTUNED(
+        "Wind Attuned",
+        listOf(
+            ComponentUtils.merge(
+                ComponentUtils.create("Launches a"),
+                ComponentUtils.create(" wind charge", NamedTextColor.AQUA),
+                ComponentUtils.create(" in front of you,")
+            ),
+            ComponentUtils.merge(ComponentUtils.create("knocking away nearby mobs")),
+        ),
+        Supplier { WindAttunedAbilityHandler() }),
+
     SONIC_SMASH(
         "Sonic Smash",
         listOf(

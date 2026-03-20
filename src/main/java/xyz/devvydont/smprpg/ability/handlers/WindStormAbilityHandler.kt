@@ -1,22 +1,17 @@
 package xyz.devvydont.smprpg.ability.handlers
 
 import org.bukkit.Sound
-import org.bukkit.entity.Entity
-import org.bukkit.entity.Fireball
 import org.bukkit.entity.Player
 import org.bukkit.entity.WindCharge
 import org.bukkit.util.Vector
-import org.w3c.dom.Attr
-import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.ability.AbilityContext
 import xyz.devvydont.smprpg.ability.AbilityHandler
-import xyz.devvydont.smprpg.attribute.AttributeWrapper
-import xyz.devvydont.smprpg.services.AttributeService
-import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
 import xyz.devvydont.smprpg.util.time.TickTime
-import java.util.*
 
 class WindStormAbilityHandler : AbilityHandler {
+
+    override val cooldown: Long get() = TickTime.seconds(COOLDOWN)
+
     /**
      * Attempts to execute the ability.
      *
@@ -41,7 +36,7 @@ class WindStormAbilityHandler : AbilityHandler {
 
         if (ctx.caster is Player && ctx.hand != null) ctx.caster.setCooldown(
             ctx.caster.equipment.getItem(ctx.hand), TickTime.seconds(
-                COOLDOWN.toLong()
+                COOLDOWN
             ).toInt()
         )
 
@@ -49,7 +44,7 @@ class WindStormAbilityHandler : AbilityHandler {
     }
 
     companion object {
-        const val COOLDOWN: Int = 3
+        const val COOLDOWN: Long = 3
         const val DAMAGE: Int = 10000
     }
 }

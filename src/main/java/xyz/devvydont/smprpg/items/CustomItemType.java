@@ -20,6 +20,10 @@ import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyB
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.cobalt.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.orichalcum.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockShoes;
+import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockHood;
+import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockRobes;
+import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockTrousers;
 import xyz.devvydont.smprpg.items.tools.drills.LargeFuelTank;
 import xyz.devvydont.smprpg.items.tools.drills.MediumFuelTank;
 import xyz.devvydont.smprpg.items.tools.drills.SmallFuelTank;
@@ -778,6 +782,12 @@ public enum CustomItemType {
     SPELL_POWDER_SINGULARITY(    "Spell Powder Singularity",        Material.GUNPOWDER,       ItemRarity.LEGENDARY,    true, SpellPowderFamilyBlueprint.class),
 
     HORN_OF_WARLOCK("Horn of Warlock", Material.FLINT, ItemRarity.RARE, HornOfWarlock.class),
+    CRYSTAL_BALL("Crystal Ball", Material.FLINT, ItemRarity.RARE, CrystalBallBlueprint.class),
+
+    WARLOCK_HOOD("Warlock's Hood", Material.DIAMOND_HELMET, ItemRarity.EPIC, WarlockHood.class),
+    WARLOCK_ROBES("Warlock's Robes", Material.DIAMOND_CHESTPLATE, ItemRarity.EPIC, WarlockRobes.class),
+    WARLOCK_TROUSERS("Warlock's Trousers", Material.DIAMOND_LEGGINGS, ItemRarity.EPIC, WarlockTrousers.class),
+    WARLOCK_SHOES("Warlock's Shoes", Material.DIAMOND_BOOTS, ItemRarity.EPIC, WarlockShoes.class),
 
     IRON_ROD("Iron Rod", Material.FISHING_ROD, ItemRarity.COMMON, WaterRod.class),
     DIAMOND_ROD("Diamond Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, WaterRod.class),
