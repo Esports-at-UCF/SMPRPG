@@ -66,7 +66,7 @@ public enum CustomEntityType implements IMenuDisplayable {
             MansionSpider::new,
             EntitySpawnCondition.StructureSpawnCondition
                     .structure(Structure.MANSION)
-                    .withChance(.20f)),
+                    .withChance(1.00f)),
 
     WOODLAND_EXILE(EntityType.PILLAGER, "Woodland Exile",
             25, 1_100, 120,

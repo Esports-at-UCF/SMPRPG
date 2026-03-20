@@ -183,7 +183,7 @@ class SlayerService : IService, Listener {
                     spawnSlayerBoss(quest, event.mobKilled.entity.location)
                 }
                 else if (specialSpawns != null) {
-                    if (Math.random() <= 0.05) {
+                    if (Math.random() <= 0.10) {
                         object : BukkitRunnable() {
                             private var clock = 0
                             private var location = event.mobKilled.entity.location
