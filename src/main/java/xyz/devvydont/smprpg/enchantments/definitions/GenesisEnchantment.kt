@@ -8,6 +8,7 @@ import io.papermc.paper.registry.set.RegistrySet
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.LivingEntity
@@ -40,6 +41,7 @@ class GenesisEnchantment(id: String) : CustomEnchantment(id), Listener {
             ComponentUtils.create(" against "),
             ComponentUtils.create("ender mobs.", NamedTextColor.RED)
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(238, 212, 255)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_WEAPON
     override val maxLevel: Int get()                           = 10

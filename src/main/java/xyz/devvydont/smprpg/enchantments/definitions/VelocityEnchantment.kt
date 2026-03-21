@@ -4,6 +4,7 @@ import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -23,6 +24,7 @@ class VelocityEnchantment(id: String) : CustomEnchantment(id), Listener {
                 NamedTextColor.GREEN
             )
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(145, 133, 76)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_BOW
     override val maxLevel: Int get()                           = 5

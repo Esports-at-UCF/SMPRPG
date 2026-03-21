@@ -4,6 +4,7 @@ import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.Effect
 import org.bukkit.Sound
 import org.bukkit.entity.Entity
@@ -37,6 +38,7 @@ class BossTracingEnchantment(id: String) : CustomEnchantment(id), Listener {
                 NamedTextColor.GREEN
             )
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(255, 38, 38)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_BOW
     override val maxLevel: Int get()                           = 4

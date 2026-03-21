@@ -7,6 +7,7 @@ import io.papermc.paper.registry.set.RegistrySet
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
@@ -26,6 +27,7 @@ class VigorousEnchantment(id: String) : CustomEnchantment(id), AttributeEnchantm
             ComponentUtils.create("Increases harvest speed by "),
             ComponentUtils.create("+" + getMiningSpeed(level) + "%", NamedTextColor.GREEN)
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(0, 94, 94)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_MINING
     override val maxLevel: Int get()                           = 3

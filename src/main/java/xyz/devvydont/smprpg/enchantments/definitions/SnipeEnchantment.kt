@@ -4,6 +4,7 @@ import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.entity.AbstractArrow
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
@@ -27,6 +28,7 @@ class SnipeEnchantment(id: String) : CustomEnchantment(id), Listener {
             ),
             ComponentUtils.create(" for every block the arrow travels")
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(56, 56, 56)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_BOW
     override val maxLevel: Int get()                           = 3

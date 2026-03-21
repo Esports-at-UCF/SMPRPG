@@ -4,6 +4,7 @@ import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -22,6 +23,7 @@ class AerialAffinity(id: String) : CustomEnchantment(id), AttributeEnchantment {
             ComponentUtils.create("airborne", NamedTextColor.YELLOW),
             ComponentUtils.create(" harvest speed")
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(240, 240, 255)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_HEAD_ARMOR
     override val maxLevel: Int get()                           = 10

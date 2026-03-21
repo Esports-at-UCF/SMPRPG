@@ -4,6 +4,7 @@ import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -21,6 +22,7 @@ class VitalityEnchantment(id: String) : CustomEnchantment(id), AttributeEnchantm
             ComponentUtils.create("Increases strength by "),
             ComponentUtils.create("+" + getStrength(level) + "%", NamedTextColor.GREEN)
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(56, 0, 0)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_ARMOR
     override val maxLevel: Int get()                           = 5

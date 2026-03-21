@@ -4,6 +4,7 @@ import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -24,6 +25,7 @@ class SpeedsterEnchantment(id: String) : CustomEnchantment(id), AttributeEnchant
                 NamedTextColor.GREEN
             )
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(163, 255, 246)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_FOOT_ARMOR
     override val maxLevel: Int get()                           = 5

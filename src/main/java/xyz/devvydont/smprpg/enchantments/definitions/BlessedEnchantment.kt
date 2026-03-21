@@ -8,6 +8,7 @@ import io.papermc.paper.registry.set.RegistrySet
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
@@ -45,6 +46,7 @@ class BlessedEnchantment(id: String) : CustomEnchantment(id), Listener {
     override val weight: Int get()                             = EnchantmentRarity.COMMON.weight
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.HAND
     override val skillRequirement: Int get()                   = 19
+    override val scrollBindingColor: Color get() = Color.fromRGB(161, 212, 212)
 
     override val conflictingEnchantments: RegistryKeySet<Enchantment>
         /**

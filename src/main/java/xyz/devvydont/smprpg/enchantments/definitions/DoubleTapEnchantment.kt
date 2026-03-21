@@ -7,6 +7,7 @@ import io.papermc.paper.registry.set.RegistrySet
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
@@ -33,6 +34,7 @@ class DoubleTapEnchantment(id: String) : CustomEnchantment(id), Listener {
             ),
             ComponentUtils.create(" when hitting an enemy for the first two times")
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(9, 143, 107)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_WEAPON
     override val maxLevel: Int get()                           = 5

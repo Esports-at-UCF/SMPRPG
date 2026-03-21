@@ -4,6 +4,7 @@ import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.Sound
 import org.bukkit.attribute.Attribute
 import org.bukkit.event.EventHandler
@@ -28,6 +29,7 @@ class SyphonEnchantment(id: String) : CustomEnchantment(id), Listener {
             ),
             ComponentUtils.create(" of max health when killing an enemy")
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(79, 27, 19)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_WEAPON
     override val maxLevel: Int get()                           = 5

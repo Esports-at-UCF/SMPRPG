@@ -4,6 +4,7 @@ import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -26,6 +27,7 @@ class HarvestingEnchantment(id: String) : CustomEnchantment(id), AttributeEnchan
                 NamedTextColor.GREEN
             )
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(3, 94, 0)
 
    override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.HOES
    override val maxLevel: Int get()                           = 10

@@ -4,6 +4,7 @@ import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
@@ -30,6 +31,7 @@ class CalamityEnchantment(id: String) : CustomEnchantment(id), Listener {
             ),
             ComponentUtils.create(" of your maximum health")
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(163, 0, 0)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_CHEST_ARMOR
     override val maxLevel: Int get()                           = 5

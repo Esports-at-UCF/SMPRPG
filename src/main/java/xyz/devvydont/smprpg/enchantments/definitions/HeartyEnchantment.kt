@@ -4,6 +4,7 @@ import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -24,6 +25,7 @@ class HeartyEnchantment(id: String) : CustomEnchantment(id), AttributeEnchantmen
             ComponentUtils.create("+" + getHealthIncrease(level), NamedTextColor.GREEN),
             ComponentUtils.create(Symbols.HEART, NamedTextColor.RED)
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(255, 25, 68)
 
    override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_ARMOR
    override val maxLevel: Int get()                           = 10

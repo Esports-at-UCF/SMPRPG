@@ -4,6 +4,7 @@ import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys
 import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Color
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
@@ -28,6 +29,7 @@ class ExecuteEnchantment(id: String) : CustomEnchantment(id), Listener {
             ComponentUtils.create("$HEALTH_THRESHOLD%", NamedTextColor.GREEN),
             ComponentUtils.create(" of their maximum health")
         )
+    override val scrollBindingColor: Color get() = Color.fromRGB(189, 71, 21)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_WEAPON
     override val maxLevel: Int get()                           = 5

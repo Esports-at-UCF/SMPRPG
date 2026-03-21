@@ -39,7 +39,7 @@ class OneForAllArtificeEnchantment(id: String) : CustomEnchantment(id), Attribut
     )
     override val enchantColor: TextColor get()   = ARTIFICE_COLOR
     override val scrollColor: Color get()        = ScrollColor.ARTIFICE.color
-    override val scrollBindingColor: Color get() = Color.fromRGB(255, 255, 255)
+    override val scrollBindingColor: Color get() = Color.fromRGB(32, 32, 32)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_WEAPON
     override val maxLevel: Int get()                           = 1
