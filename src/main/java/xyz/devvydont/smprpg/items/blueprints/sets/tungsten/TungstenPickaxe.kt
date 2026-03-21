@@ -38,9 +38,7 @@ class TungstenPickaxe(itemService: ItemService, type: CustomItemType) : Tungsten
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.PICKAXE
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.PICKAXE
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

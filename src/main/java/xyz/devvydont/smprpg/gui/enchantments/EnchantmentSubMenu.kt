@@ -52,7 +52,7 @@ class EnchantmentSubMenu(
             meta.lore(
                 ComponentUtils.cleanItalics(
                     listOf<Component>(
-                        enchantment.build(level).getDescription(),
+                        enchantment.build(level).description,
                         ComponentUtils.EMPTY,
                         ComponentUtils.merge(check, ComponentUtils.SPACE, req)
                     )
@@ -72,16 +72,16 @@ class EnchantmentSubMenu(
             val indexes: MutableList<Int> = ArrayList()
 
             // Sanity checks, is there no "levels" to display?
-            if (enchantment.getMaxLevel() <= 0) return indexes
+            if (enchantment.maxLevel <= 0) return indexes
 
             // Is the max level too big for us to show? Our UI only supports 21 levels
-            if (enchantment.getMaxLevel() > 21) {
+            if (enchantment.maxLevel > 21) {
                 for (slot in ALL_SLOTS) indexes.add(slot)
                 return indexes
             }
 
             // todo figure out big brain centering logic so it looks pretty, for now i am gonna be a moron and just give numbers in order
-            for (level in 1..enchantment.getMaxLevel()) indexes.add(ALL_SLOTS[level - 1])
+            for (level in 1..enchantment.maxLevel) indexes.add(ALL_SLOTS[level - 1])
 
             return indexes
         }
@@ -92,12 +92,12 @@ class EnchantmentSubMenu(
     }
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
-        event.titleOverride(enchantment.getDisplayName())
+        event.titleOverride(enchantment.displayName)
         this.setBorderFull()
 
         // Populate slots with the levels of the enchantment.
         val indexes = this.indexesToPopulate
-        for (level in 1..enchantment.getMaxLevel()) this.setSlot(
+        for (level in 1..enchantment.maxLevel) this.setSlot(
             indexes[level - 1],
             createEnchantmentButton(level)
         )

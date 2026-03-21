@@ -1,6 +1,6 @@
 {
-	"parent": "minecraft:item/generated",
-    "textures": {
-        "layer0": "materials:item/scroll"
-    }
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "materials:item/scroll"
+  }
 }

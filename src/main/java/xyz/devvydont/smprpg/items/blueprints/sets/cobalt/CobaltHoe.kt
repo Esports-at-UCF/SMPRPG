@@ -31,9 +31,7 @@ class CobaltHoe(itemService: ItemService, type: CustomItemType) : CobaltAttribut
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.HOE
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.HOE
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

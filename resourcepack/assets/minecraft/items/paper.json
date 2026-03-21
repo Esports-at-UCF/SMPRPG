@@ -7,13 +7,6 @@
             "model": "item/paper"
         },
         "cases": [
-			{
-                "when": "smprpg:enchanting_scroll",
-                "model": {
-                    "type": "model",
-                    "model": "materials:item/scroll"
-                }
-            },
             {
                 "when": "smprpg:simple_tome",
 				"model": {

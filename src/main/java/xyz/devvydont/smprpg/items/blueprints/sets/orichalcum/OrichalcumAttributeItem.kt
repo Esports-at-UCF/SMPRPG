@@ -5,6 +5,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
+import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.tools.ToolSetAttributeItem
 import xyz.devvydont.smprpg.services.ItemService
@@ -13,6 +14,8 @@ import java.util.List
 
 open class OrichalcumAttributeItem(itemService: ItemService, type: CustomItemType) : ToolSetAttributeItem(itemService,
     type) {
+
+    override val itemClassification: ItemClassification get() = ItemClassification.ITEM
 
     override fun getToolStats(): ToolStats {
         return ToolStats.ORICHALCUM

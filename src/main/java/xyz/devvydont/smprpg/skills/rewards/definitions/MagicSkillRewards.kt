@@ -12,8 +12,8 @@ class MagicSkillRewards : SkillRewardContainer() {
     init {
         // Loop through all the enchantments in the game. Add the enchantment unlock to the rewards
         for (enchantment in SMPRPG.getService(EnchantmentService::class.java).customEnchantments)
-            if (enchantment.getSkillRequirement() > 0)
-                addReward(enchantment.getSkillRequirement(), EnchantmentSkillReward(enchantment))
+            if (enchantment.skillRequirement > 0)
+                addReward(enchantment.skillRequirement, EnchantmentSkillReward(enchantment))
 
         // Add intelligence to every level.
         this.addAttributeRewardEveryLevel(

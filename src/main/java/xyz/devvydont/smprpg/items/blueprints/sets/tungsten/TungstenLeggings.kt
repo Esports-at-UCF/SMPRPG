@@ -44,7 +44,5 @@ class TungstenLeggings(itemService: ItemService?, type: CustomItemType?) : Tungs
         return LeggingsRecipe(this, getCraftingMaterial(), generate()).build()
     }
 
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.LEGGINGS
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.LEGGINGS
 }

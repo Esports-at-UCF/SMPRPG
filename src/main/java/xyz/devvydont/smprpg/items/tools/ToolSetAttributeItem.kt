@@ -12,9 +12,7 @@ import xyz.devvydont.smprpg.util.items.ToolStats
 open class ToolSetAttributeItem(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService,
     type) {
 
-    override fun getItemClassification(): ItemClassification? {
-        throw NotImplementedError("Item classification must be defined by child class.")
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.ITEM
 
     override fun getAttributeModifiers(item: ItemStack?): Collection<AttributeEntry?>? {
         return listOf()

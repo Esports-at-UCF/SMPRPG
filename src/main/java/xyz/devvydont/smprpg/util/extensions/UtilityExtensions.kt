@@ -74,9 +74,9 @@ fun Inventory.takeIfPresent(vararg req : ItemStack) : Boolean {
  */
 fun ItemStack.addEnchantment(enchant: CustomEnchantment, level: Int) {
     val blueprint = ItemService.blueprint(this)
-    val canEnchant = blueprint.getItemClassification().getItemTagKeys().contains(enchant.itemTypeTag)
+    val canEnchant = blueprint.itemClassification.getItemTagKeys().contains(enchant.itemTypeTag)
     Preconditions.checkArgument(enchant != null, "CustomEnchantment cannot be null")
-    require(!((level < enchant.enchantment.getStartLevel()) || (level > enchant.getMaxLevel()))) { "Enchantment level is either too low or too high (given " + level + ", bounds are " + enchant.enchantment.startLevel + " to " + enchant.enchantment.maxLevel + ")" }
+    require(!((level < enchant.enchantment.getStartLevel()) || (level > enchant.maxLevel))) { "Enchantment level is either too low or too high (given " + level + ", bounds are " + enchant.enchantment.startLevel + " to " + enchant.enchantment.maxLevel + ")" }
     require(canEnchant) { "Specified enchantment cannot be applied to this itemstack" }
 
     addUnsafeEnchantment(enchant.enchantment, level)

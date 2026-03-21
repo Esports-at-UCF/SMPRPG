@@ -25,9 +25,7 @@ class TungstenBow(itemService: ItemService, type: CustomItemType) : TungstenAttr
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.BOW
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.BOW
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.HAND

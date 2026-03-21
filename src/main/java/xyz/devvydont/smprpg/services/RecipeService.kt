@@ -134,7 +134,7 @@ class RecipeService : IService, Listener {
                 val recipeIsVanilla = recipe.key.namespace == NamespacedKey.MINECRAFT_NAMESPACE
 
                 val resultBlueprint = blueprint(recipe.result)
-                if (recipeIsVanilla && resultBlueprint.isCustom()) {
+                if (recipeIsVanilla && resultBlueprint.isCustom) {
                     allRecipes.remove(recipe)
                     continue
                 }

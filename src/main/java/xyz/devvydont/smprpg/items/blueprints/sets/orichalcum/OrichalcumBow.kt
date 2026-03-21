@@ -25,9 +25,7 @@ class OrichalcumBow(itemService: ItemService, type: CustomItemType) : Orichalcum
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.BOW
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.BOW
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.HAND

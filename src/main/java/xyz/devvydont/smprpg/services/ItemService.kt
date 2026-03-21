@@ -797,7 +797,7 @@ class ItemService : IService, Listener {
         // Keeping this here until we get all vanilla items on the same page as custom ones.
         val foodData = itemStack.getData(DataComponentTypes.FOOD)
         val consumableData = itemStack.getData(DataComponentTypes.CONSUMABLE)
-        if (!blueprint.isCustom() && foodData != null && consumableData != null) {
+        if (!blueprint.isCustom && foodData != null && consumableData != null) {
             lore.add(ComponentUtils.EMPTY)
             lore.addAll(
                 IEdible.generateEdibilityComponent(
@@ -805,7 +805,7 @@ class ItemService : IService, Listener {
                     IEdible.fromVanillaData(foodData, consumableData)
                 )
             )
-        } else if (!blueprint.isCustom() && consumableData != null) {
+        } else if (!blueprint.isCustom && consumableData != null) {
             val consumableData = itemStack.getData(DataComponentTypes.CONSUMABLE)
             if (consumableData != null) {
                 lore.add(ComponentUtils.EMPTY)
@@ -933,7 +933,7 @@ class ItemService : IService, Listener {
             )
         }
 
-        var itemCategory: String = blueprint.getItemClassification().name.replace("_", " ")
+        var itemCategory: String = blueprint.itemClassification.name.replace("_", " ")
         // Fishing rods have an extra prefix...
         if (blueprint is IFishingRod) itemCategory = IFishingRod.FishingFlag.prefix(blueprint.getFishingFlags())
             .uppercase(Locale.getDefault()) + " " + itemCategory
@@ -943,7 +943,7 @@ class ItemService : IService, Listener {
                 .applyDecoration(ComponentUtils.create(blueprint.getRarity(itemStack).name + " " + itemCategory))
                 .decoration(TextDecoration.BOLD, true).color(blueprint.getRarity(itemStack).color)
         )
-        lore.add(ComponentUtils.create(blueprint.getCustomModelDataIdentifier(), NamedTextColor.DARK_GRAY))
+        lore.add(ComponentUtils.create(blueprint.customModelDataIdentifier, NamedTextColor.DARK_GRAY))
         return ComponentUtils.cleanItalics(lore)
     }
 
@@ -1325,7 +1325,7 @@ class ItemService : IService, Listener {
         if (blueprint is CustomItemBlueprint && blueprint.customItemType == CustomItemType.SUMMONING_CRYSTAL) return
 
         // If this item is a custom item, don't allow it to be placed!!!
-        if (blueprint.isCustom()) event.isCancelled = true
+        if (blueprint.isCustom) event.isCancelled = true
     }
 
     companion object {

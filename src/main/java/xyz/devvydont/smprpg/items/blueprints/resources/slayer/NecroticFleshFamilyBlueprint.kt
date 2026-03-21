@@ -70,9 +70,7 @@ class NecroticFleshFamilyBlueprint(itemService: ItemService?, type: CustomItemTy
             .build()
     }
 
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.CONSUMABLE
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.CONSUMABLE
 
     companion object {
         val COMPRESSION_FLOW: MutableList<CompressionRecipeMember?> = List.of<CompressionRecipeMember?>(

@@ -31,9 +31,7 @@ class TungstenHoe(itemService: ItemService, type: CustomItemType) : TungstenAttr
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.HOE
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.HOE
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

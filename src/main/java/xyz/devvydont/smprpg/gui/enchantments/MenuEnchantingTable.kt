@@ -378,7 +378,7 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
             val enchant : Enchantment = getEnchant(scrollItem)!!
             val customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant)
             val blueprint = ItemService.blueprint(itemToEnchant)
-            if (blueprint.getItemClassification().getItemTagKeys().contains(customEnch!!.itemTypeTag)) {
+            if (blueprint.itemClassification.getItemTagKeys().contains(customEnch!!.itemTypeTag)) {
                 for (ench in itemToEnchant.enchantments.keys) {
                     if (ench.conflictsWith(enchant) && ench.key != enchant.key)  // Failfast if we find a conflicting enchantment
                         return false

@@ -45,7 +45,5 @@ class OrichalcumLeggings(itemService: ItemService?, type: CustomItemType?) : Ori
         return LeggingsRecipe(this, getCraftingMaterial(), generate()).build()
     }
 
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.LEGGINGS
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.LEGGINGS
 }

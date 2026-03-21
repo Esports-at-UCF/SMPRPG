@@ -47,8 +47,6 @@ class TungstenChestplate(itemService: ItemService?, type: CustomItemType?) : Tun
         return ChestplateRecipe(this, getCraftingMaterial(), generate()).build()
     }
 
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.CHESTPLATE
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.CHESTPLATE
 
 }

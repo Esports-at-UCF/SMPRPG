@@ -66,11 +66,9 @@ class WarlockHood(itemService: ItemService?, type: CustomItemType?) : WarlockArm
         return mutableListOf(itemService.getCustomItem(CustomItemType.REVILED_VISCERA))
     }
 
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.BOOTS
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.HELMET
 
-    override fun updateItemData(itemStack: ItemStack?) {
+    override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
         itemStack!!.setData(DataComponentTypes.EQUIPPABLE, Equippable.equippable(EquipmentSlot.HEAD).build())
     }

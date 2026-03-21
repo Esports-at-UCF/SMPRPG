@@ -24,7 +24,7 @@ class CustomItemFurnacePreventions : ToggleableListener() {
         // Vanilla items will function normally.
 
         val blueprint = blueprint(event.fuel)
-        if (!blueprint.isCustom()) return
+        if (!blueprint.isCustom) return
 
         // If the item is custom and NOT fuel, don't allow this to happen!
         if (blueprint !is IFurnaceFuel) {
@@ -45,7 +45,7 @@ class CustomItemFurnacePreventions : ToggleableListener() {
         if (event.recipe.key.namespace != NamespacedKey.MINECRAFT)
             return
 
-        if (!blueprint(event.getSource()).isCustom())
+        if (!blueprint(event.getSource()).isCustom)
             return
 
         event.totalCookTime = 999999

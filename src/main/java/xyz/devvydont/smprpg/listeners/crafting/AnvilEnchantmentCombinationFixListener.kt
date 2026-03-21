@@ -59,7 +59,7 @@ class AnvilEnchantmentCombinationFixListener : ToggleableListener() {
         // If the item is a book, we have to retrieve the enchants differently
         val combineEnchantMap =
             if
-                (!combineBlueprint.isCustom() && combine.type == Material.ENCHANTED_BOOK) (combine.itemMeta as EnchantmentStorageMeta).storedEnchants
+                (!combineBlueprint.isCustom && combine.type == Material.ENCHANTED_BOOK) (combine.itemMeta as EnchantmentStorageMeta).storedEnchants
             else
                 combine.enchantments
 
@@ -93,8 +93,8 @@ class AnvilEnchantmentCombinationFixListener : ToggleableListener() {
             }
 
             // Skip this enchantment if it is not valid for the input item if it is not a book.
-            if (inputBlueprint !is ItemEnchantedBook && !inputBlueprint.getItemClassification().itemTagKeys
-                    .contains(enchantment.getItemTypeTag())
+            if (inputBlueprint !is ItemEnchantedBook && !inputBlueprint.itemClassification.itemTagKeys
+                    .contains(enchantment.itemTypeTag)
             ) continue
 
             // Skip this enchantment if the input already contains a conflicting enchant.
@@ -128,8 +128,7 @@ class AnvilEnchantmentCombinationFixListener : ToggleableListener() {
             } else result.addUnsafeEnchantment(enchantment.enchantment, levelToUse)
 
             resultIsDifferent = true
-            cost += enchantment.minimumCost.additionalPerLevelCost() * levelToUse + enchantment.minimumCost
-                .baseCost()
+            cost += 0
         }
 
         // Did we even make a change? mark this combo as invalid
@@ -215,14 +214,14 @@ class AnvilEnchantmentCombinationFixListener : ToggleableListener() {
 
             val enchantment = SMPRPG.getService(EnchantmentService::class.java)
                 .getEnchantment(entries.key!!)
-            val requirement = enchantment!!.getSkillRequirement()
+            val requirement = enchantment!!.skillRequirement
             if (requirement > magicLevel) {
                 information.add(
                     ComponentUtils.create(
                         "- Need Magic $requirement to apply locked enchantment ",
                         NamedTextColor.RED
                     ).append(
-                        enchantment.getDisplayName().color(enchantment.enchantColor)
+                        enchantment.displayName.color(enchantment.enchantColor)
                     )
                 )
                 allowed = false
@@ -291,7 +290,7 @@ class AnvilEnchantmentCombinationFixListener : ToggleableListener() {
 
         val input = SMPRPG.getService(ItemService::class.java).getBlueprint(event.inventory.firstItem!!)
         // Can this reforge type be applied to this type of item?
-        if (!reforgeType.isAllowed(input.getItemClassification())) return
+        if (!reforgeType.isAllowed(input.itemClassification)) return
 
         // The item input is allowed to have this reforge stone's reforge. Let's set a result for them to choose if
         // they want.

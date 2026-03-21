@@ -79,7 +79,7 @@ class EnchantmentService : IService, Listener {
      * @return A vanilla enchantment instance.
      */
     fun getEnchantment(enchantment: CustomEnchantment): Enchantment {
-        return getEnchantment(TypedKey.create(RegistryKey.ENCHANTMENT, enchantment.getKey()))
+        return getEnchantment(TypedKey.create(RegistryKey.ENCHANTMENT, enchantment.key))
     }
 
     /**

@@ -30,9 +30,11 @@ class CobaltLeggings(itemService: ItemService?, type: CustomItemType?) : CobaltA
         )
     }
 
-    override fun getActiveSlot(): EquipmentSlotGroup {
+    override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.LEGS
     }
+
+    override val itemClassification: ItemClassification get() = ItemClassification.LEGGINGS
 
     override fun getMaxDurability(): Int {
         return 680
@@ -44,9 +46,5 @@ class CobaltLeggings(itemService: ItemService?, type: CustomItemType?) : CobaltA
 
     override fun getCustomRecipe(): CraftingRecipe? {
         return LeggingsRecipe(this, getCraftingMaterial(), generate()).build()
-    }
-
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.LEGGINGS
     }
 }

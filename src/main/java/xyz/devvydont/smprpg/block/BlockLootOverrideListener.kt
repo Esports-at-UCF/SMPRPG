@@ -68,7 +68,7 @@ class BlockLootOverrideListener : ToggleableListener() {
         val toolPreferences: MutableSet<ItemClassification> = entry.preferredTools
         val itemUsedToBreak = event.player.inventory.itemInMainHand
         val itemUsedToBreakBlueprint = ItemService.blueprint(itemUsedToBreak)
-        val usedTool = itemUsedToBreakBlueprint.getItemClassification()
+        val usedTool = itemUsedToBreakBlueprint.itemClassification
 
         // If there's no tool preference for the block or there's a tool preference match, then we are using correct tool.
         if (toolPreferences.isEmpty()) ctx = BlockLootContext.CORRECT_TOOL

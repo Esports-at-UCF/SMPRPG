@@ -79,7 +79,7 @@ class MenuReforge(player: Player) : MenuBase(player, ROWS) {
 
         // Is this item not able to receive a reforge?
         if (getRandomReforge(
-                blueprint.getItemClassification(),
+                blueprint.itemClassification,
                 blueprint.getReforgeType(input)
             ).type == ReforgeType.ERROR
         ) {
@@ -174,7 +174,7 @@ class MenuReforge(player: Player) : MenuBase(player, ROWS) {
 
         // Analyze the current reforge on the gear and determine if we can even roll another reforge without erroring
         val currentReforgeType = blueprint.getReforgeType(item)
-        val newReforge = getRandomReforge(blueprint.getItemClassification(), currentReforgeType)
+        val newReforge = getRandomReforge(blueprint.itemClassification, currentReforgeType)
         var success = newReforge.type != ReforgeType.ERROR
 
         // Determine if we can afford this reforge

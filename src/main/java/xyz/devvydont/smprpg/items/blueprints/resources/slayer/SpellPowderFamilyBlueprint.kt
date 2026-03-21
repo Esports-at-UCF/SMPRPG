@@ -16,9 +16,7 @@ class SpellPowderFamilyBlueprint(itemService: ItemService?, type: CustomItemType
         return COMPRESSION_FLOW
     }
 
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.ITEM
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.ITEM
 
     override fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(_type)

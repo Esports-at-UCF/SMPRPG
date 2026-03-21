@@ -25,9 +25,7 @@ class CobaltBow(itemService: ItemService, type: CustomItemType) : CobaltAttribut
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.BOW
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.BOW
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.HAND

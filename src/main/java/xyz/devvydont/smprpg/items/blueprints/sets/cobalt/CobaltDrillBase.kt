@@ -21,9 +21,7 @@ class CobaltDrillBase(itemService: ItemService, type: CustomItemType) : CobaltAt
         return Companion.attrKey
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.ITEM
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.ITEM
 
     companion object {
         const val attrKey: String = "cobalt_drill_base"

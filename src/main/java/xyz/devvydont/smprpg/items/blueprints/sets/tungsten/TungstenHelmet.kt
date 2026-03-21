@@ -44,7 +44,5 @@ class TungstenHelmet(itemService: ItemService?, type: CustomItemType?) : Tungste
         return 640
     }
 
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.HELMET
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.HELMET
 }

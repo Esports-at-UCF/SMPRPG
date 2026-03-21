@@ -110,7 +110,7 @@ class LootListener : ToggleableListener() {
                     // Grab first enchant off the scroll, that's what we will use
                     var customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchants.keys.random())
                     event.loot.remove(item)
-                    val scroll = DynamicEnchantingScroll.getScrollWithEnchantment(customEnch)
+                    val scroll = DynamicEnchantingScroll.getScrollWithEnchantment(customEnch!!)
                     event.loot.add(scroll)
                 }
             }

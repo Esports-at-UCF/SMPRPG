@@ -38,9 +38,7 @@ class CobaltPickaxe(itemService: ItemService, type: CustomItemType) : CobaltAttr
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.PICKAXE
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.PICKAXE
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

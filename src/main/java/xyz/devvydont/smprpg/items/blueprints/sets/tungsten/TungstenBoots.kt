@@ -44,7 +44,5 @@ class TungstenBoots(itemService: ItemService?, type: CustomItemType?) : Tungsten
         return BootsRecipe(this, getCraftingMaterial(), generate()).build()
     }
 
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.BOOTS
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.BOOTS
 }

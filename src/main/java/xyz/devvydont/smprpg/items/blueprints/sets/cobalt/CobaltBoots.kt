@@ -46,7 +46,5 @@ class CobaltBoots(itemService: ItemService?, type: CustomItemType?) : CobaltArmo
         return BootsRecipe(this, getCraftingMaterial(), generate()).build()
     }
 
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.BOOTS
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.BOOTS
 }

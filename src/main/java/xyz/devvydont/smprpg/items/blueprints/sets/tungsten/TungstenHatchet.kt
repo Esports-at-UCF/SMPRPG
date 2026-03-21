@@ -37,9 +37,7 @@ class TungstenHatchet(itemService: ItemService, type: CustomItemType) : Tungsten
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.HATCHET
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.HATCHET
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

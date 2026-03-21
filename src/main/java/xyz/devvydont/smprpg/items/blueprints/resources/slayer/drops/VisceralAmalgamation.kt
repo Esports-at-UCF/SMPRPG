@@ -25,9 +25,7 @@ class VisceralAmalgamation(itemService: ItemService?, type: CustomItemType?) : C
     /**
      * Determine what type of item this is.
      */
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.ITEM
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.ITEM
 
     /**
      * Given this item stack, how much should it be able to sell for?

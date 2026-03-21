@@ -65,9 +65,7 @@ class WarlockTrousers(itemService: ItemService?, type: CustomItemType?) : Warloc
         return mutableListOf(itemService.getCustomItem(CustomItemType.REVILED_VISCERA))
     }
 
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.BOOTS
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.LEGGINGS
 
     @EventHandler
     fun onValidEntityKill(event: EntityDeathEvent) {

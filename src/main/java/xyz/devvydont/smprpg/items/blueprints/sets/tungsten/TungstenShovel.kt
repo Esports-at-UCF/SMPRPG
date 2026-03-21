@@ -30,9 +30,7 @@ class TungstenShovel(itemService: ItemService, type: CustomItemType) : TungstenA
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.TOOL
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.TOOL
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

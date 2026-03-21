@@ -38,9 +38,7 @@ class CobaltHatchet(itemService: ItemService, type: CustomItemType) : CobaltAttr
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.HATCHET
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.HATCHET
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

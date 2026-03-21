@@ -65,9 +65,7 @@ class WarlockRobes(itemService: ItemService?, type: CustomItemType?) : WarlockAr
         return mutableListOf(itemService.getCustomItem(CustomItemType.REVILED_VISCERA))
     }
 
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.BOOTS
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.CHESTPLATE
 
     @EventHandler
     fun onValidEntityKill(event: EntityDeathEvent) {

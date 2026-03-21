@@ -98,7 +98,7 @@ class CommandEnchant(val root: String) : ICommand {
             }
 
             // Check if maybe this is an enchantment that is custom, but they didn't provide a key.
-            if (otherEnchantment.key.value() == enchant.value())
+            if (otherEnchantment.key!!.value() == enchant.value())
                 enchantMatches.add(otherEnchantment)
         }
 

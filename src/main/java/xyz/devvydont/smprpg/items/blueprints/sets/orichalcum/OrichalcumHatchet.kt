@@ -38,9 +38,7 @@ class OrichalcumHatchet(itemService: ItemService, type: CustomItemType) : Oricha
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.HATCHET
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.HATCHET
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

@@ -30,9 +30,7 @@ class CobaltShovel(itemService: ItemService, type: CustomItemType) : CobaltAttri
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.TOOL
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.TOOL
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

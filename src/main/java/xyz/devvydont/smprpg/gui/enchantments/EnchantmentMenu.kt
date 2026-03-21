@@ -70,12 +70,12 @@ class EnchantmentMenu : MenuBase {
         var book : ItemStack
         if (enchantment.enchantColor == CustomEnchantment.ARTIFICE_COLOR) {
             book =
-                createNamedItem(Material.ENCHANTED_BOOK, ComponentUtils.gradient(PlainTextComponentSerializer.plainText().serialize(enchantment.getDisplayName()),
+                createNamedItem(Material.ENCHANTED_BOOK, ComponentUtils.gradient(PlainTextComponentSerializer.plainText().serialize(enchantment.displayName),
                 NamedTextColor.DARK_PURPLE, TextColor.color(255, 0, 0)))
         }
         else {
             book =
-                createNamedItem(Material.ENCHANTED_BOOK, enchantment.getDisplayName().color(enchantment.enchantColor))
+                createNamedItem(Material.ENCHANTED_BOOK, enchantment.displayName.color(enchantment.enchantColor))
         }
 
         // Start constructing the lore of the item, this is essentially an in depth description of the enchantment.
@@ -88,7 +88,7 @@ class EnchantmentMenu : MenuBase {
             enchantmentDescription.add(
                 ComponentUtils.gradient(
                     PlainTextComponentSerializer.plainText()
-                        .serialize(enchantment.getEnchantment().displayName(1)),
+                        .serialize(enchantment.enchantment.displayName(1)),
                     NamedTextColor.DARK_PURPLE,
                     TextColor.color(255, 0, 0)
                 ).decorate(TextDecoration.ITALIC)
@@ -97,17 +97,17 @@ class EnchantmentMenu : MenuBase {
         else
             enchantmentDescription.add(enchantment.enchantment.displayName(1).color(enchantment.enchantColor))
         if (enchantment.longDescription.isEmpty())
-            enchantmentDescription.add(enchantment.build(1).getDescription())
+            enchantmentDescription.add(enchantment.build(1).description)
         else
             enchantmentDescription.addAll(enchantment.build(1).longDescription)
         // If this enchantment has more than one level, we should also show off what the "maxed" version of this enchant entails
-        if (enchantment.getMaxLevel() > 1) {
+        if (enchantment.maxLevel > 1) {
             enchantmentDescription.add(ComponentUtils.EMPTY)
             if (enchantment.enchantColor == CustomEnchantment.ARTIFICE_COLOR) {
                 enchantmentDescription.add(
                     ComponentUtils.gradient(
                         PlainTextComponentSerializer.plainText()
-                            .serialize(enchantment.getEnchantment().displayName(enchantment.maxLevel)),
+                            .serialize(enchantment.enchantment.displayName(enchantment.maxLevel)),
                         NamedTextColor.DARK_PURPLE,
                         TextColor.color(255, 0, 0)
                     ).decorate(TextDecoration.ITALIC)
@@ -119,7 +119,7 @@ class EnchantmentMenu : MenuBase {
                 )
             }
             if (enchantment.longDescription.isEmpty())
-                enchantmentDescription.add(enchantment.build(enchantment.maxLevel).getDescription())
+                enchantmentDescription.add(enchantment.build(enchantment.maxLevel).description)
             else
                 enchantmentDescription.addAll(enchantment.build(enchantment.maxLevel).longDescription)
         }
@@ -130,13 +130,13 @@ class EnchantmentMenu : MenuBase {
         enchantmentDescription.add(
             ComponentUtils.merge(
                 ComponentUtils.create("Max Enchantment Level: "),
-                ComponentUtils.create(enchantment.getMaxLevel().toString(), NamedTextColor.GREEN)
+                ComponentUtils.create(enchantment.maxLevel.toString(), NamedTextColor.GREEN)
             )
         )
         enchantmentDescription.add(
             ComponentUtils.merge(
                 ComponentUtils.create("Enchantment Rarity Ranking: "),
-                ComponentUtils.create(enchantment.getWeight().toString(), NamedTextColor.GREEN),
+                ComponentUtils.create(enchantment.weight.toString(), NamedTextColor.GREEN),
                 ComponentUtils.create(" (Lower = Rarer)", NamedTextColor.DARK_GRAY)
             )
         )
@@ -145,7 +145,7 @@ class EnchantmentMenu : MenuBase {
                 ComponentUtils.create("Applicable Item Type: "),
                 ComponentUtils.create(
                     MinecraftStringUtils.getTitledString(
-                        enchantment.getItemTypeTag().key().asMinimalString().replace("/", " ")
+                        enchantment.itemTypeTag.key().asMinimalString().replace("/", " ")
                     ), NamedTextColor.GOLD
                 )
             )
@@ -173,7 +173,7 @@ class EnchantmentMenu : MenuBase {
                     enchantmentDescription.add(
                         ComponentUtils.merge(
                             ComponentUtils.create("- "),
-                            ComponentUtils.gradient(PlainTextComponentSerializer.plainText().serialize(conflictEnchantWrapper.getDisplayName()),
+                            ComponentUtils.gradient(PlainTextComponentSerializer.plainText().serialize(conflictEnchantWrapper.displayName),
                             NamedTextColor.DARK_PURPLE, TextColor.color(255, 0, 0)
                             )
                         )
@@ -182,7 +182,7 @@ class EnchantmentMenu : MenuBase {
                 else {
                     enchantmentDescription.add(
                         ComponentUtils.merge(
-                            ComponentUtils.create("- "), conflictEnchantWrapper.getDisplayName().color(
+                            ComponentUtils.create("- "), conflictEnchantWrapper.displayName.color(
                                 conflictEnchantWrapper.enchantColor
                             )
                         )
@@ -194,7 +194,7 @@ class EnchantmentMenu : MenuBase {
         enchantmentDescription.add(ComponentUtils.EMPTY)
         val magicLvl = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
             .magicSkill.level
-        val isUnlocked = magicLvl >= enchantment.getSkillRequirement()
+        val isUnlocked = magicLvl >= enchantment.skillRequirement
         enchantmentDescription.add(
             ComponentUtils.merge(
                 ComponentUtils.create(
@@ -202,7 +202,7 @@ class EnchantmentMenu : MenuBase {
                     if (isUnlocked) NamedTextColor.GRAY else NamedTextColor.RED
                 ),
                 ComponentUtils.create(
-                    enchantment.getSkillRequirement().toString(),
+                    enchantment.skillRequirement.toString(),
                     if (isUnlocked) NamedTextColor.LIGHT_PURPLE else NamedTextColor.DARK_RED
                 )
             )
@@ -210,9 +210,9 @@ class EnchantmentMenu : MenuBase {
 
         enchantmentDescription.add(ComponentUtils.EMPTY)
         enchantmentDescription.add(ComponentUtils.create("Click to go deeper!", NamedTextColor.YELLOW))
-        if (enchantment.getMaxLevel() > 1) {
+        if (enchantment.maxLevel > 1) {
             enchantmentDescription.add(ComponentUtils.EMPTY)
-            for (i in 2..enchantment.getMaxLevel()) {
+            for (i in 2..enchantment.maxLevel) {
                 val unlocked = if (magicLvl >= enchantment.getSkillRequirementForLevel(i)) ComponentUtils.create(
                     Symbols.CHECK,
                     NamedTextColor.GREEN
@@ -221,7 +221,7 @@ class EnchantmentMenu : MenuBase {
                     ComponentUtils.merge(
                         unlocked,
                         ComponentUtils.SPACE,
-                        enchantment.build(i).getDisplayName().append(
+                        enchantment.build(i).displayName.append(
                             Component.text(" $i")
                         ).color(NamedTextColor.DARK_GRAY),
                         ComponentUtils.create(

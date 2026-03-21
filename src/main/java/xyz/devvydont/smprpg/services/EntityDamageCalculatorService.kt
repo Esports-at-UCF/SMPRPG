@@ -265,7 +265,7 @@ class EntityDamageCalculatorService : Listener, IService {
         val hand: ItemStack = dealer.equipment!!.itemInMainHand
         val handBlueprint = blueprint(hand)
         if (hand.type != Material.AIR) {
-            if (SMPRPG.getService(ItemService::class.java).getBlueprint(hand).getItemClassification().isBow) {
+            if (SMPRPG.getService(ItemService::class.java).getBlueprint(hand).itemClassification.isBow) {
                 event.setDamage(EntityDamageEvent.DamageModifier.BASE, event.damage * .05)
                 dealer.sendMessage(ComponentUtils.error("That's not how you use this weapon..."))
                 dealer.world.playSound(dealer.location, Sound.ENTITY_ENDERMAN_HURT, 1f, 1.25f)
@@ -275,7 +275,7 @@ class EntityDamageCalculatorService : Listener, IService {
 
         // 95% damage reduction for abusing bow attributes or trying to dual wield weapons.
         val offHandBlueprint = blueprint(dealer.equipment!!.itemInOffHand)
-        if (isTryingToBowStackExploit(dealer) || handBlueprint.getItemClassification().isWeapon && offHandBlueprint.getItemClassification().isWeapon) {
+        if (isTryingToBowStackExploit(dealer) || handBlueprint.itemClassification.isWeapon && offHandBlueprint.itemClassification.isWeapon) {
             event.setDamage(EntityDamageEvent.DamageModifier.BASE, event.damage * .05)
             dealer.sendMessage(ComponentUtils.error("You seem to be struggling trying to deal damage with the items you are holding..."))
             dealer.world.playSound(dealer.location, Sound.ENTITY_ENDERMAN_HURT, 1f, 1.25f)
@@ -345,7 +345,7 @@ class EntityDamageCalculatorService : Listener, IService {
             val handBlueprint = blueprint(event.getEntity().equipment!!.itemInMainHand)
             val offhandBlueprint = blueprint(event.getEntity().equipment!!.itemInOffHand)
             isDualWieldingWeapons =
-                handBlueprint.getItemClassification().isWeapon && offhandBlueprint.getItemClassification().isWeapon
+                handBlueprint.itemClassification.isWeapon && offhandBlueprint.itemClassification.isWeapon
         }
 
         if (isTryingToBowStackExploit(event.getEntity()) || isDualWieldingWeapons) {
@@ -399,7 +399,7 @@ class EntityDamageCalculatorService : Listener, IService {
             val handBlueprint = blueprint(equipment.itemInMainHand)
             val offhandBlueprint = blueprint(equipment.itemInOffHand)
             isDualWieldingWeapons =
-                handBlueprint.getItemClassification().isWeapon && offhandBlueprint.getItemClassification().isWeapon
+                handBlueprint.itemClassification.isWeapon && offhandBlueprint.itemClassification.isWeapon
         }
 
         if (isTryingToBowStackExploit(shooter) || isDualWieldingWeapons) {
@@ -702,9 +702,9 @@ class EntityDamageCalculatorService : Listener, IService {
             // Analyze what's in both hands and update accordingly if a bow is present.
             val mainHand = entity.equipment!!.itemInMainHand
             val offHand = entity.equipment!!.itemInOffHand
-            if (SMPRPG.getService(ItemService::class.java).getBlueprint(mainHand).getItemClassification().isBow)
+            if (SMPRPG.getService(ItemService::class.java).getBlueprint(mainHand).itemClassification.isBow)
                 map.put(EquipmentSlotGroup.MAINHAND, true)
-            if (SMPRPG.getService(ItemService::class.java).getBlueprint(offHand).getItemClassification().isBow)
+            if (SMPRPG.getService(ItemService::class.java).getBlueprint(offHand).itemClassification.isBow)
                 map.put(EquipmentSlotGroup.OFFHAND, true)
 
             val wieldingMainHand = map.getOrDefault(EquipmentSlotGroup.MAINHAND, false)
@@ -741,7 +741,7 @@ class EntityDamageCalculatorService : Listener, IService {
 
             // At this point, we know we are off-handing a bow. Are we attempting to hold a stat increasing weapon in our main hand as well?
             val blueprint = SMPRPG.getService(ItemService::class.java).getBlueprint(main)
-            return blueprint.getItemClassification().isWeapon
+            return blueprint.itemClassification.isWeapon
 
             // We seem to be innocent...
         }

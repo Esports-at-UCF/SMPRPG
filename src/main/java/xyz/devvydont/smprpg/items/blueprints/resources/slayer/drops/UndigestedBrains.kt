@@ -47,9 +47,7 @@ class UndigestedBrains(itemService: ItemService?, type: CustomItemType?) : Custo
         ).toMutableList()
     }
 
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.CONSUMABLE
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.CONSUMABLE
 
     override fun getConsumableComponent(item: ItemStack?): Consumable {
         return Consumable.consumable()

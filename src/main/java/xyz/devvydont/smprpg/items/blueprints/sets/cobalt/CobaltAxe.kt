@@ -33,9 +33,7 @@ class CobaltAxe(itemService: ItemService, type: CustomItemType) : CobaltAttribut
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.AXE
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.AXE
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

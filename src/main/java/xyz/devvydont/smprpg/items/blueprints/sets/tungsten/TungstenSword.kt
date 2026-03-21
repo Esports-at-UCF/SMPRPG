@@ -27,9 +27,7 @@ class TungstenSword(itemService: ItemService, type: CustomItemType) : TungstenAt
         )
     }
 
-    override fun getItemClassification(): ItemClassification? {
-        return ItemClassification.SWORD
-    }
+    override val itemClassification: ItemClassification get() = ItemClassification.SWORD
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

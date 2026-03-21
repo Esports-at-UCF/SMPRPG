@@ -30,9 +30,11 @@ class CobaltChestplate(itemService: ItemService?, type: CustomItemType?) : Cobal
         )
     }
 
-    override fun getActiveSlot(): EquipmentSlotGroup {
+    override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.CHEST
     }
+
+    override val itemClassification: ItemClassification get() = ItemClassification.CHESTPLATE
 
     override fun getMaxDurability(): Int {
         return 800
@@ -44,10 +46,6 @@ class CobaltChestplate(itemService: ItemService?, type: CustomItemType?) : Cobal
 
     override fun getCustomRecipe(): CraftingRecipe? {
         return ChestplateRecipe(this, getCraftingMaterial(), generate()).build()
-    }
-
-    override fun getItemClassification(): ItemClassification {
-        return ItemClassification.CHESTPLATE
     }
 
 }
