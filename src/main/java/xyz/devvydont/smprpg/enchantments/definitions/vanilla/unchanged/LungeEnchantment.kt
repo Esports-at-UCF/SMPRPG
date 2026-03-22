@@ -22,7 +22,7 @@ class LungeEnchantment(key: TypedKey<Enchantment>) : UnchangedEnchantment(key) {
             ComponentUtils.create("${getBlocksPerSecondString(getBlocksPerLevel(level) * 20)} blocks per second", NamedTextColor.AQUA),
             ComponentUtils.create(" in the direction you are facing.")
         )
-    override val scrollBindingColor: Color get() = Color.fromRGB(0, 81, 255)
+    override val scrollBindingColor: Color get() = Color.fromRGB(237, 146, 240)
 
     override val itemTypeTag: TagKey<ItemType> get() = ItemTypeTagKeys.ENCHANTABLE_HEAD_ARMOR
     override val weight: Int get()                   = EnchantmentRarity.UNCOMMON.weight

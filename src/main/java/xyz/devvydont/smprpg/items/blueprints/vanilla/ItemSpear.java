@@ -34,6 +34,15 @@ public class ItemSpear extends VanillaAttributeItem implements IBreakableEquipme
 
     public static double getSpearDamage(CustomItemType itemType) {
         return switch (itemType) {
+            case CustomItemType.TIN_SPEAR -> 9.0;
+            case CustomItemType.SILVER_SPEAR -> 13.0;
+            case CustomItemType.BRONZE_SPEAR -> 15.0;
+            case CustomItemType.STEEL_SPEAR -> 18.0;
+            case CustomItemType.ROSE_GOLD_SPEAR, CustomItemType.MITHRIL_SPEAR, CustomItemType.COBALT_SPEAR -> 20.0;
+            case CustomItemType.TITANIUM_SPEAR, CustomItemType.TUNGSTEN_SPEAR -> 25.0;
+            case CustomItemType.ADAMANTIUM_SPEAR -> 33.0;
+            case CustomItemType.ORICHALCUM_SPEAR -> 35.0;
+            case CustomItemType.DRAGONSTEEL_SPEAR -> 60.0;
             default -> 0;
         };
     }
@@ -59,6 +68,20 @@ public class ItemSpear extends VanillaAttributeItem implements IBreakableEquipme
             case COPPER_SPEAR -> -0.7;
             case STONE_SPEAR -> -.65;
             case WOODEN_SPEAR -> -.6;
+            default -> -1.0;
+        };
+    }
+
+    public static double getSpearRecovery(CustomItemType itemType) {
+        return switch (itemType) {
+            case TIN_SPEAR -> -0.6;
+            case SILVER_SPEAR -> -0.65;
+            case BRONZE_SPEAR -> -0.7;
+            case STEEL_SPEAR, MITHRIL_SPEAR, TITANIUM_SPEAR, ADAMANTIUM_SPEAR -> -0.75;
+            case COBALT_SPEAR -> -0.75;
+            case TUNGSTEN_SPEAR -> -0.8;
+            case ORICHALCUM_SPEAR -> -0.85;
+            case DRAGONSTEEL_SPEAR -> -0.9;
             default -> -1.0;
         };
     }

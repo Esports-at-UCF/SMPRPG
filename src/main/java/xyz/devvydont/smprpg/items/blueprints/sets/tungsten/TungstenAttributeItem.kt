@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.items.blueprints.sets.tungsten
 
 import net.kyori.adventure.key.Key
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -39,5 +40,9 @@ open class TungstenAttributeItem(itemService: ItemService, type: CustomItemType)
 
     open fun getComponentPrefix(): String {
         return "Tungsten"
+    }
+
+    override fun getActiveSlot(): EquipmentSlotGroup? {
+        return EquipmentSlotGroup.MAINHAND
     }
 }

@@ -1,7 +1,8 @@
-package xyz.devvydont.smprpg.items.blueprints.sets.orichalcum
+package xyz.devvydont.smprpg.items.blueprints.sets.tin
 
 import net.kyori.adventure.key.Key
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -12,13 +13,13 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ToolStats
 import java.util.List
 
-open class OrichalcumAttributeItem(itemService: ItemService, type: CustomItemType) : ToolSetAttributeItem(itemService,
+open class TinAttributeItem(itemService: ItemService, type: CustomItemType) : ToolSetAttributeItem(itemService,
     type) {
 
     override val itemClassification: ItemClassification get() = ItemClassification.ITEM
 
     override fun getToolStats(): ToolStats {
-        return ToolStats.ORICHALCUM
+        return ToolStats.TIN
     }
 
     open fun getRecipeKey(): NamespacedKey {
@@ -26,11 +27,11 @@ open class OrichalcumAttributeItem(itemService: ItemService, type: CustomItemTyp
     }
 
     override fun getCraftingMaterial(): ItemStack {
-        return itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT)
+        return itemService.getCustomItem(CustomItemType.TIN_INGOT)
     }
 
     open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return List.of<ItemStack?>(itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT))
+        return List.of<ItemStack?>(itemService.getCustomItem(CustomItemType.TIN_INGOT))
     }
 
     open fun getDisplayKey(): Key {
@@ -38,6 +39,10 @@ open class OrichalcumAttributeItem(itemService: ItemService, type: CustomItemTyp
     }
 
     open fun getComponentPrefix(): String {
-        return "Orichalcum"
+        return "Tin"
+    }
+
+    override fun getActiveSlot(): EquipmentSlotGroup? {
+        return EquipmentSlotGroup.MAINHAND
     }
 }

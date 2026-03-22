@@ -225,6 +225,7 @@ public enum CustomItemType {
     SILVER_SWORD(  "Silver Sword",    Material.IRON_SWORD,   SilverSword.class),
     SILVER_HATCHET("Silver Hatchet",  Material.IRON_AXE,      ItemRarity.COMMON,   SilverHatchet.class),
     SILVER_BOW(    "Silver Bow",      Material.BOW,            SilverBow.class),
+    SILVER_SPEAR(     "Silver Spear",    Material.IRON_SPEAR,   ItemRarity.COMMON,   SilverSpear.class),
 
     SILVER_HELMET(    "Silver Helmet",     Material.IRON_HELMET,     SilverHelmet.class),
     SILVER_CHESTPLATE("Silver Chestplate", Material.IRON_CHESTPLATE, SilverChestplate.class),
@@ -248,8 +249,9 @@ public enum CustomItemType {
     TIN_HOE(    "Tin Hoe",      Material.IRON_HOE,     TinHoe.class),
     TIN_SHOVEL( "Tin Shovel",   Material.IRON_SHOVEL,  TinShovel.class),
     TIN_SWORD(  "Tin Sword",    Material.IRON_SWORD,   TinSword.class),
-    TIN_HATCHET("Tin Hatchet",  Material.IRON_AXE,      ItemRarity.COMMON,   TinHatchet.class),
-    TIN_BOW(    "Tin Bow",      Material.BOW,            TinBow.class),
+    TIN_HATCHET("Tin Hatchet",  Material.IRON_AXE,     ItemRarity.COMMON,   TinHatchet.class),
+    TIN_BOW(    "Tin Bow",      Material.BOW,          TinBow.class),
+    TIN_SPEAR(  "Tin Spear",    Material.IRON_SPEAR,   ItemRarity.COMMON,   TinSpear.class),
 
     TIN_HELMET(    "Tin Helmet",     Material.IRON_HELMET,     TinHelmet.class),
     TIN_CHESTPLATE("Tin Chestplate", Material.IRON_CHESTPLATE, TinChestplate.class),
@@ -267,6 +269,7 @@ public enum CustomItemType {
     BRONZE_SWORD(  "Bronze Sword",    Material.WOODEN_SWORD,   BronzeSword.class),
     BRONZE_HATCHET("Bronze Hatchet",  Material.WOODEN_AXE,      ItemRarity.COMMON,   BronzeHatchet.class),
     BRONZE_BOW(    "Bronze Bow",      Material.BOW,            BronzeBow.class),
+    BRONZE_SPEAR(  "Bronze Spear",    Material.IRON_SPEAR,   ItemRarity.COMMON,   BronzeSpear.class),
 
     BRONZE_HELMET(    "Bronze Helmet",     Material.LEATHER_HELMET,     BronzeHelmet.class),
     BRONZE_CHESTPLATE("Bronze Chestplate", Material.LEATHER_CHESTPLATE, BronzeChestplate.class),
@@ -287,6 +290,7 @@ public enum CustomItemType {
     STEEL_SWORD("Steel Sword",          Material.IRON_SWORD,        ItemRarity.UNCOMMON,   SteelSword.class),
     STEEL_HOE("Steel Hoe",              Material.IRON_HOE,          ItemRarity.UNCOMMON,   SteelHoe.class),
     STEEL_SHOVEL("Steel Shovel",        Material.IRON_SHOVEL,       ItemRarity.UNCOMMON,   SteelShovel.class),
+    STEEL_SPEAR(  "Steel Spear",        Material.IRON_SPEAR,        ItemRarity.UNCOMMON,   SteelSpear.class),
 
     STEEL_HELMET(    "Steel Helmet",     Material.IRON_HELMET,     SteelHelmet.class),
     STEEL_CHESTPLATE("Steel Chestplate", Material.IRON_CHESTPLATE, SteelChestplate.class),
@@ -305,8 +309,9 @@ public enum CustomItemType {
     ROSE_GOLD_HOE(    "Rose Gold Hoe",      Material.GOLDEN_HOE,     ItemRarity.UNCOMMON, RoseGoldHoe.class),
     ROSE_GOLD_SHOVEL( "Rose Gold Shovel",   Material.GOLDEN_SHOVEL,  ItemRarity.UNCOMMON, RoseGoldShovel.class),
     ROSE_GOLD_SWORD(  "Rose Gold Sword",    Material.GOLDEN_SWORD,   ItemRarity.UNCOMMON, RoseGoldSword.class),
-    ROSE_GOLD_HATCHET("Rose Gold Hatchet",  Material.GOLDEN_AXE,     ItemRarity.UNCOMMON,   RoseGoldHatchet.class),
+    ROSE_GOLD_HATCHET("Rose Gold Hatchet",  Material.GOLDEN_AXE,     ItemRarity.UNCOMMON, RoseGoldHatchet.class),
     ROSE_GOLD_BOW(    "Rose Gold Bow",      Material.BOW,            ItemRarity.UNCOMMON, RoseGoldBow.class),
+    ROSE_GOLD_SPEAR(    "Rose Gold Spear",    Material.IRON_SPEAR,     ItemRarity.UNCOMMON, RoseGoldSpear.class),
 
     ROSE_GOLD_HELMET(    "Rose Gold Helmet",     Material.GOLDEN_HELMET,     ItemRarity.UNCOMMON, RoseGoldHelmet.class),
     ROSE_GOLD_CHESTPLATE("Rose Gold Chestplate", Material.GOLDEN_CHESTPLATE, ItemRarity.UNCOMMON,RoseGoldChestplate.class),
@@ -338,6 +343,7 @@ public enum CustomItemType {
     MITHRIL_SWORD(  "Mithril Sword",    Material.DIAMOND_SWORD,   ItemRarity.UNCOMMON, MithrilSword.class),
     MITHRIL_HATCHET("Mithril Hatchet",  Material.DIAMOND_AXE,     ItemRarity.UNCOMMON, MithrilHatchet.class),
     MITHRIL_BOW(    "Mithril Bow",      Material.BOW,             ItemRarity.UNCOMMON, MithrilBow.class),
+    MITHRIL_SPEAR(    "Mithril Spear",    Material.IRON_SPEAR,     ItemRarity.UNCOMMON, MithrilSpear.class),
     MITHRIL_STAFF(    "Mithril Staff",  Material.STICK,           ItemRarity.RARE,     MithrilStaff.class),
 
     MITHRIL_HELMET(    "Mithril Helmet",     Material.DIAMOND_HELMET,     ItemRarity.UNCOMMON, MithrilHelmet.class),
@@ -366,6 +372,7 @@ public enum CustomItemType {
     TITANIUM_SWORD(  "Titanium Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, TitaniumSword.class),
     TITANIUM_HATCHET("Titanium Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE,   TitaniumHatchet.class),
     TITANIUM_BOW(    "Titanium Bow",      Material.BOW,             ItemRarity.RARE, TitaniumBow.class),
+    TITANIUM_SPEAR(  "Titanium Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, TitaniumSpear.class),
 
     TITANIUM_HELMET(    "Titanium Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, TitaniumHelmet.class),
     TITANIUM_CHESTPLATE("Titanium Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE,TitaniumChestplate.class),
@@ -393,6 +400,7 @@ public enum CustomItemType {
     ADAMANTIUM_SWORD(  "Adamantium Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, AdamantiumSword.class),
     ADAMANTIUM_HATCHET("Adamantium Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE,   AdamantiumHatchet.class),
     ADAMANTIUM_BOW(    "Adamantium Bow",      Material.BOW,             ItemRarity.RARE, AdamantiumBow.class),
+    ADAMANTIUM_SPEAR(  "Adamantium Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, AdamantiumSpear.class),
 
     ADAMANTIUM_HELMET(    "Adamantium Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, AdamantiumHelmet.class),
     ADAMANTIUM_CHESTPLATE("Adamantium Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE, AdamantiumChestplate.class),
@@ -435,6 +443,7 @@ public enum CustomItemType {
     TUNGSTEN_SWORD(  "Tungsten Sword",    Material.DIAMOND_SWORD,   ItemRarity.UNCOMMON, TungstenSword.class),
     TUNGSTEN_HATCHET("Tungsten Hatchet",  Material.DIAMOND_AXE,     ItemRarity.UNCOMMON, TungstenHatchet.class),
     TUNGSTEN_BOW(    "Tungsten Bow",      Material.BOW,             ItemRarity.UNCOMMON, TungstenBow.class),
+    TUNGSTEN_SPEAR(  "Tungsten Spear",    Material.IRON_SPEAR,      ItemRarity.UNCOMMON, TungstenSpear.class),
 
     TUNGSTEN_HELMET(    "Tungsten Helmet",     Material.DIAMOND_HELMET,     ItemRarity.UNCOMMON, TungstenHelmet.class),
     TUNGSTEN_CHESTPLATE("Tungsten Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.UNCOMMON, TungstenChestplate.class),
@@ -462,6 +471,7 @@ public enum CustomItemType {
     COBALT_SWORD(  "Cobalt Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, CobaltSword.class),
     COBALT_HATCHET("Cobalt Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE, CobaltHatchet.class),
     COBALT_BOW(    "Cobalt Bow",      Material.BOW,             ItemRarity.RARE, CobaltBow.class),
+    COBALT_SPEAR(  "Cobalt Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, CobaltSpear.class),
 
     COBALT_HELMET(    "Cobalt Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, CobaltHelmet.class),
     COBALT_CHESTPLATE("Cobalt Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE, CobaltChestplate.class),
@@ -489,6 +499,7 @@ public enum CustomItemType {
     ORICHALCUM_SWORD(  "Orichalcum Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, OrichalcumSword.class),
     ORICHALCUM_HATCHET("Orichalcum Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE, OrichalcumHatchet.class),
     ORICHALCUM_BOW(    "Orichalcum Bow",      Material.BOW,             ItemRarity.RARE, OrichalcumBow.class),
+    ORICHALCUM_SPEAR(  "Orichalcum Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, OrichalcumSpear.class),
 
     ORICHALCUM_HELMET(    "Orichalcum Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, OrichalcumHelmet.class),
     ORICHALCUM_CHESTPLATE("Orichalcum Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE, OrichalcumChestplate.class),
@@ -1157,6 +1168,7 @@ public enum CustomItemType {
     DRAGONSTEEL_SWORD("Dragonsteel Sword",          Material.NETHERITE_SWORD,        ItemRarity.LEGENDARY,   DragonsteelSword.class),
     DRAGONSTEEL_HOE("Dragonsteel Hoe",              Material.NETHERITE_HOE,          ItemRarity.LEGENDARY,   DragonsteelHoe.class),
     DRAGONSTEEL_SHOVEL("Dragonsteel Shovel",        Material.NETHERITE_SHOVEL,       ItemRarity.LEGENDARY,   DragonsteelShovel.class),
+    DRAGONSTEEL_SPEAR(  "Dragonsteel Spear",        Material.IRON_SPEAR,             ItemRarity.LEGENDARY,   DragonsteelSpear.class),
 
     // PASSIVE MOBS
     PREMIUM_PORKCHOP("Premium Porkchop", Material.COOKED_PORKCHOP, ItemRarity.UNCOMMON, true, PorkchopFamilyBlueprint.class),

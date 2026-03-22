@@ -1,4 +1,4 @@
-package xyz.devvydont.smprpg.items.blueprints.sets.orichalcum
+package xyz.devvydont.smprpg.items.blueprints.sets.rosegold
 
 import net.kyori.adventure.key.Key
 import org.bukkit.NamespacedKey
@@ -12,13 +12,13 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ToolStats
 import java.util.List
 
-open class OrichalcumAttributeItem(itemService: ItemService, type: CustomItemType) : ToolSetAttributeItem(itemService,
+open class RoseGoldAttributeItem(itemService: ItemService, type: CustomItemType) : ToolSetAttributeItem(itemService,
     type) {
 
     override val itemClassification: ItemClassification get() = ItemClassification.ITEM
 
     override fun getToolStats(): ToolStats {
-        return ToolStats.ORICHALCUM
+        return ToolStats.ROSE_GOLD
     }
 
     open fun getRecipeKey(): NamespacedKey {
@@ -26,11 +26,11 @@ open class OrichalcumAttributeItem(itemService: ItemService, type: CustomItemTyp
     }
 
     override fun getCraftingMaterial(): ItemStack {
-        return itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT)
+        return itemService.getCustomItem(CustomItemType.ROSE_GOLD_INGOT)
     }
 
     open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return List.of<ItemStack?>(itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT))
+        return List.of<ItemStack?>(itemService.getCustomItem(CustomItemType.ROSE_GOLD_INGOT))
     }
 
     open fun getDisplayKey(): Key {
@@ -38,6 +38,6 @@ open class OrichalcumAttributeItem(itemService: ItemService, type: CustomItemTyp
     }
 
     open fun getComponentPrefix(): String {
-        return "Orichalcum"
+        return "Rose Gold"
     }
 }

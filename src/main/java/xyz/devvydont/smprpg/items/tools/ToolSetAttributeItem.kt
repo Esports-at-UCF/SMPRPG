@@ -35,6 +35,6 @@ open class ToolSetAttributeItem(itemService: ItemService, type: CustomItemType) 
     }
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
-        throw NotImplementedError("Active slot must be defined by child class.")
+        return EquipmentSlotGroup.MAINHAND
     }
 }
