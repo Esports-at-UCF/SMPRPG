@@ -12,6 +12,8 @@ import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.ShapedRecipe
+import org.bukkit.inventory.recipe.CraftingBookCategory
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
@@ -59,18 +61,27 @@ class WarlockHood(itemService: ItemService?, type: CustomItemType?) : WarlockArm
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {
-        return HelmetRecipe(this, itemService.getCustomItem(CustomItemType.REVILED_VISCERA), generate()).build()
+        val recipe = ShapedRecipe(recipeKey, generate())
+        recipe.setCategory(CraftingBookCategory.MISC)
+        recipe.shape(
+            "h h",
+            "sss",
+            "s s"
+        )
+        recipe.setIngredient('s', itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH))
+        recipe.setIngredient('h', itemService.getCustomItem(CustomItemType.HORN_OF_WARLOCK))
+        return recipe
     }
 
     override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.REVILED_VISCERA))
+        return mutableListOf(itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH))
     }
 
     override val itemClassification: ItemClassification get() = ItemClassification.HELMET
 
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
-        itemStack!!.setData(DataComponentTypes.EQUIPPABLE, Equippable.equippable(EquipmentSlot.HEAD).build())
+        itemStack.setData(DataComponentTypes.EQUIPPABLE, Equippable.equippable(EquipmentSlot.HEAD).build())
     }
 
     @EventHandler

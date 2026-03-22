@@ -132,6 +132,6 @@ public class MithrilStaff extends CustomAttributeItem implements IBreakableEquip
                 .sound(SoundEventKeys.ENTITY_BLAZE_SHOOT)
                 .hitSound(SoundEventKeys.ENTITY_EXPERIENCE_ORB_PICKUP)
                 .build());
-
+        itemStack.setData(DataComponentTypes.MAX_STACK_SIZE, 1);
     }
 }

@@ -131,6 +131,6 @@ public class WoodStaff extends CustomAttributeItem implements IBreakableEquipmen
                 .sound(SoundEventKeys.ENTITY_PLAYER_ATTACK_SWEEP)
                 .hitSound(SoundEventKeys.BLOCK_TRIAL_SPAWNER_EJECT_ITEM)
                 .build());
-
+        itemStack.setData(DataComponentTypes.MAX_STACK_SIZE, 1);
     }
 }

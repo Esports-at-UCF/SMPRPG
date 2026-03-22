@@ -20,13 +20,6 @@
                     "type": "model",
                     "model": "minecraft:block/air"
                 }
-            },
-			{
-                "when": "smprpg:furnace_burn",
-                "model": {
-                    "type": "model",
-                    "model": "ui:item/furnace_burn"
-                }
             }
         ]
     }

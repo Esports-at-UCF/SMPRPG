@@ -781,6 +781,7 @@ public enum CustomItemType {
     ENCHANTED_SPELL_POWDER(    "Enchanted Spell Powder",        Material.GUNPOWDER,       ItemRarity.EPIC,    true, SpellPowderFamilyBlueprint.class),
     SPELL_POWDER_SINGULARITY(    "Spell Powder Singularity",        Material.GUNPOWDER,       ItemRarity.LEGENDARY,    true, SpellPowderFamilyBlueprint.class),
 
+    SPELLBOUND_CLOTH("Spellbound Cloth", Material.FLINT, ItemRarity.RARE, SpellboundCloth.class),
     HORN_OF_WARLOCK("Horn of Warlock", Material.FLINT, ItemRarity.RARE, HornOfWarlock.class),
     CRYSTAL_BALL("Crystal Ball", Material.FLINT, ItemRarity.RARE, CrystalBallBlueprint.class),
 

@@ -58,11 +58,11 @@ class WarlockShoes(itemService: ItemService?, type: CustomItemType?) : WarlockAr
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {
-        return BootsRecipe(this, itemService.getCustomItem(CustomItemType.REVILED_VISCERA), generate()).build()
+        return BootsRecipe(this, itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH), generate()).build()
     }
 
     override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.REVILED_VISCERA))
+        return mutableListOf(itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH))
     }
 
     override val itemClassification: ItemClassification get() = ItemClassification.BOOTS

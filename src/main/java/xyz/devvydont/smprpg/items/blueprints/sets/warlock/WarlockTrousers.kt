@@ -58,11 +58,11 @@ class WarlockTrousers(itemService: ItemService?, type: CustomItemType?) : Warloc
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {
-        return LeggingsRecipe(this, itemService.getCustomItem(CustomItemType.REVILED_VISCERA), generate()).build()
+        return LeggingsRecipe(this, itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH), generate()).build()
     }
 
     override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.REVILED_VISCERA))
+        return mutableListOf(itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH))
     }
 
     override val itemClassification: ItemClassification get() = ItemClassification.LEGGINGS
