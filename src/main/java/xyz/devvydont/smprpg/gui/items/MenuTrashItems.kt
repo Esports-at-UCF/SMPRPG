@@ -24,7 +24,7 @@ class MenuTrashItems(player: Player) : MenuBase(player, 6) {
                 ),
                 ComponentUtils.create(
                     Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_8 + Symbols.OFFSET_NEG_4 + "Trash Items",
-                    NamedTextColor.BLACK
+                    Symbols.INVENTORY_TITLE_COLOR
                 )
             )
         )

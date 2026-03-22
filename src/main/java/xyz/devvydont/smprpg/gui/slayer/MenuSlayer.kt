@@ -100,7 +100,7 @@ class MenuSlayer : MenuBase {
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SLAYER_MAIN_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
                     Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Slayer",
-                    NamedTextColor.BLACK
+                    Symbols.INVENTORY_TITLE_COLOR
                 )
             )
         )

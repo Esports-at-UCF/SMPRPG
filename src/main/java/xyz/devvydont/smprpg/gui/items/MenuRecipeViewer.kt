@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.gui.items
 
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.CustomModelData
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.NamedTextColor
@@ -400,11 +401,7 @@ class MenuRecipeViewer(
         )
 
         val fire = BORDER_NORMAL.clone()
-        fire.setData<CustomModelData?>(
-            DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
-                .addString("smprpg:furnace_burn")
-                .build()
-        )
+        fire.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:ui/furnace_burn"))
 
         val ingredient = getItemFromRecipeChoice(cooking.inputChoice)
         this.setButton(

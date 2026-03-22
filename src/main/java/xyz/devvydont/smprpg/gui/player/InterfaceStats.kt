@@ -84,7 +84,7 @@ class InterfaceStats : MenuBase {
             this.stats
         ) { e: InventoryClickEvent ->
             this.openSubMenu(
-                SubmenuStatOverview(
+                MenuStatsRoot(
                     this.player,
                     this.target,
                     this
@@ -106,9 +106,9 @@ class InterfaceStats : MenuBase {
 
         event.titleOverride(
             ComponentUtils.merge(
-                ComponentUtils.create("Statistics Viewer (", NamedTextColor.BLACK),
+                ComponentUtils.create("Statistics Viewer (", Symbols.INVENTORY_TITLE_COLOR),
                 name,
-                ComponentUtils.create(")", NamedTextColor.BLACK)
+                ComponentUtils.create(")", Symbols.INVENTORY_TITLE_COLOR)
             )
         )
 

@@ -61,30 +61,6 @@ public enum AttributeWrapper {
                 create(" from most sources.")
             )),
 
-    INTELLIGENCE("Intelligence",
-            AttributeCategory.COMBAT,
-            AttributeType.HELPFUL,
-            merge(
-                    create("The "),
-                    create("maximum mana", BLUE),
-                    create(" available and effectiveness of"),
-                    create(" magic", LIGHT_PURPLE),
-                    create("/"),
-                    create("abilities", GOLD),
-                    create(".")
-            )),
-
-    ARCANE_RATING("Arcane Rating",
-            AttributeCategory.COMBAT,
-            AttributeType.HELPFUL,
-            merge(
-                    create("The "),
-                    create("damage", RED),
-                    create(" multiplier when performing "),
-                    create("magical", BLUE),
-                    create(" attacks.")
-            )),
-
     STRENGTH(Attribute.ATTACK_DAMAGE,
             "Strength",
             AttributeCategory.COMBAT,
@@ -127,6 +103,30 @@ public enum AttributeWrapper {
                     create("recover", YELLOW),
                     create(" from the attack cooldown."),
                     create(" (full attacks per second)", DARK_GRAY)
+            )),
+
+    INTELLIGENCE("Intelligence",
+            AttributeCategory.COMBAT,
+            AttributeType.HELPFUL,
+            merge(
+                    create("The "),
+                    create("maximum mana", BLUE),
+                    create(" available and effectiveness of"),
+                    create(" magic", LIGHT_PURPLE),
+                    create("/"),
+                    create("abilities", GOLD),
+                    create(".")
+            )),
+
+    ARCANE_RATING("Arcane Rating",
+            AttributeCategory.COMBAT,
+            AttributeType.HELPFUL,
+            merge(
+                    create("The "),
+                    create("damage", RED),
+                    create(" multiplier when performing "),
+                    create("magical", BLUE),
+                    create(" attacks.")
             )),
 
     MOVEMENT_SPEED(Attribute.MOVEMENT_SPEED,
@@ -431,7 +431,7 @@ public enum AttributeWrapper {
 
     GRAVITY(Attribute.GRAVITY,
             "Gravity",
-            AttributeCategory.SPECIAL,
+            AttributeCategory.MOVEMENT,
             AttributeType.SPECIAL,
             merge(
                 create("The strength of "),
@@ -470,7 +470,7 @@ public enum AttributeWrapper {
             )),
 
     PROFICIENCY("Proficiency",
-            AttributeCategory.SPECIAL,
+            AttributeCategory.PROFICIENCY,
             AttributeType.HELPFUL,
             merge(
                     create("How much extra "),
@@ -479,7 +479,7 @@ public enum AttributeWrapper {
             )),
 
     COMBAT_PROFICIENCY("Combat Proficiency",
-            AttributeCategory.SPECIAL,
+            AttributeCategory.PROFICIENCY,
             AttributeType.HELPFUL,
             merge(
                     create("How much extra "),
@@ -488,7 +488,7 @@ public enum AttributeWrapper {
             )),
 
     MINING_PROFICIENCY("Mining Proficiency",
-            AttributeCategory.SPECIAL,
+            AttributeCategory.PROFICIENCY,
             AttributeType.HELPFUL,
             merge(
                     create("How much extra "),
@@ -497,7 +497,7 @@ public enum AttributeWrapper {
             )),
 
     FISHING_PROFICIENCY("Fishing Proficiency",
-            AttributeCategory.SPECIAL,
+            AttributeCategory.PROFICIENCY,
             AttributeType.HELPFUL,
             merge(
                     create("How much extra "),
@@ -506,7 +506,7 @@ public enum AttributeWrapper {
             )),
 
     FARMING_PROFICIENCY("Farming Proficiency",
-            AttributeCategory.SPECIAL,
+            AttributeCategory.PROFICIENCY,
             AttributeType.HELPFUL,
             merge(
                     create("How much extra "),
@@ -515,7 +515,7 @@ public enum AttributeWrapper {
             )),
 
     WOODCUTTING_PROFICIENCY("Woodcutting Proficiency",
-            AttributeCategory.SPECIAL,
+            AttributeCategory.PROFICIENCY,
             AttributeType.HELPFUL,
             merge(
                     create("How much extra "),
@@ -524,7 +524,7 @@ public enum AttributeWrapper {
             )),
 
     MAGIC_PROFICIENCY("Magic Proficiency",
-            AttributeCategory.SPECIAL,
+            AttributeCategory.PROFICIENCY,
             AttributeType.HELPFUL,
             merge(
                     create("How much extra "),
@@ -533,7 +533,7 @@ public enum AttributeWrapper {
             )),
 
     SLAYER_PROFICIENCY("Slayer Proficiency",
-            AttributeCategory.SPECIAL,
+            AttributeCategory.PROFICIENCY,
             AttributeType.HELPFUL,
             merge(
                     create("How much extra "),
@@ -712,7 +712,7 @@ public enum AttributeWrapper {
      */
     public boolean isCombatAttribute() {
         return switch (this) {
-            case CRITICAL_DAMAGE, CRITICAL_CHANCE, STRENGTH, REGENERATION, INTELLIGENCE, HEALTH, DEFENSE -> true;
+            case CRITICAL_DAMAGE, CRITICAL_CHANCE, STRENGTH, REGENERATION, INTELLIGENCE, ARCANE_RATING, HEALTH, DEFENSE -> true;
             default -> false;
         };
     }

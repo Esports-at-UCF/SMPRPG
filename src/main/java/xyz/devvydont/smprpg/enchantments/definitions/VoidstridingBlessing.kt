@@ -37,7 +37,7 @@ class VoidstridingBlessing(id: String) : CustomEnchantment(id), Listener {
     override val enchantColor: TextColor get()   = NamedTextColor.YELLOW
     override val scrollColor: Color get()        = ScrollColor.BLESSING.color
     override val scrollBindingColor: Color get() = Color.fromRGB(161, 255, 106)
-    
+
     override val maxLevel: Int get() = 1
     override val weight: Int get() = EnchantmentRarity.BLESSING.weight
     override val isBlessing: Boolean get() = true

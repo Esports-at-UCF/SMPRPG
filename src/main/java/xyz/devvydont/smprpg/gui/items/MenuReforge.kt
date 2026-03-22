@@ -212,7 +212,7 @@ class MenuReforge(player: Player) : MenuBase(player, ROWS) {
         this.render()
         event.titleOverride(
             ComponentUtils.merge(
-                ComponentUtils.create("Tool Reforging", NamedTextColor.BLACK),
+                ComponentUtils.create("Tool Reforging", Symbols.INVENTORY_TITLE_COLOR),
                 ComponentUtils.create(
                     Symbols.OFFSET_NEG_64 + Symbols.OFFSET_NEG_8 + Symbols.OFFSET_NEG_3 + Symbols.REFORGE_BACKGROUND,
                     NamedTextColor.WHITE

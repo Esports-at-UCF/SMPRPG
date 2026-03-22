@@ -379,6 +379,9 @@ abstract class SMPItemBlueprint(protected var itemService: ItemService) {
             )
         }
 
+        // Set our tooltip style according to rarity
+        itemStack.setData(DataComponentTypes.TOOLTIP_STYLE, Key.key("smprpg:${getRarity(itemStack).name.lowercase()}_item"))
+
         // If this item contains attributes, apply them.
         AttributeUtil.applyModifiers(this, itemStack)
 

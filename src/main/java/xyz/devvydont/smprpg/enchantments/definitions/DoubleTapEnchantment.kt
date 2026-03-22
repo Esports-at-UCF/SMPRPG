@@ -57,7 +57,7 @@ class DoubleTapEnchantment(id: String) : CustomEnchantment(id), Listener {
 
         // Is this the first/second hit?
         if (SMPRPG.getService(EntityService::class.java).getEntityInstance(event.damaged) !is IDamageTrackable) return
-        val trackable = event.damaged as IDamageTrackable
+        val trackable = SMPRPG.getService(EntityService::class.java).getEntityInstance(event.damaged) as IDamageTrackable
 
         val numHits: Int = trackable.getDamageTracker().getNumberOfHitsDealtByEntity(event.dealer)
         if (numHits > 1) return

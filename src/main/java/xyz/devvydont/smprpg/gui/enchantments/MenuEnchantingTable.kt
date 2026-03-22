@@ -4,6 +4,7 @@ import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.CustomModelData
 import io.papermc.paper.datacomponent.item.ItemEnchantments
 import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
@@ -43,6 +44,7 @@ import xyz.devvydont.smprpg.util.extensions.addEnchantment
 import xyz.devvydont.smprpg.util.extensions.takeIfPresent
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
+import xyz.devvydont.smprpg.util.formatting.TooltipStyle
 import java.util.function.Consumer
 
 const val ITEM_SLOT = 13;
@@ -92,7 +94,7 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.ENCHANTING_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
                     Symbols.OVERLAY_BG_OFFSET_STANDARD + Symbols.OFFSET_NEG_8 + Symbols.OFFSET_NEG_3 + "Enchant",
-                    NamedTextColor.BLACK
+                    Symbols.INVENTORY_TITLE_COLOR
                 )
             )
         )
@@ -352,11 +354,12 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
             Material.BOOKSHELF,
             ComponentUtils.create("Bookshelf Power", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false)
         )
+        shelf.setData(DataComponentTypes.TOOLTIP_STYLE, TooltipStyle.INFO.key)
         val lore: MutableList<Component?> = ArrayList()
         lore.add(ComponentUtils.EMPTY)
-        lore.add(ComponentUtils.create("Bookshelf Power increases the maximum potential", NamedTextColor.DARK_GRAY))
-        lore.add(ComponentUtils.create("for enchantments from this table. Each Bookshelf", NamedTextColor.DARK_GRAY))
-        lore.add(ComponentUtils.create("grants 1 Bookshelf Power.", NamedTextColor.DARK_GRAY))
+        lore.add(ComponentUtils.create("Bookshelf Power increases the maximum potential", NamedTextColor.WHITE))
+        lore.add(ComponentUtils.create("for enchantments from this table. Each Bookshelf", NamedTextColor.WHITE))
+        lore.add(ComponentUtils.create("grants 1 Bookshelf Power.", NamedTextColor.WHITE))
         lore.add(ComponentUtils.EMPTY)
         lore.add(ComponentUtils.merge(
             ComponentUtils.create("This Enchanting Table currently has ", NamedTextColor.GRAY),

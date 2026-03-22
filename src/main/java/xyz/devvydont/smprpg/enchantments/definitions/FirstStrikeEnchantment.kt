@@ -58,7 +58,7 @@ class FirstStrikeEnchantment(id: String) : CustomEnchantment(id), Listener {
 
         // Is this the first hit?
         if (SMPRPG.getService(EntityService::class.java).getEntityInstance(event.damaged) !is IDamageTrackable) return
-        val trackable = event.damaged as IDamageTrackable
+        val trackable = SMPRPG.getService(EntityService::class.java).getEntityInstance(event.damaged) as IDamageTrackable
 
         val numHits: Int = trackable.damageTracker.getNumberOfHitsDealtByEntity(event.dealer)
         if (numHits > 0) return

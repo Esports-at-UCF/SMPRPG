@@ -73,7 +73,7 @@ class MenuItemBrowser @JvmOverloads constructor(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.RECIPE_MENU, NamedTextColor.WHITE),  // Background
                 ComponentUtils.create(
                     Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Item Directory: " + (if (query!!.isEmpty()) "All Items" else query),
-                    NamedTextColor.BLACK
+                    Symbols.INVENTORY_TITLE_COLOR
                 )
             )
         )
