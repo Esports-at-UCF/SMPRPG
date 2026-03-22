@@ -185,6 +185,13 @@ class ItemService : IService, Listener {
 //        registerVanillaMaterialResolver(Material.DIAMOND_AXE, ItemAxe::class.java)
         registerVanillaMaterialResolver(Material.NETHERITE_AXE, ItemAxe::class.java)
 
+        registerVanillaMaterialResolver(Material.WOODEN_SPEAR, ItemSpear::class.java)
+        registerVanillaMaterialResolver(Material.COPPER_SPEAR, ItemSpear::class.java)
+        registerVanillaMaterialResolver(Material.GOLDEN_SPEAR, ItemSpear::class.java)
+        registerVanillaMaterialResolver(Material.IRON_SPEAR, ItemSpear::class.java)
+//        registerVanillaMaterialResolver(Material.DIAMOND_SPEAR, ItemSpear::class.java)
+        registerVanillaMaterialResolver(Material.NETHERITE_SPEAR, ItemSpear::class.java)
+
         registerVanillaMaterialResolver(Material.BOW, ItemBow::class.java)
         registerVanillaMaterialResolver(Material.CROSSBOW, ItemCrossbow::class.java)
 

@@ -20,6 +20,7 @@ enum class AuctionCategory(val displayName: String, val icon: Material) {
             return when (classification) {
                 ItemClassification.WEAPON,
                 ItemClassification.SWORD,
+                ItemClassification.SPEAR,
                 ItemClassification.STAFF,
                 ItemClassification.TRIDENT,
                 ItemClassification.MACE,
@@ -44,6 +45,7 @@ enum class AuctionCategory(val displayName: String, val icon: Material) {
                 ItemClassification.ROD -> TOOLS
 
                 ItemClassification.CHARM,
+                ItemClassification.TOME,
                 ItemClassification.EQUIPMENT -> ACCESSORIES
 
                 ItemClassification.CONSUMABLE -> CONSUMABLES
@@ -53,7 +55,6 @@ enum class AuctionCategory(val displayName: String, val icon: Material) {
                 ItemClassification.BLOCK,
                 ItemClassification.STORAGE -> BLOCKS
 
-                ItemClassification.TOME,
                 ItemClassification.ITEM -> MISC
             }
         }

@@ -35,7 +35,7 @@ class ImpalingEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key),
             ComponentUtils.create(" and "),
             ComponentUtils.create("sea creatures", SeaCreature.NAME_COLOR)
         )
-    override val scrollBindingColor: Color get() = Color.fromRGB(89, 128, 256)
+    override val scrollBindingColor: Color get() = Color.fromRGB(89, 128, 255)
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_WEAPON
     override val maxLevel: Int get()                           = 5

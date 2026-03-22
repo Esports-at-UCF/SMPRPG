@@ -32,7 +32,7 @@ class LootingEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key), 
         )
     override val scrollBindingColor: Color get() = Color.fromRGB(12, 153, 17)
 
-    override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_SHARP_WEAPON
+    override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_WEAPON
     override val maxLevel: Int get()                           = 5
     override val weight: Int get()                             = EnchantmentRarity.UNCOMMON.weight
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.MAINHAND

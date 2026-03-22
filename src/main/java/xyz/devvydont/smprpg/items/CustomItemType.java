@@ -714,7 +714,7 @@ public enum CustomItemType {
     HOLOMOKU_BOOTS("Holomoku Boots",           Material.DIAMOND_BOOTS,      ItemRarity.UNCOMMON, HolomokuBoots.class),
     HOLOMOKU_ROD("Holomoku Rod",               Material.FISHING_ROD,        ItemRarity.UNCOMMON, HolomokuRod.class),
 
-    HEXED_CLOTH("Hexed Cloth", Material.DRIED_KELP, ItemRarity.UNCOMMON, true, 8_000),
+    HEXED_CLOTH("Hexed Cloth", Material.DRIED_KELP, ItemRarity.UNCOMMON, true, HexedCloth.class),
     RAW_TRIDENTITE_CHUNK("Raw Tridentite Chunk", Material.CYAN_DYE, ItemRarity.RARE, true, TridentiteChunk.class),
     TRIDENTITE("Tridentite", Material.IRON_INGOT, ItemRarity.RARE, Tridentite.class),
     RUINATION_HELMET("Ruination Helmet",         Material.DIAMOND_HELMET,     ItemRarity.RARE, RuinationHelmet.class),
@@ -781,7 +781,7 @@ public enum CustomItemType {
     ENCHANTED_SPELL_POWDER(    "Enchanted Spell Powder",        Material.GUNPOWDER,       ItemRarity.EPIC,    true, SpellPowderFamilyBlueprint.class),
     SPELL_POWDER_SINGULARITY(    "Spell Powder Singularity",        Material.GUNPOWDER,       ItemRarity.LEGENDARY,    true, SpellPowderFamilyBlueprint.class),
 
-    SPELLBOUND_CLOTH("Spellbound Cloth", Material.FLINT, ItemRarity.RARE, SpellboundCloth.class),
+    SPELLBOUND_CLOTH("Spellbound Cloth", Material.FLINT, ItemRarity.RARE, true, SpellboundCloth.class),
     HORN_OF_WARLOCK("Horn of Warlock", Material.FLINT, ItemRarity.RARE, HornOfWarlock.class),
     CRYSTAL_BALL("Crystal Ball", Material.FLINT, ItemRarity.RARE, CrystalBallBlueprint.class),
 

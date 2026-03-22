@@ -332,6 +332,9 @@ class EnchantmentService : IService, Listener {
         val LUCK_OF_THE_SEA: CustomEnchantment = LuckOfTheSeaEnchantment(EnchantmentKeys.LUCK_OF_THE_SEA)
 
         @JvmField
+        val LUNGE: CustomEnchantment = LungeEnchantment(EnchantmentKeys.LUNGE)
+
+        @JvmField
         val LURE: CustomEnchantment = LureEnchantment(EnchantmentKeys.LURE)
 
         @JvmField
@@ -584,6 +587,7 @@ class EnchantmentService : IService, Listener {
             LOOTING,
             LOYALTY,
             LUCK_OF_THE_SEA,
+            LUNGE,
             LURE,
             ABYSSAL_INSTINCT,
             TREASURE_HUNTER,

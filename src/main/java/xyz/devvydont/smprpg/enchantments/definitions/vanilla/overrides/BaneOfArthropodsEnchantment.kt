@@ -42,7 +42,7 @@ class BaneOfArthropodsEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantme
         )
     override val scrollBindingColor: Color get() = Color.fromRGB(171, 112, 56)
 
-    override val itemTypeTag: TagKey<ItemType> get()          = ItemTypeTagKeys.ENCHANTABLE_SHARP_WEAPON
+    override val itemTypeTag: TagKey<ItemType> get()          = ItemTypeTagKeys.ENCHANTABLE_WEAPON
     override val maxLevel: Int get()                          = 10
     override val weight: Int get()                            = EnchantmentRarity.COMMON.weight
     override val equipmentSlotGroup: EquipmentSlotGroup get() = EquipmentSlotGroup.MAINHAND
