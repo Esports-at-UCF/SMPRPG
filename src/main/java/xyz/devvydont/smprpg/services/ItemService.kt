@@ -30,7 +30,9 @@ import org.bukkit.event.world.LootGenerateEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.MerchantRecipe
 import org.bukkit.inventory.Recipe
+import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.meta.ItemMeta
+import org.bukkit.inventory.recipe.CraftingBookCategory
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.scheduler.BukkitRunnable
@@ -45,12 +47,12 @@ import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint
-import xyz.devvydont.smprpg.items.tools.drills.FuelTankBlueprint
 import xyz.devvydont.smprpg.items.blueprints.potion.PotionBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource
 import xyz.devvydont.smprpg.items.blueprints.vanilla.*
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.items.listeners.*
+import xyz.devvydont.smprpg.items.tools.drills.FuelTankBlueprint
 import xyz.devvydont.smprpg.listeners.crafting.CustomItemFurnacePreventions
 import xyz.devvydont.smprpg.reforge.ReforgeBase
 import xyz.devvydont.smprpg.reforge.ReforgeType
@@ -358,6 +360,8 @@ class ItemService : IService, Listener {
                 }
             }
         }
+
+        registerNetheriteRecipes()
     }
 
     private fun registerReforges() {
@@ -398,6 +402,86 @@ class ItemService : IService, Listener {
         vanillaBlueprintResolver.put(material, instance)
         if (instance is Listener) plugin.server.pluginManager.registerEvents(instance, plugin)
         return instance
+    }
+
+    private fun registerNetheriteRecipes() {
+        val netherite = getCustomItem(Material.NETHERITE_INGOT)
+        val rod = getCustomItem(CustomItemType.SULFUR_TREATED_TOOL_SHAFT)
+        val plugin = SMPRPG.plugin
+
+        val pickRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_pickaxe-recipe"), generate(Material.NETHERITE_PICKAXE))
+        pickRecipe.shape(
+            "nnn",
+            " s ",
+            " s "
+        )
+        pickRecipe.setIngredient('n', netherite)
+        pickRecipe.setIngredient('s', rod)
+        pickRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
+        pickRecipe.disc
+        plugin.server.addRecipe(pickRecipe)
+
+        val swordRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_sword-recipe"), generate(Material.NETHERITE_SWORD))
+        swordRecipe.shape(
+            " n ",
+            " n ",
+            " s "
+        )
+        swordRecipe.setIngredient('n', netherite)
+        swordRecipe.setIngredient('s', rod)
+        swordRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
+        plugin.server.addRecipe(swordRecipe)
+
+        val axeRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_axe-recipe"), generate(Material.NETHERITE_AXE))
+        axeRecipe.shape(
+            "nn ",
+            "ns ",
+            " s "
+        )
+        axeRecipe.setIngredient('n', netherite)
+        axeRecipe.setIngredient('s', rod)
+        axeRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
+        plugin.server.addRecipe(axeRecipe)
+
+        val hoeRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_hoe-recipe"), generate(Material.NETHERITE_HOE))
+        hoeRecipe.shape(
+            "nn ",
+            " s ",
+            " s "
+        )
+        hoeRecipe.setIngredient('n', netherite)
+        hoeRecipe.setIngredient('s', rod)
+        hoeRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
+        plugin.server.addRecipe(hoeRecipe)
+
+        val shovelRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_shovel-recipe"), generate(Material.NETHERITE_SHOVEL))
+        shovelRecipe.shape(
+            " n ",
+            " s ",
+            " s "
+        )
+        shovelRecipe.setIngredient('n', netherite)
+        shovelRecipe.setIngredient('s', rod)
+        shovelRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
+        plugin.server.addRecipe(shovelRecipe)
+
+        val spearRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_spear-recipe"), generate(Material.NETHERITE_SPEAR))
+        spearRecipe.shape(
+            "  n",
+            " s ",
+            "s  "
+        )
+        spearRecipe.setIngredient('n', netherite)
+        spearRecipe.setIngredient('s', rod)
+        spearRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
+        plugin.server.addRecipe(spearRecipe)
+
+        registeredRecipes.add(pickRecipe)
+        registeredRecipes.add(swordRecipe)
+        registeredRecipes.add(axeRecipe)
+        registeredRecipes.add(hoeRecipe)
+        registeredRecipes.add(shovelRecipe)
+        registeredRecipes.add(spearRecipe)
     }
 
     private fun registerCustomItem(blueprint: CustomItemBlueprint) {

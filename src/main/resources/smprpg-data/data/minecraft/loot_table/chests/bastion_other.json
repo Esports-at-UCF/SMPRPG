@@ -641,7 +641,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:netherite_upgrade_smithing_template"
+          "name": "minecraft:netherite_ingot"
         }
       ],
       "rolls": 1.0

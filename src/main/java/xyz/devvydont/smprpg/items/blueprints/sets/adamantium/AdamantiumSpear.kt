@@ -39,7 +39,7 @@ class AdamantiumSpear(itemService: ItemService, type: CustomItemType) : Adamanti
         return SpearRecipe(
             this,
             getCraftingMaterial(),
-            itemService.getCustomItem(Material.STICK),
+            itemService.getCustomItem(CustomItemType.STEEL_TOOL_SHAFT),
             generate()
         ).build()
     }

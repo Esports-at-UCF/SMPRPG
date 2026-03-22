@@ -49,13 +49,13 @@ public class ItemSpear extends VanillaAttributeItem implements IBreakableEquipme
 
     public static int getSpearRating(Material material) {
         return switch (material) {
-            case NETHERITE_SWORD -> ToolGlobals.NETHERITE_TOOL_POWER;
-            case DIAMOND_SWORD -> ToolGlobals.DIAMOND_TOOL_POWER;
-            case GOLDEN_SWORD -> ToolGlobals.GOLD_TOOL_POWER;
-            case TRIDENT, IRON_SWORD -> ToolGlobals.IRON_TOOL_POWER;
-            case STONE_SWORD -> ToolGlobals.STONE_TOOL_POWER;
-            case WOODEN_SWORD -> ToolGlobals.WOOD_TOOL_POWER;
-            case COPPER_SWORD -> ToolGlobals.COPPER_TOOL_POWER;
+            case NETHERITE_SPEAR -> ToolGlobals.NETHERITE_TOOL_POWER;
+            case DIAMOND_SPEAR -> ToolGlobals.DIAMOND_TOOL_POWER;
+            case GOLDEN_SPEAR -> ToolGlobals.GOLD_TOOL_POWER;
+            case TRIDENT, IRON_SPEAR -> ToolGlobals.IRON_TOOL_POWER;
+            case STONE_SPEAR -> ToolGlobals.STONE_TOOL_POWER;
+            case WOODEN_SPEAR -> ToolGlobals.WOOD_TOOL_POWER;
+            case COPPER_SPEAR -> ToolGlobals.COPPER_TOOL_POWER;
             default -> 1;
         };
     }

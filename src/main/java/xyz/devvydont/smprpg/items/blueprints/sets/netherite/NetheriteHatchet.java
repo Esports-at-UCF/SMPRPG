@@ -67,7 +67,7 @@ public class NetheriteHatchet extends ItemHatchet implements ICraftable, IBreaka
                 " s"
         );
         recipe.setIngredient('n', itemService.getCustomItem(Material.NETHERITE_INGOT));
-        recipe.setIngredient('s', itemService.getCustomItem(Material.STICK));
+        recipe.setIngredient('s', itemService.getCustomItem(CustomItemType.SULFUR_TREATED_TOOL_SHAFT));
         recipe.setCategory(CraftingBookCategory.EQUIPMENT);
         return recipe;
     }

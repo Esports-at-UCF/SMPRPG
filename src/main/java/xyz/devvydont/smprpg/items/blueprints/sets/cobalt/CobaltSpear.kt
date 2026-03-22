@@ -39,7 +39,7 @@ class CobaltSpear(itemService: ItemService, type: CustomItemType) : CobaltAttrib
         return SpearRecipe(
             this,
             getCraftingMaterial(),
-            itemService.getCustomItem(Material.STICK),
+            itemService.getCustomItem(CustomItemType.SULFUR_TREATED_TOOL_SHAFT),
             generate()
         ).build()
     }
