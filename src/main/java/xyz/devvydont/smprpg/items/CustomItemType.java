@@ -24,6 +24,7 @@ import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockShoes;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockHood;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockRobes;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockTrousers;
+import xyz.devvydont.smprpg.items.blueprints.tools.augments.RepairCore;
 import xyz.devvydont.smprpg.items.tools.drills.LargeFuelTank;
 import xyz.devvydont.smprpg.items.tools.drills.MediumFuelTank;
 import xyz.devvydont.smprpg.items.tools.drills.SmallFuelTank;
@@ -202,6 +203,13 @@ public enum CustomItemType {
     SMALL_FUEL_TANK("Small Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.COMMON,    SmallFuelTank.class),
     MEDIUM_FUEL_TANK("Medium Fuel Tank", Material.PRISMARINE_SHARD,   ItemRarity.UNCOMMON,  MediumFuelTank.class),
     LARGE_FUEL_TANK("Large Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.RARE,      LargeFuelTank.class),
+
+    // AUGMENT STONES
+    COMMON_REPAIR_CORE("Common Repair Core", Material.HEAVY_CORE, ItemRarity.COMMON, RepairCore.class),
+    UNCOMMON_REPAIR_CORE("Uncommon Repair Core", Material.HEAVY_CORE, ItemRarity.UNCOMMON, RepairCore.class),
+    RARE_REPAIR_CORE("Rare Repair Core", Material.HEAVY_CORE, ItemRarity.RARE, RepairCore.class),
+    EPIC_REPAIR_CORE("Epic Repair Core", Material.HEAVY_CORE, ItemRarity.EPIC, RepairCore.class),
+    LEGENDARY_REPAIR_CORE("Legendary Repair Core", Material.HEAVY_CORE, ItemRarity.LEGENDARY, RepairCore.class),
 
     // COPPER SET
     COPPER_BOW(    "Copper Bow",      Material.BOW,            CopperBow.class),

@@ -13,8 +13,7 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ToolStats
 import java.util.List
 
-open class TinAttributeItem(itemService: ItemService, type: CustomItemType) : ToolSetAttributeItem(itemService,
-    type) {
+open class TinAttributeItem(itemService: ItemService, type: CustomItemType) : ToolSetAttributeItem(itemService, type) {
 
     override val itemClassification: ItemClassification get() = ItemClassification.ITEM
 

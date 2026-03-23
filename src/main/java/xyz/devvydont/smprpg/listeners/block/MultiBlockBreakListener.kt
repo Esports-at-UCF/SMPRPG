@@ -140,6 +140,20 @@ class MultiBlockBreakListener : ToggleableListener() {
             FUZZY_BLOCKS.put(Material.SPRUCE_WOOD, mutableSetOf(Material.SPRUCE_LOG, Material.SPRUCE_WOOD))
             FUZZY_BLOCKS.put(Material.JUNGLE_LOG, mutableSetOf(Material.JUNGLE_LOG, Material.JUNGLE_WOOD))
             FUZZY_BLOCKS.put(Material.JUNGLE_WOOD, mutableSetOf(Material.JUNGLE_LOG, Material.JUNGLE_WOOD))
+            FUZZY_BLOCKS.put(Material.ACACIA_LOG, mutableSetOf(Material.ACACIA_LOG, Material.ACACIA_WOOD))
+            FUZZY_BLOCKS.put(Material.ACACIA_WOOD, mutableSetOf(Material.ACACIA_LOG, Material.ACACIA_WOOD))
+            FUZZY_BLOCKS.put(Material.DARK_OAK_LOG, mutableSetOf(Material.DARK_OAK_LOG, Material.DARK_OAK_WOOD))
+            FUZZY_BLOCKS.put(Material.DARK_OAK_WOOD, mutableSetOf(Material.DARK_OAK_LOG, Material.DARK_OAK_WOOD))
+            FUZZY_BLOCKS.put(Material.CHERRY_LOG, mutableSetOf(Material.CHERRY_LOG, Material.CHERRY_WOOD))
+            FUZZY_BLOCKS.put(Material.CHERRY_WOOD, mutableSetOf(Material.CHERRY_LOG, Material.CHERRY_WOOD))
+            FUZZY_BLOCKS.put(Material.MANGROVE_LOG, mutableSetOf(Material.MANGROVE_LOG, Material.MANGROVE_WOOD))
+            FUZZY_BLOCKS.put(Material.MANGROVE_WOOD, mutableSetOf(Material.MANGROVE_LOG, Material.MANGROVE_WOOD))
+            FUZZY_BLOCKS.put(Material.PALE_OAK_LOG, mutableSetOf(Material.PALE_OAK_LOG, Material.PALE_OAK_WOOD))
+            FUZZY_BLOCKS.put(Material.PALE_OAK_WOOD, mutableSetOf(Material.PALE_OAK_LOG, Material.PALE_OAK_WOOD))
+            FUZZY_BLOCKS.put(Material.CRIMSON_STEM, mutableSetOf(Material.CRIMSON_STEM, Material.CRIMSON_HYPHAE))
+            FUZZY_BLOCKS.put(Material.CRIMSON_HYPHAE, mutableSetOf(Material.CRIMSON_STEM, Material.CRIMSON_HYPHAE))
+            FUZZY_BLOCKS.put(Material.WARPED_STEM, mutableSetOf(Material.WARPED_STEM, Material.WARPED_HYPHAE))
+            FUZZY_BLOCKS.put(Material.WARPED_HYPHAE, mutableSetOf(Material.WARPED_STEM, Material.WARPED_HYPHAE))
         }
     }
 }

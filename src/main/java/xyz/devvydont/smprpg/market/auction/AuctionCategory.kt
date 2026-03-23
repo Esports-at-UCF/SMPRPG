@@ -50,7 +50,8 @@ enum class AuctionCategory(val displayName: String, val icon: Material) {
 
                 ItemClassification.CONSUMABLE -> CONSUMABLES
                 ItemClassification.MATERIAL,
-                ItemClassification.REFORGE_STONE -> MATERIALS
+                ItemClassification.REFORGE_STONE,
+                ItemClassification.AUGMENT_STONE -> MATERIALS
 
                 ItemClassification.BLOCK,
                 ItemClassification.STORAGE -> BLOCKS

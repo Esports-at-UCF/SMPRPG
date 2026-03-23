@@ -13,6 +13,7 @@ import xyz.devvydont.smprpg.listeners.block.NoteblockOverrideListener
 import xyz.devvydont.smprpg.listeners.block.TrialChamberVaultFix
 import xyz.devvydont.smprpg.listeners.block.XPOrbDisablerListener
 import xyz.devvydont.smprpg.listeners.crafting.AnvilEnchantmentCombinationFixListener
+import xyz.devvydont.smprpg.listeners.crafting.AnvilRepairListener
 import xyz.devvydont.smprpg.listeners.damage.AbsorptionDamageFix
 import xyz.devvydont.smprpg.listeners.damage.EnvironmentalDamageListener
 import xyz.devvydont.smprpg.listeners.damage.MeleeVisualListener
@@ -103,7 +104,8 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(HealthRegenerationListener()) // Scales HP regeneration based on max HP.
         generalListeners.add(AbsorptionDamageFix()) // Makes absorption work correctly.
         generalListeners.add(DimensionPortalLockingListener()) // Implements dimension requirements.
-        generalListeners.add(AnvilEnchantmentCombinationFixListener()) // Makes anvil combinations work.
+        // generalListeners.add(AnvilEnchantmentCombinationFixListener()) // Makes anvil combinations work.
+        generalListeners.add(AnvilRepairListener()) // Makes anvil combinations work.
         generalListeners.add(PvPListener()) // Disables PVP in certain contexts.
         generalListeners.add(StructureEntitySpawnListener()) // Allows entities to spawn as the level of the structure they're in.
         generalListeners.add(LootListener()) // Overrides vanilla loot tables by injecting our items into it.

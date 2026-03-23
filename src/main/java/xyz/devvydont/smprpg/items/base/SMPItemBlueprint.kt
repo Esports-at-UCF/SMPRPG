@@ -318,6 +318,9 @@ abstract class SMPItemBlueprint(protected var itemService: ItemService) {
         )
         else itemStack.unsetData(DataComponentTypes.ENCHANTABLE)
 
+        // Disable vanilla repairable components, we handle this in the plugin
+        itemStack.unsetData(DataComponentTypes.REPAIRABLE)
+
         // Apply custom model data.
         itemStack.setData(
             DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()

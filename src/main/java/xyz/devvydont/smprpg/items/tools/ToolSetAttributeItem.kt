@@ -1,16 +1,17 @@
 package xyz.devvydont.smprpg.items.tools
 
+import io.papermc.paper.datacomponent.DataComponentTypes
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
+import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ToolStats
 
-open class ToolSetAttributeItem(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService,
-    type) {
+open class ToolSetAttributeItem(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type), IRepairable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.ITEM
 
@@ -37,4 +38,6 @@ open class ToolSetAttributeItem(itemService: ItemService, type: CustomItemType) 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND
     }
+
+    override val repairMaterial: ItemStack get() = getCraftingMaterial()
 }
