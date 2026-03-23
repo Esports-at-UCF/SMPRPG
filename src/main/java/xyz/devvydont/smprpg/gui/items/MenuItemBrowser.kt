@@ -56,7 +56,7 @@ class MenuItemBrowser @JvmOverloads constructor(
         // If the item cache hasn't initialized yet, go ahead and do that.
         if (ITEM_CACHE.isEmpty()) {
             for (type in CustomItemType.entries) ITEM_CACHE.add(ItemService.generate(type))
-            for (material in Material.entries) if (!material.isLegacy && material.isItem) ITEM_CACHE.add(
+            for (material in Material.entries) if (!material.isLegacy && material.isItem && material !in BLACKLISTED_MATERIALS) ITEM_CACHE.add(
                 ItemService.generate(
                     material
                 )
@@ -130,7 +130,7 @@ class MenuItemBrowser @JvmOverloads constructor(
 
         // Do vanilla items too.
         for (material in Material.entries) {
-            if (material.isLegacy || !material.isItem || material == Material.AIR) continue
+            if (material.isLegacy || !material.isItem || material == Material.AIR || material in BLACKLISTED_MATERIALS) continue
 
             val simpleName =
                 material.name.lowercase(Locale.getDefault()).replace(" ", "").replace("_", "").replace("-", "")
@@ -266,6 +266,11 @@ class MenuItemBrowser @JvmOverloads constructor(
 
     companion object {
         private val ITEM_CACHE: MutableList<ItemStack> = ArrayList<ItemStack>()
+        private val BLACKLISTED_MATERIALS = arrayOf(
+            Material.STONE_AXE, Material.STONE_PICKAXE, Material.STONE_HOE, Material.STONE_SWORD, Material.STONE_SHOVEL, Material.STONE_SPEAR,
+            Material.DIAMOND_AXE, Material.DIAMOND_PICKAXE, Material.DIAMOND_HOE, Material.DIAMOND_SWORD, Material.DIAMOND_SHOVEL, Material.DIAMOND_SPEAR, Material.DIAMOND_HELMET, Material.DIAMOND_BOOTS, Material.DIAMOND_LEGGINGS, Material.DIAMOND_CHESTPLATE
+        )
+
 
         const val ROWS: Int = 6
     }

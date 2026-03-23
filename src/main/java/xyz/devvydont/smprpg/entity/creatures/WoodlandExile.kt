@@ -41,7 +41,7 @@ class WoodlandExile<T : LivingEntity?> : CustomEntityInstance<T?> {
     }
 
     override fun getItemDrops(): Collection<LootDrop>? {
-        return List.of<LootDrop?>(
+        return listOf(
             ChancedItemDrop(ItemService.Companion.generate(CustomItemType.POTATO_CHIP), 2, this),
             ChancedItemDrop(ItemService.Companion.generate(Material.EMERALD), 5, this),
             ChancedItemDrop(ItemService.Companion.generate(Material.EMERALD_BLOCK), 90, this),

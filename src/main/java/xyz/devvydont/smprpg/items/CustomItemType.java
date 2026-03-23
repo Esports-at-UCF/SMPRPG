@@ -802,7 +802,7 @@ public enum CustomItemType {
     WARLOCK_SHOES("Warlock's Shoes", Material.DIAMOND_BOOTS, ItemRarity.EPIC, WarlockShoes.class),
 
     IRON_ROD("Iron Rod", Material.FISHING_ROD, ItemRarity.COMMON, WaterRod.class),
-    DIAMOND_ROD("Diamond Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, WaterRod.class),
+    MITHRIL_ROD("Mithril Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, WaterRod.class),
     PRISMARINE_ROD("Prismarine Rod", Material.FISHING_ROD, ItemRarity.RARE, WaterRod.class),
 
     GOLD_ROD("Gold Rod", Material.FISHING_ROD, ItemRarity.COMMON, LavaRod.class),
@@ -835,7 +835,7 @@ public enum CustomItemType {
     SIMPLE_TOME("Simple Tome",           Material.PAPER, ItemRarity.UNCOMMON,      SimpleTome.class),
 
     // BOWS
-    NETHERITE_BOW("Netherite Bow", Material.BOW, ItemRarity.RARE,     NetheriteBow.class),
+    NETHERITE_BOW("Netherite Bow", Material.BOW, ItemRarity.EPIC,     NetheriteBow.class),
     DIAMOND_BOW("Diamond Bow",     Material.BOW, ItemRarity.UNCOMMON, DiamondBow.class),
     IRON_BOW(   "Iron Bow",        Material.BOW, ItemRarity.COMMON,   IronBow.class),
 

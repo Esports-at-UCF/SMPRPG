@@ -27,8 +27,8 @@ class NecronomiconExcerpts(itemService: ItemService?, type: CustomItemType?) : C
         return 500000 * item.getAmount()
     }
 
-    override fun updateItemData(item: ItemStack) {
-        super.updateItemData(item)
-        item.editMeta(Consumer { meta: ItemMeta? -> meta!!.setMaxStackSize(4) })
+    override fun updateItemData(itemStack: ItemStack) {
+        super.updateItemData(itemStack)
+        itemStack.editMeta(Consumer { meta: ItemMeta? -> meta!!.setMaxStackSize(4) })
     }
 }

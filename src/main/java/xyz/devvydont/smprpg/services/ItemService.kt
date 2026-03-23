@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.services
 
 import com.destroystokyo.paper.event.inventory.PrepareResultEvent
 import io.papermc.paper.datacomponent.DataComponentTypes
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -418,19 +419,7 @@ class ItemService : IService, Listener {
         pickRecipe.setIngredient('n', netherite)
         pickRecipe.setIngredient('s', rod)
         pickRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        pickRecipe.disc
         plugin.server.addRecipe(pickRecipe)
-
-        val swordRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_sword-recipe"), generate(Material.NETHERITE_SWORD))
-        swordRecipe.shape(
-            " n ",
-            " n ",
-            " s "
-        )
-        swordRecipe.setIngredient('n', netherite)
-        swordRecipe.setIngredient('s', rod)
-        swordRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        plugin.server.addRecipe(swordRecipe)
 
         val axeRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_axe-recipe"), generate(Material.NETHERITE_AXE))
         axeRecipe.shape(
@@ -442,6 +431,17 @@ class ItemService : IService, Listener {
         axeRecipe.setIngredient('s', rod)
         axeRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
         plugin.server.addRecipe(axeRecipe)
+
+        val swordRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_sword-recipe"), generate(Material.NETHERITE_SWORD))
+        swordRecipe.shape(
+            " n ",
+            " n ",
+            " s "
+        )
+        swordRecipe.setIngredient('n', netherite)
+        swordRecipe.setIngredient('s', rod)
+        swordRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
+        plugin.server.addRecipe(swordRecipe)
 
         val hoeRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_hoe-recipe"), generate(Material.NETHERITE_HOE))
         hoeRecipe.shape(
@@ -476,12 +476,54 @@ class ItemService : IService, Listener {
         spearRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
         plugin.server.addRecipe(spearRecipe)
 
+        val bootsRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_boots-recipe"), generate(Material.NETHERITE_SPEAR))
+        bootsRecipe.shape(
+            "n n",
+            "n n"
+        )
+        bootsRecipe.setIngredient('n', netherite)
+        bootsRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
+        plugin.server.addRecipe(bootsRecipe)
+
+        val helmetRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_helmet-recipe"), generate(Material.NETHERITE_SPEAR))
+        helmetRecipe.shape(
+            "nnn",
+            "n n"
+        )
+        helmetRecipe.setIngredient('n', netherite)
+        helmetRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
+        plugin.server.addRecipe(helmetRecipe)
+
+        val leggingsRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_leggings-recipe"), generate(Material.NETHERITE_SPEAR))
+        leggingsRecipe.shape(
+            "nnn",
+            "n n",
+            "n n"
+        )
+        leggingsRecipe.setIngredient('n', netherite)
+        leggingsRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
+        plugin.server.addRecipe(leggingsRecipe)
+
+        val chestplateRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_chestplate-recipe"), generate(Material.NETHERITE_SPEAR))
+        chestplateRecipe.shape(
+            "n n",
+            "nnn",
+            "nnn"
+        )
+        chestplateRecipe.setIngredient('n', netherite)
+        chestplateRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
+        plugin.server.addRecipe(chestplateRecipe)
+
         registeredRecipes.add(pickRecipe)
-        registeredRecipes.add(swordRecipe)
         registeredRecipes.add(axeRecipe)
+        registeredRecipes.add(swordRecipe)
         registeredRecipes.add(hoeRecipe)
         registeredRecipes.add(shovelRecipe)
         registeredRecipes.add(spearRecipe)
+        registeredRecipes.add(bootsRecipe)
+        registeredRecipes.add(helmetRecipe)
+        registeredRecipes.add(leggingsRecipe)
+        registeredRecipes.add(chestplateRecipe)
     }
 
     private fun registerCustomItem(blueprint: CustomItemBlueprint) {

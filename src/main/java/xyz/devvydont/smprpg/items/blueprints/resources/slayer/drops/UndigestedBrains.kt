@@ -25,7 +25,6 @@ import xyz.devvydont.smprpg.items.interfaces.ITrackedConsumable
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
-import java.util.List
 import java.util.function.Consumer
 
 class UndigestedBrains(itemService: ItemService?, type: CustomItemType?) : CustomItemBlueprint(itemService, type),
@@ -56,9 +55,9 @@ class UndigestedBrains(itemService: ItemService?, type: CustomItemType?) : Custo
             .build()
     }
 
-    override fun updateItemData(item: ItemStack) {
-        super.updateItemData(item)
-        item.editMeta(Consumer { meta: ItemMeta? -> meta!!.setMaxStackSize(1) })
+    override fun updateItemData(itemStack: ItemStack) {
+        super.updateItemData(itemStack)
+        itemStack.editMeta(Consumer { meta: ItemMeta -> meta.setMaxStackSize(1) })
     }
 
     override fun getWorth(item: ItemStack): Int {

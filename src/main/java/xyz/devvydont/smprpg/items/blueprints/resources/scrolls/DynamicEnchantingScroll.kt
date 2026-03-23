@@ -48,25 +48,25 @@ class DynamicEnchantingScroll(itemService: ItemService?, type: CustomItemType?) 
         return 1000 * item.getAmount()
     }
 
-    override fun updateItemData(item: ItemStack) {
+    override fun updateItemData(itemStack: ItemStack) {
         // Fallback to Smite if enchantment isn't generated
-        if (item.getData(DataComponentTypes.STORED_ENCHANTMENTS) == null) item.setData(
+        if (itemStack.getData(DataComponentTypes.STORED_ENCHANTMENTS) == null) itemStack.setData(
             DataComponentTypes.STORED_ENCHANTMENTS,
             ItemEnchantments.itemEnchantments().add(Enchantment.SMITE, 255).build()
         )
 
-        item.setData(
+        itemStack.setData(
             DataComponentTypes.TOOLTIP_DISPLAY,
             TooltipDisplay.tooltipDisplay().addHiddenComponents(DataComponentTypes.STORED_ENCHANTMENTS).build()
         )
 
-        val enchToUse = item.getData(DataComponentTypes.STORED_ENCHANTMENTS)!!.enchantments().keys.first()
+        val enchToUse = itemStack.getData(DataComponentTypes.STORED_ENCHANTMENTS)!!.enchantments().keys.first()
         val customEnch : CustomEnchantment = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchToUse)!!
-        super.updateItemData(item)
-        item.setData(
+        super.updateItemData(itemStack)
+        itemStack.setData(
             DataComponentTypes.CUSTOM_MODEL_DATA,
             CustomModelData.customModelData().addColors(listOf(customEnch.scrollColor, customEnch.scrollBindingColor)))
-        item.editMeta(Consumer { meta: ItemMeta? -> meta!!.setMaxStackSize(8) })
+        itemStack.editMeta(Consumer { meta: ItemMeta? -> meta!!.setMaxStackSize(8) })
     }
 
     override fun getHeader(itemStack: ItemStack): MutableList<Component?> {

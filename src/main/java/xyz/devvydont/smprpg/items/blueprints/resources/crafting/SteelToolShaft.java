@@ -40,7 +40,7 @@ public class SteelToolShaft extends CustomItemBlueprint implements ISellable, IC
         var recipe = new ShapedRecipe(getRecipeKey(), generate());
         recipe.shape("s", "l", "s");
         recipe.setIngredient('s', ItemService.generate(CustomItemType.STEEL_INGOT));
-        recipe.setIngredient('l', ItemService.generate(CustomItemType.ENCHANTED_LEATHER));
+        recipe.setIngredient('l', ItemService.generate(CustomItemType.PREMIUM_LEATHER));
         recipe.setCategory(CraftingBookCategory.MISC);
         return recipe;
     }

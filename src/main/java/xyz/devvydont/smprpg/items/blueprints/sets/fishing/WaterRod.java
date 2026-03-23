@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.fishing;
 
+import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.*;
@@ -14,6 +15,7 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword;
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
 import xyz.devvydont.smprpg.items.interfaces.IFishingRod;
+import xyz.devvydont.smprpg.items.interfaces.IModelOverridden;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ToolGlobals;
 
@@ -21,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class WaterRod extends CustomAttributeItem implements IBreakableEquipment, IFishingRod, ICraftable {
+public class WaterRod extends CustomAttributeItem implements IBreakableEquipment, IFishingRod, ICraftable, IModelOverridden {
 
     public WaterRod(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -47,7 +49,7 @@ public class WaterRod extends CustomAttributeItem implements IBreakableEquipment
     private int getSpeed() {
         return switch (this.getCustomItemType()) {
             case IRON_ROD -> 10;
-            case DIAMOND_ROD -> 25;
+            case MITHRIL_ROD -> 25;
             case PRISMARINE_ROD -> 40;
             default -> 0;
         };
@@ -57,7 +59,7 @@ public class WaterRod extends CustomAttributeItem implements IBreakableEquipment
     public int getPowerRating() {
         return switch (getCustomItemType()) {
             case IRON_ROD -> ToolGlobals.IRON_TOOL_POWER;
-            case DIAMOND_ROD -> ToolGlobals.DIAMOND_TOOL_POWER;
+            case MITHRIL_ROD -> ToolGlobals.MITHRIL_TOOL_POWER;
             case PRISMARINE_ROD -> ToolGlobals.NETHERITE_TOOL_POWER-5;
             default -> 0;
         };
@@ -89,8 +91,8 @@ public class WaterRod extends CustomAttributeItem implements IBreakableEquipment
     private RecipeChoice getTransmuteComponent() {
         return switch (this.getCustomItemType()) {
             case IRON_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(Material.FISHING_ROD));
-            case DIAMOND_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.IRON_ROD));
-            case PRISMARINE_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.DIAMOND_ROD));
+            case MITHRIL_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.IRON_ROD));
+            case PRISMARINE_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.MITHRIL_ROD));
             default -> new RecipeChoice.ExactChoice(ItemService.generate(Material.BARRIER));
         };
     }
@@ -101,7 +103,7 @@ public class WaterRod extends CustomAttributeItem implements IBreakableEquipment
     private RecipeChoice getCraftingMaterial() {
         return switch (this.getCustomItemType()) {
             case IRON_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(Material.IRON_INGOT));
-            case DIAMOND_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(Material.DIAMOND));
+            case MITHRIL_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.MITHRIL_INGOT));
             case PRISMARINE_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.ENCHANTED_PRISMARINE_CRYSTAL));
             default -> new RecipeChoice.ExactChoice(ItemService.generate(Material.BARRIER));
         };
@@ -149,7 +151,7 @@ public class WaterRod extends CustomAttributeItem implements IBreakableEquipment
     private int getFishingRating() {
         return switch (getCustomItemType()) {
             case IRON_ROD -> 10;
-            case DIAMOND_ROD -> 25;
+            case MITHRIL_ROD -> 25;
             case PRISMARINE_ROD -> 45;
             default -> 0;
         };
@@ -159,7 +161,7 @@ public class WaterRod extends CustomAttributeItem implements IBreakableEquipment
         return (int) switch (getCustomItemType()) {
             case IRON_ROD -> ItemSword.getSwordDamage(Material.IRON_SWORD) / 2;
             case GOLD_ROD -> ItemSword.getSwordDamage(Material.GOLDEN_SWORD) / 2;
-            case DIAMOND_ROD -> ItemSword.getSwordDamage(Material.DIAMOND_SWORD) / 2;
+            case MITHRIL_ROD -> ItemSword.getSwordDamage(CustomItemType.TITANIUM_SWORD) / 2;
             case PRISMARINE_ROD -> ItemSword.getSwordDamage(Material.DIAMOND_SWORD) / 2 + 10;
             default -> 0;
         };
@@ -168,9 +170,14 @@ public class WaterRod extends CustomAttributeItem implements IBreakableEquipment
     private double getChance() {
         return switch (getCustomItemType()) {
             case IRON_ROD -> 0.5;
-            case DIAMOND_ROD -> 1;
+            case MITHRIL_ROD -> 1;
             case PRISMARINE_ROD -> 2;
             default -> 0;
         };
     };
+
+    @Override
+    public Key getDisplayKey() {
+        return IModelOverridden.ofItemType(_type);
+    }
 }
