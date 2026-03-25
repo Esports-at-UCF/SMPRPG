@@ -22,7 +22,7 @@ class OrichalcumSword(itemService: ItemService, type: CustomItemType) : Orichalc
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return List.of<AttributeEntry?>(
-            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(_type)),
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(customItemType)),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemSword.SWORD_ATTACK_SPEED_DEBUFF)
         )
     }

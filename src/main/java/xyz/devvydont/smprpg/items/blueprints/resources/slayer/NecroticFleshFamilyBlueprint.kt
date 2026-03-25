@@ -16,7 +16,7 @@ import xyz.devvydont.smprpg.util.crafting.MaterialWrapper
 import xyz.devvydont.smprpg.util.time.TickTime
 import java.util.List
 
-class NecroticFleshFamilyBlueprint(itemService: ItemService?, type: CustomItemType?) :
+class NecroticFleshFamilyBlueprint(itemService: ItemService, type: CustomItemType) :
     CustomCompressableBlueprint(itemService, type), IEdible, IConsumable {
     override fun getCompressionFlow(): MutableList<CompressionRecipeMember?> {
         return COMPRESSION_FLOW
@@ -37,7 +37,7 @@ class NecroticFleshFamilyBlueprint(itemService: ItemService?, type: CustomItemTy
     override fun getConsumableComponent(item: ItemStack?): Consumable {
         val effects = ArrayList<ConsumeEffect>()
 
-        if (getCustomItemType() == CustomItemType.NECROTIC_FLESH_SINGULARITY) effects.add(
+        if (customItemType == CustomItemType.NECROTIC_FLESH_SINGULARITY) effects.add(
             ConsumeEffect.applyStatusEffects(
                 listOf(
                     PotionEffect(PotionEffectType.WITHER, TickTime.minutes(5).toInt(), 9),
@@ -47,7 +47,7 @@ class NecroticFleshFamilyBlueprint(itemService: ItemService?, type: CustomItemTy
             )
         )
 
-        if (getCustomItemType() == CustomItemType.ENCHANTED_NECROTIC_FLESH) effects.add(
+        if (customItemType == CustomItemType.ENCHANTED_NECROTIC_FLESH) effects.add(
             ConsumeEffect.applyStatusEffects(
                 listOf(
                     PotionEffect(PotionEffectType.WITHER, TickTime.minutes(5).toInt(), 4),
@@ -56,7 +56,7 @@ class NecroticFleshFamilyBlueprint(itemService: ItemService?, type: CustomItemTy
             )
         )
 
-        if (getCustomItemType() == CustomItemType.PREMIUM_NECROTIC_FLESH) effects.add(
+        if (customItemType == CustomItemType.PREMIUM_NECROTIC_FLESH) effects.add(
             ConsumeEffect.applyStatusEffects(
                 listOf(
                     PotionEffect(PotionEffectType.WITHER, TickTime.minutes(5).toInt(), 2)

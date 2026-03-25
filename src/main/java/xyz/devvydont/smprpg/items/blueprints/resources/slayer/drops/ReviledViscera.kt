@@ -13,7 +13,7 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.List
 
-class ReviledViscera(itemService: ItemService?, type: CustomItemType?) : CustomItemBlueprint(itemService, type),
+class ReviledViscera(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
     ISellable, IHeaderDescribable {
     /**
      * Determine what type of item this is.

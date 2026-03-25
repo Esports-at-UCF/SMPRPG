@@ -8,11 +8,14 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IEquippableAssetOverride
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
+import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ToolStats
 
-abstract class TinArmorSet(itemService: ItemService?, type: CustomItemType?) :
-    CustomAttributeItem(itemService, type), IEquippableAssetOverride {
+abstract class TinArmorSet(itemService: ItemService, type: CustomItemType) :
+    CustomAttributeItem(itemService, type), IEquippableAssetOverride, IRepairable {
+
+    override val repairMaterial: ItemStack get() = getCraftingMaterial()
 
     override fun getAssetId(): Key {
         return key
@@ -25,7 +28,7 @@ abstract class TinArmorSet(itemService: ItemService?, type: CustomItemType?) :
     open fun getCraftingMaterial(): ItemStack = itemService.getCustomItem(CustomItemType.TIN_INGOT)
 
     open fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, _type.key + "-recipe")
+        return NamespacedKey(plugin, customItemType.key + "-recipe")
     }
 
     open fun unlockedBy(): MutableCollection<ItemStack?>? {
@@ -33,7 +36,7 @@ abstract class TinArmorSet(itemService: ItemService?, type: CustomItemType?) :
     }
 
     open fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 
     companion object {

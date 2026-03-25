@@ -39,7 +39,15 @@ import java.util.function.Consumer
  * - VanillaItem
  * - CustomItem
  */
-abstract class SMPItemBlueprint(protected var itemService: ItemService) {
+abstract class SMPItemBlueprint(
+    /**
+     * Set a reference to the Item Service for ease of access
+     */
+    // TODO: Get rid of this after kotlin migration?
+    @JvmField val itemService: ItemService
+) {
+
+
     /**
      * Determine what type of item this is.
      */

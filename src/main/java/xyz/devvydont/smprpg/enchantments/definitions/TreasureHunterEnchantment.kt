@@ -37,9 +37,9 @@ class TreasureHunterEnchantment(id: String) : CustomEnchantment(id), AttributeEn
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.HAND
     override val skillRequirement: Int get()                   = 10
 
-    override fun getPowerRating(): Int { return level / 2 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = level / 2
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.FISHING_TREASURE_CHANCE, getTreasureChance(level))
         )

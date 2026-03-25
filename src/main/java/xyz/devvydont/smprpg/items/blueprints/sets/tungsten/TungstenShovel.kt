@@ -24,13 +24,13 @@ class TungstenShovel(itemService: ItemService, type: CustomItemType) : TungstenA
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return List.of<AttributeEntry?>(
-            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemShovel.getShovelDamage(_type)),
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemShovel.getShovelDamage(customItemType)),
             AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed.toDouble()),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemShovel.SHOVEL_ATTACK_SPEED_DEBUFF)
         )
     }
 
-    override val itemClassification: ItemClassification get() = ItemClassification.TOOL
+    override val itemClassification: ItemClassification get() = ItemClassification.SHOVEL
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

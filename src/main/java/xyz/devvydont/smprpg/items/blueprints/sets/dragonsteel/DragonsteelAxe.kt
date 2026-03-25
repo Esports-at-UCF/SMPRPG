@@ -1,0 +1,65 @@
+package xyz.devvydont.smprpg.items.blueprints.sets.dragonsteel
+
+import io.papermc.paper.datacomponent.DataComponentTypes
+import io.papermc.paper.datacomponent.item.Tool
+import io.papermc.paper.registry.keys.tags.BlockTypeTagKeys
+import net.kyori.adventure.util.TriState
+import org.bukkit.inventory.CraftingRecipe
+import org.bukkit.inventory.ItemStack
+import xyz.devvydont.smprpg.attribute.AttributeWrapper
+import xyz.devvydont.smprpg.items.CustomItemType
+import xyz.devvydont.smprpg.items.ItemClassification
+import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
+import xyz.devvydont.smprpg.items.attribute.AttributeEntry
+import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
+import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe
+import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
+import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.util.crafting.builders.AxeRecipe
+import xyz.devvydont.smprpg.util.items.ToolGlobals
+
+class DragonsteelAxe(itemService: ItemService, type: CustomItemType) : DragonsteelAttributeItem(itemService, type), ICraftable, IBreakableEquipment {
+
+    override val itemClassification: ItemClassification get() = ItemClassification.AXE
+
+    override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
+        return mutableListOf(
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getToolStats().miningPower.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 140.0),
+            MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemAxe.AXE_ATTACK_SPEED_DEBUFF),
+            AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, 25.0),
+            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, getToolStats().fortune.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.LUMBERING, ItemAxe.getAxeLumbering(customItemType))
+        )
+    }
+
+    override fun updateItemData(itemStack: ItemStack) {
+        super.updateItemData(itemStack)
+        itemStack.setData(DataComponentTypes.TOOL, TOOL_COMP)
+    }
+
+    override fun getCustomRecipe(): CraftingRecipe? {
+        return AxeRecipe(
+            this,
+            getCraftingMaterial(),
+            itemService.getCustomItem(CustomItemType.OBSIDIAN_TOOL_ROD),
+            generate()
+        ).build()
+    }
+
+    companion object {
+        val TOOL_COMP: Tool = Tool.tool()
+            .defaultMiningSpeed(1.0f)
+            .addRule(
+                Tool.rule(
+                    ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_DIAMOND_TOOL),
+                    1.0f,
+                    TriState.FALSE
+                )
+            )
+            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_AXE), 11.0f, TriState.TRUE))
+            .build()
+    }
+}

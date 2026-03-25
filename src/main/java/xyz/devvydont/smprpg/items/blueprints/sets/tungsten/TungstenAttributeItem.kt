@@ -22,10 +22,6 @@ open class TungstenAttributeItem(itemService: ItemService, type: CustomItemType)
         return ToolStats.TUNGSTEN
     }
 
-    open fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, getCustomItemType().getKey() + "-recipe")
-    }
-
     override fun getCraftingMaterial(): ItemStack {
         return itemService.getCustomItem(CustomItemType.TUNGSTEN_INGOT)
     }
@@ -35,7 +31,7 @@ open class TungstenAttributeItem(itemService: ItemService, type: CustomItemType)
     }
 
     open fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 
     open fun getComponentPrefix(): String {

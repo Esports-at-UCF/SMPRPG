@@ -24,7 +24,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 class SirenicReforge(type: ReforgeType) : ReforgeBase(type), Listener {
     override fun getAttributeModifiersWithRarity(rarity: ItemRarity): List<AttributeEntry> {
-        return listOf<AttributeEntry>(
+        return listOf(
             AttributeEntry.additive(AttributeWrapper.FISHING_RATING, 30.0),
             AttributeEntry.additive(
                 AttributeWrapper.FISHING_CREATURE_CHANCE,
@@ -56,7 +56,7 @@ class SirenicReforge(type: ReforgeType) : ReforgeBase(type), Listener {
             ),
             ComponentUtils.merge(
                 ComponentUtils.create("have a "),
-                ComponentUtils.create(DODGE_CHANCE.toString() + "%", NamedTextColor.GREEN),
+                ComponentUtils.create("$DODGE_CHANCE%", NamedTextColor.GREEN),
                 ComponentUtils.create(" chance to dodge the attack!")
             ),
             ComponentUtils.create("Apply to multiple pieces", NamedTextColor.DARK_GRAY),
@@ -68,9 +68,7 @@ class SirenicReforge(type: ReforgeType) : ReforgeBase(type), Listener {
      *
      * @return
      */
-    override fun getPowerRating(): Int {
-        return 3
-    }
+    override val powerRating: Int get() = 3
 
     /**
      * When an entity receives damage, work out how many stacks of the reforge they have. If the attacker is a sea

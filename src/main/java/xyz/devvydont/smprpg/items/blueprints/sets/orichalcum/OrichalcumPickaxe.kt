@@ -30,7 +30,7 @@ class OrichalcumPickaxe(itemService: ItemService, type: CustomItemType) : Oricha
             AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getToolStats().miningPower.toDouble()),
             AdditiveAttributeEntry(
                 AttributeWrapper.STRENGTH,
-                ItemPickaxe.getPickaxeDamage(_type)
+                ItemPickaxe.getPickaxeDamage(customItemType)
             ),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemPickaxe.PICKAXE_ATTACK_SPEED_DEBUFF),
             AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed.toDouble()),

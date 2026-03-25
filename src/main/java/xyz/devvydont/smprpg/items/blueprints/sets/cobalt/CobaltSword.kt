@@ -23,7 +23,7 @@ class CobaltSword(itemService: ItemService, type: CustomItemType) : CobaltAttrib
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return List.of<AttributeEntry?>(
-            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(_type)),
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(customItemType)),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemSword.SWORD_ATTACK_SPEED_DEBUFF * .75),
             ScalarAttributeEntry(AttributeWrapper.MOVEMENT_SPEED, .2)
         )

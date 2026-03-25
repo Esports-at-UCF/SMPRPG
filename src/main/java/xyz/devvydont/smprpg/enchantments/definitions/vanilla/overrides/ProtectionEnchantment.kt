@@ -44,9 +44,9 @@ class ProtectionEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key
             EnchantmentKeys.PROJECTILE_PROTECTION
         )
 
-    override fun getPowerRating(): Int { return level / 2 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = level / 2
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.DEFENSE, getProtection(level).toDouble())
         )

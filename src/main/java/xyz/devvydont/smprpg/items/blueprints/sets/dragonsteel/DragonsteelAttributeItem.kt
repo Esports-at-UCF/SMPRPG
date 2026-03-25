@@ -10,7 +10,6 @@ import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.tools.ToolSetAttributeItem
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ToolStats
-import java.util.List
 
 open class DragonsteelAttributeItem(itemService: ItemService, type: CustomItemType) : ToolSetAttributeItem(itemService,
     type) {
@@ -21,20 +20,16 @@ open class DragonsteelAttributeItem(itemService: ItemService, type: CustomItemTy
         return ToolStats.DRAGONSTEEL
     }
 
-    open fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(SMPRPG.Companion.plugin, getCustomItemType().getKey() + "-recipe")
-    }
-
     override fun getCraftingMaterial(): ItemStack {
         return itemService.getCustomItem(CustomItemType.DRAGONSTEEL_INGOT)
     }
 
     open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return List.of<ItemStack?>(itemService.getCustomItem(CustomItemType.DRAGONSTEEL_INGOT))
+        return mutableListOf(itemService.getCustomItem(CustomItemType.DRAGONSTEEL_INGOT))
     }
 
     open fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 
     open fun getComponentPrefix(): String {

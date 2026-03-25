@@ -26,9 +26,7 @@ class AcceleratedReforge(type: ReforgeType) : ReforgeBase(type) {
         )
     }
 
-    override fun getPowerRating(): Int {
-        return 4
-    }
+    override val powerRating: Int get() = 4
 
     companion object {
         fun getMovementSpeedBuff(rarity: ItemRarity): Float {

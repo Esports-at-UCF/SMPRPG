@@ -178,6 +178,6 @@ public class WaterRod extends CustomAttributeItem implements IBreakableEquipment
 
     @Override
     public Key getDisplayKey() {
-        return IModelOverridden.ofItemType(_type);
+        return IModelOverridden.ofItemType(getCustomItemType());
     }
 }

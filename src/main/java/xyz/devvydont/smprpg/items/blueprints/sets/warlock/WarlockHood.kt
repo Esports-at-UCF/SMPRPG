@@ -35,7 +35,7 @@ import xyz.devvydont.smprpg.util.crafting.builders.HelmetRecipe
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 
-class WarlockHood(itemService: ItemService?, type: CustomItemType?) : WarlockArmorSet(itemService, type),
+class WarlockHood(itemService: ItemService, type: CustomItemType) : WarlockArmorSet(itemService, type),
     IBreakableEquipment, ICraftable, IModelOverridden {
     override fun getAttributeModifiers(item: ItemStack): MutableCollection<AttributeEntry?> {
         val attributes: MutableList<AttributeEntry?> = ArrayList()

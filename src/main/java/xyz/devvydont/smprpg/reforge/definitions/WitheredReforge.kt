@@ -35,7 +35,7 @@ class WitheredReforge(type: ReforgeType) : ReforgeBase(type), Listener {
         )
 
     override fun getAttributeModifiersWithRarity(rarity: ItemRarity): List<AttributeEntry> {
-        return listOf<AttributeEntry>(
+        return listOf(
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, getDamageBuff(rarity).toDouble()),
             AttributeEntry.additive(AttributeWrapper.CRITICAL_DAMAGE, (2 + rarity.ordinal * 2).toDouble()),
             AttributeEntry.additive(AttributeWrapper.CRITICAL_CHANCE, (2 + rarity.ordinal * 2).toDouble()),
@@ -43,9 +43,7 @@ class WitheredReforge(type: ReforgeType) : ReforgeBase(type), Listener {
         )
     }
 
-    override fun getPowerRating(): Int {
-        return 5
-    }
+    override val powerRating: Int get() = 5
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     @Suppress("unused")

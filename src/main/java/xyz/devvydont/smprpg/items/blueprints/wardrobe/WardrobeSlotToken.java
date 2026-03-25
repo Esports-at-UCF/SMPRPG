@@ -48,19 +48,19 @@ public class WardrobeSlotToken extends CustomItemBlueprint implements ICraftable
 
     @Override
     public CraftingRecipe getCustomRecipe() {
-        return switch (_type) {
+        return switch (getCustomItemType()) {
             case WARDROBE_SLOT_COMMON -> commonRecipe();
             case WARDROBE_SLOT_UNCOMMON -> uncommonRecipe();
             case WARDROBE_SLOT_RARE -> rareRecipe();
             case WARDROBE_SLOT_EPIC -> epicRecipe();
             case WARDROBE_SLOT_LEGENDARY -> legendaryRecipe();
-            default -> throw new IllegalStateException("Unknown wardrobe token type: " + _type);
+            default -> throw new IllegalStateException("Unknown wardrobe token type: " + getCustomItemType());
         };
     }
 
     @Override
     public Collection<ItemStack> unlockedBy() {
-        return switch (_type) {
+        return switch (getCustomItemType()) {
             case WARDROBE_SLOT_COMMON -> List.of(itemService.getCustomItem(Material.LEATHER));
             case WARDROBE_SLOT_UNCOMMON -> List.of(itemService.getCustomItem(CustomItemType.WARDROBE_SLOT_COMMON));
             case WARDROBE_SLOT_RARE -> List.of(itemService.getCustomItem(CustomItemType.WARDROBE_SLOT_UNCOMMON));

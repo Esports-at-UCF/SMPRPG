@@ -38,6 +38,7 @@ public class BronzeIngot extends CustomItemBlueprint implements ISellable, ICraf
 
     @Override
     public CraftingRecipe getCustomRecipe() {
+        //System.out.println(getRecipeKey());
         var recipe = new ShapelessRecipe(getRecipeKey(), generate());
         recipe.addIngredient(3, ItemService.generate(Material.COPPER_INGOT));
         recipe.addIngredient(1, ItemService.generate(CustomItemType.TIN_INGOT));

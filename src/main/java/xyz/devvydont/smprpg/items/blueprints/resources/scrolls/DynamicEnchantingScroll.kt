@@ -30,7 +30,7 @@ import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.function.Consumer
 
-class DynamicEnchantingScroll(itemService: ItemService?, type: CustomItemType?) :
+class DynamicEnchantingScroll(itemService: ItemService, type: CustomItemType) :
     CustomItemBlueprint(itemService, type), IHeaderDescribable, ISellable, IModelOverridden {
     /**
      * Determine what type of item this is.
@@ -108,7 +108,7 @@ class DynamicEnchantingScroll(itemService: ItemService?, type: CustomItemType?) 
     }
 
     override fun getDisplayKey(): Key? {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 
     companion object {

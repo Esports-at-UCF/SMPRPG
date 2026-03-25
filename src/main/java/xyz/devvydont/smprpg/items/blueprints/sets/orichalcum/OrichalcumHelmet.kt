@@ -19,22 +19,18 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.HelmetRecipe
 import java.util.List
 
-class OrichalcumHelmet(itemService: ItemService?, type: CustomItemType?) : OrichalcumArmorSet(itemService, type),
+class OrichalcumHelmet(itemService: ItemService, type: CustomItemType) : OrichalcumArmorSet(itemService, type),
     ICraftable, IBreakableEquipment, IModelOverridden {
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return List.of<AttributeEntry?>(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromItemType(_type).toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromItemType(customItemType).toDouble()),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, .25)
         )
     }
 
     override fun getActiveSlot(): EquipmentSlotGroup {
         return EquipmentSlotGroup.HEAD
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, getCustomItemType().getKey() + "-recipe")
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

@@ -12,7 +12,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 class CrypticReforge(type: ReforgeType) : ReforgeBase(type) {
     override fun getAttributeModifiersWithRarity(rarity: ItemRarity): List<AttributeEntry> {
-        return listOf<AttributeEntry>(
+        return listOf(
             AttributeEntry.additive(
                 AttributeWrapper.INTELLIGENCE,
                 50.0 * rarity.ordinal
@@ -36,7 +36,5 @@ class CrypticReforge(type: ReforgeType) : ReforgeBase(type) {
             ComponentUtils.create("with a small attack speed buff")
         )
 
-    override fun getPowerRating(): Int {
-        return 5
-    }
+    override val powerRating: Int get() = 4
 }

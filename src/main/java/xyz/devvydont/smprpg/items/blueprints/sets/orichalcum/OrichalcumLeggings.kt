@@ -19,12 +19,12 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.LeggingsRecipe
 import java.util.List
 
-class OrichalcumLeggings(itemService: ItemService?, type: CustomItemType?) : OrichalcumArmorSet(itemService, type),
+class OrichalcumLeggings(itemService: ItemService, type: CustomItemType) : OrichalcumArmorSet(itemService, type),
     IBreakableEquipment, ICraftable, IModelOverridden {
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return List.of<AttributeEntry?>(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromItemType(_type).toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromItemType(customItemType).toDouble()),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, .25)
         )
     }
@@ -35,10 +35,6 @@ class OrichalcumLeggings(itemService: ItemService?, type: CustomItemType?) : Ori
 
     override fun getMaxDurability(): Int {
         return 680
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, getCustomItemType().getKey() + "-recipe")
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

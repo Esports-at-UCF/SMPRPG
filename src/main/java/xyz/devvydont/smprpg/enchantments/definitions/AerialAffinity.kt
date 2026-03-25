@@ -31,9 +31,9 @@ class AerialAffinity(id: String) : CustomEnchantment(id), AttributeEnchantment {
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.HEAD
     override val skillRequirement: Int get()                   = 18
 
-    override fun getPowerRating(): Int { return 2 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = 2
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             ScalarAttributeEntry(AttributeWrapper.AIRBORNE_MINING, 4.0)
         )

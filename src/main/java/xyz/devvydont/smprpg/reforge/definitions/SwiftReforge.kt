@@ -25,9 +25,7 @@ class SwiftReforge(type: ReforgeType) : ReforgeBase(type) {
             ComponentUtils.create("with a small boost in attack speed")
         )
 
-    override fun getPowerRating(): Int {
-        return 1
-    }
+    override val powerRating: Int get() = 1
 
     companion object {
         fun getMovementSpeedBuff(rarity: ItemRarity): Float {

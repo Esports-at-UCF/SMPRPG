@@ -1,9 +1,7 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.adamantium
 
 import net.kyori.adventure.key.Key
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
@@ -20,20 +18,16 @@ open class AdamantiumAttributeItem(itemService: ItemService, type: CustomItemTyp
         return ToolStats.ADAMANTIUM
     }
 
-    open fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, getCustomItemType().getKey() + "-recipe")
-    }
-
     override fun getCraftingMaterial(): ItemStack {
         return itemService.getCustomItem(CustomItemType.ADAMANTIUM_INGOT)
     }
 
     open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.ADAMANTIUM_INGOT))
+        return mutableListOf(getCraftingMaterial())
     }
 
     open fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 
     open fun getComponentPrefix(): String {

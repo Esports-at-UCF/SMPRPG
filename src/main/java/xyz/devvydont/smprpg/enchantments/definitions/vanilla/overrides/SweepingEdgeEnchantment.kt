@@ -41,8 +41,8 @@ class SweepingEdgeEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(k
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.MAINHAND
     override val skillRequirement: Int get()                   = 28
 
-    override fun getPowerRating(): Int { return 1 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
+    override val powerRating : Int get() = 1
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
     override fun getHeldAttributes(): MutableCollection<AttributeEntry?> { return mutableListOf() }
 
     companion object {

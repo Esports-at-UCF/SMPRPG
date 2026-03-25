@@ -2,7 +2,6 @@ package xyz.devvydont.smprpg.items.blueprints.sets.tin
 
 import org.bukkit.Material
 import org.bukkit.inventory.CraftingRecipe
-import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
