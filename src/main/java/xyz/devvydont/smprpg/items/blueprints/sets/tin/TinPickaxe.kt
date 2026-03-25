@@ -6,7 +6,6 @@ import io.papermc.paper.registry.keys.tags.BlockTypeTagKeys
 import net.kyori.adventure.util.TriState
 import org.bukkit.Material
 import org.bukkit.inventory.CraftingRecipe
-import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -20,7 +19,6 @@ import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.PickaxeRecipe
 import xyz.devvydont.smprpg.util.items.ToolGlobals
-import java.util.List
 
 class TinPickaxe(itemService: ItemService, type: CustomItemType) : TinAttributeItem(itemService, type), IBreakableEquipment, ICraftable {
 

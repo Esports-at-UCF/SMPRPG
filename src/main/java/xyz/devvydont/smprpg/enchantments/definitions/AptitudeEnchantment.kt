@@ -15,7 +15,6 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeModifierType
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.persistence.KeyStore
-import java.util.List
 
 class AptitudeEnchantment(id: String) : CustomEnchantment(id), AttributeEnchantment {
     override val displayName: Component get() = ComponentUtils.create("Aptitude")
@@ -36,9 +35,9 @@ class AptitudeEnchantment(id: String) : CustomEnchantment(id), AttributeEnchantm
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.ANY
     override val skillRequirement: Int get()                   = 10
 
-    override fun getPowerRating(): Int { return level / 2 + 1 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = level / 2 + 1
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, getIntelligenceIncrease(level).toDouble())
         )

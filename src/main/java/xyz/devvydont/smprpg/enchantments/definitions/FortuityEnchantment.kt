@@ -31,9 +31,9 @@ class FortuityEnchantment(id: String) : CustomEnchantment(id), AttributeEnchantm
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.ANY
     override val skillRequirement: Int get()                   = 25
 
-    override fun getPowerRating(): Int { return 0 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = 0
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             AttributeEntry.additive(AttributeWrapper.LUCK, getChanceIncrease(level).toDouble())
         )

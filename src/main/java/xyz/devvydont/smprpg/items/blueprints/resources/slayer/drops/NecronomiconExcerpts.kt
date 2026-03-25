@@ -9,7 +9,7 @@ import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 import java.util.function.Consumer
 
-class NecronomiconExcerpts(itemService: ItemService?, type: CustomItemType?) : CustomItemBlueprint(itemService, type),
+class NecronomiconExcerpts(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
     ISellable {
     /**
      * Determine what type of item this is.

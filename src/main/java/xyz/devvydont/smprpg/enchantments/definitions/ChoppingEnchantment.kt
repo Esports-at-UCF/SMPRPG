@@ -32,9 +32,9 @@ class ChoppingEnchantment(id: String) : CustomEnchantment(id), AttributeEnchantm
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.MAINHAND
     override val skillRequirement: Int get()                   = 35
 
-    override fun getPowerRating(): Int { return level }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = level
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             AttributeEntry.additive(AttributeWrapper.LUMBERING, level.toDouble())
         )

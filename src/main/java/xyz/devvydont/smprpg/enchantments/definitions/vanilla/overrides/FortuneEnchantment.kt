@@ -36,9 +36,9 @@ class FortuneEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key), 
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.MAINHAND
     override val skillRequirement: Int get()                   = 0
 
-    override fun getPowerRating(): Int { return level / 3 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry> {
+    override val powerRating : Int get() = level / 3
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes(): MutableCollection<AttributeEntry?>{
         return mutableListOf(
             AttributeEntry.additive(AttributeWrapper.MINING_FORTUNE, getFortune(level).toDouble())
         )

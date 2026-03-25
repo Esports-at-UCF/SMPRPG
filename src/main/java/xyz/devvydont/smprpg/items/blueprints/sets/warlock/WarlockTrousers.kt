@@ -32,7 +32,7 @@ import xyz.devvydont.smprpg.util.crafting.builders.LeggingsRecipe
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 
-class WarlockTrousers(itemService: ItemService?, type: CustomItemType?) : WarlockArmorSet(itemService, type),
+class WarlockTrousers(itemService: ItemService, type: CustomItemType) : WarlockArmorSet(itemService, type),
     IBreakableEquipment, ICraftable, IModelOverridden {
     override fun getAttributeModifiers(item: ItemStack): MutableCollection<AttributeEntry?> {
         val attributes: MutableList<AttributeEntry?> = ArrayList()
@@ -135,6 +135,6 @@ class WarlockTrousers(itemService: ItemService?, type: CustomItemType?) : Warloc
     }
 
     override fun getDisplayKey(): Key? {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 }

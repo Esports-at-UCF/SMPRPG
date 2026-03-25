@@ -33,9 +33,9 @@ class SpeedsterEnchantment(id: String) : CustomEnchantment(id), AttributeEnchant
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.FEET
     override val skillRequirement: Int get()                   = 35
 
-    override fun getPowerRating(): Int { return 1 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = 1
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             ScalarAttributeEntry(AttributeWrapper.MOVEMENT_SPEED, getSpeedPercentageIncrease(level) / 100.0)
         )

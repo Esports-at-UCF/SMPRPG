@@ -27,7 +27,7 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.function.Consumer
 
-class UndigestedBrains(itemService: ItemService?, type: CustomItemType?) : CustomItemBlueprint(itemService, type),
+class UndigestedBrains(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
     IHeaderDescribable, Listener, ITrackedConsumable, ISellable {
     override fun getHeader(meta: ItemStack?): MutableList<Component?> {
         return listOf<Component?>(

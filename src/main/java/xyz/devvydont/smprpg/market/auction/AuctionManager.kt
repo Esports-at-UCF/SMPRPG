@@ -78,7 +78,7 @@ class AuctionManager(private val dataStore: MarketDataStore) {
         val category = AuctionCategory.fromClassification(classification)
 
         val displayName = blueprint.getItemName(item)
-        val itemKey = if (blueprint is CustomItemBlueprint) blueprint.customItemType.getKey() else item.type.name.lowercase()
+        val itemKey = if (blueprint is CustomItemBlueprint) blueprint.customItemType.key else item.type.name.lowercase()
 
         val auction = Auction(
             sellerUUID = playerUUID,

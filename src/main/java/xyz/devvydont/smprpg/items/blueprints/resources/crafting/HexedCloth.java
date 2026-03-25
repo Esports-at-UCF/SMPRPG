@@ -58,6 +58,6 @@ public class HexedCloth extends CustomItemBlueprint implements IHeaderDescribabl
 
     @Override
     public Key getDisplayKey() {
-        return IModelOverridden.ofItemType(_type);
+        return IModelOverridden.ofItemType(getCustomItemType());
     }
 }

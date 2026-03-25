@@ -37,10 +37,9 @@ class LureEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key), Att
     override val weight: Int get()                             = EnchantmentRarity.COMMON.weight
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.HAND
 
-    override fun getPowerRating(): Int { return level / 2 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = level / 2
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.FISHING_SPEED, getSpeedIncrease(level).toDouble())
         )

@@ -38,14 +38,14 @@ class AbyssalInstinctEnchantment(id: String) : CustomEnchantment(id), AttributeE
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.HAND
     override val skillRequirement: Int get()                   = 5
 
-    override fun getPowerRating(): Int { return level / 2 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating: Int get() = level / 2
+    override val attributeModifierType: AttributeModifierType = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             AdditiveAttributeEntry(
-                AttributeWrapper.FISHING_CREATURE_CHANCE,
-                TreasureHunterEnchantment.getTreasureChance(level) * 2
+                AttributeWrapper.FISHING_CREATURE_CHANCE, TreasureHunterEnchantment.getTreasureChance(level) * 2
             )
         )
     }
+
 }

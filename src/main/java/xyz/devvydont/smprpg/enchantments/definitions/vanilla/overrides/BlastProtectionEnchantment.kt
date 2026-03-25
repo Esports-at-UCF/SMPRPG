@@ -63,9 +63,9 @@ class BlastProtectionEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantmen
             EnchantmentKeys.PROJECTILE_PROTECTION
         )
 
-    override fun getPowerRating(): Int { return level / 5 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = level / 5
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             ScalarAttributeEntry(
                 AttributeWrapper.EXPLOSION_KNOCKBACK_RESISTANCE,

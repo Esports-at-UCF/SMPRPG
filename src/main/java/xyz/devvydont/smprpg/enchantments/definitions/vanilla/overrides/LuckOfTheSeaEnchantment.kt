@@ -39,9 +39,9 @@ class LuckOfTheSeaEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(k
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.HAND
     override val skillRequirement: Int get()                   = 0
 
-    override fun getPowerRating(): Int { return level / 2 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = level / 2
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.FISHING_RATING, getRatingIncrease(level).toDouble())
         )

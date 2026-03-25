@@ -19,12 +19,12 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.LeggingsRecipe
 import java.util.List
 
-class CobaltLeggings(itemService: ItemService?, type: CustomItemType?) : CobaltArmorSet(itemService, type),
+class CobaltLeggings(itemService: ItemService, type: CustomItemType) : CobaltArmorSet(itemService, type),
     IBreakableEquipment, ICraftable, IModelOverridden {
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return List.of<AttributeEntry?>(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromItemType(_type).toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromItemType(customItemType).toDouble()),
             ScalarAttributeEntry(AttributeWrapper.MINING_SPEED, .10),
             ScalarAttributeEntry(AttributeWrapper.MOVEMENT_SPEED, .05)
         )
@@ -38,10 +38,6 @@ class CobaltLeggings(itemService: ItemService?, type: CustomItemType?) : CobaltA
 
     override fun getMaxDurability(): Int {
         return 680
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, getCustomItemType().getKey() + "-recipe")
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

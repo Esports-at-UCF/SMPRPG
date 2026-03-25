@@ -35,9 +35,9 @@ class InsightEnchantment(id: String) : CustomEnchantment(id), AttributeEnchantme
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.ARMOR
     override val skillRequirement: Int get()                   = 4
 
-    override fun getPowerRating(): Int { return level / 2 + 1 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = level / 2 + 1
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.ARCANE_RATING, getArcaneRatingIncrease(level).toDouble())
         )

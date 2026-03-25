@@ -18,12 +18,12 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.BootsRecipe
 import java.util.List
 
-class TungstenBoots(itemService: ItemService?, type: CustomItemType?) : TungstenArmorSet(itemService, type),
+class TungstenBoots(itemService: ItemService, type: CustomItemType) : TungstenArmorSet(itemService, type),
     IBreakableEquipment, ICraftable, IModelOverridden {
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return List.of<AttributeEntry?>(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromItemType(_type).toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromItemType(customItemType).toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, 10.0)
         )
     }
@@ -36,11 +36,7 @@ class TungstenBoots(itemService: ItemService?, type: CustomItemType?) : Tungsten
         return 520
     }
 
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, getCustomItemType().getKey() + "-recipe")
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe? {
+    override fun getCustomRecipe(): CraftingRecipe {
         return BootsRecipe(this, getCraftingMaterial(), generate()).build()
     }
 

@@ -22,7 +22,5 @@ class HastyReforge(type: ReforgeType) : ReforgeBase(type) {
             ComponentUtils.create("speed and efficiency")
         )
 
-    override fun getPowerRating(): Int {
-        return 3
-    }
+    override val powerRating: Int get() = 3
 }

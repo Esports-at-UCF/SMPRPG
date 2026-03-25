@@ -20,7 +20,7 @@ import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.List
 
-class VisceralAmalgamation(itemService: ItemService?, type: CustomItemType?) : CustomItemBlueprint(itemService, type),
+class VisceralAmalgamation(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
     ICraftable, ISellable, IHeaderDescribable {
     /**
      * Determine what type of item this is.
@@ -58,7 +58,7 @@ class VisceralAmalgamation(itemService: ItemService?, type: CustomItemType?) : C
     }
 
     override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, getCustomItemType().getKey() + "-recipe")
+        return NamespacedKey(plugin, customItemType.key + "-recipe")
     }
 
     override fun getCustomRecipe(): CraftingRecipe {

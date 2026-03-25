@@ -37,14 +37,14 @@ class AmplificationBlessing(id: String) : CustomEnchantment(id), AttributeEnchan
 
     override val itemTypeTag: TagKey<ItemType> get()           = ItemTypeTagKeys.ENCHANTABLE_WEAPON
     override val maxLevel: Int get()                           = 5
-    override val weight: Int get()                             = EnchantmentRarity.BLESSING.getWeight()
+    override val weight: Int get()                             = EnchantmentRarity.BLESSING.weight
     override val isBlessing: Boolean get()                     = true
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.MAINHAND
     override val skillRequirement: Int get()                   = 0
 
-    override fun getPowerRating(): Int { return level }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = level
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             AttributeEntry.multiplicative(AttributeWrapper.STRENGTH, getDamageIncrease(level) / 100.0)
         )
@@ -57,7 +57,7 @@ class AmplificationBlessing(id: String) : CustomEnchantment(id), AttributeEnchan
                 val wart = getIngredientStack(Material.NETHER_WART, 64)
                 val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 1)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 8)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 0, blaze, wart, amethyst, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 0, blaze, wart, amethyst, lapis)
             }
 
             2 -> {
@@ -66,14 +66,14 @@ class AmplificationBlessing(id: String) : CustomEnchantment(id), AttributeEnchan
                 val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 2)
                 val spellPowder = getIngredientStack(CustomItemType.PREMIUM_SPELL_POWDER, 16)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 32)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 0, blaze, wart, amethyst, spellPowder, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 0, blaze, wart, amethyst, spellPowder, lapis)
             }
 
             3 -> {
                 val amethyst = getIngredientStack(Material.AMETHYST_SHARD, 80)
                 val flint = getIngredientStack(Material.FLINT, 20)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 32)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 15, amethyst, flint, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 15, amethyst, flint, lapis)
             }
 
             4 -> {
@@ -81,7 +81,7 @@ class AmplificationBlessing(id: String) : CustomEnchantment(id), AttributeEnchan
                 val flint = getIngredientStack(Material.FLINT, 40)
                 val quartz = getIngredientStack(Material.QUARTZ, 10)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 64)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 20, amethyst, flint, quartz, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 20, amethyst, flint, quartz, lapis)
             }
 
             5 -> {
@@ -89,7 +89,7 @@ class AmplificationBlessing(id: String) : CustomEnchantment(id), AttributeEnchan
                 val flint = getIngredientStack(Material.FLINT, 80)
                 val quartz = getIngredientStack(Material.QUARTZ, 40)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 30, amethyst, flint, quartz, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 30, amethyst, flint, quartz, lapis)
             }
 
             else -> {

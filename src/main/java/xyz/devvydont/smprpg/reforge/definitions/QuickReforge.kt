@@ -24,7 +24,5 @@ class QuickReforge(type: ReforgeType) : ReforgeBase(type) {
             ComponentUtils.create("when breaking blocks meant for this tool")
         )
 
-    override fun getPowerRating(): Int {
-        return 1
-    }
+    override val powerRating: Int get() = 1
 }

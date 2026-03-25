@@ -35,9 +35,9 @@ class VigorousEnchantment(id: String) : CustomEnchantment(id), AttributeEnchantm
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.CHEST
     override val skillRequirement: Int get()                   = 45
 
-    override fun getPowerRating(): Int { return 0 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = 0
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             ScalarAttributeEntry(AttributeWrapper.MINING_SPEED, getMiningSpeed(level) / 100.0)
         )

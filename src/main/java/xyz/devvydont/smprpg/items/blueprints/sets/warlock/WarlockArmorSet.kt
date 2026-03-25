@@ -20,7 +20,7 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.List
 
-abstract class WarlockArmorSet(itemService: ItemService?, type: CustomItemType?) :
+abstract class WarlockArmorSet(itemService: ItemService, type: CustomItemType) :
     CustomAttributeItem(itemService, type), IEquippableAssetOverride, Listener, IFooterDescribable {
     override fun getAssetId(): Key {
         return key

@@ -298,6 +298,7 @@ public enum CustomItemType {
     STEEL_SWORD("Steel Sword",          Material.IRON_SWORD,        ItemRarity.UNCOMMON,   SteelSword.class),
     STEEL_HOE("Steel Hoe",              Material.IRON_HOE,          ItemRarity.UNCOMMON,   SteelHoe.class),
     STEEL_SHOVEL("Steel Shovel",        Material.IRON_SHOVEL,       ItemRarity.UNCOMMON,   SteelShovel.class),
+    STEEL_BOW(  "Steel Bow",            Material.BOW,               ItemRarity.UNCOMMON,   SteelBow.class),
     STEEL_SPEAR(  "Steel Spear",        Material.IRON_SPEAR,        ItemRarity.UNCOMMON,   SteelSpear.class),
 
     STEEL_HELMET(    "Steel Helmet",     Material.IRON_HELMET,     SteelHelmet.class),
@@ -853,7 +854,7 @@ public enum CustomItemType {
     COPPER_HATCHET("Copper Hatchet",    Material.WOODEN_AXE,    ItemRarity.COMMON,   CopperHatchet.class),
     IRON_HATCHET("Iron Hatchet",      Material.IRON_AXE,      ItemRarity.COMMON,   IronHatchet.class),
     GOLD_HATCHET("Golden Hatchet",      Material.GOLDEN_AXE,    ItemRarity.COMMON,   GoldHatchet.class),
-    DIAMOND_HATCHET("Diamond Hatchet",   Material.DIAMOND_AXE,   ItemRarity.RARE, DiamondHatchet.class),
+    // DIAMOND_HATCHET("Diamond Hatchet",   Material.DIAMOND_AXE,   ItemRarity.RARE, DiamondHatchet.class),
     NETHERITE_HATCHET("Netherite Hatchet", Material.NETHERITE_AXE, ItemRarity.EPIC,     NetheriteHatchet.class),
 
     // EXILED SET

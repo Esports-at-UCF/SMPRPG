@@ -19,7 +19,7 @@ import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
-class SpellboundCloth(itemService: ItemService?, type: CustomItemType?) : CustomItemBlueprint(itemService, type),
+class SpellboundCloth(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
     ISellable, IHeaderDescribable, IModelOverridden, ICraftable {
     /**
      * Determine what type of item this is.
@@ -46,7 +46,7 @@ class SpellboundCloth(itemService: ItemService?, type: CustomItemType?) : Custom
     }
 
     override fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 
     override fun getRecipeKey(): NamespacedKey? {

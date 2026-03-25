@@ -25,8 +25,8 @@ class OrichalcumSpear(itemService: ItemService, type: CustomItemType) : Orichalc
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSpear.getSpearDamage(_type)),
-            MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemSpear.getSpearRecovery(_type))
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSpear.getSpearDamage(customItemType)),
+            MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemSpear.getSpearRecovery(customItemType))
         )
     }
 

@@ -25,11 +25,11 @@ class TungstenAxe(itemService: ItemService, type: CustomItemType) : TungstenAttr
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return List.of<AttributeEntry?>(
             AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getToolStats().miningPower.toDouble()),
-            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemAxe.getAxeDamage(_type)),
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemAxe.getAxeDamage(customItemType)),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemAxe.AXE_ATTACK_SPEED_DEBUFF),
             AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed.toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, getToolStats().fortune.toDouble()),
-            AdditiveAttributeEntry(AttributeWrapper.LUMBERING, ItemAxe.getAxeLumbering(_type))
+            AdditiveAttributeEntry(AttributeWrapper.LUMBERING, ItemAxe.getAxeLumbering(customItemType))
         )
     }
 

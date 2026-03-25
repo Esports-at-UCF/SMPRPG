@@ -14,7 +14,7 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.time.TickTime
 import java.util.List
 
-class NecroticFlesh(itemService: ItemService?, type: CustomItemType?) : CustomItemBlueprint(itemService, type),
+class NecroticFlesh(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
     ISellable, IEdible {
     /**
      * Determine what type of item this is.

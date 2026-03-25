@@ -14,9 +14,8 @@ import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.ChestplateRecipe
-import java.util.List
 
-class TinChestplate(itemService: ItemService?, type: CustomItemType?) : TinArmorSet(itemService, type), IBreakableEquipment, ICraftable {
+class TinChestplate(itemService: ItemService, type: CustomItemType) : TinArmorSet(itemService, type), IBreakableEquipment, ICraftable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.CHESTPLATE
 

@@ -21,20 +21,16 @@ open class SteelAttributeItem(itemService: ItemService, type: CustomItemType) : 
         return ToolStats.STEEL
     }
 
-    open fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, getCustomItemType().getKey() + "-recipe")
-    }
-
     override fun getCraftingMaterial(): ItemStack {
         return itemService.getCustomItem(CustomItemType.STEEL_INGOT)
     }
 
     open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return List.of<ItemStack?>(itemService.getCustomItem(CustomItemType.STEEL_INGOT))
+        return mutableListOf(itemService.getCustomItem(CustomItemType.STEEL_INGOT))
     }
 
     open fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 
     open fun getComponentPrefix(): String {

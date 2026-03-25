@@ -14,9 +14,8 @@ import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.HelmetRecipe
-import java.util.List
 
-class TinHelmet(itemService: ItemService?, type: CustomItemType?) : TinArmorSet(itemService, type), ICraftable, IBreakableEquipment {
+class TinHelmet(itemService: ItemService, type: CustomItemType) : TinArmorSet(itemService, type), ICraftable, IBreakableEquipment {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HELMET
 

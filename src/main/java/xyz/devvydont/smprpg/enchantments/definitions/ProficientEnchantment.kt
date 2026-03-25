@@ -34,9 +34,9 @@ class ProficientEnchantment(id: String) : CustomEnchantment(id), AttributeEnchan
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.ANY
     override val skillRequirement: Int get() = 22
 
-    override fun getPowerRating(): Int { return level / 3 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = level / 3
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             AttributeEntry.additive(AttributeWrapper.PROFICIENCY, getProficiency(level).toDouble())
         )

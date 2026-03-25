@@ -40,9 +40,9 @@ class FeatherFallingEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.FEET
     override val skillRequirement: Int get()                   = 9
 
-    override fun getPowerRating(): Int { return level / 5 }
-    override fun getAttributeModifierType(): AttributeModifierType? { return null }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = level / 5
+    override val attributeModifierType: AttributeModifierType = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             MultiplicativeAttributeEntry(AttributeWrapper.FALL_DAMAGE_MULTIPLIER, -getFallResistPercent(level) / 100.0),
             AdditiveAttributeEntry(AttributeWrapper.SAFE_FALL, (level * 2).toDouble())

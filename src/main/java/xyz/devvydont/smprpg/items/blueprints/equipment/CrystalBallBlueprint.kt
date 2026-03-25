@@ -16,7 +16,7 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import java.util.List
 
-class CrystalBallBlueprint(itemService: ItemService?, type: CustomItemType?) : ReforgeStone(itemService, type),
+class CrystalBallBlueprint(itemService: ItemService, type: CustomItemType) : ReforgeStone(itemService, type),
     ISellable, IModelOverridden {
 
     override fun getReforgeType(): ReforgeType {
@@ -32,6 +32,6 @@ class CrystalBallBlueprint(itemService: ItemService?, type: CustomItemType?) : R
     }
 
     override fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 }

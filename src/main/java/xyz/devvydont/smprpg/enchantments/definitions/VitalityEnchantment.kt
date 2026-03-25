@@ -30,9 +30,9 @@ class VitalityEnchantment(id: String) : CustomEnchantment(id), AttributeEnchantm
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.ARMOR
     override val skillRequirement: Int get()                   = 6
 
-    override fun getPowerRating(): Int { return level / 2 }
-    override fun getAttributeModifierType(): AttributeModifierType { return AttributeModifierType.ENCHANTMENT }
-    override fun getHeldAttributes(): MutableCollection<AttributeEntry?> {
+    override val powerRating : Int get() = level / 2
+    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
+    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
         return mutableListOf(
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, getStrength(level) / 100.0)
         )

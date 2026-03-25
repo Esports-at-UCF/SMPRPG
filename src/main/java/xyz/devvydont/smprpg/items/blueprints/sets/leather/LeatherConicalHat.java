@@ -78,7 +78,7 @@ public class LeatherConicalHat extends CustomAttributeItem implements ICraftable
 
     @Override
     public Key getDisplayKey() {
-        return new NamespacedKey(SMPRPG.getPlugin(), _type.getKey());
+        return new NamespacedKey(SMPRPG.getPlugin(), getCustomItemType().getKey());
     }
 
     @Override

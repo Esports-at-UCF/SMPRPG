@@ -9,7 +9,7 @@ import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 
-class SpellPowder(itemService: ItemService?, type: CustomItemType?) : CustomItemBlueprint(itemService, type), ISellable,
+class SpellPowder(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type), ISellable,
     IModelOverridden {
     /**
      * Determine what type of item this is.
@@ -28,6 +28,6 @@ class SpellPowder(itemService: ItemService?, type: CustomItemType?) : CustomItem
     }
 
     override fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 }

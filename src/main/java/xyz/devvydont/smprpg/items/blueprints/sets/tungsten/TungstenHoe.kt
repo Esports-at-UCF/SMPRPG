@@ -24,8 +24,8 @@ class TungstenHoe(itemService: ItemService, type: CustomItemType) : TungstenAttr
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return List.of<AttributeEntry?>(
-            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemHoe.getHoeDamage(_type)),
-            MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(_type)),
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemHoe.getHoeDamage(customItemType)),
+            MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(customItemType)),
             AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed.toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, getToolStats().fortune.toDouble())
         )

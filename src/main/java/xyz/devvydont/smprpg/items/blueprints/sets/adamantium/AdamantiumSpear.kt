@@ -3,7 +3,6 @@ package xyz.devvydont.smprpg.items.blueprints.sets.adamantium
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.KineticWeapon
 import io.papermc.paper.registry.keys.SoundEventKeys
-import org.bukkit.Material
 import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -25,8 +24,8 @@ class AdamantiumSpear(itemService: ItemService, type: CustomItemType) : Adamanti
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSpear.getSpearDamage(_type)),
-            MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemSpear.getSpearRecovery(_type))
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSpear.getSpearDamage(customItemType)),
+            MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemSpear.getSpearRecovery(customItemType))
         )
     }
 

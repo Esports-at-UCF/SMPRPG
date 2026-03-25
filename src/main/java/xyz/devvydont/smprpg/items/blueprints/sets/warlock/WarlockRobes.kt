@@ -32,7 +32,7 @@ import xyz.devvydont.smprpg.util.crafting.builders.ChestplateRecipe
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 
-class WarlockRobes(itemService: ItemService?, type: CustomItemType?) : WarlockArmorSet(itemService, type),
+class WarlockRobes(itemService: ItemService, type: CustomItemType) : WarlockArmorSet(itemService, type),
     IBreakableEquipment, ICraftable, IModelOverridden {
     override fun getAttributeModifiers(item: ItemStack): MutableCollection<AttributeEntry?> {
         val attributes: MutableList<AttributeEntry?> = ArrayList()
@@ -135,6 +135,6 @@ class WarlockRobes(itemService: ItemService?, type: CustomItemType?) : WarlockAr
     }
 
     override fun getDisplayKey(): Key? {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 }

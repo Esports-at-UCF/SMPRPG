@@ -15,7 +15,7 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.List
 
-class HornOfWarlock(itemService: ItemService?, type: CustomItemType?) : CustomItemBlueprint(itemService, type),
+class HornOfWarlock(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
     ISellable, IHeaderDescribable, IModelOverridden {
     /**
      * Determine what type of item this is.
@@ -46,6 +46,6 @@ class HornOfWarlock(itemService: ItemService?, type: CustomItemType?) : CustomIt
     }
 
     override fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 }

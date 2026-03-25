@@ -10,7 +10,7 @@ import xyz.devvydont.smprpg.util.crafting.CompressionRecipeMember
 import xyz.devvydont.smprpg.util.crafting.MaterialWrapper
 import java.util.List
 
-class SpellPowderFamilyBlueprint(itemService: ItemService?, type: CustomItemType?) :
+class SpellPowderFamilyBlueprint(itemService: ItemService, type: CustomItemType) :
     CustomCompressableBlueprint(itemService, type), IModelOverridden {
     override fun getCompressionFlow(): MutableList<CompressionRecipeMember?> {
         return COMPRESSION_FLOW
@@ -19,7 +19,7 @@ class SpellPowderFamilyBlueprint(itemService: ItemService?, type: CustomItemType
     override val itemClassification: ItemClassification get() = ItemClassification.ITEM
 
     override fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(_type)
+        return IModelOverridden.ofItemType(customItemType)
     }
 
     companion object {

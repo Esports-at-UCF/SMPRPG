@@ -18,22 +18,18 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.HelmetRecipe
 import java.util.List
 
-class TungstenHelmet(itemService: ItemService?, type: CustomItemType?) : TungstenArmorSet(itemService, type),
+class TungstenHelmet(itemService: ItemService, type: CustomItemType) : TungstenArmorSet(itemService, type),
     ICraftable, IBreakableEquipment, IModelOverridden {
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return List.of<AttributeEntry?>(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromItemType(_type).toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ItemArmor.getDefenseFromItemType(customItemType).toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, 10.0)
         )
     }
 
     override fun getActiveSlot(): EquipmentSlotGroup {
         return EquipmentSlotGroup.HEAD
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, getCustomItemType().getKey() + "-recipe")
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

@@ -4,7 +4,6 @@ import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.Tool
 import org.bukkit.Material
 import org.bukkit.inventory.CraftingRecipe
-import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -19,7 +18,6 @@ import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.HatchetRecipe
 import xyz.devvydont.smprpg.util.items.ToolGlobals
-import java.util.List
 
 class TinHatchet(itemService: ItemService, type: CustomItemType) : TinAttributeItem(itemService, type), ICraftable, IBreakableEquipment {
 
