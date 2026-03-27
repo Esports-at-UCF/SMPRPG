@@ -12,14 +12,16 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.items.interfaces.ITrimmable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 abstract class AmethystArmorSet(itemService: ItemService, type: CustomItemType) :
-    CustomAttributeItem(itemService, type), ITrimmable, IBreakableEquipment, ICraftable {
+    CustomAttributeItem(itemService, type), ITrimmable, IBreakableEquipment, ICraftable, IRepairable {
 
     val armorDurabilityUnit : Int = ToolStats.IRON.getArmorUnitDurability().toInt()
+    override val repairMaterial : MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.ENCHANTED_AMETHYST))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(

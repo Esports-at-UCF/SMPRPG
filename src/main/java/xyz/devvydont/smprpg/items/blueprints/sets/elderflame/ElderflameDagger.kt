@@ -16,12 +16,14 @@ import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 
 class ElderflameDagger(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    ICraftable, IBreakableEquipment {
+    ICraftable, IBreakableEquipment, IRepairable {
     override val itemClassification: ItemClassification get() = ItemClassification.SWORD
+    override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.DRACONIC_CRYSTAL))
 
     /**
      * What modifiers themselves will be contained on the item if there are no variables to affect them?

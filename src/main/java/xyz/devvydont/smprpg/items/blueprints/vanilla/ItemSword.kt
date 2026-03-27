@@ -28,6 +28,7 @@ class ItemSword(itemService: ItemService, material: Material) : VanillaAttribute
             // Material.DIAMOND_SWORD -> mutableListOf(itemService.getCustomItem(Material.DIAMOND))
             Material.GOLDEN_SWORD -> mutableListOf(itemService.getCustomItem(Material.GOLD_INGOT))
             Material.IRON_SWORD -> mutableListOf(itemService.getCustomItem(Material.IRON_INGOT))
+            Material.TRIDENT -> mutableListOf(itemService.getCustomItem(CustomItemType.TRIDENTITE))
             // Material.STONE_SWORD -> mutableListOf(itemService.getCustomItem(Material.COBBLESTONE))
             Material.COPPER_SWORD -> mutableListOf(itemService.getCustomItem(Material.COPPER_INGOT))
             Material.WOODEN_SWORD -> mutableListOf(itemService.getCustomItem(Material.OAK_PLANKS), itemService.getCustomItem(Material.BIRCH_PLANKS), itemService.getCustomItem(Material.SPRUCE_PLANKS),

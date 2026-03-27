@@ -42,7 +42,7 @@ class AbominableCleaver(itemService: ItemService, type: CustomItemType) : Custom
     Listener, IHeaderDescribable, ICraftable, IBreakableEquipment, IRepairable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SWORD
-    override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.PREMIUM_FLESH))
+    override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.PREMIUM_NECROTIC_FLESH))
 
     override fun getHeader(itemStack: ItemStack?): MutableList<Component?> {
         val components: MutableList<Component?> = ArrayList()

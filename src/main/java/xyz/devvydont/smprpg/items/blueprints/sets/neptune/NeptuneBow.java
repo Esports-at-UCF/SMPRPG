@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.items.blueprints.sets.neptune;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.ability.Passive;
 import xyz.devvydont.smprpg.items.CustomItemType;
@@ -13,6 +14,7 @@ import xyz.devvydont.smprpg.items.blueprints.sets.netherite.NetheriteBow;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
 import xyz.devvydont.smprpg.items.interfaces.IPassiveProvider;
+import xyz.devvydont.smprpg.items.interfaces.IRepairable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.util.crafting.builders.BowRecipe;
@@ -21,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class NeptuneBow extends CustomShortbow implements IBreakableEquipment, ICraftable, IPassiveProvider {
+public class NeptuneBow extends CustomShortbow implements IBreakableEquipment, ICraftable, IPassiveProvider, IRepairable {
 
     @Override
     public boolean wantNerfedSellPrice() {
@@ -84,5 +86,10 @@ public class NeptuneBow extends CustomShortbow implements IBreakableEquipment, I
     @Override
     public int getMaxDurability() {
         return NeptuneArmorSet.DURABILITY;
+    }
+
+    @Override
+    public @NotNull Collection<@NotNull ItemStack> getRepairMaterial() {
+        return List.of(itemService.getCustomItem(CustomItemType.PLUTOS_ARTIFACT));
     }
 }

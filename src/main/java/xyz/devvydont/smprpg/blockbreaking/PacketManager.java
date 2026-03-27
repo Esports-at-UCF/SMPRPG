@@ -11,11 +11,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDamageEvent;
 import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.util.time.TickTime;
 
 import java.util.HashMap;
 import java.util.Set;
 
-public class PacketManager implements Listener{
+public class PacketManager implements Listener {
 
 	protected final SMPRPG plugin;
 	
@@ -32,7 +33,6 @@ public class PacketManager implements Listener{
 		damage = new BlockDamage();
 		receivedArmAnimation();
 		checkArmAnimation();
-		
 	}
 	
 	private void receivedArmAnimation() {
@@ -51,8 +51,10 @@ public class PacketManager implements Listener{
 		damage.configureBreakingPacket(event.getPlayer(), event.getBlock());
         
 	}
-	
-	// checks that an arm swing packet was delivered in the last tick (0.15 seconds)
+
+	/**
+	 * Checks that an arm swing packet was delivered in the last tick (0.15 seconds)
+ 	 */
 	private void checkArmAnimation() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 
@@ -67,9 +69,7 @@ public class PacketManager implements Listener{
 				}
 			}
 			
-		}, 1L, 1L);
+		}, TickTime.INSTANTANEOUSLY, TickTime.TICK);
 	}
-	
-	
 
 }

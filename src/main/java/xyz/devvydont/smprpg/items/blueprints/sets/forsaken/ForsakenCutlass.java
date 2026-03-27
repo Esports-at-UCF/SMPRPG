@@ -17,6 +17,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
@@ -30,6 +31,7 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword;
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
 import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable;
+import xyz.devvydont.smprpg.items.interfaces.IRepairable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.items.AbilityUtil;
@@ -38,7 +40,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ForsakenCutlass extends CustomAttributeItem implements Listener, IHeaderDescribable, ICraftable, IBreakableEquipment {
+public class ForsakenCutlass extends CustomAttributeItem implements Listener, IHeaderDescribable, ICraftable, IBreakableEquipment, IRepairable {
 
     public static final int WITHER_APPLY_CHANCE = 20;
     public static final int WITHER_APPLY_SECONDS = 10;
@@ -144,4 +146,8 @@ public class ForsakenCutlass extends CustomAttributeItem implements Listener, IH
         attacked.getWorld().spawnParticle(Particle.ASH, attacked.getEyeLocation(), 5);
     }
 
+    @Override
+    public @NotNull Collection<@NotNull ItemStack> getRepairMaterial() {
+        return List.of(itemService.getCustomItem(CustomItemType.PREMIUM_NETHER_STAR));
+    }
 }

@@ -9,10 +9,13 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IEquippableAssetOverride
+import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.services.ItemService
 
 abstract class ElderflameArmorSet(itemService: ItemService, type: CustomItemType) :
-    CustomAttributeItem(itemService, type), IBreakableEquipment, ICraftable, IEquippableAssetOverride {
+    CustomAttributeItem(itemService, type), IBreakableEquipment, ICraftable, IEquippableAssetOverride, IRepairable {
+
+    override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.DRACONIC_CRYSTAL))
 
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.ARMOR }
 

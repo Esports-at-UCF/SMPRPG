@@ -1055,7 +1055,7 @@ class ItemService : IService, Listener {
 
                     if (blueprint is IRepairable) {
                         val repMats = mutableListOf<Key>()
-                        val blueprintRepairMaterials = blueprint.repairMaterial as ArrayList
+                        val blueprintRepairMaterials = blueprint.repairMaterial.toMutableList()
                         for (repairMaterial in blueprintRepairMaterials) {
                             val repairMatBp = blueprint(repairMaterial)
                             val modelDataId = repairMatBp.customModelDataIdentifier

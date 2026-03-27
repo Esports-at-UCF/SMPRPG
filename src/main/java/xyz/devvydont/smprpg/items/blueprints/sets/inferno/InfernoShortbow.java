@@ -5,6 +5,7 @@ import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
+import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.items.CustomItemType;
@@ -14,13 +15,14 @@ import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomShortbow;
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
+import xyz.devvydont.smprpg.items.interfaces.IRepairable;
 import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
 
 import java.util.Collection;
 import java.util.List;
 
-public class InfernoShortbow extends CustomShortbow implements ICraftable, ISellable, IBreakableEquipment {
+public class InfernoShortbow extends CustomShortbow implements ICraftable, ISellable, IBreakableEquipment, IRepairable {
 
     public InfernoShortbow(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -69,5 +71,10 @@ public class InfernoShortbow extends CustomShortbow implements ICraftable, ISell
     @Override
     public int getMaxDurability() {
         return 40_000;
+    }
+
+    @Override
+    public @NotNull Collection<@NotNull ItemStack> getRepairMaterial() {
+        return List.of(itemService.getCustomItem(CustomItemType.INFERNO_REMNANT));
     }
 }

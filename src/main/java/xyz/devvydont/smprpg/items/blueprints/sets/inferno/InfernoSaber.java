@@ -8,6 +8,7 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
+import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.ability.Ability;
 import xyz.devvydont.smprpg.ability.AbilityActivationMethod;
@@ -26,7 +27,7 @@ import xyz.devvydont.smprpg.util.time.TickTime;
 
 import java.util.*;
 
-public class InfernoSaber extends CustomAttributeItem implements ICraftable, IModelOverridden, IBreakableEquipment, IAbilityCaster {
+public class InfernoSaber extends CustomAttributeItem implements ICraftable, IModelOverridden, IBreakableEquipment, IAbilityCaster, IRepairable {
 
     public InfernoSaber(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -117,5 +118,10 @@ public class InfernoSaber extends CustomAttributeItem implements ICraftable, IMo
     @Override
     public int getMaxDurability() {
         return 50_000;
+    }
+
+    @Override
+    public @NotNull Collection<@NotNull ItemStack> getRepairMaterial() {
+        return List.of(itemService.getCustomItem(CustomItemType.INFERNO_REMNANT));
     }
 }
