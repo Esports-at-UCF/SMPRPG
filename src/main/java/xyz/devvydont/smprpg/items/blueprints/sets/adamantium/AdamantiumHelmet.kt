@@ -38,7 +38,7 @@ class AdamantiumHelmet(itemService: ItemService, type: CustomItemType) : Adamant
     }
 
     override fun getMaxDurability(): Int {
-        return 800
+        return armorDurabilityUnit * 5
     }
 
 }

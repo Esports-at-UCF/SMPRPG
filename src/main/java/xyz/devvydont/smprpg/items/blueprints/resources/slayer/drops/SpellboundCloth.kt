@@ -2,7 +2,6 @@ package xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops
 
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.ItemStack
@@ -33,9 +32,7 @@ class SpellboundCloth(itemService: ItemService, type: CustomItemType) : CustomIt
      * @param item The item that can be sold.
      * @return The worth of the item.
      */
-    override fun getWorth(item: ItemStack): Int {
-        return 56600 * item.amount
-    }
+    override fun getWorth(item: ItemStack): Int { return 56600 * item.amount }
 
     override fun getHeader(itemStack: ItemStack?): MutableList<Component?> {
         return mutableListOf(
@@ -46,7 +43,7 @@ class SpellboundCloth(itemService: ItemService, type: CustomItemType) : CustomIt
     }
 
     override fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(customItemType)
+        return IModelOverridden.ofItemTypeInDirectory(customItemType, "materials")
     }
 
     override fun getRecipeKey(): NamespacedKey? {

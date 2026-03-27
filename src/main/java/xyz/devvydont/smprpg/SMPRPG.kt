@@ -22,6 +22,7 @@ import xyz.devvydont.smprpg.listeners.damage.SlimeRapidAttackFixListener
 import xyz.devvydont.smprpg.listeners.entity.HealthRegenerationListener
 import xyz.devvydont.smprpg.listeners.entity.HealthScaleListener
 import xyz.devvydont.smprpg.listeners.entity.StructureEntitySpawnListener
+import xyz.devvydont.smprpg.listeners.item.ItemDurabilityListener
 import xyz.devvydont.smprpg.loot.LootListener
 import xyz.devvydont.smprpg.market.MarketService
 import xyz.devvydont.smprpg.services.*
@@ -115,6 +116,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(NoteblockOverrideListener())  // Overrides vanilla noteblock behavior, such that we can overload noteblock blockstates for custom ores.
         generalListeners.add(MeleeVisualListener())  // Visuals melee attack particles for weapons like staffs
         generalListeners.add(XPOrbDisablerListener())  // Overrides experience orb drops, as to disable vanilla EXP
+        generalListeners.add(ItemDurabilityListener())  // Prevents items from fully breaking, capping them at 1 durability remaining.
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.

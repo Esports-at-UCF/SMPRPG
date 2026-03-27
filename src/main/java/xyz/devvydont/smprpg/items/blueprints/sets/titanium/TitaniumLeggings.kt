@@ -37,7 +37,7 @@ class TitaniumLeggings(itemService: ItemService, type: CustomItemType) : Titaniu
     }
 
     override fun getMaxDurability(): Int {
-        return 850
+        return armorDurabilityUnit * 7
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

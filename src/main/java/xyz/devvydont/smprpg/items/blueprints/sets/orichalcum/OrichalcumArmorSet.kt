@@ -16,27 +16,20 @@ import xyz.devvydont.smprpg.util.items.ToolStats
 abstract class OrichalcumArmorSet(itemService: ItemService, type: CustomItemType) :
     CustomAttributeItem(itemService, type), IEquippableAssetOverride, IRepairable {
 
-    override val repairMaterial: ItemStack get() = getCraftingMaterial()
+    override val repairMaterial : MutableCollection<ItemStack> get() = mutableListOf(getCraftingMaterial())
+    val armorDurabilityUnit: Int get() = ToolStats.ORICHALCUM.getArmorUnitDurability().toInt()
 
-    override fun getAssetId(): Key {
-        return key
-    }
+    override fun getAssetId(): Key { return key }
 
-    override fun getPowerRating(): Int {
-        return ToolStats.ORICHALCUM.power
-    }
+    override fun getPowerRating(): Int { return ToolStats.ORICHALCUM.power }
 
     open fun getCraftingMaterial(): ItemStack = itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT)
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT))
-    }
+    open fun unlockedBy(): MutableCollection<ItemStack?>? { return mutableListOf(itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT)) }
 
     open fun getRecipeKey(): NamespacedKey { return ICraftable.getDefaultRecipeKey(customItemType) }
 
-    open fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(customItemType)
-    }
+    open fun getDisplayKey(): Key { return IModelOverridden.ofItemType(customItemType) }
 
     companion object {
         private val key = Key.key(plugin, "orichalcum")

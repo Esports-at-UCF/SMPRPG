@@ -40,7 +40,7 @@ class SilverHelmet(itemService: ItemService, type: CustomItemType) : SilverArmor
     }
 
     override fun getMaxDurability(): Int {
-        return 800
+        return armorDurabilityUnit * 5
     }
 
 }

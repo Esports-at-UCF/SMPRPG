@@ -1,6 +1,7 @@
 package xyz.devvydont.smprpg.items.blueprints.tools.augments
 
 import io.papermc.paper.datacomponent.DataComponentTypes
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -10,10 +11,11 @@ import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.ItemRarity
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable
+import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
-open class RepairCore(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type), IHeaderDescribable {
+open class RepairCore(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type), IHeaderDescribable, IModelOverridden {
 
     override val itemClassification: ItemClassification get() = ItemClassification.AUGMENT_STONE
 
@@ -98,6 +100,8 @@ open class RepairCore(itemService: ItemService, type: CustomItemType) : CustomIt
             )
         }
     }
+
+    override fun getDisplayKey(): Key? { return IModelOverridden.ofItemTypeInDirectory(customItemType, "augment_stones") }
 
     companion object {
         fun getRepairValue(coreItem : ItemStack, repairItem : ItemStack) : Double {

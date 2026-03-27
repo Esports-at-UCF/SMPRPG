@@ -35,7 +35,7 @@ class TinBoots(itemService: ItemService, type: CustomItemType) : TinArmorSet(ite
     }
 
     override fun getMaxDurability(): Int {
-        return 650
+        return armorDurabilityUnit * 4
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

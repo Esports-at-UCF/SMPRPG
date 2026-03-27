@@ -34,7 +34,7 @@ class MithrilChestplate(itemService: ItemService, type: CustomItemType) : Mithri
     }
 
     override fun getMaxDurability(): Int {
-        return 1000
+        return armorDurabilityUnit * 8
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

@@ -29,4 +29,8 @@ public interface IModelOverridden {
     static Key ofItemType(CustomItemType type) {
         return new NamespacedKey(SMPRPG.getPlugin(), type.getKey());
     }
+
+    static Key ofItemTypeInDirectory(CustomItemType type, String directory) {
+        return new NamespacedKey(SMPRPG.getPlugin(), directory + "/" + type.getKey());
+    }
 }

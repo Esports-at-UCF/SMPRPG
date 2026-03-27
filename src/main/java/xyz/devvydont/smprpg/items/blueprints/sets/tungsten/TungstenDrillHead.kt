@@ -7,14 +7,13 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.interfaces.IModularToolComponent
 import xyz.devvydont.smprpg.services.ItemService
-import java.util.List
 
 class TungstenDrillHead(itemService: ItemService, type: CustomItemType) : TungstenAttributeItem(itemService, type),
     IModularToolComponent {
     override fun getAttributes(): MutableCollection<AttributeEntry?> {
-        return List.of<AttributeEntry?>(
-            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed * 1.5, getAttrKey()),
-            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getToolStats().miningPower.toDouble(), getAttrKey())
+        return mutableListOf(
+            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed * 1.5, attrKey),
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getToolStats().miningPower.toDouble(), attrKey)
         )
     }
 

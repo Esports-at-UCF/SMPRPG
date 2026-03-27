@@ -11,12 +11,12 @@ import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ToolStats
-import java.util.List
 
 abstract class TungstenArmorSet(itemService: ItemService, type: CustomItemType) :
     CustomAttributeItem(itemService, type), IEquippableAssetOverride, IRepairable {
 
-    override val repairMaterial: ItemStack get() = getCraftingMaterial()
+    override val repairMaterial : MutableCollection<ItemStack> get() = mutableListOf(getCraftingMaterial())
+    val armorDurabilityUnit: Int get() = ToolStats.TUNGSTEN.getArmorUnitDurability().toInt()
 
     override fun getAssetId(): Key {
         return key
@@ -28,12 +28,17 @@ abstract class TungstenArmorSet(itemService: ItemService, type: CustomItemType) 
 
     open fun getCraftingMaterial(): ItemStack = itemService.getCustomItem(CustomItemType.TUNGSTEN_INGOT)
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? { return List.of<ItemStack?>(itemService.getCustomItem(CustomItemType.TUNGSTEN_INGOT)) }
+    open fun unlockedBy(): MutableCollection<ItemStack?>? { return mutableListOf(
+        itemService.getCustomItem(
+            CustomItemType.TUNGSTEN_INGOT
+        )
+    )
+    }
 
     open fun getRecipeKey(): NamespacedKey { return NamespacedKey(plugin, customItemType.key + "-recipe") }
 
     open fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(customItemType)
+        return IModelOverridden.ofItemTypeInDirectory(customItemType, "material_sets/tungsten")
     }
 
     companion object {

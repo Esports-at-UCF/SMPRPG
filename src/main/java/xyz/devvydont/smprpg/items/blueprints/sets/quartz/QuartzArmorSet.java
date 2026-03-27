@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
@@ -12,6 +13,7 @@ import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
+import xyz.devvydont.smprpg.items.interfaces.IRepairable;
 import xyz.devvydont.smprpg.items.interfaces.ITrimmable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
@@ -19,8 +21,12 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class QuartzArmorSet extends CustomAttributeItem implements ITrimmable, IBreakableEquipment, ICraftable {
+public abstract class QuartzArmorSet extends CustomAttributeItem implements ITrimmable, IBreakableEquipment, ICraftable, IRepairable {
 
+    @Override
+    public @NotNull Collection<@NotNull ItemStack> getRepairMaterial() {
+        return List.of(itemService.getCustomItem(CustomItemType.ENCHANTED_QUARTZ));
+    }
 
     public QuartzArmorSet(ItemService itemService, CustomItemType type) {
         super(itemService, type);

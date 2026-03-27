@@ -40,7 +40,7 @@ class RoseGoldHelmet(itemService: ItemService, type: CustomItemType) : RoseGoldA
     }
 
     override fun getMaxDurability(): Int {
-        return 800
+        return armorDurabilityUnit * 5
     }
 
 }

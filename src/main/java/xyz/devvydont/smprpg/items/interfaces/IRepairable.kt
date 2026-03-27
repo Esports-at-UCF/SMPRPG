@@ -3,5 +3,5 @@ package xyz.devvydont.smprpg.items.interfaces
 import org.bukkit.inventory.ItemStack
 
 interface IRepairable {
-    val repairMaterial: ItemStack
+    val repairMaterial: MutableCollection<ItemStack>
 }

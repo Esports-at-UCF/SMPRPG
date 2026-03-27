@@ -24,27 +24,14 @@ import java.util.List
 class GoldHatchet(itemService: ItemService, type: CustomItemType) : ItemHatchet(itemService, type), ICraftable,
     IBreakableEquipment, IRepairable {
 
-    override val repairMaterial: ItemStack get() = generate(Material.GOLD_INGOT)
+    override val repairMaterial : MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(Material.GOLD_INGOT))
 
-    override fun getPowerRating(): Int {
-        return ToolStats.GOLD.power
-    }
+    override fun getPowerRating(): Int { return ToolStats.GOLD.power }
 
-    override fun getHatchetMiningPower(): Double {
-        return ToolStats.GOLD.miningPower.toDouble()
-    }
-
-    override fun getHatchetDamage(): Double {
-        return ItemSword.getSwordDamage(Material.GOLDEN_SWORD) - 7
-    }
-
-    override fun getHatchetFortune(): Double {
-        return ToolStats.GOLD.fortune * 0.8
-    }
-
-    override fun getHatchetSpeed(): Double {
-        return ToolStats.GOLD.speed * 0.8
-    }
+    override val hatchetMiningPower: Double = ToolStats.GOLD.miningPower.toDouble()
+    override val hatchetDamage: Double = ItemSword.getSwordDamage(Material.GOLDEN_SWORD) - 7
+    override val hatchetFortune: Double = ToolStats.GOLD.miningPower.toDouble() * 0.8
+    override val hatchetSpeed: Double = ToolStats.GOLD.speed.toDouble() * 0.8
 
     override fun getRecipeKey(): NamespacedKey {
         return ICraftable.getDefaultRecipeKey(customItemType)
@@ -68,9 +55,7 @@ class GoldHatchet(itemService: ItemService, type: CustomItemType) : ItemHatchet(
         return mutableListOf(itemService.getCustomItem(Material.GOLD_INGOT))
     }
 
-    override fun getMaxDurability(): Int {
-        return ToolStats.GOLD.durability
-    }
+    override fun getMaxDurability(): Int { return ToolStats.GOLD.durability }
 
     companion object {
         val TOOL_COMP: Tool = Tool.tool()

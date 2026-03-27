@@ -41,7 +41,7 @@ class TitaniumHelmet(itemService: ItemService, type: CustomItemType) : TitaniumA
     }
 
     override fun getMaxDurability(): Int {
-        return 800
+        return armorDurabilityUnit * 5
     }
 
 }

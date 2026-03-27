@@ -22,8 +22,6 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
-import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
@@ -32,8 +30,7 @@ import xyz.devvydont.smprpg.util.crafting.builders.BootsRecipe
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 
-class WarlockShoes(itemService: ItemService, type: CustomItemType) : WarlockArmorSet(itemService, type),
-    IBreakableEquipment, ICraftable, IModelOverridden {
+class WarlockShoes(itemService: ItemService, type: CustomItemType) : WarlockArmorSet(itemService, type) {
     override fun getAttributeModifiers(item: ItemStack): MutableCollection<AttributeEntry?> {
         val attributes: MutableList<AttributeEntry?> = ArrayList()
         attributes.add(AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 160.0))

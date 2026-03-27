@@ -12,36 +12,36 @@ import org.jetbrains.annotations.NotNull;
 public class ToolGlobals {
 
     //<editor-fold desc="Durability">
-    public static final int WOOD_TOOL_DURABILITY = 250;
+    public static final int WOOD_TOOL_DURABILITY = 64;
 
-    public static final int COPPER_TOOL_DURABILITY = 500;
-    public static final int SILVER_TOOL_DURABILITY = 400;
-    public static final int TIN_TOOL_DURABILITY = 250;
+    public static final int COPPER_TOOL_DURABILITY = 160;
+    public static final int SILVER_TOOL_DURABILITY = 96;
+    public static final int TIN_TOOL_DURABILITY = 128;
 
-    public static final int IRON_TOOL_DURABILITY = 1_000;
-    public static final int BRONZE_TOOL_DURABILITY = 750;
-    public static final int GOLD_TOOL_DURABILITY = 600;
-    public static final int ROSE_GOLD_TOOL_DURABILITY = 1_100;
+    public static final int IRON_TOOL_DURABILITY = 320;
+    public static final int BRONZE_TOOL_DURABILITY = 256;
+    public static final int GOLD_TOOL_DURABILITY = 192;
+    public static final int ROSE_GOLD_TOOL_DURABILITY = 288;
 
-    public static final int STEEL_TOOL_DURABILITY = 2_000;
-    public static final int MITHRIL_TOOL_DURABILITY = 1_500;
-    public static final int ELECTRUM_TOOL_DURABILITY = 1_750;
+    public static final int STEEL_TOOL_DURABILITY = 512;
+    public static final int MITHRIL_TOOL_DURABILITY = 448;
+    public static final int ELECTRUM_TOOL_DURABILITY = 576;
 
-    public static final int TITANIUM_TOOL_DURABILITY = 4_000;
-    public static final int ADAMANTIUM_TOOL_DURABILITY = 8_000;
+    public static final int TITANIUM_TOOL_DURABILITY = 1_024;
+    public static final int ADAMANTIUM_TOOL_DURABILITY = 1_536;
 
-    public static final int TUNGSTEN_TOOL_DURABILITY = 6_000;
+    public static final int TUNGSTEN_TOOL_DURABILITY = 768;
 
-    public static final int COBALT_TOOL_DURABILITY = 5_000;
-    public static final int ORICHALCUM_TOOL_DURABILITY = 10_000;
+    public static final int COBALT_TOOL_DURABILITY = 1_152;
+    public static final int ORICHALCUM_TOOL_DURABILITY = 1_280;
 
-    public static final int NETHERITE_TOOL_DURABILITY = 15_000;
+    public static final int NETHERITE_TOOL_DURABILITY = 2048;
 
-    public static final int DRAGONSTEEL_TOOL_DURABILITY = 40_000;
+    public static final int DRAGONSTEEL_TOOL_DURABILITY = 2_560;
 
     //<editor-fold desc="Unused">
-    public static final int STONE_TOOL_DURABILITY = 750;
-    public static final int DIAMOND_TOOL_DURABILITY = 5_000;
+    public static final int STONE_TOOL_DURABILITY = 80;
+    public static final int DIAMOND_TOOL_DURABILITY = 1_024;
     //</editor-fold>
     //</editor-fold>
     //<editor-fold desc="Power Levels">

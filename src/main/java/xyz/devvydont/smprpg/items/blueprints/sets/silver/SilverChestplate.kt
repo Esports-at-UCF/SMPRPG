@@ -36,7 +36,7 @@ class SilverChestplate(itemService: ItemService, type: CustomItemType) : SilverA
     }
 
     override fun getMaxDurability(): Int {
-        return 1000
+        return armorDurabilityUnit * 8
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

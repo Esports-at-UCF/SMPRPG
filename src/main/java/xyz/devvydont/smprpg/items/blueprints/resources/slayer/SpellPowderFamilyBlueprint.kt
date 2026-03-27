@@ -19,11 +19,11 @@ class SpellPowderFamilyBlueprint(itemService: ItemService, type: CustomItemType)
     override val itemClassification: ItemClassification get() = ItemClassification.ITEM
 
     override fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(customItemType)
+        return IModelOverridden.ofItemTypeInDirectory(CustomItemType.SPELL_POWDER, "materials")
     }
 
     companion object {
-        val COMPRESSION_FLOW: MutableList<CompressionRecipeMember?> = List.of<CompressionRecipeMember?>(
+        val COMPRESSION_FLOW: MutableList<CompressionRecipeMember?> = mutableListOf(
             CompressionRecipeMember(MaterialWrapper(CustomItemType.SPELL_POWDER)),
             CompressionRecipeMember(MaterialWrapper(CustomItemType.PREMIUM_SPELL_POWDER)),
             CompressionRecipeMember(MaterialWrapper(CustomItemType.ENCHANTED_SPELL_POWDER)),

@@ -39,231 +39,231 @@
                 "when": "smprpg:carp",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/carp"
+                    "model": "smprpg:item/fish/carp"
                 }
             },
             {
                 "when": "smprpg:guppy",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/guppy"
+                    "model": "smprpg:item/fish/guppy"
                 }
             },
             {
                 "when": "smprpg:bass",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/bass"
+                    "model": "smprpg:item/fish/bass"
                 }
             },
             {
                 "when": "smprpg:catfish",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/catfish"
+                    "model": "smprpg:item/fish/catfish"
                 }
             },
             {
                 "when": "smprpg:snapper",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/snapper"
+                    "model": "smprpg:item/fish/snapper"
                 }
             },
             {
                 "when": "smprpg:pike",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/pike"
+                    "model": "smprpg:item/fish/pike"
                 }
             },
             {
                 "when": "smprpg:sturgeon",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/sturgeon"
+                    "model": "smprpg:item/fish/sturgeon"
                 }
             },
             {
                 "when": "smprpg:blue_tang",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/blue_tang"
+                    "model": "smprpg:item/fish/blue_tang"
                 }
             },
             {
                 "when": "smprpg:barracuda",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/barracuda"
+                    "model": "smprpg:item/fish/barracuda"
                 }
             },
             {
                 "when": "smprpg:yellowfin_tuna",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/yellowfin_tuna"
+                    "model": "smprpg:item/fish/yellowfin_tuna"
                 }
             },
             {
                 "when": "smprpg:goliath_grouper",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/goliath_grouper"
+                    "model": "smprpg:item/fish/goliath_grouper"
                 }
             },
             {
                 "when": "smprpg:leafy_seadragon",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/leafy_seadragon"
+                    "model": "smprpg:item/fish/leafy_seadragon"
                 }
             },
             {
                 "when": "smprpg:lionfish",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/lionfish"
+                    "model": "smprpg:item/fish/lionfish"
                 }
             },
             {
                 "when": "smprpg:blue_marlin",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/blue_marlin"
+                    "model": "smprpg:item/fish/blue_marlin"
                 }
             },
             {
                 "when": "smprpg:fangtooth",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/fangtooth"
+                    "model": "smprpg:item/fish/fangtooth"
                 }
             },
             {
                 "when": "smprpg:deep_sea_anglerfish",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/deep_sea_anglerfish"
+                    "model": "smprpg:item/fish/deep_sea_anglerfish"
                 }
             },
             {
                 "when": "smprpg:blisterfish",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/blisterfish"
+                    "model": "smprpg:item/fish/blisterfish"
                 }
             },
             {
                 "when": "smprpg:impling",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/impling"
+                    "model": "smprpg:item/fish/impling"
                 }
             },
             {
                 "when": "smprpg:crimsonfish",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/crimsonfish"
+                    "model": "smprpg:item/fish/crimsonfish"
                 }
             },
             {
                 "when": "smprpg:soul_scale",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/soul_scale"
+                    "model": "smprpg:item/fish/soul_scale"
                 }
             },
             {
                 "when": "smprpg:bone_maw",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/bone_maw"
+                    "model": "smprpg:item/fish/bone_maw"
                 }
             },
             {
                 "when": "smprpg:flarefin",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/flarefin"
+                    "model": "smprpg:item/fish/flarefin"
                 }
             },
             {
                 "when": "smprpg:ghost_fish",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/ghost_fish"
+                    "model": "smprpg:item/fish/ghost_fish"
                 }
             },
             {
                 "when": "smprpg:devil_ray",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/devil_ray"
+                    "model": "smprpg:item/fish/devil_ray"
                 }
             },
             {
                 "when": "smprpg:voidfin",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/voidfin"
+                    "model": "smprpg:item/fish/voidfin"
                 }
             },
             {
                 "when": "smprpg:orbling",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/orbling"
+                    "model": "smprpg:item/fish/orbling"
                 }
             },
             {
                 "when": "smprpg:warper",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/warper"
+                    "model": "smprpg:item/fish/warper"
                 }
             },
             {
                 "when": "smprpg:blobfish",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/blobfish"
+                    "model": "smprpg:item/fish/blobfish"
                 }
             },
             {
                 "when": "smprpg:goblin_shark",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/goblin_shark"
+                    "model": "smprpg:item/fish/goblin_shark"
                 }
             },
             {
                 "when": "smprpg:starsurfer",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/starsurfer"
+                    "model": "smprpg:item/fish/starsurfer"
                 }
             },
             {
                 "when": "smprpg:abyssal_squid",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/abyssal_squid"
+                    "model": "smprpg:item/fish/abyssal_squid"
                 }
             },
             {
                 "when": "smprpg:twilight_anglerfish",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/twilight_anglerfish"
+                    "model": "smprpg:item/fish/twilight_anglerfish"
                 }
             },
             {
                 "when": "smprpg:cosmic_cuttlefish",
                 "model": {
                     "type": "model",
-                    "model": "materials:item/cosmic_cuttlefish"
+                    "model": "smprpg:item/fish/cosmic_cuttlefish"
                 }
             }
         ]

@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.items.blueprints.sets.forsaken;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
@@ -10,25 +11,29 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry;
 import xyz.devvydont.smprpg.items.blueprints.sets.reaver.ReaverArmorSet;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
+import xyz.devvydont.smprpg.items.interfaces.IRepairable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 
 import java.util.Collection;
 import java.util.List;
 
-public abstract class ForsakenArmorSet extends ReaverArmorSet implements ICraftable {
+public abstract class ForsakenArmorSet extends ReaverArmorSet implements ICraftable, IRepairable {
 
     public static final int POWER = 30;
     public static final CustomItemType CRAFTING_COMPONENT = CustomItemType.PREMIUM_NETHER_STAR;
+
+    @Override
+    public @NotNull Collection<@NotNull ItemStack> getRepairMaterial() {
+        return List.of(itemService.getCustomItem(CRAFTING_COMPONENT));
+    }
 
     public ForsakenArmorSet(ItemService itemService, CustomItemType type) {
         super(itemService, type);
     }
 
     @Override
-    public int getWitherResistance() {
-        return 50;
-    }
+    public int getWitherResistance() { return 50; }
 
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {

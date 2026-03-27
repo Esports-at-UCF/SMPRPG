@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops
 
 import io.papermc.paper.datacomponent.item.Consumable
 import io.papermc.paper.registry.keys.SoundEventKeys
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -20,6 +21,7 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable
+import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.items.interfaces.ITrackedConsumable
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
@@ -28,9 +30,9 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.function.Consumer
 
 class UndigestedBrains(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
-    IHeaderDescribable, Listener, ITrackedConsumable, ISellable {
+    IHeaderDescribable, Listener, ITrackedConsumable, ISellable, IModelOverridden {
     override fun getHeader(meta: ItemStack?): MutableList<Component?> {
-        return listOf<Component?>(
+        return listOf(
             ComponentUtils.merge(
                 ComponentUtils.create("Consume to be "),
                 ComponentUtils.create("plagued", NamedTextColor.DARK_GRAY),
@@ -61,7 +63,7 @@ class UndigestedBrains(itemService: ItemService, type: CustomItemType) : CustomI
     }
 
     override fun getWorth(item: ItemStack): Int {
-        return 100000 * item.getAmount()
+        return 100000 * item.amount
     }
 
     override fun getConumableTrackerKey(): NamespacedKey {
@@ -73,14 +75,14 @@ class UndigestedBrains(itemService: ItemService, type: CustomItemType) : CustomI
     }
 
     @EventHandler
-    fun __onConsumeBrain(event: PlayerItemConsumeEvent) {
-        val consumedItem = event.getItem()
+    fun onConsumeBrain(event: PlayerItemConsumeEvent) {
+        val consumedItem = event.item
         if (!isItemOfType(consumedItem)) return
 
         val player = event.getPlayer()
-        val playerPdc = player.getPersistentDataContainer()
-        var numTimesEaten = playerPdc.getOrDefault<Int, Int>(getConumableTrackerKey(), PersistentDataType.INTEGER!!, 0)
-        if (numTimesEaten < getMaxUses()) {
+        val playerPdc = player.persistentDataContainer
+        var numTimesEaten = playerPdc.getOrDefault<Int, Int>(conumableTrackerKey, PersistentDataType.INTEGER!!, 0)
+        if (numTimesEaten < maxUses) {
             val intComp = ComponentUtils.create("You have gained +10 intelligence!", NamedTextColor.AQUA)
             player.sendMessage(intComp)
 
@@ -94,7 +96,7 @@ class UndigestedBrains(itemService: ItemService, type: CustomItemType) : CustomI
             player.playSound(player, Sound.ENTITY_VILLAGER_TRADE, 1f, 2f)
             player.playSound(player, Sound.ENTITY_ZOMBIE_VILLAGER_CONVERTED, 1f, 2f)
             numTimesEaten++
-            playerPdc.set(getConumableTrackerKey(), PersistentDataType.INTEGER, numTimesEaten)
+            playerPdc.set(conumableTrackerKey, PersistentDataType.INTEGER, numTimesEaten)
             val intInst = instance.getOrCreateAttribute(player, AttributeWrapper.INTELLIGENCE)
             intInst.addModifier(
                 AttributeModifier(
@@ -105,11 +107,13 @@ class UndigestedBrains(itemService: ItemService, type: CustomItemType) : CustomI
             )
             intInst.save(player, AttributeWrapper.INTELLIGENCE)
         } else {
-            player.sendMessage(ComponentUtils.error("You have already eaten " + getMaxUses() + " lumps of undigested brains!"))
+            player.sendMessage(ComponentUtils.error("You have already eaten $maxUses lumps of undigested brains!"))
             player.playSound(player, Sound.ENTITY_ZOMBIE_AMBIENT, 1f, 0.5f)
-            event.setCancelled(true)
+            event.isCancelled = true
         }
     }
+
+    override fun getDisplayKey(): Key? { return IModelOverridden.ofItemTypeInDirectory(customItemType, "consumables") }
 
     companion object {
         val TRACKER_KEY: NamespacedKey = NamespacedKey(plugin, "consumable_undigested_brain")

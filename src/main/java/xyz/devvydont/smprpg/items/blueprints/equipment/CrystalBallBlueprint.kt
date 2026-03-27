@@ -19,19 +19,11 @@ import java.util.List
 class CrystalBallBlueprint(itemService: ItemService, type: CustomItemType) : ReforgeStone(itemService, type),
     ISellable, IModelOverridden {
 
-    override fun getReforgeType(): ReforgeType {
-        return ReforgeType.CRYPTIC
-    }
+    override fun getReforgeType(): ReforgeType { return ReforgeType.CRYPTIC }
 
-    override fun getExperienceCost(): Int {
-        return 50
-    }
+    override fun getExperienceCost(): Int { return 50 }
 
-    override fun getWorth(item: ItemStack): Int {
-        return 100_000 * item.amount
-    }
+    override fun getWorth(item: ItemStack): Int { return 100_000 * item.amount }
 
-    override fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(customItemType)
-    }
+    override fun getDisplayKey(): Key { return IModelOverridden.ofItemTypeInDirectory(customItemType, "reforge_stones") }
 }

@@ -19,11 +19,13 @@ import org.bukkit.inventory.meta.LeatherArmorMeta
 import org.bukkit.inventory.meta.trim.ArmorTrim
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
+import xyz.devvydont.smprpg.enchantments.definitions.vanilla.overrides.UnbreakingEnchantment
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.ItemRarity
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.reforge.ReforgeBase
 import xyz.devvydont.smprpg.reforge.ReforgeType
+import xyz.devvydont.smprpg.services.AttributeService
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
@@ -32,6 +34,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
 import xyz.devvydont.smprpg.util.items.FoodUtil
 import java.util.function.Consumer
+import kotlin.math.roundToInt
 
 /**
  * The base class for every single item in the game. All items and blueprints will inherit from this
@@ -301,7 +304,11 @@ abstract class SMPItemBlueprint(
             is IBreakableEquipment -> {
                 val dmg = itemStack.getData(DataComponentTypes.DAMAGE)
                 val breakable = this as IBreakableEquipment
-                itemStack.setData(DataComponentTypes.MAX_DAMAGE, breakable.getMaxDurability())
+                var maxDurability = breakable.maxDurability
+                val unbreakingLevel = itemStack.getEnchantmentLevel(EnchantmentService.UNBREAKING.enchantment)
+                if (unbreakingLevel > 0)
+                    maxDurability *= (1 + (UnbreakingEnchantment.getDurabilityIncrease(unbreakingLevel) / 100.0)).roundToInt()
+                itemStack.setData(DataComponentTypes.MAX_DAMAGE, maxDurability)
                 itemStack.setData(DataComponentTypes.DAMAGE, dmg ?: 0)
             }
 
@@ -394,7 +401,16 @@ abstract class SMPItemBlueprint(
         itemStack.setData(DataComponentTypes.TOOLTIP_STYLE, Key.key("smprpg:${getRarity(itemStack).name.lowercase()}_item"))
 
         // If this item contains attributes, apply them.
-        AttributeUtil.applyModifiers(this, itemStack)
+        if (this is IBreakableEquipment) {
+            // Only apply our modifiers if the item is not broken.
+            if (itemStack.getData(DataComponentTypes.DAMAGE) as Int >= (itemStack.getData(DataComponentTypes.MAX_DAMAGE) as Int - 1)) {
+                AttributeService.instance.clearAttributeModifiers(itemStack)
+            }
+            else
+                AttributeUtil.applyModifiers(this, itemStack)
+        }
+        else
+            AttributeUtil.applyModifiers(this, itemStack)
 
         // Update meta properties. Eventually, I think we should remove this. We can edit meta using this method.
         val meta = itemStack.itemMeta

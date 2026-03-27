@@ -14,13 +14,12 @@ import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.BowRecipe
-import java.util.List
 
 class OrichalcumBow(itemService: ItemService, type: CustomItemType) : OrichalcumAttributeItem(itemService, type),
     ICraftable, IBreakableEquipment {
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
-        return List.of<AttributeEntry?>(
+        return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(CustomItemType.ORICHALCUM_SWORD))
         )
     }

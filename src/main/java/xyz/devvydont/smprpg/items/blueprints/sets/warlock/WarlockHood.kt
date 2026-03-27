@@ -8,11 +8,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDeathEvent
-import org.bukkit.inventory.CraftingRecipe
-import org.bukkit.inventory.EquipmentSlot
-import org.bukkit.inventory.EquipmentSlotGroup
-import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
+import org.bukkit.inventory.*
 import org.bukkit.inventory.recipe.CraftingBookCategory
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
@@ -25,18 +21,13 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
-import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
-import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
-import xyz.devvydont.smprpg.util.crafting.builders.HelmetRecipe
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 
-class WarlockHood(itemService: ItemService, type: CustomItemType) : WarlockArmorSet(itemService, type),
-    IBreakableEquipment, ICraftable, IModelOverridden {
+class WarlockHood(itemService: ItemService, type: CustomItemType) : WarlockArmorSet(itemService, type) {
     override fun getAttributeModifiers(item: ItemStack): MutableCollection<AttributeEntry?> {
         val attributes: MutableList<AttributeEntry?> = ArrayList()
         attributes.add(AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 100.0))

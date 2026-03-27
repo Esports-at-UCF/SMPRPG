@@ -1,33 +1,33 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.warlock
 
-import io.papermc.paper.datacomponent.DataComponentTypes
-import io.papermc.paper.datacomponent.item.Equippable
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
-import org.bukkit.event.Listener
-import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
+import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
+import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IEquippableAssetOverride
 import xyz.devvydont.smprpg.items.interfaces.IFooterDescribable
+import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
+import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
-import java.util.List
 
-abstract class WarlockArmorSet(itemService: ItemService, type: CustomItemType) :
-    CustomAttributeItem(itemService, type), IEquippableAssetOverride, Listener, IFooterDescribable {
-    override fun getAssetId(): Key {
-        return key
-    }
+abstract class WarlockArmorSet(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
+    IEquippableAssetOverride, IRepairable, IFooterDescribable, IBreakableEquipment, ICraftable, IModelOverridden {
+
+    override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH))
+
+    override fun getAssetId(): Key { return key }
 
     fun getKillArcaneRatingBoost(item: ItemStack): Double {
-        val numKills: Int = item.getPersistentDataContainer().getOrDefault(killstoreKey, PersistentDataType.INTEGER, 0)!!
+        val numKills: Int = item.persistentDataContainer.getOrDefault(killstoreKey, PersistentDataType.INTEGER, 0)!!
         if (numKills >= 25000) {
             return 10.0
         } else if (numKills >= 15000) {
@@ -54,7 +54,7 @@ abstract class WarlockArmorSet(itemService: ItemService, type: CustomItemType) :
     }
 
     fun getNextKillMilestone(item: ItemStack): Int {
-        val numKills: Int = item.getPersistentDataContainer()
+        val numKills: Int = item.persistentDataContainer
             .getOrDefault(
                 killstoreKey,
                 PersistentDataType.INTEGER,
@@ -86,7 +86,7 @@ abstract class WarlockArmorSet(itemService: ItemService, type: CustomItemType) :
     }
 
     override fun getFooter(itemStack: ItemStack): MutableList<Component?> {
-        val kills: Int = itemStack.getPersistentDataContainer()
+        val kills: Int = itemStack.persistentDataContainer
             .getOrDefault(
                 killstoreKey,
                 PersistentDataType.INTEGER,

@@ -4,8 +4,11 @@ import com.destroystokyo.paper.event.inventory.PrepareResultEvent
 import io.papermc.paper.datacomponent.DataComponentTypes
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.ObjectComponent
+import net.kyori.adventure.text.event.HoverEvent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import net.kyori.adventure.text.`object`.ObjectContents
 import org.bukkit.Bukkit
 import org.bukkit.Keyed
 import org.bukkit.Material
@@ -476,7 +479,7 @@ class ItemService : IService, Listener {
         spearRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
         plugin.server.addRecipe(spearRecipe)
 
-        val bootsRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_boots-recipe"), generate(Material.NETHERITE_SPEAR))
+        val bootsRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_boots-recipe"), generate(Material.NETHERITE_BOOTS))
         bootsRecipe.shape(
             "n n",
             "n n"
@@ -485,7 +488,7 @@ class ItemService : IService, Listener {
         bootsRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
         plugin.server.addRecipe(bootsRecipe)
 
-        val helmetRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_helmet-recipe"), generate(Material.NETHERITE_SPEAR))
+        val helmetRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_helmet-recipe"), generate(Material.NETHERITE_HELMET))
         helmetRecipe.shape(
             "nnn",
             "n n"
@@ -494,7 +497,7 @@ class ItemService : IService, Listener {
         helmetRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
         plugin.server.addRecipe(helmetRecipe)
 
-        val leggingsRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_leggings-recipe"), generate(Material.NETHERITE_SPEAR))
+        val leggingsRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_leggings-recipe"), generate(Material.NETHERITE_LEGGINGS))
         leggingsRecipe.shape(
             "nnn",
             "n n",
@@ -504,7 +507,7 @@ class ItemService : IService, Listener {
         leggingsRecipe.setCategory(CraftingBookCategory.EQUIPMENT)
         plugin.server.addRecipe(leggingsRecipe)
 
-        val chestplateRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_chestplate-recipe"), generate(Material.NETHERITE_SPEAR))
+        val chestplateRecipe = ShapedRecipe(NamespacedKey(plugin, "vanilla_netherite_chestplate-recipe"), generate(Material.NETHERITE_CHESTPLATE))
         chestplateRecipe.shape(
             "n n",
             "nnn",
@@ -1041,7 +1044,45 @@ class ItemService : IService, Listener {
                     ComponentUtils.create("Durability: ")
                         .append(ComponentUtils.create(MinecraftStringUtils.formatNumber((durabilityComponent - durabilityUsed).toLong()), NamedTextColor.RED))
                         .append(ComponentUtils.create("/" + MinecraftStringUtils.formatNumber(durabilityComponent.toLong()), NamedTextColor.DARK_GRAY))
-                );
+                )
+                if (durabilityComponent - durabilityUsed == 1) {
+                    lore.add(ComponentUtils.EMPTY)
+                    lore.add(ComponentUtils.merge(
+                        ComponentUtils.create("This item is ", NamedTextColor.RED),
+                        ComponentUtils.create("BROKEN", NamedTextColor.DARK_RED, TextDecoration.BOLD),
+                        ComponentUtils.create(". Take it to an anvil to repair with:", NamedTextColor.RED),
+                    ))
+
+                    if (blueprint is IRepairable) {
+                        val repMats = mutableListOf<Key>()
+                        val blueprintRepairMaterials = blueprint.repairMaterial as ArrayList
+                        for (repairMaterial in blueprintRepairMaterials) {
+                            val repairMatBp = blueprint(repairMaterial)
+                            val modelDataId = repairMatBp.customModelDataIdentifier
+                            repMats.add(Key.key("smprpg:item/repair_sprites/${modelDataId.substring(7)}"))
+                        }
+                        var i = 0
+                        for (repMat in repMats) {
+                            lore.add(
+                                ComponentUtils.merge(
+                                    ComponentUtils.atlasSprite(Key.key("minecraft:items"), repMat),
+                                    ComponentUtils.create(" "),
+                                    blueprintRepairMaterials.get(i).displayName()
+                                )
+                            )
+                            i++
+                        }
+                    }
+                    lore.add(COMMON_REPAIR_CORE_ATLAS_ICON
+                        .append(UNCOMMON_REPAIR_CORE_ATLAS_ICON)
+                        .append(RARE_REPAIR_CORE_ATLAS_ICON)
+                        .append(EPIC_REPAIR_CORE_ATLAS_ICON)
+                        .append(LEGENDARY_REPAIR_CORE_ATLAS_ICON)
+                        .append(ComponentUtils.merge(
+                            ComponentUtils.create(" ["),
+                            ComponentUtils.create("Any Repair Core", NamedTextColor.GREEN)),
+                            ComponentUtils.create("]")))
+                }
             }
         }
 
@@ -1466,6 +1507,12 @@ class ItemService : IService, Listener {
         // Integer to tag items with whenever we update them to prevent unnecessary work
         const val VERSION: Int = 1
         const val VERSION_NO_UPDATE: Int = -1
+
+        val COMMON_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/common_repair_core"))
+        val UNCOMMON_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/uncommon_repair_core"))
+        val RARE_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/rare_repair_core"))
+        val EPIC_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/epic_repair_core"))
+        val LEGENDARY_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/legendary_repair_core"))
 
         // Shortcut methods to do very common operations much less verbosely. This instance should always be a singleton
         // so static method calls like this are designed to be safe.

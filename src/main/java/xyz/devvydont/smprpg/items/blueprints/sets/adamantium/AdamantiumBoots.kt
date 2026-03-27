@@ -34,7 +34,7 @@ class AdamantiumBoots(itemService: ItemService, type: CustomItemType) : Adamanti
     }
 
     override fun getMaxDurability(): Int {
-        return 650
+        return armorDurabilityUnit * 4
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

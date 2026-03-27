@@ -8,16 +8,14 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.trim.TrimMaterial;
 import org.bukkit.inventory.meta.trim.TrimPattern;
+import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
-import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
-import xyz.devvydont.smprpg.items.interfaces.ICraftable;
-import xyz.devvydont.smprpg.items.interfaces.IDyeable;
-import xyz.devvydont.smprpg.items.interfaces.ITrimmable;
+import xyz.devvydont.smprpg.items.interfaces.*;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.crafting.builders.BootsRecipe;
 import xyz.devvydont.smprpg.util.crafting.builders.ChestplateRecipe;
@@ -27,7 +25,7 @@ import xyz.devvydont.smprpg.util.crafting.builders.LeggingsRecipe;
 import java.util.Collection;
 import java.util.List;
 
-public class MurkySet extends CustomAttributeItem implements ITrimmable, IDyeable, ICraftable, IBreakableEquipment {
+public class MurkySet extends CustomAttributeItem implements ITrimmable, IDyeable, ICraftable, IBreakableEquipment, IRepairable {
 
     public static final int POWER = 5;
     public static final int CATCH_QUALITY = 15;
@@ -129,5 +127,10 @@ public class MurkySet extends CustomAttributeItem implements ITrimmable, IDyeabl
     @Override
     public int getMaxDurability() {
         return 5_000;
+    }
+
+    @Override
+    public @NotNull Collection<@NotNull ItemStack> getRepairMaterial() {
+        return List.of(itemService.getCustomItem(Material.LILY_PAD));
     }
 }

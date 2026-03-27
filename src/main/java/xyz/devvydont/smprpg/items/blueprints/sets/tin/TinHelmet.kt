@@ -39,7 +39,7 @@ class TinHelmet(itemService: ItemService, type: CustomItemType) : TinArmorSet(it
     }
 
     override fun getMaxDurability(): Int {
-        return 800
+        return armorDurabilityUnit * 5
     }
 
 }

@@ -36,7 +36,7 @@ class RoseGoldLeggings(itemService: ItemService, type: CustomItemType) : RoseGol
     }
 
     override fun getMaxDurability(): Int {
-        return 850
+        return armorDurabilityUnit * 7
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

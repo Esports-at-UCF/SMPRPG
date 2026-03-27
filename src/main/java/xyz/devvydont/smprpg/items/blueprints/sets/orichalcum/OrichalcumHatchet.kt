@@ -19,13 +19,12 @@ import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.HatchetRecipe
-import java.util.List
 
 class OrichalcumHatchet(itemService: ItemService, type: CustomItemType) : OrichalcumAttributeItem(itemService, type),
     ICraftable, IBreakableEquipment, IModelOverridden {
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
-        return List.of<AttributeEntry?>(
+        return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getToolStats().miningPower.toDouble()),
             AdditiveAttributeEntry(
                 AttributeWrapper.STRENGTH,

@@ -34,7 +34,7 @@ class SteelLeggings(itemService: ItemService, type: CustomItemType) : SteelArmor
     }
 
     override fun getMaxDurability(): Int {
-        return 850
+        return armorDurabilityUnit * 7
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

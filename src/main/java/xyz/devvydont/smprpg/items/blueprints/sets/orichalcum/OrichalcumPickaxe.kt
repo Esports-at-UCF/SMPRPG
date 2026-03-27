@@ -20,13 +20,12 @@ import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.PickaxeRecipe
 import xyz.devvydont.smprpg.util.items.ToolGlobals
-import java.util.List
 
 class OrichalcumPickaxe(itemService: ItemService, type: CustomItemType) : OrichalcumAttributeItem(itemService, type),
     IBreakableEquipment, ICraftable, IModelOverridden {
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
-        return List.of<AttributeEntry?>(
+        return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getToolStats().miningPower.toDouble()),
             AdditiveAttributeEntry(
                 AttributeWrapper.STRENGTH,

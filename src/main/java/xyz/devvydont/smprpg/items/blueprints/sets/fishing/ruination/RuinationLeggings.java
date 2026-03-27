@@ -5,7 +5,6 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
-import xyz.devvydont.smprpg.items.blueprints.sets.fishing.nocturnum.RuinationSet;
 import xyz.devvydont.smprpg.services.ItemService;
 
 public class RuinationLeggings extends RuinationSet {

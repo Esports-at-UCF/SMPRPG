@@ -15,7 +15,8 @@ import xyz.devvydont.smprpg.util.items.ToolStats
 abstract class RoseGoldArmorSet(itemService: ItemService, type: CustomItemType) :
     CustomAttributeItem(itemService, type), IEquippableAssetOverride, IRepairable {
 
-    override val repairMaterial: ItemStack get() = getCraftingMaterial()
+    override val repairMaterial : MutableCollection<ItemStack> get() = mutableListOf(getCraftingMaterial())
+    val armorDurabilityUnit: Int get() = ToolStats.ROSE_GOLD.getArmorUnitDurability().toInt()
 
     override fun getAssetId(): Key { return key }
 

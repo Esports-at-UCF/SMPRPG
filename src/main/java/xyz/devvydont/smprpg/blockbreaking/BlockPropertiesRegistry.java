@@ -6956,7 +6956,7 @@ public class BlockPropertiesRegistry {
         register(CustomBlock.SULFUR_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(600)
                 .breakingPower(4)
-                .blockSound(BlockSound.METAL_GENERIC)
+                .blockSound(BlockSound.STONE_GENERIC)
                 .softRequirement(false)
                 .build());
 

@@ -23,12 +23,11 @@ class UnbreakingEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key
 
     override val displayName: Component get() = ComponentUtils.create("Unbreaking")
     override val description: Component get() = ComponentUtils.merge(
-            ComponentUtils.create("Durability is ignored "),
+            ComponentUtils.create("Increases max durability of this item by "),
             ComponentUtils.create(
-                getDurabilityIgnoreChance(level).toString() + "%",
+                "${getDurabilityIncrease(level)}%",
                 NamedTextColor.GREEN
-            ),
-            ComponentUtils.create(" of the time when used")
+            )
         )
     override val scrollBindingColor: Color get() = Color.fromRGB(89, 89, 89)
 
@@ -38,15 +37,7 @@ class UnbreakingEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.ANY
     override val skillRequirement: Int get()                   = 0
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    private fun onUnbreakingProc(event: PlayerItemDamageEvent) {
-        val chanceToIgnore: Int = getDurabilityIgnoreChance(event.item.getEnchantmentLevel(Enchantment.UNBREAKING))
-        if (chanceToIgnore <= 0) return
-
-        if (random.nextInt(100) < chanceToIgnore) event.isCancelled =true
-    }
-
     companion object {
-        fun getDurabilityIgnoreChance(level: Int): Int { return ((1 - (1.0 / (level + 1))) * 100).toInt() }
+        fun getDurabilityIncrease(level: Int): Int { return level * 20 }
     }
 }

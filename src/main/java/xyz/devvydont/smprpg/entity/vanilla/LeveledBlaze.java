@@ -28,7 +28,6 @@ public class LeveledBlaze extends VanillaEntity<Blaze> {
                 new ChancedItemDrop(ItemService.generate(CustomItemType.CYRAX_LEGGINGS), 10_000, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.CYRAX_BOOTS), 10_000, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.CYRAX_BOW), 10_000, this),
-                new ChancedItemDrop(ItemService.generate(CustomItemType.BOILING_PICKAXE), 5_000, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.BOILING_INGOT), 2_500, this),
 
                 new ChancedItemDrop(ItemService.generate(Material.BLAZE_ROD), 2, this),

@@ -36,7 +36,7 @@ class SilverBoots(itemService: ItemService, type: CustomItemType) : SilverArmorS
     }
 
     override fun getMaxDurability(): Int {
-        return 650
+        return armorDurabilityUnit * 4
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

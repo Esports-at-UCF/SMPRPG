@@ -17,7 +17,7 @@ import xyz.devvydont.smprpg.util.items.ToolStats
 open class ToolSetAttributeItem(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type), IRepairable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.ITEM
-    override val repairMaterial: ItemStack get() = getCraftingMaterial()
+    override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(getCraftingMaterial())
 
     override fun getAttributeModifiers(item: ItemStack?): Collection<AttributeEntry?>? {
         return listOf()

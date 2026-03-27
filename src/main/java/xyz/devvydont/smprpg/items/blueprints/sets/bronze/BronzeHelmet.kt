@@ -35,7 +35,7 @@ class BronzeHelmet(itemService: ItemService, type: CustomItemType) : BronzeArmor
     }
 
     override fun getMaxDurability(): Int {
-        return 800
+        return armorDurabilityUnit * 5
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

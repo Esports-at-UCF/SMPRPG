@@ -4,6 +4,7 @@ import net.kyori.adventure.key.Key;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
@@ -13,17 +14,23 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
 import xyz.devvydont.smprpg.items.interfaces.IEquippableAssetOverride;
+import xyz.devvydont.smprpg.items.interfaces.IRepairable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 
 import java.util.Collection;
 import java.util.List;
 
-public abstract class InfernoArmorSet extends CustomAttributeItem implements IBreakableEquipment, ICraftable, IEquippableAssetOverride {
+public abstract class InfernoArmorSet extends CustomAttributeItem implements IBreakableEquipment, ICraftable, IEquippableAssetOverride, IRepairable {
 
     public static final int POWER = 40;
     public static CustomItemType CRAFTING_COMPONENT = CustomItemType.INFERNO_REMNANT;
     private static final Key key = Key.key("inferno");
+
+    @Override
+    public @NotNull Collection<@NotNull ItemStack> getRepairMaterial() {
+        return List.of(itemService.getCustomItem(CRAFTING_COMPONENT));
+    }
 
     public InfernoArmorSet(ItemService itemService, CustomItemType type) {
         super(itemService, type);

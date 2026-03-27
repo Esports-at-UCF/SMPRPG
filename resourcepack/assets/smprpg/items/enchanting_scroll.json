@@ -4,7 +4,7 @@
     "models": [
       {
         "type": "minecraft:model",
-        "model": "materials:item/scroll",
+        "model": "smprpg:item/materials/scroll",
         "tints": [
           {
             "type": "minecraft:custom_model_data",
@@ -15,7 +15,7 @@
       },
       {
         "type": "minecraft:model",
-        "model": "materials:item/scroll_binding",
+        "model": "smprpg:item/materials/scroll_binding",
         "tints": [
           {
             "type": "minecraft:custom_model_data",

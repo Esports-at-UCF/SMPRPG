@@ -38,7 +38,7 @@ class MithrilHelmet(itemService: ItemService, type: CustomItemType) : MithrilArm
     }
 
     override fun getMaxDurability(): Int {
-        return 800
+        return armorDurabilityUnit * 5
     }
 
 }

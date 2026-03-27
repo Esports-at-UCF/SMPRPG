@@ -1,12 +1,15 @@
 package xyz.devvydont.smprpg.util.formatting;
 
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ObjectComponent;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.object.ObjectContents;
 import xyz.devvydont.smprpg.services.EconomyService;
 
 import java.util.ArrayList;
@@ -313,6 +316,17 @@ public final class ComponentUtils {
      */
     public static TextComponent powerLevelPrefix(int level) {
         return EMPTY.append(SYMBOL_BRACKET_LEFT).append(powerLevel(level)).append(SYMBOL_BRACKET_RIGHT);
+    }
+
+    /**
+     * Creates an object component that displays an atlas sprite, given the atlas and sprite path
+     *
+     * @param atlas The resource key for the atlas to use in the sprite lookup (e.g. "minecraft:items")
+     * @param spritePath The resource key for the direct path to the sprite to use. Returns a null sprite if the path is invalid.
+     * @return The styled object component
+     */
+    public static ObjectComponent atlasSprite(Key atlas, Key spritePath) {
+        return Component.object().contents(ObjectContents.sprite(atlas, spritePath)).build().color(NamedTextColor.WHITE);
     }
 
     /**

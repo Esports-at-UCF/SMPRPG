@@ -27,6 +27,7 @@ class SkillExperienceGainEvent(
         ENCHANT,
         BREW,
         FORGE,
+        ANVIL,
         XP,
         COMMANDS,
         UNKNOWN

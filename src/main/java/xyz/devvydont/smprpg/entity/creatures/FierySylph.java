@@ -34,7 +34,6 @@ public class FierySylph<T extends LivingEntity> extends CustomEntityInstance<T> 
                 new ChancedItemDrop(ItemService.generate(CustomItemType.CYRAX_LEGGINGS), 450, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.CYRAX_BOOTS), 425, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.CYRAX_BOW), 500, this),
-                new ChancedItemDrop(ItemService.generate(CustomItemType.BOILING_PICKAXE), 1000, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.BOILING_INGOT), 250, this),
 
                 new ChancedItemDrop(ItemService.generate(Material.BLAZE_ROD), 2, this),

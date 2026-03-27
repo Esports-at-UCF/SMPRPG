@@ -36,7 +36,7 @@ class RoseGoldChestplate(itemService: ItemService, type: CustomItemType) : RoseG
     }
 
     override fun getMaxDurability(): Int {
-        return 1000
+        return armorDurabilityUnit * 8
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

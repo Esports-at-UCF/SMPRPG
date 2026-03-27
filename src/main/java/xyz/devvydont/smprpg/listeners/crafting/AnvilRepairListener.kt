@@ -6,9 +6,14 @@ import io.papermc.paper.datacomponent.item.Repairable
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
+import org.bukkit.event.inventory.InventoryAction
+import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.PrepareAnvilEvent
+import org.bukkit.inventory.AnvilInventory
 import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent
 import xyz.devvydont.smprpg.items.CustomItemType
+import xyz.devvydont.smprpg.items.blueprints.equipment.ReforgeStone
 import xyz.devvydont.smprpg.items.blueprints.tools.augments.RepairCore
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
@@ -16,9 +21,11 @@ import xyz.devvydont.smprpg.items.interfaces.ReforgeApplicator
 import xyz.devvydont.smprpg.reforge.ReforgeType
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import kotlin.math.ceil
 import kotlin.math.max
+import kotlin.math.pow
 import kotlin.math.roundToInt
 
 /**
@@ -76,13 +83,25 @@ class AnvilRepairListener : ToggleableListener() {
             if (firstItemBlueprint !is IRepairable) return
 
             // Now that we know the item is repairable, check if our second item is the material we need to repair with
-            if (!secondItem.isSimilar(firstItemBlueprint.repairMaterial)) return
+            var isValidMaterial : Boolean = false
+            for (repairItem in firstItemBlueprint.repairMaterial) {
+                if (secondItem.isSimilar(repairItem)) {
+                    isValidMaterial = true
+                    break
+                }
+            }
+            if (!isValidMaterial) return
 
             // Calculate how much durability should be restored, using the player's mining level as a factor as well
             val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.view.player as Player)
-            val repairPerMat = (BASE_REPAIR_AMOUNT + (MINING_REPAIR_BONUS_PER_LEVEL * leveledPlayer.miningSkill.level))
-            repairAmount = ((maxDurability * repairPerMat) * secondItem.amount).roundToInt()
-            val numItemsRequired = ceil(1 / (maxDurability * repairPerMat)).toInt()
+            val repairPercentPerMat = (BASE_REPAIR_AMOUNT + (MINING_REPAIR_BONUS_PER_LEVEL * leveledPlayer.miningSkill.level))
+            repairAmount = (maxDurability * repairPercentPerMat).roundToInt()
+            var currentDamage = firstItem.getDataOrDefault(DataComponentTypes.DAMAGE, 0) as Int
+            var numItemsRequired = 0
+            while (currentDamage > 0) {
+                currentDamage -= repairAmount
+                numItemsRequired++
+            }
 
             event.view.setRepairItemCountCost(numItemsRequired)
         }
@@ -90,10 +109,63 @@ class AnvilRepairListener : ToggleableListener() {
         val result = firstItem.clone()
         result.setData(
             DataComponentTypes.DAMAGE,
-            max((result.getData(DataComponentTypes.DAMAGE)!! - repairAmount), 0)
+            max((result.getData(DataComponentTypes.DAMAGE)!! - repairAmount * secondItem.amount), 0)
         )
         firstItemBlueprint.updateItemData(result)
         event.result = result
+    }
+
+    /**
+     * Award skill experience for repairing.
+     *
+     * @param event
+     */
+    @EventHandler
+    @Suppress("unused")
+    private fun onGrabRepair(event: InventoryClickEvent) {
+        if (event.clickedInventory is AnvilInventory) {
+            val inventory = event.clickedInventory as AnvilInventory
+            if (inventory.result == null) return
+
+            if (event.slot == 2) {
+                when (event.action) {
+                    InventoryAction.NOTHING, InventoryAction.PLACE_ALL, InventoryAction.PLACE_SOME,
+                    InventoryAction.PLACE_ONE, InventoryAction.UNKNOWN, InventoryAction.PLACE_FROM_BUNDLE,
+                    InventoryAction.PLACE_ALL_INTO_BUNDLE, InventoryAction.PLACE_SOME_INTO_BUNDLE -> return
+                    else -> {
+                        val firstItemBlueprint = ItemService.blueprint(inventory.firstItem!!)
+                        val secondItemBlueprint = ItemService.blueprint(inventory.secondItem!!)
+
+                        val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.view.player as Player)
+                        val xpReward = leveledPlayer.generateSkillExperienceReward()
+                        if (secondItemBlueprint is ReforgeStone) {
+                            // We are picking up a reforged item, so let's award some magic xp + mining xp
+                            val rarityOrdinal = (firstItemBlueprint.getRarity(inventory.firstItem!!).ordinal + 1)
+                            val baseXp = (rarityOrdinal * 5.0.pow(secondItemBlueprint.reforge.powerRating)).toInt()
+                            xpReward.add(SkillType.MAGIC, baseXp)
+                            xpReward.add(SkillType.MINING, (baseXp / 2.0).roundToInt())
+                            xpReward.apply(leveledPlayer, SkillExperienceGainEvent.ExperienceSource.ANVIL)
+                        }
+                        else if (firstItemBlueprint is IBreakableEquipment) {
+                            // We are picking up a repaired item
+                            var firstItemDurability = inventory.firstItem!!.getDataOrDefault(DataComponentTypes.MAX_DAMAGE, 0) as Int
+                            firstItemDurability -= inventory.firstItem!!.getDataOrDefault(DataComponentTypes.DAMAGE, 0) as Int
+
+                            var resultItemDurability = inventory.result!!.getDataOrDefault(DataComponentTypes.MAX_DAMAGE, 0) as Int
+                            resultItemDurability -= inventory.result!!.getDataOrDefault(DataComponentTypes.DAMAGE, 0) as Int
+
+                            val difference = resultItemDurability - firstItemDurability
+
+                            val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.view.player as Player)
+                            val xpReward = leveledPlayer.generateSkillExperienceReward()
+                            xpReward.add(SkillType.MINING,
+                                (firstItemBlueprint.getRarity(inventory.firstItem!!).ordinal + 1) * (difference * 3))
+                            xpReward.apply(leveledPlayer, SkillExperienceGainEvent.ExperienceSource.ANVIL)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /*

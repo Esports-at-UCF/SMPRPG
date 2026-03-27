@@ -13,7 +13,6 @@ import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
-import java.util.List
 
 class HornOfWarlock(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
     ISellable, IHeaderDescribable, IModelOverridden {
@@ -30,11 +29,11 @@ class HornOfWarlock(itemService: ItemService, type: CustomItemType) : CustomItem
      * @return The worth of the item.
      */
     override fun getWorth(item: ItemStack): Int {
-        return 50000 * item.getAmount()
+        return 50000 * item.amount
     }
 
     override fun getHeader(itemStack: ItemStack?): MutableList<Component?> {
-        return List.of<Component?>(
+        return mutableListOf(
             ComponentUtils.merge(
                 ComponentUtils.create("A fractured horn from the "),
                 ComponentUtils.create("Illager Warlock", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
@@ -46,6 +45,6 @@ class HornOfWarlock(itemService: ItemService, type: CustomItemType) : CustomItem
     }
 
     override fun getDisplayKey(): Key {
-        return IModelOverridden.ofItemType(customItemType)
+        return IModelOverridden.ofItemTypeInDirectory(customItemType, "materials")
     }
 }

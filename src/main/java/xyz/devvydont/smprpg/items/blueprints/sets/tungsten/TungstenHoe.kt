@@ -17,15 +17,17 @@ import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.HoeRecipe
-import java.util.List
 
 class TungstenHoe(itemService: ItemService, type: CustomItemType) : TungstenAttributeItem(itemService, type),
     ICraftable, IBreakableEquipment, IModelOverridden {
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
-        return List.of<AttributeEntry?>(
+        return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemHoe.getHoeDamage(customItemType)),
-            MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(customItemType)),
+            MultiplicativeAttributeEntry(
+                AttributeWrapper.ATTACK_SPEED,
+                ItemHoe.getHoeAttackSpeedDebuff(customItemType)
+            ),
             AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed.toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, getToolStats().fortune.toDouble())
         )

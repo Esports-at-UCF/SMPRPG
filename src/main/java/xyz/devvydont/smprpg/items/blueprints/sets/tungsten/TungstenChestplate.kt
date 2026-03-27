@@ -1,10 +1,8 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.tungsten
 
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
@@ -16,13 +14,12 @@ import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.builders.ChestplateRecipe
-import java.util.List
 
 class TungstenChestplate(itemService: ItemService, type: CustomItemType) : TungstenArmorSet(itemService, type),
     IBreakableEquipment, ICraftable, IModelOverridden {
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
-        return List.of<AttributeEntry?>(
+        return mutableListOf(
             AdditiveAttributeEntry(
                 AttributeWrapper.DEFENSE,
                 ItemArmor.getDefenseFromItemType(customItemType).toDouble()
@@ -36,7 +33,7 @@ class TungstenChestplate(itemService: ItemService, type: CustomItemType) : Tungs
     }
 
     override fun getMaxDurability(): Int {
-        return 800
+        return armorDurabilityUnit * 8
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

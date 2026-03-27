@@ -16,7 +16,8 @@ import xyz.devvydont.smprpg.util.items.ToolStats
 abstract class AdamantiumArmorSet(itemService: ItemService, type: CustomItemType) :
     CustomAttributeItem(itemService, type), IEquippableAssetOverride, IRepairable {
 
-    override val repairMaterial : ItemStack get() = getCraftingMaterial()
+    override val repairMaterial : MutableCollection<ItemStack> get() = mutableListOf(getCraftingMaterial())
+    val armorDurabilityUnit: Int get() = ToolStats.ADAMANTIUM.getArmorUnitDurability().toInt()
 
     override fun getAssetId(): Key { return key }
 

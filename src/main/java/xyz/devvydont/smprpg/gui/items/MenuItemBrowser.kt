@@ -233,24 +233,22 @@ class MenuItemBrowser @JvmOverloads constructor(
         // Now set the slots for a next/prev page that increment/decrement the page and re-render
         val displayPage = page + 1
         val displayPageMax = lastPage + 1
+        val previousButton = BUTTON_PAGE_PREVIOUS.clone()
+        previousButton.editMeta {  meta -> meta.itemName(ComponentUtils.create("Previous Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD))}
         this.setButton(
             (ROWS - 1) * 9,
-            createNoRenderNamedItem(
-                Material.BLACK_STAINED_GLASS_PANE,
-                ComponentUtils.create("Previous Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD)
-            )
+            previousButton
         ) { _: InventoryClickEvent ->
             page--
             this.render()
             this.sounds.playPagePrevious()
         }
 
+        val nextButton = BUTTON_PAGE_NEXT.clone()
+        nextButton.editMeta {  meta -> meta.itemName(ComponentUtils.create("Next Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD))}
         this.setButton(
             (ROWS - 1) * 9 + 8,
-            createNoRenderNamedItem(
-                Material.BLACK_STAINED_GLASS_PANE,
-                ComponentUtils.create("Next Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD)
-            )
+            nextButton
         ) { _: InventoryClickEvent ->
             page++
             this.render()

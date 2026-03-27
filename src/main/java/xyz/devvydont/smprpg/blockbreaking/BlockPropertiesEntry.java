@@ -116,7 +116,7 @@ public class BlockPropertiesEntry {
      */
     public static class Builder {
 
-        private @Nullable Set<ItemClassification> preferredTool = null;
+        private @Nullable Set<ItemClassification> preferredTool;
         private @Nullable ItemClassification[] instabreakTool = null;
         private float hardness = 0;
         private float breakingPower = 0;

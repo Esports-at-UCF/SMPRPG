@@ -36,7 +36,7 @@ class TitaniumBoots(itemService: ItemService, type: CustomItemType) : TitaniumAr
     }
 
     override fun getMaxDurability(): Int {
-        return 650
+        return armorDurabilityUnit * 4
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {
