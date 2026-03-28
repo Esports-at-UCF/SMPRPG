@@ -61,9 +61,7 @@ class BreezeborneStaff(itemService: ItemService, type: CustomItemType) : CustomA
         )
     }
 
-    override fun getPowerRating(): Int {
-        return 30
-    }
+    override fun getPowerRating(): Int { return 30 }
 
     override fun getHeader(itemStack: ItemStack?): MutableList<Component?> {
         val components: MutableList<Component?> = ArrayList()
@@ -101,59 +99,19 @@ class BreezeborneStaff(itemService: ItemService, type: CustomItemType) : CustomA
         )
     }
 
-    override fun getActiveSlot(): EquipmentSlotGroup {
-        return EquipmentSlotGroup.MAINHAND
-    }
+    override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.MAINHAND }
 
-    override fun getMaxDurability(): Int {
-        return 10000
-    }
+    override fun getMaxDurability(): Int { return 10000 }
 
-    override fun getManaCost(): Int {
-        return 30
-    }
-
-    override fun getHitParticle(): Particle {
-        return Particle.END_ROD
-    }
-
-    override fun getMissParticle(): Particle {
-        return Particle.ENCHANTED_HIT
-    }
-
-    override fun getParticleDensity(): Int {
-        return 26
-    }
-
-    override fun getParticleRange(): Int {
-        return 13
-    }
+    override val manaCost : Int get() = 30
+    override val hitParticle: Particle get() = Particle.END_ROD
+    override val missParticle: Particle get() = Particle.ENCHANTED_HIT
+    override val particleRange: Int get() = 13
+    override val particleDensity: Int get() = particleRange * 2
 
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
-        itemStack.setData<AttackRange?>(
-            DataComponentTypes.ATTACK_RANGE, AttackRange.attackRange()
-                .hitboxMargin(0.2f)
-                .maxReach(13.0f)
-                .maxCreativeReach(13.0f)
-                .build()
-        )
-        itemStack.setData<Weapon?>(DataComponentTypes.WEAPON, Weapon.weapon().build())
-        itemStack.setData<SwingAnimation?>(
-            DataComponentTypes.SWING_ANIMATION, SwingAnimation.swingAnimation()
-                .type(SwingAnimation.Animation.STAB)
-                .duration(10)
-                .build()
-        )
-        itemStack.setData<PiercingWeapon?>(
-            DataComponentTypes.PIERCING_WEAPON, PiercingWeapon.piercingWeapon()
-                .dealsKnockback(false)
-                .dismounts(false)
-                .sound(SoundEventKeys.ENTITY_BLAZE_SHOOT)
-                .hitSound(SoundEventKeys.ENTITY_EXPERIENCE_ORB_PICKUP)
-                .build()
-        )
-        itemStack.setData<@IntRange(from = 1L, to = 99L) Int?>(DataComponentTypes.MAX_STACK_SIZE, 1)
+        IMageBeam.updateStaffComponents(itemStack, particleRange, 0.2f, SoundEventKeys.ENTITY_BLAZE_SHOOT, SoundEventKeys.ENTITY_EXPERIENCE_ORB_PICKUP)
     }
 
     override fun getAbilities(item: ItemStack?): MutableCollection<AbilityEntry?> {
@@ -171,9 +129,7 @@ class BreezeborneStaff(itemService: ItemService, type: CustomItemType) : CustomA
         )
     }
 
-    override fun getCooldown(item: ItemStack?): Long {
-        return TickTime.seconds(3)
-    }
+    override fun getCooldown(item: ItemStack?): Long { return TickTime.seconds(3) }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     fun __onAirshotHit(event: CustomEntityDamageByEntityEvent) {

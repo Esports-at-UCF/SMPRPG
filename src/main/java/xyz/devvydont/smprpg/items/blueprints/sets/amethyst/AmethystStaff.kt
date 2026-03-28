@@ -75,15 +75,11 @@ class AmethystStaff(itemService: ItemService, type: CustomItemType) : CustomAttr
 
     override fun getMaxDurability(): Int { return ToolStats.IRON.durability }
 
-    override fun getManaCost(): Int { return 10 }
-
-    override fun getHitParticle(): Particle { return Particle.END_ROD }
-
-    override fun getMissParticle(): Particle { return Particle.CRIT }
-
-    override fun getParticleDensity(): Int { return 20 }
-
-    override fun getParticleRange(): Int { return 10 }
+    override val manaCost: Int get() = 10
+    override val hitParticle: Particle get() = Particle.END_ROD
+    override val missParticle: Particle get() = Particle.CRIT
+    override val particleRange: Int get() = 10
+    override val particleDensity: Int get() = particleRange * 2
 
     override fun getAbilities(item: ItemStack?): MutableCollection<AbilityEntry?> {
         return mutableListOf(
@@ -99,28 +95,6 @@ class AmethystStaff(itemService: ItemService, type: CustomItemType) : CustomAttr
 
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
-        itemStack.setData<AttackRange?>(
-            DataComponentTypes.ATTACK_RANGE, AttackRange.attackRange()
-                .hitboxMargin(0.15f)
-                .maxReach(10.0f)
-                .maxCreativeReach(10.0f)
-                .build()
-        )
-        itemStack.setData<Weapon?>(DataComponentTypes.WEAPON, Weapon.weapon().build())
-        itemStack.setData<SwingAnimation?>(
-            DataComponentTypes.SWING_ANIMATION, SwingAnimation.swingAnimation()
-                .type(SwingAnimation.Animation.STAB)
-                .duration(10)
-                .build()
-        )
-        itemStack.setData<PiercingWeapon?>(
-            DataComponentTypes.PIERCING_WEAPON, PiercingWeapon.piercingWeapon()
-                .dealsKnockback(false)
-                .dismounts(false)
-                .sound(SoundEventKeys.BLOCK_AMETHYST_BLOCK_RESONATE)
-                .hitSound(SoundEventKeys.BLOCK_TRIAL_SPAWNER_EJECT_ITEM)
-                .build()
-        )
-        itemStack.setData<@IntRange(from = 1L, to = 99L) Int?>(DataComponentTypes.MAX_STACK_SIZE, 1)
+        IMageBeam.updateStaffComponents(itemStack, particleRange, 0.15f, SoundEventKeys.BLOCK_AMETHYST_BLOCK_RESONATE, SoundEventKeys.BLOCK_TRIAL_SPAWNER_EJECT_ITEM)
     }
 }

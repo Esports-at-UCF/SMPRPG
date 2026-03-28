@@ -75,40 +75,15 @@ class WoodStaff(itemService: ItemService, type: CustomItemType) : CustomAttribut
 
     override fun getMaxDurability(): Int { return ToolStats.WOOD.durability }
 
-    override fun getManaCost(): Int { return 5 }
-
-    override fun getHitParticle(): Particle { return Particle.ENCHANTED_HIT }
-
-    override fun getMissParticle(): Particle { return Particle.CRIT }
-
-    override fun getParticleDensity(): Int { return 16 }
-
-    override fun getParticleRange(): Int { return 8 }
+    override val manaCost: Int get() = 5
+    override val hitParticle: Particle get() = Particle.ENCHANTED_HIT
+    override val missParticle: Particle get() = Particle.CRIT
+    override val particleRange: Int get() = 8
+    override val particleDensity: Int get() = particleRange * 2
 
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
-        itemStack.setData<AttackRange?>(
-            DataComponentTypes.ATTACK_RANGE, AttackRange.attackRange()
-                .hitboxMargin(0.1f)
-                .maxReach(8.0f)
-                .maxCreativeReach(8.0f)
-                .build()
-        )
-        itemStack.setData<Weapon?>(DataComponentTypes.WEAPON, Weapon.weapon().build())
-        itemStack.setData<SwingAnimation?>(
-            DataComponentTypes.SWING_ANIMATION, SwingAnimation.swingAnimation()
-                .type(SwingAnimation.Animation.STAB)
-                .duration(10)
-                .build()
-        )
-        itemStack.setData<PiercingWeapon?>(
-            DataComponentTypes.PIERCING_WEAPON, PiercingWeapon.piercingWeapon()
-                .dealsKnockback(false)
-                .dismounts(false)
-                .sound(SoundEventKeys.ENTITY_PLAYER_ATTACK_SWEEP)
-                .hitSound(SoundEventKeys.BLOCK_TRIAL_SPAWNER_EJECT_ITEM)
-                .build()
-        )
-        itemStack.setData<@IntRange(from = 1L, to = 99L) Int?>(DataComponentTypes.MAX_STACK_SIZE, 1)
+        IMageBeam.updateStaffComponents(itemStack, particleRange, 0.1f, SoundEventKeys.ENTITY_PLAYER_ATTACK_SWEEP, SoundEventKeys.BLOCK_TRIAL_SPAWNER_EJECT_ITEM)
     }
+
 }

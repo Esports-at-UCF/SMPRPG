@@ -28,14 +28,16 @@ import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICantCrit
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IMageBeam
+import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 class MithrilStaff(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IBreakableEquipment, ICantCrit, IMageBeam, ICraftable {
+    IBreakableEquipment, ICantCrit, IMageBeam, ICraftable, IRepairable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.STAFF
+    override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.MITHRIL_INGOT))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
@@ -46,13 +48,9 @@ class MithrilStaff(itemService: ItemService, type: CustomItemType) : CustomAttri
         )
     }
 
-    override fun getPowerRating(): Int {
-        return ToolStats.MITHRIL.power
-    }
+    override fun getPowerRating(): Int { return ToolStats.MITHRIL.power }
 
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, customItemType.key + "-recipe")
-    }
+    override fun getRecipeKey(): NamespacedKey { return NamespacedKey(plugin, customItemType.key + "-recipe") }
 
     override fun getCustomRecipe(): CraftingRecipe {
         val recipe = ShapedRecipe(recipeKey, generate())
@@ -62,7 +60,7 @@ class MithrilStaff(itemService: ItemService, type: CustomItemType) : CustomAttri
             "m  "
         )
         recipe.setIngredient('d', Material.DIAMOND_BLOCK)
-        recipe.setIngredient('m', generate(CustomItemType.MITHRIL_BLOCK))
+        recipe.setIngredient('m', generate(CustomItemType.MITHRIL_INGOT))
         recipe.setCategory(CraftingBookCategory.EQUIPMENT)
         return recipe
     }
@@ -73,58 +71,18 @@ class MithrilStaff(itemService: ItemService, type: CustomItemType) : CustomAttri
         )
     }
 
-    override fun getActiveSlot(): EquipmentSlotGroup {
-        return EquipmentSlotGroup.MAINHAND
-    }
+    override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.MAINHAND }
 
-    override fun getMaxDurability(): Int {
-        return ToolStats.MITHRIL.durability
-    }
+    override fun getMaxDurability(): Int { return ToolStats.MITHRIL.durability }
 
-    override fun getManaCost(): Int {
-        return 20
-    }
-
-    override fun getHitParticle(): Particle {
-        return Particle.END_ROD
-    }
-
-    override fun getMissParticle(): Particle {
-        return Particle.ENCHANTED_HIT
-    }
-
-    override fun getParticleDensity(): Int {
-        return 22
-    }
-
-    override fun getParticleRange(): Int {
-        return 11
-    }
+    override val manaCost: Int get() = 20
+    override val hitParticle: Particle get() = Particle.END_ROD
+    override val missParticle: Particle get() = Particle.ENCHANTED_HIT
+    override val particleRange: Int get() = 11
+    override val particleDensity: Int get() = particleRange * 2
 
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
-        itemStack.setData<AttackRange?>(
-            DataComponentTypes.ATTACK_RANGE, AttackRange.attackRange()
-                .hitboxMargin(0.2f)
-                .maxReach(11.0f)
-                .maxCreativeReach(11.0f)
-                .build()
-        )
-        itemStack.setData<Weapon?>(DataComponentTypes.WEAPON, Weapon.weapon().build())
-        itemStack.setData<SwingAnimation?>(
-            DataComponentTypes.SWING_ANIMATION, SwingAnimation.swingAnimation()
-                .type(SwingAnimation.Animation.STAB)
-                .duration(10)
-                .build()
-        )
-        itemStack.setData<PiercingWeapon?>(
-            DataComponentTypes.PIERCING_WEAPON, PiercingWeapon.piercingWeapon()
-                .dealsKnockback(false)
-                .dismounts(false)
-                .sound(SoundEventKeys.ENTITY_BLAZE_SHOOT)
-                .hitSound(SoundEventKeys.ENTITY_EXPERIENCE_ORB_PICKUP)
-                .build()
-        )
-        itemStack.setData<@IntRange(from = 1L, to = 99L) Int?>(DataComponentTypes.MAX_STACK_SIZE, 1)
+        IMageBeam.updateStaffComponents(itemStack, particleRange, 0.2f, SoundEventKeys.ENTITY_BLAZE_SHOOT, SoundEventKeys.ENTITY_EXPERIENCE_ORB_PICKUP)
     }
 }
