@@ -209,11 +209,14 @@ public class EntityGlobals {
      */
     public static int getLevelDepthBoost(Location location) {
 
-        if (location.getY() >= 64)
+        var seaLevel = location.getWorld().getSeaLevel();
+        var maxDepth = location.getWorld().getMinHeight();
+        if (location.getY() >= seaLevel)
             return 0;
 
-        double x = Math.abs(64.0 - location.getY());
-        return (int) (x / 20);
+        double depthRange = seaLevel - maxDepth;
+        double currentY = seaLevel - location.getY();
+        return (int) (20 * (currentY / depthRange));
     }
 
 
