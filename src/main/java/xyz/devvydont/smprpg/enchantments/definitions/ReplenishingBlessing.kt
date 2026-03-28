@@ -13,17 +13,20 @@ import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.block.data.Ageable
 import org.bukkit.enchantments.Enchantment
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.ScrollColor
 import xyz.devvydont.smprpg.services.EnchantmentService
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.time.TickTime
 import java.util.*
@@ -63,7 +66,10 @@ class ReplenishingBlessing(id: String) : CustomEnchantment(id), Listener {
         // Check that the item in hand is enchanted.
 
         val enchLevel = event.player.inventory.itemInMainHand.getEnchantmentLevel(enchantment)
-        if (enchLevel == 0) return
+        if (enchLevel <= 0) return
+
+        val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.player)
+        if (!isEnchantmentActive(event.player.equipment.itemInMainHand, leveledPlayer)) return
 
         val passThreshold = getReplantChance(enchLevel)
         val block = event.block

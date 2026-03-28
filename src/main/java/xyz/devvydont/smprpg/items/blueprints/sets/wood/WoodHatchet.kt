@@ -21,6 +21,7 @@ import xyz.devvydont.smprpg.util.java.SealedInstantiators
 
 class WoodHatchet(itemService: ItemService, type: CustomItemType) : ItemHatchet(itemService, type), ICraftable,
     IBreakableEquipment, IRepairable {
+
     override fun getPowerRating(): Int { return ToolStats.WOOD.power }
 
     override val repairMaterial : MutableCollection<ItemStack> = mutableListOf(itemService.getCustomItem(Material.OAK_PLANKS), itemService.getCustomItem(Material.BIRCH_PLANKS), itemService.getCustomItem(Material.SPRUCE_PLANKS),
@@ -41,7 +42,7 @@ class WoodHatchet(itemService: ItemService, type: CustomItemType) : ItemHatchet(
     }
 
     override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(getRecipeKey(), generate())
+        val recipe = ShapedRecipe(recipeKey, generate())
         recipe.shape(
             "p ",
             "ps",

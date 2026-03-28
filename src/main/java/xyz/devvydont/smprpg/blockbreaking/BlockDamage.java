@@ -143,7 +143,6 @@ public class BlockDamage {
 					tickInc *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.AIRBORNE_MINING).getValue();
 
                 currentTicks = currentTicks + tickInc;
-				soundTicks++;
 				if (soundTicks % 4 == 0)
 				{
 					boolean isWoodNonNoteblock = currentTarget.getBlockSoundGroup().getHitSound() == Sound.BLOCK_WOOD_HIT && currentTarget.getType() != Material.NOTE_BLOCK;
@@ -165,6 +164,7 @@ public class BlockDamage {
 						currentTarget.getWorld().playSound(currentTarget.getLocation(), hitSound, hitVolume, hitPitch);
 					}
 				}
+				soundTicks++;
             }
     	},0L, 1L);
     	
@@ -302,6 +302,7 @@ public class BlockDamage {
 		if (damage > 1) {
 		  return 0d;
 		}
+
 
 		return Math.round(1 / damage);
     }

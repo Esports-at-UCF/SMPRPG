@@ -4,6 +4,7 @@ import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.AttackRange
 import io.papermc.paper.datacomponent.item.PiercingWeapon
 import io.papermc.paper.datacomponent.item.SwingAnimation
+import io.papermc.paper.datacomponent.item.UseCooldown
 import io.papermc.paper.datacomponent.item.Weapon
 import io.papermc.paper.registry.keys.SoundEventKeys
 import net.kyori.adventure.key.Key
@@ -112,6 +113,7 @@ class BreezeborneStaff(itemService: ItemService, type: CustomItemType) : CustomA
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
         IMageBeam.updateStaffComponents(itemStack, particleRange, 0.2f, SoundEventKeys.ENTITY_BLAZE_SHOOT, SoundEventKeys.ENTITY_EXPERIENCE_ORB_PICKUP)
+        itemStack.setData(DataComponentTypes.USE_COOLDOWN, UseCooldown.useCooldown(0.0001f).cooldownGroup(COOLDOWN_GROUP))
     }
 
     override fun getAbilities(item: ItemStack?): MutableCollection<AbilityEntry?> {
@@ -163,5 +165,6 @@ class BreezeborneStaff(itemService: ItemService, type: CustomItemType) : CustomA
 
     companion object {
         const val DAMAGE_MULT = 3.0
+        val COOLDOWN_GROUP = NamespacedKey(plugin, "breezeborne_staff_ability")
     }
 }

@@ -7,16 +7,18 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.interfaces.IModularToolComponent
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 
 class RoseGoldDrillHead(itemService: ItemService, type: CustomItemType) : RoseGoldAttributeItem(itemService, type),
     IModularToolComponent {
 
     override val itemClassification: ItemClassification get() = ItemClassification.ITEM
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.MINING, toolStats.skillReqLevel))
 
     override fun getAttributes(): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed * 1.5, ATTR_KEY),
-            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getToolStats().miningPower.toDouble(), ATTR_KEY)
+            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, toolStats.speed * 1.5, ATTR_KEY),
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, toolStats.miningPower.toDouble(), ATTR_KEY)
         )
     }
 

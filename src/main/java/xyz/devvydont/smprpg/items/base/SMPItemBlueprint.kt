@@ -34,6 +34,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
 import xyz.devvydont.smprpg.util.items.FoodUtil
 import java.util.function.Consumer
+import kotlin.collections.iterator
 import kotlin.math.roundToInt
 
 /**
@@ -401,16 +402,17 @@ abstract class SMPItemBlueprint(
         itemStack.setData(DataComponentTypes.TOOLTIP_STYLE, Key.key("smprpg:${getRarity(itemStack).name.lowercase()}_item"))
 
         // If this item contains attributes, apply them.
+        var addAttributes = true
         if (this is IBreakableEquipment) {
             // Only apply our modifiers if the item is not broken.
-            if (itemStack.getData(DataComponentTypes.DAMAGE) as Int >= (itemStack.getData(DataComponentTypes.MAX_DAMAGE) as Int - 1)) {
-                AttributeService.instance.clearAttributeModifiers(itemStack)
+            if (itemStack.getData(DataComponentTypes.DAMAGE) as Int >= (itemStack.getData(DataComponentTypes.MAX_DAMAGE) as Int - 1))
+                addAttributes = false
             }
-            else
-                AttributeUtil.applyModifiers(this, itemStack)
-        }
-        else
+
+        if (addAttributes)
             AttributeUtil.applyModifiers(this, itemStack)
+        else
+            AttributeService.instance.clearAttributeModifiers(itemStack)
 
         // Update meta properties. Eventually, I think we should remove this. We can edit meta using this method.
         val meta = itemStack.itemMeta

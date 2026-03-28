@@ -16,21 +16,25 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.HatchetRecipe
-import xyz.devvydont.smprpg.util.items.ToolGlobals
 
 class TinHatchet(itemService: ItemService, type: CustomItemType) : TinAttributeItem(itemService, type), ICraftable, IBreakableEquipment {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HATCHET
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(
+        Pair(SkillType.WOODCUTTING, toolStats.skillReqLevel),
+        Pair(SkillType.FARMING, toolStats.skillReqLevel)
+    )
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.TIN_TOOL_MINING_POWER.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, toolStats.miningPower.toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(CustomItemType.TIN_SWORD) - 5),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemAxe.AXE_ATTACK_SPEED_DEBUFF),
-            AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.TIN_TOOL_SPEED * 0.8),
-            AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, ToolGlobals.TIN_TOOL_FORTUNE * 0.8),
-            AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, ToolGlobals.TIN_TOOL_FORTUNE * 0.8)
+            AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, toolStats.speed * 0.8),
+            AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, toolStats.fortune * 0.8),
+            AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, toolStats.fortune * 0.8)
         )
     }
 

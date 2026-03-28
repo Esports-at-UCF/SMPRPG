@@ -32,6 +32,7 @@ import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.ActionBarService
 import xyz.devvydont.smprpg.services.EnchantmentService
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 class MercyBlessing(id: String) : CustomEnchantment(id), Listener {
@@ -82,6 +83,9 @@ class MercyBlessing(id: String) : CustomEnchantment(id), Listener {
     fun onFatalDamage(event: EntityDamageEvent) {
         if (event.entity !is Player) return
         val player = event.entity as Player
+
+        val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
+        if (!isEnchantmentActive(player.equipment.chestplate, leveledPlayer)) return
 
         val chestplate: ItemStack? = player.equipment.chestplate
         if (chestplate == null || chestplate.type == Material.AIR) return

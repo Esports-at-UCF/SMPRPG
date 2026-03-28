@@ -17,20 +17,22 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemPickaxe
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.PickaxeRecipe
 import xyz.devvydont.smprpg.util.items.ToolGlobals
 
 class TinPickaxe(itemService: ItemService, type: CustomItemType) : TinAttributeItem(itemService, type), IBreakableEquipment, ICraftable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.PICKAXE
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.MINING, toolStats.skillReqLevel))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, ToolGlobals.TIN_TOOL_MINING_POWER.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, toolStats.miningPower.toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemPickaxe.getPickaxeDamage(Material.WOODEN_PICKAXE)),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemPickaxe.PICKAXE_ATTACK_SPEED_DEBUFF),
-            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.TIN_TOOL_SPEED.toDouble()),
-            AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, ToolGlobals.TIN_TOOL_FORTUNE.toDouble())
+            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, toolStats.speed.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, toolStats.fortune.toDouble())
         )
     }
 

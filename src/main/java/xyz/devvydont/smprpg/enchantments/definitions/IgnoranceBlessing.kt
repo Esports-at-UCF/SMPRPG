@@ -10,16 +10,19 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Color
 import org.bukkit.enchantments.Enchantment
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.ability.AbilityCost
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.ScrollColor
 import xyz.devvydont.smprpg.events.abilities.AbilityCastEvent
 import xyz.devvydont.smprpg.services.EnchantmentService
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 class IgnoranceBlessing(id: String) : CustomEnchantment(id), Listener {
@@ -52,6 +55,9 @@ class IgnoranceBlessing(id: String) : CustomEnchantment(id), Listener {
 
     @EventHandler
     private fun onAbilityCast(event: AbilityCastEvent) {
+        val dealer = event.player
+        if (!isEnchantmentActive(dealer.player.equipment.itemInMainHand, dealer)) return
+
         if (event.abilityCost.resource == AbilityCost.Resource.MANA) {
             val ench = event.item.getEnchantmentLevel(this.enchantment)
             if (ench > 0) event.abilityCost = event.abilityCost.reduce(getManaCostReduction(ench) / 100.0)

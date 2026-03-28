@@ -22,11 +22,13 @@ import org.bukkit.event.Listener
 import org.bukkit.event.server.ServerLoadEvent
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.ScrollColor
 import xyz.devvydont.smprpg.services.EnchantmentService
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.time.TickTime
@@ -77,8 +79,14 @@ class VoidstridingBlessing(id: String) : CustomEnchantment(id), Listener {
         if (!event.hasChangedBlock()) return
 
         // Check that the item is enchanted.
-        val equipment = event.getEntity().equipment
+        val entity = event.entity
+        val equipment = entity.equipment
         if (equipment == null) return
+
+        if (entity is Player) {
+            val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(entity)
+            if (!isEnchantmentActive(equipment.boots, leveledPlayer)) return
+        }
 
         val boots = equipment.boots
         val attribute = event.getEntity().getAttribute(Attribute.GRAVITY)

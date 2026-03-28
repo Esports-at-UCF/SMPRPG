@@ -10,18 +10,20 @@ import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IEquippableAssetOverride
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
+import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 abstract class AdamantiumArmorSet(itemService: ItemService, type: CustomItemType) :
-    CustomAttributeItem(itemService, type), IEquippableAssetOverride, IRepairable {
+    CustomAttributeItem(itemService, type), IEquippableAssetOverride, IRepairable, ISkillRequirement {
 
     override val repairMaterial : MutableCollection<ItemStack> get() = mutableListOf(getCraftingMaterial())
-    val armorDurabilityUnit: Int get() = ToolStats.ADAMANTIUM.getArmorUnitDurability().toInt()
+    val toolStats : ToolStats get() = ToolStats.ADAMANTIUM
+    val armorDurabilityUnit : Int get() = toolStats.getArmorUnitDurability().toInt()
 
     override fun getAssetId(): Key { return key }
 
-    override fun getPowerRating(): Int { return ToolStats.ADAMANTIUM.power }
+    override fun getPowerRating(): Int { return toolStats.power }
 
     open fun getCraftingMaterial(): ItemStack = itemService.getCustomItem(CustomItemType.ADAMANTIUM_INGOT)
 

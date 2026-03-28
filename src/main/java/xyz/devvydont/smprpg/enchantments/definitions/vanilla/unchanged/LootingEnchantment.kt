@@ -11,11 +11,13 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment
 import xyz.devvydont.smprpg.events.CustomItemQuantityRollDropEvent
 import xyz.devvydont.smprpg.items.blueprints.economy.CustomItemCoin
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import kotlin.math.roundToInt
@@ -40,6 +42,9 @@ class LootingEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key), 
 
     @EventHandler
     fun onItemQuantityRoll(event: CustomItemQuantityRollDropEvent) {
+        val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.player)
+        if (!isEnchantmentActive(event.player.equipment.itemInMainHand, leveledPlayer)) return
+
         val looting = EnchantmentUtil.getEnchantLevel(Enchantment.LOOTING, event.tool)
         if (looting < 1) return
 

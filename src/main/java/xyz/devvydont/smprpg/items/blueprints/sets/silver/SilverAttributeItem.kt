@@ -5,18 +5,16 @@ import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
+import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.items.tools.ToolSetAttributeItem
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ToolStats
 
-open class SilverAttributeItem(itemService: ItemService, type: CustomItemType) : ToolSetAttributeItem(itemService,
-    type) {
+abstract class SilverAttributeItem(itemService: ItemService, type: CustomItemType) : ToolSetAttributeItem(itemService,
+    type), ISkillRequirement {
 
     override val itemClassification: ItemClassification get() = ItemClassification.ITEM
-
-    override fun getToolStats(): ToolStats {
-        return ToolStats.SILVER
-    }
+    override val toolStats: ToolStats get() = ToolStats.SILVER
 
     override fun getCraftingMaterial(): ItemStack {
         return itemService.getCustomItem(CustomItemType.SILVER_INGOT)

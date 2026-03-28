@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
 import org.bukkit.Sound
 import org.bukkit.attribute.Attribute
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -14,9 +15,11 @@ import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.EntityRegainHealthEvent
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 class SyphonEnchantment(id: String) : CustomEnchantment(id), Listener {
@@ -44,6 +47,11 @@ class SyphonEnchantment(id: String) : CustomEnchantment(id), Listener {
         if (event.entity.killer == null) return
 
         val killer = event.entity.killer
+
+        if (killer is Player) {
+            val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(killer)
+            if (!isEnchantmentActive(killer.equipment.itemInMainHand, leveledPlayer)) return
+        }
 
         val maxHP = killer!!.getAttribute(Attribute.MAX_HEALTH)
         if (maxHP == null) return

@@ -13,6 +13,7 @@ import org.bukkit.Color
 import org.bukkit.Sound
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Item
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -30,6 +31,7 @@ import xyz.devvydont.smprpg.services.ActionBarService
 import xyz.devvydont.smprpg.services.DropsService
 import xyz.devvydont.smprpg.services.DropsService.DropFlag
 import xyz.devvydont.smprpg.services.EnchantmentService
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.function.Consumer
 
@@ -78,6 +80,10 @@ class TelekinesisBlessing(id: String) : CustomEnchantment(id), Listener {
         // Is the owner of the item online?
         val owner = Bukkit.getPlayer(ownerID)
         if (owner == null) return false
+
+        // Is the enchantment active?
+        val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(owner)
+        if (!isEnchantmentActive(owner.equipment.itemInMainHand, leveledPlayer)) return false
 
         // Is this item marked with the "loot" tag?
         val flag = SMPRPG.getService(DropsService::class.java).getFlag(item)

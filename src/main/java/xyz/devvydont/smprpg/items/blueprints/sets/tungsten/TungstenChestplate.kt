@@ -13,10 +13,14 @@ import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.ChestplateRecipe
 
 class TungstenChestplate(itemService: ItemService, type: CustomItemType) : TungstenArmorSet(itemService, type),
     IBreakableEquipment, ICraftable, IModelOverridden {
+
+    override val itemClassification: ItemClassification get() = ItemClassification.CHESTPLATE
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.COMBAT, toolStats.skillReqLevel))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
@@ -39,7 +43,5 @@ class TungstenChestplate(itemService: ItemService, type: CustomItemType) : Tungs
     override fun getCustomRecipe(): CraftingRecipe? {
         return ChestplateRecipe(this, getCraftingMaterial(), generate()).build()
     }
-
-    override val itemClassification: ItemClassification get() = ItemClassification.CHESTPLATE
 
 }

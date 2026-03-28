@@ -17,10 +17,12 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 class DensityEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key), Listener {
@@ -42,6 +44,9 @@ class DensityEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key), 
     fun onFallingMaceDamage(event: CustomEntityDamageByEntityEvent) {
         if (event.dealer !is Player) return
         val dealer = event.dealer
+
+        val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer)
+        if (!isEnchantmentActive(dealer.equipment.itemInMainHand, leveledPlayer)) return
 
         if (dealer.fallDistance <= 3.0) return
 

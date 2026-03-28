@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.enchantments
 
+import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.DyedItemColor
 import io.papermc.paper.plugin.bootstrap.BootstrapContext
 import io.papermc.paper.plugin.lifecycle.event.handler.LifecycleEventHandler
@@ -27,8 +28,12 @@ import org.bukkit.inventory.meta.ItemMeta
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
+import xyz.devvydont.smprpg.entity.player.LeveledPlayer
 import xyz.devvydont.smprpg.items.CustomItemType
+import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
+import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.EnchantmentService
+import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import java.util.*
 import java.util.function.Consumer
@@ -130,8 +135,7 @@ abstract class CustomEnchantment(val id: String) : Cloneable {
     /**
      * The color that this enchantment shows up as in item lore.
      */
-    open val enchantColor: TextColor
-        get() = NamedTextColor.LIGHT_PURPLE
+    open val enchantColor: TextColor get() = NamedTextColor.LIGHT_PURPLE
 
     /**
      * scrollColor: The color of the scroll parchment on the DynamicEnchantingScroll item
@@ -215,6 +219,30 @@ abstract class CustomEnchantment(val id: String) : Cloneable {
 
     override fun toString(): String {
         return this.key.toString() + " " + this.level
+    }
+
+    open fun isEnchantmentActive(itemStack : ItemStack, player : LeveledPlayer) : Boolean {
+        val itemBp = ItemService.blueprint(itemStack)
+
+        // If item is breakable, and is broken, return false.
+        if (itemBp is IBreakableEquipment) {
+            if (itemStack.getData(DataComponentTypes.DAMAGE) as Int >= (itemStack.getData(DataComponentTypes.MAX_DAMAGE) as Int - 1))
+                return false
+        }
+
+        // If we do not meet the skill requirement for this item, return false.
+        if (itemBp is ISkillRequirement) {
+            for (requirement in itemBp.skillRequirements) {
+                for (skill in player.skills) {
+                    if (skill.type == requirement.key) {
+                        if (skill.level < requirement.value)
+                            return false
+                    }
+                }
+            }
+        }
+
+        return true
     }
 
     companion object {

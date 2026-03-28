@@ -15,6 +15,7 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.HatchetRecipe
 import xyz.devvydont.smprpg.util.items.ToolGlobals
 
@@ -22,6 +23,10 @@ class BronzeHatchet(itemService: ItemService, type: CustomItemType) : BronzeAttr
     ICraftable, IBreakableEquipment {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HATCHET
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(
+        Pair(SkillType.WOODCUTTING, toolStats.skillReqLevel),
+        Pair(SkillType.FARMING, toolStats.skillReqLevel),
+    )
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
@@ -31,9 +36,9 @@ class BronzeHatchet(itemService: ItemService, type: CustomItemType) : BronzeAttr
                 ItemSword.getSwordDamage(CustomItemType.BRONZE_SWORD) - 5
             ),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemAxe.AXE_ATTACK_SPEED_DEBUFF),
-            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed * 0.8),
-            AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, getToolStats().fortune * 0.8),
-            AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, getToolStats().fortune * 0.8)
+            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, toolStats.speed * 0.8),
+            AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, toolStats.fortune * 0.8),
+            AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, toolStats.fortune * 0.8)
         )
     }
 

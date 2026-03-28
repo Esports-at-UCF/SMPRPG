@@ -13,12 +13,14 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.enchantments.Enchantment
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
@@ -27,6 +29,7 @@ import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EnchantmentService
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.List
 
@@ -118,6 +121,9 @@ class MinersFervorArtificeEnchantment(id: String) : CustomEnchantment(id), Liste
 
         val player = event.player
         val mainhandItem = player.inventory.itemInMainHand
+
+        val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
+        if (!isEnchantmentActive(mainhandItem, leveledPlayer)) return
 
         if (!mainhandItem.containsEnchantment(this.enchantment)) return
 

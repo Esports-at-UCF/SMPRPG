@@ -16,10 +16,14 @@ import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.HoeRecipe
 
 class OrichalcumHoe(itemService: ItemService, type: CustomItemType) : OrichalcumAttributeItem(itemService, type),
     ICraftable, IBreakableEquipment, IModelOverridden {
+
+    override val itemClassification: ItemClassification get() = ItemClassification.HOE
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.FARMING, toolStats.skillReqLevel))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return mutableListOf(
@@ -28,12 +32,10 @@ class OrichalcumHoe(itemService: ItemService, type: CustomItemType) : Orichalcum
                 AttributeWrapper.ATTACK_SPEED,
                 ItemHoe.getHoeAttackSpeedDebuff(customItemType)
             ),
-            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed.toDouble()),
-            AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, getToolStats().fortune.toDouble())
+            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, toolStats.speed.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, toolStats.fortune.toDouble())
         )
     }
-
-    override val itemClassification: ItemClassification get() = ItemClassification.HOE
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

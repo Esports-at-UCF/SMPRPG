@@ -15,17 +15,19 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemShovel
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.ShovelRecipe
 
 class RoseGoldShovel(itemService: ItemService, type: CustomItemType) : RoseGoldAttributeItem(itemService, type),
     ICraftable, IBreakableEquipment {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SHOVEL
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.MINING, toolStats.skillReqLevel))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemShovel.getShovelDamage(Material.WOODEN_SHOVEL)),
-            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, toolStats.speed.toDouble()),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemShovel.SHOVEL_ATTACK_SPEED_DEBUFF)
         )
     }

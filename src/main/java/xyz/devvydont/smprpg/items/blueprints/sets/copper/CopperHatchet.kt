@@ -7,9 +7,6 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
@@ -22,16 +19,21 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword.Companion.getSwor
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
+import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.HatchetRecipe
-import xyz.devvydont.smprpg.util.items.ToolGlobals
 import xyz.devvydont.smprpg.util.items.ToolStats
-import java.util.List
 
 class CopperHatchet(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    ICraftable, IBreakableEquipment, IRepairable {
+    ICraftable, IBreakableEquipment, IRepairable, ISkillRequirement {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HATCHET
+    override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(Material.COPPER_INGOT))
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(
+        Pair(SkillType.WOODCUTTING, ToolStats.COPPER.skillReqLevel),
+        Pair(SkillType.WOODCUTTING, ToolStats.COPPER.skillReqLevel)
+    )
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
@@ -71,8 +73,6 @@ class CopperHatchet(itemService: ItemService, type: CustomItemType) : CustomAttr
             itemService.getCustomItem(Material.COPPER_INGOT)
         )
     }
-
-    override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(Material.COPPER_INGOT))
 
     companion object {
         val TOOL_COMP: Tool = Tool.tool()

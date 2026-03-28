@@ -42,6 +42,11 @@ class BurdenEnchantment(id: String) : CustomEnchantment(id), Listener {
     fun onPlayerBurdenedEntity(event: CustomEntityDamageByEntityEvent) {
         if (event.dealer !is Player) return
 
+        val dealer = event.dealer
+        val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer)
+        if (!isEnchantmentActive(dealer.equipment.itemInMainHand, leveledPlayer)) return
+
+
         val player = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.dealer)
         val maxMana = player.getMaxMana()
 

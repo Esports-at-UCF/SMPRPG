@@ -7,13 +7,16 @@ import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import kotlin.math.max
 
@@ -42,6 +45,11 @@ class ExecuteEnchantment(id: String) : CustomEnchantment(id), Listener {
         if (event.dealer !is LivingEntity) return
 
         val dealer = event.dealer
+        if (dealer is Player) {
+            val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer)
+            if (!isEnchantmentActive(dealer.equipment.itemInMainHand, leveledPlayer)) return
+        }
+
         if(dealer.equipment == null) return
 
         if (event.damaged !is LivingEntity) return

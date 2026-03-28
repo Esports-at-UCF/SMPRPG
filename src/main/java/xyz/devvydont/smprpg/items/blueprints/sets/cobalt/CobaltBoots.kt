@@ -14,10 +14,14 @@ import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.BootsRecipe
 
 class CobaltBoots(itemService: ItemService, type: CustomItemType) : CobaltArmorSet(itemService, type),
     IBreakableEquipment, ICraftable, IModelOverridden {
+
+    override val itemClassification: ItemClassification get() = ItemClassification.BOOTS
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.COMBAT, toolStats.skillReqLevel))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
@@ -41,6 +45,4 @@ class CobaltBoots(itemService: ItemService, type: CustomItemType) : CobaltArmorS
     override fun getCustomRecipe(): CraftingRecipe? {
         return BootsRecipe(this, getCraftingMaterial(), generate()).build()
     }
-
-    override val itemClassification: ItemClassification get() = ItemClassification.BOOTS
 }

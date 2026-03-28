@@ -5,14 +5,17 @@ import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityShootBowEvent
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 class VelocityEnchantment(id: String) : CustomEnchantment(id), Listener {
@@ -35,6 +38,12 @@ class VelocityEnchantment(id: String) : CustomEnchantment(id), Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     fun onShootBow(event: EntityShootBowEvent) {
         if (event.bow == null) return
+
+        val dealer = event.entity
+        if (dealer is Player) {
+            val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer)
+            if (!isEnchantmentActive(event.bow!!, leveledPlayer)) return
+        }
 
         val velocity = event.bow!!.getEnchantmentLevel(enchantment)
         if (velocity <= 0) return

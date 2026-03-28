@@ -1,10 +1,5 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.wood
 
-import io.papermc.paper.datacomponent.DataComponentTypes
-import io.papermc.paper.datacomponent.item.AttackRange
-import io.papermc.paper.datacomponent.item.PiercingWeapon
-import io.papermc.paper.datacomponent.item.SwingAnimation
-import io.papermc.paper.datacomponent.item.Weapon
 import io.papermc.paper.registry.keys.SoundEventKeys
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -14,7 +9,6 @@ import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.recipe.CraftingBookCategory
-import org.checkerframework.common.value.qual.IntRange
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType

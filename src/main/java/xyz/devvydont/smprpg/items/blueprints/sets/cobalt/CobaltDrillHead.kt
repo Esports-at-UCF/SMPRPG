@@ -7,24 +7,26 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.interfaces.IModularToolComponent
 import xyz.devvydont.smprpg.services.ItemService
-import java.util.List
+import xyz.devvydont.smprpg.skills.SkillType
 
 class CobaltDrillHead(itemService: ItemService, type: CustomItemType) : CobaltAttributeItem(itemService, type),
     IModularToolComponent {
+
+    override val itemClassification: ItemClassification get() = ItemClassification.ITEM
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.MINING, toolStats.skillReqLevel))
+
     override fun getAttributes(): MutableCollection<AttributeEntry?> {
-        return List.of<AttributeEntry?>(
-            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed * 1.5, getAttrKey()),
-            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getToolStats().miningPower.toDouble(), getAttrKey())
+        return mutableListOf(
+            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, toolStats.speed * 1.5, ATTR_KEY),
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, toolStats.miningPower.toDouble(), ATTR_KEY)
         )
     }
 
     override fun getAttrKey(): String {
-        return Companion.attrKey
+        return ATTR_KEY
     }
 
-    override val itemClassification: ItemClassification get() = ItemClassification.ITEM
-
     companion object {
-        const val attrKey: String = "cobalt_drill_head"
+        const val ATTR_KEY: String = "cobalt_drill_head"
     }
 }

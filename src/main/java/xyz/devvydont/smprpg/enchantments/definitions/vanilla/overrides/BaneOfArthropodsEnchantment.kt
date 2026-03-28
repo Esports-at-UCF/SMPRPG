@@ -12,6 +12,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -72,6 +73,12 @@ class BaneOfArthropodsEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantme
 
         // Skip entity if they aren't alive
         if (event.dealer !is LivingEntity) return
+
+        val dealer = event.dealer
+        if (dealer is Player) {
+            val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer)
+            if (!isEnchantmentActive(dealer.equipment.itemInMainHand, leveledPlayer)) return
+        }
 
         val level = EnchantmentUtil.getHoldingEnchantLevel(enchantment, EquipmentSlotGroup.HAND, event.dealer.equipment)
         if (level <= 0) return

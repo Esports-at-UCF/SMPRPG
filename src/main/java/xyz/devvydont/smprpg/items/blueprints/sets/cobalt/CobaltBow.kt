@@ -13,19 +13,20 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.BowRecipe
-import java.util.List
 
 class CobaltBow(itemService: ItemService, type: CustomItemType) : CobaltAttributeItem(itemService, type),
     ICraftable, IBreakableEquipment {
 
+    override val itemClassification: ItemClassification get() = ItemClassification.BOW
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.COMBAT, toolStats.skillReqLevel))
+
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
-        return List.of<AttributeEntry?>(
+        return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(CustomItemType.COBALT_SWORD))
         )
     }
-
-    override val itemClassification: ItemClassification get() = ItemClassification.BOW
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.HAND

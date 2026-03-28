@@ -12,12 +12,14 @@ import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.base.VanillaAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
+import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.items.ToolGlobals
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 class ItemShovel(itemService: ItemService, material: Material) : VanillaAttributeItem(itemService, material),
-    IBreakableEquipment, IRepairable {
+    IBreakableEquipment, IRepairable, ISkillRequirement {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SHOVEL
     override val repairMaterial: MutableCollection<ItemStack>
@@ -32,8 +34,15 @@ class ItemShovel(itemService: ItemService, material: Material) : VanillaAttribut
                 itemService.getCustomItem(Material.JUNGLE_PLANKS), itemService.getCustomItem(Material.DARK_OAK_PLANKS), itemService.getCustomItem(Material.ACACIA_PLANKS),
                 itemService.getCustomItem(Material.CRIMSON_PLANKS), itemService.getCustomItem(Material.WARPED_PLANKS), itemService.getCustomItem(Material.MANGROVE_PLANKS),
                 itemService.getCustomItem(Material.CHERRY_PLANKS), itemService.getCustomItem(Material.PALE_OAK_PLANKS), itemService.getCustomItem(Material.BAMBOO_PLANKS))
-            else -> null
-        }!!
+            else -> mutableListOf()
+        }
+    override val skillRequirements: MutableMap<SkillType, Int> get() = when (material) {
+        Material.NETHERITE_SHOVEL -> mutableMapOf(Pair(SkillType.MINING, ToolStats.NETHERITE.skillReqLevel))
+        Material.GOLDEN_SHOVEL -> mutableMapOf(Pair(SkillType.MINING, ToolStats.GOLD.skillReqLevel))
+        Material.IRON_SHOVEL -> mutableMapOf(Pair(SkillType.MINING, ToolStats.IRON.skillReqLevel))
+        Material.COPPER_SHOVEL -> mutableMapOf(Pair(SkillType.MINING, ToolStats.COPPER.skillReqLevel))
+        else -> mutableMapOf()
+    }
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(

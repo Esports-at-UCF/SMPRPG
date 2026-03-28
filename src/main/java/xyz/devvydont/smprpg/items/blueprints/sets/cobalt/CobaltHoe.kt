@@ -16,22 +16,26 @@ import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.HoeRecipe
-import java.util.List
 
 class CobaltHoe(itemService: ItemService, type: CustomItemType) : CobaltAttributeItem(itemService, type),
     ICraftable, IBreakableEquipment, IModelOverridden {
 
+    override val itemClassification: ItemClassification get() = ItemClassification.HOE
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.FARMING, toolStats.skillReqLevel))
+
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
-        return List.of<AttributeEntry?>(
+        return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemHoe.getHoeDamage(customItemType)),
-            MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemHoe.getHoeAttackSpeedDebuff(customItemType)),
-            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed.toDouble()),
-            AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, getToolStats().fortune.toDouble())
+            MultiplicativeAttributeEntry(
+                AttributeWrapper.ATTACK_SPEED,
+                ItemHoe.getHoeAttackSpeedDebuff(customItemType)
+            ),
+            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, toolStats.speed.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, toolStats.fortune.toDouble())
         )
     }
-
-    override val itemClassification: ItemClassification get() = ItemClassification.HOE
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND
@@ -39,7 +43,7 @@ class CobaltHoe(itemService: ItemService, type: CustomItemType) : CobaltAttribut
 
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
-        itemStack.setData<Tool?>(DataComponentTypes.TOOL, TOOL_COMP)
+        itemStack.setData(DataComponentTypes.TOOL, TOOL_COMP)
     }
 
     override fun getCustomRecipe(): CraftingRecipe? {

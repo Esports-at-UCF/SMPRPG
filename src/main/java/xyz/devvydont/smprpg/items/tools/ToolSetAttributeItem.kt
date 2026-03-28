@@ -14,10 +14,12 @@ import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ToolStats
 
-open class ToolSetAttributeItem(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type), IRepairable {
+abstract class ToolSetAttributeItem(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type), IRepairable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.ITEM
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(getCraftingMaterial())
+
+    abstract val toolStats: ToolStats
 
     override fun getAttributeModifiers(item: ItemStack?): Collection<AttributeEntry?>? {
         return listOf()
@@ -27,16 +29,12 @@ open class ToolSetAttributeItem(itemService: ItemService, type: CustomItemType) 
         throw NotImplementedError("Crafting material should be defined by child class. Use null if there should not be a recipe.")
     }
 
-    open fun getToolStats(): ToolStats {
-        throw NotImplementedError("Tool stats must be defined by child class.")
-    }
-
     override fun getPowerRating(): Int {
-        return getToolStats().power
+        return toolStats.power
     }
 
     open fun getMaxDurability(): Int {
-        return getToolStats().durability
+        return toolStats.durability
     }
 
     override fun getActiveSlot(): EquipmentSlotGroup? {

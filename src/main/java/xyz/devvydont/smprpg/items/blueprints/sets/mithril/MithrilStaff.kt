@@ -1,10 +1,5 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.mithril
 
-import io.papermc.paper.datacomponent.DataComponentTypes
-import io.papermc.paper.datacomponent.item.AttackRange
-import io.papermc.paper.datacomponent.item.PiercingWeapon
-import io.papermc.paper.datacomponent.item.SwingAnimation
-import io.papermc.paper.datacomponent.item.Weapon
 import io.papermc.paper.registry.keys.SoundEventKeys
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -14,7 +9,6 @@ import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.recipe.CraftingBookCategory
-import org.checkerframework.common.value.qual.IntRange
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -24,20 +18,21 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
-import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICantCrit
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
-import xyz.devvydont.smprpg.items.interfaces.IMageBeam
-import xyz.devvydont.smprpg.items.interfaces.IRepairable
+import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 class MithrilStaff(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IBreakableEquipment, ICantCrit, IMageBeam, ICraftable, IRepairable {
+    IBreakableEquipment, ICantCrit, IMageBeam, ICraftable, IRepairable, ISkillRequirement {
 
     override val itemClassification: ItemClassification get() = ItemClassification.STAFF
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.MITHRIL_INGOT))
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(
+        Pair(SkillType.COMBAT, ToolStats.MITHRIL.skillReqLevel),
+        Pair(SkillType.MAGIC, ToolStats.MITHRIL.skillReqLevel),
+    )
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(

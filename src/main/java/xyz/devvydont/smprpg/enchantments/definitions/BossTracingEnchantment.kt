@@ -9,6 +9,7 @@ import org.bukkit.Effect
 import org.bukkit.Sound
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityShootBowEvent
@@ -100,6 +101,12 @@ class BossTracingEnchantment(id: String) : CustomEnchantment(id), Listener {
 
     @EventHandler
     fun onArrowFire(event: EntityShootBowEvent) {
+        val dealer = event.entity
+        if (event.entity is Player) {
+            val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer as Player)
+            if (!isEnchantmentActive(event.bow!!, leveledPlayer)) return
+        }
+
         val tracing = EnchantmentUtil.getEnchantLevel(enchantment, event.bow)
         if (tracing <= 0) return
 

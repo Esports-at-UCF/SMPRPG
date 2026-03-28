@@ -60,6 +60,7 @@ import xyz.devvydont.smprpg.items.tools.drills.FuelTankBlueprint
 import xyz.devvydont.smprpg.listeners.crafting.CustomItemFurnacePreventions
 import xyz.devvydont.smprpg.reforge.ReforgeBase
 import xyz.devvydont.smprpg.reforge.ReforgeType
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.attributes.AttributeUtil
 import xyz.devvydont.smprpg.util.crafting.CompressionRecipeMember
 import xyz.devvydont.smprpg.util.crafting.ItemUtil
@@ -71,6 +72,7 @@ import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import xyz.devvydont.smprpg.util.time.TickTime
 import java.lang.reflect.InvocationTargetException
 import java.util.*
+import kotlin.collections.iterator
 
 class ItemService : IService, Listener {
 
@@ -1026,6 +1028,18 @@ class ItemService : IService, Listener {
             lore.addAll(blueprint.getFooter(itemStack))
         }
 
+        //
+        if (blueprint is ISkillRequirement) {
+            lore.add(ComponentUtils.EMPTY)
+            for (skill in blueprint.skillRequirements) {
+                lore.add(ComponentUtils.merge(
+                    ComponentUtils.create("• Requires ", NamedTextColor.RED),
+                    ComponentUtils.create("${skill.key.displayName} ", skill.key.color),
+                    ComponentUtils.create(skill.value.toString(), NamedTextColor.RED)
+                ))
+            }
+        }
+
         // Durability if the item has it. Ignore charged item blueprints since that is handled in its own class.
         val durabilityComponent = itemStack.getData<@Positive Int?>(DataComponentTypes.MAX_DAMAGE)
         val durabilityUsed = itemStack.getData<@NonNegative Int?>(DataComponentTypes.DAMAGE)
@@ -1143,6 +1157,35 @@ class ItemService : IService, Listener {
         val blueprint = getBlueprint(itemStack)
         blueprint.updateItemData(itemStack)
         return itemStack
+    }
+
+    /**
+     * Given a player and an item stack, ensure that the player meets the requirements for this item
+     *
+     * @param player A Player entity
+     * @param itemStack The item to check skill requirements on
+     * @return Whether the player meets requirements for the item.
+     */
+    fun assessSkillRequirements(player : Player, itemStack: ItemStack?) : Boolean {
+        if (itemStack == null) return true  // I mean, I guess you can always use nothing?
+
+        val itemBp = blueprint(itemStack)
+
+        if (itemBp is ISkillRequirement) {
+            val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
+            for (requirement in itemBp.skillRequirements) {
+                for (skill in leveledPlayer.skills) {
+                    if (skill.type == requirement.key) {
+                        if (skill.level < requirement.value) {
+                            AttributeService.instance.clearAttributeModifiers(itemStack)
+                            return false
+                        }
+                    }
+                }
+            }
+        }
+
+        return true
     }
 
     private fun discoverRecipesForItem(player: Player, item: ItemStack) {
@@ -1402,8 +1445,15 @@ class ItemService : IService, Listener {
     fun onInteract(event: PlayerInteractEvent) {
         object : BukkitRunnable() {
             override fun run() {
-                ensureItemStackUpdated(event.getPlayer().inventory.itemInMainHand)
-                ensureItemStackUpdated(event.getPlayer().inventory.itemInOffHand)
+                ensureItemStackUpdated(event.player.inventory.itemInMainHand)
+                ensureItemStackUpdated(event.player.inventory.itemInOffHand)
+
+                assessSkillRequirements(event.player, event.player.inventory.itemInMainHand)
+                assessSkillRequirements(event.player, event.player.inventory.itemInOffHand)
+                assessSkillRequirements(event.player, event.player.inventory.helmet)
+                assessSkillRequirements(event.player, event.player.inventory.chestplate)
+                assessSkillRequirements(event.player, event.player.inventory.leggings)
+                assessSkillRequirements(event.player, event.player.inventory.boots)
             }
         }.runTaskLater(SMPRPG.plugin, 0L)
     }
@@ -1468,7 +1518,7 @@ class ItemService : IService, Listener {
     private fun onPickupItem(event: PlayerAttemptPickupItemEvent) {
         if (!event.flyAtPlayer) return
 
-        discoverRecipesForItem(event.getPlayer(), event.item.itemStack)
+        discoverRecipesForItem(event.player, event.item.itemStack)
     }
 
     @EventHandler
@@ -1558,6 +1608,21 @@ class ItemService : IService, Listener {
         @JvmStatic
         fun blueprint(item: ItemStack): SMPItemBlueprint {
             return SMPRPG.getService(ItemService::class.java).getBlueprint(item)
+        }
+
+        /**
+         * Given an item, return whether it is broken or not
+         * @param item The item to check
+         * @return Whether it is broken or not
+         */
+        @JvmStatic
+        fun isBroken(item: ItemStack) : Boolean {
+            if (blueprint(item) is IBreakableEquipment) {
+                val damage = item.getData(DataComponentTypes.DAMAGE) as Int
+                val maxDamage = item.getData(DataComponentTypes.MAX_DAMAGE) as Int
+                return (damage >= (maxDamage - 1))
+            }
+            return false  // Can't be broken if it isn't breakable.
         }
 
         /**

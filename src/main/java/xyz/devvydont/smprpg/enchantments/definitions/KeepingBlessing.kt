@@ -16,11 +16,13 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.inventory.EquipmentSlotGroup
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ItemType
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.ScrollColor
 import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
+import xyz.devvydont.smprpg.entity.player.LeveledPlayer
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -67,6 +69,8 @@ class KeepingBlessing(id: String) : CustomEnchantment(id), Listener {
             }
         }
     }
+
+    override fun isEnchantmentActive(itemStack: ItemStack, player: LeveledPlayer): Boolean { return true }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     fun onDeath(event: PlayerDeathEvent) {

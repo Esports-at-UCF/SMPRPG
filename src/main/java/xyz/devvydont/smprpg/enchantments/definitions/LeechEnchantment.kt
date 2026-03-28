@@ -15,10 +15,12 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityRegainHealthEvent
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 class LeechEnchantment(id: String) : CustomEnchantment(id), Listener {
@@ -42,7 +44,10 @@ class LeechEnchantment(id: String) : CustomEnchantment(id), Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onPlayerLeechedEntity(event: CustomEntityDamageByEntityEvent) {
         if (event.dealer !is Player) return
+
         val dealer = event.dealer
+        val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer)
+        if (!isEnchantmentActive(dealer.equipment.itemInMainHand, leveledPlayer)) return
 
         val maxHP: AttributeInstance? = dealer.getAttribute(Attribute.MAX_HEALTH)
         if (maxHP == null) return

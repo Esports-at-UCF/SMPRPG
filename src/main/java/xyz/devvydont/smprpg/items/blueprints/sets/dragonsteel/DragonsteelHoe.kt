@@ -17,6 +17,7 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemHoe
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.HoeRecipe
 import xyz.devvydont.smprpg.util.items.ToolGlobals
 
@@ -24,6 +25,7 @@ class DragonsteelHoe(itemService: ItemService, type: CustomItemType) : Dragonste
     ICraftable, IBreakableEquipment {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HOE
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.FARMING, toolStats.skillReqLevel))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
@@ -32,8 +34,8 @@ class DragonsteelHoe(itemService: ItemService, type: CustomItemType) : Dragonste
                 AttributeWrapper.ATTACK_SPEED,
                 ItemHoe.getHoeAttackSpeedDebuff(Material.NETHERITE_HOE)
             ),
-            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed.toDouble()),
-            AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, getToolStats().fortune.toDouble())
+            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, toolStats.speed.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, toolStats.fortune.toDouble())
         )
     }
 

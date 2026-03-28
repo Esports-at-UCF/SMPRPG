@@ -17,6 +17,7 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.AxeRecipe
 import xyz.devvydont.smprpg.util.items.ToolGlobals
 
@@ -24,14 +25,15 @@ class TitaniumAxe(itemService: ItemService, type: CustomItemType) : TitaniumAttr
     IBreakableEquipment {
 
     override val itemClassification: ItemClassification get() = ItemClassification.AXE
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.WOODCUTTING, toolStats.skillReqLevel))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getToolStats().miningPower.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, toolStats.miningPower.toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemAxe.getAxeDamage(CustomItemType.TITANIUM_AXE)),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemAxe.AXE_ATTACK_SPEED_DEBUFF),
-            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getToolStats().speed.toDouble()),
-            AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, getToolStats().fortune.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, toolStats.speed.toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.WOODCUTTING_FORTUNE, toolStats.fortune.toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.LUMBERING, ItemAxe.getAxeLumbering(CustomItemType.TITANIUM_AXE))
         )
     }

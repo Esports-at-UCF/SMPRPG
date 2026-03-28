@@ -7,22 +7,25 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.interfaces.IModularToolComponent
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 
 class TungstenDrillBase(itemService: ItemService, type: CustomItemType) : TungstenAttributeItem(itemService, type),
     IModularToolComponent {
+
+    override val itemClassification: ItemClassification get() = ItemClassification.ITEM
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.MINING, toolStats.skillReqLevel))
+
     override fun getAttributes(): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, getToolStats().fortune * 1.5, attrKey)
+            AdditiveAttributeEntry(AttributeWrapper.MINING_FORTUNE, toolStats.fortune * 1.5, ATTR_KEY)
         )
     }
 
     override fun getAttrKey(): String {
-        return Companion.attrKey
+        return ATTR_KEY
     }
 
-    override val itemClassification: ItemClassification get() = ItemClassification.ITEM
-
     companion object {
-        const val attrKey: String = "tungsten_drill_base"
+        const val ATTR_KEY: String = "tungsten_drill_base"
     }
 }

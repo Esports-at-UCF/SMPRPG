@@ -11,14 +11,17 @@ import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.base.VanillaAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
+import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 class ItemShears(itemService: ItemService, material: Material) : VanillaAttributeItem(itemService, material),
-    IBreakableEquipment, IRepairable {
+    IBreakableEquipment, IRepairable, ISkillRequirement {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SHEARS
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(Material.IRON_INGOT))
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.FARMING, ToolStats.IRON.skillReqLevel))
 
     override fun getActiveSlot(): EquipmentSlotGroup {
         return EquipmentSlotGroup.MAINHAND

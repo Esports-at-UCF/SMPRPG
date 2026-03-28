@@ -14,10 +14,14 @@ import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.SwordRecipe
 
 class OrichalcumSword(itemService: ItemService, type: CustomItemType) : OrichalcumAttributeItem(itemService, type),
     ICraftable, IBreakableEquipment, IModelOverridden {
+
+    override val itemClassification: ItemClassification get() = ItemClassification.SWORD
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.COMBAT, toolStats.skillReqLevel))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return mutableListOf(
@@ -25,8 +29,6 @@ class OrichalcumSword(itemService: ItemService, type: CustomItemType) : Orichalc
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemSword.SWORD_ATTACK_SPEED_DEBUFF)
         )
     }
-
-    override val itemClassification: ItemClassification get() = ItemClassification.SWORD
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND

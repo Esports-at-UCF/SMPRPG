@@ -22,6 +22,7 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
@@ -54,6 +55,9 @@ class InfinityEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key),
 
         if (event.entity !is Player) return
         val player = event.entity as Player
+
+        val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
+        if (!isEnchantmentActive(player.equipment.itemInMainHand, leveledPlayer)) return
 
         val infinityLevel = EnchantmentUtil.getHoldingEnchantLevel(
             enchantment,

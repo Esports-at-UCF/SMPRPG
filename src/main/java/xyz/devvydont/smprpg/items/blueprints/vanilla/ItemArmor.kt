@@ -10,14 +10,36 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry
 import xyz.devvydont.smprpg.items.base.VanillaAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
+import xyz.devvydont.smprpg.items.interfaces.IRepairable
+import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.items.ToolGlobals
 import xyz.devvydont.smprpg.util.items.ToolStats
 import kotlin.math.max
 import kotlin.math.roundToInt
 
 class ItemArmor(itemService: ItemService, material: Material) : VanillaAttributeItem(itemService, material),
-    IBreakableEquipment {
+    IBreakableEquipment, IRepairable, ISkillRequirement {
+
+    override val repairMaterial: MutableCollection<ItemStack> get() = when (material) {
+        Material.LEATHER_HELMET, Material.LEATHER_CHESTPLATE, Material.LEATHER_LEGGINGS, Material.LEATHER_BOOTS -> mutableListOf(itemService.getCustomItem(Material.LEATHER))
+        Material.COPPER_HELMET, Material.COPPER_CHESTPLATE, Material.COPPER_LEGGINGS, Material.COPPER_BOOTS -> mutableListOf(itemService.getCustomItem(Material.COPPER_INGOT))
+        Material.IRON_HELMET, Material.IRON_CHESTPLATE, Material.IRON_LEGGINGS, Material.IRON_BOOTS -> mutableListOf(itemService.getCustomItem(Material.IRON_INGOT))
+        Material.GOLDEN_HELMET, Material.GOLDEN_CHESTPLATE, Material.GOLDEN_LEGGINGS, Material.GOLDEN_BOOTS -> mutableListOf(itemService.getCustomItem(Material.GOLD_INGOT))
+        Material.NETHERITE_HELMET, Material.NETHERITE_CHESTPLATE, Material.NETHERITE_LEGGINGS, Material.NETHERITE_BOOTS -> mutableListOf(itemService.getCustomItem(Material.NETHERITE_INGOT))
+        else -> mutableListOf()
+    }
+    override val skillRequirements: MutableMap<SkillType, Int> get() = when (material) {
+        Material.ELYTRA -> mutableMapOf(Pair(SkillType.COMBAT, 50))
+        Material.NETHERITE_HELMET, Material.NETHERITE_CHESTPLATE, Material.NETHERITE_LEGGINGS, Material.NETHERITE_BOOTS -> mutableMapOf(Pair(SkillType.COMBAT, 35))
+        Material.GOLDEN_HELMET, Material.GOLDEN_CHESTPLATE, Material.GOLDEN_LEGGINGS, Material.GOLDEN_BOOTS -> mutableMapOf(Pair(SkillType.COMBAT, 10))
+        Material.IRON_HELMET, Material.IRON_CHESTPLATE, Material.IRON_LEGGINGS, Material.IRON_BOOTS -> mutableMapOf(Pair(SkillType.COMBAT, 7))
+        Material.CHAINMAIL_HELMET, Material.CHAINMAIL_CHESTPLATE, Material.CHAINMAIL_LEGGINGS, Material.CHAINMAIL_BOOTS -> mutableMapOf(Pair(SkillType.COMBAT, 5))
+        Material.COPPER_HELMET, Material.COPPER_CHESTPLATE, Material.COPPER_LEGGINGS, Material.COPPER_BOOTS -> mutableMapOf(Pair(SkillType.COMBAT, ToolStats.COPPER.skillReqLevel))
+        else -> mutableMapOf()
+    }
+
     override fun getPowerRating(): Int {
         return getArmorPowerRating(material)
     }

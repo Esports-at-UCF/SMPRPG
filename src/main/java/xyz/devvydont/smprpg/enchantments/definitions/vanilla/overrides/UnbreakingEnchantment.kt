@@ -12,9 +12,11 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerItemDamageEvent
 import org.bukkit.inventory.EquipmentSlotGroup
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ItemType
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment
+import xyz.devvydont.smprpg.entity.player.LeveledPlayer
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.*
 
@@ -36,6 +38,8 @@ class UnbreakingEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key
     override val weight: Int get()                             = EnchantmentRarity.COMMON.weight
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.ANY
     override val skillRequirement: Int get()                   = 0
+
+    override fun isEnchantmentActive(itemStack: ItemStack, player: LeveledPlayer): Boolean {return true }
 
     companion object {
         fun getDurabilityIncrease(level: Int): Int { return level * 20 }

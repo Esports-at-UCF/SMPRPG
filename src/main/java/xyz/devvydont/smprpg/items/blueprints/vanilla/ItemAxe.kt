@@ -12,12 +12,21 @@ import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.base.VanillaAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
+import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 class ItemAxe(itemService: ItemService, material: Material) : VanillaAttributeItem(itemService, material),
-    IBreakableEquipment, IRepairable {
+    IBreakableEquipment, IRepairable, ISkillRequirement {
     override val itemClassification: ItemClassification get() = ItemClassification.AXE
+    override val skillRequirements: MutableMap<SkillType, Int> get() = when (material) {
+        Material.NETHERITE_AXE -> mutableMapOf(Pair(SkillType.WOODCUTTING, ToolStats.NETHERITE.skillReqLevel))
+        Material.GOLDEN_AXE -> mutableMapOf(Pair(SkillType.WOODCUTTING, ToolStats.GOLD.skillReqLevel))
+        Material.IRON_AXE -> mutableMapOf(Pair(SkillType.WOODCUTTING, ToolStats.IRON.skillReqLevel))
+        Material.COPPER_AXE -> mutableMapOf(Pair(SkillType.WOODCUTTING, ToolStats.COPPER.skillReqLevel))
+        else -> mutableMapOf()
+    }
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         val lumbering: Double = getAxeLumbering(material)

@@ -8,6 +8,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.inventory.EquipmentSlotGroup
@@ -47,6 +48,11 @@ class ImpalingEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key),
     fun onWaterDamage(event: CustomEntityDamageByEntityEvent) {
         if (event.dealer !is LivingEntity) return
         val dealer = event.dealer
+
+        if (dealer is Player) {
+            val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer)
+            if (!isEnchantmentActive(dealer.equipment.itemInMainHand, leveledPlayer)) return
+        }
 
         if (event.damaged !is LivingEntity) return
         val damaged = event.damaged

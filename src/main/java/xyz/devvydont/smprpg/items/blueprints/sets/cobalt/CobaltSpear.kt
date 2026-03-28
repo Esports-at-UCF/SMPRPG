@@ -3,7 +3,6 @@ package xyz.devvydont.smprpg.items.blueprints.sets.cobalt
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.KineticWeapon
 import io.papermc.paper.registry.keys.SoundEventKeys
-import org.bukkit.Material
 import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -17,11 +16,14 @@ import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.SpearRecipe
 
-class CobaltSpear(itemService: ItemService, type: CustomItemType) : CobaltAttributeItem(itemService, type), ICraftable, IBreakableEquipment, IModelOverridden {
+class CobaltSpear(itemService: ItemService, type: CustomItemType) : CobaltAttributeItem(itemService, type),
+    ICraftable, IBreakableEquipment, IModelOverridden {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SPEAR
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.COMBAT, toolStats.skillReqLevel))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return mutableListOf(
