@@ -19,6 +19,7 @@ import xyz.devvydont.smprpg.listeners.damage.EnvironmentalDamageListener
 import xyz.devvydont.smprpg.listeners.damage.MeleeVisualListener
 import xyz.devvydont.smprpg.listeners.damage.PvPListener
 import xyz.devvydont.smprpg.listeners.damage.SlimeRapidAttackFixListener
+import xyz.devvydont.smprpg.listeners.damage.UnderwaterArrowListener
 import xyz.devvydont.smprpg.listeners.entity.HealthRegenerationListener
 import xyz.devvydont.smprpg.listeners.entity.HealthScaleListener
 import xyz.devvydont.smprpg.listeners.entity.StructureEntitySpawnListener
@@ -117,6 +118,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(MeleeVisualListener())  // Visuals melee attack particles for weapons like staffs
         generalListeners.add(XPOrbDisablerListener())  // Overrides experience orb drops, as to disable vanilla EXP
         generalListeners.add(ItemDurabilityListener())  // Prevents items from fully breaking, capping them at 1 durability remaining.
+        generalListeners.add(UnderwaterArrowListener())  // Listens for arrows that are shot underwater
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.
