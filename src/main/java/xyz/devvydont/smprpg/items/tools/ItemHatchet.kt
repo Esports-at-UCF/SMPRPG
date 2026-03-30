@@ -10,11 +10,12 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
+import xyz.devvydont.smprpg.items.interfaces.IDamageFromCrops
 import xyz.devvydont.smprpg.services.ItemService
 import java.util.List
 
 open class ItemHatchet(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IBreakableEquipment {
+    IBreakableEquipment, IDamageFromCrops {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HATCHET
 

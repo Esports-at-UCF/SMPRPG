@@ -291,7 +291,7 @@ public class BlockDamage {
 		}
 		damage = speedMultiplier / hardness;
 
-		if (isPreferred)
+		if (isPreferred && !ItemService.isBroken(item))
 			damage /= 30;
 		else
 			damage /= 100;

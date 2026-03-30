@@ -26,23 +26,23 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
-import xyz.devvydont.smprpg.items.blueprints.sets.forsaken.ForsakenArmorSet
-import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
-import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable
-import xyz.devvydont.smprpg.items.interfaces.IRepairable
+import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
+import xyz.devvydont.smprpg.slayer.quest.SlayerType
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.items.AbilityUtil
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 
 class AbominableCleaver(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    Listener, IHeaderDescribable, ICraftable, IBreakableEquipment, IRepairable {
+    Listener, IHeaderDescribable, ICraftable, IBreakableEquipment, IRepairable, ISlayerProficiencyBoost {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SWORD
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.PREMIUM_NECROTIC_FLESH))
+
+    override val slayerToBoost: SlayerType get() = SlayerType.SHAMBLING_ABOMINATION
+    override val slayerProficiencyBoost: Int get() = 25
 
     override fun getHeader(itemStack: ItemStack?): MutableList<Component?> {
         val components: MutableList<Component?> = ArrayList()
@@ -97,7 +97,7 @@ class AbominableCleaver(itemService: ItemService, type: CustomItemType) : Custom
 
     override fun unlockedBy(): MutableCollection<ItemStack?> {
         return mutableListOf(
-            generate(Material.ROTTEN_FLESH)
+            generate(CustomItemType.NECROTIC_FLESH)
         )
     }
 

@@ -15,11 +15,13 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.items.interfaces.IDamageFromCrops
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.HatchetRecipe
 
-class TinHatchet(itemService: ItemService, type: CustomItemType) : TinAttributeItem(itemService, type), ICraftable, IBreakableEquipment {
+class TinHatchet(itemService: ItemService, type: CustomItemType) : TinAttributeItem(itemService, type),
+    ICraftable, IBreakableEquipment, IDamageFromCrops {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HATCHET
     override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(

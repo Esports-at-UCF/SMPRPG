@@ -19,7 +19,7 @@ class MithrilLeggings(itemService: ItemService, type: CustomItemType) : MithrilA
     IBreakableEquipment, ICraftable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.LEGGINGS
-    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.FARMING, toolStats.skillReqLevel))
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.COMBAT, toolStats.skillReqLevel))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(

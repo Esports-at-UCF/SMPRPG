@@ -10,6 +10,7 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.items.interfaces.IDamageFromCrops
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.items.tools.ItemHatchet
@@ -20,7 +21,7 @@ import xyz.devvydont.smprpg.util.crafting.builders.HatchetRecipe
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 class GoldHatchet(itemService: ItemService, type: CustomItemType) : ItemHatchet(itemService, type), ICraftable,
-    IBreakableEquipment, IRepairable, ISkillRequirement {
+    IBreakableEquipment, IRepairable, ISkillRequirement, IDamageFromCrops {
 
     override val repairMaterial : MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(Material.GOLD_INGOT))
     override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(

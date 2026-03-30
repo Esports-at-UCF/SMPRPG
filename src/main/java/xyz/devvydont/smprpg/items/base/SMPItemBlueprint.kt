@@ -34,7 +34,6 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
 import xyz.devvydont.smprpg.util.items.FoodUtil
 import java.util.function.Consumer
-import kotlin.collections.iterator
 import kotlin.math.roundToInt
 
 /**
@@ -305,11 +304,12 @@ abstract class SMPItemBlueprint(
             is IBreakableEquipment -> {
                 val dmg = itemStack.getData(DataComponentTypes.DAMAGE)
                 val breakable = this as IBreakableEquipment
-                var maxDurability = breakable.maxDurability
+                var maxDurability = breakable.maxDurability.toDouble()
                 val unbreakingLevel = itemStack.getEnchantmentLevel(EnchantmentService.UNBREAKING.enchantment)
-                if (unbreakingLevel > 0)
-                    maxDurability *= (1 + (UnbreakingEnchantment.getDurabilityIncrease(unbreakingLevel) / 100.0)).roundToInt()
-                itemStack.setData(DataComponentTypes.MAX_DAMAGE, maxDurability)
+                if (unbreakingLevel > 0) {
+                    maxDurability *= (1 + (UnbreakingEnchantment.getDurabilityIncrease(unbreakingLevel) / 100.0))
+                }
+                itemStack.setData(DataComponentTypes.MAX_DAMAGE, maxDurability.roundToInt())
                 itemStack.setData(DataComponentTypes.DAMAGE, dmg ?: 0)
             }
 

@@ -11,6 +11,7 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.base.VanillaAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
+import xyz.devvydont.smprpg.items.interfaces.IDamageFromCrops
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
@@ -18,7 +19,7 @@ import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 class ItemHoe(itemService: ItemService, material: Material) : VanillaAttributeItem(itemService, material),
-    IBreakableEquipment, IRepairable, ISkillRequirement {
+    IBreakableEquipment, IRepairable, ISkillRequirement, IDamageFromCrops {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HOE
     override val repairMaterial: MutableCollection<ItemStack>

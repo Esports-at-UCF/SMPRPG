@@ -10,45 +10,15 @@ import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.items.interfaces.ICustomBlock
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 
-class RawSilverBlock(itemService: ItemService, type: CustomItemType) : BlockBlueprint(itemService, type), ICraftable,
-    ISellable {
+class RawSilverBlock(itemService: ItemService, type: CustomItemType) : BlockBlueprint(itemService, type),
+    ICustomBlock {
     override fun getCustomBlock(): CustomBlock {
         return CustomBlock.RAW_SILVER_BLOCK
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, this.customItemType.key + "_recipe")
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(this.recipeKey, generate())
-        recipe.shape(
-            "sss",
-            "sss",
-            "sss"
-        )
-        recipe.setIngredient('s', generate(CustomItemType.RAW_SILVER))
-        recipe.setCategory(CraftingBookCategory.MISC)
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            itemService.getCustomItem(CustomItemType.RAW_SILVER)
-        )
-    }
-
-    override fun getWorth(item: ItemStack): Int {
-        val ingot = itemService.getCustomItem(CustomItemType.RAW_SILVER)
-        val bp = blueprint(ingot)
-        if (bp is ISellable) {
-            return ((bp as ISellable).getWorth(ingot) * 9) * item.amount
-        }
-        return 0
     }
 }

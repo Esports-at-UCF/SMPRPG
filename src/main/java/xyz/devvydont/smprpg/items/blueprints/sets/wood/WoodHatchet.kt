@@ -12,6 +12,7 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword.Companion.getSwordDamage
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.items.interfaces.IDamageFromCrops
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.items.tools.ItemHatchet
 import xyz.devvydont.smprpg.services.ItemService
@@ -20,7 +21,7 @@ import xyz.devvydont.smprpg.util.items.ToolStats
 import xyz.devvydont.smprpg.util.java.SealedInstantiators
 
 class WoodHatchet(itemService: ItemService, type: CustomItemType) : ItemHatchet(itemService, type), ICraftable,
-    IBreakableEquipment, IRepairable {
+    IBreakableEquipment, IRepairable, IDamageFromCrops {
 
     override fun getPowerRating(): Int { return ToolStats.WOOD.power }
 

@@ -21,7 +21,7 @@ class MithrilShovel(itemService: ItemService, type: CustomItemType) : MithrilAtt
     ICraftable, IBreakableEquipment {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SHOVEL
-    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.FARMING, toolStats.skillReqLevel))
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.MINING, toolStats.skillReqLevel))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(

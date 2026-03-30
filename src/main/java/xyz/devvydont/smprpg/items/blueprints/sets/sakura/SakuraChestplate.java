@@ -32,7 +32,7 @@ public class SakuraChestplate extends SakuraArmorSet implements IDyeable, ITrimm
 
     @Override
     public CraftingRecipe getCustomRecipe() {
-        return new ChestplateRecipe(this, itemService.getCustomItem(Material.CHERRY_LEAVES), generate()).build();
+        return new ChestplateRecipe(this, itemService.getCustomItem(Material.CHERRY_LOG), generate()).build();
     }
 
     @Override

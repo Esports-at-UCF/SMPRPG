@@ -19,7 +19,7 @@ class MithrilSword(itemService: ItemService, type: CustomItemType) : MithrilAttr
     ICraftable, IBreakableEquipment {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SWORD
-    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.FARMING, toolStats.skillReqLevel))
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.COMBAT, toolStats.skillReqLevel))
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(

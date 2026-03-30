@@ -544,6 +544,12 @@ public class BlockPropertiesRegistry {
                 .softRequirement(false)
                 .build());
 
+        register(Material.CHISELED_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(150)
+                .breakingPower(0)
+                .softRequirement(false)
+                .build());
+
         register(Material.MOSSY_STONE_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(150)
                 .breakingPower(0)

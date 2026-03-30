@@ -14,13 +14,14 @@ import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemHoe
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.items.interfaces.IDamageFromCrops
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.HoeRecipe
 
 class TungstenHoe(itemService: ItemService, type: CustomItemType) : TungstenAttributeItem(itemService, type),
-    ICraftable, IBreakableEquipment, IModelOverridden {
+    ICraftable, IBreakableEquipment, IModelOverridden, IDamageFromCrops {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HOE
     override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.FARMING, toolStats.skillReqLevel))

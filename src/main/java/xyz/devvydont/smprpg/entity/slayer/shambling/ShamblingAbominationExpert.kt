@@ -25,7 +25,7 @@ class ShamblingAbominationExpert(entity: LivingEntity?, entityType: CustomEntity
 
             ChancedItemDrop(LOOT_SMITE_SCROLL, 40, this),
             ChancedItemDrop(generate(CustomItemType.UNDIGESTED_BRAINS), 250, this),
-            ChancedItemDrop(generate(CustomItemType.REVILED_VISCERA), 25, this)
+            ChancedItemDrop(generate(CustomItemType.REVILED_VISCERA), 10, this)
         )
     }
 

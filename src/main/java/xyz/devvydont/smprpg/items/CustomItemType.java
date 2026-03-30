@@ -216,6 +216,7 @@ public enum CustomItemType {
     SILVER_ORE("Silver Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, SilverOre.class),
     DEEPSLATE_SILVER_ORE("Deepslate Silver Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, DeepslateSilverOre.class),
     RAW_SILVER_BLOCK("Block of Raw Silver",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, RawSilverBlock.class),
+    ENCHANTED_RAW_SILVER("Enchanted Raw Silver",      Material.RAW_IRON,        ItemRarity.RARE, true, RawSilverFamilyBlueprint.class),
 
     SILVER_INGOT("Silver Ingot",                          Material.IRON_INGOT,        ItemRarity.COMMON,    SilverIngot.class),
     SILVER_BLOCK("Block of Silver",                       Material.POISONOUS_POTATO,  ItemRarity.UNCOMMON,  SilverBlock.class),
@@ -238,10 +239,11 @@ public enum CustomItemType {
     SILVER_BOOTS(     "Silver Boots",      Material.IRON_BOOTS,      SilverBoots.class),
 
     // TIN SET
-    RAW_TIN("Raw Tin",                     Material.RAW_IRON,       ItemRarity.COMMON, false, 5, "materials"),
-    TIN_ORE("Tin Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, TinOre.class),
-    DEEPSLATE_TIN_ORE("Deepslate Tin Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, DeepslateTinOre.class),
-    RAW_TIN_BLOCK("Block of Raw Tin",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, RawTinBlock.class),
+    RAW_TIN("Raw Tin",                      Material.RAW_IRON,         ItemRarity.COMMON, false, 5, "materials"),
+    TIN_ORE("Tin Ore",                      Material.POISONOUS_POTATO, ItemRarity.COMMON, TinOre.class),
+    DEEPSLATE_TIN_ORE("Deepslate Tin Ore",  Material.POISONOUS_POTATO, ItemRarity.COMMON, DeepslateTinOre.class),
+    RAW_TIN_BLOCK("Block of Raw Tin",       Material.POISONOUS_POTATO, ItemRarity.UNCOMMON, RawTinBlock.class),
+    ENCHANTED_RAW_TIN("Enchanted Raw Tin",  Material.RAW_IRON,         ItemRarity.RARE,   true, RawTinFamilyBlueprint.class),
 
     TIN_INGOT("Tin Ingot",                 Material.IRON_INGOT,     ItemRarity.COMMON, TinIngot.class),
     TIN_BLOCK("Block of Tin",              Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, TinBlock.class),
@@ -284,8 +286,11 @@ public enum CustomItemType {
     // STEEL SET
     STEEL_INGOT("Steel Ingot", Material.IRON_INGOT, ItemRarity.UNCOMMON, SteelIngot.class),
     STEEL_BLOCK(     "Block of Steel",      Material.POISONOUS_POTATO,     ItemRarity.RARE, SteelBlock.class),
-    STEEL_TOOL_SHAFT("Steel Tool Shaft", Material.STICK, ItemRarity.UNCOMMON, SteelToolShaft.class),
+    ENCHANTED_STEEL("Enchanted Steel", Material.IRON_INGOT, ItemRarity.EPIC, true, SteelFamilyBlueprint.class),
+    ENCHANTED_STEEL_BLOCK("Enchanted Steel Block", Material.POISONOUS_POTATO, ItemRarity.LEGENDARY, true, SteelFamilyBlueprint.class),
+    STEEL_SINGULARITY("Steel Singularity", Material.IRON_INGOT, ItemRarity.MYTHIC, true, SteelFamilyBlueprint.class),
 
+    STEEL_TOOL_SHAFT("Steel Tool Shaft", Material.STICK, ItemRarity.UNCOMMON, SteelToolShaft.class),
     STEEL_DRILL_HEAD("Steel Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillHead.class),
     STEEL_DRILL_BASE("Steel Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillBase.class),
 
@@ -361,6 +366,7 @@ public enum CustomItemType {
     RAW_TITANIUM("Raw Titanium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300, "materials"),
     TITANIUM_ORE("Titanium Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, TitaniumOre.class),
     RAW_TITANIUM_BLOCK("Block of Raw Titanium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, RawTitaniumBlock.class),
+    ENCHANTED_RAW_TITANIUM("Raw Titanium",           Material.RAW_IRON,     ItemRarity.LEGENDARY,   false, RawTitaniumFamilyBlueprint.class),
 
     TITANIUM_INGOT("Titanium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   TitaniumIngot.class),
     TITANIUM_BLOCK("Block of Titanium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, TitaniumBlock.class),

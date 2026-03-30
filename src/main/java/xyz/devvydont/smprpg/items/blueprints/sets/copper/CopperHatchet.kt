@@ -18,6 +18,7 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword.Companion.getSwordDamage
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.items.interfaces.IDamageFromCrops
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
@@ -26,7 +27,7 @@ import xyz.devvydont.smprpg.util.crafting.builders.HatchetRecipe
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 class CopperHatchet(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    ICraftable, IBreakableEquipment, IRepairable, ISkillRequirement {
+    ICraftable, IBreakableEquipment, IRepairable, ISkillRequirement, IDamageFromCrops {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HATCHET
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(Material.COPPER_INGOT))

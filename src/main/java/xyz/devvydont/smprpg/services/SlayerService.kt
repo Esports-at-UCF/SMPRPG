@@ -13,10 +13,13 @@ import org.bukkit.persistence.PersistentDataType
 import org.bukkit.scheduler.BukkitRunnable
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
+import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.entity.slayer.SlayerBossInstance
 import xyz.devvydont.smprpg.events.slayer.SlayerBossDeathEvent
 import xyz.devvydont.smprpg.events.slayer.SlayerQuestEarnExperienceEvent
 import xyz.devvydont.smprpg.events.slayer.SlayerSpawnBossEvent
+import xyz.devvydont.smprpg.items.interfaces.ISlayerProficiencyBoost
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.slayer.quest.SlayerQuest
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.persistence.KeyStore
@@ -63,7 +66,7 @@ class SlayerService : IService, Listener {
                 clock++
                 quest.spawnCountdown = clock
                 if (clock > 40) {
-                    val entity = SMPRPG.getService(EntityService::class.java).spawnCustomEntity(quest.bossToSpawn, location);
+                    val entity = SMPRPG.getService(EntityService::class.java).spawnCustomEntity(quest.bossToSpawn, location)
                     val slayer = entity as SlayerBossInstance<*>
                     player.world.spawnParticle(Particle.EXPLOSION, locCopy, 5, -4.0, 0.0, 0.0, 0.0)
                     player.world.playSound(location, Sound.ENTITY_WITHER_SPAWN, 0.5f, 2f)
@@ -92,12 +95,9 @@ class SlayerService : IService, Listener {
         val bal = Math.toIntExact(
             ecoService.getMoney(quest.owner.player)
         )
-        if (bal < quest.cost) {
-            return false
-        }
+        return bal >= quest.cost
 
         // They can afford to start the quest, and aren't in a quest currently.
-        return true
     }
 
     fun registerQuest(quest : SlayerQuest) {
@@ -106,6 +106,23 @@ class SlayerService : IService, Listener {
         // or if you ran checks beforehand (see canStartQuest)
         SMPRPG.getService(EconomyService::class.java).spendMoney(quest.owner.player, quest.cost.toLong())
         playersToQuests[quest.owner.player.player!!.uniqueId] = quest
+    }
+
+    private fun getProficiencyStacks(quest : SlayerQuest): Double {
+        var proficiencyStacks = 0.0
+
+        val player = quest.owner.player
+        val itemInMainHand = player.inventory.itemInMainHand
+        val mainHandBp = ItemService.blueprint(itemInMainHand)
+
+        if (mainHandBp is ISlayerProficiencyBoost) {
+            if (quest.classification.slayerType.spawnFlag == mainHandBp.slayerToBoost.spawnFlag)
+                proficiencyStacks += mainHandBp.slayerProficiencyBoost
+        }
+
+        proficiencyStacks += AttributeService.instance.getOrCreateAttribute(player, AttributeWrapper.PROFICIENCY).value
+        proficiencyStacks += AttributeService.instance.getOrCreateAttribute(player, SkillType.COMBAT.proficiencyAttribute).value
+        return proficiencyStacks
     }
 
     @EventHandler
@@ -140,7 +157,7 @@ class SlayerService : IService, Listener {
     fun onPlayerLogoutWhileSlayerActive(event: PlayerQuitEvent) {
         val uuid = event.player.uniqueId
         if (uuid in playersToQuests.keys) {
-            val quest : SlayerQuest? = playersToQuests.get(event.player.uniqueId)
+            val quest : SlayerQuest? = playersToQuests[event.player.uniqueId]
             val slayerInst : SlayerBossInstance<*>? = quest!!.bossEntity
             if (slayerInst == null)
                 quest.questState = SlayerQuest.SlayerQuestState.CANCELLED
@@ -168,16 +185,20 @@ class SlayerService : IService, Listener {
             ) {
                 // Heck yeah, time to add xp to this quest.
 
+                // Apply proficiencies to the experience earned.
+                // We know for sure that it is combat experience being passed in, so use that proficiency.
+                val experience = (event.experience * (1.0 + (getProficiencyStacks(quest) / 100.0))).roundToInt()
+
                 // But first, we need to cap the xp earned if it's far too high.
                 // We don't want slayer bosses chaining one after another
-                if (event.experience > (quest.xpRequired / 2))
+                if (experience > (quest.xpRequired / 2))
                     quest.xpEarned += (quest.xpRequired / 2)
                 else
-                    quest.xpEarned += event.experience
+                    quest.xpEarned += experience
 
                 // Have we hit the threshold for this boss yet? If so, spawn it.
                 // If we haven't, roll a 5% chance to spawn a special mob
-                val specialSpawns = quest.classification.specialSpawns;
+                val specialSpawns = quest.classification.specialSpawns
                 if (quest.xpEarned >= quest.xpRequired) {
                     quest.xpEarned = quest.xpRequired  // Do this to prevent visual weirdness
                     spawnSlayerBoss(quest, event.mobKilled.entity.location)
@@ -191,17 +212,17 @@ class SlayerService : IService, Listener {
                             override fun run() {
                                 val player = quest.owner.player
                                 val locCopy = event.mobKilled.entity.location
-                                val randRoll = Math.random();
+                                val randRoll = Math.random()
                                 locCopy.y += 0.5 + randRoll
-                                locCopy.x -= randRoll;
-                                locCopy.z += randRoll;
+                                locCopy.x -= randRoll
+                                locCopy.z += randRoll
                                 if (clock % 2 == 0) {
                                     player.world.playSound(player.location, Sound.ENTITY_GENERIC_EXPLODE, 1f, (1f + randRoll.toFloat()))
                                     player.world.spawnParticle(Particle.EXPLOSION, locCopy, 0, -1.5, 0.0, 0.0, 0.0)
                                 }
                                 clock++
                                 if (clock > 20) {
-                                    SMPRPG.getService(EntityService::class.java).spawnCustomEntity(specialSpawns.random(), location);
+                                    SMPRPG.getService(EntityService::class.java).spawnCustomEntity(specialSpawns.random(), location)
                                     player.world.playSound(location, Sound.ENTITY_GHAST_HURT, 1f, 1f)
                                     this.cancel()
                                 }

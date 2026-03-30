@@ -21,7 +21,7 @@ class ShamblingAbominationBasic(entity: LivingEntity?, entityType: CustomEntityT
             ChancedItemDrop(ItemService.Companion.generate(CustomItemType.PREMIUM_FLESH), 20, this),
             ChancedItemDrop(ItemService.Companion.generate(CustomItemType.ENCHANTED_FLESH), 100, this),
 
-            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.REVILED_VISCERA), 200, this)
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.REVILED_VISCERA), 100, this)
         )
     }
 

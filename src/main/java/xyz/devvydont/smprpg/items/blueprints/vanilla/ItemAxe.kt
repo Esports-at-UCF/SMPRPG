@@ -144,7 +144,7 @@ class ItemAxe(itemService: ItemService, material: Material) : VanillaAttributeIt
         fun getAxeDamage(itemType: CustomItemType): Double {
             return when (itemType) {
                 CustomItemType.TIN_AXE -> 25
-                CustomItemType.SILVER_AXE -> 35
+                CustomItemType.BRONZE_AXE, CustomItemType.SILVER_AXE -> 35
                 CustomItemType.STEEL_AXE -> 50
                 CustomItemType.ROSE_GOLD_AXE, CustomItemType.MITHRIL_AXE, CustomItemType.COBALT_AXE -> 55
                 CustomItemType.TITANIUM_AXE, CustomItemType.TUNGSTEN_AXE -> 65

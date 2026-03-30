@@ -4,11 +4,8 @@ import com.destroystokyo.paper.event.inventory.PrepareResultEvent
 import io.papermc.paper.datacomponent.DataComponentTypes
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.ObjectComponent
-import net.kyori.adventure.text.event.HoverEvent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import net.kyori.adventure.text.`object`.ObjectContents
 import org.bukkit.Bukkit
 import org.bukkit.Keyed
 import org.bukkit.Material
@@ -25,7 +22,10 @@ import org.bukkit.event.enchantment.EnchantItemEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.ItemMergeEvent
 import org.bukkit.event.entity.ItemSpawnEvent
-import org.bukkit.event.inventory.*
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryType
+import org.bukkit.event.inventory.PrepareItemCraftEvent
+import org.bukkit.event.inventory.PrepareSmithingEvent
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
@@ -60,7 +60,6 @@ import xyz.devvydont.smprpg.items.tools.drills.FuelTankBlueprint
 import xyz.devvydont.smprpg.listeners.crafting.CustomItemFurnacePreventions
 import xyz.devvydont.smprpg.reforge.ReforgeBase
 import xyz.devvydont.smprpg.reforge.ReforgeType
-import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.attributes.AttributeUtil
 import xyz.devvydont.smprpg.util.crafting.CompressionRecipeMember
 import xyz.devvydont.smprpg.util.crafting.ItemUtil
@@ -72,7 +71,6 @@ import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import xyz.devvydont.smprpg.util.time.TickTime
 import java.lang.reflect.InvocationTargetException
 import java.util.*
-import kotlin.collections.iterator
 
 class ItemService : IService, Listener {
 
@@ -830,7 +828,7 @@ class ItemService : IService, Listener {
                 ComponentUtils.create("Burns for "),
                 ComponentUtils.create(String.format("%ds", blueprint.burnTime/20), NamedTextColor.GOLD),
                 ComponentUtils.create(" in furnaces ")
-            ));
+            ))
         }
 
         // Check if this is a reforge applicator.
@@ -897,14 +895,24 @@ class ItemService : IService, Listener {
             )
         }
 
+        if (blueprint is ISlayerProficiencyBoost) {
+            lore.add(ComponentUtils.EMPTY)
+            lore.add(ComponentUtils.merge(
+                ComponentUtils.create("Boosts "),
+                ComponentUtils.create(blueprint.slayerToBoost.display(), NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
+                ComponentUtils.create(" Slayer quest"))
+            )
+            lore.add(ComponentUtils.create("progress by +${blueprint.slayerProficiencyBoost}% per kill"))
+        }
+
         if (blueprint is IPassiveProvider) {
             for (passive in blueprint.passives) {
-                lore.add(ComponentUtils.EMPTY);
+                lore.add(ComponentUtils.EMPTY)
                 lore.add(ComponentUtils.merge(
                         AbilityUtil.getAbilityComponent(MinecraftStringUtils.getTitledString(passive.name)),
                         ComponentUtils.create(" (Passive)", NamedTextColor.DARK_GRAY).decoration(TextDecoration.BOLD, false)
-                ));
-                lore.add(passive.description);
+                ))
+                lore.add(passive.description)
             }
         }
 
@@ -1081,7 +1089,7 @@ class ItemService : IService, Listener {
                                 ComponentUtils.merge(
                                     ComponentUtils.atlasSprite(Key.key("minecraft:items"), repMat),
                                     ComponentUtils.create(" "),
-                                    blueprintRepairMaterials.get(i).displayName()
+                                    blueprintRepairMaterials[i].displayName()
                                 )
                             )
                             i++
@@ -1523,21 +1531,6 @@ class ItemService : IService, Listener {
 
     @EventHandler
     @Suppress("unused")
-    private fun onPlayerDamageItem(event: PlayerItemDamageEvent) {
-        // Durability changes are always 1
-        if (event.damage > 0)
-            event.damage = 1
-
-
-        Bukkit.getScheduler().runTaskLater(
-            SMPRPG.plugin,
-            Runnable { getBlueprint(event.item).updateItemData(event.item) },
-            TickTime.INSTANTANEOUSLY
-        )
-    }
-
-    @EventHandler
-    @Suppress("unused")
     private fun onPlaceCustomItem(event: BlockPlaceEvent) {
         val item = event.getItemInHand()
         val blueprint = getBlueprint(item)
@@ -1547,6 +1540,8 @@ class ItemService : IService, Listener {
 
         // Hack for summoning crystals. Allow them to be placed!
         if (blueprint is CustomItemBlueprint && blueprint.customItemType == CustomItemType.SUMMONING_CRYSTAL) return
+
+        if (blueprint is IDamageFromCrops) return
 
         // If this item is a custom item, don't allow it to be placed!!!
         if (blueprint.isCustom) event.isCancelled = true

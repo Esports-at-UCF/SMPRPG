@@ -35,7 +35,7 @@ class SlayerQuest(val owner: LeveledPlayer,  val classification: SlayerClassific
 
     val xpRequired = classification.xpToSpawn
     val bossToSpawn = classification.entityType
-    val spawnKeyValue = classification.spawnFlag
+    val spawnKeyValue = classification.slayerType.spawnFlag
     val cost = classification.cost
 
     var bossEntity : SlayerBossInstance<*>? = null
