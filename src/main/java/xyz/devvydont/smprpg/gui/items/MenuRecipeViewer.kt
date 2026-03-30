@@ -47,7 +47,7 @@ class MenuRecipeViewer(
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
         super.handleInventoryOpened(event)
-        event.titleOverride(ComponentUtils.merge(ComponentUtils.create("Recipes for: "), result.displayName()))
+        event.titleOverride(ComponentUtils.merge(ComponentUtils.create("Recipes for: "), result.getData(DataComponentTypes.ITEM_NAME)))
         this.render(event)
         Bukkit.getScheduler().runTaskTimer(SMPRPG.plugin, Consumer runTaskTimer@{ task: BukkitTask ->
 
