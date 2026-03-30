@@ -9,6 +9,7 @@ import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint
+import xyz.devvydont.smprpg.items.interfaces.ICompressible
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
@@ -16,7 +17,14 @@ import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 
 class AdamantiumBlock(itemService: ItemService, type: CustomItemType) : BlockBlueprint(itemService, type), ICraftable,
-    ISellable {
+    ISellable, ICompressible {
+
+    override val compressor: ICompressible.CompressionStep
+        get() = ICompressible.CompressionStep(blueprint(CustomItemType.ENCHANTED_ADAMANTIUM) as ICompressible, 9, 1)
+
+    override val decompressor: ICompressible.CompressionStep
+        get() = ICompressible.CompressionStep(blueprint(CustomItemType.ADAMANTIUM_INGOT) as ICompressible, 1, 9)
+
     override fun getCustomBlock(): CustomBlock {
         return CustomBlock.ADAMANTIUM_BLOCK
     }

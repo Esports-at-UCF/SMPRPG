@@ -9,38 +9,24 @@ import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint
+import xyz.devvydont.smprpg.items.interfaces.ICompressible
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 
-class CobaltBlock(itemService: ItemService, type: CustomItemType) : BlockBlueprint(itemService, type), ICraftable,
-    ISellable {
+class CobaltBlock(itemService: ItemService, type: CustomItemType) : BlockBlueprint(itemService, type),
+    ISellable, ICompressible {
+
+    override val compressor: ICompressible.CompressionStep
+        get() = ICompressible.CompressionStep(blueprint(CustomItemType.ENCHANTED_COBALT) as ICompressible, 9, 1)
+
+    override val decompressor: ICompressible.CompressionStep
+        get() = ICompressible.CompressionStep(blueprint(CustomItemType.COBALT_INGOT) as ICompressible, 1, 9)
+
     override fun getCustomBlock(): CustomBlock {
         return CustomBlock.COBALT_BLOCK
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, this.customItemType.key + "_recipe")
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(this.recipeKey, generate())
-        recipe.shape(
-            "ccc",
-            "ccc",
-            "ccc"
-        )
-        recipe.setIngredient('c', generate(CustomItemType.COBALT_INGOT))
-        recipe.setCategory(CraftingBookCategory.MISC)
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            itemService.getCustomItem(CustomItemType.COBALT_INGOT)
-        )
     }
 
     override fun getWorth(item: ItemStack): Int {

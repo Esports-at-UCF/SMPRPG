@@ -47,8 +47,13 @@ import xyz.devvydont.smprpg.items.blueprints.resources.fishing.HolomokuCrest;
 import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll;
+import xyz.devvydont.smprpg.items.blueprints.resources.mining.RawSilver;
+import xyz.devvydont.smprpg.items.blueprints.resources.mining.RawTin;
+import xyz.devvydont.smprpg.items.blueprints.resources.mining.RawTitanium;
+import xyz.devvydont.smprpg.items.blueprints.resources.mining.Sulfur;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFlesh;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFleshFamilyBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowder;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
 import xyz.devvydont.smprpg.items.blueprints.sets.abomination.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
@@ -212,7 +217,7 @@ public enum CustomItemType {
     COPPER_BOW(    "Copper Bow",      Material.BOW,            CopperBow.class),
 
     // SILVER SET
-    RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, false, 15, "materials"),
+    RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, false, RawSilver.class),
     SILVER_ORE("Silver Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, SilverOre.class),
     DEEPSLATE_SILVER_ORE("Deepslate Silver Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, DeepslateSilverOre.class),
     RAW_SILVER_BLOCK("Block of Raw Silver",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, RawSilverBlock.class),
@@ -239,7 +244,7 @@ public enum CustomItemType {
     SILVER_BOOTS(     "Silver Boots",      Material.IRON_BOOTS,      SilverBoots.class),
 
     // TIN SET
-    RAW_TIN("Raw Tin",                      Material.RAW_IRON,         ItemRarity.COMMON, false, 5, "materials"),
+    RAW_TIN("Raw Tin",                      Material.RAW_IRON,         ItemRarity.COMMON, false, RawTin.class),
     TIN_ORE("Tin Ore",                      Material.POISONOUS_POTATO, ItemRarity.COMMON, TinOre.class),
     DEEPSLATE_TIN_ORE("Deepslate Tin Ore",  Material.POISONOUS_POTATO, ItemRarity.COMMON, DeepslateTinOre.class),
     RAW_TIN_BLOCK("Block of Raw Tin",       Material.POISONOUS_POTATO, ItemRarity.UNCOMMON, RawTinBlock.class),
@@ -363,7 +368,7 @@ public enum CustomItemType {
     MITHRIL_BOOTS(     "Mithril Boots",      Material.DIAMOND_BOOTS,      ItemRarity.UNCOMMON, MithrilBoots.class),
 
     // TITANIUM SET
-    RAW_TITANIUM("Raw Titanium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300, "materials"),
+    RAW_TITANIUM("Raw Titanium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, RawTitanium.class),
     TITANIUM_ORE("Titanium Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, TitaniumOre.class),
     RAW_TITANIUM_BLOCK("Block of Raw Titanium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, RawTitaniumBlock.class),
     ENCHANTED_RAW_TITANIUM("Raw Titanium",           Material.RAW_IRON,     ItemRarity.LEGENDARY,   false, RawTitaniumFamilyBlueprint.class),
@@ -423,7 +428,7 @@ public enum CustomItemType {
     SULFUR_ORE("Sulfur Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, SulfurOre.class),
     SULFUR_TREATED_TOOL_SHAFT(    "Sulfur Treated Shaft",      Material.STICK,     ItemRarity.UNCOMMON, SulfurToolShaft.class),
 
-    SULFUR(    "Sulfur",                         Material.GUNPOWDER,               ItemRarity.UNCOMMON, false, 20, "materials"),
+    SULFUR(    "Sulfur",                         Material.GUNPOWDER,               ItemRarity.UNCOMMON, false, Sulfur.class),
     SULFUR_BLOCK("Block of Sulfur",              Material.POISONOUS_POTATO,        ItemRarity.RARE, SulfurBlock.class),
     ENCHANTED_SULFUR("Enchanted Sulfur",                  Material.GUNPOWDER,        ItemRarity.EPIC,      true, SulfurFamilyBlueprint.class),
     ENCHANTED_SULFUR_BLOCK("Enchanted Block of Sulfur",   Material.POISONOUS_POTATO,  ItemRarity.LEGENDARY,      true, SulfurFamilyBlueprint.class),
@@ -799,7 +804,7 @@ public enum CustomItemType {
 
     // ILLAGER WARLOCK
 
-    SPELL_POWDER(      "Spell Powder",          Material.GUNPOWDER,       ItemRarity.UNCOMMON,      false, 75, "materials"),
+    SPELL_POWDER(      "Spell Powder",          Material.GUNPOWDER,       ItemRarity.UNCOMMON,      false, SpellPowder.class),
     PREMIUM_SPELL_POWDER("Premium Spell Powder", Material.GUNPOWDER, ItemRarity.RARE, true, SpellPowderFamilyBlueprint.class),
     ENCHANTED_SPELL_POWDER(    "Enchanted Spell Powder",        Material.GUNPOWDER,       ItemRarity.EPIC,    true, SpellPowderFamilyBlueprint.class),
     SPELL_POWDER_SINGULARITY(    "Spell Powder Singularity",        Material.GUNPOWDER,       ItemRarity.LEGENDARY,    true, SpellPowderFamilyBlueprint.class),

@@ -9,33 +9,44 @@ import org.bukkit.potion.PotionEffectType;
 import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
-import xyz.devvydont.smprpg.items.base.CustomCompressableBlueprint;
-import xyz.devvydont.smprpg.items.interfaces.IEdible;
+import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
+import xyz.devvydont.smprpg.items.interfaces.ICompressible;
 import xyz.devvydont.smprpg.items.interfaces.IConsumable;
+import xyz.devvydont.smprpg.items.interfaces.IEdible;
+import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
-import xyz.devvydont.smprpg.util.crafting.CompressionRecipeMember;
-import xyz.devvydont.smprpg.util.crafting.MaterialWrapper;
+import xyz.devvydont.smprpg.util.extensions.ItemExtensionsKt;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChickenFamilyBlueprint extends CustomCompressableBlueprint implements IEdible, IConsumable {
-
-    public static final List<CompressionRecipeMember> COMPRESSION_FLOW = List.of(
-            new CompressionRecipeMember(new MaterialWrapper(Material.COOKED_CHICKEN)),
-            new CompressionRecipeMember(new MaterialWrapper(CustomItemType.PREMIUM_CHICKEN)),
-            new CompressionRecipeMember(new MaterialWrapper(CustomItemType.ENCHANTED_CHICKEN))
-    );
+public class ChickenFamilyBlueprint extends CustomItemBlueprint implements ICompressible, ISellable, IEdible, IConsumable {
 
     public ChickenFamilyBlueprint(ItemService itemService, CustomItemType type) {
         super(itemService, type);
     }
 
+    @Override
+    public CompressionStep getDecompressor() {
+        return switch (getCustomItemType()) {
+            case PREMIUM_CHICKEN -> new CompressionStep((ICompressible) itemService.getVanillaBlueprint(ItemStack.of(Material.COOKED_CHICKEN)), 1, 9);
+            case ENCHANTED_CHICKEN -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.PREMIUM_CHICKEN), 1, 9);
+            default -> null;
+        };
+    }
 
     @Override
-    public List<CompressionRecipeMember> getCompressionFlow() {
-        return COMPRESSION_FLOW;
+    public CompressionStep getCompressor() {
+        return switch (getCustomItemType()) {
+            case PREMIUM_CHICKEN -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.ENCHANTED_CHICKEN), 9, 1);
+            default -> null;
+        };
+    }
+
+    @Override
+    public int getWorth(ItemStack itemStack) {
+        return ItemExtensionsKt.calculateCompressedWorth(this, itemStack);
     }
 
     @Override
@@ -63,7 +74,6 @@ public class ChickenFamilyBlueprint extends CustomCompressableBlueprint implemen
 
     @Override
     public @NonNull Consumable getConsumableComponent(ItemStack item) {
-
         var effects = new ArrayList<ConsumeEffect>();
 
         if (getCustomItemType().equals(CustomItemType.ENCHANTED_CHICKEN))

@@ -11,36 +11,16 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.ISellable
+import xyz.devvydont.smprpg.items.interfaces.ICompressible
+import xyz.devvydont.smprpg.items.interfaces.ICompressible.CompressionStep
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 
-class RawTinBlock(itemService: ItemService, type: CustomItemType) : BlockBlueprint(itemService, type), ICraftable,
-    ISellable {
+class RawTinBlock(itemService: ItemService, type: CustomItemType) : BlockBlueprint(itemService, type),
+    ISellable, ICompressible {
     override fun getCustomBlock(): CustomBlock {
         return CustomBlock.RAW_TIN_BLOCK
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, this.customItemType.key + "_recipe")
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(this.recipeKey, generate())
-        recipe.shape(
-            "ttt",
-            "ttt",
-            "ttt"
-        )
-        recipe.setIngredient('t', generate(CustomItemType.RAW_TIN))
-        recipe.setCategory(CraftingBookCategory.MISC)
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            itemService.getCustomItem(CustomItemType.RAW_TIN)
-        )
     }
 
     override fun getWorth(item: ItemStack): Int {
@@ -50,5 +30,17 @@ class RawTinBlock(itemService: ItemService, type: CustomItemType) : BlockBluepri
             return ((bp as ISellable).getWorth(ingot) * 9) * item.amount
         }
         return 0
+    }
+
+    override val decompressor: CompressionStep? get() = when (customItemType) {
+        CustomItemType.RAW_TIN_BLOCK ->
+            CompressionStep(itemService.getBlueprint(CustomItemType.RAW_TIN) as ICompressible, 1, 9)
+        else -> null
+    }
+
+    override val compressor: CompressionStep? get() = when (customItemType) {
+        CustomItemType.RAW_TIN_BLOCK ->
+            CompressionStep(itemService.getBlueprint(CustomItemType.ENCHANTED_RAW_TIN) as ICompressible, 9, 1)
+        else -> null
     }
 }

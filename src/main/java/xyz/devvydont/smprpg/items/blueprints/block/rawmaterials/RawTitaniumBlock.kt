@@ -10,13 +10,14 @@ import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.items.interfaces.ICompressible
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 
 class RawTitaniumBlock(itemService: ItemService, type: CustomItemType) : BlockBlueprint(itemService, type),
-    ICraftable, ISellable {
+    ICraftable, ISellable, ICompressible {
     override fun getCustomBlock(): CustomBlock {
         return CustomBlock.RAW_TITANIUM_BLOCK
     }
@@ -50,5 +51,17 @@ class RawTitaniumBlock(itemService: ItemService, type: CustomItemType) : BlockBl
             return ((bp as ISellable).getWorth(ingot) * 9) * item.amount
         }
         return 0
+    }
+
+    override val decompressor: ICompressible.CompressionStep? get() = when (customItemType) {
+        CustomItemType.RAW_TITANIUM_BLOCK ->
+            ICompressible.CompressionStep(itemService.getBlueprint(CustomItemType.RAW_TITANIUM) as ICompressible, 1, 9)
+        else -> null
+    }
+
+    override val compressor: ICompressible.CompressionStep? get() = when (customItemType) {
+        CustomItemType.RAW_TITANIUM_BLOCK ->
+            ICompressible.CompressionStep(itemService.getBlueprint(CustomItemType.ENCHANTED_RAW_TITANIUM) as ICompressible, 9, 1)
+        else -> null
     }
 }

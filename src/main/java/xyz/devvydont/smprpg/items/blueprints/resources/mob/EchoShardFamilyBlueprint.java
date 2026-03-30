@@ -1,29 +1,45 @@
 package xyz.devvydont.smprpg.items.blueprints.resources.mob;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.items.CustomItemType;
-import xyz.devvydont.smprpg.items.base.CustomCompressableBlueprint;
+import xyz.devvydont.smprpg.items.ItemClassification;
+import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
+import xyz.devvydont.smprpg.items.interfaces.ICompressible;
+import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
-import xyz.devvydont.smprpg.util.crafting.CompressionRecipeMember;
-import xyz.devvydont.smprpg.util.crafting.MaterialWrapper;
+import xyz.devvydont.smprpg.util.extensions.ItemExtensionsKt;
 
-import java.util.List;
-
-public class EchoShardFamilyBlueprint extends CustomCompressableBlueprint {
-
-    public static final List<CompressionRecipeMember> COMPRESSION_FLOW = List.of(
-            new CompressionRecipeMember(new MaterialWrapper(Material.ECHO_SHARD)),
-            new CompressionRecipeMember(new MaterialWrapper(CustomItemType.PREMIUM_ECHO_SHARD)),
-            new CompressionRecipeMember(new MaterialWrapper(CustomItemType.ENCHANTED_ECHO_SHARD))
-    );
+public class EchoShardFamilyBlueprint extends CustomItemBlueprint implements ICompressible, ISellable {
 
     public EchoShardFamilyBlueprint(ItemService itemService, CustomItemType type) {
         super(itemService, type);
     }
 
     @Override
-    public List<CompressionRecipeMember> getCompressionFlow() {
-        return COMPRESSION_FLOW;
+    public ItemClassification getItemClassification() {
+        return ItemClassification.MATERIAL;
     }
-    
+
+    @Override
+    public CompressionStep getDecompressor() {
+        return switch (getCustomItemType()) {
+            case PREMIUM_ECHO_SHARD -> new CompressionStep((ICompressible) itemService.getVanillaBlueprint(ItemStack.of(Material.ECHO_SHARD)), 1, 9);
+            case ENCHANTED_ECHO_SHARD -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.PREMIUM_ECHO_SHARD), 1, 9);
+            default -> null;
+        };
+    }
+
+    @Override
+    public CompressionStep getCompressor() {
+        return switch (getCustomItemType()) {
+            case PREMIUM_ECHO_SHARD -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.ENCHANTED_ECHO_SHARD), 9, 1);
+            default -> null;
+        };
+    }
+
+    @Override
+    public int getWorth(ItemStack itemStack) {
+        return ItemExtensionsKt.calculateCompressedWorth(this, itemStack);
+    }
 }

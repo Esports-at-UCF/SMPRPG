@@ -9,38 +9,24 @@ import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint
+import xyz.devvydont.smprpg.items.interfaces.ICompressible
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 
-class TungstenBlock(itemService: ItemService, type: CustomItemType) : BlockBlueprint(itemService, type), ICraftable,
-    ISellable {
+class TungstenBlock(itemService: ItemService, type: CustomItemType) : BlockBlueprint(itemService, type),
+    ISellable, ICompressible {
+
+    override val compressor: ICompressible.CompressionStep
+        get() = ICompressible.CompressionStep(blueprint(CustomItemType.ENCHANTED_TUNGSTEN) as ICompressible, 9, 1)
+
+    override val decompressor: ICompressible.CompressionStep
+        get() = ICompressible.CompressionStep(blueprint(CustomItemType.TUNGSTEN_INGOT) as ICompressible, 1, 9)
+
     override fun getCustomBlock(): CustomBlock {
         return CustomBlock.TUNGSTEN_BLOCK
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, this.customItemType.key + "_recipe")
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(this.recipeKey, generate())
-        recipe.shape(
-            "ttt",
-            "ttt",
-            "ttt"
-        )
-        recipe.setIngredient('t', generate(CustomItemType.TUNGSTEN_INGOT))
-        recipe.setCategory(CraftingBookCategory.MISC)
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            itemService.getCustomItem(CustomItemType.RAW_MITHRIL)
-        )
     }
 
     override fun getWorth(item: ItemStack): Int {

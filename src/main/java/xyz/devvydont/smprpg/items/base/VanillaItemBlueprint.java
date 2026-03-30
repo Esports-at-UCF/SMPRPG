@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.items.base;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.ItemRarity;
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource;
@@ -63,8 +64,10 @@ public class VanillaItemBlueprint extends SMPItemBlueprint implements ISellable 
     }
 
     @Override
-    public ItemStack generate() {
-        return ItemStack.of(material);
+    public @NonNull ItemStack generate() {
+        var item = ItemStack.of(material);
+        updateItemData(item);
+        return item;
     }
 
     /**

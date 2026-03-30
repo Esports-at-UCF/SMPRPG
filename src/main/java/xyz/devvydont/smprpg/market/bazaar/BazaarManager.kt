@@ -6,9 +6,9 @@ import org.bukkit.entity.Player
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
-import xyz.devvydont.smprpg.items.base.CustomCompressableBlueprint
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.SellableResource
+import xyz.devvydont.smprpg.items.interfaces.ICompressible
 import xyz.devvydont.smprpg.market.MarketConstants
 import xyz.devvydont.smprpg.market.storage.MarketDataStore
 import xyz.devvydont.smprpg.services.EconomyService
@@ -69,16 +69,37 @@ class BazaarManager(private val dataStore: MarketDataStore) {
     private fun buildCompressionFlowCache(): Map<String, List<CompressionRecipeMember>> {
         val itemService = SMPRPG.getService(ItemService::class.java)
         val result = mutableMapOf<String, List<CompressionRecipeMember>>()
-        val seenHandlers = mutableSetOf<Class<*>>()
 
-        for (type in CustomItemType.entries) {
-            if (!seenHandlers.add(type.Handler)) continue
-            val blueprint = itemService.getBlueprint(type)
-            if (blueprint !is CustomCompressableBlueprint) continue
+        // Collect all ICompressible blueprints (custom + vanilla) that are chain roots (no decompressor).
+        val allBlueprints = sequence {
+            val seenHandlers = mutableSetOf<Class<*>>()
+            for (type in CustomItemType.entries) {
+                if (seenHandlers.add(type.Handler))
+                    yield(itemService.getBlueprint(type))
+            }
+            yieldAll(itemService.getAllVanillaBlueprints())
+        }
 
-            val flow = blueprint.compressionFlow
-            val baseKey = flow.firstOrNull()?.material?.key() ?: continue
-            result[baseKey] = flow
+        for (blueprint in allBlueprints) {
+            if (blueprint !is ICompressible) continue
+            if (blueprint.decompressor != null) continue  // Only process chain roots
+
+            // Walk forward through the linked list to build the flow list.
+            val flow = mutableListOf<CompressionRecipeMember>()
+            var current: ICompressible? = blueprint
+            while (current != null) {
+                val wrapper = when (current) {
+                    is CustomItemBlueprint -> MaterialWrapper(current.customItemType)
+                    is VanillaItemBlueprint -> MaterialWrapper(current.material)
+                    else -> break
+                }
+                val inputAmount = current.compressor?.inputAmount ?: 9
+                flow.add(CompressionRecipeMember(wrapper, inputAmount))
+                current = current.compressor?.blueprint
+            }
+
+            if (flow.isEmpty()) continue
+            result[flow.first().material.key()] = flow
         }
         return result
     }

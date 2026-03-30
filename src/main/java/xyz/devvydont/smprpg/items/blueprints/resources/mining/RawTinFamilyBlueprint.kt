@@ -1,34 +1,41 @@
 package xyz.devvydont.smprpg.items.blueprints.resources.mining
 
 import net.kyori.adventure.key.Key
+import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.items.CustomItemType
-import xyz.devvydont.smprpg.items.base.CustomCompressableBlueprint
+import xyz.devvydont.smprpg.items.ItemClassification
+import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
+import xyz.devvydont.smprpg.items.interfaces.ICompressible
+import xyz.devvydont.smprpg.items.interfaces.ICompressible.CompressionStep
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
+import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.util.crafting.CompressionRecipeMember
-import xyz.devvydont.smprpg.util.crafting.MaterialWrapper
-import java.util.List
+import xyz.devvydont.smprpg.util.extensions.calculateCompressedWorth
 
-class RawTinFamilyBlueprint(itemService: ItemService?, type: CustomItemType?) :
-    CustomCompressableBlueprint(itemService, type), IModelOverridden {
+class RawTinFamilyBlueprint(itemService: ItemService, type: CustomItemType) :
+    CustomItemBlueprint(itemService, type), ICompressible, ISellable, IModelOverridden {
 
-    override fun getDisplayKey(): Key? {
-        return when (customItemType) {
-            CustomItemType.RAW_TIN, CustomItemType.ENCHANTED_RAW_TIN -> IModelOverridden.ofItemTypeInDirectory(CustomItemType.RAW_TIN, "materials")
-            CustomItemType.RAW_TIN_BLOCK -> IModelOverridden.ofItemTypeInDirectory(CustomItemType.RAW_TIN_BLOCK, "blocks")
-            else -> null
-        }
+    override val itemClassification get() = ItemClassification.MATERIAL
+
+    override val decompressor: CompressionStep? get() = when (customItemType) {
+        CustomItemType.RAW_TIN_BLOCK    -> CompressionStep(itemService.getBlueprint(CustomItemType.RAW_TIN) as ICompressible, 1, 9)
+        CustomItemType.ENCHANTED_RAW_TIN-> CompressionStep(itemService.getBlueprint(CustomItemType.RAW_TIN_BLOCK) as ICompressible, 1, 9)
+        else -> null
     }
 
-    override fun getCompressionFlow(): MutableList<CompressionRecipeMember?> {
-        return COMPRESSION_FLOW
+    override val compressor: CompressionStep? get() = when (customItemType) {
+        CustomItemType.RAW_TIN      -> CompressionStep(itemService.getBlueprint(CustomItemType.RAW_TIN_BLOCK) as ICompressible, 9, 1)
+        CustomItemType.RAW_TIN_BLOCK-> CompressionStep(itemService.getBlueprint(CustomItemType.ENCHANTED_RAW_TIN) as ICompressible, 9, 1)
+        else -> null
     }
 
-    companion object {
-        val COMPRESSION_FLOW: MutableList<CompressionRecipeMember?> = mutableListOf<CompressionRecipeMember?>(
-            CompressionRecipeMember(MaterialWrapper(CustomItemType.RAW_TIN)),
-            CompressionRecipeMember(MaterialWrapper(CustomItemType.RAW_TIN_BLOCK)),
-            CompressionRecipeMember(MaterialWrapper(CustomItemType.ENCHANTED_RAW_TIN))
-        )
+    override fun getWorth(itemStack: ItemStack) = calculateCompressedWorth(itemStack)
+
+    override fun getDisplayKey(): Key? = when (customItemType) {
+        CustomItemType.RAW_TIN, CustomItemType.ENCHANTED_RAW_TIN ->
+            IModelOverridden.ofItemTypeInDirectory(CustomItemType.RAW_TIN, "materials")
+        CustomItemType.RAW_TIN_BLOCK ->
+            IModelOverridden.ofItemTypeInDirectory(CustomItemType.RAW_TIN_BLOCK, "blocks")
+        else -> null
     }
 }

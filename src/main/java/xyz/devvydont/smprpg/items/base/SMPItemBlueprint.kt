@@ -30,6 +30,7 @@ import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.util.attributes.AttributeUtil
+import xyz.devvydont.smprpg.util.crafting.MaterialWrapper
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
 import xyz.devvydont.smprpg.util.items.FoodUtil
@@ -73,6 +74,17 @@ abstract class SMPItemBlueprint(
      * @return A string to be used for resource pack creation.
      */
     abstract val customModelDataIdentifier: String
+
+    /**
+     * Shortcut method to retrieving a material wrapper to get access to things like unique keys from blueprints.
+     */
+    fun getGenericMaterial(): MaterialWrapper {
+        if (this is CustomItemBlueprint)
+            return MaterialWrapper(this.customItemType)
+        if (this is VanillaItemBlueprint)
+            return MaterialWrapper(this.material)
+        throw IllegalStateException("${this::class.simpleName} could not be determined as vanilla or custom. Check class structure!")
+    }
 
 
     /**

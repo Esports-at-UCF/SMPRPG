@@ -8,28 +8,41 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
-import xyz.devvydont.smprpg.items.base.CustomCompressableBlueprint
+import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
+import xyz.devvydont.smprpg.items.interfaces.ICompressible
+import xyz.devvydont.smprpg.items.interfaces.ICompressible.CompressionStep
 import xyz.devvydont.smprpg.items.interfaces.IConsumable
 import xyz.devvydont.smprpg.items.interfaces.IEdible
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
+import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.util.crafting.CompressionRecipeMember
-import xyz.devvydont.smprpg.util.crafting.MaterialWrapper
+import xyz.devvydont.smprpg.util.extensions.calculateCompressedWorth
 import xyz.devvydont.smprpg.util.time.TickTime
-import java.util.List
 
 class NecroticFleshFamilyBlueprint(itemService: ItemService, type: CustomItemType) :
-    CustomCompressableBlueprint(itemService, type), IEdible, IConsumable, IModelOverridden {
+    CustomItemBlueprint(itemService, type), ICompressible, ISellable, IEdible, IConsumable, IModelOverridden {
 
     override val itemClassification: ItemClassification get() = ItemClassification.CONSUMABLE
 
-    override fun getCompressionFlow(): MutableList<CompressionRecipeMember?> { return COMPRESSION_FLOW }
+    override val decompressor: CompressionStep? get() = when (customItemType) {
+        CustomItemType.PREMIUM_NECROTIC_FLESH -> CompressionStep(itemService.getBlueprint(CustomItemType.NECROTIC_FLESH) as ICompressible, 1, 9)
+        CustomItemType.ENCHANTED_NECROTIC_FLESH -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_NECROTIC_FLESH) as ICompressible, 1, 9)
+        CustomItemType.NECROTIC_FLESH_SINGULARITY -> CompressionStep(itemService.getBlueprint(CustomItemType.ENCHANTED_NECROTIC_FLESH) as ICompressible, 1, 9)
+        else -> null
+    }
 
-    override fun getNutrition(item: ItemStack?): Int { return 0 }
+    override val compressor: CompressionStep? get() = when (customItemType) {
+        CustomItemType.NECROTIC_FLESH -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_NECROTIC_FLESH) as ICompressible, 9, 1)
+        CustomItemType.PREMIUM_NECROTIC_FLESH -> CompressionStep(itemService.getBlueprint(CustomItemType.ENCHANTED_NECROTIC_FLESH) as ICompressible, 9, 1)
+        CustomItemType.ENCHANTED_NECROTIC_FLESH -> CompressionStep(itemService.getBlueprint(CustomItemType.NECROTIC_FLESH_SINGULARITY) as ICompressible, 9, 1)
+        else -> null
+    }
 
-    override fun getSaturation(item: ItemStack?): Float { return 0.0f }
+    override fun getWorth(itemStack: ItemStack): Int = calculateCompressedWorth(itemStack)
 
-    override fun canAlwaysEat(item: ItemStack?): Boolean { return true }
+    override fun getNutrition(item: ItemStack?): Int = 0
+    override fun getSaturation(item: ItemStack?): Float = 0.0f
+    override fun canAlwaysEat(item: ItemStack?): Boolean = true
 
     override fun getConsumableComponent(item: ItemStack?): Consumable {
         val effects = ArrayList<ConsumeEffect>()
@@ -67,14 +80,7 @@ class NecroticFleshFamilyBlueprint(itemService: ItemService, type: CustomItemTyp
             .build()
     }
 
-    override fun getDisplayKey(): Key? { return IModelOverridden.ofItemTypeInDirectory(CustomItemType.NECROTIC_FLESH, "materials") }
-
-    companion object {
-        val COMPRESSION_FLOW: MutableList<CompressionRecipeMember?> = mutableListOf(
-            CompressionRecipeMember(MaterialWrapper(CustomItemType.NECROTIC_FLESH)),
-            CompressionRecipeMember(MaterialWrapper(CustomItemType.PREMIUM_NECROTIC_FLESH)),
-            CompressionRecipeMember(MaterialWrapper(CustomItemType.ENCHANTED_NECROTIC_FLESH)),
-            CompressionRecipeMember(MaterialWrapper(CustomItemType.NECROTIC_FLESH_SINGULARITY))
-        )
+    override fun getDisplayKey(): Key? {
+        return IModelOverridden.ofItemTypeInDirectory(CustomItemType.NECROTIC_FLESH, "materials")
     }
 }
