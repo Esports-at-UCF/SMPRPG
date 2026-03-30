@@ -142,6 +142,8 @@ class MenuRecipeViewer(
         if (currentRecipe >= recipes.size) currentRecipe = 0
         if (currentRecipe < 0) currentRecipe = recipes.size - 1
 
+        result.amount = recipes[currentRecipe].result.amount
+
         when (val recipe = recipes[currentRecipe]) {
             is CookingRecipe<*> -> renderCookingRecipe(recipe, event)
             is ShapelessRecipe -> renderShapelessRecipe(recipe, event)
