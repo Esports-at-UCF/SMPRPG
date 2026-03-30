@@ -47,7 +47,7 @@ class MenuRecipeViewer(
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
         super.handleInventoryOpened(event)
-        event.titleOverride(ComponentUtils.merge(ComponentUtils.create("Recipes for: "), result.getData(DataComponentTypes.ITEM_NAME)))
+        event.titleOverride(ComponentUtils.merge(ComponentUtils.create("Recipes for: "), ItemService.blueprint(result).getNameComponent(result)))
         this.render(event)
         Bukkit.getScheduler().runTaskTimer(SMPRPG.plugin, Consumer runTaskTimer@{ task: BukkitTask ->
 
@@ -184,9 +184,10 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.STONECUTTER_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
                     NamedTextColor.BLACK
-                )
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
             )
         )
 
@@ -206,9 +207,10 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SMITHING_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
                     NamedTextColor.BLACK
-                )
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
             )
         )
 
@@ -256,9 +258,10 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SHAPELESS_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
                     NamedTextColor.BLACK
-                )
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
             )
         )
 
@@ -293,9 +296,10 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SHAPED_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
                     NamedTextColor.BLACK
-                )
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
             )
         )
         for (row in shaped.shape) {
@@ -352,9 +356,10 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.FURNACE_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
                     NamedTextColor.BLACK
-                )
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
             )
         )
 
