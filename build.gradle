@@ -25,6 +25,7 @@ repositories {
     }
     maven { url 'https://jitpack.io' }
     maven { url "https://repo.dmulloy2.net/repository/public/" }
+    maven { url "https://repo.momirealms.net/releases" }
 }
 
 dependencies {
@@ -33,6 +34,10 @@ dependencies {
     compileOnly 'net.dmulloy2:ProtocolLib:5.4.0'
     implementation 'com.google.code.gson:gson:2.13.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    compileOnly("net.momirealms:craft-engine-core:0.0.67")
+    compileOnly("net.momirealms:craft-engine-bukkit:0.0.67")
+    compileOnly("net.momirealms:craft-engine-adventure:0.0.67")
 }
 
 def targetJavaVersion = 21

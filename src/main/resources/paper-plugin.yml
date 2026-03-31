@@ -12,3 +12,6 @@ dependencies:
     ProtocolLib:
       load: BEFORE
       required: true
+    CraftEngine:
+      load: BEFORE
+      required: true

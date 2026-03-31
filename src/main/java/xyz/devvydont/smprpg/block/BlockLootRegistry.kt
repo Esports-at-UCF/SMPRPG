@@ -1,5 +1,7 @@
 package xyz.devvydont.smprpg.block
 
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
+import net.momirealms.craftengine.core.util.Key
 import org.bukkit.Material
 import org.bukkit.block.BlockState
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -23,8 +25,7 @@ import java.util.*
 object BlockLootRegistry {
     private val entries: MutableMap<Material?, BlockLootEntry?> =
         EnumMap<Material?, BlockLootEntry?>(Material::class.java)
-    private val specialEntries: MutableMap<CustomBlock?, BlockLootEntry?> =
-        EnumMap<CustomBlock?, BlockLootEntry?>(CustomBlock::class.java)
+    private val specialEntries: MutableMap<Key?, BlockLootEntry?> = mutableMapOf()
 
     // Inputs necessary block drop overrides. Keep in mind, we only need to add OVERRIDES. If the vanilla behavior
     // is fine, then you can omit it :)
@@ -523,7 +524,7 @@ object BlockLootRegistry {
 
     init {
         register(
-            CustomBlock.SILVER_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.SILVER_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
@@ -532,7 +533,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RAW_SILVER_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RAW_SILVER_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_SILVER_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_SILVER_BLOCK)))
@@ -540,7 +541,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.SILVER_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.SILVER_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SILVER_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_SILVER)))
@@ -549,7 +550,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.DEEPSLATE_SILVER_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.DEEPSLATE_SILVER_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.DEEPSLATE_SILVER_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_SILVER)))
@@ -558,7 +559,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.TIN_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.TIN_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TIN_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TIN_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.TIN_BLOCK)))
@@ -567,7 +568,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RAW_TIN_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RAW_TIN_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TIN_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_TIN_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TIN_BLOCK)))
@@ -575,7 +576,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.TIN_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.TIN_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TIN_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TIN_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TIN)))
@@ -584,7 +585,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.DEEPSLATE_TIN_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.DEEPSLATE_TIN_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TIN_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.DEEPSLATE_TIN_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TIN)))
@@ -593,7 +594,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.STEEL_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.STEEL_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
@@ -602,7 +603,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.SPARSE_MITHRIL_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.SPARSE_MITHRIL_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.MITHRIL_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SPARSE_MITHRIL_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_MITHRIL)))
@@ -610,7 +611,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.MITHRIL_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.MITHRIL_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.MITHRIL_INGOT), 2.0))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.MITHRIL_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_MITHRIL), 2.0))
@@ -618,7 +619,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.DENSE_MITHRIL_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.DENSE_MITHRIL_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.MITHRIL_INGOT), 3.0))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.DENSE_MITHRIL_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_MITHRIL), 3.0))
@@ -626,7 +627,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RAW_MITHRIL_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RAW_MITHRIL_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.MITHRIL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_MITHRIL_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_MITHRIL_BLOCK)))
@@ -634,7 +635,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.MITHRIL_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.MITHRIL_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.MITHRIL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.MITHRIL_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.MITHRIL_BLOCK)))
@@ -643,7 +644,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.TITANIUM_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.TITANIUM_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TITANIUM_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TITANIUM_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TITANIUM)))
@@ -651,7 +652,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RAW_TITANIUM_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RAW_TITANIUM_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TITANIUM_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_TITANIUM_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TITANIUM_BLOCK)))
@@ -659,7 +660,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.TITANIUM_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.TITANIUM_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TITANIUM_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TITANIUM_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.TITANIUM_BLOCK)))
@@ -668,7 +669,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.ADAMANTIUM_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.ADAMANTIUM_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ADAMANTIUM_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ADAMANTIUM_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_ADAMANTIUM)))
@@ -676,7 +677,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RAW_ADAMANTIUM_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RAW_ADAMANTIUM_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ADAMANTIUM_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_ADAMANTIUM_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_ADAMANTIUM_BLOCK)))
@@ -684,7 +685,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.ADAMANTIUM_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.ADAMANTIUM_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ADAMANTIUM_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ADAMANTIUM_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ADAMANTIUM_BLOCK)))
@@ -693,7 +694,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.GRIMSTONE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.GRIMSTONE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.GRIMSTONE)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.COBBLED_GRIMSTONE)))
@@ -701,7 +702,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.COBBLED_GRIMSTONE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.COBBLED_GRIMSTONE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.GRIMSTONE)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.COBBLED_GRIMSTONE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.COBBLED_GRIMSTONE)))
@@ -709,7 +710,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.GRIMSTONE_DIAMOND_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.GRIMSTONE_DIAMOND_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.DIAMOND), 3.0))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_DIAMOND_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.DIAMOND), 3.0))
@@ -717,7 +718,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.GRIMSTONE_IRON_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.GRIMSTONE_IRON_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.IRON_INGOT), 3.0))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_IRON_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.RAW_IRON), 3.0))
@@ -725,7 +726,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.GRIMSTONE_GOLD_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.GRIMSTONE_GOLD_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.GOLD_INGOT), 3.0))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_GOLD_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.RAW_GOLD), 3.0))
@@ -733,7 +734,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.GRIMSTONE_SILVER_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.GRIMSTONE_SILVER_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_INGOT), 3.0))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_SILVER_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_SILVER), 3.0))
@@ -741,7 +742,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.GRIMSTONE_LAPIS_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.GRIMSTONE_LAPIS_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.LAPIS_LAZULI), 6.0))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRIMSTONE_LAPIS_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.LAPIS_LAZULI), 6.0))
@@ -749,7 +750,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.SULFUR_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.SULFUR_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SULFUR), 6.0))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SULFUR_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SULFUR), 6.0))
@@ -757,7 +758,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.SULFUR_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.SULFUR_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SULFUR_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SULFUR_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SULFUR_BLOCK)))
@@ -766,7 +767,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.TUNGSTEN_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.TUNGSTEN_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TUNGSTEN_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TUNGSTEN_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TUNGSTEN)))
@@ -774,7 +775,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RAW_TUNGSTEN_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RAW_TUNGSTEN_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TUNGSTEN_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_TUNGSTEN_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TUNGSTEN_BLOCK)))
@@ -782,7 +783,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.TUNGSTEN_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.TUNGSTEN_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TUNGSTEN_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TUNGSTEN_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.TUNGSTEN_BLOCK)))
@@ -791,7 +792,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.COBALT_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.COBALT_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.COBALT_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.COBALT_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_COBALT)))
@@ -799,15 +800,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.COBALT_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.COBALT_INGOT)))
-                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.COBALT_ORE)))
-                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_COBALT)))
-                .build()
-        )
-
-        register(
-            CustomBlock.RAW_COBALT_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RAW_COBALT_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.COBALT_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_COBALT_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_COBALT_BLOCK)))
@@ -816,7 +809,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.COBALT_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.COBALT_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.COBALT_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.COBALT_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.COBALT_BLOCK)))
@@ -825,7 +818,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.ORICHALCUM_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.ORICHALCUM_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ORICHALCUM_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ORICHALCUM_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_ORICHALCUM)))
@@ -833,7 +826,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RAW_ORICHALCUM_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RAW_ORICHALCUM_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ORICHALCUM_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_ORICHALCUM_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_ORICHALCUM_BLOCK)))
@@ -841,7 +834,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.ORICHALCUM_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.ORICHALCUM_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ORICHALCUM_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ORICHALCUM_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ORICHALCUM_BLOCK)))
@@ -850,7 +843,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.ONYX_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.ONYX_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ONYX)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ONYX_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ONYX)))
@@ -858,7 +851,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.ONYX_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.ONYX_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ONYX_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ONYX_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ONYX_BLOCK)))
@@ -867,7 +860,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.DRAGONSTEEL_BLOCK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.DRAGONSTEEL_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.DRAGONSTEEL_BLOCK)))
@@ -876,7 +869,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.REFORGE_TABLE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.REFORGE_TABLE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.REFORGE_TABLE)))
@@ -885,7 +878,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RUNE_BLANK, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RUNE_BLANK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_BLANK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_BLANK)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_BLANK)))
@@ -894,7 +887,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RUNE_POTENTIAL, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RUNE_POTENTIAL.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_POTENTIAL)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_POTENTIAL)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_POTENTIAL)))
@@ -903,7 +896,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RUNE_AMBITION, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RUNE_AMBITION.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_AMBITION)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_AMBITION)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_AMBITION)))
@@ -912,7 +905,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RUNE_MEMORIZATION, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RUNE_MEMORIZATION.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_MEMORIZATION)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_MEMORIZATION)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_MEMORIZATION)))
@@ -921,7 +914,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RUNE_GREED, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RUNE_GREED.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_GREED)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_GREED)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_GREED)))
@@ -930,7 +923,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RUNE_INSIGHT, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RUNE_INSIGHT.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_INSIGHT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_INSIGHT)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_INSIGHT)))
@@ -939,7 +932,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RUNE_FORTUITY, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RUNE_FORTUITY.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_FORTUITY)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_FORTUITY)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_FORTUITY)))
@@ -948,7 +941,7 @@ object BlockLootRegistry {
         )
 
         register(
-            CustomBlock.RUNE_DIVINITY, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+            CraftEngineBlockEnums.RUNE_DIVINITY.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_DIVINITY)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_DIVINITY)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_DIVINITY)))
@@ -961,13 +954,16 @@ object BlockLootRegistry {
         entries.put(material, entry)
     }
 
-    fun register(material: CustomBlock?, entry: BlockLootEntry?) {
-        specialEntries.put(material, entry)
+    fun register(key: Key?, entry: BlockLootEntry?) {
+        specialEntries.put(key, entry!!)
     }
 
     fun get(block: BlockState): BlockLootEntry? {
-        val entry = specialEntries.getOrDefault(CustomBlock.resolve(block), null)
-        if (entry == null) return entries.get(block.getType())
-        return entry
+        if (CraftEngineBlocks.isCustomBlock(block.block)) {
+            val resourceKey: Key = Key.of(CraftEngineBlocks.getCustomBlockState(block.blockData)!!.customBlockState().asString)
+            return specialEntries[resourceKey]
+        }
+        else
+            return entries[block.type]
     }
 }

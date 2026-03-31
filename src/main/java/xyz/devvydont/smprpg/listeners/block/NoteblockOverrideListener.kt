@@ -39,22 +39,22 @@ class NoteblockOverrideListener : ToggleableListener() {
         event.isCancelled = true // DIE
     }
 
-    @EventHandler(priority = EventPriority.LOW)
-    fun woodPlacementSoundHack(event: BlockPlaceEvent) {
-        val block = event.block
-        val entry = BlockPropertiesRegistry.get(block)
-        if (entry != null && !BlockPropertiesRegistry.isCustom(block)) {
-            val blockSound = BlockPropertiesRegistry.get(block)!!.getBlockSound()
-            if (blockSound != null) {
-                block.world.playSound(
-                    block.location,
-                    blockSound.PlaceSound,
-                    blockSound.PlaceVolume,
-                    blockSound.PlacePitch
-                )
-            }
-        }
-    }
+    //@EventHandler(priority = EventPriority.LOW)
+    //fun woodPlacementSoundHack(event: BlockPlaceEvent) {
+    //    val block = event.block
+    //    val entry = BlockPropertiesRegistry.get(block)
+    //    if (entry != null && !BlockPropertiesRegistry.isCustom(block)) {
+    //        val blockSound = BlockPropertiesRegistry.get(block)!!.getBlockSound()
+    //        if (blockSound != null) {
+    //            block.world.playSound(
+    //                block.location,
+    //                blockSound.PlaceSound,
+    //                blockSound.PlaceVolume,
+    //                blockSound.PlacePitch
+    //            )
+    //        }
+    //    }
+    //}
 
     @EventHandler(priority = EventPriority.LOW)
     fun onRightClickNoteblock(event: PlayerInteractEvent) {

@@ -114,7 +114,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(TrialChamberVaultFix()) // Allows trial chambers to work with our custom item system.
         generalListeners.add(SlimeRapidAttackFixListener()) // Fixes the vanilla bug of slimes being able to attack every tick.
         generalListeners.add(MultiBlockBreakListener()) // Fixes the vanilla bug of slimes being able to attack every tick.
-        generalListeners.add(NoteblockOverrideListener())  // Overrides vanilla noteblock behavior, such that we can overload noteblock blockstates for custom ores.
+        //generalListeners.add(NoteblockOverrideListener())  // Overrides vanilla noteblock behavior, such that we can overload noteblock blockstates for custom ores.
         generalListeners.add(MeleeVisualListener())  // Visuals melee attack particles for weapons like staffs
         generalListeners.add(XPOrbDisablerListener())  // Overrides experience orb drops, as to disable vanilla EXP
         generalListeners.add(ItemDurabilityListener())  // Prevents items from fully breaking, capping them at 1 durability remaining.

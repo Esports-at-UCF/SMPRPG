@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.skills.listeners
 
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.event.EventHandler
@@ -57,7 +58,7 @@ class MiningExperienceListener() : Listener {
 
     companion object {
         fun getBaseExperienceForDrop(block: Block): Int {
-            if (BlockPropertiesRegistry.isCustom(block)) {
+            if (CraftEngineBlocks.isCustomBlock(block)) {
                 val cb = CustomBlock.resolve(block) ?: return 0
                 return when (cb) {
                     CustomBlock.RAW_SILVER_BLOCK -> 11
