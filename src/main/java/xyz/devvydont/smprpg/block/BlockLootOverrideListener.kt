@@ -1,5 +1,8 @@
 package xyz.devvydont.smprpg.block
 
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
+import net.momirealms.craftengine.bukkit.api.event.CustomBlockBreakEvent
+import org.bukkit.ExplosionResult
 import org.bukkit.block.data.Ageable
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Item
@@ -7,6 +10,8 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.block.BlockDropItemEvent
+import org.bukkit.event.block.BlockExplodeEvent
+import org.bukkit.event.entity.EntityExplodeEvent
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.block.BlockLootRegistry.get
@@ -30,12 +35,53 @@ class BlockLootOverrideListener : ToggleableListener() {
      */
     private fun predictDesiredFortuneAttribute(tool: ItemClassification): AttributeWrapper? {
         return when (tool) {
-            ItemClassification.PICKAXE -> AttributeWrapper.MINING_FORTUNE
-            ItemClassification.DRILL -> AttributeWrapper.MINING_FORTUNE
+            ItemClassification.PICKAXE, ItemClassification.DRILL -> AttributeWrapper.MINING_FORTUNE
             ItemClassification.HOE -> AttributeWrapper.FARMING_FORTUNE
             ItemClassification.AXE -> AttributeWrapper.WOODCUTTING_FORTUNE
             else -> null
         }
+    }
+
+    /**
+     * This method will handle exploded block loot from CraftEngine custom blocks.
+     */
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    private fun onCraftEngineBlockExplode(event: EntityExplodeEvent) {
+
+        if (event.explosionResult == ExplosionResult.KEEP || event.explosionResult == ExplosionResult.TRIGGER_BLOCK) return
+
+        for (block in event.blockList()) {
+            if (CraftEngineBlocks.isCustomBlock(block)) {
+                val entry = get(block.state) ?: continue
+                val ctx = BlockLootContext.CORRECT_TOOL
+                val loot: Collection<BlockLoot> = entry.getLootForContext(ctx)
+
+                for (drop in loot) {
+                    var amount = drop.chance * event.yield
+
+                    val leftover = amount - floor(amount)
+                    if (Math.random() < leftover) amount++
+
+                    val item = drop.getLoot()
+                    item.amount = amount.toInt()
+                    event.entity.world.dropItemNaturally(block.location, item)
+                }
+            }
+        }
+    }
+
+    /**
+     * This specific method handles block loot for CraftEngine blocks. It filters out if we
+     * have already defined a loot override, then sends a new event over to handle the block break.
+     */
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    private fun onCraftEngineBlockBreak(event: CustomBlockBreakEvent) {
+        val entry = get(event.bukkitBlock().state) ?: return
+
+        // We are overriding drops at this point.
+        event.setDropItems(false)
+
+        BlockDropItemEvent(event.bukkitBlock(), event.bukkitBlock().state, event.player, mutableListOf()).callEvent()
     }
 
     /**
@@ -48,6 +94,8 @@ class BlockLootOverrideListener : ToggleableListener() {
         // If this block is ageable, then it needs to be at its max age before we consider custom logic.
 
         val blockData = event.blockState.blockData
+
+        // TODO: This may pose an issue with CraftEngine crops, revisit later.
         if (blockData is Ageable)
             if (blockData.age != blockData.maximumAge)
                 return
@@ -57,7 +105,7 @@ class BlockLootOverrideListener : ToggleableListener() {
         if (ChunkUtil.isBlockSkillInvalid(event.blockState)) fortuneActive = false
 
         // Check if this block is flagged. If it isn't, let vanilla handle the logic.
-        val entry = BlockLootRegistry.get(event.blockState) ?: return
+        val entry = get(event.blockState) ?: return
 
         // Check if this block is flagged to never trigger fortune.
         if (entry.dontUseFortune)

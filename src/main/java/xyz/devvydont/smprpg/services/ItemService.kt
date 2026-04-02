@@ -6,6 +6,7 @@ import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import net.momirealms.craftengine.bukkit.api.CraftEngineItems
 import org.bukkit.Bukkit
 import org.bukkit.Keyed
 import org.bukkit.Material
@@ -29,7 +30,6 @@ import org.bukkit.event.inventory.PrepareSmithingEvent
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.event.player.PlayerItemDamageEvent
 import org.bukkit.event.world.LootGenerateEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.MerchantRecipe
@@ -50,7 +50,7 @@ import xyz.devvydont.smprpg.items.base.ChargedItemBlueprint
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint
-import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint
+import xyz.devvydont.smprpg.items.blueprints.block.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.blueprints.potion.PotionBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource
 import xyz.devvydont.smprpg.items.blueprints.vanilla.*
@@ -292,15 +292,19 @@ class ItemService : IService, Listener {
                     .newInstance(this, customItemType)
             } catch (e: InvocationTargetException) {
                 plugin.logger.severe("Failed to register custom item: " + customItemType + e.message)
+                println(e)
                 continue
             } catch (e: InstantiationException) {
                 plugin.logger.severe("Failed to register custom item: " + customItemType + e.message)
+                println(e)
                 continue
             } catch (e: IllegalAccessException) {
                 plugin.logger.severe("Failed to register custom item: " + customItemType + e.message)
+                println(e)
                 continue
             } catch (e: NoSuchMethodException) {
                 plugin.logger.severe("Failed to register custom item: " + customItemType + e.message)
+                println(e)
                 continue
             }
 
@@ -596,8 +600,9 @@ class ItemService : IService, Listener {
             return null
 
         val key = meta.persistentDataContainer.getOrDefault(itemTypeKey, PersistentDataType.STRING, "")
-        if (key.isEmpty())
+        if (key.isEmpty()) {
             return null
+        }
 
         return key
     }
@@ -1535,13 +1540,13 @@ class ItemService : IService, Listener {
         val item = event.getItemInHand()
         val blueprint = getBlueprint(item)
 
-        if (blueprint is BlockBlueprint)
-            return;
-
         // Hack for summoning crystals. Allow them to be placed!
         if (blueprint is CustomItemBlueprint && blueprint.customItemType == CustomItemType.SUMMONING_CRYSTAL) return
 
         if (blueprint is IDamageFromCrops) return
+
+        // Craft Engine items are allowed to handle their own logic.
+        if (blueprint is CraftEngineBlueprint) return
 
         // If this item is a custom item, don't allow it to be placed!!!
         if (blueprint.isCustom) event.isCancelled = true
@@ -1558,6 +1563,8 @@ class ItemService : IService, Listener {
         val RARE_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/rare_repair_core"))
         val EPIC_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/epic_repair_core"))
         val LEGENDARY_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/legendary_repair_core"))
+
+        val CRAFT_ENGINE_ID = NamespacedKey("craftengine", "id")
 
         // Shortcut methods to do very common operations much less verbosely. This instance should always be a singleton
         // so static method calls like this are designed to be safe.

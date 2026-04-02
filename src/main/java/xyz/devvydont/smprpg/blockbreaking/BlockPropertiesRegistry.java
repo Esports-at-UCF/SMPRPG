@@ -2,25 +2,17 @@ package xyz.devvydont.smprpg.blockbreaking;
 
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.bukkit.api.event.CraftEngineReloadEvent;
-import net.momirealms.craftengine.core.block.CustomBlock;
-import net.momirealms.craftengine.core.util.CustomDataType;
 import net.momirealms.craftengine.core.util.Key;
-import net.momirealms.craftengine.libraries.nbt.Tag;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerCommandSendEvent;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.block.BlockSound;
-//import xyz.devvydont.smprpg.block.CustomBlock;
 import xyz.devvydont.smprpg.items.ItemClassification;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The loot dropped from blocks is a very complex system. When blocks are dropped, there's conditions
@@ -6811,7 +6803,6 @@ public class BlockPropertiesRegistry implements Listener {
     private static void registerCraftEngineMaterials() {
 
         for (var blockEntry : CraftEngineBlocks.loadedBlocks().entrySet()) {
-            var blockKey = blockEntry.getKey();
             var customBlock = blockEntry.getValue();
 
             var blockSettings = customBlock.defaultState().settings();
@@ -6825,7 +6816,7 @@ public class BlockPropertiesRegistry implements Listener {
             }
             boolean requiresTool = blockSettings.requireCorrectTool();
 
-            ArrayList<ItemClassification> tools = new ArrayList<>();
+            HashSet<ItemClassification> tools = new HashSet<>();
             var key = blockSettings.tags().contains(Key.of("minecraft", "mineable/pickaxe"));
             if (key) {
                 tools.add(ItemClassification.PICKAXE);

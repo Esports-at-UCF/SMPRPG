@@ -577,18 +577,18 @@ object BlockLootRegistry {
 
         register(
             CraftEngineBlockEnums.TIN_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TIN_INGOT)))
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TIN_INGOT), 1.5))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TIN_ORE)))
-                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TIN)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TIN), 1.5))
                 .uses(AttributeWrapper.MINING_FORTUNE)
                 .build()
         )
 
         register(
             CraftEngineBlockEnums.DEEPSLATE_TIN_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TIN_INGOT)))
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TIN_INGOT), 1.75))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.DEEPSLATE_TIN_ORE)))
-                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TIN)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_TIN), 1.75))
                 .uses(AttributeWrapper.MINING_FORTUNE)
                 .build()
         )

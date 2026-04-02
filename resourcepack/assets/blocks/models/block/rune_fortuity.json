@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_top",
-  "textures": {
-    "side": "blocks:block/rune_basic",
-    "top": "blocks:block/rune_fortuity"
-  }
-}

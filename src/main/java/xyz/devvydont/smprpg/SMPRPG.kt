@@ -7,6 +7,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
+import xyz.devvydont.smprpg.listeners.block.CraftEngineBlockEventListener
 import xyz.devvydont.smprpg.listeners.block.DimensionPortalLockingListener
 import xyz.devvydont.smprpg.listeners.block.MultiBlockBreakListener
 import xyz.devvydont.smprpg.listeners.block.NoteblockOverrideListener
@@ -119,6 +120,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(XPOrbDisablerListener())  // Overrides experience orb drops, as to disable vanilla EXP
         generalListeners.add(ItemDurabilityListener())  // Prevents items from fully breaking, capping them at 1 durability remaining.
         generalListeners.add(UnderwaterArrowListener())  // Listens for arrows that are shot underwater
+        generalListeners.add(CraftEngineBlockEventListener())  // Listens for custom "events" sent by CraftEngine
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.

@@ -80,9 +80,9 @@ class NoteblockOverrideListener : ToggleableListener() {
                                 true,
                                 event.hand!!
                             )
-                            placeEvent.callEvent()
-                            if (placeEvent.isCancelled)
-                                return
+                            //placeEvent.callEvent()
+                            //if (placeEvent.isCancelled)
+                            //    return
 
                             // We passed our placement checks, set the destination block.
                             blockDest.type = item.type
@@ -146,9 +146,9 @@ class NoteblockOverrideListener : ToggleableListener() {
                     true,
                     event.getHand()!!
                 )
-                placeEvent.callEvent()
-                if (placeEvent.isCancelled())
-                    return
+                //placeEvent.callEvent()
+                //if (placeEvent.isCancelled())
+                //    return
                 blockDest.setType(blockEnum.BlockMaterial)
                 blockDest.setBlockData(blockEnum.BlockData)
                 placementDelays.put(player, 4)
@@ -197,60 +197,10 @@ class NoteblockOverrideListener : ToggleableListener() {
         if (nextBlock.getBlock().getType() == Material.NOTE_BLOCK) updateAndCheck(b.getLocation(), BlockFace.DOWN)
     }
 
-    // TODO :These next two handlers are temporary. We need to roll proper loot from explosions off of these blocks.
-    @EventHandler
-    fun removeNoteblocksFromEntityExplosions(event: EntityExplodeEvent) {
-        val blockList = event.blockList()
-        val copyList = ArrayList<Block>(blockList)
-        for (block in copyList) {
-            if (block.type == Material.NOTE_BLOCK) blockList.remove(block)
-        }
-    }
-
-    @EventHandler
-    fun removeNoteblocksFromBlockExplosions(event: BlockExplodeEvent) {
-        // We need to duplicate this event for beds, respawn anchors, etc.
-        val blockList = event.blockList()
-        val copyList = ArrayList<Block>(blockList)
-        for (block in copyList) {
-            if (block.type == Material.NOTE_BLOCK) blockList.remove(block)
-        }
-    }
-
     @EventHandler
     fun startPlacementDelayHandler(event: ServerLoadEvent?) {
         Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
             decrementPlacementDelays()
         }, TickTime.INSTANTANEOUSLY, TickTime.TICK)
-    }
-
-    @EventHandler
-    fun onNoteblockCatchFire(event: BlockIgniteEvent) {
-        // TODO: Very rudimentary hacky way to do this, should be done more gracefully with block properties later
-        if (event.block.type == Material.NOTE_BLOCK)
-            event.isCancelled = true
-    }
-
-    @EventHandler
-    fun onNoteblockDestroyedByFire(event: BlockBurnEvent) {
-        // TODO: Very rudimentary hacky way to do this, should be done more gracefully with block properties later
-        if (event.block.type == Material.NOTE_BLOCK)
-            event.isCancelled = true
-    }
-
-    @EventHandler
-    fun onPistonExtend(event: BlockPistonExtendEvent) {
-        for (block in event.blocks) {
-            if (block.type == Material.NOTE_BLOCK)
-                event.isCancelled = true
-        }
-    }
-
-    @EventHandler
-    fun onPistonRetract(event: BlockPistonRetractEvent) {
-        for (block in event.blocks) {
-            if (block.type == Material.NOTE_BLOCK)
-                event.isCancelled = true
-        }
     }
 }

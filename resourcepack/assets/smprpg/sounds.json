@@ -1,0 +1,167 @@
+{
+  "food.breadboard.eat": {
+    "sounds": [
+      "smprpg:random/breadboard_eat1",
+      "smprpg:random/breadboard_eat2",
+      "smprpg:random/breadboard_eat3"
+    ],
+    "subtitle": "subtitles.breadboard.eat"
+  },
+  "tools.drill.break": {
+	  "sounds": [
+		"smprpg:tools/drill"
+	  ],
+	  "subtitle": "Drill whirring"
+  },
+  "events.drops.rare": {
+    "sounds": [
+      "smprpg:events/rare_drop"
+    ],
+    "subtitle": "Rare drop found"
+  },
+  "events.drops.epic": {
+    "sounds": [
+      "smprpg:events/epic_drop"
+    ],
+    "subtitle": "Epic drop found!"
+  },
+  "events.drops.legendary": {
+    "sounds": [
+      "smprpg:events/legendary_drop"
+    ],
+    "subtitle": "Legendary drop found!!!"
+  },
+  "block.wood_custom.hit": {
+    "sounds": [
+      "step/wood1",
+      "step/wood2",
+      "step/wood3",
+      "step/wood4",
+      "step/wood5",
+      "step/wood6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.wood_custom.place": {
+    "sounds": [
+      "dig/wood1",
+      "dig/wood2",
+      "dig/wood3",
+      "dig/wood4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.wood_custom.break": {
+    "sounds": [
+      "dig/wood1",
+      "dig/wood2",
+      "dig/wood3",
+      "dig/wood4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.rune.break": {
+    "sounds": [
+      "smprpg:block/rune/place1",
+      "smprpg:block/rune/place2",
+      "smprpg:block/rune/place3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.rune.fall": {
+    "sounds": [
+      "block/basalt/step1",
+      "block/basalt/step2",
+      "block/basalt/step3",
+      "block/basalt/step4",
+      "block/basalt/step5",
+      "block/basalt/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.rune.hit": {
+    "sounds": [
+      "block/basalt/step1",
+      "block/basalt/step2",
+      "block/basalt/step3",
+      "block/basalt/step4",
+      "block/basalt/step5",
+      "block/basalt/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.rune.place": {
+    "sounds": [
+      "smprpg:block/rune/place1",
+      "smprpg:block/rune/place2",
+      "smprpg:block/rune/place3"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.rune.step": {
+    "sounds": [
+      "block/basalt/step1",
+      "block/basalt/step2",
+      "block/basalt/step3",
+      "block/basalt/step4",
+      "block/basalt/step5",
+      "block/basalt/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.adamantium_ore.break": {
+    "sounds": [
+      "smprpg:block/adamantium_ore/dig1",
+      "smprpg:block/adamantium_ore/dig2",
+      "smprpg:block/adamantium_ore/dig3",
+      "smprpg:block/adamantium_ore/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.adamantium_ore.fall": {
+    "sounds": [
+      "step/stone1",
+      "step/stone2",
+      "step/stone3",
+      "step/stone4",
+      "step/stone5",
+      "step/stone6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.adamantium_ore.hit": {
+    "sounds": [
+      "smprpg:block/adamantium_ore/dig1",
+      "smprpg:block/adamantium_ore/dig2",
+      "smprpg:block/adamantium_ore/dig3",
+      "smprpg:block/adamantium_ore/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.adamantium_ore.place": {
+    "sounds": [
+      "smprpg:block/adamantium_ore/dig1",
+      "smprpg:block/adamantium_ore/dig2",
+      "smprpg:block/adamantium_ore/dig3",
+      "smprpg:block/adamantium_ore/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.adamantium_ore.step": {
+    "sounds": [
+      "step/stone1",
+      "step/stone2",
+      "step/stone3",
+      "step/stone4",
+      "step/stone5",
+      "step/stone6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.illager_warlock.cast_toss": {
+    "sounds": [
+      "smprpg:entity/illager_warlock/cast_toss"
+    ],
+    "subtitle": "subtitles.entity.evoker.cast_spell"
+  }
+}

@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.items.base
 
+import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType

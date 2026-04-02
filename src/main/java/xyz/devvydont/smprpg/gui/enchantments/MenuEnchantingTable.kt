@@ -2,13 +2,13 @@ package xyz.devvydont.smprpg.gui.enchantments
 
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.CustomModelData
-import io.papermc.paper.datacomponent.item.ItemEnchantments
 import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent
-import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
+import net.momirealms.craftengine.core.util.Key as CEKey
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -29,8 +29,8 @@ import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
+import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
 import xyz.devvydont.smprpg.block.CustomBlock
-import xyz.devvydont.smprpg.enchantments.definitions.OneForAllArtificeEnchantment
 import xyz.devvydont.smprpg.events.CustomEnchantItemEvent
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.base.MenuBase
@@ -40,6 +40,7 @@ import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
 import xyz.devvydont.smprpg.util.extensions.addEnchantment
 import xyz.devvydont.smprpg.util.extensions.takeIfPresent
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -65,15 +66,15 @@ enum class ActionButtonState {
     ENABLED
 }
 
-enum class RuneType(val runeBlock: CustomBlock, val runeItem : CustomItemType) {
-    RUNE_BLANK(CustomBlock.RUNE_BLANK, CustomItemType.RUNE_BLANK),
-    RUNE_POTENTIAL(CustomBlock.RUNE_POTENTIAL, CustomItemType.RUNE_POTENTIAL),
-    RUNE_AMBITION(CustomBlock.RUNE_AMBITION, CustomItemType.RUNE_AMBITION),
-    RUNE_MEMORIZATION(CustomBlock.RUNE_MEMORIZATION, CustomItemType.RUNE_MEMORIZATION),
-    RUNE_GREED(CustomBlock.RUNE_GREED, CustomItemType.RUNE_GREED),
-    RUNE_INSIGHT(CustomBlock.RUNE_INSIGHT, CustomItemType.RUNE_INSIGHT),
-    RUNE_FORTUITY(CustomBlock.RUNE_FORTUITY, CustomItemType.RUNE_FORTUITY),
-    RUNE_DIVINITY(CustomBlock.RUNE_DIVINITY, CustomItemType.RUNE_DIVINITY)
+enum class RuneType(val runeBlock: CraftEngineBlockEnums, val runeItem : CustomItemType) {
+    RUNE_BLANK(CraftEngineBlockEnums.RUNE_BLANK, CustomItemType.RUNE_BLANK),
+    RUNE_POTENTIAL(CraftEngineBlockEnums.RUNE_POTENTIAL, CustomItemType.RUNE_POTENTIAL),
+    RUNE_AMBITION(CraftEngineBlockEnums.RUNE_AMBITION, CustomItemType.RUNE_AMBITION),
+    RUNE_MEMORIZATION(CraftEngineBlockEnums.RUNE_MEMORIZATION, CustomItemType.RUNE_MEMORIZATION),
+    RUNE_GREED(CraftEngineBlockEnums.RUNE_GREED, CustomItemType.RUNE_GREED),
+    RUNE_INSIGHT(CraftEngineBlockEnums.RUNE_INSIGHT, CustomItemType.RUNE_INSIGHT),
+    RUNE_FORTUITY(CraftEngineBlockEnums.RUNE_FORTUITY, CustomItemType.RUNE_FORTUITY),
+    RUNE_DIVINITY(CraftEngineBlockEnums.RUNE_DIVINITY, CustomItemType.RUNE_DIVINITY)
 }
 
 class MenuEnchantingTable(owner: Player, private val enchantingTable: EnchantingTable) : MenuBase(owner, 5) {
@@ -472,9 +473,12 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
         var i = 0
         for (slotIdx in RUNE_SLOTS) {
             val xz = RUNE_POS_OFFSETS.get(i)
-            val blockData = enchantingTable.block.getRelative(xz.first, -1, xz.second).blockData
+            val block = enchantingTable.block.getRelative(xz.first, -1, xz.second)
             for (runeType in RuneType.entries) {
-                if (runeType.runeBlock.BlockData == blockData) {
+                val blockKey = CraftEngineHelpers.getBlockKey(block)
+                if (blockKey == null)
+                    continue
+                if (runeType.runeBlock.key == blockKey) {
                     val item = ItemService.generate(runeType.runeItem)
                     val modelData = item.getData(DataComponentTypes.CUSTOM_MODEL_DATA)
                     item.setData(DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData().addString(modelData!!.strings().get(0) + "_ui"))
@@ -584,38 +588,49 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
                     inc = 2
                 else
                     inc = 1
-                when (blockAt.blockData) {
-                    CustomBlock.RUNE_BLANK.BlockData -> {
-                        val value = runes[RuneType.RUNE_BLANK] ?: 0
-                        runes[RuneType.RUNE_BLANK] = value + inc
-                    }
-                    CustomBlock.RUNE_POTENTIAL.BlockData -> {
-                        val value = runes[RuneType.RUNE_POTENTIAL] ?: 0
-                        runes[RuneType.RUNE_POTENTIAL] = value + inc
-                    }
-                    CustomBlock.RUNE_AMBITION.BlockData -> {
-                        val value = runes[RuneType.RUNE_AMBITION] ?: 0
-                        runes[RuneType.RUNE_AMBITION] = value + inc
-                    }
-                    CustomBlock.RUNE_MEMORIZATION.BlockData -> {
-                        val value = runes[RuneType.RUNE_MEMORIZATION] ?: 0
-                        runes[RuneType.RUNE_MEMORIZATION] = value + inc
-                    }
-                    CustomBlock.RUNE_GREED.BlockData -> {
-                        val value = runes[RuneType.RUNE_GREED] ?: 0
-                        runes[RuneType.RUNE_GREED] = value + inc
-                    }
-                    CustomBlock.RUNE_INSIGHT.BlockData -> {
-                        val value = runes[RuneType.RUNE_INSIGHT] ?: 0
-                        runes[RuneType.RUNE_INSIGHT] = value + inc
-                    }
-                    CustomBlock.RUNE_FORTUITY.BlockData -> {
-                        val value = runes[RuneType.RUNE_FORTUITY] ?: 0
-                        runes[RuneType.RUNE_FORTUITY] = value + inc
-                    }
-                    CustomBlock.RUNE_DIVINITY.BlockData -> {
-                        val value = runes[RuneType.RUNE_DIVINITY] ?: 0
-                        runes[RuneType.RUNE_DIVINITY] = value + 1  // Divinity is hardcoded to NOT be boosted by extra bonus from being under table.
+                if (CraftEngineBlocks.isCustomBlock(blockAt)) {
+                    val resourceKey = CraftEngineHelpers.getBlockKey(blockAt)
+                    when (resourceKey) {
+                        CraftEngineBlockEnums.RUNE_BLANK.key -> {
+                            val value = runes[RuneType.RUNE_BLANK] ?: 0
+                            runes[RuneType.RUNE_BLANK] = value + inc
+                        }
+
+                        CraftEngineBlockEnums.RUNE_POTENTIAL.key -> {
+                            val value = runes[RuneType.RUNE_POTENTIAL] ?: 0
+                            runes[RuneType.RUNE_POTENTIAL] = value + inc
+                        }
+
+                        CraftEngineBlockEnums.RUNE_AMBITION.key -> {
+                            val value = runes[RuneType.RUNE_AMBITION] ?: 0
+                            runes[RuneType.RUNE_AMBITION] = value + inc
+                        }
+
+                        CraftEngineBlockEnums.RUNE_MEMORIZATION.key -> {
+                            val value = runes[RuneType.RUNE_MEMORIZATION] ?: 0
+                            runes[RuneType.RUNE_MEMORIZATION] = value + inc
+                        }
+
+                        CraftEngineBlockEnums.RUNE_GREED.key -> {
+                            val value = runes[RuneType.RUNE_GREED] ?: 0
+                            runes[RuneType.RUNE_GREED] = value + inc
+                        }
+
+                        CraftEngineBlockEnums.RUNE_INSIGHT.key -> {
+                            val value = runes[RuneType.RUNE_INSIGHT] ?: 0
+                            runes[RuneType.RUNE_INSIGHT] = value + inc
+                        }
+
+                        CraftEngineBlockEnums.RUNE_FORTUITY.key -> {
+                            val value = runes[RuneType.RUNE_FORTUITY] ?: 0
+                            runes[RuneType.RUNE_FORTUITY] = value + inc
+                        }
+
+                        CraftEngineBlockEnums.RUNE_DIVINITY.key -> {
+                            val value = runes[RuneType.RUNE_DIVINITY] ?: 0
+                            runes[RuneType.RUNE_DIVINITY] =
+                                value + 1  // Divinity is hardcoded to NOT be boosted by extra bonus from being under table.
+                        }
                     }
                 }
             }
