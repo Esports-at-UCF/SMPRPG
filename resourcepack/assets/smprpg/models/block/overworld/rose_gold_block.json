@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "layer0": "smprpg:block/overworld/rose_gold_block"
+    "all": "smprpg:block/overworld/rose_gold_block"
   }
 }

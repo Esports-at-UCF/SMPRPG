@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "layer0": "smprpg:block/end/dragonsteel_block"
+    "all": "smprpg:block/end/dragonsteel_block"
   }
 }

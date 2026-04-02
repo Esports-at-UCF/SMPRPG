@@ -1,9 +1,13 @@
 package xyz.devvydont.smprpg.block
 
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
+import net.momirealms.craftengine.bukkit.api.event.CraftEngineReloadEvent
 import net.momirealms.craftengine.core.util.Key
 import org.bukkit.Material
 import org.bukkit.block.BlockState
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.block.BlockLoot.Companion.of
 import xyz.devvydont.smprpg.block.BlockLootEntry.Companion.builder
@@ -22,7 +26,7 @@ import java.util.*
  * - Breaking a block with auto smelt.
  * - Breaking a block with incorrect tool. (fist and stone, or axe and stone)
  */
-object BlockLootRegistry {
+object BlockLootRegistry : Listener {
     private val entries: MutableMap<Material?, BlockLootEntry?> =
         EnumMap<Material?, BlockLootEntry?>(Material::class.java)
     private val specialEntries: MutableMap<Key?, BlockLootEntry?> = mutableMapOf()
@@ -31,6 +35,13 @@ object BlockLootRegistry {
     // is fine, then you can omit it :)
     // Just keep in mind, vanilla drops will NOT be affected by any fortune stats, so you do need to add all ores etc.
     init {
+        plugin.server.pluginManager.registerEvents(this, plugin)
+        registerBlockLoot()
+    }
+
+    fun registerBlockLoot() {
+        entries.clear()
+        specialEntries.clear()
         // Mining.
 
         register(
@@ -520,9 +531,7 @@ object BlockLootRegistry {
                 .uses(AttributeWrapper.FARMING_FORTUNE)
                 .build()
         )
-    }
 
-    init {
         register(
             CraftEngineBlockEnums.SILVER_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
@@ -758,10 +767,10 @@ object BlockLootRegistry {
         )
 
         register(
-            CraftEngineBlockEnums.SULFUR_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SULFUR_BLOCK)))
+            CraftEngineBlockEnums.SULFUR_BLOCK.key, builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SULFUR), 9.0))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SULFUR_BLOCK)))
-                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SULFUR_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SULFUR), 9.0))
                 .ignoresFortune()
                 .build()
         )
@@ -965,5 +974,10 @@ object BlockLootRegistry {
         }
         else
             return entries[block.type]
+    }
+
+    @EventHandler
+    fun onCraftEngineReload(event: CraftEngineReloadEvent?) {
+        registerBlockLoot()
     }
 }

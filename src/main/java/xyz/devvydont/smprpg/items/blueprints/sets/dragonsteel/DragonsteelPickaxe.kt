@@ -52,18 +52,10 @@ class DragonsteelPickaxe(itemService: ItemService, type: CustomItemType) : Drago
 
     companion object {
         val TOOL_COMP: Tool = Tool.tool()
-            .defaultMiningSpeed(0.0001f)
-            .addRule(
-                Tool.rule(
-                    ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_DIAMOND_TOOL),
-                    0.0001f,
-                    TriState.FALSE
-                )
-            )
             .addRule(
                 Tool.rule(
                     ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_PICKAXE),
-                    0.0001f,
+                    0.001f,
                     TriState.TRUE
                 )
             )

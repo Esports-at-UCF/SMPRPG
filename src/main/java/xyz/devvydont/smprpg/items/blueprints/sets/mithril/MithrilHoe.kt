@@ -51,7 +51,6 @@ class MithrilHoe(itemService: ItemService, type: CustomItemType) : MithrilAttrib
     }
 
     companion object {
-        val TOOL_COMP: Tool = Tool.tool()
-            .build()
+        val TOOL_COMP: Tool = Tool.tool().build()
     }
 }

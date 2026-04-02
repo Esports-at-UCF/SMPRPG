@@ -1156,9 +1156,6 @@ public enum CustomItemType {
     GILDED_SKULL("Gilded Skull", ItemRarity.LEGENDARY, GildedSkull.class),
 
     // DRAGON
-    DRAGONSTEEL_BLOCK(     "Block of Dragonsteel",      Material.POISONOUS_POTATO,     ItemRarity.LEGENDARY, CraftEngineBlueprint.class),
-
-    DRAGONSTEEL_INGOT("Dragonsteel Ingot", Material.IRON_INGOT, ItemRarity.EPIC, DragonsteelIngot.class),
     DRAGON_SCALES(   "Dragon Scales",    Material.PHANTOM_MEMBRANE, ItemRarity.RARE, true, 50_000, "materials"),
     DRACONIC_CRYSTAL("Draconic Crystal", ItemRarity.EPIC, DraconicCrystal.class),
     TRANSMISSION_WAND("Transmission Wand", Material.PRISMARINE_SHARD, ItemRarity.EPIC, TransmissionWand.class),
@@ -1169,7 +1166,10 @@ public enum CustomItemType {
 
     SUMMONING_CRYSTAL("Summoning Crystal", Material.END_CRYSTAL, ItemRarity.EPIC, true, 50_000),
 
-    // DRAGONSTEEL TOOLS
+    // DRAGONSTEEL
+    DRAGONSTEEL_BLOCK(     "Block of Dragonsteel",      Material.NETHER_BRICK,     ItemRarity.LEGENDARY, CraftEngineBlueprint.class),
+    DRAGONSTEEL_INGOT("Dragonsteel Ingot", Material.IRON_INGOT, ItemRarity.EPIC, DragonsteelIngot.class),
+
     DRAGONSTEEL_PICKAXE("Dragonsteel Pickaxe",      Material.NETHERITE_PICKAXE,      ItemRarity.LEGENDARY,   DragonsteelPickaxe.class),
     DRAGONSTEEL_AXE("Dragonsteel Axe",              Material.NETHERITE_AXE,          ItemRarity.LEGENDARY,   DragonsteelAxe.class),
     DRAGONSTEEL_HATCHET("Dragonsteel Hatchet",      Material.NETHERITE_AXE,          ItemRarity.LEGENDARY,   DragonsteelHatchet.class),

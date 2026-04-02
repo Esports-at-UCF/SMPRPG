@@ -46,6 +46,7 @@ class ItemShovel(itemService: ItemService, material: Material) : VanillaAttribut
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, getShovelMiningPower(material).toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.STRENGTH, getShovelDamage(material)),
             AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, getShovelSpeed(material).toDouble()),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, SHOVEL_ATTACK_SPEED_DEBUFF)
@@ -94,6 +95,19 @@ class ItemShovel(itemService: ItemService, material: Material) : VanillaAttribut
                 CustomItemType.ORICHALCUM_SHOVEL -> 29
                 else -> 0
             }.toDouble()
+        }
+
+        fun getShovelMiningPower(material: Material): Int {
+            return when (material) {
+                Material.NETHERITE_SHOVEL -> ToolStats.NETHERITE.miningPower
+                // Material.DIAMOND_SHOVEL -> ToolStats.DIAMOND.miningPower
+                Material.GOLDEN_SHOVEL -> ToolStats.GOLD.miningPower
+                Material.IRON_SHOVEL -> ToolStats.IRON.miningPower
+                // Material.STONE_SHOVEL -> ToolStats.STONE.miningPower
+                Material.COPPER_SHOVEL -> ToolStats.COPPER.miningPower
+                Material.WOODEN_SHOVEL -> ToolStats.WOOD.miningPower
+                else -> 0
+            }
         }
 
         fun getShovelRating(material: Material): Int {

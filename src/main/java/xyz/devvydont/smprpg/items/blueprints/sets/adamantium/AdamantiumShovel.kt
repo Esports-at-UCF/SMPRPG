@@ -26,6 +26,7 @@ class AdamantiumShovel(itemService: ItemService, type: CustomItemType) : Adamant
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, toolStats.miningPower.toDouble()),
             AdditiveAttributeEntry(
                 AttributeWrapper.STRENGTH,
                 ItemShovel.getShovelDamage(CustomItemType.ADAMANTIUM_SHOVEL)
