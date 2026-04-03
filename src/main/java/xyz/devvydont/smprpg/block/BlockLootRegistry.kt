@@ -14,6 +14,7 @@ import xyz.devvydont.smprpg.block.BlockLootEntry.Companion.builder
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
 import java.util.*
 
 /**
@@ -603,6 +604,24 @@ object BlockLootRegistry : Listener {
         )
 
         register(
+            CraftEngineBlockEnums.BRONZE_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.BRONZE_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.BRONZE_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.BRONZE_BLOCK)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.ROSE_GOLD_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ROSE_GOLD_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ROSE_GOLD_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ROSE_GOLD_BLOCK)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
             CraftEngineBlockEnums.STEEL_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.STEEL_BLOCK)))
@@ -969,7 +988,7 @@ object BlockLootRegistry : Listener {
 
     fun get(block: BlockState): BlockLootEntry? {
         if (CraftEngineBlocks.isCustomBlock(block.block)) {
-            val resourceKey: Key = Key.of(CraftEngineBlocks.getCustomBlockState(block.blockData)!!.customBlockState().asString)
+            val resourceKey: Key? = CraftEngineHelpers.getBlockKey(block)
             return specialEntries[resourceKey]
         }
         else

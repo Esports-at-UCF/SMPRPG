@@ -48,14 +48,14 @@ enum class CraftEngineBlockEnums(val key : Key) {
 
     BRONZE_BLOCK(Key.of("smprpg", "bronze_block")),
 
-    STEEL_BLOCK(Key.of("smprpg", "steel")),
+    STEEL_BLOCK(Key.of("smprpg", "steel_block")),
 
     ROSE_GOLD_BLOCK(Key.of("smprpg", "rose_gold_block")),
 
-    DRAGONSTEEL_BLOCK(Key.of("smprpg", "dragonsteel")),
+    DRAGONSTEEL_BLOCK(Key.of("smprpg", "dragonsteel_block")),
 
     GRIMSTONE(Key.of("smprpg", "grimstone")),
-    COBBLED_GRIMSTONE(Key.of("smprpg", "grimstone")),
+    COBBLED_GRIMSTONE(Key.of("smprpg", "cobbled_grimstone")),
     GRIMSTONE_IRON_ORE(Key.of("smprpg", "grimstone_iron_ore")),
     GRIMSTONE_SILVER_ORE(Key.of("smprpg", "grimstone_silver_ore")),
     GRIMSTONE_GOLD_ORE(Key.of("smprpg", "grimstone_gold_ore")),

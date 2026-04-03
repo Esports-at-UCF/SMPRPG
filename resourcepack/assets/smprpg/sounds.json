@@ -158,6 +158,49 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.cobalt.break": {
+    "sounds": [
+      "smprpg:block/cobalt/break1",
+      "smprpg:block/cobalt/break2"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.cobalt.fall": {
+    "sounds": [
+      "smprpg:block/cobalt/step1",
+      "smprpg:block/cobalt/step2",
+      "smprpg:block/cobalt/step3",
+      "smprpg:block/cobalt/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.cobalt.hit": {
+    "sounds": [
+      "smprpg:block/cobalt/step1",
+      "smprpg:block/cobalt/step2",
+      "smprpg:block/cobalt/step3",
+      "smprpg:block/cobalt/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.cobalt.place": {
+    "sounds": [
+      "smprpg:block/cobalt/step1",
+      "smprpg:block/cobalt/step2",
+      "smprpg:block/cobalt/step3",
+      "smprpg:block/cobalt/step4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.cobalt.step": {
+    "sounds": [
+      "smprpg:block/cobalt/step1",
+      "smprpg:block/cobalt/step2",
+      "smprpg:block/cobalt/step3",
+      "smprpg:block/cobalt/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "entity.illager_warlock.cast_toss": {
     "sounds": [
       "smprpg:entity/illager_warlock/cast_toss"

@@ -75,8 +75,10 @@ class BlockLootOverrideListener : ToggleableListener() {
      * have already defined a loot override, then sends a new event over to handle the block break.
      */
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    @Suppress("UnstableApiUsage")
     private fun onCraftEngineBlockBreak(event: CustomBlockBreakEvent) {
-        val entry = get(event.bukkitBlock().state) ?: return
+        val entry = get(event.bukkitBlock().state)
+        if (entry == null) return
 
         // We are overriding drops at this point.
         event.setDropItems(false)

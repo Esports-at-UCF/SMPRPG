@@ -254,6 +254,12 @@ templates#sounds:
   smprpg:sound/rune:
     template: smprpg:sound/smprpg_namespace_block_template
     arguments::block_type: rune
+  smprpg:sound/cobalt:
+    template: smprpg:sound/smprpg_namespace_block_template
+    arguments::block_type: cobalt
+  smprpg:sound/anvil:
+    template: smprpg:sound/block_template
+    arguments::block_type: anvil
   smprpg:sound/crop:
     sounds:
       break: minecraft:block.crop.break
@@ -292,6 +298,9 @@ templates#sounds:
   smprpg:sound/metal:
     template: smprpg:sound/block_template
     arguments::block_type: metal
+  smprpg:sound/iron:
+    template: smprpg:sound/block_template
+    arguments::block_type: iron
   smprpg:sound/copper:
     template: smprpg:sound/block_template
     arguments::block_type: copper
