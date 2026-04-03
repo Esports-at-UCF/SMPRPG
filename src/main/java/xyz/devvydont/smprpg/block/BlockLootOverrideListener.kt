@@ -20,6 +20,8 @@ import xyz.devvydont.smprpg.items.blueprints.sets.emberclad.BoilingPickaxe
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.DropsService
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.listeners.FarmingExperienceListener
+import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import xyz.devvydont.smprpg.util.world.ChunkUtil
 import java.util.function.Consumer
@@ -97,17 +99,45 @@ class BlockLootOverrideListener : ToggleableListener() {
 
         val blockData = event.blockState.blockData
 
-        // TODO: This may pose an issue with CraftEngine crops, revisit later.
-        if (blockData is Ageable)
-            if (blockData.age != blockData.maximumAge)
-                return
+        // Check if this block is flagged. If it isn't, let vanilla handle the logic.
+        val entry = get(event.blockState) ?: return
+
+        if (CraftEngineBlocks.isCustomBlock(event.block)) {
+            val age = CraftEngineBlocks.getCustomBlockState(event.block)!!.customBlockState().getProperty<Int>("age")
+            if (age != null) {
+                val blockKey = CraftEngineHelpers.getBlockKey(event.block)
+                val maxAge = FarmingExperienceListener.getCustomCropMaxAge(blockKey)
+                if (age != maxAge) {
+                    val loot: Collection<BlockLoot> = entry.getLootForContext(BlockLootContext.IMMATURE_AGEABLE)
+                    for (drop in loot) {
+                        event.items.clear()
+                        val item = drop.getLoot()
+                        item.amount = drop.chance.toInt()
+
+                        val ent = event.getBlock().world
+                            .dropItem(event.getBlock().location.toCenterLocation(), item, Consumer { entity: Item? ->
+                                SMPRPG.getService(DropsService::class.java)
+                                    .addDefaultLootFlags(item, event.player)
+                                entity!!.itemStack = item
+                                SMPRPG.getService(DropsService::class.java).transferLootFlags(entity)
+                            })
+
+                        event.items.add(ent)
+                    }
+                    return
+                }
+                else ChunkUtil.markBlockSkillValid(event.block)
+            }
+        }
+        else {
+            if (blockData is Ageable)
+                if (blockData.age != blockData.maximumAge)
+                    return
+        }
 
         // If this block was placed by a player invalidate their fortune.
         var fortuneActive = true
         if (ChunkUtil.isBlockSkillInvalid(event.blockState)) fortuneActive = false
-
-        // Check if this block is flagged. If it isn't, let vanilla handle the logic.
-        val entry = get(event.blockState) ?: return
 
         // Check if this block is flagged to never trigger fortune.
         if (entry.dontUseFortune)

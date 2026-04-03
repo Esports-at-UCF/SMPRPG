@@ -14,7 +14,7 @@ templates:
             item: ${__NAMESPACE__}:${__ID__}
         functions:
           template:
-            smprpg:data/mark_smprpg_item
+            smprpg:data/mark_smprpg_item_in_loot
 
 
   # When Silk Touch is used, it drops the ore block itself. When Fortune is used, it increases the drops of the materials.
@@ -49,8 +49,75 @@ templates:
                       type: ore_drops
                   - type: explosion_decay
 
-  smprpg:data/mark_smprpg_item:
+  # template: default:loot_table/seed_crop
+  # arguments:
+  #   crop_item: the mature crop item
+  #   crop_item_count: quantity of mature crop items
+  #   crop_seed: the seed item of the crop
+  #   extra_seed_count: additional seeds dropped when crop reaches maturity
+  #   ripe_age: the max age
+  smprpg:loot_table/seed_crop:
+    pools:
+      - rolls: 1
+        entries:
+          - type: alternatives
+            children:
+              - type: item
+                item: ${crop_item_namespace}:${crop_item}
+                conditions:
+                  - type: match_block_property
+                    properties:
+                      age: ${ripe_age}
+                functions:
+                  - type: set_count
+                    add: false
+                    count: ${crop_item_count:-1}
+                  - type: apply_data
+                    template: smprpg:data/mark_smprpg_item_with_id
+                    arguments::id: ${crop_item_namespace}:${crop_item}
+              - type: item
+                item: ${crop_seed_namespace}:${crop_seed}
+                functions:
+                  - type: apply_data
+                    template: smprpg:data/mark_smprpg_item_with_id
+                    arguments::id: ${crop_seed_namespace}:${crop_seed}
+      - rolls: 1
+        conditions:
+          - type: match_block_property
+            properties:
+              age: ${ripe_age}
+        entries:
+          - type: item
+            item: ${crop_seed_namespace}:${crop_seed}
+            functions:
+              - type: apply_bonus
+                enchantment: smprpg:harvesting
+                formula:
+                  type: binomial_with_bonus_count
+                  extra: ${extra_seed_count:-3}
+                  probability: 0.5714286
+        functions:
+          template: smprpg:data/mark_smprpg_item_in_loot_with_id
+          arguments::id: ${crop_seed_namespace}:${crop_seed}
+
+  smprpg:data/mark_smprpg_item_in_loot:
     - type: apply_data
       data:
         pdc:
           smprpg:item-type: ${__ID__}
+
+  smprpg:data/mark_smprpg_item_in_loot_with_id:
+    - type: apply_data
+      data:
+        pdc:
+          smprpg:item-type: ${id}
+          
+  smprpg:data/mark_smprpg_item:
+    data:
+      pdc:
+        smprpg:item-type: ${__ID__}
+
+  smprpg:data/mark_smprpg_item_with_id:
+    data:
+      pdc:
+        smprpg:item-type: ${id}

@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.block.BlockSound;
 import xyz.devvydont.smprpg.items.ItemClassification;
+import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers;
 
 import java.util.*;
 
@@ -7213,7 +7214,7 @@ public class BlockPropertiesRegistry implements Listener {
     public static @Nullable BlockPropertiesEntry get(Block block) {
         BlockPropertiesEntry entry;
         if (CraftEngineBlocks.isCustomBlock(block)) {
-            var resourceKey = Key.of(CraftEngineBlocks.getCustomBlockState(block).customBlockState().getAsString());
+            var resourceKey = CraftEngineHelpers.Companion.getBlockKey(block);
             entry = specialEntries.getOrDefault(resourceKey, null);
         }
         else

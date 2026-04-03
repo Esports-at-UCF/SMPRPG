@@ -153,6 +153,16 @@ templates#settings:
       map-color: 39
       require-correct-tools: true
       tags: ["minecraft:mineable/pickaxe"]
+  smprpg:settings/crop:
+    template:
+      - smprpg:sound/crop
+      - smprpg:hardness/none
+    overrides:
+      push-reaction: destroy
+      is-randomly-ticking: true
+      tags:
+        - minecraft:mineable/hoe
+        - minecraft:crops
 
 
 templates#hardness:

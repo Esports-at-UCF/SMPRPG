@@ -8,6 +8,11 @@ import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
+import net.momirealms.craftengine.bukkit.api.BukkitAdaptors
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
+import net.momirealms.craftengine.core.block.BlockManager
+import net.momirealms.craftengine.core.plugin.CraftEngine
+import net.momirealms.craftengine.libraries.nbt.CompoundTag
 import org.bukkit.Bukkit
 import org.bukkit.Color
 import org.bukkit.Material
@@ -27,6 +32,8 @@ import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.ScrollColor
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
+import xyz.devvydont.smprpg.skills.listeners.FarmingExperienceListener
+import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.time.TickTime
 import java.util.*
@@ -75,6 +82,7 @@ class ReplenishingBlessing(id: String) : CustomEnchantment(id), Listener {
         val block = event.block
         val data = block.blockData
         val blockMat = data.placementMaterial
+
         if (data is Ageable) {
             val ageable = data
             if (ageable.age != ageable.maximumAge) {
@@ -92,6 +100,21 @@ class ReplenishingBlessing(id: String) : CustomEnchantment(id), Listener {
                     block.blockData = ageable
                 }, TickTime.INSTANTANEOUSLY)
             }
+        }
+
+        if (CraftEngineBlocks.isCustomBlock(block)) {
+            val customBlockState = CraftEngineBlocks.getCustomBlockState(block)!!
+            val blockKey = CraftEngineHelpers.getBlockKey(block)!!
+            val age = customBlockState.customBlockState().getProperty<Int>("age") ?: return
+            val maxAge = FarmingExperienceListener.getCustomCropMaxAge(blockKey)
+            if (age == maxAge) {
+                val properties = customBlockState.nbtToSave.deepClone()  // Copy our NBT
+                properties.putInt("age", 0)  // Then override our age to 0
+                Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+                    CraftEngineBlocks.place(block.location, blockKey, properties, false)
+                }, TickTime.INSTANTANEOUSLY)
+            }
+            else event.isCancelled = true
         }
     }
 

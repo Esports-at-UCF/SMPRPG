@@ -10,6 +10,7 @@ import xyz.devvydont.smprpg.items.blueprints.boss.NeptunesConch;
 import xyz.devvydont.smprpg.items.blueprints.charms.LuckyCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.SpeedCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
+import xyz.devvydont.smprpg.items.blueprints.crops.Tomato;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
@@ -960,6 +961,10 @@ public enum CustomItemType {
 
     // FISH STUFF
     CAVIAR("Caviar", Material.PHANTOM_MEMBRANE, ItemRarity.EPIC, true, Caviar.class),
+
+    // CROPS
+    TOMATO("Tomato", Material.APPLE, ItemRarity.COMMON, Tomato.class),
+    TOMATO_SEEDS("Tomato Seeds", Material.BEETROOT_SEEDS, ItemRarity.COMMON, CraftEngineBlueprint.class),
 
     // FOOD
     STALE_BREAD("Stale Bread", Material.BREAD, ItemRarity.COMMON, StaleBread.class),

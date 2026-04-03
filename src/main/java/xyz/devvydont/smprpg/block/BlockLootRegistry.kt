@@ -534,6 +534,21 @@ object BlockLootRegistry : Listener {
         )
 
         register(
+            CraftEngineBlockEnums.TOMATO_PLANT.key, BlockLootEntry.Companion.builder()
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.TOMATO), 2.5))
+                .add(BlockLootContext.INCORRECT_TOOL, of(ItemService.generate(CustomItemType.TOMATO), 2.5))
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TOMATO), 2.5))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TOMATO), 2.5))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.TOMATO_SEEDS), 1.5))
+                .add(BlockLootContext.INCORRECT_TOOL, of(ItemService.generate(CustomItemType.TOMATO_SEEDS), 1.5))
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TOMATO_SEEDS), 1.5))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TOMATO_SEEDS), 1.5))
+                .add(BlockLootContext.IMMATURE_AGEABLE, of(ItemService.generate(CustomItemType.TOMATO_SEEDS)))
+                .uses(AttributeWrapper.FARMING_FORTUNE)
+                .build()
+        )
+
+        register(
             CraftEngineBlockEnums.SILVER_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))

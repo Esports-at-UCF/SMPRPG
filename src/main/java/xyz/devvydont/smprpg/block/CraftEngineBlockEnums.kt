@@ -71,5 +71,7 @@ enum class CraftEngineBlockEnums(val key : Key) {
     RUNE_GREED(Key.of("smprpg", "rune_greed")),
     RUNE_INSIGHT(Key.of("smprpg", "rune_insight")),
     RUNE_FORTUITY(Key.of("smprpg", "rune_fortuity")),
-    RUNE_DIVINITY(Key.of("smprpg", "rune_divinity"))
+    RUNE_DIVINITY(Key.of("smprpg", "rune_divinity")),
+
+    TOMATO_PLANT(Key.of("smprpg", "tomato_plant"))
 }
