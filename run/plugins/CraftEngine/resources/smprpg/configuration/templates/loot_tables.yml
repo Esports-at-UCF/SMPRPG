@@ -121,3 +121,8 @@ templates:
     data:
       pdc:
         smprpg:item-type: ${id}
+
+  smprpg:data/sell_value:
+    data:
+      pdc:
+        smprpg:sell-value: ${worth}

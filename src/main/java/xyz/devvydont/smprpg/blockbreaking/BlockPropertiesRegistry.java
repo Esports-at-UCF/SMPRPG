@@ -6845,7 +6845,7 @@ public class BlockPropertiesRegistry implements Listener {
             register(customBlock.id(), BlockPropertiesEntry.builder(tools.toArray(new ItemClassification[]{}))
                     .hardness(hardness)
                     .breakingPower(breakingPower)
-                    .softRequirement(requiresTool)
+                    .softRequirement(!requiresTool)
                     .build());
         }
 

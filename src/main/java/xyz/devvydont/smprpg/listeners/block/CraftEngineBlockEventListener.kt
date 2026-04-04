@@ -7,6 +7,7 @@ import net.momirealms.craftengine.core.entity.player.InteractionHand
 import org.bukkit.block.Vault
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.Action
+import org.bukkit.event.block.BlockBurnEvent
 import org.bukkit.event.command.UnknownCommandEvent
 import org.bukkit.event.player.PlayerCommandPreprocessEvent
 import org.bukkit.event.player.PlayerInteractEvent
@@ -37,5 +38,17 @@ class CraftEngineBlockEventListener : ToggleableListener() {
             else -> return
         }
         event.isCancelled = true
+    }
+
+    @EventHandler
+    private fun onBlockBurn(event: BlockBurnEvent) {
+        val block = event.block
+        if (CraftEngineBlocks.isCustomBlock(block)) {
+            val blockKey = CraftEngineHelpers.getBlockKey(block)
+            when (blockKey) {
+                CraftEngineBlockEnums.GUNPOWDER_BLOCK.key -> { block.world.createExplosion(block.location, 5.0f) }  // Not really realistic, but game logic is game logic
+                else -> return
+            }
+        }
     }
 }

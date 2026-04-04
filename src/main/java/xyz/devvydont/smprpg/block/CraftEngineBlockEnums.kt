@@ -47,11 +47,8 @@ enum class CraftEngineBlockEnums(val key : Key) {
     ORICHALCUM_BLOCK(Key.of("smprpg", "orichalcum_block")),
 
     BRONZE_BLOCK(Key.of("smprpg", "bronze_block")),
-
     STEEL_BLOCK(Key.of("smprpg", "steel_block")),
-
     ROSE_GOLD_BLOCK(Key.of("smprpg", "rose_gold_block")),
-
     DRAGONSTEEL_BLOCK(Key.of("smprpg", "dragonsteel_block")),
 
     GRIMSTONE(Key.of("smprpg", "grimstone")),
@@ -73,5 +70,9 @@ enum class CraftEngineBlockEnums(val key : Key) {
     RUNE_FORTUITY(Key.of("smprpg", "rune_fortuity")),
     RUNE_DIVINITY(Key.of("smprpg", "rune_divinity")),
 
-    TOMATO_PLANT(Key.of("smprpg", "tomato_plant"))
+    TOMATO_PLANT(Key.of("smprpg", "tomato_plant")),
+
+    ROTTEN_FLESH_BLOCK(Key.of("smprpg", "rotten_flesh_block")),
+    GUNPOWDER_BLOCK(Key.of("smprpg", "gunpowder_block")),
+    STRING_SPOOL(Key.of("smprpg", "string_spool"))
 }

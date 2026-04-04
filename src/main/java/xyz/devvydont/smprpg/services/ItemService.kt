@@ -292,19 +292,15 @@ class ItemService : IService, Listener {
                     .newInstance(this, customItemType)
             } catch (e: InvocationTargetException) {
                 plugin.logger.severe("Failed to register custom item: " + customItemType + e.message)
-                println(e)
                 continue
             } catch (e: InstantiationException) {
                 plugin.logger.severe("Failed to register custom item: " + customItemType + e.message)
-                println(e)
                 continue
             } catch (e: IllegalAccessException) {
                 plugin.logger.severe("Failed to register custom item: " + customItemType + e.message)
-                println(e)
                 continue
             } catch (e: NoSuchMethodException) {
                 plugin.logger.severe("Failed to register custom item: " + customItemType + e.message)
-                println(e)
                 continue
             }
 
@@ -1557,6 +1553,7 @@ class ItemService : IService, Listener {
         // Integer to tag items with whenever we update them to prevent unnecessary work
         const val VERSION: Int = 1
         const val VERSION_NO_UPDATE: Int = -1
+        val SELL_VALUE_KEY: NamespacedKey = NamespacedKey("smprpg", "sell-value")
 
         val COMMON_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/common_repair_core"))
         val UNCOMMON_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/uncommon_repair_core"))

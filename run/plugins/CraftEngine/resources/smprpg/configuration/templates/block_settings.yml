@@ -270,6 +270,9 @@ templates#sounds:
   smprpg:sound/anvil:
     template: smprpg:sound/block_template
     arguments::block_type: anvil
+  smprpg:sound/bone:
+    template: smprpg:sound/block_template
+    arguments::block_type: bone_block
   smprpg:sound/crop:
     sounds:
       break: minecraft:block.crop.break
@@ -329,6 +332,9 @@ templates#sounds:
   smprpg:sound/amethyst_block:
     template: smprpg:sound/block_template
     arguments::block_type: amethyst_block
+  smprpg:sound/slime:
+    template: smprpg:sound/block_template
+    arguments::block_type: slime_block
 
 templates#events:
   smprpg:events/rune_step:
