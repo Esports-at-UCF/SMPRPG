@@ -2,18 +2,24 @@ package xyz.devvydont.smprpg
 
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.NamedTextColor
+import net.momirealms.craftengine.core.block.behavior.BlockBehaviors
+import net.momirealms.craftengine.core.util.Key as CEKey
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
+import xyz.devvydont.smprpg.block.behaviors.AcceleratorBlockBehavior
+import xyz.devvydont.smprpg.block.behaviors.LaunchBlockBehavior
+import xyz.devvydont.smprpg.block.behaviors.PortalBlockBehavior
+import xyz.devvydont.smprpg.block.behaviors.AscendingBlockBehavior
+import xyz.devvydont.smprpg.listeners.block.AetherPortalListener
+import xyz.devvydont.smprpg.listeners.block.AscendingBlockListener
 import xyz.devvydont.smprpg.listeners.block.CraftEngineBlockEventListener
 import xyz.devvydont.smprpg.listeners.block.DimensionPortalLockingListener
 import xyz.devvydont.smprpg.listeners.block.MultiBlockBreakListener
-import xyz.devvydont.smprpg.listeners.block.NoteblockOverrideListener
 import xyz.devvydont.smprpg.listeners.block.TrialChamberVaultFix
 import xyz.devvydont.smprpg.listeners.block.XPOrbDisablerListener
-import xyz.devvydont.smprpg.listeners.crafting.AnvilEnchantmentCombinationFixListener
 import xyz.devvydont.smprpg.listeners.crafting.AnvilRepairListener
 import xyz.devvydont.smprpg.listeners.damage.AbsorptionDamageFix
 import xyz.devvydont.smprpg.listeners.damage.EnvironmentalDamageListener
@@ -115,12 +121,13 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(TrialChamberVaultFix()) // Allows trial chambers to work with our custom item system.
         generalListeners.add(SlimeRapidAttackFixListener()) // Fixes the vanilla bug of slimes being able to attack every tick.
         generalListeners.add(MultiBlockBreakListener()) // Fixes the vanilla bug of slimes being able to attack every tick.
-        //generalListeners.add(NoteblockOverrideListener())  // Overrides vanilla noteblock behavior, such that we can overload noteblock blockstates for custom ores.
         generalListeners.add(MeleeVisualListener())  // Visuals melee attack particles for weapons like staffs
         generalListeners.add(XPOrbDisablerListener())  // Overrides experience orb drops, as to disable vanilla EXP
         generalListeners.add(ItemDurabilityListener())  // Prevents items from fully breaking, capping them at 1 durability remaining.
         generalListeners.add(UnderwaterArrowListener())  // Listens for arrows that are shot underwater
         generalListeners.add(CraftEngineBlockEventListener())  // Listens for custom "events" sent by CraftEngine
+        generalListeners.add(AetherPortalListener())  // Listens for transitions regarding the Aether, including portal manufacture
+        generalListeners.add(AscendingBlockListener())  // Listens for transitions regarding the Aether, including portal manufacture
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.
@@ -143,6 +150,27 @@ class SMPRPG : JavaPlugin() {
                 this.logger.warning("The datapack failed to load.")
             }
         }
+        registerBlockBehaviors()
+    }
+
+    fun registerBlockBehaviors() {
+        BlockBehaviors.register(
+            CEKey.from("smprpg:launch_block"),
+            LaunchBlockBehavior.FACTORY
+        )
+        BlockBehaviors.register(
+            CEKey.from("smprpg:portal"),
+            PortalBlockBehavior.FACTORY
+        )
+        BlockBehaviors.register(
+            CEKey.from("smprpg:accelerator"),
+            AcceleratorBlockBehavior.FACTORY
+        )
+        BlockBehaviors.register(
+            CEKey.from("smprpg:ascending_block"),
+            AscendingBlockBehavior.FACTORY
+        )
+        logger.info("SMPRPG Block behaviors registered!")
     }
 
     companion object {

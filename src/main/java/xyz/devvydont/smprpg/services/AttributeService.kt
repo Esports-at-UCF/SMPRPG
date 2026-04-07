@@ -321,7 +321,7 @@ class AttributeService : IService, Listener {
             if (customModifiers == null || customModifiers.modifiers.isEmpty())
                 continue
 
-            modifiers.putAll(attribute, customModifiers.modifiers)
+            modifiers.putAll(attribute!!, customModifiers.modifiers)
         }
 
         // Return all the collected modifiers.

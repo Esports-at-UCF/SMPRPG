@@ -103,10 +103,10 @@ class VoidstridingBlessing(id: String) : CustomEnchantment(id), Listener {
         }
 
         val destLoc = event.to
-        val minHeight = event.getEntity().world.minHeight
+        val minHeight = event.entity.world.minHeight
 
-        if ((destLoc.y <= minHeight) && (event.getEntity().velocity.getY() < 0)) {
-            event.getEntity().velocity = event.getEntity().velocity.setY(0)
+        if ((destLoc.y <= minHeight) && (event.entity.velocity.y < 0)) {
+            event.entity.velocity = event.entity.velocity.setY(0)
             if (attribute != null) {
                 attribute.removeModifier(Companion.key)
                 attribute.addTransientModifier(

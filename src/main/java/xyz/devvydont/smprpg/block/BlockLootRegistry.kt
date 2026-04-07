@@ -714,7 +714,7 @@ object BlockLootRegistry : Listener {
         register(
             CraftEngineBlockEnums.ADAMANTIUM_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ADAMANTIUM_INGOT)))
-                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ADAMANTIUM_ORE)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_ADAMANTIUM)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_ADAMANTIUM)))
                 .build()
         )
@@ -989,6 +989,88 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_DIVINITY)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RUNE_DIVINITY)))
                 .ignoresFortune()
+                .build()
+        )
+
+        // AETHER
+        register(
+            CraftEngineBlockEnums.AETHER_DIRT.key, builder()
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.AETHER_DIRT)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.AETHER_DIRT)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.AETHER_DIRT)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.AETHER_GRASS_BLOCK.key, builder()
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.AETHER_DIRT)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.AETHER_GRASS_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.AETHER_DIRT)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.HOLYSTONE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.HOLYSTONE)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.HOLYSTONE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.HOLYSTONE)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.QUICKSOIL.key, builder()
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.QUICKSOIL)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.QUICKSOIL)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.QUICKSOIL)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.AMBROSIUM_ORE.key, builder()
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.AMBROSIUM)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.AMBROSIUM_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.AMBROSIUM)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.ZANITE_ORE.key, builder()
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ZANITE)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ZANITE_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ZANITE)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.PLATINUM_ORE.key, builder()
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.PLATINUM_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.PLATINUM_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_PLATINUM)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.PALLADIUM_ORE.key, builder()
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.PALLADIUM_INGOT)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.PALLADIUM_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_PALLADIUM)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.GRAVITITE_ORE.key, builder()
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.GRAVITITE_SHARDS)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRAVITITE_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.GRAVITITE_SHARDS)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
                 .build()
         )
     }

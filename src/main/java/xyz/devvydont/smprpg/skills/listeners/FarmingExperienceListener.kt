@@ -4,6 +4,7 @@ import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import net.momirealms.craftengine.core.block.ImmutableBlockState
 import net.momirealms.craftengine.core.util.Key as CEKey
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.World
 import org.bukkit.block.BlockFace
 import org.bukkit.block.data.Ageable
@@ -32,6 +33,7 @@ import xyz.devvydont.smprpg.services.DropsService
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
+import xyz.devvydont.smprpg.util.persistence.KeyStore
 import xyz.devvydont.smprpg.util.world.ChunkUtil
 
 class FarmingExperienceListener : Listener {
@@ -62,10 +64,10 @@ class FarmingExperienceListener : Listener {
         //     Consumer { orb: ExperienceOrb -> orb.experience = expToDrop })
     }
 
-    private fun getExperienceForDrops(drops: MutableCollection<ItemStack>, environment: World.Environment): Int {
-        val multiplier: Double = when (environment) {
-            World.Environment.NETHER -> 1.2
-            World.Environment.THE_END -> 1.5
+    private fun getExperienceForDrops(drops: MutableCollection<ItemStack>, dimKey: NamespacedKey): Int {
+        val multiplier: Double = when (dimKey) {
+            KeyStore.DIM_NETHER, KeyStore.DIM_AETHER -> 1.2
+            KeyStore.DIM_END -> 1.5
             else -> 1.0
         }
 
@@ -102,7 +104,7 @@ class FarmingExperienceListener : Listener {
         for (item in event.items)
             droppedItemStacks.add(item.itemStack)
         val exp = getExperienceForDrops(
-            droppedItemStacks, event.player.world.environment
+            droppedItemStacks, event.player.world.key
         )
         if (exp <= 0)
             return
@@ -210,7 +212,7 @@ class FarmingExperienceListener : Listener {
                 if (!ChunkUtil.isBlockSkillInvalid(block)) farming.addExperience(
                     getExperienceForDrops(
                         laterDrops,
-                        block.world.environment
+                        block.world.key
                     ), SkillExperienceGainEvent.ExperienceSource.HARVEST
                 )
 

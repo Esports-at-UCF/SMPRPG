@@ -68,16 +68,24 @@ public class KeyStore {
     public static final TagKey<ItemType> ENCHANTABLE_TOME = TagKey.create(RegistryKey.ITEM, Key.key(NAMESPACE, "enchantable/tome"));
     public static final TagKey<ItemType> ENCHANTABLE_APTITUDE = TagKey.create(RegistryKey.ITEM, Key.key(NAMESPACE, "enchantable/aptitude"));
 
+    // Dim Keys
+    public static final NamespacedKey DIM_OVERWORLD = new NamespacedKey("minecraft", "overworld");
+    public static final NamespacedKey DIM_NETHER = new NamespacedKey("minecraft", "the_nether");
+    public static final NamespacedKey DIM_AETHER = new NamespacedKey(NAMESPACE, "the_aether");
+    public static final NamespacedKey DIM_END = new NamespacedKey("minecraft", "the_end");
+
     // Structure Keys
     public static final Structure CASTLE_DWELLING = access.getRegistry(RegistryKey.STRUCTURE).get(Key.key(NAMESPACE, "castle_dwelling"));
 
     // Sound Keys
-    public static final NamespacedKey AUDIO_BREADBOARD_EAT = new NamespacedKey("audio", "food.breadboard.eat");
+    public static final NamespacedKey AUDIO_BREADBOARD_EAT = new NamespacedKey(NAMESPACE, "food.breadboard.eat");
 
-    public static final NamespacedKey AUDIO_RARE_DROP = new NamespacedKey("audio", "events.drops.rare");
-    public static final NamespacedKey AUDIO_EPIC_DROP = new NamespacedKey("audio", "events.drops.epic");
-    public static final NamespacedKey AUDIO_LEGENDARY_DROP = new NamespacedKey("audio", "events.drops.legendary");
+    public static final NamespacedKey AUDIO_RARE_DROP = new NamespacedKey(NAMESPACE, "events.drops.rare");
+    public static final NamespacedKey AUDIO_EPIC_DROP = new NamespacedKey(NAMESPACE, "events.drops.epic");
+    public static final NamespacedKey AUDIO_LEGENDARY_DROP = new NamespacedKey(NAMESPACE, "events.drops.legendary");
 
-    public static final NamespacedKey AUDIO_ILLAGER_WARLOCK_TOSS_CAST = new NamespacedKey("audio", "entity.illager_warlock.cast_toss");
+    public static final NamespacedKey AUDIO_ILLAGER_WARLOCK_TOSS_CAST = new NamespacedKey(NAMESPACE, "entity.illager_warlock.cast_toss");
+
+    public static final NamespacedKey AUDIO_BLUE_AERCOULD_BOUNCE = new NamespacedKey(NAMESPACE, "block.blue_aercloud.bounce");
 
 }

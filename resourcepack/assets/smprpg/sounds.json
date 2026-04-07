@@ -201,6 +201,62 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.blue_aercloud.bounce": {
+    "sounds": [
+      "smprpg:block/blue_aercloud/bounce"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.aether_portal.portal": {
+    "sounds": [
+      {
+        "attenuation_distance": 10,
+        "name": "smprpg:block/aether_portal/portal"
+      }
+    ],
+    "subtitle": "subtitles.block.portal.ambient"
+  },
+  "block.aether_portal.trigger": {
+    "sounds": [
+      "smprpg:block/aether_portal/trigger"
+    ],
+    "subtitle": "subtitles.block.portal.trigger"
+  },
+  "block.aether_portal.travel": {
+    "sounds": [
+      "smprpg:block/aether_portal/travel"
+    ],
+    "subtitle": "subtitles.block.portal.travel"
+  },
+  "music.aether": {
+    "sounds": [
+      {
+        "name": "smprpg:music/aether/aether1",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "smprpg:music/aether/aether2",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "smprpg:music/aether/aether3",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "smprpg:music/aether/aether4",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "smprpg:music/aether/aether5",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  },
   "entity.illager_warlock.cast_toss": {
     "sounds": [
       "smprpg:entity/illager_warlock/cast_toss"

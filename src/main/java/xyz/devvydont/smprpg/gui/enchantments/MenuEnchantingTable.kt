@@ -30,7 +30,6 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
-import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.events.CustomEnchantItemEvent
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.base.MenuBase

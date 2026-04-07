@@ -3,6 +3,7 @@ plugins {
     id("xyz.jpenilla.run-paper") version "2.3.1"
     id 'org.jetbrains.kotlin.jvm'
     id 'com.gradleup.shadow' version '9.0.0-rc3'
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.21"
 }
 
 group = 'xyz.devvydont'
@@ -38,6 +39,8 @@ dependencies {
     compileOnly("net.momirealms:craft-engine-core:0.0.67")
     compileOnly("net.momirealms:craft-engine-bukkit:0.0.67")
     compileOnly("net.momirealms:craft-engine-adventure:0.0.67")
+
+    paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
 }
 
 def targetJavaVersion = 21

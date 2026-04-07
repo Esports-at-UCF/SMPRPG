@@ -12,7 +12,6 @@ import org.bukkit.event.block.BlockPlaceEvent
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
-import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.world.ChunkUtil

@@ -243,7 +243,7 @@ public class BlockDamage {
 		double playerBp = AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_POWER).getValue();
 		if (playerBp >= entry.getBreakingPower()) {
 			hardness = entry.getHardness();
-			if (hardness == -1)
+			if (hardness <= -1)
 				return -1d;
 		}
 		else {

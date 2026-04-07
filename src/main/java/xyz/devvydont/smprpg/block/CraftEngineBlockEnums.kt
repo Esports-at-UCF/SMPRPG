@@ -74,5 +74,24 @@ enum class CraftEngineBlockEnums(val key : Key) {
 
     ROTTEN_FLESH_BLOCK(Key.of("smprpg", "rotten_flesh_block")),
     GUNPOWDER_BLOCK(Key.of("smprpg", "gunpowder_block")),
-    STRING_SPOOL(Key.of("smprpg", "string_spool"))
+    STRING_SPOOL(Key.of("smprpg", "string_spool")),
+    ENDER_PEARL_BLOCK(Key.of("smprpg", "ender_pearl_block")),
+
+    // AETHER
+    BLUE_AERCLOUD(Key.of("smprpg", "blue_aercloud")),
+    COLD_AERCLOUD(Key.of("smprpg", "cold_aercloud")),
+    AETHER_DIRT(Key.of("smprpg", "aether_dirt")),
+    AETHER_GRASS_BLOCK(Key.of("smprpg", "aether_grass_block")),
+    HOLYSTONE(Key.of("smprpg", "holystone")),
+    QUICKSOIL(Key.of("smprpg", "quicksoil")),
+
+    SKYROOT_LOG(Key.of("smprpg", "skyroot_log")),
+    SKYROOT_WOOD(Key.of("smprpg", "skyroot_wood")),
+    SKYROOT_PLANKS(Key.of("smprpg", "skyroot_planks")),
+
+    AMBROSIUM_ORE(Key.of("smprpg", "ambrosium_ore")),
+    ZANITE_ORE(Key.of("smprpg", "zanite_ore")),
+    PLATINUM_ORE(Key.of("smprpg", "platinum_ore")),
+    PALLADIUM_ORE(Key.of("smprpg", "palladium_ore")),
+    GRAVITITE_ORE(Key.of("smprpg", "gravitite_ore")),
 }

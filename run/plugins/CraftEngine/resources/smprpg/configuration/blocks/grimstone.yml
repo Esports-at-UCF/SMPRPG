@@ -53,6 +53,7 @@ items:
 blocks:
   smprpg:grimstone:
     state:
+      id: 4
       auto-state: solid
       model:
         template: smprpg:model/simplified_cube_all

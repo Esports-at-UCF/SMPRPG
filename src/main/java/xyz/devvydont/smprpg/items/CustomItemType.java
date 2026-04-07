@@ -1290,7 +1290,49 @@ public enum CustomItemType {
     SHAMBLING_CHESTPLATE("Shambling Boss Chestplate (not used by players)", Material.DIAMOND_CHESTPLATE, ItemRarity.SPECIAL, ShamblingBossChestplate.class),
 
     // ENCHANTING SCROLLS
-    ENCHANTING_SCROLL("Scroll of Imbuement", Material.PAPER, ItemRarity.RARE, true, DynamicEnchantingScroll.class)
+    ENCHANTING_SCROLL("Scroll of Imbuement", Material.PAPER, ItemRarity.RARE, true, DynamicEnchantingScroll.class),
+
+    // AETHER
+    COLD_AERCLOUD("Cold Aercloud", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BLUE_AERCLOUD("Blue Aercloud", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    AETHER_DIRT("Aether Dirt", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    AETHER_GRASS_BLOCK("Aether Grass Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE("Holystone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    QUICKSOIL("Quicksoil", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    AMBROSIUM_ORE("Ambrosium Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ZANITE_ORE("Zanite Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    PLATINUM_ORE("Platinum Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    PALLADIUM_ORE("Palladium Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GRAVITITE_ORE("Gravitite Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    AMBROSIUM("Ambrosium", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    ZANITE("Zanite", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    GRAVITITE_SHARDS("Gravitite Shards", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+
+    // PALLADIUM
+    RAW_PALLADIUM("Raw Palladium", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    PALLADIUM_INGOT("Palladium Ingot", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+
+    // PLATINUM
+    RAW_PLATINUM("Raw Platinum", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    PLATINUM_INGOT("Platinum Ingot", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+
+    SKYROOT_BUTTON("Skyroot Button", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_DOOR("Skyroot Door", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_FENCE("Skyroot Fence", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_FENCE_GATE("Skyroot Fence Gate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_LEAVES("Skyroot Leaves", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_LOG("Skyroot Log", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_PLANKS("Skyroot Planks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_PRESSURE_PLATE("Skyroot Pressure Plate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_SAPLING("Skyroot Sapling", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_SLAB("Skyroot Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_STAIRS("Skyroot Stairs", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_TRAPDOOR("Skyroot Trapdoor", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_WOOD("Skyroot Wood", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    STRIPPED_SKYROOT_LOG("Stripped Skyroot Log", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    STRIPPED_SKYROOT_WOOD("Stripped Skyroot Wood", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     ;
 
     public final String ItemName;

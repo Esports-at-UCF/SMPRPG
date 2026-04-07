@@ -53,6 +53,28 @@ templates#models#block:
         east: ${east_texture}
         south: ${south_texture}
         west: ${west_texture}
+  # template: smprpg:model/cross
+  # arguments:
+  #   model: model_path
+  #   cross: cross_texture_path
+  smprpg:model/cross:
+    path: ${model}
+    generation:
+      parent: minecraft:block/cross
+      textures:
+        particle: ${cross}
+        cross: ${cross}
+  # template: smprpg:model/simplified_cross
+  # arguments:
+  #   model: model_path
+  #   path: [model/texture]_path
+  smprpg:model/simplified_cross:
+    path: ${path}
+    generation:
+      parent: minecraft:block/cross
+      textures:
+        particle: ${path}
+        cross: ${path}
 
 # 2D items
 templates#models#2d:

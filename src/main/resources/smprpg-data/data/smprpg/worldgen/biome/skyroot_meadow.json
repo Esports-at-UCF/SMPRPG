@@ -1,0 +1,41 @@
+{
+  "downfall": 0.0,
+  "attributes": {
+	  "minecraft:visual/sky_color": "#c0c0ff",
+	  "minecraft:visual/water_fog_color": "#050533",
+	  "minecraft:visual/fog_color": "#9393bc"
+  },
+  "carvers": [],
+  "effects": {
+    "foliage_color": 11665355,
+    "grass_color": 11665355,
+    "water_color": 4159204
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:patch_grass_meadow",
+      "minecraft:patch_bush",
+      "smprpg:flower_aether_meadow"
+    ],
+    []
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": []
+  },
+  "temperature": 0.7
+}

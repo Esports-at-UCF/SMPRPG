@@ -31,7 +31,6 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.util.BoundingBox
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
-import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.calculator.EnchantmentCalculator
 import xyz.devvydont.smprpg.enchantments.calculator.EnchantmentCalculator.EnchantmentSlot
