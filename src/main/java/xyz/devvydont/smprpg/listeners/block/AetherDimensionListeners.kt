@@ -1,7 +1,11 @@
 package xyz.devvydont.smprpg.listeners.block
 
+import io.papermc.paper.entity.TeleportFlag
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import net.momirealms.craftengine.core.util.Direction
+import net.momirealms.craftengine.libraries.nbt.CompoundTag
+import net.momirealms.craftengine.libraries.nbt.StringTag
+import net.momirealms.craftengine.libraries.nbt.Tag
 import org.bukkit.Bukkit
 import org.bukkit.Color
 import net.momirealms.craftengine.core.util.Key as CEKey
@@ -20,11 +24,12 @@ import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.BoundingBox
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
+import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
 import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import java.util.UUID
 
-class AetherPortalListener : ToggleableListener() {
+class AetherDimensionListeners : ToggleableListener() {
     private val activeTransitions : MutableMap<UUID, NamespacedKey> = mutableMapOf()
 
     /**
@@ -41,18 +46,13 @@ class AetherPortalListener : ToggleableListener() {
             val newLoc = location.clone()
             newLoc.world = Bukkit.getWorld(OVERWORLD_DIM_KEY)
             newLoc.y = newLoc.world.maxHeight.toDouble()
-            player.teleport(newLoc)
-            val velocity = player.velocity.clone()
-
-            // Maintain our velocity when falling into the overworld.
-            object : BukkitRunnable() {
-                override fun run() {
-                    player.velocity = velocity
-                }
-            }.runTaskLater(plugin, 1L)
+            player.teleport(newLoc, TeleportFlag.Relative.VELOCITY_Y)
         }
     }
 
+    /**
+     * Lava converts directly to obsidian when placed in the Aether.
+     */
     @EventHandler
     private fun onEmptyLavaBucket(event: PlayerBucketEmptyEvent) {
         if (event.block.world.key == AETHER_DIM_KEY) {
@@ -61,8 +61,8 @@ class AetherPortalListener : ToggleableListener() {
                 object : BukkitRunnable() {
                     override fun run() {
                         val world = event.block.world
-                        world.setBlockData(event.block.location, Material.OBSIDIAN.createBlockData())
                         world.playSound(event.block.location, Sound.BLOCK_LAVA_EXTINGUISH, 1f, 1f)
+                        CraftEngineBlocks.place(event.block.location, CraftEngineBlockEnums.AEROGEL.key, false)
                         val particleLoc = event.block.location.clone()
                         particleLoc.x = particleLoc.x + 0.5
                         particleLoc.z = particleLoc.z + 0.5
@@ -81,6 +81,9 @@ class AetherPortalListener : ToggleableListener() {
         }
     }
 
+    /**
+     * Fire extinguishes automatically in the Aether
+     */
     @EventHandler
     private fun onFirePlace(event: BlockPlaceEvent) {
         val block = event.block
@@ -102,6 +105,53 @@ class AetherPortalListener : ToggleableListener() {
                     0.1,
                     Particle.DustOptions(Color.BLACK, 1.0f)
                 )
+            }
+        }
+    }
+
+    /**
+     * Torches extinguish automatically in the Aether
+     */
+    @EventHandler
+    private fun onTorchPlace(event: BlockPlaceEvent) {
+        val block = event.block
+
+        fun playExtinguishEffect() {
+            val world = block.world
+            world.playSound(event.block.location, Sound.BLOCK_FIRE_EXTINGUISH, 1f, 2f)
+            val particleLoc = event.block.location.clone()
+            particleLoc.x = particleLoc.x + 0.5
+            particleLoc.z = particleLoc.z + 0.5
+            particleLoc.y = particleLoc.y + 0.8
+            world.spawnParticle(
+                Particle.DUST,
+                event.block.location,
+                25,
+                0.5,
+                0.5,
+                0.5,
+                0.1,
+                Particle.DustOptions(Color.BLACK, 1.0f)
+            )
+        }
+
+        if (block.world.key == AETHER_DIM_KEY) {
+            when (event.block.type) {
+                Material.TORCH ->
+                {
+                    playExtinguishEffect()
+                    CraftEngineBlocks.place(event.block.location, CraftEngineBlockEnums.EXTINGUISHED_TORCH.key, false)
+                }
+                Material.WALL_TORCH ->
+                {
+                    playExtinguishEffect()
+                    val blockState = event.block.state
+                    val stateData = blockState.blockData.asString.substringAfter('[').dropLast(1)
+                    val stateComps = stateData.split("=")
+                    val properties = CompoundTag(mutableMapOf(Pair(stateComps[0], StringTag(stateComps[1]) as Tag)))
+                    CraftEngineBlocks.place(event.block.location, CraftEngineBlockEnums.EXTINGUISHED_WALL_TORCH.key, properties, false)
+                }
+                else -> {}
             }
         }
     }

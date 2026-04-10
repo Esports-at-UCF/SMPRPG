@@ -89,7 +89,7 @@ class ItemSpear(itemService: ItemService, material: Material) : VanillaAttribute
                 CustomItemType.ROSE_GOLD_SPEAR, CustomItemType.MITHRIL_SPEAR, CustomItemType.COBALT_SPEAR -> 20.0
                 CustomItemType.TITANIUM_SPEAR, CustomItemType.TUNGSTEN_SPEAR -> 25.0
                 CustomItemType.ADAMANTIUM_SPEAR -> 33.0
-                CustomItemType.ORICHALCUM_SPEAR -> 35.0
+                CustomItemType.ORICHALCUM_SPEAR, CustomItemType.PALLADIUM_SPEAR -> 35.0
                 CustomItemType.DRAGONSTEEL_SPEAR -> 60.0
                 else -> 0
             }.toDouble()

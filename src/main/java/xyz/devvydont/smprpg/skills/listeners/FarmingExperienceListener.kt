@@ -262,6 +262,8 @@ class FarmingExperienceListener : Listener {
                 experience = when (bp.customItemType) {
                     CustomItemType.TOMATO -> 4
                     CustomItemType.TOMATO_SEEDS -> 1
+                    CustomItemType.PUFFBLOOM, CustomItemType.VIOLET, CustomItemType.RAINBOW_LILY -> 2
+                    CustomItemType.SKY_BERRY -> 3
                     else -> 0
                 }
             }
@@ -303,6 +305,7 @@ class FarmingExperienceListener : Listener {
         fun getCustomCropMaxAge(blockKey: CEKey?) : Int {
             return when (blockKey) {
                 CraftEngineBlockEnums.TOMATO_PLANT.key -> 2
+                CraftEngineBlockEnums.SKY_BERRY_BUSH.key -> 3
                 else -> -1
             }
         }

@@ -1,4 +1,26 @@
 templates:
+  # Drop only a specific item.
+  # Suitable for the vast majority of loot items.
+  # Only requires the template ID to be filled in during use, with no parameter requirements.
+
+  # template: smprpg:loot_table/self
+  smprpg:loot_table/basic:
+    pools:
+      - rolls: 1
+        conditions:
+          - type: survives_explosion
+        entries:
+          - type: item
+            item: ${item}
+        functions:
+          - type: apply_data
+            data:
+              pdc:
+                smprpg:item-type: ${item-id}
+          - type: set_count
+            add: false
+            count: ${count:-1}
+
   # Drop itself.
   # Suitable for the vast majority of loot items.
   # Only requires the template ID to be filled in during use, with no parameter requirements.

@@ -21,8 +21,10 @@ enum class ToolStats(val durability: Int, val power: Int, val fortune: Int, val 
 
     TUNGSTEN(768, 24, 50, 900, 6, 24),
 
-    COBALT(1_152, 30, 60, 1_400, 7, 30),
+    COBALT(1_152, 30, 60, 1_400, 7, 28),
     ORICHALCUM(1_280, 30, 80, 1_000, 7, 30),
+    PLATINUM(768, 30, 100, 1_100, 7, 28),
+    PALLADIUM(1_024, 30, 50, 1_500, 7, 30),
 
     NETHERITE(2_048, 40, 120, 1_600, 8, 35),
 

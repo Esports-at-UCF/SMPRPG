@@ -71,6 +71,7 @@ enum class CraftEngineBlockEnums(val key : Key) {
     RUNE_DIVINITY(Key.of("smprpg", "rune_divinity")),
 
     TOMATO_PLANT(Key.of("smprpg", "tomato_plant")),
+    SKY_BERRY_BUSH(Key.of("smprpg", "sky_berry_bush")),
 
     ROTTEN_FLESH_BLOCK(Key.of("smprpg", "rotten_flesh_block")),
     GUNPOWDER_BLOCK(Key.of("smprpg", "gunpowder_block")),
@@ -84,11 +85,15 @@ enum class CraftEngineBlockEnums(val key : Key) {
     AETHER_GRASS_BLOCK(Key.of("smprpg", "aether_grass_block")),
     HOLYSTONE(Key.of("smprpg", "holystone")),
     QUICKSOIL(Key.of("smprpg", "quicksoil")),
+    AEROGEL(Key.of("smprpg", "aerogel")),
+    EXTINGUISHED_TORCH(Key.of("smprpg", "extinguished_torch")),
+    EXTINGUISHED_WALL_TORCH(Key.of("smprpg", "extinguished_wall_torch")),
 
     SKYROOT_LOG(Key.of("smprpg", "skyroot_log")),
     SKYROOT_WOOD(Key.of("smprpg", "skyroot_wood")),
     SKYROOT_PLANKS(Key.of("smprpg", "skyroot_planks")),
 
+    AETHER_SILVER_ORE(Key.of("smprpg", "aether_silver_ore")),
     AMBROSIUM_ORE(Key.of("smprpg", "ambrosium_ore")),
     ZANITE_ORE(Key.of("smprpg", "zanite_ore")),
     PLATINUM_ORE(Key.of("smprpg", "platinum_ore")),

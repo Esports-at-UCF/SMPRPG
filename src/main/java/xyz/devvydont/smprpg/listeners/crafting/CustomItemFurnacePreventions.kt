@@ -35,7 +35,11 @@ class CustomItemFurnacePreventions : ToggleableListener() {
         event.burnTime = blueprint.getBurnTime().toInt()
     }
 
-    /*
+    /**
+     * Update our items in the output slot
+     */
+
+    /**
      * Never allow custom items to cook vanilla recipes. This shouldn't really ever happen.
      * This could be improved by instead listening to a click event, but this works too.
      */

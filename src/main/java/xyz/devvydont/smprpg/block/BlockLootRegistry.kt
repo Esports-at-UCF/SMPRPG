@@ -302,7 +302,7 @@ object BlockLootRegistry : Listener {
 
         register(
             Material.NETHER_GOLD_ORE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.GOLD_NUGGET)))
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.GOLD_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(Material.NETHER_GOLD_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.GOLD_NUGGET)))
                 .build()
@@ -1071,6 +1071,14 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.GRAVITITE_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.GRAVITITE_SHARDS)))
                 .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.AETHER_SILVER_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_ORE)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.AETHER_SILVER_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SILVER_NUGGET)))
                 .build()
         )
     }

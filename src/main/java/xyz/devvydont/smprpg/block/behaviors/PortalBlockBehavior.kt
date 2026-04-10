@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.block.behaviors
 
+import io.papermc.paper.entity.TeleportFlag
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.ScheduledTickAccess
@@ -28,7 +29,7 @@ class PortalBlockBehavior(customBlock: CustomBlock,
 
     override fun entityInside(thisBlock: Any?, args: Array<out Any?>?, superMethod: Callable<in Any>?) {
         super.entityInside(thisBlock, args, superMethod)
-        if (instantTravel) {
+        if (!instantTravel) {
             val entity = args!![3] as Entity
             val craftEntity = entity.bukkitEntity
 
@@ -39,8 +40,11 @@ class PortalBlockBehavior(customBlock: CustomBlock,
                 craftEntity.teleport(overworld!!.spawnLocation)
             }
             else {
-                loc.world = Bukkit.getWorld(dimensionKey)
-                craftEntity.teleport(loc)
+                val destWorld = Bukkit.getWorld(dimensionKey)
+                loc.world = destWorld
+                val topLoc = destWorld!!.getHighestBlockAt(loc).location
+                topLoc.y = topLoc.y + 1
+                craftEntity.teleport(topLoc)
             }
         }
     }

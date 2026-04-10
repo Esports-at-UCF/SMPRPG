@@ -324,6 +324,13 @@ templates#sounds:
       place: minecraft:item.crop.plant
       hit: minecraft:block.grass.hit
       fall: minecraft:block.grass.fall
+  smprpg:sound/bush_crop:
+    sounds:
+      break: minecraft:block.sweet_berry_bush.break
+      step: minecraft:block.grass.step
+      place: minecraft:item.sweet_berry_bush.place
+      hit: minecraft:block.grass.hit
+      fall: minecraft:block.grass.fall
   smprpg:sound/stem_crop:
     sounds:
       break: minecraft:block.crop.break

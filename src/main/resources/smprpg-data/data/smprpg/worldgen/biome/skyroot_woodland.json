@@ -5,7 +5,9 @@
 	  "minecraft:visual/water_fog_color": "#050533",
 	  "minecraft:visual/fog_color": "#9393bc"
   },
-  "carvers": [],
+  "carvers": [
+    "smprpg:aether_cave"
+  ],
   "effects": {
     "foliage_color": 11665355,
     "grass_color": 11665355,

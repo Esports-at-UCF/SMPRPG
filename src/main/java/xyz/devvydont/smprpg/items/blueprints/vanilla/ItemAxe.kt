@@ -149,7 +149,7 @@ class ItemAxe(itemService: ItemService, material: Material) : VanillaAttributeIt
                 CustomItemType.ROSE_GOLD_AXE, CustomItemType.MITHRIL_AXE, CustomItemType.COBALT_AXE -> 55
                 CustomItemType.TITANIUM_AXE, CustomItemType.TUNGSTEN_AXE -> 65
                 CustomItemType.ADAMANTIUM_AXE -> 80
-                CustomItemType.ORICHALCUM_AXE -> 90
+                CustomItemType.ORICHALCUM_AXE, CustomItemType.PALLADIUM_AXE -> 90
                 else -> 0
             }.toDouble()
         }

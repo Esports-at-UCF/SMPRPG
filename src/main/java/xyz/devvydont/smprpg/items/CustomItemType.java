@@ -10,12 +10,14 @@ import xyz.devvydont.smprpg.items.blueprints.boss.NeptunesConch;
 import xyz.devvydont.smprpg.items.blueprints.charms.LuckyCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.SpeedCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
+import xyz.devvydont.smprpg.items.blueprints.crops.SkyBerry;
 import xyz.devvydont.smprpg.items.blueprints.crops.Tomato;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.cobalt.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.orichalcum.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.palladium.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockShoes;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockHood;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockRobes;
@@ -209,17 +211,18 @@ public enum CustomItemType {
     COPPER_BOW(    "Copper Bow",      Material.BOW,            CopperBow.class),
 
     // SILVER SET
-    RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, false, 15, "materials"),
+    RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, CraftEngineBlueprint.class),
     SILVER_ORE("Silver Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, CraftEngineBlueprint.class),
     DEEPSLATE_SILVER_ORE("Deepslate Silver Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, CraftEngineBlueprint.class),
     RAW_SILVER_BLOCK("Block of Raw Silver",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, CraftEngineBlueprint.class),
     ENCHANTED_RAW_SILVER("Enchanted Raw Silver",      Material.RAW_IRON,        ItemRarity.RARE, true, RawSilverFamilyBlueprint.class),
 
-    SILVER_INGOT("Silver Ingot",                          Material.IRON_INGOT,        ItemRarity.COMMON,    SilverIngot.class),
+    SILVER_INGOT("Silver Ingot",                          Material.IRON_INGOT,        ItemRarity.COMMON,    CraftEngineBlueprint.class),
     SILVER_BLOCK("Block of Silver",                       Material.POISONOUS_POTATO,  ItemRarity.UNCOMMON,  CraftEngineBlueprint.class),
     ENCHANTED_SILVER("Enchanted Silver",                  Material.IRON_INGOT,        ItemRarity.RARE,      true, SilverFamilyBlueprint.class),
     ENCHANTED_SILVER_BLOCK("Enchanted Block of Silver",   Material.POISONOUS_POTATO,  ItemRarity.EPIC,      true, SilverFamilyBlueprint.class),
     SILVER_SINGULARITY("Silver Singularity",              Material.IRON_INGOT,        ItemRarity.LEGENDARY, true, SilverFamilyBlueprint.class),
+    SILVER_NUGGET("Silver Nugget",                        Material.IRON_NUGGET,       ItemRarity.COMMON,    CraftEngineBlueprint.class),
 
     SILVER_PICKAXE("Silver Pickaxe",  Material.IRON_PICKAXE, SilverPickaxe.class),
     SILVER_AXE(    "Silver Axe",      Material.IRON_AXE,     SilverAxe.class),
@@ -1300,19 +1303,44 @@ public enum CustomItemType {
     HOLYSTONE("Holystone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     QUICKSOIL("Quicksoil", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
 
+    HOLYSTONE_BRICKS("Holystone Bricks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    AETHER_SILVER_ORE("Aether Silver Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     AMBROSIUM_ORE("Ambrosium Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     ZANITE_ORE("Zanite Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     PLATINUM_ORE("Platinum Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     PALLADIUM_ORE("Palladium Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     GRAVITITE_ORE("Gravitite Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
 
+    PUFFBLOOM("Puffbloom", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    VIOLET("Violet", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    RAINBOW_LILY("Rainbow Lily", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    EXTINGUISHED_TORCH("Extinguished Torch", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKY_BERRY("Sky Berry", Material.NETHER_BRICK, ItemRarity.COMMON, SkyBerry.class),
+
     AMBROSIUM("Ambrosium", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
     ZANITE("Zanite", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
     GRAVITITE_SHARDS("Gravitite Shards", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
 
+    AMBROSIUM_BLOCK("Block of Ambrosium", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    ZANITE_BLOCK("Block of Zanite", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    AMBROSIUM_ENCRUSTED_SHAFT(    "Ambrosium Encrusted Shaft",      Material.STICK,     ItemRarity.UNCOMMON, AmbrosiumToolShaft.class),
+
     // PALLADIUM
     RAW_PALLADIUM("Raw Palladium", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
     PALLADIUM_INGOT("Palladium Ingot", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+
+    // PALLADIUM_DRILL_HEAD("Palladium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, PalladiumDrillHead.class),
+    // PALLADIUM_DRILL_BASE("Palladium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, PalladiumDrillBase.class),
+
+    PALLADIUM_PICKAXE("Palladium Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, PalladiumPickaxe.class),
+    PALLADIUM_AXE(    "Palladium Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, PalladiumAxe.class),
+    PALLADIUM_HOE(    "Palladium Hoe",      Material.DIAMOND_HOE,     ItemRarity.RARE, PalladiumHoe.class),
+    PALLADIUM_SHOVEL( "Palladium Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.RARE, PalladiumShovel.class),
+    PALLADIUM_SWORD(  "Palladium Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, PalladiumSword.class),
+    PALLADIUM_HATCHET("Palladium Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE, PalladiumHatchet.class),
+    PALLADIUM_BOW(    "Palladium Bow",      Material.BOW,             ItemRarity.RARE, PalladiumBow.class),
+    PALLADIUM_SPEAR(  "Palladium Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, PalladiumSpear.class),
 
     // PLATINUM
     RAW_PLATINUM("Raw Platinum", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),

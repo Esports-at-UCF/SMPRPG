@@ -1,7 +1,6 @@
 package xyz.devvydont.smprpg.block.behaviors
 
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitBlockBehavior
-import net.momirealms.craftengine.bukkit.plugin.reflection.minecraft.CoreReflections
 import net.momirealms.craftengine.core.block.CustomBlock
 import net.momirealms.craftengine.core.block.behavior.BlockBehavior
 import net.momirealms.craftengine.core.block.behavior.BlockBehaviorFactory
@@ -9,10 +8,7 @@ import net.momirealms.craftengine.core.world.BlockPos
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.Particle
-import org.bukkit.World
-import org.bukkit.block.BlockState
 import org.bukkit.block.data.type.BubbleColumn
-import org.bukkit.entity.Entity
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import java.util.concurrent.Callable
 import kotlin.random.Random
@@ -55,15 +51,15 @@ class LaunchBlockBehavior(customBlock: CustomBlock,
                 else
                     upwardsVel = launchPower * 1.5f
                 newVel.y = upwardsVel.toDouble()
-                if (wantParticles) {
-                    for (count in 0..50) {
-                        val pos = blockLoc
-                        val xOffset = pos.x + Random.nextDouble()
-                        val yOffset = pos.y + Random.nextDouble()
-                        val zOffset = pos.z + Random.nextDouble()
-                        world.spawnParticle(Particle.SPLASH, xOffset, yOffset, zOffset, 50)
-                    }
-                }
+            }
+        }
+        if (wantParticles) {
+            for (count in 0..50) {
+                val pos = blockLoc
+                val xOffset = pos.x + Random.nextDouble()
+                val yOffset = pos.y + Random.nextDouble()
+                val zOffset = pos.z + Random.nextDouble()
+                world.spawnParticle(Particle.SPLASH, xOffset, yOffset, zOffset, 50)
             }
         }
         world.playSound(

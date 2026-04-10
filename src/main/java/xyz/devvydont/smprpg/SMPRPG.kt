@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.momirealms.craftengine.core.block.behavior.BlockBehaviors
+import net.momirealms.craftengine.core.item.recipe.result.PostProcessors
 import net.momirealms.craftengine.core.util.Key as CEKey
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -13,7 +14,8 @@ import xyz.devvydont.smprpg.block.behaviors.AcceleratorBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.LaunchBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.PortalBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.AscendingBlockBehavior
-import xyz.devvydont.smprpg.listeners.block.AetherPortalListener
+import xyz.devvydont.smprpg.block.behaviors.BerryBushBlockBehavior
+import xyz.devvydont.smprpg.listeners.block.AetherDimensionListeners
 import xyz.devvydont.smprpg.listeners.block.AscendingBlockListener
 import xyz.devvydont.smprpg.listeners.block.CraftEngineBlockEventListener
 import xyz.devvydont.smprpg.listeners.block.DimensionPortalLockingListener
@@ -33,6 +35,7 @@ import xyz.devvydont.smprpg.listeners.entity.StructureEntitySpawnListener
 import xyz.devvydont.smprpg.listeners.item.ItemDurabilityListener
 import xyz.devvydont.smprpg.loot.LootListener
 import xyz.devvydont.smprpg.market.MarketService
+import xyz.devvydont.smprpg.recipe.postprocessors.UpdateItemDataPostProcessor
 import xyz.devvydont.smprpg.services.*
 import xyz.devvydont.smprpg.util.animations.AnimationService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -126,7 +129,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(ItemDurabilityListener())  // Prevents items from fully breaking, capping them at 1 durability remaining.
         generalListeners.add(UnderwaterArrowListener())  // Listens for arrows that are shot underwater
         generalListeners.add(CraftEngineBlockEventListener())  // Listens for custom "events" sent by CraftEngine
-        generalListeners.add(AetherPortalListener())  // Listens for transitions regarding the Aether, including portal manufacture
+        generalListeners.add(AetherDimensionListeners())  // Listens for transitions regarding the Aether, including portal manufacture
         generalListeners.add(AscendingBlockListener())  // Listens for transitions regarding the Aether, including portal manufacture
 
         // Uncomment this if you want some debugging events.
@@ -151,6 +154,7 @@ class SMPRPG : JavaPlugin() {
             }
         }
         registerBlockBehaviors()
+        registerRecipePostProcessors()
     }
 
     fun registerBlockBehaviors() {
@@ -170,7 +174,18 @@ class SMPRPG : JavaPlugin() {
             CEKey.from("smprpg:ascending_block"),
             AscendingBlockBehavior.FACTORY
         )
+        BlockBehaviors.register(
+            CEKey.from("smprpg:berry_bush"),
+            BerryBushBlockBehavior.FACTORY
+        )
         logger.info("SMPRPG Block behaviors registered!")
+    }
+
+    fun registerRecipePostProcessors() {
+        PostProcessors.register(
+            CEKey.from("smprpg:update_item_data"),
+            UpdateItemDataPostProcessor.FACTORY
+        )
     }
 
     companion object {
