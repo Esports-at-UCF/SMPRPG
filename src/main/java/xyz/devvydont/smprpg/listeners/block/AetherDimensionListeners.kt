@@ -1,33 +1,26 @@
 package xyz.devvydont.smprpg.listeners.block
 
 import io.papermc.paper.entity.TeleportFlag
+import net.minecraft.world.level.block.NetherPortalBlock
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
-import net.momirealms.craftengine.core.util.Direction
 import net.momirealms.craftengine.libraries.nbt.CompoundTag
 import net.momirealms.craftengine.libraries.nbt.StringTag
 import net.momirealms.craftengine.libraries.nbt.Tag
-import org.bukkit.Bukkit
-import org.bukkit.Color
-import net.momirealms.craftengine.core.util.Key as CEKey
-import org.bukkit.Location
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.Particle
-import org.bukkit.Sound
-import org.bukkit.World
+import org.bukkit.*
+import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
-import org.bukkit.block.BlockState
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerBucketEmptyEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.scheduler.BukkitRunnable
-import org.bukkit.util.BoundingBox
+import org.bukkit.util.Vector
+import org.joml.Vector3i
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
 import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
-import java.util.UUID
+import java.util.*
 
 class AetherDimensionListeners : ToggleableListener() {
     private val activeTransitions : MutableMap<UUID, NamespacedKey> = mutableMapOf()
@@ -57,7 +50,7 @@ class AetherDimensionListeners : ToggleableListener() {
     private fun onEmptyLavaBucket(event: PlayerBucketEmptyEvent) {
         if (event.block.world.key == AETHER_DIM_KEY) {
             if (event.bucket == Material.LAVA_BUCKET)
-            // Set the block to obsidian one tick later.
+                // Set the block to obsidian one tick later.
                 object : BukkitRunnable() {
                     override fun run() {
                         val world = event.block.world
@@ -156,89 +149,187 @@ class AetherDimensionListeners : ToggleableListener() {
         }
     }
 
+    @EventHandler
+    private fun onWaterPlace(event: PlayerBucketEmptyEvent) {
+        val block = event.block
+        val clickedBlock = event.blockClicked
+        if (clickedBlock.type != Material.GLOWSTONE) return
+        event.isCancelled = true
+
+        fun findPortalAxis(clickedBlock: Block) : Axis {
+            val bl = clickedBlock.location
+            var currAxis = Axis.Y
+            if (block.world.getBlockAt((bl.x+1).toInt(), bl.y.toInt(), bl.z.toInt()).type == Material.GLOWSTONE ||
+                block.world.getBlockAt((bl.x-1).toInt(), bl.y.toInt(), bl.z.toInt()).type == Material.GLOWSTONE) {
+                currAxis = Axis.X
+            }
+            if (block.world.getBlockAt(bl.x.toInt(), (bl.y+1).toInt(), bl.z.toInt()).type == Material.GLOWSTONE ||
+                block.world.getBlockAt(bl.x.toInt(), (bl.y-1).toInt(), bl.z.toInt()).type == Material.GLOWSTONE) {
+                if (currAxis == Axis.X) {
+                    // Predicament! We have blocks everywhere around this portal. Prioritize player facing instead.
+                    val yaw = event.player.location.yaw
+                    if (((yaw <= -45.0) && (yaw >= -135)) || // East
+                        ((yaw >= 45) && (yaw <= 135)))  // West
+                        return Axis.X
+                    else
+                        return Axis.Z
+                }
+                currAxis = Axis.Z
+            }
+            return currAxis
+        }
+
+        val axis = findPortalAxis(clickedBlock)
+        if (axis == Axis.Y) return  // Invalid portal
+
+        fun isValidPortal(block: Block, startingBlock: Block, axis: Axis, alreadyFound: Set<Block>?, isFirst: Boolean) : Boolean {
+            var found: Set<Block>?
+            if (alreadyFound == null) found = mutableSetOf()
+            else found = alreadyFound.toMutableSet()
+
+            if (block.location.equals(startingBlock.location) && !isFirst) return true
+
+            val checked = found
+            if (axis == Axis.X) {
+                val nearbyBlocks = Arrays.stream(
+                    arrayOf<Block?>(
+                        block.location.add(1.0, 0.0, 0.0).block,
+                        block.location.add(1.0, 1.0, 0.0).block,
+                        block.location.add(1.0, -1.0, 0.0).block,
+                        block.location.add(0.0, 1.0, 0.0).block,
+                        block.location.add(0.0, -1.0, 0.0).block,
+                        block.location.add(-1.0, 0.0, 0.0).block,
+                        block.location.add(-1.0, 1.0, 0.0).block,
+                        block.location.add(-1.0, -1.0, 0.0).block
+                    )
+                ).filter { b: Block? -> !checked.contains(b) }.toArray()
+                for (nearbyBlock in nearbyBlocks) {
+                    val nb = nearbyBlock as Block?
+                    if (nb == null) continue
+                    if (nb.type == Material.GLOWSTONE && !found.contains(nb)) {
+                        found += nb
+                        return isValidPortal(nb, startingBlock, axis, found, false)
+                    }
+                }
+            }
+            else if (axis == Axis.Z) {
+                val nearbyBlocks = Arrays.stream(
+                    arrayOf<Block?>(
+                        block.location.add(0.0, 0.0, 1.0).block,
+                        block.location.add(0.0, 1.0, 1.0).block,
+                        block.location.add(0.0, -1.0, 1.0).block,
+                        block.location.add(0.0, 1.0, 0.0).block,
+                        block.location.add(0.0, -1.0, 0.0).block,
+                        block.location.add(0.0, 0.0, -1.0).block,
+                        block.location.add(0.0, 1.0, -1.0).block,
+                        block.location.add(0.0, -1.0, -1.0).block
+                    )
+                ).filter({ b -> !checked.contains(b) }).toArray()
+                for (nearbyBlock in nearbyBlocks) {
+                    val nb = nearbyBlock as Block?
+                    if (nb == null) continue
+                    if (nb.type == Material.GLOWSTONE && !found.contains(nb)) {
+                        found += nb
+                        return isValidPortal(nb, startingBlock, axis, found, false)
+                    }
+                }
+            }
+            else throw IllegalArgumentException("Axis cannot be Y")
+            return false
+        }
+
+        if (isValidPortal(clickedBlock, clickedBlock, axis, null, true)) {
+
+            fun fillPortalBlocks(axis: Axis, currBlock: Block, facesToExpand: MutableSet<BlockFace>, filledBlocks: MutableSet<Location>) {
+                if (currBlock.location in filledBlocks) return
+
+                var canReplace = false
+                var isPortal = false
+                if (CraftEngineBlocks.isCustomBlock(currBlock)) {
+                    val blockKey = CraftEngineHelpers.getBlockKey(currBlock)
+                    if (blockKey == CraftEngineBlockEnums.AETHER_PORTAL.key) {
+                        canReplace = true
+                        isPortal = true
+                    }
+                }
+                else when (currBlock.type) {
+                    Material.WATER, Material.AIR -> canReplace = true
+                    else -> {}
+                }
+
+                if (canReplace) {
+                    when (axis) {
+                        Axis.X -> {
+                            if (filledBlocks.add(currBlock.location)) {
+                                val properties = CompoundTag(mutableMapOf(Pair("facing", StringTag("north") as Tag)))
+                                CraftEngineBlocks.place(
+                                    currBlock.location,
+                                    CraftEngineBlockEnums.AETHER_PORTAL.key,
+                                    properties,
+                                    false
+                                )
+                            } else return
+
+                            for (face in facesToExpand) {
+                                fillPortalBlocks(axis, currBlock.getRelative(face), facesToExpand, filledBlocks)
+                            }
+                        }
+                        Axis.Z -> {
+                            if (filledBlocks.add(currBlock.location)) {
+                                val properties = CompoundTag(mutableMapOf(Pair("facing", StringTag("east") as Tag)))
+                                CraftEngineBlocks.place(
+                                    currBlock.location,
+                                    CraftEngineBlockEnums.AETHER_PORTAL.key,
+                                    properties,
+                                    false
+                                )
+                            } else return
+
+                            for (face in facesToExpand) {
+                                fillPortalBlocks(axis, currBlock.getRelative(face), facesToExpand, filledBlocks)
+                            }
+                        }
+                        else -> {}
+                    }
+                }
+            }
+            var facesToExpand = mutableSetOf<BlockFace>()
+            when (axis) {
+                Axis.X -> {
+                    for (face in setOf(BlockFace.EAST, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN)) {
+                        if (CraftEngineBlocks.isCustomBlock(block)) {
+                            val blockKey = CraftEngineHelpers.getBlockKey(block)
+                            if (blockKey == CraftEngineBlockEnums.AETHER_PORTAL.key) {
+                                facesToExpand.add(face)
+                            }
+                        } else when (block.type) {
+                            Material.WATER, Material.AIR -> facesToExpand.add(face)
+                            else -> {}
+                        }
+                    }
+                }
+                Axis.Z -> {
+                    for (face in setOf(BlockFace.NORTH, BlockFace.SOUTH, BlockFace.UP, BlockFace.DOWN)) {
+                        if (CraftEngineBlocks.isCustomBlock(block)) {
+                            val blockKey = CraftEngineHelpers.getBlockKey(block)
+                            if (blockKey == CraftEngineBlockEnums.AETHER_PORTAL.key) {
+                                facesToExpand.add(face)
+                            }
+                        } else when (block.type) {
+                            Material.WATER, Material.AIR -> facesToExpand.add(face)
+                            else -> {}
+                        }
+                    }
+                }
+                else -> {}
+            }
+            fillPortalBlocks(axis, block, facesToExpand, mutableSetOf())
+        }
+    }
+
     companion object {
         val AETHER_DIM_KEY = NamespacedKey(plugin, "the_aether")
         val OVERWORLD_DIM_KEY = NamespacedKey("minecraft", "overworld")
     }
 
-}
-
-class AetherPortalShape(
-    private val axis : Direction,
-    private val rightDir : Direction,
-    private val numPortalBlocks : Int,
-    private val bottomLeft : Location,
-    private val topRight : Location,
-    private val width : Int,
-    private val height : Int
-) {
-
-    fun findEmptyPortalShape(world : World, location : Location, face : BlockFace) {
-
-        //return findPortalShape()
-    }
-
-    //fun findPortalShape() : Optional<AetherPortalShape> {
-    //    //val firstAxis = Optional.of(findAnyShape(level, pos, preferredAxis)).filter(isValid())
-    //    return Optional.of()
-    //}
-
-    fun findAnyShape() {}
-
-    fun calculateBottomLeft() {}
-
-    fun calculateWidth() {}
-
-    fun getDistanceUntilEdgeAboveFrame() {}
-
-    fun calculateHeight() {}
-
-    fun hasTopFrame() {}
-
-    fun getDistanceUntilTop() {}
-
-    fun isEmpty(state : BlockState) : Boolean {
-
-        // Check for air blocks and water blocks, they are allowed to be replaced in frame.
-        when (state.block.type) {
-            Material.AIR, Material.WATER -> return true
-            else -> {}
-        }
-
-        // Now check for portal blocks.
-        if (CraftEngineBlocks.isCustomBlock(state.block)) {
-            if (CraftEngineHelpers.getBlockKey(state.block) == PORTAL_STATE_KEY)
-                return true
-        }
-
-        // Something is blocking here, abort.
-        return false
-    }
-
-    fun isValid() : Boolean {
-        return this.width >= MIN_WIDTH && this.width <= MAX_WIDTH && this.height >= MIN_HEIGHT && this.height <= MAX_HEIGHT
-    }
-
-    fun createPortalBlocks() {
-        val portalBounds = BoundingBox(this.bottomLeft.x, this.bottomLeft.y, this.bottomLeft.z, this.topRight.x, this.topRight.y, this.topRight.z)
-    }
-
-    fun isComplete() : Boolean {
-        return this.isValid() && this.numPortalBlocks == this.width * this.height
-    }
-
-    fun getRelativePosition() {}
-
-    fun findCollisionFreePosition() {}
-
-    companion object {
-        val MIN_WIDTH = 2
-        val MAX_WIDTH = 21
-        val MIN_HEIGHT = 3
-        val MAX_HEIGHT = 21
-        val FRAME = Material.GLOWSTONE
-        val SAFE_TRAVEL_MAX_ENTITY_XY = 4.0f
-        val SAFE_TRAVEL_MAX_VERTICAL_DELTA = 1.0
-        val PORTAL_STATE_KEY = CEKey.of("smprpg:aether_portal")
-    }
 }

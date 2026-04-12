@@ -79,6 +79,7 @@ enum class CraftEngineBlockEnums(val key : Key) {
     ENDER_PEARL_BLOCK(Key.of("smprpg", "ender_pearl_block")),
 
     // AETHER
+    AETHER_PORTAL(Key.of("smprpg", "aether_portal")),
     BLUE_AERCLOUD(Key.of("smprpg", "blue_aercloud")),
     COLD_AERCLOUD(Key.of("smprpg", "cold_aercloud")),
     AETHER_DIRT(Key.of("smprpg", "aether_dirt")),
