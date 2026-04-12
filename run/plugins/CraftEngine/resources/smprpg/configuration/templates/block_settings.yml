@@ -163,6 +163,8 @@ templates#settings:
       tags:
         - minecraft:mineable/hoe
         - minecraft:crops
+        - minecraft:maintains_farmland
+        - minecraft:bee_growables
   smprpg:settings/flower:
     template:
       - smprpg:sound/grass
