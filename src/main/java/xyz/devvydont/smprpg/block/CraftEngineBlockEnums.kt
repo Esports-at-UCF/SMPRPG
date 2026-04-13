@@ -60,6 +60,7 @@ enum class CraftEngineBlockEnums(val key : Key) {
     GRIMSTONE_LAPIS_ORE(Key.of("smprpg", "grimstone_lapis_ore")),
 
     REFORGE_TABLE(Key.of("smprpg", "reforge_table")),
+    NETHERITE_ANVIL(Key.of("smprpg", "netherite_anvil")),
 
     RUNE_BLANK(Key.of("smprpg", "rune_blank")),
     RUNE_POTENTIAL(Key.of("smprpg", "rune_potential")),

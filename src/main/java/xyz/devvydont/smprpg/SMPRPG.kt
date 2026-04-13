@@ -15,6 +15,7 @@ import xyz.devvydont.smprpg.block.behaviors.LaunchBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.PortalBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.AscendingBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.BerryBushBlockBehavior
+import xyz.devvydont.smprpg.block.behaviors.SMPRPGMenuBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.TickAcceleratorBlockBehavior
 import xyz.devvydont.smprpg.listeners.block.AetherDimensionListeners
 import xyz.devvydont.smprpg.listeners.block.AscendingBlockListener
@@ -182,6 +183,10 @@ class SMPRPG : JavaPlugin() {
         BlockBehaviors.register(
             CEKey.from("smprpg:tick_accelerator"),
             TickAcceleratorBlockBehavior.FACTORY
+        )
+        BlockBehaviors.register(
+            CEKey.from("smprpg:menu_interactable"),
+            SMPRPGMenuBlockBehavior.FACTORY
         )
         logger.info("SMPRPG Block behaviors registered!")
     }

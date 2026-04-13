@@ -921,6 +921,15 @@ object BlockLootRegistry : Listener {
         )
 
         register(
+            CraftEngineBlockEnums.NETHERITE_ANVIL.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.NETHERITE_ANVIL)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.NETHERITE_ANVIL)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.NETHERITE_ANVIL)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
             CraftEngineBlockEnums.RUNE_BLANK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RUNE_BLANK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RUNE_BLANK)))

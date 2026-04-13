@@ -23,25 +23,6 @@ import xyz.devvydont.smprpg.util.persistence.KeyStore
 import kotlin.random.Random
 
 class CraftEngineBlockEventListener : ToggleableListener() {
-    /**
-     * Listens to interactions from CraftEngine blocks, handles their logic here.
-     */
-    @EventHandler
-    @Suppress("unused")
-    private fun onCraftEngineInteract(event: CustomBlockInteractEvent) {
-        if (event.action() != CustomBlockInteractEvent.Action.RIGHT_CLICK) return
-
-        if (event.hand() != InteractionHand.MAIN_HAND) return
-
-        val clickedBlock = event.customBlock()
-        val blockKey = clickedBlock.id()
-        when (blockKey) {
-            CraftEngineBlockEnums.REFORGE_TABLE.key -> MenuReforge(event.player).openMenu()
-            else -> return
-        }
-        event.isCancelled = true
-    }
-
     @EventHandler
     private fun onBlockBurn(event: BlockBurnEvent) {
         val block = event.block

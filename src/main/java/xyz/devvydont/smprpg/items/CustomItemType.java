@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.items;
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.block.CraftEngineBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.block.interactable.ReforgeTable;
 import xyz.devvydont.smprpg.items.blueprints.block.runes.*;
 import xyz.devvydont.smprpg.items.blueprints.boss.DiamondToolRod;
 import xyz.devvydont.smprpg.items.blueprints.boss.InfernoArrow;
@@ -1236,7 +1237,8 @@ public enum CustomItemType {
     DEATH_CERTIFICATE("Death Certificate", Material.PAPER, ItemRarity.SPECIAL, DeathCertificate.class),
 
     // BLOCKS
-    REFORGE_TABLE(     "Reforge Table",      Material.POISONOUS_POTATO,     ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    REFORGE_TABLE(     "Reforge Table",        Material.NETHER_BRICK,     ItemRarity.UNCOMMON, ReforgeTable.class),
+    NETHERITE_ANVIL(   "Netherite Anvil",      Material.NETHER_BRICK,     ItemRarity.EPIC, CraftEngineBlueprint.class),
 
     GRIMSTONE("Grimstone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     COBBLED_GRIMSTONE("Cobbled Grimstone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
