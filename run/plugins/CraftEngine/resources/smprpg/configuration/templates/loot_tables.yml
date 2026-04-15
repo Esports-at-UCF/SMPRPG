@@ -278,6 +278,15 @@ templates:
                     template: smprpg:data/mark_smprpg_item_with_id
                     arguments::id: ${sapling_id}
       - rolls: 1
+        conditions:
+          - type: inverted
+            term:
+              type: any_of
+              terms:
+                - type: match_item
+                  id: minecraft:shears
+                - type: enchantment
+                  predicate: minecraft:silk_touch>=1
         entries:
           - type: item
             item: ${fruit_namespace}:${fruit_id}

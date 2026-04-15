@@ -201,6 +201,140 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.holystone.break": {
+    "sounds": [
+      "smprpg:block/holystone/break1",
+      "smprpg:block/holystone/break2"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.holystone.fall": {
+    "sounds": [
+      "smprpg:block/holystone/step1",
+      "smprpg:block/holystone/step2",
+      "smprpg:block/holystone/step3",
+      "smprpg:block/holystone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.holystone.hit": {
+    "sounds": [
+      "smprpg:block/holystone/step1",
+      "smprpg:block/holystone/step2",
+      "smprpg:block/holystone/step3",
+      "smprpg:block/holystone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.holystone.place": {
+    "sounds": [
+      "smprpg:block/holystone/step1",
+      "smprpg:block/holystone/step2",
+      "smprpg:block/holystone/step3",
+      "smprpg:block/holystone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.holystone.step": {
+    "sounds": [
+      "smprpg:block/holystone/step1",
+      "smprpg:block/holystone/step2",
+      "smprpg:block/holystone/step3",
+      "smprpg:block/holystone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.aercloud.break": {
+    "sounds": [
+      "smprpg:block/aercloud/break1",
+      "smprpg:block/aercloud/break2"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.aercloud.fall": {
+    "sounds": [
+      "smprpg:block/aercloud/step1",
+      "smprpg:block/aercloud/step2",
+      "smprpg:block/aercloud/step3",
+      "smprpg:block/aercloud/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.aercloud.hit": {
+    "sounds": [
+      "smprpg:block/aercloud/step1",
+      "smprpg:block/aercloud/step2",
+      "smprpg:block/aercloud/step3",
+      "smprpg:block/aercloud/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.aercloud.place": {
+    "sounds": [
+      "smprpg:block/aercloud/step1",
+      "smprpg:block/aercloud/step2",
+      "smprpg:block/aercloud/step3",
+      "smprpg:block/aercloud/step4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.aercloud.step": {
+    "sounds": [
+      "smprpg:block/aercloud/step1",
+      "smprpg:block/aercloud/step2",
+      "smprpg:block/aercloud/step3",
+      "smprpg:block/aercloud/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.crystal_leaves.break": {
+    "sounds": [
+      "smprpg:block/crystal_leaves/break1",
+      "smprpg:block/crystal_leaves/break2",
+      "smprpg:block/crystal_leaves/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.crystal_leaves.fall": {
+    "sounds": [
+      "smprpg:block/crystal_leaves/step1",
+      "smprpg:block/crystal_leaves/step2",
+      "smprpg:block/crystal_leaves/step3",
+      "smprpg:block/crystal_leaves/step4",
+      "smprpg:block/crystal_leaves/step5"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.crystal_leaves.hit": {
+    "sounds": [
+      "smprpg:block/crystal_leaves/step1",
+      "smprpg:block/crystal_leaves/step2",
+      "smprpg:block/crystal_leaves/step3",
+      "smprpg:block/crystal_leaves/step4",
+      "smprpg:block/crystal_leaves/step5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.crystal_leaves.place": {
+    "sounds": [
+      "smprpg:block/crystal_leaves/step1",
+      "smprpg:block/crystal_leaves/step2",
+      "smprpg:block/crystal_leaves/step3",
+      "smprpg:block/crystal_leaves/step4",
+      "smprpg:block/crystal_leaves/step5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.crystal_leaves.step": {
+    "sounds": [
+      "smprpg:block/crystal_leaves/step1",
+      "smprpg:block/crystal_leaves/step2",
+      "smprpg:block/crystal_leaves/step3",
+      "smprpg:block/crystal_leaves/step4",
+      "smprpg:block/crystal_leaves/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.blue_aercloud.bounce": {
     "sounds": [
       "smprpg:block/blue_aercloud/bounce"

@@ -118,6 +118,17 @@ templates#settings:
       map-color: 35
       require-correct-tools: true
       tags: ["minecraft:mineable/pickaxe"]
+  smprpg:settings/aether_ore:
+    template:
+      - smprpg:sound/holystone
+      - smprpg:settings/solid_1x1x1
+    overrides:
+      hardness: 9.0
+      resistance: 3.0
+      instrument: basedrum
+      map-color: 22
+      require-correct-tools: true
+      tags: ["minecraft:mineable/pickaxe"]
   smprpg:settings/metal_block:
     template:
       - smprpg:sound/metal
@@ -175,7 +186,7 @@ templates#settings:
         - minecraft:mineable/hoe
   smprpg:settings/aercloud:
     template:
-      - smprpg:sound/wool
+      - smprpg:sound/aercloud
       - smprpg:hardness/wool
       - smprpg:settings/transparent_1x1x1
     require-correct-tools: false
@@ -318,6 +329,15 @@ templates#sounds:
   smprpg:sound/wool:
     template: smprpg:sound/block_template
     arguments::block_type: wool
+  smprpg:sound/holystone:
+    template: smprpg:sound/smprpg_namespace_block_template
+    arguments::block_type: holystone
+  smprpg:sound/aercloud:
+    template: smprpg:sound/smprpg_namespace_block_template
+    arguments::block_type: aercloud
+  smprpg:sound/crystal_leaves:
+    template: smprpg:sound/smprpg_namespace_block_template
+    arguments::block_type: crystal_leaves
   smprpg:sound/crop:
     sounds:
       break: minecraft:block.crop.break
@@ -387,6 +407,12 @@ templates#sounds:
   smprpg:sound/slime:
     template: smprpg:sound/block_template
     arguments::block_type: slime_block
+  smprpg:sound/cherry_wood:
+    template: smprpg:sound/block_template
+    arguments::block_type: cherry_wood
+  smprpg:sound/cherry_leaves:
+    template: smprpg:sound/block_template
+    arguments::block_type: cherry_leaves
 
 templates#events:
   smprpg:events/rune_step:

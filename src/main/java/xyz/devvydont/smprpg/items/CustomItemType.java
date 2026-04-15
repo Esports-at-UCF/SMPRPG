@@ -1303,6 +1303,7 @@ public enum CustomItemType {
     // AETHER
     COLD_AERCLOUD("Cold Aercloud", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     BLUE_AERCLOUD("Blue Aercloud", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    AEROGEL("Aerogel", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     AETHER_DIRT("Aether Dirt", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     AETHER_GRASS_BLOCK("Aether Grass Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     HOLYSTONE("Holystone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
@@ -1412,7 +1413,7 @@ public enum CustomItemType {
 
     CRYSTAL_SAPLING("Crystal Sapling", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
     CRYSTAL_LEAVES("Crystal Leaves", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
-    CRYSTAL_FRUIT_LEAVES("Crystal Leaves", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    CRYSTAL_FRUIT_LEAVES("Crystal Fruit Leaves", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
     CRYSTAL_FRUIT("Crystal Fruit", Material.NETHER_BRICK, ItemRarity.COMMON, CrystalFruit.class),
     ;
 
