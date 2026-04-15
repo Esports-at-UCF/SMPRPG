@@ -9,8 +9,8 @@
     "smprpg:aether_cave"
   ],
   "effects": {
-    "foliage_color": 11665355,
-    "grass_color": 11665355,
+    "foliage_color": 5242761,
+    "grass_color": 5242761,
     "water_color": 4159204
   },
   "features": [
@@ -36,9 +36,35 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "minecraft:cow",
+        "weight": 1,
+        "minCount": 3,
+        "maxCount": 7
+      },
+      {
+        "type": "minecraft:pig",
+        "weight": 1,
+        "minCount": 3,
+        "maxCount": 7
+      },
+      {
+        "type": "minecraft:sheep",
+        "weight": 1,
+        "minCount": 3,
+        "maxCount": 7
+      }
+    ],
     "misc": [],
-    "monster": []
+    "monster": [
+      {
+        "type": "minecraft:breeze",
+        "weight": 1,
+        "minCount": 3,
+        "maxCount": 7
+      }
+    ]
   },
   "temperature": 0.7
 }

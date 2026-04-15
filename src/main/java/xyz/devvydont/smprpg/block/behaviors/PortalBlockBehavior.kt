@@ -22,10 +22,12 @@ import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.PortalType
 import org.bukkit.World
 import org.bukkit.block.BlockFace
 import org.bukkit.craftbukkit.entity.CraftLivingEntity
 import org.bukkit.craftbukkit.entity.CraftPlayer
+import org.bukkit.event.entity.EntityPortalEnterEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
@@ -84,9 +86,11 @@ class PortalBlockBehavior(customBlock: CustomBlock,
 
     override fun entityInside(thisBlock: Any?, args: Array<out Any?>?, superMethod: Callable<in Any>?) {
         super.entityInside(thisBlock, args, superMethod)
-        if (!instantTravel) {
+        if (!instantTravel) {  // This should be instant travel, it isn't currently for debug purposes
             val entity = args!![3] as Entity
             val craftEntity = entity.bukkitEntity
+            val nms_blockPos = args[2] as net.minecraft.core.BlockPos
+            val blockLoc = Location((args[1] as Level).world, nms_blockPos.x.toDouble(), nms_blockPos.y.toDouble(), nms_blockPos.z.toDouble())
 
             // TODO: Very temporary, find a proper way to teleport them to a safe location.
             val overworld = Bukkit.getWorld(NamespacedKey("minecraft", "overworld"))
@@ -104,17 +108,21 @@ class PortalBlockBehavior(customBlock: CustomBlock,
                 loc.world = destWorld
                 if (dimensionKey == KeyStore.DIM_AETHER) {
                     loc.y = destWorld!!.maxHeight + 10.0
-                    craftEntity.teleport(loc)
-                    if (craftEntity is CraftLivingEntity) {
-                        craftEntity.addPotionEffect(
-                            PotionEffect(
-                                PotionEffectType.SLOW_FALLING,
-                                20 * 20,
-                                0,
-                                true,
-                                true
+                    val portalEvent = EntityPortalEnterEvent(craftEntity, blockLoc, PortalType.CUSTOM)
+                    portalEvent.callEvent()
+                    if (!portalEvent.isCancelled) {
+                        craftEntity.teleport(loc)
+                        if (craftEntity is CraftLivingEntity) {
+                            craftEntity.addPotionEffect(
+                                PotionEffect(
+                                    PotionEffectType.SLOW_FALLING,
+                                    20 * 20,
+                                    0,
+                                    true,
+                                    true
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }

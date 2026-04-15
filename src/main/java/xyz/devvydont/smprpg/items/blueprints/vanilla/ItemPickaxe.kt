@@ -133,8 +133,8 @@ class ItemPickaxe(itemService: ItemService, material: Material) : VanillaAttribu
                 CustomItemType.STEEL_PICKAXE -> 10
                 CustomItemType.ROSE_GOLD_PICKAXE, CustomItemType.MITHRIL_PICKAXE, CustomItemType.COBALT_PICKAXE -> 12
                 CustomItemType.TITANIUM_PICKAXE, CustomItemType.TUNGSTEN_PICKAXE -> 15
-                CustomItemType.ADAMANTIUM_PICKAXE -> 18
-                CustomItemType.ORICHALCUM_PICKAXE -> 24
+                CustomItemType.ADAMANTIUM_PICKAXE, CustomItemType.AETHERIUM_PICKAXE -> 18
+                CustomItemType.ORICHALCUM_PICKAXE, CustomItemType.AETHERIUM_PICKAXE -> 24
                 else -> 0
             }.toDouble()
         }

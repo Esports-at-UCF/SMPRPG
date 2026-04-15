@@ -63,6 +63,7 @@ class BaneOfArthropodsEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantme
             RegistryKey.ENCHANTMENT,
             EnchantmentKeys.SMITE,
             EnchantmentService.BLESSED.typedKey,
+            EnchantmentService.DAMNED.typedKey,
             EnchantmentService.GENESIS.typedKey,
             EnchantmentService.VIGILANTE.typedKey,
             EnchantmentService.MUFFLE.typedKey

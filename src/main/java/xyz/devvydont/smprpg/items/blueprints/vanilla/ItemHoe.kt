@@ -117,8 +117,8 @@ class ItemHoe(itemService: ItemService, material: Material) : VanillaAttributeIt
                 CustomItemType.SILVER_HOE -> 7
                 CustomItemType.STEEL_HOE -> 13
                 CustomItemType.ROSE_GOLD_HOE, CustomItemType.MITHRIL_HOE, CustomItemType.COBALT_HOE -> 14
-                CustomItemType.TITANIUM_HOE, CustomItemType.TUNGSTEN_HOE -> 16
-                CustomItemType.ADAMANTIUM_HOE, CustomItemType.ORICHALCUM_HOE, CustomItemType.PALLADIUM_HOE -> 20
+                CustomItemType.TITANIUM_HOE, CustomItemType.TUNGSTEN_HOE, CustomItemType.PALLADIUM_HOE -> 16
+                CustomItemType.ADAMANTIUM_HOE, CustomItemType.ORICHALCUM_HOE, CustomItemType.AETHERIUM_HOE -> 20
                 else -> 0
             }.toDouble()
         }

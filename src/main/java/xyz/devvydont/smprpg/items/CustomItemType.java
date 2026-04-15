@@ -11,11 +11,13 @@ import xyz.devvydont.smprpg.items.blueprints.boss.NeptunesConch;
 import xyz.devvydont.smprpg.items.blueprints.charms.LuckyCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.SpeedCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
+import xyz.devvydont.smprpg.items.blueprints.crops.CrystalFruit;
 import xyz.devvydont.smprpg.items.blueprints.crops.SkyBerry;
 import xyz.devvydont.smprpg.items.blueprints.crops.Tomato;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.aetherium.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.cobalt.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.orichalcum.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.palladium.*;
@@ -1318,11 +1320,11 @@ public enum CustomItemType {
     VIOLET("Violet", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     RAINBOW_LILY("Rainbow Lily", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     EXTINGUISHED_TORCH("Extinguished Torch", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    AMBROSIUM_TORCH("Ambrosium Torch", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     SKY_BERRY("Sky Berry", Material.NETHER_BRICK, ItemRarity.COMMON, SkyBerry.class),
 
     AMBROSIUM("Ambrosium", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
     ZANITE("Zanite", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
-    GRAVITITE_SHARDS("Gravitite Shards", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
 
     AMBROSIUM_BLOCK("Block of Ambrosium", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
     ZANITE_BLOCK("Block of Zanite", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
@@ -1344,9 +1346,35 @@ public enum CustomItemType {
     PALLADIUM_BOW(    "Palladium Bow",      Material.BOW,             ItemRarity.RARE, PalladiumBow.class),
     PALLADIUM_SPEAR(  "Palladium Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, PalladiumSpear.class),
 
+    PALLADIUM_BOOTS(     "Palladium Boots",      Material.IRON_BOOTS,      ItemRarity.RARE, PalladiumBoots.class),
+    PALLADIUM_LEGGINGS(  "Palladium Leggings",   Material.IRON_BOOTS,      ItemRarity.RARE, PalladiumLeggings.class),
+    PALLADIUM_CHESTPLATE("Palladium Chestplate", Material.IRON_BOOTS,      ItemRarity.RARE, PalladiumChestplate.class),
+    PALLADIUM_HELMET(    "Palladium Helmet",     Material.IRON_BOOTS,      ItemRarity.RARE, PalladiumHelmet.class),
+
     // PLATINUM
     RAW_PLATINUM("Raw Platinum", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
     PLATINUM_INGOT("Platinum Ingot", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+
+    // AETHERIUM_DRILL_HEAD("Aetherium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, AetheriumDrillHead.class),
+    // AETHERIUM_DRILL_BASE("Aetherium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, AetheriumDrillBase.class),
+
+    AETHERIUM_PICKAXE("Aetherium Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.EPIC, AetheriumPickaxe.class),
+    AETHERIUM_AXE(    "Aetherium Axe",      Material.DIAMOND_AXE,     ItemRarity.EPIC, AetheriumAxe.class),
+    AETHERIUM_HOE(    "Aetherium Hoe",      Material.DIAMOND_HOE,     ItemRarity.EPIC, AetheriumHoe.class),
+    AETHERIUM_SHOVEL( "Aetherium Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.EPIC, AetheriumShovel.class),
+    AETHERIUM_SWORD(  "Aetherium Sword",    Material.DIAMOND_SWORD,   ItemRarity.EPIC, AetheriumSword.class),
+    AETHERIUM_HATCHET("Aetherium Hatchet",  Material.DIAMOND_AXE,     ItemRarity.EPIC, AetheriumHatchet.class),
+    AETHERIUM_BOW(    "Aetherium Bow",      Material.BOW,             ItemRarity.EPIC, AetheriumBow.class),
+    AETHERIUM_SPEAR(  "Aetherium Spear",    Material.IRON_SPEAR,      ItemRarity.EPIC, AetheriumSpear.class),
+
+    AETHERIUM_BOOTS(     "Aetherium Boots",      Material.IRON_BOOTS,      ItemRarity.EPIC, AetheriumBoots.class),
+    AETHERIUM_LEGGINGS(  "Aetherium Leggings",   Material.IRON_LEGGINGS,   ItemRarity.EPIC, AetheriumLeggings.class),
+    AETHERIUM_CHESTPLATE("Aetherium Chestplate", Material.IRON_CHESTPLATE, ItemRarity.EPIC, AetheriumChestplate.class),
+    AETHERIUM_HELMET(    "Aetherium Helmet",     Material.IRON_HELMET,     ItemRarity.EPIC, AetheriumHelmet.class),
+
+    // AETHERIUM
+    GRAVITITE_SHARDS("Gravitite Shards", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    AETHERIUM_INGOT("Aetherium Ingot", Material.IRON_INGOT, ItemRarity.EPIC, AetheriumIngot.class),
 
     SKYROOT_BUTTON("Skyroot Button", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     SKYROOT_DOOR("Skyroot Door", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
@@ -1363,6 +1391,11 @@ public enum CustomItemType {
     SKYROOT_WOOD("Skyroot Wood", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     STRIPPED_SKYROOT_LOG("Stripped Skyroot Log", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     STRIPPED_SKYROOT_WOOD("Stripped Skyroot Wood", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    CRYSTAL_SAPLING("Crystal Sapling", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    CRYSTAL_LEAVES("Crystal Leaves", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    CRYSTAL_FRUIT_LEAVES("Crystal Leaves", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    CRYSTAL_FRUIT("Crystal Fruit", Material.NETHER_BRICK, ItemRarity.COMMON, CrystalFruit.class),
     ;
 
     public final String ItemName;

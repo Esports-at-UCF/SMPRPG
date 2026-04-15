@@ -52,6 +52,7 @@ object Symbols {
     const val MOB_TYPE_ELEMENTAL: String = "\uD83E\uDDEA"
     const val MOB_TYPE_ENDER: String = "\uD83E\uDDFF"
     const val MOB_TYPE_FAE: String = "\uD83E\uDDDA"
+    const val MOB_TYPE_HOLY: String = "\uD83D\uDD46"
     const val MOB_TYPE_HUMANOID: String = "\uD83D\uDEB9"
     const val MOB_TYPE_ILLAGER: String = "⚔"
     const val MOB_TYPE_NETHER: String = "\uD83D\uDD25"

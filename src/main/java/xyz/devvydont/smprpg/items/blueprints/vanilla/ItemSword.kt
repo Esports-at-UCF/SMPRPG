@@ -95,8 +95,8 @@ class ItemSword(itemService: ItemService, material: Material) : VanillaAttribute
                 CustomItemType.STEEL_SWORD -> 35
                 CustomItemType.ROSE_GOLD_SWORD, CustomItemType.MITHRIL_SWORD, CustomItemType.COBALT_SWORD -> 40
                 CustomItemType.TITANIUM_SWORD, CustomItemType.TUNGSTEN_SWORD -> 50
-                CustomItemType.ADAMANTIUM_SWORD -> 65
-                CustomItemType.ORICHALCUM_SWORD, CustomItemType.PALLADIUM_SWORD -> 70
+                CustomItemType.ADAMANTIUM_SWORD, CustomItemType.PALLADIUM_SWORD -> 65
+                CustomItemType.ORICHALCUM_SWORD, CustomItemType.AETHERIUM_SWORD -> 70
                 else -> 0
             }.toDouble()
         }

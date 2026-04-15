@@ -24,7 +24,7 @@ class PalladiumBow(itemService: ItemService, type: CustomItemType) : PalladiumAt
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(customItemType))
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(CustomItemType.PALLADIUM_SWORD))
         )
     }
 

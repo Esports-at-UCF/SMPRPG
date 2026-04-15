@@ -27,6 +27,7 @@ enum class ToolStats(val durability: Int, val power: Int, val fortune: Int, val 
     PALLADIUM(1_024, 30, 50, 1_500, 7, 30),
 
     NETHERITE(2_048, 40, 120, 1_600, 8, 35),
+    AETHERIUM(1_536, 40, 80, 2_400, 8, 35),
 
     DRAGONSTEEL(2_560, 45, 150, 2_000, 9, 45);
 

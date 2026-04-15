@@ -437,6 +437,9 @@ class EnchantmentService : IService, Listener {
         val BLESSED: CustomEnchantment = BlessedEnchantment("blessed")
 
         @JvmField
+        val DAMNED: CustomEnchantment = DamnedEnchantment("damned")
+
+        @JvmField
         val PROFICIENT: CustomEnchantment = ProficientEnchantment("proficient")
 
         @JvmField
@@ -545,6 +548,7 @@ class EnchantmentService : IService, Listener {
             BANE_OF_ARTHROPODS,
             VIGILANTE,
             BLESSED,
+            DAMNED,
             GENESIS,
             MUFFLE,
 

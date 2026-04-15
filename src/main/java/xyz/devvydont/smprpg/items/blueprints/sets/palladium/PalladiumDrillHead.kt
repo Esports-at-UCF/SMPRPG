@@ -27,6 +27,6 @@ class PalladiumDrillHead(itemService: ItemService, type: CustomItemType) : Palla
     }
 
     companion object {
-        const val ATTR_KEY: String = "tungsten_drill_head"
+        const val ATTR_KEY: String = "palladium_drill_head"
     }
 }

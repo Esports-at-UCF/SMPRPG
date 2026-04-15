@@ -236,6 +236,85 @@ templates:
                   max: 2
               - type: explosion_decay
 
+  # Using Silk Touch or shears will cause the leaves block itself to drop.
+  # Using Fortune, however, increases the drop rates of sticks and saplings.
+
+  # template: smprpg:loot_table/leaves
+  # arguments:
+  #   leaves: the leaves block
+  #   sapling: the sapling item
+  smprpg:loot_table/fruit_leaves:
+    pools:
+      - rolls: 1
+        entries:
+          - type: alternatives
+            children:
+              - type: item
+                item: ${leaves_namespace}:${leaves_id}
+                conditions:
+                  - type: any_of
+                    terms:
+                      - type: match_item
+                        id: minecraft:shears
+                      - type: enchantment
+                        predicate: minecraft:silk_touch>=1
+                functions:
+                  - type: apply_data
+                    template: smprpg:data/mark_smprpg_item_with_id
+                    arguments::id: ${leaves_id}
+              - type: item
+                item: ${sapling_namespace}:${sapling_id}
+                conditions:
+                  - type: survives_explosion
+                  - type: table_bonus
+                    enchantment: smprpg:felling
+                    chances:
+                      - 0.05
+                      - 0.0625
+                      - 0.083333333
+                      - 0.1
+                functions:
+                  - type: apply_data
+                    template: smprpg:data/mark_smprpg_item_with_id
+                    arguments::id: ${sapling_id}
+      - rolls: 1
+        entries:
+          - type: item
+            item: ${fruit_namespace}:${fruit_id}
+            functions:
+              - type: apply_data
+                template: smprpg:data/mark_smprpg_item_with_id
+                arguments::id: ${fruit_id}
+      - rolls: 1
+        conditions:
+          - type: inverted
+            term:
+              type: any_of
+              terms:
+                - type: match_item
+                  id: minecraft:shears
+                - type: enchantment
+                  predicate: minecraft:silk_touch>=1
+        entries:
+          - type: item
+            item: minecraft:stick
+            conditions:
+              - type: table_bonus
+                enchantment: minecraft:fortune
+                chances:
+                  - 0.02
+                  - 0.022222222
+                  - 0.025
+                  - 0.033333333
+                  - 0.1
+            functions:
+              - type: set_count
+                count:
+                  type: uniform
+                  min: 1
+                  max: 2
+              - type: explosion_decay
+
   smprpg:data/mark_smprpg_item_in_loot:
     - type: apply_data
       data:

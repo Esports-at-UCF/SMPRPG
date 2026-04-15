@@ -56,6 +56,7 @@ class GenesisEnchantment(id: String) : CustomEnchantment(id), Listener {
             EnchantmentKeys.SMITE,
             EnchantmentKeys.BANE_OF_ARTHROPODS,
             EnchantmentService.BLESSED.typedKey,
+            EnchantmentService.DAMNED.typedKey,
             EnchantmentService.VIGILANTE.typedKey,
             EnchantmentService.MUFFLE.typedKey
         )

@@ -104,6 +104,11 @@ public enum CustomEntityType implements IMenuDisplayable {
     INFERNAL_PHOENIX(EntityType.BLAZE, "Infernal Phoenix",
             40, 750_000, 600, BlazeBoss::new),
 
+    FLYING_COW(EntityType.COW, "Flying Cow",
+            25, 1_000, 10,
+            FlyingCow::new,
+            EntitySpawnCondition.DimensionSpawnCondition.dimension(KeyStore.DIM_AETHER).withChance(1.0f)),
+
     // Wither skeletons that spawn on the end island
     WITHERED_SERAPH(EntityType.WITHER_SKELETON, "Withered Seraph",
             45, 6_000, 550,

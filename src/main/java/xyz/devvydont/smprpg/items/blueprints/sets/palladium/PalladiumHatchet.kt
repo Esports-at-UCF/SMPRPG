@@ -35,7 +35,7 @@ class PalladiumHatchet(itemService: ItemService, type: CustomItemType) : Palladi
             AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, toolStats.miningPower.toDouble()),
             AdditiveAttributeEntry(
                 AttributeWrapper.STRENGTH,
-                ItemSword.getSwordDamage(customItemType) - 5
+                ItemSword.getSwordDamage(CustomItemType.PALLADIUM_SWORD) - 5
             ),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemAxe.AXE_ATTACK_SPEED_DEBUFF),
             AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, toolStats.speed * 0.8),

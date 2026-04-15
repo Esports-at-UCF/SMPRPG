@@ -71,6 +71,10 @@ class LaunchBlockBehavior(customBlock: CustomBlock,
         entity.velocity = newVel
     }
 
+    override fun isPathFindable(thisBlock: Any?, args: Array<out Any?>?, superMethod: Callable<in Any>?): Boolean {
+        return false
+    }
+
     companion object {
         val FACTORY = Factory()
 

@@ -16,6 +16,7 @@ enum class MobType(val symbol: String, val symbolColor: TextColor) {
     ELEMENTAL(Symbols.MOB_TYPE_ELEMENTAL, NamedTextColor.WHITE),
     ENDER(Symbols.MOB_TYPE_ENDER, NamedTextColor.DARK_PURPLE),
     FAE(Symbols.MOB_TYPE_FAE, NamedTextColor.LIGHT_PURPLE),
+    HOLY(Symbols.MOB_TYPE_HOLY, TextColor.color(14_933_914)),
     HUMANOID(Symbols.MOB_TYPE_HUMANOID, NamedTextColor.GRAY),
     ILLAGER(Symbols.MOB_TYPE_ILLAGER, NamedTextColor.DARK_GRAY),
     NETHER(Symbols.MOB_TYPE_NETHER, NamedTextColor.DARK_RED),
