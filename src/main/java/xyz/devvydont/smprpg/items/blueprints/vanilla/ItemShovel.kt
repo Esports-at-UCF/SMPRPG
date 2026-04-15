@@ -91,6 +91,7 @@ class ItemShovel(itemService: ItemService, material: Material) : VanillaAttribut
                 CustomItemType.STEEL_SHOVEL -> 20
                 CustomItemType.ROSE_GOLD_SHOVEL, CustomItemType.MITHRIL_SHOVEL, CustomItemType.COBALT_SHOVEL -> 22
                 CustomItemType.TITANIUM_SHOVEL, CustomItemType.TUNGSTEN_SHOVEL -> 25
+                CustomItemType.PLATINUM_SHOVEL -> 26
                 CustomItemType.ADAMANTIUM_SHOVEL, CustomItemType.PALLADIUM_SHOVEL -> 27
                 CustomItemType.ORICHALCUM_SHOVEL, CustomItemType.AETHERIUM_SHOVEL -> 29
                 else -> 0

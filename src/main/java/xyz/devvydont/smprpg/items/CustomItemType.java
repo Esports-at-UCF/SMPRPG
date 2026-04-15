@@ -21,6 +21,7 @@ import xyz.devvydont.smprpg.items.blueprints.sets.aetherium.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.cobalt.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.orichalcum.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.palladium.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.platinum.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockShoes;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockHood;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockRobes;
@@ -1346,14 +1347,35 @@ public enum CustomItemType {
     PALLADIUM_BOW(    "Palladium Bow",      Material.BOW,             ItemRarity.RARE, PalladiumBow.class),
     PALLADIUM_SPEAR(  "Palladium Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, PalladiumSpear.class),
 
-    PALLADIUM_BOOTS(     "Palladium Boots",      Material.IRON_BOOTS,      ItemRarity.RARE, PalladiumBoots.class),
-    PALLADIUM_LEGGINGS(  "Palladium Leggings",   Material.IRON_BOOTS,      ItemRarity.RARE, PalladiumLeggings.class),
-    PALLADIUM_CHESTPLATE("Palladium Chestplate", Material.IRON_BOOTS,      ItemRarity.RARE, PalladiumChestplate.class),
-    PALLADIUM_HELMET(    "Palladium Helmet",     Material.IRON_BOOTS,      ItemRarity.RARE, PalladiumHelmet.class),
+    PALLADIUM_BOOTS(     "Palladium Boots",      Material.IRON_BOOTS,       ItemRarity.RARE, PalladiumBoots.class),
+    PALLADIUM_LEGGINGS(  "Palladium Leggings",   Material.IRON_LEGGINGS,    ItemRarity.RARE, PalladiumLeggings.class),
+    PALLADIUM_CHESTPLATE("Palladium Chestplate", Material.IRON_CHESTPLATE,  ItemRarity.RARE, PalladiumChestplate.class),
+    PALLADIUM_HELMET(    "Palladium Helmet",     Material.IRON_HELMET,      ItemRarity.RARE, PalladiumHelmet.class),
 
     // PLATINUM
     RAW_PLATINUM("Raw Platinum", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
     PLATINUM_INGOT("Platinum Ingot", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+
+    // PLATINUM_DRILL_HEAD("Platinum Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, PlatinummDrillHead.class),
+    // PLATINUM_DRILL_BASE("Platinum Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, PlatinummDrillBase.class),
+
+    PLATINUM_PICKAXE("Platinum Pickaxe",  Material.IRON_PICKAXE, ItemRarity.RARE, PlatinumPickaxe.class),
+    PLATINUM_AXE(    "Platinum Axe",      Material.IRON_AXE,     ItemRarity.RARE, PlatinumAxe.class),
+    PLATINUM_HOE(    "Platinum Hoe",      Material.IRON_HOE,     ItemRarity.RARE, PlatinumHoe.class),
+    PLATINUM_SHOVEL( "Platinum Shovel",   Material.IRON_SHOVEL,  ItemRarity.RARE, PlatinumShovel.class),
+    PLATINUM_SWORD(  "Platinum Sword",    Material.IRON_SWORD,   ItemRarity.RARE, PlatinumSword.class),
+    PLATINUM_HATCHET("Platinum Hatchet",  Material.IRON_AXE,     ItemRarity.RARE, PlatinumHatchet.class),
+    PLATINUM_BOW(    "Platinum Bow",      Material.BOW,             ItemRarity.RARE, PlatinumBow.class),
+    PLATINUM_SPEAR(  "Platinum Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, PlatinumSpear.class),
+
+    PLATINUM_BOOTS(     "Platinum Boots",      Material.IRON_BOOTS,      ItemRarity.RARE, PlatinumBoots.class),
+    PLATINUM_LEGGINGS(  "Platinum Leggings",   Material.IRON_LEGGINGS,   ItemRarity.RARE, PlatinumLeggings.class),
+    PLATINUM_CHESTPLATE("Platinum Chestplate", Material.IRON_CHESTPLATE, ItemRarity.RARE, PlatinumChestplate.class),
+    PLATINUM_HELMET(    "Platinum Helmet",     Material.IRON_HELMET,     ItemRarity.RARE, PlatinumHelmet.class),
+
+    // AETHERIUM
+    GRAVITITE_SHARDS("Gravitite Shards", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    AETHERIUM_INGOT("Aetherium Ingot", Material.IRON_INGOT, ItemRarity.EPIC, AetheriumIngot.class),
 
     // AETHERIUM_DRILL_HEAD("Aetherium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, AetheriumDrillHead.class),
     // AETHERIUM_DRILL_BASE("Aetherium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, AetheriumDrillBase.class),
@@ -1371,10 +1393,6 @@ public enum CustomItemType {
     AETHERIUM_LEGGINGS(  "Aetherium Leggings",   Material.IRON_LEGGINGS,   ItemRarity.EPIC, AetheriumLeggings.class),
     AETHERIUM_CHESTPLATE("Aetherium Chestplate", Material.IRON_CHESTPLATE, ItemRarity.EPIC, AetheriumChestplate.class),
     AETHERIUM_HELMET(    "Aetherium Helmet",     Material.IRON_HELMET,     ItemRarity.EPIC, AetheriumHelmet.class),
-
-    // AETHERIUM
-    GRAVITITE_SHARDS("Gravitite Shards", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
-    AETHERIUM_INGOT("Aetherium Ingot", Material.IRON_INGOT, ItemRarity.EPIC, AetheriumIngot.class),
 
     SKYROOT_BUTTON("Skyroot Button", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     SKYROOT_DOOR("Skyroot Door", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),

@@ -155,6 +155,10 @@ class ItemArmor(itemService: ItemService, material: Material) : VanillaAttribute
                 CustomItemType.STEEL_CHESTPLATE -> 50
                 CustomItemType.STEEL_LEGGINGS -> 40
                 CustomItemType.STEEL_BOOTS -> 25
+                CustomItemType.PLATINUM_HELMET -> 35
+                CustomItemType.PLATINUM_CHESTPLATE -> 50
+                CustomItemType.PLATINUM_LEGGINGS -> 40
+                CustomItemType.PLATINUM_BOOTS -> 25
                 CustomItemType.MITHRIL_HELMET -> 40
                 CustomItemType.MITHRIL_CHESTPLATE -> 60
                 CustomItemType.MITHRIL_LEGGINGS -> 45
