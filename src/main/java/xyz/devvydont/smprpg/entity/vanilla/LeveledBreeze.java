@@ -13,6 +13,7 @@ public class LeveledBreeze extends VanillaEntity<Bee> {
     @Override
     public void setup() {
         mobTypes.add(MobType.AIRBORNE);
+        mobTypes.add(MobType.HOLY);
         mobTypes.add(MobType.ELEMENTAL);
 
         super.setup();

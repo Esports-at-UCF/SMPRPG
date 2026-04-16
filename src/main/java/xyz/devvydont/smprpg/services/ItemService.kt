@@ -50,7 +50,7 @@ import xyz.devvydont.smprpg.items.base.ChargedItemBlueprint
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint
-import xyz.devvydont.smprpg.items.blueprints.block.CraftEngineBlueprint
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.blueprints.potion.PotionBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaCompressibleBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource
@@ -394,6 +394,9 @@ class ItemService : IService, Listener {
         }
 
         registerNetheriteRecipes()
+        Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable {
+            removeUnusedVanillaRecipes()
+        }, 1L)
     }
 
     private fun registerReforges() {
@@ -555,6 +558,42 @@ class ItemService : IService, Listener {
         registeredRecipes.add(helmetRecipe)
         registeredRecipes.add(leggingsRecipe)
         registeredRecipes.add(chestplateRecipe)
+    }
+
+    private fun removeUnusedVanillaRecipes() {
+        val plugin = SMPRPG.plugin
+        val mcNs = NamespacedKey.MINECRAFT_NAMESPACE
+
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "stone_pickaxe"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "stone_sword"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "stone_axe"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "stone_shovel"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "stone_hoe"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "stone_spear"))
+
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "diamond_pickaxe"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "diamond_sword"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "diamond_axe"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "diamond_shovel"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "diamond_hoe"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "diamond_spear"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "diamond_helmet"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "diamond_chestplate"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "diamond_leggings"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "diamond_boots"))
+
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "netherite_pickaxe_smithing"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "netherite_sword_smithing"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "netherite_axe_smithing"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "netherite_shovel_smithing"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "netherite_hoe_smithing"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "netherite_spear_smithing"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "netherite_helmet_smithing"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "netherite_chestplate_smithing"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "netherite_leggings_smithing"))
+        plugin.server.removeRecipe(NamespacedKey(mcNs, "netherite_boots_smithing"))
+
+        plugin.server.updateRecipes()
     }
 
     private fun registerCustomItem(blueprint: CustomItemBlueprint) {

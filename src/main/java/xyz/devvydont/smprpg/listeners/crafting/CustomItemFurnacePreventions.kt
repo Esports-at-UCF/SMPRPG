@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.inventory.FurnaceBurnEvent
 import org.bukkit.event.inventory.FurnaceStartSmeltEvent
-import xyz.devvydont.smprpg.items.blueprints.block.CraftEngineBlueprint
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.interfaces.IFurnaceFuel
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener

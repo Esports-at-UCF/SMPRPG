@@ -4,7 +4,7 @@ import io.papermc.paper.datacomponent.item.Consumable
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
-import xyz.devvydont.smprpg.items.blueprints.block.CraftEngineBlueprint
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.interfaces.IEdible
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService

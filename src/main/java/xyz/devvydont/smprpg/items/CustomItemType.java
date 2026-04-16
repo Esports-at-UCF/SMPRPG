@@ -2,7 +2,7 @@ package xyz.devvydont.smprpg.items;
 
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
-import xyz.devvydont.smprpg.items.blueprints.block.CraftEngineBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.block.interactable.ReforgeTable;
 import xyz.devvydont.smprpg.items.blueprints.block.runes.*;
 import xyz.devvydont.smprpg.items.blueprints.boss.DiamondToolRod;
@@ -11,6 +11,7 @@ import xyz.devvydont.smprpg.items.blueprints.boss.NeptunesConch;
 import xyz.devvydont.smprpg.items.blueprints.charms.LuckyCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.SpeedCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineCompressibleBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.crops.CrystalFruit;
 import xyz.devvydont.smprpg.items.blueprints.crops.SkyBerry;
 import xyz.devvydont.smprpg.items.blueprints.crops.Tomato;
@@ -50,10 +51,6 @@ import xyz.devvydont.smprpg.items.blueprints.resources.fishing.HolomokuCrest;
 import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll;
-import xyz.devvydont.smprpg.items.blueprints.resources.mining.RawSilver;
-import xyz.devvydont.smprpg.items.blueprints.resources.mining.RawTin;
-import xyz.devvydont.smprpg.items.blueprints.resources.mining.RawTitanium;
-import xyz.devvydont.smprpg.items.blueprints.resources.mining.Sulfur;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFlesh;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFleshFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowder;
@@ -223,11 +220,11 @@ public enum CustomItemType {
     RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, CraftEngineBlueprint.class),
     SILVER_ORE("Silver Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, CraftEngineBlueprint.class),
     DEEPSLATE_SILVER_ORE("Deepslate Silver Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, CraftEngineBlueprint.class),
-    RAW_SILVER_BLOCK("Block of Raw Silver",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, CraftEngineBlueprint.class),
+    RAW_SILVER_BLOCK("Block of Raw Silver",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, CraftEngineCompressibleBlueprint.class),
     ENCHANTED_RAW_SILVER("Enchanted Raw Silver",      Material.RAW_IRON,        ItemRarity.RARE, true, RawSilverFamilyBlueprint.class),
 
     SILVER_INGOT("Silver Ingot",                          Material.IRON_INGOT,        ItemRarity.COMMON,    CraftEngineBlueprint.class),
-    SILVER_BLOCK("Block of Silver",                       Material.POISONOUS_POTATO,  ItemRarity.UNCOMMON,  CraftEngineBlueprint.class),
+    SILVER_BLOCK("Block of Silver",                       Material.POISONOUS_POTATO,  ItemRarity.UNCOMMON,  CraftEngineCompressibleBlueprint.class),
     ENCHANTED_SILVER("Enchanted Silver",                  Material.IRON_INGOT,        ItemRarity.RARE,      true, SilverFamilyBlueprint.class),
     ENCHANTED_SILVER_BLOCK("Enchanted Block of Silver",   Material.POISONOUS_POTATO,  ItemRarity.EPIC,      true, SilverFamilyBlueprint.class),
     SILVER_SINGULARITY("Silver Singularity",              Material.IRON_INGOT,        ItemRarity.LEGENDARY, true, SilverFamilyBlueprint.class),
@@ -251,11 +248,11 @@ public enum CustomItemType {
     RAW_TIN("Raw Tin",                      Material.RAW_IRON,         ItemRarity.COMMON, false, 5, "materials"),
     TIN_ORE("Tin Ore",                      Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     DEEPSLATE_TIN_ORE("Deepslate Tin Ore",  Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
-    RAW_TIN_BLOCK("Block of Raw Tin",       Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    RAW_TIN_BLOCK("Block of Raw Tin",       Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineCompressibleBlueprint.class),
     ENCHANTED_RAW_TIN("Enchanted Raw Tin",  Material.RAW_IRON,         ItemRarity.RARE,   true, RawTinFamilyBlueprint.class),
 
     TIN_INGOT("Tin Ingot",                 Material.IRON_INGOT,     ItemRarity.COMMON, TinIngot.class),
-    TIN_BLOCK("Block of Tin",              Material.NETHER_BRICK,        ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    TIN_BLOCK("Block of Tin",              Material.NETHER_BRICK,        ItemRarity.UNCOMMON, CraftEngineCompressibleBlueprint.class),
     ENCHANTED_TIN("Enchanted Tin",                  Material.IRON_INGOT,        ItemRarity.RARE,      true, TinFamilyBlueprint.class),
     ENCHANTED_TIN_BLOCK("Enchanted Block of Tin",   Material.POISONOUS_POTATO,  ItemRarity.EPIC,      true, TinFamilyBlueprint.class),
     TIN_SINGULARITY("Tin Singularity",              Material.IRON_INGOT,        ItemRarity.LEGENDARY, true, TinFamilyBlueprint.class),
@@ -294,7 +291,7 @@ public enum CustomItemType {
 
     // STEEL SET
     STEEL_INGOT("Steel Ingot", Material.IRON_INGOT, ItemRarity.UNCOMMON, SteelIngot.class),
-    STEEL_BLOCK(     "Block of Steel",      Material.POISONOUS_POTATO,     ItemRarity.RARE, CraftEngineBlueprint.class),
+    STEEL_BLOCK(     "Block of Steel",      Material.POISONOUS_POTATO,     ItemRarity.RARE, CraftEngineCompressibleBlueprint.class),
     ENCHANTED_STEEL("Enchanted Steel", Material.IRON_INGOT, ItemRarity.EPIC, true, SteelFamilyBlueprint.class),
     ENCHANTED_STEEL_BLOCK("Enchanted Steel Block", Material.POISONOUS_POTATO, ItemRarity.LEGENDARY, true, SteelFamilyBlueprint.class),
     STEEL_SINGULARITY("Steel Singularity", Material.IRON_INGOT, ItemRarity.MYTHIC, true, SteelFamilyBlueprint.class),
@@ -346,7 +343,7 @@ public enum CustomItemType {
     RAW_MITHRIL_BLOCK("Block of Raw Mithril",      Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineBlueprint.class),
 
     MITHRIL_INGOT("Mithril Ingot",                 Material.IRON_INGOT,     ItemRarity.UNCOMMON,   MithrilIngot.class),
-    MITHRIL_BLOCK("Block of Mithril",              Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineBlueprint.class),
+    MITHRIL_BLOCK("Block of Mithril",              Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineCompressibleBlueprint.class),
     ENCHANTED_MITHRIL("Enchanted Mithril",                  Material.IRON_INGOT,        ItemRarity.EPIC,      true, MithrilFamilyBlueprint.class),
     ENCHANTED_MITHRIL_BLOCK("Enchanted Block of Mithril",   Material.POISONOUS_POTATO,  ItemRarity.LEGENDARY,      true, MithrilFamilyBlueprint.class),
     MITHRIL_SINGULARITY("Mithril Singularity",              Material.IRON_INGOT,        ItemRarity.MYTHIC, true, MithrilFamilyBlueprint.class),
@@ -372,11 +369,11 @@ public enum CustomItemType {
     // TITANIUM SET
     RAW_TITANIUM("Raw Titanium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300, "materials"),
     TITANIUM_ORE("Titanium Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineBlueprint.class),
-    RAW_TITANIUM_BLOCK("Block of Raw Titanium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, CraftEngineBlueprint.class),
+    RAW_TITANIUM_BLOCK("Block of Raw Titanium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, CraftEngineCompressibleBlueprint.class),
     ENCHANTED_RAW_TITANIUM("Raw Titanium",           Material.RAW_IRON,     ItemRarity.LEGENDARY,   false, RawTitaniumFamilyBlueprint.class),
 
     TITANIUM_INGOT("Titanium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   TitaniumIngot.class),
-    TITANIUM_BLOCK("Block of Titanium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, CraftEngineBlueprint.class),
+    TITANIUM_BLOCK("Block of Titanium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, CraftEngineCompressibleBlueprint.class),
     ENCHANTED_TITANIUM("Enchanted Titanium",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, TitaniumFamilyBlueprint.class),
     ENCHANTED_TITANIUM_BLOCK("Enchanted Block of Titanium",   Material.POISONOUS_POTATO,  ItemRarity.MYTHIC,      true, TitaniumFamilyBlueprint.class),
     TITANIUM_SINGULARITY("Titanium Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, TitaniumFamilyBlueprint.class),
@@ -404,7 +401,7 @@ public enum CustomItemType {
     RAW_ADAMANTIUM_BLOCK("Block of Raw Adamantium",      Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineBlueprint.class),
 
     ADAMANTIUM_INGOT("Adamantium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   AdamantiumIngot.class),
-    ADAMANTIUM_BLOCK("Block of Adamantium",              Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineBlueprint.class),
+    ADAMANTIUM_BLOCK("Block of Adamantium",              Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineCompressibleBlueprint.class),
     ENCHANTED_ADAMANTIUM("Enchanted Adamantium",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, AdamantiumFamilyBlueprint.class),
     ENCHANTED_ADAMANTIUM_BLOCK("Enchanted Block of Adamantium",   Material.NETHER_BRICK,  ItemRarity.MYTHIC,      true, AdamantiumFamilyBlueprint.class),
     ADAMANTIUM_SINGULARITY("Adamantium Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, AdamantiumFamilyBlueprint.class),
@@ -431,15 +428,15 @@ public enum CustomItemType {
     SULFUR_TREATED_TOOL_SHAFT(    "Sulfur Treated Shaft",      Material.STICK,     ItemRarity.UNCOMMON, SulfurToolShaft.class),
 
     SULFUR(    "Sulfur",                         Material.GUNPOWDER,               ItemRarity.UNCOMMON, false, 20, "materials"),
-    SULFUR_BLOCK("Block of Sulfur",              Material.NETHER_BRICK,        ItemRarity.RARE, CraftEngineBlueprint.class),
+    SULFUR_BLOCK("Block of Sulfur",              Material.NETHER_BRICK,        ItemRarity.RARE, CraftEngineCompressibleBlueprint.class),
     ENCHANTED_SULFUR("Enchanted Sulfur",                  Material.GUNPOWDER,        ItemRarity.EPIC,      true, SulfurFamilyBlueprint.class),
     ENCHANTED_SULFUR_BLOCK("Enchanted Block of Sulfur",   Material.POISONOUS_POTATO,  ItemRarity.LEGENDARY,      true, SulfurFamilyBlueprint.class),
     SULFUR_SINGULARITY("Sulfur Singularity",              Material.GUNPOWDER,        ItemRarity.MYTHIC, true, SulfurFamilyBlueprint.class),
 
     // ONYX
     ONYX(    "Onyx",     Material.COAL,      ItemRarity.RARE, false, 500, "materials"),
-    ONYX_ORE("Onyx Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
-    ONYX_BLOCK("Block of Onyx",              Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineBlueprint.class),
+    ONYX_ORE("Onyx Ore",                     Material.NETHER_BRICK,        ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    ONYX_BLOCK("Block of Onyx",              Material.NETHER_BRICK,        ItemRarity.RARE, CraftEngineBlueprint.class),
 
     // TUNGSTEN SET
     RAW_TUNGSTEN("Raw Tungsten",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 40, "materials"),
@@ -447,7 +444,7 @@ public enum CustomItemType {
     RAW_TUNGSTEN_BLOCK("Block of Raw Tungsten",      Material.NETHER_BRICK,        ItemRarity.RARE, CraftEngineBlueprint.class),
 
     TUNGSTEN_INGOT("Tungsten Ingot",                 Material.IRON_INGOT,              ItemRarity.UNCOMMON, TungstenIngot.class),
-    TUNGSTEN_BLOCK("Block of Tungsten",              Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineBlueprint.class),
+    TUNGSTEN_BLOCK("Block of Tungsten",              Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineCompressibleBlueprint.class),
     ENCHANTED_TUNGSTEN("Enchanted Tungsten",                  Material.IRON_INGOT,        ItemRarity.EPIC,      true, TungstenFamilyBlueprint.class),
     ENCHANTED_TUNGSTEN_BLOCK("Enchanted Block of Tungsten",   Material.NETHER_BRICK,  ItemRarity.LEGENDARY,      true, TungstenFamilyBlueprint.class),
     TUNGSTEN_SINGULARITY("Tungsten Singularity",              Material.IRON_INGOT,        ItemRarity.MYTHIC, true, TungstenFamilyBlueprint.class),
@@ -475,7 +472,7 @@ public enum CustomItemType {
     RAW_COBALT_BLOCK("Block of Raw Cobalt",      Material.NETHER_BRICK,        ItemRarity.RARE, CraftEngineBlueprint.class),
 
     COBALT_INGOT("Cobalt Ingot",                 Material.IRON_INGOT,              ItemRarity.RARE, CobaltIngot.class),
-    COBALT_BLOCK("Block of Cobalt",              Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineBlueprint.class),
+    COBALT_BLOCK("Block of Cobalt",              Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineCompressibleBlueprint.class),
     ENCHANTED_COBALT("Enchanted Cobalt",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, CobaltFamilyBlueprint.class),
     ENCHANTED_COBALT_BLOCK("Enchanted Block of Cobalt",   Material.POISONOUS_POTATO,  ItemRarity.MYTHIC,      true, CobaltFamilyBlueprint.class),
     COBALT_SINGULARITY("Cobalt Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, CobaltFamilyBlueprint.class),
@@ -503,7 +500,7 @@ public enum CustomItemType {
     RAW_ORICHALCUM_BLOCK("Block of Raw Orichalcum",      Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineBlueprint.class),
 
     ORICHALCUM_INGOT("Orichalcum Ingot",                 Material.IRON_INGOT,              ItemRarity.RARE, OrichalcumIngot.class),
-    ORICHALCUM_BLOCK("Block of Orichalcum",              Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineBlueprint.class),
+    ORICHALCUM_BLOCK("Block of Orichalcum",              Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineCompressibleBlueprint.class),
     ENCHANTED_ORICHALCUM("Enchanted Orichalcum",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, OrichalcumFamilyBlueprint.class),
     ENCHANTED_ORICHALCUM_BLOCK("Enchanted Block of Orichalcum",   Material.POISONOUS_POTATO,  ItemRarity.MYTHIC,      true, OrichalcumFamilyBlueprint.class),
     ORICHALCUM_SINGULARITY("Orichalcum Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, OrichalcumFamilyBlueprint.class),
