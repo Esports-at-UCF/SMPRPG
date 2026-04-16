@@ -50,8 +50,13 @@ import xyz.devvydont.smprpg.items.blueprints.resources.fishing.HolomokuCrest;
 import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll;
+import xyz.devvydont.smprpg.items.blueprints.resources.mining.RawSilver;
+import xyz.devvydont.smprpg.items.blueprints.resources.mining.RawTin;
+import xyz.devvydont.smprpg.items.blueprints.resources.mining.RawTitanium;
+import xyz.devvydont.smprpg.items.blueprints.resources.mining.Sulfur;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFlesh;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFleshFamilyBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowder;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
 import xyz.devvydont.smprpg.items.blueprints.sets.abomination.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
@@ -801,7 +806,7 @@ public enum CustomItemType {
 
     // ILLAGER WARLOCK
 
-    SPELL_POWDER(      "Spell Powder",          Material.GUNPOWDER,       ItemRarity.UNCOMMON,      false, 75, "materials"),
+    SPELL_POWDER(      "Spell Powder",          Material.GUNPOWDER,       ItemRarity.UNCOMMON,      false, SpellPowder.class),
     PREMIUM_SPELL_POWDER("Premium Spell Powder", Material.GUNPOWDER, ItemRarity.RARE, true, SpellPowderFamilyBlueprint.class),
     ENCHANTED_SPELL_POWDER(    "Enchanted Spell Powder",        Material.GUNPOWDER,       ItemRarity.EPIC,    true, SpellPowderFamilyBlueprint.class),
     SPELL_POWDER_SINGULARITY(    "Spell Powder Singularity",        Material.GUNPOWDER,       ItemRarity.LEGENDARY,    true, SpellPowderFamilyBlueprint.class),

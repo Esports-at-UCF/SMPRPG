@@ -9,15 +9,16 @@ import org.bukkit.potion.PotionEffectType
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
+import xyz.devvydont.smprpg.items.interfaces.ICompressible
+import xyz.devvydont.smprpg.items.interfaces.ICompressible.CompressionStep
 import xyz.devvydont.smprpg.items.interfaces.IEdible
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.time.TickTime
-import java.util.List
 
 class NecroticFlesh(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
-    ISellable, IEdible, IModelOverridden {
+    ICompressible, ISellable, IEdible, IModelOverridden {
     /**
      * Determine what type of item this is.
      */
@@ -31,6 +32,14 @@ class NecroticFlesh(itemService: ItemService, type: CustomItemType) : CustomItem
      * @return The worth of the item.
      */
     override fun getWorth(item: ItemStack): Int { return 30 * item.amount }
+
+    override val decompressor: CompressionStep? get() = null
+
+    override val compressor: CompressionStep? get() = when (customItemType) {
+        CustomItemType.NECROTIC_FLESH ->
+            CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_NECROTIC_FLESH) as ICompressible, 9, 1)
+        else -> null
+    }
 
     override fun getConsumableComponent(item: ItemStack?): Consumable {
         val effects = ArrayList<ConsumeEffect>()

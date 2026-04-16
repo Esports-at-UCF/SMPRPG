@@ -7,6 +7,8 @@ import org.bukkit.inventory.RecipeChoice.ExactChoice
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
+import xyz.devvydont.smprpg.items.interfaces.ICompressible
+import xyz.devvydont.smprpg.items.interfaces.ICompressible.CompressionStep
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.items.interfaces.ISmeltable
@@ -16,8 +18,15 @@ import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.time.TickTime
 
 class TungstenIngot(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
-    ISmeltable, ISellable, IModelOverridden {
+    ISmeltable, ISellable, IModelOverridden, ICompressible {
+
     override val itemClassification: ItemClassification get() = ItemClassification.MATERIAL
+
+    override val compressor: CompressionStep
+        get() = CompressionStep(itemService.getBlueprint(CustomItemType.TUNGSTEN_BLOCK) as ICompressible, 9, 1)
+
+    override val decompressor: CompressionStep?
+        get() = null
 
     /**
      * Get the ingredient that is used to smelt this item.

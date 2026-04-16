@@ -7,6 +7,8 @@ import org.bukkit.inventory.RecipeChoice.ExactChoice
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
+import xyz.devvydont.smprpg.items.interfaces.ICompressible
+import xyz.devvydont.smprpg.items.interfaces.ICompressible.CompressionStep
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.items.interfaces.ISmeltable
@@ -16,7 +18,7 @@ import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.time.TickTime
 
 class SilverIngot(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type), ISmeltable,
-    ISellable, IModelOverridden {
+    ISellable, IModelOverridden, ICompressible {
     override val itemClassification: ItemClassification get() = ItemClassification.MATERIAL
 
     /**
@@ -57,4 +59,12 @@ class SilverIngot(itemService: ItemService, type: CustomItemType) : CustomItemBl
     override fun getWorth(item: ItemStack): Int { return 50 * item.amount }
 
     override fun getDisplayKey(): Key { return IModelOverridden.ofItemTypeInDirectory(customItemType, "materials") }
+
+    override val decompressor: CompressionStep? get() = null
+
+    override val compressor: CompressionStep? get() = when (customItemType) {
+        CustomItemType.SILVER_INGOT ->
+            CompressionStep(itemService.getBlueprint(CustomItemType.SILVER_BLOCK) as ICompressible, 9, 1)
+        else -> null
+    }
 }
