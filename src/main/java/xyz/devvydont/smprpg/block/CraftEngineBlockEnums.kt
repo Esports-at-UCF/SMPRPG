@@ -97,7 +97,9 @@ enum class CraftEngineBlockEnums(val key : Key) {
 
     AETHER_SILVER_ORE(Key.of("smprpg", "aether_silver_ore")),
     AMBROSIUM_ORE(Key.of("smprpg", "ambrosium_ore")),
+    AMBROSIUM_BLOCK(Key.of("smprpg", "ambrosium_block")),
     ZANITE_ORE(Key.of("smprpg", "zanite_ore")),
+    ZANITE_BLOCK(Key.of("smprpg", "zanite_block")),
     PLATINUM_ORE(Key.of("smprpg", "platinum_ore")),
     PALLADIUM_ORE(Key.of("smprpg", "palladium_ore")),
     GRAVITITE_ORE(Key.of("smprpg", "gravitite_ore")),

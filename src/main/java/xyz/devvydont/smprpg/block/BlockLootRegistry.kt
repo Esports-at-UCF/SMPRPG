@@ -1048,11 +1048,29 @@ object BlockLootRegistry : Listener {
         )
 
         register(
+            CraftEngineBlockEnums.AMBROSIUM_BLOCK.key, builder()
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.AMBROSIUM_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.AMBROSIUM_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.AMBROSIUM_BLOCK)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
             CraftEngineBlockEnums.ZANITE_ORE.key, builder()
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ZANITE)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ZANITE_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ZANITE)))
                 .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.ZANITE_BLOCK.key, builder()
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ZANITE_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ZANITE_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ZANITE_BLOCK)))
+                .ignoresFortune()
                 .build()
         )
 

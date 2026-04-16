@@ -580,3 +580,68 @@ templates#models#crossbow:
       pulling_1_texture: ${pulling_1_path}
       pulling_2_model: ${pulling_2_path}
       pulling_2_texture: ${pulling_2_path}
+
+  # template: smprpg:model/simplified_inner_stairs
+  # arguments:
+  #   path: inner_stairs model path
+  #   texture: block texture path
+  smprpg:model/simplified_inner_stairs:
+    type: minecraft:model
+    path: ${path}
+    uvlock: true
+    generation:
+      parent: minecraft:block/inner_stairs
+      textures:
+        bottom: ${texture}
+        side: ${texture}
+        top: ${texture}
+        particle: ${texture}
+
+  # template: smprpg:model/simplified_inner_stairs
+  # arguments:
+  #   path: outer_stairs model path
+  #   texture: block texture path
+  smprpg:model/simplified_outer_stairs:
+    type: minecraft:model
+    path: ${path}
+    uvlock: true
+    generation:
+      parent: minecraft:block/outer_stairs
+      textures:
+        bottom: ${texture}
+        side: ${texture}
+        top: ${texture}
+        particle: ${texture}
+
+  # template: smprpg:model/simplified_inner_stairs
+  # arguments:
+  #   path: stairs model path
+  #   texture: block texture path
+  smprpg:model/simplified_stairs:
+    type: minecraft:model
+    path: ${path}
+    uvlock: true
+    generation:
+      parent: minecraft:block/stairs
+      textures:
+        bottom: ${texture}
+        side: ${texture}
+        top: ${texture}
+        particle: ${texture}
+
+  # template: smprpg:model/simplified_slab
+  # arguments:
+  #   path: slab model path
+  #   texture: block texture path
+  #   extension: _top or leave empty
+  smprpg:model/simplified_slab:
+    type: minecraft:model
+    path: ${path}
+    uvlock: true
+    generation:
+      parent: minecraft:block/slab${extension}
+      textures:
+        bottom: ${texture}
+        side: ${texture}
+        top: ${texture}
+        particle: ${texture}

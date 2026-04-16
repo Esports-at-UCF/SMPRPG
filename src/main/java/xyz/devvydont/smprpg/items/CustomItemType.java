@@ -1315,6 +1315,10 @@ public enum CustomItemType {
     QUICKSOIL("Quicksoil", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
 
     HOLYSTONE_BRICKS("Holystone Bricks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE_BRICK_STAIRS("Holystone Brick Stairs", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE_BRICK_SLAB("Holystone Brick Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE_STAIRS("Holystone Stairs", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE_SLAB("Holystone Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
 
     AETHER_SILVER_ORE("Aether Silver Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     AMBROSIUM_ORE("Ambrosium Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
