@@ -56,6 +56,7 @@ class GenesisEnchantment(id: String) : CustomEnchantment(id), Listener {
             EnchantmentKeys.SMITE,
             EnchantmentKeys.BANE_OF_ARTHROPODS,
             EnchantmentService.BLESSED.typedKey,
+            EnchantmentService.DAMNED.typedKey,
             EnchantmentService.VIGILANTE.typedKey,
             EnchantmentService.MUFFLE.typedKey
         )
@@ -69,21 +70,21 @@ class GenesisEnchantment(id: String) : CustomEnchantment(id), Listener {
                 val silver = getIngredientStack(CustomItemType.SILVER_INGOT, 5)
                 val flesh = getIngredientStack(Material.ROTTEN_FLESH, 2)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 8)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 0, silver, flesh, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 0, silver, flesh, lapis)
             }
 
             2 -> {
                 val silver = getIngredientStack(CustomItemType.SILVER_INGOT, 10)
                 val flesh = getIngredientStack(Material.ROTTEN_FLESH, 4)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 16)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 5, silver, flesh, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 5, silver, flesh, lapis)
             }
 
             3 -> {
                 val silver = getIngredientStack(CustomItemType.SILVER_INGOT, 20)
                 val flesh = getIngredientStack(Material.ROTTEN_FLESH, 8)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 32)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 15, silver, flesh, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 15, silver, flesh, lapis)
             }
 
             4 -> {
@@ -91,7 +92,7 @@ class GenesisEnchantment(id: String) : CustomEnchantment(id), Listener {
                 val flesh = getIngredientStack(Material.ROTTEN_FLESH, 16)
                 val necrotic = getIngredientStack(CustomItemType.PREMIUM_NECROTIC_FLESH, 16)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 64)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 20, silver, flesh, necrotic, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 20, silver, flesh, necrotic, lapis)
             }
 
             5 -> {
@@ -99,7 +100,7 @@ class GenesisEnchantment(id: String) : CustomEnchantment(id), Listener {
                 val flesh = getIngredientStack(Material.ROTTEN_FLESH, 32)
                 val necrotic = getIngredientStack(CustomItemType.PREMIUM_NECROTIC_FLESH, 32)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 30, silver, flesh, necrotic, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 30, silver, flesh, necrotic, lapis)
             }
 
             6 -> {
@@ -107,7 +108,7 @@ class GenesisEnchantment(id: String) : CustomEnchantment(id), Listener {
                 val flesh = getIngredientStack(Material.ROTTEN_FLESH, 64)
                 val necrotic = getIngredientStack(CustomItemType.PREMIUM_NECROTIC_FLESH, 64)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 32)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 40, silver, flesh, necrotic, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 40, silver, flesh, necrotic, lapis)
             }
 
             7 -> {
@@ -116,7 +117,7 @@ class GenesisEnchantment(id: String) : CustomEnchantment(id), Listener {
                 val necrotic = getIngredientStack(CustomItemType.ENCHANTED_NECROTIC_FLESH, 15)
                 val viscera = getIngredientStack(CustomItemType.REVILED_VISCERA, 1)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 64)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 60, silver, flesh, necrotic, viscera, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 60, silver, flesh, necrotic, viscera, lapis)
             }
 
             8 -> {
@@ -125,7 +126,7 @@ class GenesisEnchantment(id: String) : CustomEnchantment(id), Listener {
                 val necrotic = getIngredientStack(CustomItemType.ENCHANTED_NECROTIC_FLESH, 30)
                 val viscera = getIngredientStack(CustomItemType.REVILED_VISCERA, 2)
                 val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 70, silver, flesh, necrotic, viscera, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 70, silver, flesh, necrotic, viscera, lapis)
             }
 
             9 -> {
@@ -136,7 +137,7 @@ class GenesisEnchantment(id: String) : CustomEnchantment(id), Listener {
                 val amalgamation = getIngredientStack(CustomItemType.VISCERAL_AMALGAMATION, 1)
                 val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 32)
                 return EnchantmentRecipe(
-                    getRecipeKey(level)!!,
+                    getRecipeKey(level),
                     80,
                     silver,
                     flesh,
@@ -155,7 +156,7 @@ class GenesisEnchantment(id: String) : CustomEnchantment(id), Listener {
                 val amalgamation = getIngredientStack(CustomItemType.VISCERAL_AMALGAMATION, 2)
                 val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 64)
                 return EnchantmentRecipe(
-                    getRecipeKey(level)!!,
+                    getRecipeKey(level),
                     90,
                     silver,
                     flesh,

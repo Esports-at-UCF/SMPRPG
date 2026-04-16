@@ -3,18 +3,14 @@ package xyz.devvydont.smprpg.items.blueprints.block.runes
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.inventory.ItemStack
-import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.items.CustomItemType
-import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint
+import xyz.devvydont.smprpg.items.blueprints.block.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.interfaces.IFooterDescribable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
-class RuneBlank(itemService: ItemService, type: CustomItemType) : BlockBlueprint(itemService, type),
+class RuneBlank(itemService: ItemService, type: CustomItemType) : CraftEngineBlueprint(itemService, type),
     IFooterDescribable {
-    override fun getCustomBlock(): CustomBlock {
-        return CustomBlock.RUNE_BLANK
-    }
 
     override fun getFooter(itemStack: ItemStack?): MutableList<Component?> {
         return mutableListOf(

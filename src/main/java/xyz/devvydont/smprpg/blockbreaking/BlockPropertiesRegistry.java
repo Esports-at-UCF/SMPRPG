@@ -1,14 +1,19 @@
 package xyz.devvydont.smprpg.blockbreaking;
 
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
+import net.momirealms.craftengine.bukkit.api.event.CraftEngineReloadEvent;
+import net.momirealms.craftengine.core.util.Key;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.jetbrains.annotations.Nullable;
+import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.block.BlockSound;
-import xyz.devvydont.smprpg.block.CustomBlock;
 import xyz.devvydont.smprpg.items.ItemClassification;
+import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The loot dropped from blocks is a very complex system. When blocks are dropped, there's conditions
@@ -20,13 +25,20 @@ import java.util.Map;
  * - Breaking a block with auto smelt.
  * - Breaking a block with incorrect tool. (fist and stone, or axe and stone)
  */
-public class BlockPropertiesRegistry {
+public class BlockPropertiesRegistry implements Listener {
 
     private static final Map<Material, BlockPropertiesEntry> entries = new EnumMap<>(Material.class);
-    private static final Map<CustomBlock, BlockPropertiesEntry> specialEntries = new EnumMap<>(CustomBlock.class);
+    private static final Map<Key, BlockPropertiesEntry> specialEntries = new HashMap<>();
+
+    public BlockPropertiesRegistry() {
+        SMPRPG.getPlugin().getServer().getPluginManager().registerEvents(this, SMPRPG.getPlugin());
+
+        registerVanillaMaterials();
+        registerCraftEngineMaterials();
+    }
 
     // Maps every block type to specified mining properties. Keep in mind, EVERY block needs to be defined here.
-    static {
+    private static void registerVanillaMaterials() {
         //<editor-fold desc="Shovelable blocks">
         //<editor-fold desc="Concrete powders">
         register(Material.CLAY, BlockPropertiesEntry.builder(ItemClassification.SHOVEL, ItemClassification.DRILL)
@@ -6789,357 +6801,404 @@ public class BlockPropertiesRegistry {
     }
 
     // Custom Block Registration
-    static {
-        register(CustomBlock.REFORGE_TABLE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(4)
-                .blockSound(BlockSound.IRON)
-                .softRequirement(false)
-                .build());
+    private static void registerCraftEngineMaterials() {
 
-        //<editor-fold desc="Ores & Material Blocks">
-        register(CustomBlock.SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(300)
-                .breakingPower(2)
-                .blockSound(BlockSound.STONE_GENERIC)
-                .softRequirement(false)
-                .build());
+        for (var blockEntry : CraftEngineBlocks.loadedBlocks().entrySet()) {
+            var customBlock = blockEntry.getValue();
 
-        register(CustomBlock.DEEPSLATE_SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(450)
-                .breakingPower(4)
-                .blockSound(BlockSound.DEEPSLATE_GENERIC)
-                .softRequirement(false)
-                .build());
+            var blockSettings = customBlock.defaultState().settings();
+            int hardness = (int) (blockSettings.hardness() * 100);
+            int breakingPower = 0;
+            for (var i=0; i<=9; i++) {
+                if (blockSettings.tags().contains(Key.of("smprpg", String.format("breaking_power_%d", i)))) {
+                    breakingPower = i;
+                    break;
+                }
+            }
+            boolean requiresTool = blockSettings.requireCorrectTool();
 
-        register(CustomBlock.RAW_SILVER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(2)
-                .blockSound(BlockSound.STONE_GENERIC)
-                .softRequirement(false)
-                .build());
+            HashSet<ItemClassification> tools = new HashSet<>();
+            var key = blockSettings.tags().contains(Key.of("minecraft", "mineable/pickaxe"));
+            if (key) {
+                tools.add(ItemClassification.PICKAXE);
+                tools.add(ItemClassification.DRILL);
+            }
 
-        register(CustomBlock.SILVER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(2)
-                .blockSound(BlockSound.METAL_GENERIC)
-                .softRequirement(false)
-                .build());
+            key = blockSettings.tags().contains(Key.of("minecraft", "mineable/hoe"));
+            if (key) {
+                tools.add(ItemClassification.HOE);
+                tools.add(ItemClassification.HATCHET);
+            }
 
-        register(CustomBlock.TIN_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(300)
-                .breakingPower(1)
-                .blockSound(BlockSound.STONE_GENERIC)
-                .softRequirement(false)
-                .build());
+            key = blockSettings.tags().contains(Key.of("minecraft", "mineable/axe"));
+            if (key) {
+                tools.add(ItemClassification.AXE);
+                tools.add(ItemClassification.HATCHET);
+            }
 
-        register(CustomBlock.DEEPSLATE_TIN_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(450)
-                .breakingPower(3)
-                .blockSound(BlockSound.DEEPSLATE_GENERIC)
-                .softRequirement(false)
-                .build());
+            key = blockSettings.tags().contains(Key.of("minecraft", "mineable/shovel"));
+            if (key) {
+                tools.add(ItemClassification.SHOVEL);
+                tools.add(ItemClassification.DRILL);
+            }
 
-        register(CustomBlock.RAW_TIN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(2)
-                .blockSound(BlockSound.STONE_GENERIC)
-                .softRequirement(false)
-                .build());
+            register(customBlock.id(), BlockPropertiesEntry.builder(tools.toArray(new ItemClassification[]{}))
+                    .hardness(hardness)
+                    .breakingPower(breakingPower)
+                    .softRequirement(!requiresTool)
+                    .build());
+        }
 
-        register(CustomBlock.TIN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(2)
-                .blockSound(BlockSound.METAL_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.BRONZE_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(3)
-                .blockSound(BlockSound.COPPER)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.ROSE_GOLD_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(3)
-                .blockSound(BlockSound.METAL_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.STEEL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(4)
-                .blockSound(BlockSound.IRON)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.SPARSE_MITHRIL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(625)
-                .breakingPower(4)
-                .blockSound(BlockSound.MITHRIL_ORE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.MITHRIL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(1250)
-                .breakingPower(4)
-                .blockSound(BlockSound.MITHRIL_ORE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.DENSE_MITHRIL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(2500)
-                .breakingPower(5)
-                .blockSound(BlockSound.MITHRIL_ORE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RAW_MITHRIL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(800)
-                .breakingPower(4)
-                .blockSound(BlockSound.MITHRIL_ORE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.MITHRIL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(800)
-                .breakingPower(4)
-                .blockSound(BlockSound.METAL_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.TITANIUM_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(7500)
-                .breakingPower(4)
-                .blockSound(BlockSound.MITHRIL_ORE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RAW_TITANIUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(2500)
-                .breakingPower(4)
-                .blockSound(BlockSound.MITHRIL_ORE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.TITANIUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(2500)
-                .breakingPower(4)
-                .blockSound(BlockSound.TITANIUM_METAL)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.ADAMANTIUM_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(15000)
-                .breakingPower(5)
-                .blockSound(BlockSound.ADAMANTIUM_ORE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RAW_ADAMANTIUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(5000)
-                .breakingPower(5)
-                .blockSound(BlockSound.ADAMANTIUM_ORE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.ADAMANTIUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(5000)
-                .breakingPower(5)
-                .blockSound(BlockSound.TITANIUM_METAL)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.SULFUR_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(600)
-                .breakingPower(4)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.SULFUR_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(600)
-                .breakingPower(4)
-                .blockSound(BlockSound.STONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RAW_TUNGSTEN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(750)
-                .breakingPower(5)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.TUNGSTEN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(750)
-                .breakingPower(5)
-                .blockSound(BlockSound.METAL_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.TUNGSTEN_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(750)
-                .breakingPower(5)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RAW_COBALT_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(900)
-                .breakingPower(6)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.COBALT_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(900)
-                .breakingPower(6)
-                .blockSound(BlockSound.METAL_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.COBALT_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(900)
-                .breakingPower(6)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RAW_ORICHALCUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(900)
-                .breakingPower(6)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.ORICHALCUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(900)
-                .breakingPower(6)
-                .blockSound(BlockSound.METAL_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.ORICHALCUM_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(900)
-                .breakingPower(6)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.DRAGONSTEEL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(6)
-                .blockSound(BlockSound.IRON)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.GRIMSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(600)
-                .breakingPower(5)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.COBBLED_GRIMSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(650)
-                .breakingPower(5)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.GRIMSTONE_DIAMOND_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(750)
-                .breakingPower(5)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.GRIMSTONE_IRON_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(750)
-                .breakingPower(5)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.GRIMSTONE_GOLD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(750)
-                .breakingPower(5)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.GRIMSTONE_SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(750)
-                .breakingPower(5)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.GRIMSTONE_LAPIS_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(750)
-                .breakingPower(5)
-                .blockSound(BlockSound.BLACKSTONE_GENERIC)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RUNE_BLANK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(4)
-                .blockSound(BlockSound.RUNE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RUNE_POTENTIAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(4)
-                .blockSound(BlockSound.RUNE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RUNE_AMBITION, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(4)
-                .blockSound(BlockSound.RUNE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RUNE_MEMORIZATION, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(4)
-                .blockSound(BlockSound.RUNE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RUNE_GREED, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(4)
-                .blockSound(BlockSound.RUNE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RUNE_INSIGHT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(4)
-                .blockSound(BlockSound.RUNE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RUNE_FORTUITY, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(4)
-                .blockSound(BlockSound.RUNE)
-                .softRequirement(false)
-                .build());
-
-        register(CustomBlock.RUNE_DIVINITY, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(500)
-                .breakingPower(4)
-                .blockSound(BlockSound.RUNE)
-                .softRequirement(false)
-                .build());
+        //register(CustomBlock.REFORGE_TABLE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.IRON)
+        //        .softRequirement(false)
+        //        .build());
+//
+        ////<editor-fold desc="Ores & Material Blocks">
+        //register(CustomBlock.SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(300)
+        //        .breakingPower(2)
+        //        .blockSound(BlockSound.STONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.DEEPSLATE_SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(450)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.DEEPSLATE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RAW_SILVER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(2)
+        //        .blockSound(BlockSound.STONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.SILVER_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(2)
+        //        .blockSound(BlockSound.METAL_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.TIN_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(300)
+        //        .breakingPower(1)
+        //        .blockSound(BlockSound.STONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.DEEPSLATE_TIN_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(450)
+        //        .breakingPower(3)
+        //        .blockSound(BlockSound.DEEPSLATE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RAW_TIN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(2)
+        //        .blockSound(BlockSound.STONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.TIN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(2)
+        //        .blockSound(BlockSound.METAL_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.BRONZE_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(3)
+        //        .blockSound(BlockSound.COPPER)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.ROSE_GOLD_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(3)
+        //        .blockSound(BlockSound.METAL_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.STEEL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.IRON)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.SPARSE_MITHRIL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(625)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.MITHRIL_ORE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.MITHRIL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(1250)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.MITHRIL_ORE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.DENSE_MITHRIL_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(2500)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.MITHRIL_ORE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RAW_MITHRIL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(800)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.MITHRIL_ORE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.MITHRIL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(800)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.METAL_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.TITANIUM_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(7500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.MITHRIL_ORE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RAW_TITANIUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(2500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.MITHRIL_ORE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.TITANIUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(2500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.TITANIUM_METAL)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.ADAMANTIUM_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(15000)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.ADAMANTIUM_ORE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RAW_ADAMANTIUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(5000)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.ADAMANTIUM_ORE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.ADAMANTIUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(5000)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.TITANIUM_METAL)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.SULFUR_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(600)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.SULFUR_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(600)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.STONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RAW_TUNGSTEN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(750)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.TUNGSTEN_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(750)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.METAL_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.TUNGSTEN_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(750)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RAW_COBALT_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(900)
+        //        .breakingPower(6)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.COBALT_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(900)
+        //        .breakingPower(6)
+        //        .blockSound(BlockSound.METAL_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.COBALT_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(900)
+        //        .breakingPower(6)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RAW_ORICHALCUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(900)
+        //        .breakingPower(6)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.ORICHALCUM_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(900)
+        //        .breakingPower(6)
+        //        .blockSound(BlockSound.METAL_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.ORICHALCUM_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(900)
+        //        .breakingPower(6)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.DRAGONSTEEL_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(6)
+        //        .blockSound(BlockSound.IRON)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.GRIMSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(600)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.COBBLED_GRIMSTONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(650)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.GRIMSTONE_DIAMOND_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(750)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.GRIMSTONE_IRON_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(750)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.GRIMSTONE_GOLD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(750)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.GRIMSTONE_SILVER_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(750)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.GRIMSTONE_LAPIS_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(750)
+        //        .breakingPower(5)
+        //        .blockSound(BlockSound.BLACKSTONE_GENERIC)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RUNE_BLANK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.RUNE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RUNE_POTENTIAL, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.RUNE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RUNE_AMBITION, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.RUNE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RUNE_MEMORIZATION, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.RUNE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RUNE_GREED, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.RUNE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RUNE_INSIGHT, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.RUNE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RUNE_FORTUITY, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.RUNE)
+        //        .softRequirement(false)
+        //        .build());
+//
+        //register(CustomBlock.RUNE_DIVINITY, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        //        .hardness(500)
+        //        .breakingPower(4)
+        //        .blockSound(BlockSound.RUNE)
+        //        .softRequirement(false)
+        //        .build());
         //</editor-fold>
 
     }
@@ -7148,19 +7207,24 @@ public class BlockPropertiesRegistry {
         entries.put(material, entry);
     }
 
-    public static void register(CustomBlock material, BlockPropertiesEntry entry) { specialEntries.put(material, entry); }
+    public static void register(Key block, BlockPropertiesEntry entry) { specialEntries.put(block, entry); }
+
+    //public static void register(CustomBlock material, BlockPropertiesEntry entry) { specialEntries.put(material, entry); }
 
     public static @Nullable BlockPropertiesEntry get(Block block) {
-        var entry = specialEntries.getOrDefault(CustomBlock.resolve(block), null);
-        if (entry == null)
-            return entries.get(block.getType());
+        BlockPropertiesEntry entry;
+        if (CraftEngineBlocks.isCustomBlock(block)) {
+            var resourceKey = CraftEngineHelpers.Companion.getBlockKey(block);
+            entry = specialEntries.getOrDefault(resourceKey, null);
+        }
+        else
+            entry = entries.get(block.getType());
         return entry;
     }
 
-    public static boolean isCustom(Block block) {
-        var entry = specialEntries.getOrDefault(CustomBlock.resolve(block), null);
-        if (entry == null)
-            return false;
-        return true;
+    @EventHandler
+    public void __onCraftEngineReload(CraftEngineReloadEvent event) {
+        registerVanillaMaterials();
+        registerCraftEngineMaterials();
     }
 }

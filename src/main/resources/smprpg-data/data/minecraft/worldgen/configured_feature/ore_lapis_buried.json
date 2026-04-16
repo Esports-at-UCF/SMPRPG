@@ -33,23 +33,11 @@
       },
       {
         "state": {
-          "Name": "minecraft:note_block",
-          "Properties": {
-            "instrument": "harp",
-            "note": "20",
-            "powered": "true"
-          }
+          "Name": "craftengine:custom_8"
         },
         "target": {
-          "predicate_type": "minecraft:blockstate_match",
-          "block_state": {
-            "Name": "minecraft:note_block",
-            "Properties": {
-              "instrument": "harp",
-              "note": "14",
-              "powered": "true"
-            }
-          }
+          "predicate_type": "minecraft:tag_match",
+          "tag": "smprpg:grimstone_ore_replaceables"
         }
       }
     ]

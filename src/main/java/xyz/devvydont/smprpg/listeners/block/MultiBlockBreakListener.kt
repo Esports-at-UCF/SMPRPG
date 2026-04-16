@@ -1,5 +1,7 @@
 package xyz.devvydont.smprpg.listeners.block
 
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
+import net.momirealms.craftengine.core.util.Key as CEKey
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.block.Block
@@ -11,10 +13,12 @@ import org.bukkit.event.server.ServerLoadEvent
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
+import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
 import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.skills.listeners.ForagingExperienceListener.Companion.getBaseExperienceForBlock
+import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import xyz.devvydont.smprpg.util.world.ChunkUtil
 
@@ -48,13 +52,29 @@ class MultiBlockBreakListener : ToggleableListener() {
 
                     // Check for material validity
                     // Check for equality first, then go through fuzzy blocks to improve performance.
-                    val startType = startBlock.type
-                    val fuzzies: MutableSet<Material> = FUZZY_BLOCKS.getOrDefault(startType, DEFAULT_FUZZY_BLOCK_SET)
-                    if (adjBlock.type == startBlock.type || fuzzies.contains(adjBlock.type)) {
-                        // Success! Reduce our blocks left to chop and delay our chop for a few ticks.
-                        blocksLeft--
-                        blocksToBreak.add(adjBlock)
-                        stepAdjacentBlocks(adjBlock, blocksLeft, checkedBlocks, player, blocksToBreak)
+
+                    // TODO: Rewrite this, this will only work in custom->custom and vanilla->vanilla contexts.
+                    if (CraftEngineBlocks.isCustomBlock(startBlock)) {
+                        val startKey = CraftEngineHelpers.getBlockKey(startBlock)
+                        if (CraftEngineBlocks.isCustomBlock(adjBlock)) {
+                            val adjKey = CraftEngineHelpers.getBlockKey(adjBlock)
+                            val fuzzies: MutableSet<*> = FUZZY_BLOCKS.getOrDefault<Any?, MutableSet<out Any>>(startKey, DEFAULT_FUZZY_BLOCK_SET)
+                            if (adjKey == startKey || fuzzies.contains(adjKey)) {
+                                blocksLeft--
+                                blocksToBreak.add(adjBlock)
+                                stepAdjacentBlocks(adjBlock, blocksLeft, checkedBlocks, player, blocksToBreak)
+                            }
+                        }
+                    }
+                    else {
+                        val startType = startBlock.type
+                        val fuzzies: MutableSet<*> = FUZZY_BLOCKS.getOrDefault(startType, DEFAULT_FUZZY_BLOCK_SET)
+                        if (adjBlock.type == startBlock.type || fuzzies.contains(adjBlock.type)) {
+                            // Success! Reduce our blocks left to chop and delay our chop for a few ticks.
+                            blocksLeft--
+                            blocksToBreak.add(adjBlock)
+                            stepAdjacentBlocks(adjBlock, blocksLeft, checkedBlocks, player, blocksToBreak)
+                        }
                     }
                 }
             }
@@ -71,8 +91,18 @@ class MultiBlockBreakListener : ToggleableListener() {
         blocksToBreak.add(event.getBlock())
 
         val numBlocksToBreak = attrInst.getValue().toInt()
-        if (MULTI_BREAK_LOGS.contains(event.getBlock().type)) stepAdjacentBlocks(
-            event.getBlock(),
+        if (CraftEngineBlocks.isCustomBlock(event.block)) {
+            val blockKey = CraftEngineHelpers.getBlockKey(event.block)
+            if (CUSTOM_MULTI_BREAK_LOGS.contains(blockKey)) stepAdjacentBlocks(
+                event.block,
+                numBlocksToBreak,
+                checkedBlocks,
+                player,
+                blocksToBreak
+            )
+        }
+        else if (MULTI_BREAK_LOGS.contains(event.block.type)) stepAdjacentBlocks(
+            event.block,
             numBlocksToBreak,
             checkedBlocks,
             player,
@@ -86,6 +116,7 @@ class MultiBlockBreakListener : ToggleableListener() {
             Bukkit.getScheduler().runTaskLater(plugin, Runnable runTaskLater@{
                 val exp = getBaseExperienceForBlock(block)
                 if (exp <= 0) return@runTaskLater
+                //if (CraftEngineBlocks.isCustomBlock(block)) CraftEngineBlocks.remove(block, player, false, true, true)
                 block.breakNaturally(player.equipment.itemInMainHand, true, true)
 
                 val skill = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
@@ -128,7 +159,12 @@ class MultiBlockBreakListener : ToggleableListener() {
             Material.WARPED_HYPHAE
         )
 
-        val FUZZY_BLOCKS: HashMap<Material, MutableSet<Material>> = HashMap<Material, MutableSet<Material>>()
+        val CUSTOM_MULTI_BREAK_LOGS: MutableSet<CEKey> = mutableSetOf(
+            CraftEngineBlockEnums.SKYROOT_LOG.key,
+            CraftEngineBlockEnums.SKYROOT_WOOD.key
+        )
+
+        val FUZZY_BLOCKS: HashMap<Any, MutableSet<Any>> = HashMap<Any, MutableSet<Any>>()
         val DEFAULT_FUZZY_BLOCK_SET: MutableSet<Material> = mutableSetOf<Material>()
 
         fun initFuzzyBlocks() {
@@ -154,6 +190,8 @@ class MultiBlockBreakListener : ToggleableListener() {
             FUZZY_BLOCKS.put(Material.CRIMSON_HYPHAE, mutableSetOf(Material.CRIMSON_STEM, Material.CRIMSON_HYPHAE))
             FUZZY_BLOCKS.put(Material.WARPED_STEM, mutableSetOf(Material.WARPED_STEM, Material.WARPED_HYPHAE))
             FUZZY_BLOCKS.put(Material.WARPED_HYPHAE, mutableSetOf(Material.WARPED_STEM, Material.WARPED_HYPHAE))
+            FUZZY_BLOCKS.put(CraftEngineBlockEnums.SKYROOT_LOG.key, mutableSetOf(CraftEngineBlockEnums.SKYROOT_LOG.key, CraftEngineBlockEnums.SKYROOT_WOOD.key))
+            FUZZY_BLOCKS.put(CraftEngineBlockEnums.SKYROOT_WOOD.key, mutableSetOf(CraftEngineBlockEnums.SKYROOT_LOG.key, CraftEngineBlockEnums.SKYROOT_WOOD.key))
         }
     }
 }

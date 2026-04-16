@@ -7,6 +7,7 @@ import net.kyori.adventure.key.Keyed
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import net.momirealms.craftengine.bukkit.api.CraftEngineItems
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -49,7 +50,7 @@ import xyz.devvydont.smprpg.items.base.ChargedItemBlueprint
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint
-import xyz.devvydont.smprpg.items.blueprints.block.BlockBlueprint
+import xyz.devvydont.smprpg.items.blueprints.block.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.blueprints.potion.PotionBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaCompressibleBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource
@@ -661,8 +662,9 @@ class ItemService : IService, Listener {
             return null
 
         val key = meta.persistentDataContainer.getOrDefault(itemTypeKey, PersistentDataType.STRING, "")
-        if (key.isEmpty())
+        if (key.isEmpty()) {
             return null
+        }
 
         return key
     }
@@ -1626,13 +1628,13 @@ class ItemService : IService, Listener {
         val item = event.getItemInHand()
         val blueprint = getBlueprint(item)
 
-        if (blueprint is BlockBlueprint)
-            return;
-
         // Hack for summoning crystals. Allow them to be placed!
         if (blueprint is CustomItemBlueprint && blueprint.customItemType == CustomItemType.SUMMONING_CRYSTAL) return
 
         if (blueprint is IDamageFromCrops) return
+
+        // Craft Engine items are allowed to handle their own logic.
+        if (blueprint is CraftEngineBlueprint) return
 
         // If this item is a custom item, don't allow it to be placed!!!
         if (blueprint.isCustom) event.isCancelled = true
@@ -1643,12 +1645,15 @@ class ItemService : IService, Listener {
         // Integer to tag items with whenever we update them to prevent unnecessary work
         const val VERSION: Int = 1
         const val VERSION_NO_UPDATE: Int = -1
+        val SELL_VALUE_KEY: NamespacedKey = NamespacedKey("smprpg", "sell-value")
 
         val COMMON_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/common_repair_core"))
         val UNCOMMON_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/uncommon_repair_core"))
         val RARE_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/rare_repair_core"))
         val EPIC_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/epic_repair_core"))
         val LEGENDARY_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/legendary_repair_core"))
+
+        val CRAFT_ENGINE_ID = NamespacedKey("craftengine", "id")
 
         // Shortcut methods to do very common operations much less verbosely. This instance should always be a singleton
         // so static method calls like this are designed to be safe.

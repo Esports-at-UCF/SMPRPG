@@ -5,25 +5,17 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.BlockPosition;
-import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.destroystokyo.paper.ParticleBuilder;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
+import net.momirealms.craftengine.core.util.Key;
 import org.bukkit.*;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
-import xyz.devvydont.smprpg.block.BlockLootRegistry;
 import xyz.devvydont.smprpg.block.BlockSound;
-import xyz.devvydont.smprpg.block.CustomBlock;
 import xyz.devvydont.smprpg.enchantments.definitions.MinersFervorArtificeEnchantment;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.interfaces.IFueledEquipment;
@@ -32,7 +24,6 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.formatting.Symbols;
 
 import java.util.HashMap;
-import java.util.Random;
 import java.util.Set;
 
 public class BlockDamage {
@@ -84,7 +75,6 @@ public class BlockDamage {
 
     	int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
         	double currentTicks = 0d;
-			double soundTicks = 0d;
         	
         	@Override
             public void run() {
@@ -143,28 +133,6 @@ public class BlockDamage {
 					tickInc *= AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.AIRBORNE_MINING).getValue();
 
                 currentTicks = currentTicks + tickInc;
-				if (soundTicks % 4 == 0)
-				{
-					boolean isWoodNonNoteblock = currentTarget.getBlockSoundGroup().getHitSound() == Sound.BLOCK_WOOD_HIT && currentTarget.getType() != Material.NOTE_BLOCK;
-					if (BlockPropertiesRegistry.isCustom(currentTarget) || isWoodNonNoteblock) {
-						BlockSound blockSound = BlockPropertiesRegistry.get(currentTarget).getBlockSound();
-						String hitSound;
-						float hitVolume;
-						float hitPitch;
-						if (blockSound != null) {
-							hitSound = blockSound.HitSound;
-							hitVolume = blockSound.HitVolume;
-							hitPitch = blockSound.HitPitch;
-						}
-						else {
-							hitSound = "audio:block.wood_custom.hit";
-							hitVolume = 1.0f;
-							hitPitch = 0.25f;
-						}
-						currentTarget.getWorld().playSound(currentTarget.getLocation(), hitSound, hitVolume, hitPitch);
-					}
-				}
-				soundTicks++;
             }
     	},0L, 1L);
     	
@@ -206,7 +174,7 @@ public class BlockDamage {
 		if (entry == null) {
 			player.sendMessage(ComponentUtils.alert(ComponentUtils.merge(
 					ComponentUtils.create("This block is missing block properties! Tell a developer that the following block is not defined: ", NamedTextColor.RED),
-					ComponentUtils.create(block.getBlockData().getMaterial().toString(), NamedTextColor.WHITE),
+					ComponentUtils.create(block.getBlockData().getAsString(), NamedTextColor.WHITE),
 					ComponentUtils.create("\nBlockState: ", NamedTextColor.LIGHT_PURPLE),
 					ComponentUtils.create(block.toString(), NamedTextColor.GRAY)
 			)));
@@ -275,7 +243,7 @@ public class BlockDamage {
 		double playerBp = AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_POWER).getValue();
 		if (playerBp >= entry.getBreakingPower()) {
 			hardness = entry.getHardness();
-			if (hardness == -1)
+			if (hardness <= -1)
 				return -1d;
 		}
 		else {

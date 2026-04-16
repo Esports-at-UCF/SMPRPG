@@ -352,7 +352,7 @@ abstract class SMPItemBlueprint(
         // Apply custom model data.
         itemStack.setData(
             DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
-                .addString(this.customModelDataIdentifier!!)
+                .addString(this.customModelDataIdentifier)
                 .build()
         )
 

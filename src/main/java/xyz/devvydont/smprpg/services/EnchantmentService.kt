@@ -31,7 +31,6 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.util.BoundingBox
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
-import xyz.devvydont.smprpg.block.CustomBlock
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.calculator.EnchantmentCalculator
 import xyz.devvydont.smprpg.enchantments.calculator.EnchantmentCalculator.EnchantmentSlot
@@ -438,6 +437,9 @@ class EnchantmentService : IService, Listener {
         val BLESSED: CustomEnchantment = BlessedEnchantment("blessed")
 
         @JvmField
+        val DAMNED: CustomEnchantment = DamnedEnchantment("damned")
+
+        @JvmField
         val PROFICIENT: CustomEnchantment = ProficientEnchantment("proficient")
 
         @JvmField
@@ -546,6 +548,7 @@ class EnchantmentService : IService, Listener {
             BANE_OF_ARTHROPODS,
             VIGILANTE,
             BLESSED,
+            DAMNED,
             GENESIS,
             MUFFLE,
 

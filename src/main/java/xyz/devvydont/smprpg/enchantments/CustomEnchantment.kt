@@ -78,10 +78,10 @@ abstract class CustomEnchantment(val id: String) : Cloneable {
         context.getLifecycleManager().registerEventHandler(
             RegistryEvents.ENCHANTMENT.compose()
                 .newHandler(LifecycleEventHandler { event: RegistryComposeEvent<Enchantment, EnchantmentRegistryEntry.Builder> ->
-                    event!!.registry().register(
+                    event.registry().register(
                         this.typedKey,
                         Consumer { b: EnchantmentRegistryEntry.Builder ->
-                            b!!.description(this.displayName)
+                            b.description(this.displayName)
                                 .primaryItems(getSupportedItems(event))
                                 .supportedItems(getSupportedItems(event))
                                 .anvilCost(0)

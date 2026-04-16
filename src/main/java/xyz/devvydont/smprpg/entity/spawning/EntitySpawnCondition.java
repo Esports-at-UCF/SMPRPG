@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.entity.spawning;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.structure.GeneratedStructure;
 import org.bukkit.generator.structure.Structure;
@@ -71,6 +72,29 @@ public interface EntitySpawnCondition {
         @Override
         public boolean valid(Location location) {
             return location.getWorld().getBiome(location).equals(_biome);
+        }
+    }
+
+    class DimensionSpawnCondition extends SpawnCondition {
+
+        public static DimensionSpawnCondition dimension(NamespacedKey dim) {
+            return new DimensionSpawnCondition(dim);
+        }
+
+        private NamespacedKey _dimKey;
+
+        public DimensionSpawnCondition(NamespacedKey dim) {
+            this._dimKey = dim;
+        }
+
+        DimensionSpawnCondition withDimension(NamespacedKey dim) {
+            this._dimKey = dim;
+            return this;
+        }
+
+        @Override
+        public boolean valid(Location location) {
+            return location.getWorld().getKey().equals(_dimKey);
         }
     }
 

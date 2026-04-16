@@ -29,6 +29,7 @@ class TitaniumShovel(itemService: ItemService, type: CustomItemType) : TitaniumA
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, toolStats.miningPower.toDouble()),
             AdditiveAttributeEntry(
                 AttributeWrapper.STRENGTH,
                 ItemShovel.getShovelDamage(CustomItemType.TITANIUM_SHOVEL)

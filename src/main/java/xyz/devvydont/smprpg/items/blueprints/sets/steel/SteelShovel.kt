@@ -27,6 +27,7 @@ class SteelShovel(itemService: ItemService, type: CustomItemType) : SteelAttribu
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, toolStats.miningPower.toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemShovel.getShovelDamage(CustomItemType.STEEL_SHOVEL)),
             AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, ToolGlobals.STEEL_TOOL_SPEED.toDouble()),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemShovel.SHOVEL_ATTACK_SPEED_DEBUFF)

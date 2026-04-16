@@ -59,6 +59,7 @@ class SmiteEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key), Li
             EnchantmentService.VIGILANTE.typedKey,
             EnchantmentKeys.BANE_OF_ARTHROPODS,
             EnchantmentService.BLESSED.typedKey,
+            EnchantmentService.DAMNED.typedKey,
             EnchantmentService.GENESIS.typedKey,
             EnchantmentService.MUFFLE.typedKey
         )

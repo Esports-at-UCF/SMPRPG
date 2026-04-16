@@ -147,9 +147,10 @@ class ItemAxe(itemService: ItemService, material: Material) : VanillaAttributeIt
                 CustomItemType.BRONZE_AXE, CustomItemType.SILVER_AXE -> 35
                 CustomItemType.STEEL_AXE -> 50
                 CustomItemType.ROSE_GOLD_AXE, CustomItemType.MITHRIL_AXE, CustomItemType.COBALT_AXE -> 55
+                CustomItemType.PLATINUM_AXE -> 60
                 CustomItemType.TITANIUM_AXE, CustomItemType.TUNGSTEN_AXE -> 65
-                CustomItemType.ADAMANTIUM_AXE -> 80
-                CustomItemType.ORICHALCUM_AXE -> 90
+                CustomItemType.ADAMANTIUM_AXE, CustomItemType.PALLADIUM_AXE -> 80
+                CustomItemType.ORICHALCUM_AXE, CustomItemType.AETHERIUM_AXE -> 90
                 else -> 0
             }.toDouble()
         }
@@ -177,7 +178,8 @@ class ItemAxe(itemService: ItemService, material: Material) : VanillaAttributeIt
 
         fun getAxeLumbering(itemType: CustomItemType): Double {
             return when (itemType) {
-                CustomItemType.TITANIUM_AXE, CustomItemType.ADAMANTIUM_AXE, CustomItemType.COBALT_AXE, CustomItemType.ORICHALCUM_AXE -> 1
+                CustomItemType.TITANIUM_AXE, CustomItemType.ADAMANTIUM_AXE, CustomItemType.COBALT_AXE, CustomItemType.ORICHALCUM_AXE, CustomItemType.PALLADIUM_AXE, CustomItemType.PLATINUM_AXE -> 1
+                CustomItemType.AETHERIUM_AXE -> 2
                 CustomItemType.DRAGONSTEEL_AXE -> 3
                 else -> 0
             }.toDouble()

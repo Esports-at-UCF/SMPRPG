@@ -1,5 +1,7 @@
 package xyz.devvydont.smprpg.skills.listeners
 
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
+import net.momirealms.craftengine.core.util.Key
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.event.EventHandler
@@ -9,12 +11,10 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
-import xyz.devvydont.smprpg.block.CustomBlock
-import xyz.devvydont.smprpg.blockbreaking.BlockPropertiesRegistry
+import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
 import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.world.ChunkUtil
-import kotlin.math.max
 
 class MiningExperienceListener() : Listener {
 
@@ -57,35 +57,44 @@ class MiningExperienceListener() : Listener {
 
     companion object {
         fun getBaseExperienceForDrop(block: Block): Int {
-            if (BlockPropertiesRegistry.isCustom(block)) {
-                val cb = CustomBlock.resolve(block) ?: return 0
+            if (CraftEngineBlocks.isCustomBlock(block)) {
+                val cb = Key.of(CraftEngineBlocks.getCustomBlockState(block)!!.customBlockState().asString) ?: return 0
                 return when (cb) {
-                    CustomBlock.RAW_SILVER_BLOCK -> 11
-                    CustomBlock.RAW_TIN_BLOCK -> 8
-                    CustomBlock.RAW_MITHRIL_BLOCK -> 20
-                    CustomBlock.RAW_TITANIUM_BLOCK -> 125
-                    CustomBlock.RAW_ADAMANTIUM_BLOCK -> 200
-                    CustomBlock.SILVER_ORE -> 10
-                    CustomBlock.DEEPSLATE_SILVER_ORE -> 30
-                    CustomBlock.TIN_ORE -> 2
-                    CustomBlock.DEEPSLATE_TIN_ORE -> 6
-                    CustomBlock.SPARSE_MITHRIL_ORE -> 9
-                    CustomBlock.MITHRIL_ORE -> 18
-                    CustomBlock.DENSE_MITHRIL_ORE -> 36
-                    CustomBlock.TITANIUM_ORE -> 75
-                    CustomBlock.ADAMANTIUM_ORE -> 200
-                    CustomBlock.GRIMSTONE -> 4
-                    CustomBlock.COBBLED_GRIMSTONE -> 4
-                    CustomBlock.GRIMSTONE_IRON_ORE -> 42
-                    CustomBlock.GRIMSTONE_LAPIS_ORE -> 48
-                    CustomBlock.GRIMSTONE_SILVER_ORE -> 60
-                    CustomBlock.GRIMSTONE_GOLD_ORE -> 72
-                    CustomBlock.GRIMSTONE_DIAMOND_ORE -> 150
+                    CraftEngineBlockEnums.RAW_SILVER_BLOCK.key -> 11
+                    CraftEngineBlockEnums.RAW_TIN_BLOCK.key -> 8
+                    CraftEngineBlockEnums.RAW_MITHRIL_BLOCK.key -> 20
+                    CraftEngineBlockEnums.RAW_TITANIUM_BLOCK.key -> 125
+                    CraftEngineBlockEnums.RAW_ADAMANTIUM_BLOCK.key -> 200
+                    CraftEngineBlockEnums.SILVER_ORE.key -> 10
+                    CraftEngineBlockEnums.DEEPSLATE_SILVER_ORE.key -> 30
+                    CraftEngineBlockEnums.TIN_ORE.key -> 2
+                    CraftEngineBlockEnums.DEEPSLATE_TIN_ORE.key -> 6
+                    CraftEngineBlockEnums.SPARSE_MITHRIL_ORE.key -> 9
+                    CraftEngineBlockEnums.MITHRIL_ORE.key -> 18
+                    CraftEngineBlockEnums.DENSE_MITHRIL_ORE.key -> 36
+                    CraftEngineBlockEnums.TITANIUM_ORE.key -> 75
+                    CraftEngineBlockEnums.ADAMANTIUM_ORE.key -> 200
+                    CraftEngineBlockEnums.GRIMSTONE.key -> 4
+                    CraftEngineBlockEnums.COBBLED_GRIMSTONE.key -> 4
+                    CraftEngineBlockEnums.GRIMSTONE_IRON_ORE.key -> 42
+                    CraftEngineBlockEnums.GRIMSTONE_LAPIS_ORE.key -> 48
+                    CraftEngineBlockEnums.GRIMSTONE_SILVER_ORE.key -> 60
+                    CraftEngineBlockEnums.GRIMSTONE_GOLD_ORE.key -> 72
+                    CraftEngineBlockEnums.GRIMSTONE_DIAMOND_ORE.key -> 150
 
-                    CustomBlock.SULFUR_ORE -> 15
-                    CustomBlock.TUNGSTEN_ORE -> 50
-                    CustomBlock.COBALT_ORE -> 100
-                    CustomBlock.ORICHALCUM_ORE -> 100
+                    CraftEngineBlockEnums.SULFUR_ORE.key -> 15
+                    CraftEngineBlockEnums.TUNGSTEN_ORE.key -> 50
+                    CraftEngineBlockEnums.COBALT_ORE.key -> 100
+                    CraftEngineBlockEnums.ORICHALCUM_ORE.key -> 100
+
+                    CraftEngineBlockEnums.AETHER_DIRT.key, CraftEngineBlockEnums.AETHER_GRASS_BLOCK.key -> 1
+                    CraftEngineBlockEnums.HOLYSTONE.key -> 2
+                    CraftEngineBlockEnums.AETHER_SILVER_ORE.key -> 18
+                    CraftEngineBlockEnums.AMBROSIUM_ORE.key -> 15
+                    CraftEngineBlockEnums.ZANITE_ORE.key -> 50
+                    CraftEngineBlockEnums.PLATINUM_ORE.key -> 100
+                    CraftEngineBlockEnums.PALLADIUM_ORE.key -> 100
+                    CraftEngineBlockEnums.GRAVITITE_ORE.key -> 200
                     else -> 0
                 }
             }

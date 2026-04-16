@@ -2,17 +2,28 @@ package xyz.devvydont.smprpg
 
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.NamedTextColor
+import net.momirealms.craftengine.core.block.behavior.BlockBehaviors
+import net.momirealms.craftengine.core.item.recipe.result.PostProcessors
+import net.momirealms.craftengine.core.util.Key as CEKey
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
+import xyz.devvydont.smprpg.block.behaviors.AcceleratorBlockBehavior
+import xyz.devvydont.smprpg.block.behaviors.LaunchBlockBehavior
+import xyz.devvydont.smprpg.block.behaviors.PortalBlockBehavior
+import xyz.devvydont.smprpg.block.behaviors.AscendingBlockBehavior
+import xyz.devvydont.smprpg.block.behaviors.BerryBushBlockBehavior
+import xyz.devvydont.smprpg.block.behaviors.SMPRPGMenuBlockBehavior
+import xyz.devvydont.smprpg.block.behaviors.TickAcceleratorBlockBehavior
+import xyz.devvydont.smprpg.listeners.block.AetherDimensionListeners
+import xyz.devvydont.smprpg.listeners.block.AscendingBlockListener
+import xyz.devvydont.smprpg.listeners.block.CraftEngineBlockEventListener
 import xyz.devvydont.smprpg.listeners.block.DimensionPortalLockingListener
 import xyz.devvydont.smprpg.listeners.block.MultiBlockBreakListener
-import xyz.devvydont.smprpg.listeners.block.NoteblockOverrideListener
 import xyz.devvydont.smprpg.listeners.block.TrialChamberVaultFix
 import xyz.devvydont.smprpg.listeners.block.XPOrbDisablerListener
-import xyz.devvydont.smprpg.listeners.crafting.AnvilEnchantmentCombinationFixListener
 import xyz.devvydont.smprpg.listeners.crafting.AnvilRepairListener
 import xyz.devvydont.smprpg.listeners.damage.AbsorptionDamageFix
 import xyz.devvydont.smprpg.listeners.damage.EnvironmentalDamageListener
@@ -26,6 +37,7 @@ import xyz.devvydont.smprpg.listeners.entity.StructureEntitySpawnListener
 import xyz.devvydont.smprpg.listeners.item.ItemDurabilityListener
 import xyz.devvydont.smprpg.loot.LootListener
 import xyz.devvydont.smprpg.market.MarketService
+import xyz.devvydont.smprpg.recipe.postprocessors.UpdateItemDataPostProcessor
 import xyz.devvydont.smprpg.services.*
 import xyz.devvydont.smprpg.util.animations.AnimationService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -114,11 +126,13 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(TrialChamberVaultFix()) // Allows trial chambers to work with our custom item system.
         generalListeners.add(SlimeRapidAttackFixListener()) // Fixes the vanilla bug of slimes being able to attack every tick.
         generalListeners.add(MultiBlockBreakListener()) // Fixes the vanilla bug of slimes being able to attack every tick.
-        generalListeners.add(NoteblockOverrideListener())  // Overrides vanilla noteblock behavior, such that we can overload noteblock blockstates for custom ores.
         generalListeners.add(MeleeVisualListener())  // Visuals melee attack particles for weapons like staffs
         generalListeners.add(XPOrbDisablerListener())  // Overrides experience orb drops, as to disable vanilla EXP
         generalListeners.add(ItemDurabilityListener())  // Prevents items from fully breaking, capping them at 1 durability remaining.
         generalListeners.add(UnderwaterArrowListener())  // Listens for arrows that are shot underwater
+        generalListeners.add(CraftEngineBlockEventListener())  // Listens for custom "events" sent by CraftEngine
+        generalListeners.add(AetherDimensionListeners())  // Listens for transitions regarding the Aether, including portal manufacture
+        generalListeners.add(AscendingBlockListener())  // Listens for transitions regarding the Aether, including portal manufacture
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.
@@ -141,6 +155,47 @@ class SMPRPG : JavaPlugin() {
                 this.logger.warning("The datapack failed to load.")
             }
         }
+        registerBlockBehaviors()
+        registerRecipePostProcessors()
+    }
+
+    fun registerBlockBehaviors() {
+        BlockBehaviors.register(
+            CEKey.from("smprpg:launch_block"),
+            LaunchBlockBehavior.FACTORY
+        )
+        BlockBehaviors.register(
+            CEKey.from("smprpg:portal"),
+            PortalBlockBehavior.FACTORY
+        )
+        BlockBehaviors.register(
+            CEKey.from("smprpg:accelerator"),
+            AcceleratorBlockBehavior.FACTORY
+        )
+        BlockBehaviors.register(
+            CEKey.from("smprpg:ascending_block"),
+            AscendingBlockBehavior.FACTORY
+        )
+        BlockBehaviors.register(
+            CEKey.from("smprpg:berry_bush"),
+            BerryBushBlockBehavior.FACTORY
+        )
+        BlockBehaviors.register(
+            CEKey.from("smprpg:tick_accelerator"),
+            TickAcceleratorBlockBehavior.FACTORY
+        )
+        BlockBehaviors.register(
+            CEKey.from("smprpg:menu_interactable"),
+            SMPRPGMenuBlockBehavior.FACTORY
+        )
+        logger.info("SMPRPG Block behaviors registered!")
+    }
+
+    fun registerRecipePostProcessors() {
+        PostProcessors.register(
+            CEKey.from("smprpg:update_item_data"),
+            UpdateItemDataPostProcessor.FACTORY
+        )
     }
 
     companion object {

@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.inventory.FurnaceBurnEvent
 import org.bukkit.event.inventory.FurnaceStartSmeltEvent
+import xyz.devvydont.smprpg.items.blueprints.block.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.interfaces.IFurnaceFuel
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
@@ -35,7 +36,11 @@ class CustomItemFurnacePreventions : ToggleableListener() {
         event.burnTime = blueprint.getBurnTime().toInt()
     }
 
-    /*
+    /**
+     * Update our items in the output slot
+     */
+
+    /**
      * Never allow custom items to cook vanilla recipes. This shouldn't really ever happen.
      * This could be improved by instead listening to a click event, but this works too.
      */
@@ -45,7 +50,10 @@ class CustomItemFurnacePreventions : ToggleableListener() {
         if (event.recipe.key.namespace != NamespacedKey.MINECRAFT)
             return
 
-        if (!blueprint(event.getSource()).isCustom)
+        if (blueprint(event.source) is CraftEngineBlueprint)
+            return
+
+        if (!blueprint(event.source).isCustom)
             return
 
         event.totalCookTime = 999999

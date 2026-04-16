@@ -1,0 +1,69 @@
+{
+  "downfall": 0.0,
+  "attributes": {
+	  "minecraft:visual/sky_color": "#c0c0ff",
+	  "minecraft:visual/water_fog_color": "#050533",
+	  "minecraft:visual/fog_color": "#9393bc"
+  },
+  "carvers": [
+    "smprpg:aether_cave"
+  ],
+  "effects": {
+    "foliage_color": 7728797,
+    "grass_color": 7728797,
+    "water_color": 4159204
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:patch_grass_normal",
+      "minecraft:patch_bush",
+      "smprpg:flower_aether_normal"
+    ],
+    []
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:cow",
+        "weight": 1,
+        "minCount": 3,
+        "maxCount": 7
+      },
+      {
+        "type": "minecraft:pig",
+        "weight": 1,
+        "minCount": 3,
+        "maxCount": 7
+      },
+      {
+        "type": "minecraft:sheep",
+        "weight": 1,
+        "minCount": 3,
+        "maxCount": 7
+      }
+    ],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:breeze",
+        "weight": 1,
+        "minCount": 3,
+        "maxCount": 7
+      }
+    ]
+  },
+  "temperature": 0.7
+}

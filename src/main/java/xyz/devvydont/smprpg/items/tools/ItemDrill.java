@@ -26,7 +26,7 @@ import java.util.List;
 
 public class ItemDrill extends CustomAttributeItem implements IFueledEquipment, Listener {
 
-    public final String BREAK_SOUND = "audio:tools.drill.break";
+    public final String BREAK_SOUND = "smprpg:tools.drill.break";
     public final String DRILL_NAME_EXTENSTION = " Drill";
 
     public static final NamespacedKey drillBaseKey = new NamespacedKey(SMPRPG.getPlugin(), "drill_base");

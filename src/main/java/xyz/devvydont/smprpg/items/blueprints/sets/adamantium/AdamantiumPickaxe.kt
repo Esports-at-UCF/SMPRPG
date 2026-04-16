@@ -59,7 +59,7 @@ class AdamantiumPickaxe(itemService: ItemService, type: CustomItemType) : Adaman
             .addRule(
                 Tool.rule(
                     ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_PICKAXE),
-                    7.0f,
+                    0.00001f,
                     TriState.TRUE
                 )
             )

@@ -155,6 +155,10 @@ class ItemArmor(itemService: ItemService, material: Material) : VanillaAttribute
                 CustomItemType.STEEL_CHESTPLATE -> 50
                 CustomItemType.STEEL_LEGGINGS -> 40
                 CustomItemType.STEEL_BOOTS -> 25
+                CustomItemType.PLATINUM_HELMET -> 35
+                CustomItemType.PLATINUM_CHESTPLATE -> 50
+                CustomItemType.PLATINUM_LEGGINGS -> 40
+                CustomItemType.PLATINUM_BOOTS -> 25
                 CustomItemType.MITHRIL_HELMET -> 40
                 CustomItemType.MITHRIL_CHESTPLATE -> 60
                 CustomItemType.MITHRIL_LEGGINGS -> 45
@@ -171,14 +175,14 @@ class ItemArmor(itemService: ItemService, material: Material) : VanillaAttribute
                 CustomItemType.TUNGSTEN_CHESTPLATE -> 70
                 CustomItemType.TUNGSTEN_LEGGINGS -> 60
                 CustomItemType.TUNGSTEN_BOOTS -> 40
-                CustomItemType.COBALT_HELMET -> 60
-                CustomItemType.COBALT_CHESTPLATE -> 90
-                CustomItemType.COBALT_LEGGINGS -> 75
-                CustomItemType.COBALT_BOOTS -> 55
-                CustomItemType.ORICHALCUM_HELMET -> 70
-                CustomItemType.ORICHALCUM_CHESTPLATE -> 105
-                CustomItemType.ORICHALCUM_LEGGINGS -> 90
-                CustomItemType.ORICHALCUM_BOOTS -> 60
+                CustomItemType.COBALT_HELMET, CustomItemType.PALLADIUM_HELMET -> 60
+                CustomItemType.COBALT_CHESTPLATE, CustomItemType.PALLADIUM_CHESTPLATE -> 90
+                CustomItemType.COBALT_LEGGINGS, CustomItemType.PALLADIUM_LEGGINGS -> 75
+                CustomItemType.COBALT_BOOTS, CustomItemType.PALLADIUM_BOOTS -> 55
+                CustomItemType.ORICHALCUM_HELMET, CustomItemType.AETHERIUM_HELMET -> 70
+                CustomItemType.ORICHALCUM_CHESTPLATE, CustomItemType.AETHERIUM_CHESTPLATE -> 105
+                CustomItemType.ORICHALCUM_LEGGINGS, CustomItemType.AETHERIUM_LEGGINGS -> 90
+                CustomItemType.ORICHALCUM_BOOTS, CustomItemType.AETHERIUM_BOOTS -> 60
                 else -> 0
             }
         }

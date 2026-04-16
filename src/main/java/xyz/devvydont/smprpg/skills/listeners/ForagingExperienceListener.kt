@@ -1,5 +1,7 @@
 package xyz.devvydont.smprpg.skills.listeners
 
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
+import net.momirealms.craftengine.core.util.Key
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.event.EventHandler
@@ -9,8 +11,10 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
+import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
 import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent
 import xyz.devvydont.smprpg.services.EntityService
+import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
 import xyz.devvydont.smprpg.util.world.ChunkUtil
 
 class ForagingExperienceListener : Listener {
@@ -51,6 +55,14 @@ class ForagingExperienceListener : Listener {
 
         @JvmStatic
         fun getBaseExperienceForBlock(block: Block): Int {
+            if (CraftEngineBlocks.isCustomBlock(block)) {
+                val cb = CraftEngineHelpers.getBlockKey(block) ?: return 0
+                return when (cb) {
+                    CraftEngineBlockEnums.SKYROOT_LOG.key, CraftEngineBlockEnums.SKYROOT_WOOD.key -> 14
+                    CraftEngineBlockEnums.SKYROOT_PLANKS.key -> 2
+                    else -> 0
+                }
+            }
             val exp = when (block.type) {
                 Material.CHORUS_FLOWER -> 20
                 Material.CHORUS_PLANT -> 15

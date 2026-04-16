@@ -52,8 +52,6 @@ class DragonsteelHatchet(itemService: ItemService, type: CustomItemType) : Drago
     }
 
     companion object {
-        val TOOL_COMP: Tool = Tool.tool()
-            .defaultMiningSpeed(0.0001f)
-            .build()
+        val TOOL_COMP: Tool = Tool.tool().defaultMiningSpeed(0.0001f).build()
     }
 }

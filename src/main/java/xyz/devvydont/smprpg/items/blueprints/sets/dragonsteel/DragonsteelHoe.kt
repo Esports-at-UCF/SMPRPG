@@ -55,16 +55,6 @@ class DragonsteelHoe(itemService: ItemService, type: CustomItemType) : Dragonste
     }
 
     companion object {
-        val TOOL_COMP: Tool = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(
-                Tool.rule(
-                    ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_DIAMOND_TOOL),
-                    1.0f,
-                    TriState.FALSE
-                )
-            )
-            .addRule(Tool.rule(ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_HOE), 11.0f, TriState.TRUE))
-            .build()
+        val TOOL_COMP: Tool = Tool.tool().defaultMiningSpeed(0.0001f).build()
     }
 }

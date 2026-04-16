@@ -28,6 +28,7 @@ class DragonsteelShovel(itemService: ItemService, type: CustomItemType) : Dragon
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
+            AdditiveAttributeEntry(AttributeWrapper.MINING_POWER, toolStats.miningPower.toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 60.0),
             AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, toolStats.speed.toDouble()),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemShovel.SHOVEL_ATTACK_SPEED_DEBUFF)
@@ -49,22 +50,6 @@ class DragonsteelShovel(itemService: ItemService, type: CustomItemType) : Dragon
     }
 
     companion object {
-        val TOOL_COMP: Tool = Tool.tool()
-            .defaultMiningSpeed(1.0f)
-            .addRule(
-                Tool.rule(
-                    ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.INCORRECT_FOR_DIAMOND_TOOL),
-                    1.0f,
-                    TriState.FALSE
-                )
-            )
-            .addRule(
-                Tool.rule(
-                    ToolGlobals.blockRegistry.getTag(BlockTypeTagKeys.MINEABLE_SHOVEL),
-                    11.0f,
-                    TriState.TRUE
-                )
-            )
-            .build()
+        val TOOL_COMP: Tool = Tool.tool().build()
     }
 }

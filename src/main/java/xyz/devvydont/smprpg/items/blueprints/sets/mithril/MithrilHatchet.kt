@@ -60,8 +60,6 @@ class MithrilHatchet(itemService: ItemService, type: CustomItemType) : MithrilAt
     }
 
     companion object {
-        val TOOL_COMP: Tool = Tool.tool()
-            .defaultMiningSpeed(0.0001f)
-            .build()
+        val TOOL_COMP: Tool = Tool.tool().defaultMiningSpeed(0.0001f).build()
     }
 }
