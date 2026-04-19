@@ -1,6 +1,10 @@
 package xyz.devvydont.smprpg.util.craftengine
 
+import net.minecraft.core.BlockPos
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
+import net.momirealms.craftengine.core.world.BlockPos as CEBlockPos
+import org.bukkit.Location
+import org.bukkit.World
 import org.bukkit.block.Block
 import org.bukkit.block.BlockState
 import net.momirealms.craftengine.core.util.Key as CEKey
@@ -31,6 +35,14 @@ class CraftEngineHelpers {
                 CEKey.of(CraftEngineBlocks.getCustomBlockState(block)!!.customBlockState().asString)
             else
                 null
+        }
+
+        fun getLocationFromBlockPos(pos: CEBlockPos, world: World): Location {
+            return Location(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
+        }
+
+        fun getLocationFromBlockPos(pos: BlockPos, world: World): Location {
+            return Location(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
         }
     }
 }

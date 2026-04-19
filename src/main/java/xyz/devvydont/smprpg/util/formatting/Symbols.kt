@@ -100,6 +100,9 @@ object Symbols {
     const val NUTRITION_HALF: String = "\ua00A"
     const val SATURATION_FULL: String = "\ua00B"
     const val SATURATION_HALF: String = "\ua00C"
+    const val MANA_FULL: String = "\ua00D"
+    const val MANA_HALF: String = "\ua00E"
+    const val MANA_EMPTY: String = "\ua00F"
 
     val INVENTORY_TITLE_COLOR: TextColor = TextColor.color(63, 63, 63)
 
@@ -120,4 +123,7 @@ object Symbols {
     const val SLAYER_ILLAGER_MENU: String = "\ub00E"
     const val STAT_MAIN_MENU: String = "\ub00F"
     const val STAT_SUB_MENU: String = "\ub010"
+
+    const val ABILITY: String = "\uc001"
+    const val PASSIVE: String = "\uc002"
 }

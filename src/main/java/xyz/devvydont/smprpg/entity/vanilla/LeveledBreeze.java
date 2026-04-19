@@ -1,12 +1,12 @@
 package xyz.devvydont.smprpg.entity.vanilla;
 
-import org.bukkit.entity.Bee;
+import org.bukkit.entity.Breeze;
 import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.VanillaEntity;
 
-public class LeveledBreeze extends VanillaEntity<Bee> {
+public class LeveledBreeze extends VanillaEntity<Breeze> {
 
-    public LeveledBreeze(Bee entity) {
+    public LeveledBreeze(Breeze entity) {
         super(entity);
     }
 

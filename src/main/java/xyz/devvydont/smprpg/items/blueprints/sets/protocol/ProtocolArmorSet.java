@@ -71,7 +71,7 @@ public class ProtocolArmorSet extends CustomAttributeItem implements IEquippable
     @Override
     public List<Component> getHeader(ItemStack itemStack) {
         return List.of(
-                AbilityUtil.getAbilityComponent("Protocol: Stabilization (Passive)"),
+                AbilityUtil.getAbilityComponent("Protocol: Stabilization", true),
                 ComponentUtils.create("Take ").append(ComponentUtils.create("-" + ((int)(END_DAMAGE_REDUCTION*100)) + "%", NamedTextColor.GREEN)).append(ComponentUtils.create(" damage while in "), ComponentUtils.create("The End", NamedTextColor.LIGHT_PURPLE)),
                 ComponentUtils.create("(stacks!)", NamedTextColor.DARK_GRAY)
         );

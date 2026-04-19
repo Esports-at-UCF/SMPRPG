@@ -52,7 +52,7 @@ class AbominableHalberd(itemService: ItemService, type: CustomItemType) : Custom
 
     override fun getHeader(itemStack: ItemStack?): MutableList<Component?> {
         val components: MutableList<Component?> = ArrayList()
-        components.add(AbilityUtil.getAbilityComponent("Divine Executioner (Passive)"))
+        components.add(AbilityUtil.getAbilityComponent("Divine Executioner", passive = true))
         components.add(
             ComponentUtils.create("Attacks deal ")
                 .append(ComponentUtils.create(DAMAGE_MULT.toInt().toString() + "x", NamedTextColor.GREEN))

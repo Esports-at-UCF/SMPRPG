@@ -6,7 +6,7 @@ import org.bukkit.inventory.RecipeChoice
 import org.bukkit.inventory.RecipeChoice.ExactChoice
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
-import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.interfaces.ICompressible
 import xyz.devvydont.smprpg.items.interfaces.ICompressible.CompressionStep
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
@@ -18,7 +18,7 @@ import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.time.TickTime
 
 class TitaniumIngot(itemService: ItemService, type: CustomItemType) :
-    CustomItemBlueprint(itemService, type), ISmeltable, ISellable, IModelOverridden, ICompressible {
+    CraftEngineBlueprint(itemService, type), ISmeltable, ISellable, IModelOverridden, ICompressible {
     override val itemClassification: ItemClassification
         /**
          * Determine what type of item this is.

@@ -328,6 +328,7 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         Team team = getNametagTeam();
         var chatInformation = SMPRPG.getService(ChatService.class).getPlayerInfo(getPlayer());
         Component newPrefix = ComponentUtils.powerLevelPrefix(getLevel()).append(ComponentUtils.SPACE);
+        getPlayer().setLevel(getLevel());
         team.prefix(newPrefix);
         if (!chatInformation.prefix().isEmpty())
             team.suffix(Component.text(" " + chatInformation.prefix().stripTrailing(), NamedTextColor.WHITE));

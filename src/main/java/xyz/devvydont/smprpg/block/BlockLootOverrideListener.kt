@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.block
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import net.momirealms.craftengine.bukkit.api.event.CustomBlockBreakEvent
 import org.bukkit.ExplosionResult
+import org.bukkit.GameMode
 import org.bukkit.block.data.Ageable
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Item
@@ -95,6 +96,10 @@ class BlockLootOverrideListener : ToggleableListener() {
      */
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     private fun onBlockBreak(event: BlockDropItemEvent) {
+        // If we are in creative, we aren't dropping anything.
+        if (event.player.gameMode == GameMode.CREATIVE)
+            return
+
         // If this block is ageable, then it needs to be at its max age before we consider custom logic.
 
         val blockData = event.blockState.blockData

@@ -32,7 +32,7 @@ class DragonsteelSword(itemService: ItemService, type: CustomItemType) : Dragons
 
     override fun getHeader(itemStack: ItemStack?): MutableList<Component?> {
         val components: MutableList<Component?> = ArrayList()
-        components.add(AbilityUtil.getAbilityComponent("Draconic Summoner (Passive)"))
+        components.add(AbilityUtil.getAbilityComponent("Draconic Summoner", passive = true))
         components.add(
             ComponentUtils.create("Summoning Crystal drops are ").append(
                 ComponentUtils.create(

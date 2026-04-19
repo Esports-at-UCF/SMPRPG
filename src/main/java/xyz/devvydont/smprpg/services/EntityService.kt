@@ -152,6 +152,8 @@ class EntityService : IService, Listener {
         vanillaEntityHandlers.put(EntityType.BLAZE, LeveledBlaze::class.java)
         vanillaEntityHandlers.put(EntityType.WITHER_SKELETON, LeveledWitherSkeleton::class.java)
 
+        vanillaEntityHandlers.put(EntityType.BREEZE, LeveledBreeze::class.java)
+
         vanillaEntityHandlers.put(EntityType.VILLAGER, LeveledVillager::class.java)
         vanillaEntityHandlers.put(EntityType.ZOMBIE_VILLAGER, LeveledZombieVillager::class.java)
         vanillaEntityHandlers.put(EntityType.WANDERING_TRADER, LeveledWanderingTrader::class.java)

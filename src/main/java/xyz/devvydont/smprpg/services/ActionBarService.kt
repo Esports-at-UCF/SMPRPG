@@ -2,6 +2,8 @@ package xyz.devvydont.smprpg.services
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.ShadowColor
+import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.entity.Player
@@ -83,6 +85,44 @@ class ActionBarService : IService, Listener {
         display(player)
     }
 
+    private fun getImageComponent(player: Player): Component {
+        val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
+        val mana = ceil(leveledPlayer.mana)
+        val max = ceil(leveledPlayer.getMaxMana())
+
+        // Mana Bar
+        var percentage = (mana / max)
+        val icons = mutableListOf<Component>()
+        var numIcons = 0
+        var retComp = ComponentUtils.create(Symbols.OFFSET_128 + Symbols.OFFSET_32 + Symbols.OFFSET_8 + Symbols.OFFSET_5)
+
+        while (numIcons < 10) {
+            if (percentage > 0.1) {
+                icons.add(ComponentUtils.create(Symbols.MANA_FULL).shadowColor(ShadowColor.shadowColor(0)))
+                percentage -= 0.1
+            }
+            else if (percentage > 0.05) {
+                icons.add(ComponentUtils.create(Symbols.MANA_HALF).shadowColor(ShadowColor.shadowColor(0)))
+                percentage -= 0.05
+            }
+            else {
+                icons.add(ComponentUtils.create(Symbols.MANA_EMPTY).shadowColor(ShadowColor.shadowColor(0)))
+            }
+            icons.add(ComponentUtils.create(Symbols.OFFSET_NEG_2))
+            numIcons++
+        }
+        icons.reverse()
+        for (comp in icons) {
+            retComp = retComp.append(comp)
+        }
+
+        // Reset our offset (-90 for mana bitmaps) (-173 for bar offset)
+        retComp = retComp.append(ComponentUtils.create(Symbols.OFFSET_NEG_64 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_6 +  // Mana Bitmaps
+                                                       Symbols.OFFSET_128 + Symbols.OFFSET_32 + Symbols.OFFSET_8 + Symbols.OFFSET_5))  // Bar Offset
+
+        return retComp
+    }
+
     /**
      * A helper method to retrieve the health component for the player.
      */
@@ -144,7 +184,9 @@ class ActionBarService : IService, Listener {
         ) return ComponentUtils.EMPTY
 
         // The component Will always have their health
-        var message = getPowerComponent(player).append(ComponentUtils.create(" ")).append(getHealthComponent(player))
+        //var message = getImageComponent(player)
+        //message = message.append(getHealthComponent(player))
+        var message = getHealthComponent(player)
 
         // Check for components
         val playersComponents = getPlayerComponents(player)

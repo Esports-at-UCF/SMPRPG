@@ -13,6 +13,7 @@ import xyz.devvydont.smprpg.items.blueprints.charms.SpeedCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineCompressibleBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.crops.CrystalFruit;
+import xyz.devvydont.smprpg.items.blueprints.crops.HalvedSquash;
 import xyz.devvydont.smprpg.items.blueprints.crops.SkyBerry;
 import xyz.devvydont.smprpg.items.blueprints.crops.Tomato;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
@@ -373,7 +374,7 @@ public enum CustomItemType {
     ENCHANTED_RAW_TITANIUM("Raw Titanium",           Material.RAW_IRON,     ItemRarity.LEGENDARY,   false, RawTitaniumFamilyBlueprint.class),
 
     TITANIUM_INGOT("Titanium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   TitaniumIngot.class),
-    TITANIUM_BLOCK("Block of Titanium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, CraftEngineCompressibleBlueprint.class),
+    TITANIUM_BLOCK("Block of Titanium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, TitaniumFamilyBlueprint.class),
     ENCHANTED_TITANIUM("Enchanted Titanium",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, TitaniumFamilyBlueprint.class),
     ENCHANTED_TITANIUM_BLOCK("Enchanted Block of Titanium",   Material.POISONOUS_POTATO,  ItemRarity.MYTHIC,      true, TitaniumFamilyBlueprint.class),
     TITANIUM_SINGULARITY("Titanium Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, TitaniumFamilyBlueprint.class),
@@ -1330,6 +1331,9 @@ public enum CustomItemType {
     EXTINGUISHED_TORCH("Extinguished Torch", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     AMBROSIUM_TORCH("Ambrosium Torch", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     SKY_BERRY("Sky Berry", Material.NETHER_BRICK, ItemRarity.COMMON, SkyBerry.class),
+    SQUASH("Squash", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SQUASH_SEEDS("Squash Seeds", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HALVED_SQUASH("Halved Squash", Material.NETHER_BRICK, ItemRarity.COMMON, HalvedSquash.class),
 
     AMBROSIUM("Ambrosium", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
     ZANITE("Zanite", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),

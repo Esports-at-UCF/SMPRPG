@@ -11,6 +11,5 @@ class LeveledMannequin(entity: Mannequin) : VanillaEntity<Mannequin>(entity) {
 
         super.setup()
         _entity.description = null
-        entity
     }
 }

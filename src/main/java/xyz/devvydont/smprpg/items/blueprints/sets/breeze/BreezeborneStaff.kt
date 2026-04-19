@@ -66,7 +66,7 @@ class BreezeborneStaff(itemService: ItemService, type: CustomItemType) : CustomA
 
     override fun getHeader(itemStack: ItemStack?): MutableList<Component?> {
         val components: MutableList<Component?> = ArrayList()
-        components.add(AbilityUtil.getAbilityComponent("Air Shot (Passive)"))
+        components.add(AbilityUtil.getAbilityComponent("Air Shot", passive = true))
         components.add(
             ComponentUtils.create("Attacks deal ")
                 .append(ComponentUtils.create(DAMAGE_MULT.toInt().toString() + "x", NamedTextColor.GREEN))

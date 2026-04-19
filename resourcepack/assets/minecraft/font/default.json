@@ -110,9 +110,36 @@
         },
         {
             "type": "bitmap",
+            "file": "ui:font/mana_full.png",
+            "height": 9,
+            "ascent": -26,
+            "chars": [
+                "\ua00D"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/mana_half.png",
+            "height": 9,
+            "ascent": -26,
+            "chars": [
+                "\ua00E"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/mana_empty.png",
+            "height": 9,
+            "ascent": -26,
+            "chars": [
+                "\ua00F"
+            ]
+        },
+        {
+            "type": "bitmap",
             "file": "ui:font/bars/bar_left_0_desat.png",
             "height": 10,
-            "ascent": -24,
+            "ascent": 0,
             "chars": [
                 "\ua100"
             ]
@@ -844,6 +871,24 @@
             "ascent": -4,
             "chars": [
                 "\ub010"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/tooltip_elements/ability.png",
+            "height": 10,
+            "ascent": 8,
+            "chars": [
+                "\uc001"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/tooltip_elements/passive.png",
+            "height": 10,
+            "ascent": 8,
+            "chars": [
+                "\uc002"
             ]
         },
         {

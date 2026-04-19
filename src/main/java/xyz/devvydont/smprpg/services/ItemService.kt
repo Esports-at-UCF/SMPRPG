@@ -1030,8 +1030,7 @@ class ItemService : IService, Listener {
             for (passive in blueprint.passives) {
                 lore.add(ComponentUtils.EMPTY)
                 lore.add(ComponentUtils.merge(
-                        AbilityUtil.getAbilityComponent(MinecraftStringUtils.getTitledString(passive.name)),
-                        ComponentUtils.create(" (Passive)", NamedTextColor.DARK_GRAY).decoration(TextDecoration.BOLD, false)
+                        AbilityUtil.getAbilityComponent(MinecraftStringUtils.getTitledString(passive.name), passive = true)
                 ))
                 lore.add(passive.description)
             }

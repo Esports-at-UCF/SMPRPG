@@ -72,7 +72,7 @@ public class MagmaHelmet extends CustomAttributeItem implements ICraftable, IHea
     @Override
     public List<Component> getHeader(ItemStack itemStack) {
         List<Component> components = new ArrayList<>();
-        components.add(AbilityUtil.getAbilityComponent("Heat Proof (Passive)"));
+        components.add(AbilityUtil.getAbilityComponent("Heat Proof", true));
         components.add(ComponentUtils.create("Grants immunity to ").append(ComponentUtils.create(Symbols.FIRE + "fire based", NamedTextColor.RED)).append(ComponentUtils.create(" damage")));
         return components;
     }

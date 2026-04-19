@@ -52,7 +52,7 @@ public class ForsakenCutlass extends CustomAttributeItem implements Listener, IH
     @Override
     public List<Component> getHeader(ItemStack itemStack) {
         List<Component> components = new ArrayList<>();
-        components.add(AbilityUtil.getAbilityComponent("Necrotic (Passive)"));
+        components.add(AbilityUtil.getAbilityComponent("Necrotic", true));
         components.add(ComponentUtils.create("Attacks have a ").append(ComponentUtils.create(WITHER_APPLY_CHANCE + "%", NamedTextColor.GREEN)).append(ComponentUtils.create(" chance to")));
         components.add(ComponentUtils.create("apply the ").append(ComponentUtils.create("withered", NamedTextColor.DARK_RED)).append(ComponentUtils.create(" effect for ").append(ComponentUtils.create(WITHER_APPLY_SECONDS + "s", NamedTextColor.GREEN))));
 
