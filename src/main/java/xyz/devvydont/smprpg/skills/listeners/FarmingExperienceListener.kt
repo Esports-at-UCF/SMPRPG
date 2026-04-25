@@ -295,6 +295,8 @@ class FarmingExperienceListener : Listener {
                     Material.NETHER_WART -> 5
                     Material.SUGAR_CANE -> 2
                     Material.CACTUS -> 5
+                    Material.APPLE -> 5
+                    Material.GOLDEN_APPLE -> 12
                     else -> 0
                 }
             }

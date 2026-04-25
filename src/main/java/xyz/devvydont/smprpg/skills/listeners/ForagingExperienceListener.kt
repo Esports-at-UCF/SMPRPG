@@ -59,7 +59,8 @@ class ForagingExperienceListener : Listener {
                 val cb = CraftEngineHelpers.getBlockKey(block) ?: return 0
                 return when (cb) {
                     CraftEngineBlockEnums.SKYROOT_LOG.key, CraftEngineBlockEnums.SKYROOT_WOOD.key -> 14
-                    CraftEngineBlockEnums.SKYROOT_PLANKS.key -> 2
+                    CraftEngineBlockEnums.GOLDEN_OAK_LOG.key, CraftEngineBlockEnums.GOLDEN_OAK_WOOD.key -> 16
+                    CraftEngineBlockEnums.SKYROOT_PLANKS.key, CraftEngineBlockEnums.GOLDEN_OAK_PLANKS.key -> 2
                     else -> 0
                 }
             }

@@ -161,7 +161,9 @@ class MultiBlockBreakListener : ToggleableListener() {
 
         val CUSTOM_MULTI_BREAK_LOGS: MutableSet<CEKey> = mutableSetOf(
             CraftEngineBlockEnums.SKYROOT_LOG.key,
-            CraftEngineBlockEnums.SKYROOT_WOOD.key
+            CraftEngineBlockEnums.SKYROOT_WOOD.key,
+            CraftEngineBlockEnums.GOLDEN_OAK_LOG.key,
+            CraftEngineBlockEnums.GOLDEN_OAK_WOOD.key
         )
 
         val FUZZY_BLOCKS: HashMap<Any, MutableSet<Any>> = HashMap<Any, MutableSet<Any>>()
@@ -192,6 +194,8 @@ class MultiBlockBreakListener : ToggleableListener() {
             FUZZY_BLOCKS.put(Material.WARPED_HYPHAE, mutableSetOf(Material.WARPED_STEM, Material.WARPED_HYPHAE))
             FUZZY_BLOCKS.put(CraftEngineBlockEnums.SKYROOT_LOG.key, mutableSetOf(CraftEngineBlockEnums.SKYROOT_LOG.key, CraftEngineBlockEnums.SKYROOT_WOOD.key))
             FUZZY_BLOCKS.put(CraftEngineBlockEnums.SKYROOT_WOOD.key, mutableSetOf(CraftEngineBlockEnums.SKYROOT_LOG.key, CraftEngineBlockEnums.SKYROOT_WOOD.key))
+            FUZZY_BLOCKS.put(CraftEngineBlockEnums.GOLDEN_OAK_LOG.key, mutableSetOf(CraftEngineBlockEnums.GOLDEN_OAK_LOG.key, CraftEngineBlockEnums.GOLDEN_OAK_WOOD.key))
+            FUZZY_BLOCKS.put(CraftEngineBlockEnums.GOLDEN_OAK_WOOD.key, mutableSetOf(CraftEngineBlockEnums.GOLDEN_OAK_LOG.key, CraftEngineBlockEnums.GOLDEN_OAK_WOOD.key))
         }
     }
 }

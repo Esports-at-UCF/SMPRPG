@@ -88,6 +88,7 @@ enum class CraftEngineBlockEnums(val key : Key) {
     COLD_AERCLOUD(Key.of("smprpg", "cold_aercloud")),
     AETHER_DIRT(Key.of("smprpg", "aether_dirt")),
     AETHER_GRASS_BLOCK(Key.of("smprpg", "aether_grass_block")),
+    ENCHANTED_AETHER_GRASS_BLOCK(Key.of("smprpg", "enchanted_aether_grass_block")),
     HOLYSTONE(Key.of("smprpg", "holystone")),
     QUICKSOIL(Key.of("smprpg", "quicksoil")),
     AEROGEL(Key.of("smprpg", "aerogel")),
@@ -97,6 +98,10 @@ enum class CraftEngineBlockEnums(val key : Key) {
     SKYROOT_LOG(Key.of("smprpg", "skyroot_log")),
     SKYROOT_WOOD(Key.of("smprpg", "skyroot_wood")),
     SKYROOT_PLANKS(Key.of("smprpg", "skyroot_planks")),
+
+    GOLDEN_OAK_LOG(Key.of("smprpg", "golden_oak_log")),
+    GOLDEN_OAK_WOOD(Key.of("smprpg", "golden_oak_wood")),
+    GOLDEN_OAK_PLANKS(Key.of("smprpg", "golden_oak_planks")),
 
     AETHER_SILVER_ORE(Key.of("smprpg", "aether_silver_ore")),
     AMBROSIUM_ORE(Key.of("smprpg", "ambrosium_ore")),

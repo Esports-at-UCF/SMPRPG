@@ -1021,6 +1021,15 @@ object BlockLootRegistry : Listener {
         )
 
         register(
+            CraftEngineBlockEnums.ENCHANTED_AETHER_GRASS_BLOCK.key, builder()
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.AETHER_DIRT)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ENCHANTED_AETHER_GRASS_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.AETHER_DIRT)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        )
+
+        register(
             CraftEngineBlockEnums.HOLYSTONE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.HOLYSTONE)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.HOLYSTONE)))
