@@ -87,5 +87,6 @@ public class KeyStore {
     public static final NamespacedKey AUDIO_ILLAGER_WARLOCK_TOSS_CAST = new NamespacedKey(NAMESPACE, "entity.illager_warlock.cast_toss");
 
     public static final NamespacedKey AUDIO_BLUE_AERCOULD_BOUNCE = new NamespacedKey(NAMESPACE, "block.blue_aercloud.bounce");
+    public static final NamespacedKey AUDIO_AETHER_ADVANCEMENT_GENERAL = new NamespacedKey(NAMESPACE, "events.advancement.aether");
 
 }

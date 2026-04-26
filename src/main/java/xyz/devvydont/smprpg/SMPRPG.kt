@@ -19,6 +19,7 @@ import xyz.devvydont.smprpg.block.behaviors.FarmlandBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.SMPRPGMenuBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.TickAcceleratorBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.TillableBlockBehavior
+import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.listeners.block.AetherDimensionListeners
 import xyz.devvydont.smprpg.listeners.block.AscendingBlockListener
 import xyz.devvydont.smprpg.listeners.block.CraftEngineBlockEventListener
@@ -135,6 +136,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(CraftEngineBlockEventListener())  // Listens for custom "events" sent by CraftEngine
         generalListeners.add(AetherDimensionListeners())  // Listens for transitions regarding the Aether, including portal manufacture
         generalListeners.add(AscendingBlockListener())  // Listens for transitions regarding the Aether, including portal manufacture
+        generalListeners.add(AdvancementTriggerListener())  // Listens for bukkit events to award advancement criterion
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.

@@ -12,10 +12,7 @@ import xyz.devvydont.smprpg.items.blueprints.charms.LuckyCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.SpeedCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineCompressibleBlueprint;
-import xyz.devvydont.smprpg.items.blueprints.crops.CrystalFruit;
-import xyz.devvydont.smprpg.items.blueprints.crops.HalvedSquash;
-import xyz.devvydont.smprpg.items.blueprints.crops.SkyBerry;
-import xyz.devvydont.smprpg.items.blueprints.crops.Tomato;
+import xyz.devvydont.smprpg.items.blueprints.crops.*;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
@@ -975,6 +972,7 @@ public enum CustomItemType {
     // CROPS
     TOMATO("Tomato", Material.APPLE, ItemRarity.COMMON, Tomato.class),
     TOMATO_SEEDS("Tomato Seeds", Material.BEETROOT_SEEDS, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HEARTBEET("Heartbeet", Material.NETHER_BRICK, ItemRarity.UNCOMMON, Heartbeet.class),
 
     // FOOD
     STALE_BREAD("Stale Bread", Material.BREAD, ItemRarity.COMMON, StaleBread.class),
@@ -1306,11 +1304,13 @@ public enum CustomItemType {
     // AETHER
     COLD_AERCLOUD("Cold Aercloud", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     BLUE_AERCLOUD("Blue Aercloud", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLD_AERCLOUD("Gold Aercloud", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     AEROGEL("Aerogel", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     AETHER_DIRT("Aether Dirt", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     AETHER_GRASS_BLOCK("Aether Grass Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     ENCHANTED_AETHER_GRASS_BLOCK("Enchanted Aether Grass Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     HOLYSTONE("Holystone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ICESTONE("Icestone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     QUICKSOIL("Quicksoil", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
 
     HOLYSTONE_BRICKS("Holystone Bricks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
@@ -1318,6 +1318,10 @@ public enum CustomItemType {
     HOLYSTONE_BRICK_SLAB("Holystone Brick Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     HOLYSTONE_STAIRS("Holystone Stairs", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     HOLYSTONE_SLAB("Holystone Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ICESTONE_STAIRS("Icestone Stairs", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ICESTONE_SLAB("Icestone Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE_BUTTON("Holystone Button", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE_PRESSURE_PLATE("Holystone Pressure Plate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
 
     AETHER_SILVER_ORE("Aether Silver Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     AMBROSIUM_ORE("Ambrosium Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),

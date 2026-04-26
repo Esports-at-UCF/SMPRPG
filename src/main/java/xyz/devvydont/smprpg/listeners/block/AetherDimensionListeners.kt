@@ -9,6 +9,7 @@ import net.momirealms.craftengine.libraries.nbt.Tag
 import org.bukkit.*
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerBucketEmptyEvent
@@ -16,8 +17,10 @@ import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 import org.joml.Vector3i
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
+import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import java.util.*
@@ -40,6 +43,7 @@ class AetherDimensionListeners : ToggleableListener() {
             newLoc.world = Bukkit.getWorld(OVERWORLD_DIM_KEY)
             newLoc.y = newLoc.world.maxHeight.toDouble()
             player.teleport(newLoc, TeleportFlag.Relative.VELOCITY_Y)
+            AdvancementTriggerListener.grantSimpleAdvancement(player, NamespacedKey(plugin, "aether/fall_from_aether"), "fall_from_aether")
         }
     }
 
@@ -56,6 +60,7 @@ class AetherDimensionListeners : ToggleableListener() {
                         val world = event.block.world
                         world.playSound(event.block.location, Sound.BLOCK_LAVA_EXTINGUISH, 1f, 1f)
                         CraftEngineBlocks.place(event.block.location, CraftEngineBlockEnums.AEROGEL.key, false)
+                        AdvancementTriggerListener.grantSimpleAdvancement(event.player, NamespacedKey(plugin, "aether/make_aerogel"), "use_lava_bucket")
                         val particleLoc = event.block.location.clone()
                         particleLoc.x = particleLoc.x + 0.5
                         particleLoc.z = particleLoc.z + 0.5

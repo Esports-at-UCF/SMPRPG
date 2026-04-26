@@ -5638,7 +5638,7 @@ public class BlockPropertiesRegistry implements Listener {
                 .softRequirement(true)
                 .build());
 
-        register(Material.BEETROOT, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
+        register(Material.BEETROOTS, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)

@@ -31,6 +31,12 @@
     ],
     "subtitle": "Legendary drop found!!!"
   },
+  "events.advancement.aether": {
+	  "sounds": [
+		"smprpg:events/aether_advancement"
+	  ],
+	  "subtitle": "General Aether advancement acquired"
+  },
   "block.wood_custom.hit": {
     "sounds": [
       "step/wood1",
@@ -332,6 +338,49 @@
       "smprpg:block/crystal_leaves/step3",
       "smprpg:block/crystal_leaves/step4",
       "smprpg:block/crystal_leaves/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.icestone.break": {
+    "sounds": [
+      "smprpg:block/icestone/break1",
+      "smprpg:block/icestone/break2"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.icestone.fall": {
+    "sounds": [
+      "smprpg:block/icestone/step1",
+      "smprpg:block/icestone/step2",
+      "smprpg:block/icestone/step3",
+      "smprpg:block/icestone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.icestone.hit": {
+    "sounds": [
+      "smprpg:block/icestone/step1",
+      "smprpg:block/icestone/step2",
+      "smprpg:block/icestone/step3",
+      "smprpg:block/icestone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.icestone.place": {
+    "sounds": [
+      "smprpg:block/icestone/step1",
+      "smprpg:block/icestone/step2",
+      "smprpg:block/icestone/step3",
+      "smprpg:block/icestone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.icestone.step": {
+    "sounds": [
+      "smprpg:block/icestone/step1",
+      "smprpg:block/icestone/step2",
+      "smprpg:block/icestone/step3",
+      "smprpg:block/icestone/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },

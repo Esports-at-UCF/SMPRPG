@@ -46,5 +46,26 @@
 	"advancements.smprpg.mining.aetherium_tools.title": "Olympian",
 	"advancements.smprpg.mining.aetherium_tools.description": "Alloy Gravitite Shards and Silver to obtain an Aetherium Pickaxe, the fastest available pickaxe.",
 	"advancements.smprpg.mining.dragonsteel_tools.title": "Dragonbore-n",
-	"advancements.smprpg.mining.dragonsteel_tools.description": "Alloy Dragon Scales and Steel to obtain a Dragonsteel Pickaxe, the best all-rounder pickaxe."
+	"advancements.smprpg.mining.dragonsteel_tools.description": "Alloy Dragon Scales and Steel to obtain a Dragonsteel Pickaxe, the best all-rounder pickaxe.",
+	
+	"advancements.smprpg.aether.root.title": "Aether",
+	"advancements.smprpg.aether.root.description": "The sky's the limit!",
+	"advancements.smprpg.aether.enter_the_aether.title": "Can We Get Much Higher?",
+	"advancements.smprpg.aether.enter_the_aether.description": "Build, light, and enter an Aether Portal.",
+	"advancements.smprpg.aether.bounce_blue_aercloud.title": "To Infinity and Beyond!",
+	"advancements.smprpg.aether.bounce_blue_aercloud.description": "Bounce on a Blue Aercloud.",
+	"advancements.smprpg.aether.harvest_golden_apple.title": "Forbidden Fruit",
+	"advancements.smprpg.aether.harvest_golden_apple.description": "Harvest a Golden Apple from a Golden Oak tree.",
+	"advancements.smprpg.aether.find_fountain.title": "Cleansing Bath",
+	"advancements.smprpg.aether.find_fountain.description": "Find a Fountain of Youth.",
+	"advancements.smprpg.aether.fall_from_aether.title": "Fall from Grace",
+	"advancements.smprpg.aether.fall_from_aether.description": "Fall back into the Overworld, either intentionally or unintentionally.",
+	"advancements.smprpg.aether.make_aerogel.title": "Not So Hot Stuff",
+	"advancements.smprpg.aether.make_aerogel.description": "Solidify lava into Aerogel.",
+	"advancements.smprpg.aether.find_crystal_island.title": "Twinkle, Twinkle, Little Tree",
+	"advancements.smprpg.aether.find_crystal_island.description": "Find a solitary Crystal Tree on a floating island.",
+	"advancements.smprpg.aether.loot_crystal_island.title": "How I Wonder Where You Are",
+	"advancements.smprpg.aether.loot_crystal_island.description": "Find a loot chest on the Crystal Tree Island.",
+	"advancements.smprpg.aether.find_golden_oak_island.title": "Money Does Grow On Trees?",
+	"advancements.smprpg.aether.find_golden_oak_island.description": "Find a Golden Oak Tree."
 }

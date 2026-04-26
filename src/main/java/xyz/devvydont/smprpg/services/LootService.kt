@@ -33,7 +33,9 @@ import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
+import xyz.devvydont.smprpg.events.ContainerLootGeneratedEvent
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
+import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.*
 
@@ -211,6 +213,7 @@ class LootService : IService, Listener {
             holder.update()
 
         player.openInventory(popupInventory)
+        ContainerLootGeneratedEvent(player, table).callEvent()
         lootContainerViewers[player.uniqueId] = LootInventoryContext(block, entity, popupInventory)
     }
 

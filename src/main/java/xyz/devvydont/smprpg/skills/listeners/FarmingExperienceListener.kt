@@ -264,6 +264,8 @@ class FarmingExperienceListener : Listener {
                     CustomItemType.TOMATO_SEEDS -> 1
                     CustomItemType.PUFFBLOOM, CustomItemType.VIOLET, CustomItemType.RAINBOW_LILY -> 2
                     CustomItemType.SKY_BERRY -> 3
+                    CustomItemType.SQUASH -> 8
+                    CustomItemType.HALVED_SQUASH -> 4
                     else -> 0
                 }
             }

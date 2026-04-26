@@ -5,10 +5,14 @@ import net.momirealms.craftengine.core.block.CustomBlock
 import net.momirealms.craftengine.core.block.behavior.BlockBehavior
 import net.momirealms.craftengine.core.block.behavior.BlockBehaviorFactory
 import net.momirealms.craftengine.core.world.BlockPos
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.Particle
 import org.bukkit.block.data.type.BubbleColumn
+import org.bukkit.craftbukkit.entity.CraftPlayer
+import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import java.util.concurrent.Callable
 import kotlin.random.Random
@@ -26,6 +30,14 @@ class LaunchBlockBehavior(customBlock: CustomBlock,
 
         val blockPos = BlockPos.of(nmsBlockPos.asLong())
         val entity = nmsEntity.bukkitEntity
+
+        if (entity is CraftPlayer) {
+            if (customBlock.id().equals(CraftEngineBlockEnums.BLUE_AERCLOUD.key)) {
+                val advancement = Bukkit.getAdvancement(NamespacedKey("smprpg", "aether/bounce_blue_aercloud"))!!
+                val progress = entity.getAdvancementProgress(advancement)
+                progress.awardCriteria("stand_on_aercloud")
+            }
+        }
 
         val world = entity.world
 

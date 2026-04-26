@@ -76,6 +76,7 @@ enum class CraftEngineBlockEnums(val key : Key) {
     SQUASH(Key.of("smprpg", "squash")),
     SQUASH_STEM(Key.of("smprpg", "squash_stem")),
     ATTACHED_SQUASH_STEM(Key.of("smprpg", "attached_squash_stem")),
+    GOLDEN_APPLE_CROP(Key.of("smprpg", "golden_apple_crop")),
 
     ROTTEN_FLESH_BLOCK(Key.of("smprpg", "rotten_flesh_block")),
     GUNPOWDER_BLOCK(Key.of("smprpg", "gunpowder_block")),
@@ -90,10 +91,18 @@ enum class CraftEngineBlockEnums(val key : Key) {
     AETHER_GRASS_BLOCK(Key.of("smprpg", "aether_grass_block")),
     ENCHANTED_AETHER_GRASS_BLOCK(Key.of("smprpg", "enchanted_aether_grass_block")),
     HOLYSTONE(Key.of("smprpg", "holystone")),
+    ICESTONE(Key.of("smprpg", "icestone")),
     QUICKSOIL(Key.of("smprpg", "quicksoil")),
     AEROGEL(Key.of("smprpg", "aerogel")),
     EXTINGUISHED_TORCH(Key.of("smprpg", "extinguished_torch")),
     EXTINGUISHED_WALL_TORCH(Key.of("smprpg", "extinguished_wall_torch")),
+
+    HOLYSTONE_SLAB(Key.of("smprpg", "holystone_slab")),
+    HOLYSTONE_BRICK_SLAB(Key.of("smprpg", "holystone_brick_slab")),
+    ICESTONE_SLAB(Key.of("smprpg", "icestone_slab")),
+    HOLYSTONE_STAIRS(Key.of("smprpg", "holystone_stairs")),
+    HOLYSTONE_BRICK_STAIRS(Key.of("smprpg", "holystone_brick_stairs")),
+    ICESTONE_STAIRS(Key.of("smprpg", "icestone_stairs")),
 
     SKYROOT_LOG(Key.of("smprpg", "skyroot_log")),
     SKYROOT_WOOD(Key.of("smprpg", "skyroot_wood")),
