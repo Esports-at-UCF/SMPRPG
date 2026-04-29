@@ -60,7 +60,9 @@ class ForagingExperienceListener : Listener {
                 return when (cb) {
                     CraftEngineBlockEnums.SKYROOT_LOG.key, CraftEngineBlockEnums.SKYROOT_WOOD.key -> 14
                     CraftEngineBlockEnums.GOLDEN_OAK_LOG.key, CraftEngineBlockEnums.GOLDEN_OAK_WOOD.key -> 16
+                    CraftEngineBlockEnums.BINARY_LOG.key, CraftEngineBlockEnums.BINARY_WOOD.key -> 24
                     CraftEngineBlockEnums.SKYROOT_PLANKS.key, CraftEngineBlockEnums.GOLDEN_OAK_PLANKS.key -> 2
+                    CraftEngineBlockEnums.BINARY_PLANKS.key -> 3
                     else -> 0
                 }
             }

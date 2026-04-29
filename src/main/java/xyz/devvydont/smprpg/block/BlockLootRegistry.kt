@@ -1198,6 +1198,75 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SILVER_NUGGET)))
                 .build()
         )
+
+        register(
+            CraftEngineBlockEnums.NULLYIUM.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.END_STONE)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.NULLYIUM)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.END_STONE)))
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.SMOKY_QUARTZ_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SMOKY_QUARTZ)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SMOKY_QUARTZ_ORE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SMOKY_QUARTZ)))
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.SMOKY_QUARTZ_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SMOOTH_SMOKY_QUARTZ)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SMOKY_QUARTZ_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SMOKY_QUARTZ_BLOCK)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.SMOOTH_SMOKY_QUARTZ.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SMOOTH_SMOKY_QUARTZ)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SMOOTH_SMOKY_QUARTZ)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SMOOTH_SMOKY_QUARTZ)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.SMOKY_QUARTZ_BRICKS.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SMOKY_QUARTZ_BRICKS)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SMOKY_QUARTZ_BRICKS)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SMOKY_QUARTZ_BRICKS)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.SMOKY_QUARTZ_PILLAR.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SMOKY_QUARTZ_PILLAR)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SMOKY_QUARTZ_PILLAR)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SMOKY_QUARTZ_PILLAR)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.CHISELED_SMOKY_QUARTZ_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.CHISELED_SMOKY_QUARTZ_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.CHISELED_SMOKY_QUARTZ_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.CHISELED_SMOKY_QUARTZ_BLOCK)))
+                .ignoresFortune()
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.POINTER_PRISM_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.POINTER_PRISM), 9.0))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.POINTER_PRISM_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.POINTER_PRISM), 9.0))
+                .build()
+        )
     }
 
     fun register(material: Material?, entry: BlockLootEntry?) {

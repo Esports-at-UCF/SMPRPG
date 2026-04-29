@@ -440,6 +440,60 @@
       }
     ]
   },
+  "block.endstone.break": {
+    "sounds": [
+      "smprpg:block/endstone/break1",
+      "smprpg:block/endstone/break2",
+      "smprpg:block/endstone/break3",
+      "smprpg:block/endstone/break4",
+      "smprpg:block/endstone/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.endstone.fall": {
+    "sounds": [
+      "smprpg:block/endstone/step1",
+      "smprpg:block/endstone/step2",
+      "smprpg:block/endstone/step3",
+      "smprpg:block/endstone/step4",
+      "smprpg:block/endstone/step5",
+      "smprpg:block/endstone/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.endstone.hit": {
+    "sounds": [
+      "smprpg:block/endstone/step1",
+      "smprpg:block/endstone/step2",
+      "smprpg:block/endstone/step3",
+      "smprpg:block/endstone/step4",
+      "smprpg:block/endstone/step5",
+      "smprpg:block/endstone/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.endstone.place": {
+    "sounds": [
+      "smprpg:block/endstone/step1",
+      "smprpg:block/endstone/step2",
+      "smprpg:block/endstone/step3",
+      "smprpg:block/endstone/step4",
+      "smprpg:block/endstone/step5",
+      "smprpg:block/endstone/step6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.endstone.step": {
+    "sounds": [
+      "smprpg:block/endstone/step1",
+      "smprpg:block/endstone/step2",
+      "smprpg:block/endstone/step3",
+      "smprpg:block/endstone/step4",
+      "smprpg:block/endstone/step5",
+      "smprpg:block/endstone/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "entity.illager_warlock.cast_toss": {
     "sounds": [
       "smprpg:entity/illager_warlock/cast_toss"

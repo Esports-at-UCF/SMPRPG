@@ -95,6 +95,9 @@ class MiningExperienceListener() : Listener {
                     CraftEngineBlockEnums.PLATINUM_ORE.key -> 100
                     CraftEngineBlockEnums.PALLADIUM_ORE.key -> 100
                     CraftEngineBlockEnums.GRAVITITE_ORE.key -> 200
+
+                    CraftEngineBlockEnums.SMOKY_QUARTZ_ORE.key -> 50
+                    CraftEngineBlockEnums.POINTER_PRISM_BLOCK.key -> 35
                     else -> 0
                 }
             }

@@ -120,4 +120,19 @@ enum class CraftEngineBlockEnums(val key : Key) {
     PLATINUM_ORE(Key.of("smprpg", "platinum_ore")),
     PALLADIUM_ORE(Key.of("smprpg", "palladium_ore")),
     GRAVITITE_ORE(Key.of("smprpg", "gravitite_ore")),
+
+    BINARY_LOG(Key.of("smprpg", "binary_log")),
+    BINARY_WOOD(Key.of("smprpg", "binary_wood")),
+    BINARY_PLANKS(Key.of("smprpg", "binary_planks")),
+
+    NULLYIUM(Key.of("smprpg", "nullyium")),
+
+    SMOKY_QUARTZ_ORE(Key.of("smprpg", "smoky_quartz_ore")),
+    SMOKY_QUARTZ_BLOCK(Key.of("smprpg", "smoky_quartz_block")),
+    SMOOTH_SMOKY_QUARTZ(Key.of("smprpg", "smooth_smoky_quartz")),
+    SMOKY_QUARTZ_BRICKS(Key.of("smprpg", "smoky_quartz_bricks")),
+    SMOKY_QUARTZ_PILLAR(Key.of("smprpg", "smoky_quartz_pillar")),
+    CHISELED_SMOKY_QUARTZ_BLOCK(Key.of("smprpg", "chiseled_smoky_quartz_block")),
+
+    POINTER_PRISM_BLOCK(Key.of("smprpg", "pointer_prism_block")),
 }

@@ -1487,7 +1487,7 @@ public class BlockPropertiesRegistry implements Listener {
                 .build());
 
         register(Material.END_STONE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .hardness(300)
+                .hardness(900)
                 .breakingPower(1)
                 .softRequirement(false)
                 .build());

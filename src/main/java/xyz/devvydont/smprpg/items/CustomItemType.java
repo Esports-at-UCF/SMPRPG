@@ -1446,6 +1446,36 @@ public enum CustomItemType {
     CRYSTAL_LEAVES("Crystal Leaves", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
     CRYSTAL_FRUIT_LEAVES("Crystal Fruit Leaves", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
     CRYSTAL_FRUIT("Crystal Fruit", Material.NETHER_BRICK, ItemRarity.COMMON, CrystalFruit.class),
+
+    // END
+    NULLYIUM("Nullyium", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    BINARY_BUTTON("Binary Button", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_DOOR("Binary Door", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_FENCE("Binary Fence", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_FENCE_GATE("Binary Fence Gate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_LEAVES("Binary Nodes", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_LOG("Binary Branch", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_PLANKS("Binary Planks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_PRESSURE_PLATE("Binary Pressure Plate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_SAPLING("Binary Root", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_SLAB("Binary Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_STAIRS("Binary Stairs", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_TRAPDOOR("Binary Trapdoor", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_WOOD("Binary Arborescence", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    STRIPPED_BINARY_LOG("Stripped Binary Branch", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    STRIPPED_BINARY_WOOD("Stripped Binary Arborescence", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    SMOKY_QUARTZ_ORE("Smoky Quartz Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SMOKY_QUARTZ("Smoky Quartz", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SMOKY_QUARTZ_BLOCK("Smoky Quartz Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SMOOTH_SMOKY_QUARTZ("Smooth Smoky Quartz", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SMOKY_QUARTZ_BRICKS("Smoky Quartz Bricks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SMOKY_QUARTZ_PILLAR("Smoky Quartz Pillar", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    CHISELED_SMOKY_QUARTZ_BLOCK("Chiseled Smoky Quartz Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    POINTER_PRISM("Pointer Prism", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    POINTER_PRISM_BLOCK("Pointer Prism Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     ;
 
     public final String ItemName;

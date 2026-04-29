@@ -341,6 +341,9 @@ templates#sounds:
   smprpg:sound/icestone:
     template: smprpg:sound/smprpg_namespace_block_template
     arguments::block_type: icestone
+  smprpg:sound/endstone:
+    template: smprpg:sound/smprpg_namespace_block_template
+    arguments::block_type: endstone
   smprpg:sound/crop:
     sounds:
       break: minecraft:block.crop.break

@@ -163,7 +163,9 @@ class MultiBlockBreakListener : ToggleableListener() {
             CraftEngineBlockEnums.SKYROOT_LOG.key,
             CraftEngineBlockEnums.SKYROOT_WOOD.key,
             CraftEngineBlockEnums.GOLDEN_OAK_LOG.key,
-            CraftEngineBlockEnums.GOLDEN_OAK_WOOD.key
+            CraftEngineBlockEnums.GOLDEN_OAK_WOOD.key,
+            CraftEngineBlockEnums.BINARY_LOG.key,
+            CraftEngineBlockEnums.BINARY_WOOD.key
         )
 
         val FUZZY_BLOCKS: HashMap<Any, MutableSet<Any>> = HashMap<Any, MutableSet<Any>>()
@@ -196,6 +198,8 @@ class MultiBlockBreakListener : ToggleableListener() {
             FUZZY_BLOCKS.put(CraftEngineBlockEnums.SKYROOT_WOOD.key, mutableSetOf(CraftEngineBlockEnums.SKYROOT_LOG.key, CraftEngineBlockEnums.SKYROOT_WOOD.key))
             FUZZY_BLOCKS.put(CraftEngineBlockEnums.GOLDEN_OAK_LOG.key, mutableSetOf(CraftEngineBlockEnums.GOLDEN_OAK_LOG.key, CraftEngineBlockEnums.GOLDEN_OAK_WOOD.key))
             FUZZY_BLOCKS.put(CraftEngineBlockEnums.GOLDEN_OAK_WOOD.key, mutableSetOf(CraftEngineBlockEnums.GOLDEN_OAK_LOG.key, CraftEngineBlockEnums.GOLDEN_OAK_WOOD.key))
+            FUZZY_BLOCKS.put(CraftEngineBlockEnums.BINARY_LOG.key, mutableSetOf(CraftEngineBlockEnums.BINARY_LOG.key, CraftEngineBlockEnums.BINARY_WOOD.key))
+            FUZZY_BLOCKS.put(CraftEngineBlockEnums.BINARY_WOOD.key, mutableSetOf(CraftEngineBlockEnums.BINARY_LOG.key, CraftEngineBlockEnums.BINARY_WOOD.key))
         }
     }
 }
