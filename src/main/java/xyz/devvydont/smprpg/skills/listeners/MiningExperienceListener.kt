@@ -96,6 +96,7 @@ class MiningExperienceListener() : Listener {
                     CraftEngineBlockEnums.PALLADIUM_ORE.key -> 100
                     CraftEngineBlockEnums.GRAVITITE_ORE.key -> 200
 
+                    CraftEngineBlockEnums.NULLYIUM.key -> 3
                     CraftEngineBlockEnums.SMOKY_QUARTZ_ORE.key -> 50
                     CraftEngineBlockEnums.POINTER_PRISM_BLOCK.key -> 35
                     else -> 0
@@ -103,8 +104,10 @@ class MiningExperienceListener() : Listener {
             }
 
             return when (block.type) {
-                Material.END_STONE, Material.STONE, Material.COBBLESTONE, Material.COBBLED_DEEPSLATE, Material.SAND, Material.RED_SAND, Material.SANDSTONE, Material.RED_SANDSTONE, Material.CLAY, Material.MYCELIUM, Material.GRASS_BLOCK, Material.DIRT, Material.GRAVEL, Material.DEEPSLATE, Material.TUFF, Material.NETHERRACK, Material.BLACKSTONE, Material.BASALT, Material.SMOOTH_BASALT, Material.CRIMSON_NYLIUM, Material.WARPED_NYLIUM, Material.FLINT -> 1
-                Material.ANDESITE, Material.DIORITE, Material.GRANITE, Material.CALCITE, Material.BONE_BLOCK, Material.SOUL_SAND, Material.SOUL_SOIL, Material.ICE, Material.PACKED_ICE -> 2
+                Material.STONE, Material.COBBLESTONE, Material.COBBLED_DEEPSLATE, Material.SAND, Material.RED_SAND, Material.SANDSTONE, Material.RED_SANDSTONE, Material.CLAY, Material.MYCELIUM, Material.GRASS_BLOCK, Material.DIRT, Material.GRAVEL, Material.DEEPSLATE, Material.TUFF, Material.FLINT -> 1
+                Material.ANDESITE, Material.DIORITE, Material.GRANITE, Material.CALCITE, Material.BONE_BLOCK, Material.SOUL_SAND, Material.SOUL_SOIL, Material.ICE, Material.PACKED_ICE,
+                Material.NETHERRACK, Material.WARPED_NYLIUM, Material.CRIMSON_NYLIUM, Material.BASALT, Material.SMOOTH_BASALT, Material.BLACKSTONE -> 2
+                Material.END_STONE -> 3
                 Material.SEA_LANTERN -> 10
                 Material.PRISMARINE -> 2
                 Material.PRISMARINE_BRICKS, Material.DARK_PRISMARINE -> 2

@@ -777,7 +777,7 @@ enum class AttributeWrapper @JvmOverloads constructor(
         fun fromKey(attributeKey: NamespacedKey): AttributeWrapper? {
             if (attributeKey.namespace != "smprpg") return null
             try {
-                return valueOf(attributeKey.getKey().uppercase(Locale.getDefault()))
+                return valueOf(attributeKey.key.uppercase(Locale.getDefault()))
             } catch (e: IllegalArgumentException) {
                 return null
             }

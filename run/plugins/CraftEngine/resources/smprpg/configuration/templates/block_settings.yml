@@ -430,6 +430,23 @@ templates#events:
           offset_x: 0.1
           offset_z: 0.1
           speed: 0.02
+  smprpg:events/regen_ore:
+    - on: break
+      functions:
+        - type: run
+          delay: 1
+          functions:
+            - type: place_block
+              block-state: "minecraft:bedrock"
+        - type: run
+          delay: 60
+          functions:
+            - type: place_block
+              block-state: ${regen_ore}
+            - type: play_sound
+              sound: ${regen_sound}
+              pitch: 0.5
+              source: block
 
 
 

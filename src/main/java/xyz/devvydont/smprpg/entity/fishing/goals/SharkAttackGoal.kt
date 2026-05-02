@@ -3,33 +3,29 @@ package xyz.devvydont.smprpg.entity.fishing.goals
 import com.destroystokyo.paper.entity.ai.Goal
 import com.destroystokyo.paper.entity.ai.GoalKey
 import com.destroystokyo.paper.entity.ai.GoalType
-import org.bukkit.GameMode
+import kr.toxicity.model.api.animation.AnimationModifier
 import org.bukkit.NamespacedKey
-import org.bukkit.entity.Dolphin
-import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Pig
-import org.bukkit.entity.Player
 import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.entity.fishing.Shark
 import xyz.devvydont.smprpg.util.goals.GoalUtils
 import java.util.*
 
 
-class SharkAttackGoal(val dolphin: Dolphin) : Goal<Dolphin> {
+class SharkAttackGoal(val pig : Pig, val customEntity : Shark) : Goal<Pig> {
 
-    val goalKey : GoalKey<Dolphin> = GoalKey.of(Dolphin::class.java, NamespacedKey(SMPRPG.plugin, "shark_attack"))
-    val armorStand = dolphin.vehicle!!
+    val goalKey : GoalKey<Pig> = GoalKey.of(Pig::class.java, NamespacedKey(SMPRPG.plugin, "shark_attack"))
     var attackClock = 0
-    var teleportClock = 10
 
     override fun shouldActivate(): Boolean {
-        if (GoalUtils.inst.getClosestPlayer(dolphin, 20.0) != null) {
+        if (GoalUtils.inst.getClosestPlayer(pig, 20.0) != null) {
             return true
         }
         else
             return false
     }
 
-    override fun getKey(): GoalKey<Dolphin> {
+    override fun getKey(): GoalKey<Pig> {
         return goalKey
     }
 
@@ -42,28 +38,22 @@ class SharkAttackGoal(val dolphin: Dolphin) : Goal<Dolphin> {
     }
 
     override fun start() {
-        dolphin.target = GoalUtils.chaseClosestPlayer(dolphin, 20.0, 1.0)
+        pig.target = GoalUtils.chaseClosestPlayer(pig, 20.0, 1.0)
     }
 
     override fun stop() {
-        dolphin.target = null
-        dolphin.pathfinder.stopPathfinding()
+        pig.target = null
+        pig.pathfinder.stopPathfinding()
     }
 
     override fun tick() {
-        val closestPlayer = GoalUtils.chaseClosestPlayer(dolphin, 20.0, 1.0)
-        dolphin.lookAt(closestPlayer)
-        if (closestPlayer in dolphin.world.getNearbyPlayers(dolphin.location, 0.125) && attackClock <= 0) {
-            dolphin.attack(closestPlayer)
+        var closestPlayer = GoalUtils.chaseClosestPlayer(pig, 30.0, 1.0)
+        pig.lookAt(closestPlayer)
+        if (closestPlayer in pig.world.getNearbyPlayers(pig.location, 1.25) && attackClock <= 0) {
+            pig.attack(closestPlayer)
+            customEntity.entityTracker!!.animate("attack", AnimationModifier.DEFAULT_WITH_PLAY_ONCE)
             attackClock = 10
         }
-        if (teleportClock <= 0) {
-            val locCopy = closestPlayer.location.clone()
-            locCopy.y -= 2
-            armorStand.teleport(locCopy)
-            teleportClock = 4
-        }
-        teleportClock--
         attackClock--
     }
 

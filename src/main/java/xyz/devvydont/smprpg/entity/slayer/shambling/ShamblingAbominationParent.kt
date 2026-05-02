@@ -38,8 +38,6 @@ open class ShamblingAbominationParent
     open var enrageThreshold = 0.5
     open var explosionDamage = 500.0
 
-    open val LOOT_SMITE_SCROLL : ItemStack = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.SMITE)
-
     override fun setup() {
         mobTypes.add(MobType.BOSS);
         mobTypes.add(MobType.UNDEAD);
@@ -89,6 +87,8 @@ open class ShamblingAbominationParent
         const val HEAD_TEXTURE : String = "http://textures.minecraft.net/texture/1fc0184473fe882d2895ce7cbc8197bd40ff70bf10d3745de97b6c2a9c5fc78f"
         const val HEAD_TEXTURE_ANGRY : String = "http://textures.minecraft.net/texture/ba7bb34471508b4b20cb35c37a1dd6e8afa7f2d5388822138837caf59c2195d8"
         val enragedAssetId : Key = Key.key("shambling_boss_enrage")
+
+        val LOOT_SMITE_SCROLL : ItemStack = DynamicEnchantingScroll.getScrollWithEnchantment(EnchantmentService.SMITE)
 
         const val SPAWN_MOB_FLAG : String = "shambling_abomination"
     }

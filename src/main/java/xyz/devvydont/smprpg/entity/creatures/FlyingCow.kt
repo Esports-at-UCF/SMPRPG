@@ -1,5 +1,10 @@
 package xyz.devvydont.smprpg.entity.creatures
 
+import kr.toxicity.model.api.BetterModel
+import kr.toxicity.model.api.bukkit.platform.BukkitAdapter
+import kr.toxicity.model.api.data.renderer.ModelRenderer
+import kr.toxicity.model.api.tracker.EntityTracker
+import kr.toxicity.model.api.tracker.TrackerModifier
 import org.bukkit.Material
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
@@ -15,6 +20,8 @@ import xyz.devvydont.smprpg.skills.utils.SkillExperienceReward.Companion.of
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop
 import xyz.devvydont.smprpg.util.items.LootDrop
 import xyz.devvydont.smprpg.util.items.QuantityLootDrop
+import java.util.function.Function
+
 
 class FlyingCow<T : LivingEntity?> : CustomEntityInstance<T?> {
     constructor(entity: Entity?, entityType: CustomEntityType?) : super(entity, entityType)
@@ -24,6 +31,10 @@ class FlyingCow<T : LivingEntity?> : CustomEntityInstance<T?> {
     override fun setup() {
         mobTypes.add(MobType.HOLY)
         mobTypes.add(MobType.ANIMAL)
+
+        entityTracker = BetterModel.model("flying_cow")
+            .map(Function { r: ModelRenderer? -> r!!.getOrCreate(BukkitAdapter.adapt(_entity!!)) })
+            .orElse(null)
 
         super.setup()
 

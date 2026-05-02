@@ -1,5 +1,7 @@
 package xyz.devvydont.smprpg.entity.base;
 
+import kr.toxicity.model.api.tracker.EntityTracker;
+import kr.toxicity.model.api.tracker.TrackerModifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -38,6 +40,7 @@ public abstract class LeveledEntity<T extends Entity> implements LootSource {
     private int _initialLevel;  // The level that was detected at setup time. Never changes after that.
     public ArrayList<MobType> mobTypes = new ArrayList<>();
     private boolean _setupFinished = false;
+    public EntityTracker entityTracker = null;
 
     protected EntityConfiguration _config = EntityConfiguration.DEFAULT;
 
@@ -258,6 +261,9 @@ public abstract class LeveledEntity<T extends Entity> implements LootSource {
 
         _entity.setCustomNameVisible(true);
         _entity.customName(this.getFullComponent());
+        if (entityTracker != null) {
+            entityTracker.updateBaseEntity();
+        }
     }
 
     /**

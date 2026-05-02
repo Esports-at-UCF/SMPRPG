@@ -17,7 +17,6 @@ import xyz.devvydont.smprpg.entity.creatures.*;
 import xyz.devvydont.smprpg.entity.fishing.*;
 import xyz.devvydont.smprpg.entity.npc.ReforgeNPC;
 import xyz.devvydont.smprpg.entity.slayer.illager.*;
-import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationBasic;
 import xyz.devvydont.smprpg.entity.slayer.shambling.*;
 import xyz.devvydont.smprpg.entity.spawning.EntitySpawnCondition;
 import xyz.devvydont.smprpg.entity.spawning.EntitySpawner;
@@ -132,7 +131,7 @@ public enum CustomEntityType implements IMenuDisplayable {
             5, 500, 10, Minnow::new),
     SNAPPING_TURTLE(EntityType.TURTLE, "Snapping Turtle",
             10, 1_250, 25, SnappingTurtle::new),
-    SHARK(EntityType.DOLPHIN, "Shark",
+    SHARK(EntityType.PIG, "Shark",
             15, 2_250, 45, Shark::new),
     SEA_HAG(EntityType.WITCH, "Sea Hag",
             20, 3_000, 65, SeaHag::new),
