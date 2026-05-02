@@ -1,7 +1,7 @@
 package xyz.devvydont.smprpg.entity.base;
 
+import kr.toxicity.model.api.bone.BoneName;
 import kr.toxicity.model.api.tracker.EntityTracker;
-import kr.toxicity.model.api.tracker.TrackerModifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -262,7 +262,9 @@ public abstract class LeveledEntity<T extends Entity> implements LootSource {
         _entity.setCustomNameVisible(true);
         _entity.customName(this.getFullComponent());
         if (entityTracker != null) {
-            entityTracker.updateBaseEntity();
+            entityTracker.bone(BoneName.of("ptag_name"))
+                    .getNametag()
+                    .component(_entity.customName());
         }
     }
 

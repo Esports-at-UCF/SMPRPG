@@ -5,6 +5,7 @@ import com.destroystokyo.paper.entity.ai.GoalKey
 import com.destroystokyo.paper.entity.ai.GoalType
 import kr.toxicity.model.api.animation.AnimationModifier
 import org.bukkit.NamespacedKey
+import org.bukkit.Sound
 import org.bukkit.entity.Pig
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.entity.fishing.Shark
@@ -51,6 +52,8 @@ class SharkAttackGoal(val pig : Pig, val customEntity : Shark) : Goal<Pig> {
         pig.lookAt(closestPlayer)
         if (closestPlayer in pig.world.getNearbyPlayers(pig.location, 1.25) && attackClock <= 0) {
             pig.attack(closestPlayer)
+            pig.world.playSound(pig.location, Sound.ENTITY_PHANTOM_BITE, 1.0f, 0.5f)
+            pig.world.playSound(pig.location, Sound.ENTITY_ZOMBIE_DESTROY_EGG, 1.0f, 0.5f)
             customEntity.entityTracker!!.animate("attack", AnimationModifier.DEFAULT_WITH_PLAY_ONCE)
             attackClock = 10
         }

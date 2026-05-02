@@ -31,12 +31,11 @@ class FlyingCow<T : LivingEntity?> : CustomEntityInstance<T?> {
     override fun setup() {
         mobTypes.add(MobType.HOLY)
         mobTypes.add(MobType.ANIMAL)
+        super.setup()
 
         entityTracker = BetterModel.model("flying_cow")
             .map(Function { r: ModelRenderer? -> r!!.getOrCreate(BukkitAdapter.adapt(_entity!!)) })
             .orElse(null)
-
-        super.setup()
 
         // if (_entity == null) return;
     }
