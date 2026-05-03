@@ -108,6 +108,11 @@ public enum CustomEntityType implements IMenuDisplayable {
             FlyingCow::new,
             EntitySpawnCondition.DimensionSpawnCondition.dimension(KeyStore.DIM_AETHER).withChance(1.0f)),
 
+    ZEPHYR(EntityType.GHAST, "Zephyr",
+            25, 1_500, 10,
+            Zephyr::new,
+            EntitySpawnCondition.DimensionSpawnCondition.dimension(KeyStore.DIM_AETHER).withChance(1.0f)),
+
     // Wither skeletons that spawn on the end island
     WITHERED_SERAPH(EntityType.WITHER_SKELETON, "Withered Seraph",
             45, 6_000, 550,

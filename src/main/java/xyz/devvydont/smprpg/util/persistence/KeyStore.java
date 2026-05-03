@@ -91,6 +91,11 @@ public class KeyStore {
     public static final NamespacedKey AUDIO_ILLAGER_WARLOCK_VEX_CAST = new NamespacedKey(NAMESPACE, "entity.illager_warlock.cast_vex");
     public static final NamespacedKey AUDIO_ILLAGER_WARLOCK_FANGS_CAST = new NamespacedKey(NAMESPACE, "entity.illager_warlock.cast_fangs");
 
+    public static final NamespacedKey AUDIO_ZEPHYR_CALL = new NamespacedKey(NAMESPACE, "entity.zephyr.call");
+    public static final NamespacedKey AUDIO_ZEPHYR_SHOOT = new NamespacedKey(NAMESPACE, "entity.zephyr.shoot");
+    public static final NamespacedKey AUDIO_ZEPHYR_HURT = new NamespacedKey(NAMESPACE, "entity.zephyr.hurt");
+    public static final NamespacedKey AUDIO_ZEPHYR_DEATH = new NamespacedKey(NAMESPACE, "entity.zephyr.death");
+
     public static final NamespacedKey AUDIO_BLUE_AERCOULD_BOUNCE = new NamespacedKey(NAMESPACE, "block.blue_aercloud.bounce");
     public static final NamespacedKey AUDIO_AETHER_ADVANCEMENT_GENERAL = new NamespacedKey(NAMESPACE, "events.advancement.aether");
 

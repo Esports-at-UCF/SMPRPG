@@ -529,5 +529,39 @@
       "smprpg:entity/illager_warlock/cast_fangs"
     ],
     "subtitle": "subtitles.entity.evoker.cast_spell"
+  },
+  "entity.zephyr.call": {
+    "sounds": [
+      {
+        "name": "smprpg:entity/zephyr/call",
+        "attenuation_distance": 64
+      },
+      {
+        "name": "smprpg:entity/zephyr/call2",
+        "attenuation_distance": 64
+      }
+    ],
+    "subtitle": "subtitles.entity.zephyr.call"
+  },
+  "entity.zephyr.shoot": {
+    "sounds": [
+      {
+        "attenuation_distance": 64,
+        "name": "smprpg:entity/zephyr/shoot"
+      }
+    ],
+    "subtitle": "subtitles.entity.zephyr.shoot"
+  },
+  "entity.zephyr.hurt": {
+    "sounds": [
+      "smprpg:entity/zephyr/hurt"
+    ],
+    "subtitle": "subtitles.entity.zephyr.hurt"
+  },
+  "entity.zephyr.death": {
+    "sounds": [
+      "smprpg:entity/zephyr/death"
+    ],
+    "subtitle": "subtitles.entity.zephyr.death"
   }
 }

@@ -403,6 +403,7 @@ blocks:
           - "minecraft:dirt"
           - "smprpg:aether_dirt"
           - "minecraft:animals_spawnable_on"
+          - "minecraft:grass_blocks"
       overrides:
         propagate-skylight: false
         can-occlude: true
@@ -471,6 +472,7 @@ blocks:
           - "minecraft:dirt"
           - "smprpg:aether_dirt"
           - "smprpg:enchanted_dirt"
+          - "minecraft:grass_blocks"
     behavior:
       - type: grass_block
         feature: minecraft:grass_bonemeal
