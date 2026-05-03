@@ -1,0 +1,25 @@
+lang#items:
+  en_us:
+    item.smprpg.silver_ingot: Silver Ingot
+    item.smprpg.holystone: Holystone
+    item.smprpg.holystone_bricks: Holystone Bricks
+    item.smprpg.holystone_brick_slab: Holystone Brick Slab
+    item.smprpg.holystone_brick_stairs: Holystone Brick Stairs
+    item.smprpg.holystone_slab: Holystone Slab
+    item.smprpg.holystone_stairs: Holystone Stairs
+  fr_fr:
+    item.smprpg.silver_ingot: Lingot d'argent
+    item.smprpg.holystone: Pierre sacrée
+    item.smprpg.holystone_bricks: Pierre sacrée taillée
+    item.smprpg.holystone_brick_slab: Dalle de pierre sacrée taillée
+    item.smprpg.holystone_brick_stairs: Escalier de pierre sacrée taillée
+    item.smprpg.holystone_slab: Dalle de pierre sacrée
+    item.smprpg.holystone_stairs: Escalier de pierre sacrée
+  fr_ca:
+    item.smprpg.silver_ingot: Lingot d'argent
+    item.smprpg.holystone: Pierre sacrée
+    item.smprpg.holystone_bricks: Pierre sacrée taillée
+    item.smprpg.holystone_brick_slab: Dalle de pierre sacrée taillée
+    item.smprpg.holystone_brick_stairs: Escalier de pierre sacrée taillée
+    item.smprpg.holystone_slab: Dalle de pierre sacrée
+    item.smprpg.holystone_stairs: Escalier de pierre sacrée

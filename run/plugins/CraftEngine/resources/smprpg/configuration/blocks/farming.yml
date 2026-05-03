@@ -1,0 +1,105 @@
+items:
+  smprpg:super_soil:
+    data:
+      item-name: <!i><lang:item.smprpg.super_soil>
+    model: smprpg:block/overworld/super_soil
+    behavior:
+      type: block_item
+      block: smprpg:super_soil
+  smprpg:apple_crop_display:
+    data:
+      item-name: <!i><lang:item.smprpg.apple_crop_display>
+    model: smprpg:block/crop/apple
+    behavior:
+      type: ceiling_block_item
+      block: smprpg:apple_crop
+  smprpg:golden_apple_crop_display:
+    data:
+      item-name: <!i><lang:item.smprpg.golden_apple_crop_display>
+    model: smprpg:block/crop/golden_apple
+    behavior:
+      type: ceiling_block_item
+      block: smprpg:golden_apple_crop
+  smprpg:heartbeet:
+    data:
+      item-name: <!i><lang:item.smprpg.heartbeet>
+    texture: smprpg:item/crop/heartbeet
+    behavior:
+      - type: compostable_item
+        chance: 0.65
+
+blocks:
+  smprpg:super_soil:
+    state:
+      auto-state: solid
+      model:
+        template: smprpg:model/simplified_cube_all
+        arguments:
+          path: smprpg:block/overworld/super_soil
+    settings:
+      template:
+        - smprpg:settings/dirt
+        - smprpg:settings/solid_1x1x1
+      require-correct-tools: false
+      is-randomly-ticking: true
+      map-color: 10
+      tags:
+        - minecraft:dirt
+        - minecraft:farmland
+        - minecraft:dry_vegetation_may_place_on
+        - minecraft:big_dripleaf_placeable
+        - minecraft:grows_crops
+    behavior:
+      type: smprpg:tick_accelerator
+      chance: 1.0
+      mode: crop
+  smprpg:apple_crop:
+    state:
+      state: minecraft:sugar_cane[age=15]
+      entity-renderer:
+        item: smprpg:apple_crop_display
+    settings:
+      template:
+        smprpg:settings/crop
+      overrides:
+        item: minecraft:apple
+        push-reaction: destroy
+        map-color: 4
+    behaviors:
+      - type: liquid_flowable_block
+      - type: hanging_block
+        stackable: false
+        blacklist: false
+        above-block-tags:
+          - minecraft:leaves
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: minecraft:apple
+  smprpg:golden_apple_crop:
+    state:
+      state: minecraft:sugar_cane[age=15]
+      entity-renderer:
+        item: smprpg:golden_apple_crop_display
+    settings:
+      template:
+        smprpg:settings/crop
+      overrides:
+        item: minecraft:golden_apple
+        push-reaction: destroy
+        map-color: 30
+    behaviors:
+      - type: liquid_flowable_block
+      - type: hanging_block
+        stackable: false
+        blacklist: false
+        above-blocks:
+          - smprpg:golden_oak_leaves
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: minecraft:golden_apple

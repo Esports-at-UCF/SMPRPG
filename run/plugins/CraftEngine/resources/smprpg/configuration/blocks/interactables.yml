@@ -1,0 +1,114 @@
+items:
+  smprpg:reforge_table:
+    data:
+      item-name: <!i><lang:item.smprpg.reforge_table>
+    model: smprpg:block/interactables/reforge_table
+    behavior:
+      type: block_item
+      block: smprpg:reforge_table
+  smprpg:netherite_anvil:
+    data:
+      item-name: <!i><lang:item.smprpg.netherite_anvil>
+      pdc:
+        smprpg:item-type: netherite_anvil
+    model: smprpg:block/interactables/netherite_anvil
+    behavior:
+      type: block_item
+      block: smprpg:netherite_anvil
+
+
+blocks:
+  smprpg:reforge_table:
+    loot:
+      template: smprpg:loot_table/self
+    state:
+      auto-state: solid
+      model:
+        template: smprpg:model/simplified_cube_all
+        arguments:
+          path: smprpg:block/interactables/reforge_table
+    settings:
+      template:
+        - smprpg:settings/metal_block
+        - smprpg:data/breaking_power_4
+    behavior:
+      - type: smprpg:menu_interactable
+        menu: reforge
+  smprpg:netherite_anvil:
+    loot:
+      template: smprpg:loot_table/self
+    states:
+      properties:
+        facing_clockwise:
+          type: 4-direction
+          default: north
+      appearances:
+        axisX:
+          state: minecraft:anvil[facing=east]
+          model:
+            path: smprpg:block/interactables/netherite_anvil
+            y: 90
+            generation:
+              parent: minecraft:block/anvil
+              textures:
+                top: smprpg:block/interactables/netherite_anvil_top
+                body: smprpg:block/interactables/netherite_anvil
+                particle: smprpg:block/interactables/netherite_anvil
+        axisZ:
+          state: minecraft:anvil[facing=north]
+          model:
+            path: smprpg:block/interactables/netherite_anvil
+      variants:
+        facing_clockwise=east:
+          appearance: axisX
+        facing_clockwise=west:
+          appearance: axisX
+        facing_clockwise=north:
+          appearance: axisZ
+        facing_clockwise=south:
+          appearance: axisZ
+    settings:
+      template:
+        - smprpg:data/breaking_power_7
+      sounds:
+        break: minecraft:block.anvil.break
+        step: minecraft:block.anvil.step
+        place: minecraft:block.anvil.place
+        hit: minecraft:block.anvil.hit
+        fall: minecraft:block.anvil.fall
+      map-color: 29
+      hardness: 50
+      resistance: 1200
+      push-reaction: block
+      require-correct-tools: true
+      tags: ["minecraft:mineable/pickaxe"]
+    behavior:
+      type: falling_block
+      hurt-amount: 4
+      max-hurt: 80
+      sounds:
+        land: minecraft:block.anvil.land
+        destroy: minecraft:block.anvil.destroy
+    events:
+      - on: right_click
+        functions:
+          - type: open_window
+            gui-type: anvil
+          - type: cancel_event
+        conditions:
+          - type: expression
+            expression: "!<arg:player.is_sneaking>"
+
+recipes:
+  smprpg:netherite_anvil:
+    type: shaped
+    ingredients:
+      B: minecraft:netherite_block
+      N: minecraft:netherite_ingot
+    pattern:
+      - "BBB"
+      - " N "
+      - "NNN"
+    result:
+      id: smprpg:netherite_anvil
+      count: 1
