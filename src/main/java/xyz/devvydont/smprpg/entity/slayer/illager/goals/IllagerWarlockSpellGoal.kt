@@ -116,7 +116,7 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
             lastGroundedY = evoker.location.y
 
         // Keep an eye on our closest target.
-        val closestPlayer : Player? = GoalUtils.inst.getClosestPlayer(evoker, 20.0)
+        val closestPlayer : Player? = GoalUtils.getClosestPlayer(evoker, 20.0)
         if (closestPlayer != null) {
             if (movementFrozen)
                 evoker.pathfinder.stopPathfinding()

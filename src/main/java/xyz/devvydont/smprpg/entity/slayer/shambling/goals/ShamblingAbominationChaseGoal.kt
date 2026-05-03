@@ -19,7 +19,7 @@ class ShamblingAbominationChaseGoal(val slayer : ShamblingAbominationParent, val
     var stopped = false
 
     override fun shouldActivate(): Boolean {
-        if (GoalUtils.inst.getClosestPlayer(zombie, 20.0) != null) {
+        if (GoalUtils.getClosestPlayer(zombie, 20.0) != null) {
             return true
         }
         else
@@ -40,7 +40,7 @@ class ShamblingAbominationChaseGoal(val slayer : ShamblingAbominationParent, val
 
     override fun start() {
         stopped = false
-        zombie.target = GoalUtils.inst.getClosestPlayer(zombie, 20.0)
+        zombie.target = GoalUtils.getClosestPlayer(zombie, 20.0)
     }
 
     override fun stop() {

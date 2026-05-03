@@ -18,7 +18,7 @@ class SeaBearAttackGoal(val polarBear : PolarBear) : Goal<PolarBear> {
     var standClock = 0
 
     override fun shouldActivate(): Boolean {
-        if (GoalUtils.inst.getClosestPlayer(polarBear, 20.0) != null) {
+        if (GoalUtils.getClosestPlayer(polarBear, 20.0) != null) {
             return true
         }
         else
