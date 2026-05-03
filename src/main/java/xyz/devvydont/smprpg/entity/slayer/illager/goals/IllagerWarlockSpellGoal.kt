@@ -159,14 +159,22 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
                     SpellType.TELEPORT, SpellType.VEX, SpellType.FANGS -> {
                         evoker.world.playSound(evoker.location, Sound.ENTITY_EVOKER_PREPARE_SUMMON, 1f, 1f)
                         evoker.world.playSound(evoker.location, Sound.ENTITY_EVOKER_CAST_SPELL, 1f, 1f)
-                        if (nextSpell == SpellType.VEX)
-                            evoker.spell = Spellcaster.Spell.SUMMON_VEX  // Set our spell to cast about 1 second before teleport
-                        else if (nextSpell == SpellType.FANGS)
+
+                        if (nextSpell == SpellType.TELEPORT) {
+                            evoker.world.playSound(evoker.location, KeyStore.AUDIO_ILLAGER_WARLOCK_TELEPORT_CAST.toString(), 1f, 1f)
+                            evoker.spell = Spellcaster.Spell.DISAPPEAR  // Set our spell to cast about 1 second before teleport
+                        }
+                        else if (nextSpell == SpellType.VEX) {
+                            evoker.world.playSound(evoker.location, KeyStore.AUDIO_ILLAGER_WARLOCK_VEX_CAST.toString(), 1f, 1f)
+                            evoker.spell = Spellcaster.Spell.SUMMON_VEX
+                        }
+                        else if (nextSpell == SpellType.FANGS) {
+                            evoker.world.playSound(evoker.location, KeyStore.AUDIO_ILLAGER_WARLOCK_FANGS_CAST.toString(), 1f, 1f)
                             evoker.spell = Spellcaster.Spell.FANGS
-                        else
-                            evoker.spell = Spellcaster.Spell.DISAPPEAR
+                        }
                     }
                     SpellType.FIREBALL -> {
+                        evoker.world.playSound(evoker.location, KeyStore.AUDIO_ILLAGER_WARLOCK_FIREBALL_CAST.toString(), 1f, 1f)
                         evoker.world.playSound(evoker.location, Sound.ENTITY_GHAST_SHOOT, 1f, 0.5f)
                         evoker.world.playSound(evoker.location, Sound.ENTITY_EVOKER_CAST_SPELL, 1f, 1f)
                         evoker.spell = Spellcaster.Spell.WOLOLO  // Set our spell to cast about 1 second before teleport
@@ -174,6 +182,7 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
 
                     SpellType.TOSS -> {
                         evoker.world.playSound(evoker.location, KeyStore.AUDIO_ILLAGER_WARLOCK_TOSS_CAST.toString(), 1f, 1f)
+                        evoker.world.playSound(evoker.location, KeyStore.AUDIO_ILLAGER_WARLOCK_TOSS_CAST_VO.toString(), 1f, 1f)
                         evoker.spell = Spellcaster.Spell.BLINDNESS
 
                         val nearbyPlayers = evoker.world.getNearbyPlayers(evoker.location, 20.0)

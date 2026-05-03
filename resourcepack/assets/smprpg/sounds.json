@@ -499,5 +499,35 @@
       "smprpg:entity/illager_warlock/cast_toss"
     ],
     "subtitle": "subtitles.entity.evoker.cast_spell"
+  },
+  "entity.illager_warlock.cast_toss_vo": {
+    "sounds": [
+      "smprpg:entity/illager_warlock/cast_toss_vo"
+    ],
+    "subtitle": "subtitles.entity.evoker.cast_spell"
+  },
+    "entity.illager_warlock.cast_fireball": {
+    "sounds": [
+      "smprpg:entity/illager_warlock/cast_fireball"
+    ],
+    "subtitle": "subtitles.entity.evoker.cast_spell"
+  },
+    "entity.illager_warlock.cast_teleport": {
+    "sounds": [
+      "smprpg:entity/illager_warlock/cast_teleport"
+    ],
+    "subtitle": "subtitles.entity.evoker.cast_spell"
+  },
+    "entity.illager_warlock.cast_vex": {
+    "sounds": [
+      "smprpg:entity/illager_warlock/cast_vex"
+    ],
+    "subtitle": "subtitles.entity.evoker.cast_spell"
+  },
+    "entity.illager_warlock.cast_fangs": {
+    "sounds": [
+      "smprpg:entity/illager_warlock/cast_fangs"
+    ],
+    "subtitle": "subtitles.entity.evoker.cast_spell"
   }
 }

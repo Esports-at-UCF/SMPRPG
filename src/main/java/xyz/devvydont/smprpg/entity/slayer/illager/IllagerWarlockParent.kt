@@ -9,11 +9,13 @@ import org.bukkit.Bukkit
 import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.Sound
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeInstance
 import org.bukkit.entity.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
+import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.entity.EntityRemoveEvent
@@ -90,6 +92,8 @@ open class IllagerWarlockParent
         equipment?.leggingsDropChance = 0f
         equipment?.bootsDropChance = 0f
 
+        _entity.isSilent = true
+
         // Illager Warlocks can also spawn other quests.
         // This encourages collaborative slayer gameplay.
         _entity.getPersistentDataContainer()
@@ -124,6 +128,22 @@ open class IllagerWarlockParent
                 entity.heal(maxHp!!.value)
             }, TickTime.TICK)
             this.revived = true
+        }
+    }
+
+    @EventHandler
+    fun onWarlockTakeDamage(event: EntityDamageEvent) {
+        val entity = event.entity
+        if (entity == this._entity) {
+            entity.location.world.playSound(entity.location, Sound.ENTITY_EVOKER_HURT, 1.0f, 0.8f)
+        }
+    }
+
+    @EventHandler
+    fun onWarlockDeath(event: EntityDeathEvent) {
+        val entity = event.entity
+        if (entity == this._entity) {
+            entity.location.world.playSound(entity.location, Sound.ENTITY_EVOKER_DEATH, 1.0f, 0.8f)
         }
     }
 

@@ -85,6 +85,11 @@ public class KeyStore {
     public static final NamespacedKey AUDIO_LEGENDARY_DROP = new NamespacedKey(NAMESPACE, "events.drops.legendary");
 
     public static final NamespacedKey AUDIO_ILLAGER_WARLOCK_TOSS_CAST = new NamespacedKey(NAMESPACE, "entity.illager_warlock.cast_toss");
+    public static final NamespacedKey AUDIO_ILLAGER_WARLOCK_TOSS_CAST_VO = new NamespacedKey(NAMESPACE, "entity.illager_warlock.cast_toss_vo");
+    public static final NamespacedKey AUDIO_ILLAGER_WARLOCK_FIREBALL_CAST = new NamespacedKey(NAMESPACE, "entity.illager_warlock.cast_fireball");
+    public static final NamespacedKey AUDIO_ILLAGER_WARLOCK_TELEPORT_CAST = new NamespacedKey(NAMESPACE, "entity.illager_warlock.cast_teleport");
+    public static final NamespacedKey AUDIO_ILLAGER_WARLOCK_VEX_CAST = new NamespacedKey(NAMESPACE, "entity.illager_warlock.cast_vex");
+    public static final NamespacedKey AUDIO_ILLAGER_WARLOCK_FANGS_CAST = new NamespacedKey(NAMESPACE, "entity.illager_warlock.cast_fangs");
 
     public static final NamespacedKey AUDIO_BLUE_AERCOULD_BOUNCE = new NamespacedKey(NAMESPACE, "block.blue_aercloud.bounce");
     public static final NamespacedKey AUDIO_AETHER_ADVANCEMENT_GENERAL = new NamespacedKey(NAMESPACE, "events.advancement.aether");
