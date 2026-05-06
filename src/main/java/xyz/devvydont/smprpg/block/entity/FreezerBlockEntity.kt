@@ -60,6 +60,7 @@ class FreezerBlockEntity(val pos: BlockPos, val blockState: ImmutableBlockState)
             TooltipDisplay.tooltipDisplay().hideTooltip(true).build())
 
         BORDER = border
+        type = SMPRPGBlockEntityTypes.FREEZER  // We need to override this since we are inheriting from SimpleStorage
     }
 
     override fun updateOpenBlockState(open: Boolean) {
@@ -239,8 +240,8 @@ class FreezerBlockEntity(val pos: BlockPos, val blockState: ImmutableBlockState)
             }
         }
         else {
-            val inv = event.clickedInventory
-            if (inv == inventory()) {
+            val inv = event.clickedInventory ?: return
+            if (event.inventory == inventory() && event.clickedInventory == inventory()) {
                 if (event.slot !in ALLOWED_SLOTS) {
                     event.isCancelled = true
                     return

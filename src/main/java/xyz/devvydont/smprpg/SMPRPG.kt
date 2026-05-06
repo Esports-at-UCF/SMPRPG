@@ -164,7 +164,6 @@ class SMPRPG : JavaPlugin() {
         }
         registerBlockBehaviors()
         registerRecipePostProcessors()
-        registerBlockEntityTypes()
     }
 
     fun registerBlockBehaviors() {
@@ -216,10 +215,6 @@ class SMPRPG : JavaPlugin() {
             CEKey.from("smprpg:update_item_data"),
             UpdateItemDataPostProcessor.FACTORY
         )
-    }
-
-    fun registerBlockEntityTypes() {
-        BlockEntityTypes.register<FreezerBlockEntity>(CEKey.from("smprpg:freezer"))
     }
 
     companion object {

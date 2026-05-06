@@ -1,7 +1,6 @@
 package xyz.devvydont.smprpg.block.behaviors
 
 import net.momirealms.craftengine.bukkit.block.behavior.SimpleStorageBlockBehavior
-import net.momirealms.craftengine.bukkit.block.entity.BukkitBlockEntityTypes
 import net.momirealms.craftengine.core.block.CustomBlock
 import net.momirealms.craftengine.core.block.ImmutableBlockState
 import net.momirealms.craftengine.core.block.behavior.BlockBehaviorFactory
@@ -13,6 +12,7 @@ import net.momirealms.craftengine.core.util.ResourceConfigUtils
 import net.momirealms.craftengine.core.world.BlockPos
 import net.momirealms.craftengine.core.world.CEWorld
 import xyz.devvydont.smprpg.block.entity.FreezerBlockEntity
+import xyz.devvydont.smprpg.block.entity.SMPRPGBlockEntityTypes
 import xyz.devvydont.smprpg.util.formatting.Symbols
 
 class FreezerBlockBehavior(
@@ -30,8 +30,9 @@ class FreezerBlockBehavior(
     null
 ) {
 
-    override fun <T : BlockEntity?> blockEntityType(state: ImmutableBlockState): BlockEntityType<T?>? {
-        return EntityBlockBehavior.blockEntityTypeHelper(BukkitBlockEntityTypes.SIMPLE_STORAGE)
+    override fun <T : BlockEntity> blockEntityType(state: ImmutableBlockState): BlockEntityType<T?>? {
+        return EntityBlockBehavior.blockEntityTypeHelper(SMPRPGBlockEntityTypes.FREEZER)
+
     }
 
     override fun createBlockEntity(pos: BlockPos, state: ImmutableBlockState): BlockEntity? {

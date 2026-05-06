@@ -106,7 +106,7 @@ object Symbols {
 
     val INVENTORY_TITLE_COLOR: TextColor = TextColor.color(63, 63, 63)
 
-    val OVERLAY_BG_OFFSET_STANDARD: String = OFFSET_NEG_128 + OFFSET_NEG_32 + OFFSET_NEG_2
+    const val OVERLAY_BG_OFFSET_STANDARD: String = OFFSET_NEG_128 + OFFSET_NEG_32 + OFFSET_NEG_2
     const val REFORGE_BACKGROUND: String = "\ub001"
     const val RECIPE_MENU: String = "\ub002"
     const val TRASH_MENU: String = "\ub003"

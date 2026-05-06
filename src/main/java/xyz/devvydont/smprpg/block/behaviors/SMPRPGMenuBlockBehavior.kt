@@ -20,7 +20,6 @@ class SMPRPGMenuBlockBehavior(customBlock: CustomBlock,
             when (menuName) {
                 "reforge" -> {
                     player.swingMainHand()
-                    player.world.createExplosion(player.location, 100.0f)
                     MenuReforge(player).openMenu()
                     return InteractionResult.SUCCESS
                 }
