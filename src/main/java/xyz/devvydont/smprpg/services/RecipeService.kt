@@ -58,6 +58,10 @@ class RecipeService : IService, Listener {
         }
     }
 
+    private fun registerFreezerRecipes() {
+
+    }
+
 
     /**
      * Registers every fish blueprint to have a teardown recipe into essence.

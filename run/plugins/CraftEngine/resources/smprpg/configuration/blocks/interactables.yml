@@ -6,6 +6,15 @@ items:
     behavior:
       type: block_item
       block: smprpg:reforge_table
+  smprpg:freezer:
+    data:
+      item-name: <!i><lang:item.smprpg.freezer>
+      pdc:
+        smprpg:item-type: freezer
+    model: smprpg:block/interactables/freezer
+    behavior:
+      type: block_item
+      block: smprpg:freezer
   smprpg:netherite_anvil:
     data:
       item-name: <!i><lang:item.smprpg.netherite_anvil>
@@ -22,7 +31,7 @@ blocks:
     loot:
       template: smprpg:loot_table/self
     state:
-      auto-state: solid
+      auto-state: note_block
       model:
         template: smprpg:model/simplified_cube_all
         arguments:
@@ -34,6 +43,21 @@ blocks:
     behavior:
       - type: smprpg:menu_interactable
         menu: reforge
+  smprpg:freezer:
+    loot:
+      template: smprpg:loot_table/self
+    state:
+      auto-state: note_block
+      model:
+        template: smprpg:model/simplified_cube_all
+        arguments:
+          path: smprpg:block/interactables/freezer
+    settings:
+      template:
+        - smprpg:settings/metal_block
+        - smprpg:data/breaking_power_4
+    behavior:
+      - type: smprpg:freezer
   smprpg:netherite_anvil:
     loot:
       template: smprpg:loot_table/self

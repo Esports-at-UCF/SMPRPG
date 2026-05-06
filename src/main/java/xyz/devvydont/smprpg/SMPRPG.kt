@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.momirealms.craftengine.core.block.behavior.BlockBehaviors
+import net.momirealms.craftengine.core.block.entity.BlockEntityTypes
 import net.momirealms.craftengine.core.item.recipe.result.PostProcessors
 import net.momirealms.craftengine.core.util.Key as CEKey
 import org.bukkit.Bukkit
@@ -16,9 +17,11 @@ import xyz.devvydont.smprpg.block.behaviors.PortalBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.AscendingBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.BerryBushBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.FarmlandBlockBehavior
+import xyz.devvydont.smprpg.block.behaviors.FreezerBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.SMPRPGMenuBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.TickAcceleratorBlockBehavior
 import xyz.devvydont.smprpg.block.behaviors.TillableBlockBehavior
+import xyz.devvydont.smprpg.block.entity.FreezerBlockEntity
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.listeners.block.AetherDimensionListeners
 import xyz.devvydont.smprpg.listeners.block.AscendingBlockListener
@@ -161,6 +164,7 @@ class SMPRPG : JavaPlugin() {
         }
         registerBlockBehaviors()
         registerRecipePostProcessors()
+        registerBlockEntityTypes()
     }
 
     fun registerBlockBehaviors() {
@@ -200,6 +204,10 @@ class SMPRPG : JavaPlugin() {
             CEKey.from("smprpg:farmland"),
             FarmlandBlockBehavior.FACTORY
         )
+        BlockBehaviors.register(
+            CEKey.from("smprpg:freezer"),
+            FreezerBlockBehavior.FACTORY
+        )
         logger.info("SMPRPG Block behaviors registered!")
     }
 
@@ -208,6 +216,10 @@ class SMPRPG : JavaPlugin() {
             CEKey.from("smprpg:update_item_data"),
             UpdateItemDataPostProcessor.FACTORY
         )
+    }
+
+    fun registerBlockEntityTypes() {
+        BlockEntityTypes.register<FreezerBlockEntity>(CEKey.from("smprpg:freezer"))
     }
 
     companion object {

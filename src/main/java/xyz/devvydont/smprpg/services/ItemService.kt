@@ -1684,6 +1684,7 @@ class ItemService : IService, Listener {
         const val VERSION: Int = 1
         const val VERSION_NO_UPDATE: Int = -1
         val SELL_VALUE_KEY: NamespacedKey = NamespacedKey("smprpg", "sell-value")
+        val FREEZER_FUEL_KEY: NamespacedKey = NamespacedKey("smprpg", "freeze-time")
 
         val COMMON_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/common_repair_core"))
         val UNCOMMON_REPAIR_CORE_ATLAS_ICON = ComponentUtils.atlasSprite(Key.key("minecraft:items"), Key.key("smprpg:item/repair_sprites/uncommon_repair_core"))

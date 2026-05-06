@@ -61,6 +61,7 @@ enum class CraftEngineBlockEnums(val key : Key) {
 
     REFORGE_TABLE(Key.of("smprpg", "reforge_table")),
     NETHERITE_ANVIL(Key.of("smprpg", "netherite_anvil")),
+    FREEZER(Key.of("smprpg", "freezer")),
 
     RUNE_BLANK(Key.of("smprpg", "rune_blank")),
     RUNE_POTENTIAL(Key.of("smprpg", "rune_potential")),

@@ -52,6 +52,16 @@ items:
     behavior:
       type: block_item
       block: smprpg:rainbow_wool
+  smprpg:dungeon_tile:
+    data:
+      item-name: <!i><lang:item.smprpg.dungeon_tile>
+      pdc:
+        #smprpg:item-type: dungeon_tile
+        smprpg:sell-value: 2
+    model: smprpg:block/aether/dungeon_tile
+    behavior:
+      type: block_item
+      block: smprpg:dungeon_tile
 
 items#stairs:
   smprpg:holystone_brick_stairs_inner_display:
@@ -197,6 +207,7 @@ items#stairs:
       item-name: <!i><lang:item.smprpg.icestone_stairs>
       pdc:
         smprpg:item-type: icestone_stairs
+        smprpg:freeze-time: 400
     model:
       type: minecraft:model
       path: smprpg:block/aether/icestone_stairs_display
@@ -356,6 +367,7 @@ items#slabs:
       item-name: <!i><lang:item.smprpg.icestone_slab>
       pdc:
         smprpg:item-type: icestone_slab
+        smprpg:freeze-time: 200
     model:
       type: minecraft:model
       path: smprpg:block/aether/icestone_slab_bottom
@@ -465,6 +477,23 @@ blocks:
         map-color: 31
         hardness: 1.0
         resistance: 6000.0
+  smprpg:dungeon_tile:
+    state:
+      auto-state: solid
+      model:
+        template: smprpg:model/simplified_cube_all
+        arguments:
+          path: smprpg:block/aether/dungeon_tile
+    loot:
+      template: smprpg:loot_table/self
+    settings:
+      template:
+        - smprpg:settings/stone
+        - smprpg:sound/holystone
+      map-color: 56
+      overrides:
+        hardness: 6.0
+        resistance: 0.5
 
 items#redstone:
   smprpg:holystone_button:

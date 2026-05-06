@@ -142,6 +142,7 @@ items:
       pdc:
         smprpg:item-type: icestone
         smprpg:sell-value: 4
+        smprpg:freeze-time: 400
     model: smprpg:block/aether/icestone
     behavior:
       type: block_item

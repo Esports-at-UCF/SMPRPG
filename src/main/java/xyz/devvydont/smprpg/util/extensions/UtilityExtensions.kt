@@ -81,3 +81,23 @@ fun ItemStack.addEnchantment(enchant: CustomEnchantment, level: Int) {
 
     addUnsafeEnchantment(enchant.enchantment, level)
 }
+
+/**
+ * Given two item ItemStacks, transfer amt quantity from itemStack1 to itemStack2
+ * @param amt           Amount of items to transfer
+ * @param itemStack    I temStack that is being transfered to
+ * @return              true if the operation was successful, false if not.
+ */
+fun ItemStack.transfer(amt: Int, itemStack: ItemStack) : Boolean {
+    if (!this.isSimilar(itemStack)) return false
+
+    if (amt > this.amount) {
+        itemStack.amount += this.amount
+        this.amount = 0
+    }
+    else {
+        this.amount -= amt
+        itemStack.amount += amt
+    }
+    return true
+}

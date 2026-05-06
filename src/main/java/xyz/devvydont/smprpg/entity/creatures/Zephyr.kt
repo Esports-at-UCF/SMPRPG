@@ -11,6 +11,7 @@ import kr.toxicity.model.api.data.renderer.ModelRenderer
 import kr.toxicity.model.api.tracker.ModelScaler
 import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
+import org.bukkit.damage.DamageType
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Ghast
 import org.bukkit.entity.Snowball
@@ -124,6 +125,10 @@ class Zephyr : CustomEntityInstance<Ghast?>, Listener {
     fun onZephyrTakeDamage(event: EntityDamageEvent) {
         val entity = event.entity
         if (entity == this._entity) {
+            if (event.damageSource.damageType == DamageType.IN_WALL) {
+                event.isCancelled = true
+                return
+            }
             entity.location.world.playSound(entity.location, KeyStore.AUDIO_ZEPHYR_HURT.toString(), 1.0f, 1.0f)
         }
     }
