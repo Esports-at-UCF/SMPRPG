@@ -24,19 +24,29 @@ class ItemDurabilityListener : ToggleableListener() {
     @Suppress("unused")
     private fun onItemDamage(event: PlayerItemDamageEvent) {
 
-        // Durability changes are always 1
-        if (event.damage > 0)
+        // Durability changes are always 1, unless we want to force an instabreak.
+        if (event.damage > 0 && event.damage != INSTA_BREAK_ITEM_AMT)
             event.damage = 1
 
-        Bukkit.getScheduler().runTaskLater(
-            SMPRPG.plugin,
-            Runnable { ItemService.blueprint(event.item).updateItemData(event.item) },
-            TickTime.INSTANTANEOUSLY
-        )
+        if (event.damage != INSTA_BREAK_ITEM_AMT) {
+            Bukkit.getScheduler().runTaskLater(
+                SMPRPG.plugin,
+                Runnable { ItemService.blueprint(event.item).updateItemData(event.item) },
+                TickTime.INSTANTANEOUSLY
+            )
+        }
 
         val item = event.item
-        val currItemDamage = item.getData(DataComponentTypes.DAMAGE) as Int
-        val maxAllowedDamage = item.getData(DataComponentTypes.MAX_DAMAGE) as Int - 1
+        var currItemDamage: Int
+        var maxAllowedDamage: Int
+        if (event.damage == INSTA_BREAK_ITEM_AMT) {
+            maxAllowedDamage = item.getData(DataComponentTypes.MAX_DAMAGE) as Int
+            currItemDamage = maxAllowedDamage
+        }
+        else {
+            currItemDamage = item.getData(DataComponentTypes.DAMAGE) as Int
+            maxAllowedDamage = item.getData(DataComponentTypes.MAX_DAMAGE) as Int - 1
+        }
 
         // If we are at x-1/x durability or about to pass it
         if (currItemDamage + event.damage >= maxAllowedDamage) {
@@ -45,12 +55,13 @@ class ItemDurabilityListener : ToggleableListener() {
             // Force an update to our item stack to get our attributes to recalculate.
             val itemBp = ItemService.blueprint(item)
             itemBp.updateItemData(item)
-            event.isCancelled = true
+            if (event.damage != INSTA_BREAK_ITEM_AMT) event.isCancelled = true
 
             // Play the break sound of the item at the player to notify them
             val player = event.player
             player.playSound(player.location, item.getData(DataComponentTypes.BREAK_SOUND).toString(), 1f, 1f)
-            player.world.spawnParticle(Particle.ITEM, player.eyeLocation, 10, 0.2, 0.0, 0.2, 0.1, item);
+            player.world.spawnParticle(Particle.ITEM, player.eyeLocation, 10, 0.2, 0.0, 0.2, 0.1, item)
+
         }
     }
 
@@ -91,6 +102,8 @@ class ItemDurabilityListener : ToggleableListener() {
             Material.GLOW_BERRIES,
             Material.SUGAR_CANE
         )
+
+        val INSTA_BREAK_ITEM_AMT = 999
     }
 
 }

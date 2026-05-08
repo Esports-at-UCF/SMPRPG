@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerBucketEmptyEvent
 import org.bukkit.event.player.PlayerMoveEvent
+import org.bukkit.event.weather.WeatherChangeEvent
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 import org.joml.Vector3i
@@ -23,6 +24,7 @@ import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
+import xyz.devvydont.smprpg.util.persistence.KeyStore
 import java.util.*
 
 class AetherDimensionListeners : ToggleableListener() {
@@ -154,6 +156,17 @@ class AetherDimensionListeners : ToggleableListener() {
         }
     }
 
+    /**
+     * No weather in the Aether (would be weird to have rain above the clouds)
+     */
+    @EventHandler
+    private fun onWeatherChange(event: WeatherChangeEvent) {
+        if (event.world == Bukkit.getWorld(KeyStore.DIM_AETHER)) event.isCancelled = true
+    }
+
+    /**
+     * This behemoth handles portal ignition logic.
+     */
     @EventHandler
     private fun onWaterPlace(event: PlayerBucketEmptyEvent) {
         val block = event.block

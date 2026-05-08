@@ -17,6 +17,7 @@ import xyz.devvydont.smprpg.items.blueprints.debug.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.aetherium.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.aetherutil.WingsOfIcarus;
 import xyz.devvydont.smprpg.items.blueprints.sets.cobalt.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.iron.IronKnife;
 import xyz.devvydont.smprpg.items.blueprints.sets.orichalcum.*;
@@ -840,6 +841,7 @@ public enum CustomItemType {
     // ELYTRAS
     PHANTOM_WINGS("Phantom Wings", Material.ELYTRA, ItemRarity.RARE, PhantomWings.class),
     EVORI_DREAMWINGS("Evori Dreamwings", Material.ELYTRA, ItemRarity.EPIC, EvoriDreamwings.class),
+    WINGS_OF_ICARUS("Wings of Icarus", Material.ELYTRA, ItemRarity.UNCOMMON, WingsOfIcarus.class),
 
     // CHARMS
     SPEED_CHARM("Speed Charm",       Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      SpeedCharm.class),
