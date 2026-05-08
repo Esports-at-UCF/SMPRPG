@@ -32,7 +32,6 @@ class FreezerBlockBehavior(
 
     override fun <T : BlockEntity> blockEntityType(state: ImmutableBlockState): BlockEntityType<T?>? {
         return EntityBlockBehavior.blockEntityTypeHelper(SMPRPGBlockEntityTypes.FREEZER)
-
     }
 
     override fun createBlockEntity(pos: BlockPos, state: ImmutableBlockState): BlockEntity? {
@@ -57,8 +56,8 @@ class FreezerBlockBehavior(
     companion object {
         val FACTORY = Factory()
 
-        class Factory : BlockBehaviorFactory<SimpleStorageBlockBehavior?> {
-            override fun create(block: CustomBlock, arguments: MutableMap<String?, Any?>): SimpleStorageBlockBehavior {
+        class Factory : BlockBehaviorFactory<FreezerBlockBehavior?> {
+            override fun create(block: CustomBlock, arguments: MutableMap<String?, Any?>): FreezerBlockBehavior {
                 val hasAnalogOutputSignal =
                     ResourceConfigUtils.getAsBoolean(arguments.getOrDefault("has-signal", true), "has-signal")
                 return FreezerBlockBehavior(

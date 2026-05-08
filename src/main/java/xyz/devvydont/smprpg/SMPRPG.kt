@@ -2,41 +2,17 @@ package xyz.devvydont.smprpg
 
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.NamedTextColor
-import net.momirealms.craftengine.core.block.behavior.BlockBehaviors
-import net.momirealms.craftengine.core.block.entity.BlockEntityTypes
 import net.momirealms.craftengine.core.item.recipe.result.PostProcessors
-import net.momirealms.craftengine.core.util.Key as CEKey
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
-import xyz.devvydont.smprpg.block.behaviors.AcceleratorBlockBehavior
-import xyz.devvydont.smprpg.block.behaviors.LaunchBlockBehavior
-import xyz.devvydont.smprpg.block.behaviors.PortalBlockBehavior
-import xyz.devvydont.smprpg.block.behaviors.AscendingBlockBehavior
-import xyz.devvydont.smprpg.block.behaviors.BerryBushBlockBehavior
-import xyz.devvydont.smprpg.block.behaviors.FarmlandBlockBehavior
-import xyz.devvydont.smprpg.block.behaviors.FreezerBlockBehavior
-import xyz.devvydont.smprpg.block.behaviors.SMPRPGMenuBlockBehavior
-import xyz.devvydont.smprpg.block.behaviors.TickAcceleratorBlockBehavior
-import xyz.devvydont.smprpg.block.behaviors.TillableBlockBehavior
-import xyz.devvydont.smprpg.block.entity.FreezerBlockEntity
+import xyz.devvydont.smprpg.block.behaviors.SMPRPGBlockBehaviors
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
-import xyz.devvydont.smprpg.listeners.block.AetherDimensionListeners
-import xyz.devvydont.smprpg.listeners.block.AscendingBlockListener
-import xyz.devvydont.smprpg.listeners.block.CraftEngineBlockEventListener
-import xyz.devvydont.smprpg.listeners.block.DimensionPortalLockingListener
-import xyz.devvydont.smprpg.listeners.block.MultiBlockBreakListener
-import xyz.devvydont.smprpg.listeners.block.TrialChamberVaultFix
-import xyz.devvydont.smprpg.listeners.block.XPOrbDisablerListener
+import xyz.devvydont.smprpg.listeners.block.*
 import xyz.devvydont.smprpg.listeners.crafting.AnvilRepairListener
-import xyz.devvydont.smprpg.listeners.damage.AbsorptionDamageFix
-import xyz.devvydont.smprpg.listeners.damage.EnvironmentalDamageListener
-import xyz.devvydont.smprpg.listeners.damage.MeleeVisualListener
-import xyz.devvydont.smprpg.listeners.damage.PvPListener
-import xyz.devvydont.smprpg.listeners.damage.SlimeRapidAttackFixListener
-import xyz.devvydont.smprpg.listeners.damage.UnderwaterArrowListener
+import xyz.devvydont.smprpg.listeners.damage.*
 import xyz.devvydont.smprpg.listeners.entity.HealthRegenerationListener
 import xyz.devvydont.smprpg.listeners.entity.HealthScaleListener
 import xyz.devvydont.smprpg.listeners.entity.StructureEntitySpawnListener
@@ -48,6 +24,7 @@ import xyz.devvydont.smprpg.services.*
 import xyz.devvydont.smprpg.util.animations.AnimationService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
+import net.momirealms.craftengine.core.util.Key as CEKey
 
 
 class SMPRPG : JavaPlugin() {
@@ -146,6 +123,10 @@ class SMPRPG : JavaPlugin() {
 
         // Start all of them.
         for (listener in generalListeners) listener.start()
+
+        // Initialize our CraftEngine block behaviors
+        // TODO: This can be deleted if we ever directly access this class, we never do so currently
+        SMPRPGBlockBehaviors()
     }
 
     override fun onDisable() {
@@ -162,53 +143,9 @@ class SMPRPG : JavaPlugin() {
                 this.logger.warning("The datapack failed to load.")
             }
         }
-        registerBlockBehaviors()
         registerRecipePostProcessors()
     }
 
-    fun registerBlockBehaviors() {
-        BlockBehaviors.register(
-            CEKey.from("smprpg:launch_block"),
-            LaunchBlockBehavior.FACTORY
-        )
-        BlockBehaviors.register(
-            CEKey.from("smprpg:portal"),
-            PortalBlockBehavior.FACTORY
-        )
-        BlockBehaviors.register(
-            CEKey.from("smprpg:accelerator"),
-            AcceleratorBlockBehavior.FACTORY
-        )
-        BlockBehaviors.register(
-            CEKey.from("smprpg:ascending_block"),
-            AscendingBlockBehavior.FACTORY
-        )
-        BlockBehaviors.register(
-            CEKey.from("smprpg:berry_bush"),
-            BerryBushBlockBehavior.FACTORY
-        )
-        BlockBehaviors.register(
-            CEKey.from("smprpg:tick_accelerator"),
-            TickAcceleratorBlockBehavior.FACTORY
-        )
-        BlockBehaviors.register(
-            CEKey.from("smprpg:menu_interactable"),
-            SMPRPGMenuBlockBehavior.FACTORY
-        )
-        BlockBehaviors.register(
-            CEKey.from("smprpg:tillable_block"),
-            TillableBlockBehavior.FACTORY
-        )
-        BlockBehaviors.register(
-            CEKey.from("smprpg:farmland"),
-            FarmlandBlockBehavior.FACTORY
-        )
-        BlockBehaviors.register(
-            CEKey.from("smprpg:freezer"),
-            FreezerBlockBehavior.FACTORY
-        )
-        logger.info("SMPRPG Block behaviors registered!")
-    }
 
     fun registerRecipePostProcessors() {
         PostProcessors.register(

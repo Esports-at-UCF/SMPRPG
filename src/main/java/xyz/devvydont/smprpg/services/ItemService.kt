@@ -1711,6 +1711,13 @@ class ItemService : IService, Listener {
                 generate(type.vanilla)
         }
 
+        @JvmStatic
+        fun generate(type: MaterialWrapper, quantity: Int): ItemStack {
+            val item = generate(type)
+            item.amount = quantity
+            return item
+        }
+
         // Shortcut methods to do very common operations much less verbosely. This instance should always be a singleton
         // so static method calls like this are designed to be safe.
         /**
@@ -1730,6 +1737,13 @@ class ItemService : IService, Listener {
             }
         }
 
+        @JvmStatic
+        fun generate(type: CustomItemType, quantity: Int): ItemStack {
+            val item = generate(type)
+            item.amount = quantity
+            return item
+        }
+
         /**
          * Given a Bukkit material, return a vanilla instanced ItemStack with properly updated metadata.
          *
@@ -1745,6 +1759,13 @@ class ItemService : IService, Listener {
                 e.printStackTrace()
                 return ItemStack(Material.AIR)
             }
+        }
+
+        @JvmStatic
+        fun generate(material: Material, quantity: Int): ItemStack {
+            val item = generate(material)
+            item.amount = quantity
+            return item
         }
 
         /**

@@ -147,8 +147,12 @@ class FreezerBlockEntity(val pos: BlockPos, val blockState: ImmutableBlockState)
                         if (entry.recipe.input.isSimilar(ingredient)) {
                             freezer.recipe = entry.recipe
                             val result = inv.getItem(OUTPUT_SLOT)
-                            if (result == null || result.isSimilar(freezer.recipe!!.result))
-                                freezer.recipeTime = entry.recipe.freezeTime
+                            if (result == null || result.isSimilar(freezer.recipe!!.result)) {
+                                if (result != null && result.amount < result.maxStackSize)
+                                    freezer.recipeTime = entry.recipe.freezeTime
+                                else
+                                    freezer.recipeTime = entry.recipe.freezeTime
+                            }
                             break
                         }
                     }
@@ -176,6 +180,11 @@ class FreezerBlockEntity(val pos: BlockPos, val blockState: ImmutableBlockState)
                         result.add()
                     else
                         inv.setItem(OUTPUT_SLOT, freezer.recipe!!.result)
+                    val newOutput = inv.getItem(OUTPUT_SLOT)!!
+                    if (newOutput.amount >= newOutput.maxStackSize) {
+                        freezer.recipeTime = 0
+                        freezer.recipe = null
+                    }
                 }
             }
             else {

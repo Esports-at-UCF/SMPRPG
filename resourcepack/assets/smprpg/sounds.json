@@ -494,6 +494,13 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.cutting_board.cut": {
+    "sounds": [
+      "smprpg:block/cutting_board/cut1",
+      "smprpg:block/cutting_board/cut2"
+    ],
+    "subtitle": "subtitles.entity.zephyr.death"
+  },
   "entity.illager_warlock.cast_toss": {
     "sounds": [
       "smprpg:entity/illager_warlock/cast_toss"

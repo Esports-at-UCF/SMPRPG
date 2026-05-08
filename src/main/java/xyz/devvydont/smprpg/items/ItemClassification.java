@@ -46,6 +46,12 @@ public enum ItemClassification {
             ItemTypeTagKeys.ENCHANTABLE_DURABILITY,
             ItemTypeTagKeys.ENCHANTABLE_VANISHING,
             ItemTypeTagKeys.ENCHANTABLE_FIRE_ASPECT),
+    KNIFE(ItemTypeTagKeys.ENCHANTABLE_WEAPON,
+            ItemTypeTagKeys.ENCHANTABLE_SHARP_WEAPON,
+            ItemTypeTagKeys.ENCHANTABLE_DURABILITY,
+            ItemTypeTagKeys.ENCHANTABLE_VANISHING,
+            ItemTypeTagKeys.ENCHANTABLE_SWEEPING,
+            ItemTypeTagKeys.ENCHANTABLE_FIRE_ASPECT),
     // Both bows and crossbows
     BOW(ItemTypeTagKeys.ENCHANTABLE_DURABILITY,
             ItemTypeTagKeys.ENCHANTABLE_VANISHING,

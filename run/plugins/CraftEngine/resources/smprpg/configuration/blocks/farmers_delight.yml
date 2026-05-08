@@ -1,0 +1,79 @@
+items:
+  smprpg:cutting_board:
+    settings:
+      fuel-time: 300
+    data:
+      item-name: <!i><lang:item.smprpg.cutting_board>
+      pdc:
+        smprpg:item-type: cutting_board
+    model: smprpg:block/interactables/cutting_board
+    behavior:
+      type: block_item
+      block: smprpg:cutting_board
+  smprpg:iron_knife:
+    material: iron_sword
+    model:
+      template: smprpg:model/handheld
+      arguments:
+        model: smprpg:item/tools/iron_knife
+        texture: smprpg:item/tools/iron_knife
+    tags:
+      - smprpg:knives
+    data:
+      item-name: <!i><lang:item.smprpg.iron_knife>
+      max_damage: 320
+      pdc:
+        smprpg:item-type: iron_knife
+
+
+blocks:
+  smprpg:cutting_board:
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+      appearances:
+        north:
+          state: minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,powered=false,south=false,west=false]
+          entity-renderer:
+              - type: item_display
+                item: smprpg:cutting_board
+        south:
+          state: minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,powered=false,south=false,west=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:cutting_board
+              yaw: 180
+        east:
+          state: minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,powered=false,south=false,west=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:cutting_board
+              yaw: 90
+        west:
+          state: minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,powered=false,south=false,west=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:cutting_board
+              yaw: 270
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=west:
+          appearance: west
+        facing=south:
+          appearance: south
+    settings:
+      template:
+        - smprpg:settings/planks
+        - smprpg:settings/transparent_1x1x1
+      require-correct-tools: false
+      map-color: 13
+    behaviors:
+      - type: sturdy_base_block
+        direction: down
+        support-types:
+          - center
+      - type: smprpg:cutting_board

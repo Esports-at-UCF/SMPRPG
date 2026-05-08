@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.craftengine
 
+import net.momirealms.craftengine.bukkit.api.BukkitAdaptors
 import net.momirealms.craftengine.bukkit.api.CraftEngineItems
 import net.momirealms.craftengine.core.util.Key
 import org.bukkit.inventory.ItemStack
@@ -28,6 +29,8 @@ open class CraftEngineBlueprint(itemService: ItemService, type: CustomItemType) 
         else {
             itemStack = ItemStack.of(customItemType.DisplayMaterial)
         }
+        val ceItem = BukkitAdaptors.adapt(itemStack)
+        ceItem.setTag("craftengine:id", "smprpg:${customItemType.key}")
 
 
         // Apply updates to this item according to our blueprint's spec.

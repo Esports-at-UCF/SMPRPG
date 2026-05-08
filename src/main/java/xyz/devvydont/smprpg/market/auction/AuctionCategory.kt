@@ -24,6 +24,7 @@ enum class AuctionCategory(val displayName: String, val icon: Material) {
                 ItemClassification.STAFF,
                 ItemClassification.TRIDENT,
                 ItemClassification.MACE,
+                ItemClassification.KNIFE,
                 ItemClassification.AXE -> WEAPONS
 
                 ItemClassification.BOW,

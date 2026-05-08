@@ -18,6 +18,7 @@ import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyB
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.aetherium.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.cobalt.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.iron.IronKnife;
 import xyz.devvydont.smprpg.items.blueprints.sets.orichalcum.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.palladium.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.platinum.*;
@@ -862,6 +863,9 @@ public enum CustomItemType {
     // DIAMOND_HATCHET("Diamond Hatchet",   Material.DIAMOND_AXE,   ItemRarity.RARE, DiamondHatchet.class),
     NETHERITE_HATCHET("Netherite Hatchet", Material.NETHERITE_AXE, ItemRarity.EPIC,     NetheriteHatchet.class),
 
+    // KNIVES
+    IRON_KNIFE("Iron Knife", Material.IRON_SWORD, ItemRarity.COMMON, IronKnife.class),
+
     // EXILED SET
     EXILED_CROSSBOW("Exiled Crossbow", Material.CROSSBOW, ItemRarity.EPIC,  ExiledCrossbow.class),
     EXILED_AXE("Exiled Axe", Material.IRON_AXE, ItemRarity.EPIC,  ExiledAxe.class),
@@ -971,7 +975,7 @@ public enum CustomItemType {
 
     // CROPS
     TOMATO("Tomato", Material.APPLE, ItemRarity.COMMON, Tomato.class),
-    TOMATO_SEEDS("Tomato Seeds", Material.BEETROOT_SEEDS, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    TOMATO_SEEDS("Tomato Seeds", Material.WHEAT, ItemRarity.COMMON, CraftEngineBlueprint.class),
     HEARTBEET("Heartbeet", Material.NETHER_BRICK, ItemRarity.UNCOMMON, Heartbeet.class),
 
     // FOOD
@@ -1244,6 +1248,7 @@ public enum CustomItemType {
     REFORGE_TABLE(     "Reforge Table",        Material.NETHER_BRICK,     ItemRarity.UNCOMMON, ReforgeTable.class),
     NETHERITE_ANVIL(   "Netherite Anvil",      Material.NETHER_BRICK,     ItemRarity.EPIC, CraftEngineBlueprint.class),
     FREEZER(           "Freezer",              Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
+    CUTTING_BOARD(     "Cutting Board",        Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
 
     GRIMSTONE("Grimstone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     COBBLED_GRIMSTONE("Cobbled Grimstone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),

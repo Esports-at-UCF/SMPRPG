@@ -2,7 +2,6 @@ package xyz.devvydont.smprpg.recipe.freezer
 
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
-import org.bukkit.inventory.RecipeChoice
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.ItemService

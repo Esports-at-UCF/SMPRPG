@@ -99,4 +99,6 @@ public class KeyStore {
     public static final NamespacedKey AUDIO_BLUE_AERCOULD_BOUNCE = new NamespacedKey(NAMESPACE, "block.blue_aercloud.bounce");
     public static final NamespacedKey AUDIO_AETHER_ADVANCEMENT_GENERAL = new NamespacedKey(NAMESPACE, "events.advancement.aether");
 
+    public static final NamespacedKey AUDIO_CUTTING_BOARD_CUT = new NamespacedKey(NAMESPACE, "block.cutting_board.cut");
+
 }
