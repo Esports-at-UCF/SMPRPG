@@ -14,6 +14,7 @@ import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineCompressibleBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.crops.*;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
+import xyz.devvydont.smprpg.items.blueprints.food.ingredients.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.aetherium.*;
@@ -993,6 +994,18 @@ public enum CustomItemType {
     BREADBOARD("Breadboard", Material.PAPER, ItemRarity.COMMON, BreadboardBlueprint.class),
     CHARRED_CRISP("Charred Crisp", Material.DRIED_KELP, ItemRarity.COMMON, CharredCrispBlueprint.class),
 
+    // INGREDIENTS
+    UNFIRED_CERAMIC_PLATE("Unfired Ceramic Plate", Material.CLAY_BALL, ItemRarity.COMMON, UnfiredCeramicPlate.class),
+    CERAMIC_PLATE("Ceramic Plate", Material.BRICK, ItemRarity.COMMON, CeramicPlate.class),
+    GROUND_BEEF("Ground Beef", Material.NETHER_BRICK, ItemRarity.COMMON, GroundBeef.class),
+    COOKED_GROUND_BEEF("Cooked Ground Beef", Material.NETHER_BRICK, ItemRarity.COMMON, CookedGroundBeef.class),
+    BEEF_PATTY("Beef Patty", Material.NETHER_BRICK, ItemRarity.COMMON, BeefPatty.class),
+    COOKED_BEEF_PATTY("Cooked Beef Patty", Material.NETHER_BRICK, ItemRarity.COMMON, CookedBeefPatty.class),
+    STEAK_STRIPS("Steak Strips", Material.NETHER_BRICK, ItemRarity.COMMON, SteakStrips.class),
+
+    // MEALS
+    BEEF_STEW("Beef Stew", Material.MUSHROOM_STEW, ItemRarity.UNCOMMON, BeefStew.class),
+
     // EXP BOTTLES
     EXPERIENCE_BOTTLE("Experience Bottle", Material.EXPERIENCE_BOTTLE, ItemRarity.COMMON, ExperienceBottle.class),  // normal lapis
     LARGE_EXPERIENCE_BOTTLE("Large Experience Bottle", Material.EXPERIENCE_BOTTLE, ItemRarity.UNCOMMON, ExperienceBottle.class),  // block of lapis
@@ -1251,6 +1264,7 @@ public enum CustomItemType {
     NETHERITE_ANVIL(   "Netherite Anvil",      Material.NETHER_BRICK,     ItemRarity.EPIC, CraftEngineBlueprint.class),
     FREEZER(           "Freezer",              Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
     CUTTING_BOARD(     "Cutting Board",        Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
+    COOKING_POT(       "Cooking Pot",          Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
 
     GRIMSTONE("Grimstone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     COBBLED_GRIMSTONE("Cobbled Grimstone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
@@ -1484,6 +1498,8 @@ public enum CustomItemType {
 
     POINTER_PRISM("Pointer Prism", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     POINTER_PRISM_BLOCK("Pointer Prism Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    KITCHEN_TILES("Kitchen Tiles", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     ;
 
     public final String ItemName;

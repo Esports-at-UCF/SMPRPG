@@ -141,6 +141,8 @@ items:
         - minecraft:wooden_tool_materials
     data:
       item-name: <!i><lang:item.smprpg.golden_oak_planks>
+      pdc:
+        smprpg:item-type: golden_oak_planks
     model: smprpg:block/aether/golden_oak_planks
     behavior:
       type: block_item

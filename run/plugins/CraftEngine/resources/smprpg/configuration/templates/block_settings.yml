@@ -447,6 +447,11 @@ templates#events:
               sound: ${regen_sound}
               pitch: 0.5
               source: block
+  smprpg:events/swing_main_hand:
+    - on: right_click
+      functions:
+        - type: swing_hand
+          hand: main_hand
 
 
 

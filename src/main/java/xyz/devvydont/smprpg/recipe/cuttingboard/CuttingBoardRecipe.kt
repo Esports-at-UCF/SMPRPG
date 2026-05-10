@@ -5,10 +5,10 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.Recipe
 
-class CuttingBoardRecipe(val key: NamespacedKey, val input: ItemStack, val recipeResult: ItemStack, val processToolTag: Key) :
+class CuttingBoardRecipe(val key: NamespacedKey, val input: ItemStack, val recipeResult: List<Pair<ItemStack, Double>>, val processToolTag: Key) :
     Recipe {
 
     override fun getResult(): ItemStack {
-        return recipeResult
+        throw IllegalStateException("getResult should not be used on CuttingBoardRecipes. Use recipeResult instead.")
     }
 }

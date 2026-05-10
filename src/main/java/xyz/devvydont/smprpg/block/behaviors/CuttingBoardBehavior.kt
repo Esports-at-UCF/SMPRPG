@@ -30,6 +30,7 @@ import xyz.devvydont.smprpg.items.interfaces.IKnife
 import xyz.devvydont.smprpg.recipe.cuttingboard.CuttingBoardRecipes
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.persistence.KeyStore
+import kotlin.random.Random
 
 class CuttingBoardBehavior(customBlock: CustomBlock) : BukkitBlockBehavior(customBlock), EntityBlockBehavior {
 
@@ -138,7 +139,17 @@ class CuttingBoardBehavior(customBlock: CustomBlock) : BukkitBlockBehavior(custo
                 // if (toolToProcess.hasItemTag(entry.recipe.processToolTag)) {  // TODO: This is the correct way to do this, we need to do a blueprint check until tags are fixed
                 val bp = ItemService.blueprint(toolToProcess.item as ItemStack)
                 if (ItemService.blueprint(toolToProcess.item as ItemStack) is IKnife) {
-                    board.world.world().dropItemNaturally(dropPos, BukkitItemManager.instance().wrap(entry.recipe.recipeResult))
+                    for (item in entry.recipe.recipeResult) {
+                        val itemStack = item.first
+                        val chance = item.second
+                        if (Random.nextDouble() <= chance) {
+                            board.world.world()
+                                .dropItemNaturally(
+                                    dropPos,
+                                    BukkitItemManager.instance().wrap(itemStack)
+                                )
+                        }
+                    }
                     if (!damage.isEmpty) {
                         toolToProcess.hurtAndBreak(1, player, EquipmentSlot.MAINHAND)
                         player.swingHand(InteractionHand.MAIN_HAND)

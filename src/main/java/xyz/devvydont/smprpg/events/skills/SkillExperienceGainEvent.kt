@@ -30,6 +30,7 @@ class SkillExperienceGainEvent(
         ANVIL,
         XP,
         COMMANDS,
+        COOK,
         UNKNOWN
     }
 

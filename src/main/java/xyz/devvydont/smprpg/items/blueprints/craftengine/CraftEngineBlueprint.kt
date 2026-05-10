@@ -30,7 +30,7 @@ open class CraftEngineBlueprint(itemService: ItemService, type: CustomItemType) 
             itemStack = ItemStack.of(customItemType.DisplayMaterial)
         }
         val ceItem = BukkitAdaptors.adapt(itemStack)
-        ceItem.setTag("craftengine:id", "smprpg:${customItemType.key}")
+        ceItem.setTag("smprpg:${customItemType.key}", "craftengine:id")
 
 
         // Apply updates to this item according to our blueprint's spec.

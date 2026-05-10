@@ -15,11 +15,23 @@ class CuttingBoardToolTags() {
 }
 
 enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
-    TEST_WHEAT_TO_POTATO(
+    BEEF_TO_GROUND_BEEF(
         CuttingBoardRecipe(
-            NamespacedKey(SMPRPG.Companion.plugin, "test_wheat_to_potato_cutting"),
-            ItemService.generate(Material.WHEAT),
-            ItemService.generate(Material.POTATO, 2),
+            NamespacedKey(SMPRPG.Companion.plugin, "beef_to_ground_beef_cutting"),
+            ItemService.generate(Material.BEEF),
+            listOf(
+                Pair(ItemService.generate(CustomItemType.GROUND_BEEF, 2), 1.0),
+            ),
+            CuttingBoardToolTags.KNIVES
+        )
+    ),
+    STEAK_TO_STEAK_STRIPS(
+        CuttingBoardRecipe(
+            NamespacedKey(SMPRPG.Companion.plugin, "steak_to_steak_strips_cutting"),
+            ItemService.generate(Material.COOKED_BEEF),
+            listOf(
+                Pair(ItemService.generate(CustomItemType.STEAK_STRIPS, 2), 1.0),
+            ),
             CuttingBoardToolTags.KNIVES
         )
     )

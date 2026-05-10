@@ -1267,6 +1267,15 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.POINTER_PRISM), 9.0))
                 .build()
         )
+
+        register(
+            CraftEngineBlockEnums.KITCHEN_TILES.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.KITCHEN_TILES)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.KITCHEN_TILES)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.KITCHEN_TILES)))
+                .ignoresFortune()
+                .build()
+        )
     }
 
     fun register(material: Material?, entry: BlockLootEntry?) {

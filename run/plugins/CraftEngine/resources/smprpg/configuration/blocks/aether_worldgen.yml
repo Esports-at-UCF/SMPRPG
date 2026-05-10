@@ -396,7 +396,7 @@ blocks:
         - smprpg:sound/grass
         - smprpg:settings/solid_1x1x1
       require-correct-tools: false
-      map-color: 7
+      map-color: 61
       is-randomly-ticking: true
       support-shape: minecraft:grass_block
       merges:

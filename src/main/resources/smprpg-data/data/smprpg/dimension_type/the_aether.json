@@ -45,5 +45,5 @@
     "max_inclusive": 7,
     "min_inclusive": 0
   },
-  "timelines": "#minecraft:in_overworld"
+  "timelines": "#smprpg:in_aether"
 }

@@ -1,5 +1,4 @@
-{
-	"subtitles.breadboard.eat": "Taking a byte",
+{	
 	"enchantment.level.0": "",
 	"enchantment.level.255": "",
 	
@@ -67,5 +66,17 @@
 	"advancements.smprpg.aether.loot_crystal_island.title": "How I Wonder Where You Are",
 	"advancements.smprpg.aether.loot_crystal_island.description": "Find a loot chest on the Crystal Tree Island.",
 	"advancements.smprpg.aether.find_golden_oak_island.title": "Money Does Grow On Trees?",
-	"advancements.smprpg.aether.find_golden_oak_island.description": "Find a Golden Oak Tree."
+	"advancements.smprpg.aether.find_golden_oak_island.description": "Find a Golden Oak Tree.",
+	
+	"biome.smprpg.forsaken_forest": "Forsaken Forest",
+	"biome.smprpg.skyroot_forest": "Skyroot Forest",
+	"biome.smprpg.skyroot_grove": "Skyroot Grove",
+	"biome.smprpg.skyroot_meadows": "Skyroot Meadows",
+	"biome.smprpg.skyroot_woodland": "Skyroot Woodland",
+	
+	"subtitles.breadboard.eat": "Taking a byte",
+	"subtitles.entity.zephyr.call": "Zephyr calls",
+	"subtitles.entity.zephyr.call": "Zephyr shoots",
+	"subtitles.entity.zephyr.call": "Zephyr takes damage",
+	"subtitles.entity.zephyr.call": "Zephyr died"
 }

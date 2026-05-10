@@ -18,6 +18,7 @@ public interface IEdible extends IConsumable {
     int getNutrition(ItemStack item);
     float getSaturation(ItemStack item);
     boolean canAlwaysEat(ItemStack item);
+    float DEFAULT_EAT_SPEED = 1.6f;
 
     static String generateShankComponent(int fill, boolean isSaturation) {
         String comp = "";

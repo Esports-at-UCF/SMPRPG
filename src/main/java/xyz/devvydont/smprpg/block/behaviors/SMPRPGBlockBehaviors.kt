@@ -55,5 +55,9 @@ class SMPRPGBlockBehaviors : BlockBehaviors() {
             Key.from("smprpg:cutting_board"),
             CuttingBoardBehavior.FACTORY
         )
+        val COOKING_POT = register(
+            Key.from("smprpg:cooking_pot"),
+            CookingPotBlockBehavior.FACTORY
+        )
     }
 }

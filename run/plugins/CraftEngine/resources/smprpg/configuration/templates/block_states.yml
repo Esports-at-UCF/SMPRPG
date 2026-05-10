@@ -2894,3 +2894,76 @@ templates:
         appearance: east=false,north=true,south=true,waterlogged=true,west=true
       east=true,north=true,south=true,waterlogged=true,west=true:
         appearance: east=true,north=true,south=true,waterlogged=true,west=true
+
+  smprpg:block_state/cabinet:
+    properties:
+      facing:
+        type: horizontal_direction
+      open:
+        type: boolean
+        default: false
+    appearances:
+      north:
+        state: barrier
+        entity-renderer:
+          - type: item_display
+            item: ${item_closed}
+            yaw: 180
+      south:
+        state: barrier
+        entity-renderer:
+          - type: item_display
+            item: ${item_closed}
+      east:
+        state: barrier
+        entity-renderer:
+          - type: item_display
+            item: ${item_closed}
+            yaw: 270
+      west:
+        state: barrier
+        entity-renderer:
+          - type: item_display
+            item: ${item_closed}
+            yaw: 90
+      north_open:
+        state: barrier
+        entity-renderer:
+          - type: item_display
+            item: ${item_open}
+            yaw: 180
+      south_open:
+        state: barrier
+        entity-renderer:
+          - type: item_display
+            item: ${item_open}
+            yaw: 0
+      east_open:
+        state: barrier
+        entity-renderer:
+          - type: item_display
+            item: ${item_open}
+            yaw: 270
+      west_open:
+        state: barrier
+        entity-renderer:
+          - type: item_display
+            item: ${item_open}
+            yaw: 90
+    variants:
+      facing=north,open=false:
+        appearance: north
+      facing=east,open=false:
+        appearance: east
+      facing=west,open=false:
+        appearance: west
+      facing=south,open=false:
+        appearance: south
+      facing=north,open=true:
+        appearance: north_open
+      facing=east,open=true:
+        appearance: east_open
+      facing=west,open=true:
+        appearance: west_open
+      facing=south,open=true:
+        appearance: south_open

@@ -136,4 +136,6 @@ enum class CraftEngineBlockEnums(val key : Key) {
     CHISELED_SMOKY_QUARTZ_BLOCK(Key.of("smprpg", "chiseled_smoky_quartz_block")),
 
     POINTER_PRISM_BLOCK(Key.of("smprpg", "pointer_prism_block")),
+
+    KITCHEN_TILES(Key.of("smprpg", "kitchen_tiles")),
 }

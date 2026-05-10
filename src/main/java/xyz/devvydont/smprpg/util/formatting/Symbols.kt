@@ -124,6 +124,7 @@ object Symbols {
     const val STAT_MAIN_MENU: String = "\ub00F"
     const val STAT_SUB_MENU: String = "\ub010"
     const val FREEZER_MENU: String = "\ub011"
+    const val COOKING_POT_MENU: String = "\ub012"
 
     const val ABILITY: String = "\uc001"
     const val PASSIVE: String = "\uc002"

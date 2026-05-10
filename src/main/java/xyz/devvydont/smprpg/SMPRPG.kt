@@ -1,14 +1,18 @@
 package xyz.devvydont.smprpg
 
+import io.papermc.paper.threadedregions.scheduler.AsyncScheduler
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.momirealms.craftengine.core.item.recipe.result.PostProcessors
+import net.momirealms.craftengine.core.plugin.CraftEngine
+import net.momirealms.craftengine.core.plugin.locale.MessageConstants
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
 import xyz.devvydont.smprpg.block.behaviors.SMPRPGBlockBehaviors
+import xyz.devvydont.smprpg.block.entity.SMPRPGBlockEntityTypes
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.listeners.block.*
 import xyz.devvydont.smprpg.listeners.crafting.AnvilRepairListener
@@ -24,6 +28,7 @@ import xyz.devvydont.smprpg.services.*
 import xyz.devvydont.smprpg.util.animations.AnimationService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
+import xyz.devvydont.smprpg.util.time.TickTime
 import net.momirealms.craftengine.core.util.Key as CEKey
 
 
@@ -127,6 +132,14 @@ class SMPRPG : JavaPlugin() {
         // Initialize our CraftEngine block behaviors
         // TODO: This can be deleted if we ever directly access this class, we never do so currently
         SMPRPGBlockBehaviors()
+        SMPRPGBlockEntityTypes()
+        Bukkit.getScheduler().runTaskLater(this, Runnable {
+            // Reloads CraftEngine's config, since we need to have config available both before and after plugin load.
+            Bukkit.getServer().dispatchCommand(
+                Bukkit.getServer().consoleSender,
+                "ce reload"
+            )
+        }, TickTime.TICK)
     }
 
     override fun onDisable() {

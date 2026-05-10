@@ -884,6 +884,15 @@
         },
         {
             "type": "bitmap",
+            "file": "ui:font/backgrounds/cooking_pot.png",
+            "height": 256,
+            "ascent": -4,
+            "chars": [
+                "\ub012"
+            ]
+        },
+        {
+            "type": "bitmap",
             "file": "ui:font/tooltip_elements/ability.png",
             "height": 10,
             "ascent": 8,
