@@ -16,11 +16,24 @@ enum class CookingPotRecipes(val recipe: CookingPotRecipe) {
             listOf(
                 ItemService.generate(Material.CARROT),
                 ItemService.generate(Material.POTATO),
+                ItemService.generate(CustomItemType.ONION),
                 ItemService.generate(Material.BEEF)
             ),
             200,
             ItemService.generate(CustomItemType.BEEF_STEW),
             SkillExperienceReward().add(SkillType.FARMING, 50),
+            ItemService.generate(Material.BOWL)
+        )
+    ),
+    COOKED_RICE(
+        CookingPotRecipe(
+            NamespacedKey(SMPRPG.plugin, "cooked_rice_cooking_pot"),
+            listOf(
+                ItemService.generate(CustomItemType.RICE)
+            ),
+            200,
+            ItemService.generate(CustomItemType.COOKED_RICE),
+            SkillExperienceReward().add(SkillType.FARMING, 20),
             ItemService.generate(Material.BOWL)
         )
     )

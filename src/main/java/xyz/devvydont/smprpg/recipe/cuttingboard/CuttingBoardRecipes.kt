@@ -34,5 +34,26 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             ),
             CuttingBoardToolTags.KNIVES
         )
+    ),
+    CABBAGE_TO_CABBAGE_LEAVES(
+        CuttingBoardRecipe(
+            NamespacedKey(SMPRPG.Companion.plugin, "cabbage_to_cabbage_leaves_cutting"),
+            ItemService.generate(CustomItemType.CABBAGE),
+            listOf(
+                Pair(ItemService.generate(CustomItemType.CABBAGE_LEAF, 2), 1.0),
+            ),
+            CuttingBoardToolTags.KNIVES
+        )
+    ),
+    RICE_PANICLE_TO_RICE(
+        CuttingBoardRecipe(
+            NamespacedKey(SMPRPG.Companion.plugin, "cabbage_to_cabbage_leaves_cutting"),
+            ItemService.generate(CustomItemType.RICE_PANICLE),
+            listOf(
+                Pair(ItemService.generate(CustomItemType.RICE), 1.0),
+                Pair(ItemService.generate(CustomItemType.STRAW), 0.5),
+            ),
+            CuttingBoardToolTags.KNIVES
+        )
     )
 }

@@ -60,5 +60,11 @@ enum class FreezerRecipes(val recipe: FreezerRecipe) {
         ItemService.generate(CustomItemType.BOILING_INGOT),
         1600,
         ItemService.generate(CustomItemType.ENCHANTED_IRON)
+    )),
+    MELON_JUICE_TO_MELON_POPSICLE(FreezerRecipe(
+        NamespacedKey(SMPRPG.plugin, "melon_juice_to_melon_popsicle_freezing"),
+        ItemService.generate(CustomItemType.MELON_JUICE),
+        200,
+        ItemService.generate(CustomItemType.MELON_POPSICLE)
     ))
 }

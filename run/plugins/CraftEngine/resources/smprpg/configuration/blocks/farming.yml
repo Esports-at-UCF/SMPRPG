@@ -34,7 +34,6 @@ items:
       pdc:
         smprpg:item-type: tomato_seeds
         smprpg:sell-value: 2
-
     texture: smprpg:item/crop/tomato_seeds
     behavior:
       - type: compostable_item
@@ -49,6 +48,68 @@ items:
     behavior:
       - type: compostable_item
         chance: 0.65
+  smprpg:onion:
+    material: minecraft:wheat
+    data:
+      item-name: <!i><lang:item.smprpg.onion>
+      pdc:
+        smprpg:item-type: onion
+        smprpg:sell-value: 5
+    texture: smprpg:item/crop/onion
+    behavior:
+      - type: compostable_item
+        chance: 0.65
+      - type: block_item
+        block: smprpg:onion_plant
+  smprpg:rice:
+    material: minecraft:wheat
+    data:
+      item-name: <!i><lang:item.smprpg.rice>
+      pdc:
+        smprpg:item-type: rice
+        smprpg:sell-value: 5
+    texture: smprpg:item/crop/rice
+    behavior:
+      - type: compostable_item
+        chance: 0.65
+      - type: liquid_collision_block_item
+        block: smprpg:rice_plant
+        y-offset: 0
+  smprpg:cabbage:
+    material: minecraft:wheat
+    data:
+      item-name: <!i><lang:item.smprpg.cabbage>
+      pdc:
+        smprpg:item-type: cabbage
+        smprpg:sell-value: 8
+    texture: smprpg:item/crop/cabbage
+    behavior:
+      - type: compostable_item
+        chance: 0.65
+  smprpg:cabbage_leaf:
+    material: minecraft:wheat
+    data:
+      item-name: <!i><lang:item.smprpg.cabbage>
+      pdc:
+        smprpg:item-type: cabbage
+        smprpg:sell-value: 8
+    texture: smprpg:item/crop/cabbage
+    behavior:
+      - type: compostable_item
+        chance: 0.3
+  smprpg:cabbage_seeds:
+    material: minecraft:wheat
+    data:
+      item-name: <!i><lang:item.smprpg.cabbage_seeds>
+      pdc:
+        smprpg:item-type: cabbage_seeds
+        smprpg:sell-value: 2
+    texture: smprpg:item/crop/cabbage_seeds
+    behavior:
+      - type: compostable_item
+        chance: 0.3
+      - type: block_item
+        block: smprpg:cabbage_plant
 
 blocks:
   smprpg:super_soil:
@@ -197,17 +258,277 @@ blocks#tomato:
           appearance: stage_1
         age=2:
           appearance: stage_2
-vanilla-loots:
-  smprpg:tomato_seeds_from_grass:
-    type: block
-    target: minecraft:short_grass
-    override: false
-    loot:
-      pools:
-        - rolls: 1
-          conditions:
-            - type: random
-              chance: 0.125
-          entries:
-            - type: item
-              item: smprpg:tomato_seeds
+
+blocks#onion:
+  smprpg:onion_plant:
+    settings:
+      template:
+        smprpg:settings/crop
+      overrides:
+        item: smprpg:onion
+        push-reaction: destroy
+        map-color: 28
+        is-randomly-ticking: true
+    behaviors:
+      - type: liquid_flowable_block
+      - type: bush_block
+        bottom-blocks:
+          - minecraft:farmland
+          - smprpg:super_soil
+        bottom_block_tags:
+          - minecraft:farmland
+      - type: crop_block
+        grow-speed: 0.125
+        light-requirement: 9
+        is-bone-meal-target: true
+        bone-meal-age-bonus:
+          type: uniform
+          min: 1
+          max: 2
+    states:
+      properties:
+        age:
+          type: int
+          default: 0
+          range: 0~3
+      appearances:
+        stage_0:
+          auto-state: lower_tripwire
+          models:
+            - path: smprpg:block/crop/onion_stage_0
+              generation:
+                parent: minecraft:block/crop
+                textures:
+                  crop: smprpg:block/crop/onion_stage_0
+        stage_1:
+          auto-state: higher_tripwire
+          models:
+            - path: smprpg:block/crop/onion_stage_1
+              generation:
+                parent: minecraft:block/crop
+                textures:
+                  crop: smprpg:block/crop/onion_stage_1
+        stage_2:
+          auto-state: higher_tripwire
+          models:
+            - path: smprpg:block/crop/onion_stage_2
+              generation:
+                parent: minecraft:block/crop
+                textures:
+                  crop: smprpg:block/crop/onion_stage_2
+        stage_3:
+          auto-state: sugar_cane
+          models:
+            - path: smprpg:block/crop/onion_stage_3
+              generation:
+                parent: minecraft:block/crop
+                textures:
+                  crop: smprpg:block/crop/onion_stage_3
+      variants:
+        age=0:
+          appearance: stage_0
+        age=1:
+          appearance: stage_1
+        age=2:
+          appearance: stage_2
+        age=3:
+          appearance: stage_3
+
+
+blocks#rice:
+  smprpg:rice_plant:
+    settings:
+      template:
+        smprpg:settings/crop
+      overrides:
+        item: smprpg:rice
+        push-reaction: destroy
+        map-color: 28
+        is-randomly-ticking: true
+    behaviors:
+      - type: bush_block
+        bottom-blocks:
+          - minecraft:dirt
+          - smprpg:super_soil
+        bottom_block_tags:
+          - minecraft:dirt
+      - type: crop_block
+        grow-speed: 0.125
+        light-requirement: 9
+        is-bone-meal-target: true
+        bone-meal-age-bonus:
+          type: uniform
+          min: 1
+          max: 2
+    states:
+      properties:
+        age:
+          type: int
+          default: 0
+          range: 0~3
+      appearances:
+        stage_0:
+          auto-state: kelp
+          models:
+            - path: smprpg:block/crop/rice_stage_0
+              generation:
+                parent: smprpg:block/crop/rice_parent
+                textures:
+                  cross: smprpg:block/crop/rice_stage_0
+        stage_1:
+          auto-state: kelp
+          models:
+            - path: smprpg:block/crop/rice_stage_1
+              generation:
+                parent: smprpg:block/crop/rice_parent
+                textures:
+                  cross: smprpg:block/crop/rice_stage_1
+        stage_2:
+          auto-state: kelp
+          models:
+            - path: smprpg:block/crop/rice_stage_2
+              generation:
+                parent: smprpg:block/crop/rice_parent
+                textures:
+                  cross: smprpg:block/crop/rice_stage_2
+        stage_3:
+          auto-state: kelp
+          models:
+            - path: smprpg:block/crop/rice_stage_3
+              generation:
+                parent: smprpg:block/crop/rice_parent
+                textures:
+                  cross: smprpg:block/crop/rice_stage_3
+      variants:
+        age=0:
+          appearance: stage_0
+        age=1:
+          appearance: stage_1
+        age=2:
+          appearance: stage_2
+        age=3:
+          appearance: stage_3
+    events:
+      - on: break
+        functions:
+          - type: run
+            delay: 1
+            functions:
+              - type: place_block
+                block-state: "minecraft:water"
+
+
+blocks#cabbage:
+  smprpg:cabbage_plant:
+    settings:
+      template:
+        smprpg:settings/crop
+      overrides:
+        item: smprpg:cabbage
+        push-reaction: destroy
+        map-color: 28
+        is-randomly-ticking: true
+    behaviors:
+      - type: liquid_flowable_block
+      - type: bush_block
+        bottom-blocks:
+          - minecraft:farmland
+          - smprpg:super_soil
+        bottom_block_tags:
+          - minecraft:farmland
+      - type: crop_block
+        grow-speed: 0.25
+        light-requirement: 9
+        is-bone-meal-target: true
+        bone-meal-age-bonus:
+          type: uniform
+          min: 1
+          max: 3
+    states:
+      properties:
+        age:
+          type: int
+          default: 0
+          range: 0~7
+      appearances:
+        stage_0:
+          auto-state: lower_tripwire
+          models:
+            - path: smprpg:block/crop/cabbage_stage_0
+              generation:
+                parent: minecraft:block/crop
+                textures:
+                  crop: smprpg:block/crop/cabbage_stage_0
+        stage_1:
+          auto-state: lower_tripwire
+          models:
+            - path: smprpg:block/crop/cabbage_stage_1
+              generation:
+                parent: minecraft:block/crop
+                textures:
+                  crop: smprpg:block/crop/cabbage_stage_1
+        stage_2:
+          auto-state: lower_tripwire
+          models:
+            - path: smprpg:block/crop/cabbage_stage_2
+              generation:
+                parent: minecraft:block/crop
+                textures:
+                  crop: smprpg:block/crop/cabbage_stage_2
+        stage_3:
+          auto-state: lower_tripwire
+          models:
+            - path: smprpg:block/crop/cabbage_stage_3
+              generation:
+                parent: minecraft:block/crop
+                textures:
+                  crop: smprpg:block/crop/cabbage_stage_3
+        stage_4:
+          auto-state: higher_tripwire
+          models:
+            - path: smprpg:block/crop/cabbage_stage_4
+              generation:
+                parent: minecraft:block/crop
+                textures:
+                  crop: smprpg:block/crop/cabbage_stage_4
+        stage_5:
+          auto-state: higher_tripwire
+          models:
+            - path: smprpg:block/crop/cabbage_stage_5
+              generation:
+                parent: minecraft:block/crop
+                textures:
+                  crop: smprpg:block/crop/cabbage_stage_5
+        stage_6:
+          auto-state: higher_tripwire
+          models:
+            - path: smprpg:block/crop/cabbage_stage_6
+              generation:
+                parent: minecraft:block/crop
+                textures:
+                  crop: smprpg:block/crop/cabbage_stage_6
+        stage_7:
+          auto-state: higher_tripwire
+          models:
+            - path: smprpg:block/crop/cabbage_stage_7
+              generation:
+                parent: minecraft:block/crop
+                textures:
+                  crop: smprpg:block/crop/cabbage_stage_7
+      variants:
+        age=0:
+          appearance: stage_0
+        age=1:
+          appearance: stage_1
+        age=2:
+          appearance: stage_2
+        age=3:
+          appearance: stage_3
+        age=4:
+          appearance: stage_4
+        age=5:
+          appearance: stage_5
+        age=6:
+          appearance: stage_6
+        age=7:
+          appearance: stage_7

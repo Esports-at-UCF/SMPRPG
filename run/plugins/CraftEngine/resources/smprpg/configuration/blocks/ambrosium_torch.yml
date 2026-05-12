@@ -41,7 +41,7 @@ blocks:
         item-id: ambrosium_torch
     settings:
       template:
-        - smprpg:sound/wood
+        - smprpg:sound/amethyst_block
         - smprpg:hardness/none
       overrides:
         push-reaction: destroy

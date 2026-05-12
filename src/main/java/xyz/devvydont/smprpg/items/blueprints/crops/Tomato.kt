@@ -23,7 +23,7 @@ class Tomato(itemService: ItemService, type: CustomItemType) : CraftEngineBluepr
 
     override fun getConsumableComponent(item: ItemStack?): Consumable {
         return Consumable.consumable()
-            .consumeSeconds(.8f)
+            .consumeSeconds(IEdible.DEFAULT_EAT_SPEED)
             .build()
     }
 }

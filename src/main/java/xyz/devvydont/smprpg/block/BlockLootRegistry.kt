@@ -541,6 +541,8 @@ object BlockLootRegistry : Listener {
                 .build()
         )
 
+        // TODO: Straw from grass when breaking with knife.
+
         register(
             CraftEngineBlockEnums.TOMATO_PLANT.key, BlockLootEntry.Companion.builder()
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.TOMATO), 2.5))
@@ -552,6 +554,39 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TOMATO_SEEDS), 1.5))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TOMATO_SEEDS), 1.5))
                 .add(BlockLootContext.IMMATURE_AGEABLE, of(ItemService.generate(CustomItemType.TOMATO_SEEDS)))
+                .uses(AttributeWrapper.FARMING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.ONION_PLANT.key, BlockLootEntry.Companion.builder()
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ONION), 2.5))
+                .add(BlockLootContext.INCORRECT_TOOL, of(ItemService.generate(CustomItemType.ONION), 2.5))
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ONION), 2.5))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ONION), 2.5))
+                .add(BlockLootContext.IMMATURE_AGEABLE, of(ItemService.generate(CustomItemType.ONION)))
+                .uses(AttributeWrapper.FARMING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.CABBAGE_PLANT.key, BlockLootEntry.Companion.builder()
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.CABBAGE), 2.5))
+                .add(BlockLootContext.INCORRECT_TOOL, of(ItemService.generate(CustomItemType.CABBAGE), 2.5))
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.CABBAGE), 2.5))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.CABBAGE), 2.5))
+                .add(BlockLootContext.IMMATURE_AGEABLE, of(ItemService.generate(CustomItemType.CABBAGE)))
+                .uses(AttributeWrapper.FARMING_FORTUNE)
+                .build()
+        )
+
+        register(
+            CraftEngineBlockEnums.RICE_PLANT.key, BlockLootEntry.Companion.builder()
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RICE_PANICLE), 2.5))
+                .add(BlockLootContext.INCORRECT_TOOL, of(ItemService.generate(CustomItemType.RICE_PANICLE), 2.5))
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.RICE_PANICLE), 2.5))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RICE_PANICLE), 2.5))
+                .add(BlockLootContext.IMMATURE_AGEABLE, of(ItemService.generate(CustomItemType.RICE)))
                 .uses(AttributeWrapper.FARMING_FORTUNE)
                 .build()
         )

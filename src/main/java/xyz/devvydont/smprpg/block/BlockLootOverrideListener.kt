@@ -18,6 +18,7 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.block.BlockLootRegistry.get
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.blueprints.sets.emberclad.BoilingPickaxe
+import xyz.devvydont.smprpg.items.interfaces.IKnife
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.DropsService
 import xyz.devvydont.smprpg.services.ItemService

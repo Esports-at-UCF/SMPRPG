@@ -73,6 +73,9 @@ enum class CraftEngineBlockEnums(val key : Key) {
     RUNE_DIVINITY(Key.of("smprpg", "rune_divinity")),
 
     TOMATO_PLANT(Key.of("smprpg", "tomato_plant")),
+    ONION_PLANT(Key.of("smprpg", "onion_plant")),
+    CABBAGE_PLANT(Key.of("smprpg", "cabbage_plant")),
+    RICE_PLANT(Key.of("smprpg", "rice_plant")),
     SKY_BERRY_BUSH(Key.of("smprpg", "sky_berry_bush")),
     SQUASH(Key.of("smprpg", "squash")),
     SQUASH_STEM(Key.of("smprpg", "squash_stem")),
