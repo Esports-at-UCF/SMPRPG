@@ -5,6 +5,7 @@ import kr.toxicity.model.api.bukkit.platform.BukkitAdapter
 import kr.toxicity.model.api.data.renderer.ModelRenderer
 import kr.toxicity.model.api.tracker.EntityTracker
 import kr.toxicity.model.api.tracker.TrackerModifier
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import org.bukkit.Material
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity

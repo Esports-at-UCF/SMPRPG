@@ -11,6 +11,9 @@ items:
             facing:
               type: 4-direction
               default: north
+            placed:
+              type: boolean
+              default: false
           appearances:
             north:
               state: cave_air
@@ -33,11 +36,19 @@ items:
           variants:
             facing=north:
               appearance: north
+            facing=north,placed=false:
+              appearance: north
             facing=south:
+              appearance: south
+            facing=south,placed=false:
               appearance: south
             facing=east:
               appearance: east
+            facing=east,placed=false:
+              appearance: east
             facing=west:
+              appearance: west
+            facing=west,placed=false:
               appearance: west
         settings:
           template:

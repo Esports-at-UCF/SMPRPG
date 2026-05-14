@@ -82,6 +82,7 @@ class SMPRPG : JavaPlugin() {
         services.add(MarketService()) // Manages the auction house and bazaar marketplace systems.
         services.add(SlayerService()) // Manages slayer quests
         services.add(LootService()) // Manages client sided, refreshable loot containers
+        services.add(AetherDimensionService()) // Manages Aether dimensional interactions
 
         // Start all the services. Make sure nothing goes wrong.
         for (service in services) {
@@ -119,7 +120,6 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(ItemDurabilityListener())  // Prevents items from fully breaking, capping them at 1 durability remaining.
         generalListeners.add(UnderwaterArrowListener())  // Listens for arrows that are shot underwater
         generalListeners.add(CraftEngineBlockEventListener())  // Listens for custom "events" sent by CraftEngine
-        generalListeners.add(AetherDimensionListeners())  // Listens for transitions regarding the Aether, including portal manufacture
         generalListeners.add(AscendingBlockListener())  // Listens for transitions regarding the Aether, including portal manufacture
         generalListeners.add(AdvancementTriggerListener())  // Listens for bukkit events to award advancement criterion
 

@@ -147,6 +147,15 @@ items#ingredients:
       pdc:
         smprpg:item-type: cooked_cod_filet
     texture: smprpg:item/consumables/ingredients/cooked_cod_filet
+  smprpg:cooked_ground_pork:
+    data:
+      item-name: <!i><lang:item.smprpg.cooked_ground_pork>
+      food:
+        nutrition: 2
+      pdc:
+        smprpg:item-type: cooked_ground_pork
+        smprpg:sell-value: 2
+    texture: smprpg:item/consumables/ingredients/cooked_ground_pork
   smprpg:salmon_filet:
     data:
       item-name: <!i><lang:item.smprpg.salmon_filet>
@@ -187,6 +196,15 @@ items#ingredients:
       pdc:
         smprpg:item-type: fried_egg
     texture: smprpg:item/consumables/ingredients/fried_egg
+  smprpg:ground_pork:
+    data:
+      item-name: <!i><lang:item.smprpg.ground_pork>
+      food:
+        nutrition: 2
+      pdc:
+        smprpg:item-type: ground_pork
+        smprpg:sell-value: 2
+    texture: smprpg:item/consumables/ingredients/ground_pork
   smprpg:ham:
     data:
       item-name: <!i><lang:item.smprpg.ham>

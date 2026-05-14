@@ -1,7 +1,6 @@
 package xyz.devvydont.smprpg.listeners.block
 
 import io.papermc.paper.entity.TeleportFlag
-import net.minecraft.world.level.block.NetherPortalBlock
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import net.momirealms.craftengine.libraries.nbt.CompoundTag
 import net.momirealms.craftengine.libraries.nbt.StringTag
@@ -9,26 +8,31 @@ import net.momirealms.craftengine.libraries.nbt.Tag
 import org.bukkit.*
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerBucketEmptyEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.weather.WeatherChangeEvent
 import org.bukkit.scheduler.BukkitRunnable
-import org.bukkit.util.Vector
-import org.joml.Vector3i
-import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
+import xyz.devvydont.smprpg.services.IService
 import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
-import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import java.util.*
 
-class AetherDimensionListeners : ToggleableListener() {
+class AetherDimensionService : IService, Listener {
     private val activeTransitions : MutableMap<UUID, NamespacedKey> = mutableMapOf()
+
+    override fun setup() {
+        return
+    }
+
+    override fun cleanup() {
+        return
+    }
 
     /**
      * Handle falling into overworld transition

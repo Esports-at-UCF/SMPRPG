@@ -16,7 +16,7 @@ import xyz.devvydont.smprpg.items.attribute.AttributeModifierType
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
-class AerialAffinity(id: String) : CustomEnchantment(id), AttributeEnchantment {
+class AerialAffinityEnchantment(id: String) : CustomEnchantment(id), AttributeEnchantment {
     override val displayName: Component get() = ComponentUtils.create("Aerial Affinity")
     override val description: Component get() = ComponentUtils.merge(
             ComponentUtils.create("Improves "),

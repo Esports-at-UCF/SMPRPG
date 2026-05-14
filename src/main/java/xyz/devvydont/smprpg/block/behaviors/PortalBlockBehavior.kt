@@ -1,41 +1,40 @@
 package xyz.devvydont.smprpg.block.behaviors
 
-import io.papermc.paper.entity.TeleportFlag
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.ScheduledTickAccess
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.NetherPortalBlock
+import net.momirealms.craftengine.bukkit.api.BukkitAdaptors
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitBlockBehavior
 import net.momirealms.craftengine.core.block.CustomBlock
+import net.momirealms.craftengine.core.block.UpdateOption
 import net.momirealms.craftengine.core.block.behavior.BlockBehavior
 import net.momirealms.craftengine.core.block.behavior.BlockBehaviorFactory
-import net.momirealms.craftengine.core.block.properties.StringProperty
+import net.momirealms.craftengine.core.block.properties.BooleanProperty
+import net.momirealms.craftengine.core.block.properties.Property
 import net.momirealms.craftengine.core.sound.SoundData
 import net.momirealms.craftengine.core.util.Direction
 import net.momirealms.craftengine.core.util.HorizontalDirection
+import net.momirealms.craftengine.core.util.Key
 import net.momirealms.craftengine.core.util.ResourceConfigUtils
 import net.momirealms.craftengine.core.world.BlockPos
+import net.momirealms.craftengine.libraries.nbt.CompoundTag
+import net.momirealms.craftengine.libraries.nbt.Tag
 import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.PortalType
-import org.bukkit.World
 import org.bukkit.block.BlockFace
 import org.bukkit.craftbukkit.entity.CraftLivingEntity
 import org.bukkit.craftbukkit.entity.CraftPlayer
 import org.bukkit.event.entity.EntityPortalEnterEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
-import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
-import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
+import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.listeners.block.AetherDimensionService
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import java.util.*
 import java.util.concurrent.Callable
-import kotlin.random.Random
 
 
 class PortalBlockBehavior(customBlock: CustomBlock,
@@ -55,32 +54,36 @@ class PortalBlockBehavior(customBlock: CustomBlock,
         var dir = CraftEngineBlocks.getCustomBlockState(block)!!.customBlockState().getProperty<HorizontalDirection>("facing").toDirection()
         if (dir != null) {
             if (dir == Direction.WEST || dir == Direction.EAST) {
-                faces.add(BlockFace.EAST)
-                faces.add(BlockFace.WEST)
-            }
-            else {
                 faces.add(BlockFace.NORTH)
                 faces.add(BlockFace.SOUTH)
+            }
+            else {
+                faces.add(BlockFace.EAST)
+                faces.add(BlockFace.WEST)
             }
         }
 
         var gottaBreak = false
+        val ceBlock = BukkitAdaptors.adapt(block)
+        if (ceBlock.customBlockState()!!.customBlockState().getProperty<Boolean>("placed") == false) {
+            val tag = CompoundTag()
+            tag.putBoolean("placed", true)
+            CraftEngineBlocks.place(block.location, ceBlock.customBlockState()!!.with(tag), UpdateOption.UPDATE_NONE, false)
+            return
+        }
+
         for (face in faces) {
             val relBlock = block.getRelative(face)
-            if (CraftEngineBlocks.isCustomBlock(relBlock)) {
-                if (CraftEngineHelpers.getBlockKey(relBlock) != customBlock.id()) {
-                    gottaBreak = true
-                }
-            }
-            else when (relBlock.type) {
-                Material.GLOWSTONE, Material.AIR -> {}
-                else -> gottaBreak = true
+            val relCeBlock = BukkitAdaptors.adapt(relBlock)
+            val relBlockKey = relCeBlock.blockState().ownerId()
+            if (relBlockKey == Key("minecraft", "air")) {
+                gottaBreak = true
             }
             if (gottaBreak)
                 continue
         }
         if (gottaBreak) {
-            CraftEngineBlocks.remove(block)
+            CraftEngineBlocks.remove(block, null, false, false, true)
         }
     }
 

@@ -10,7 +10,6 @@ import net.momirealms.craftengine.bukkit.api.BukkitAdaptors
 import net.momirealms.craftengine.bukkit.block.entity.SimpleStorageBlockEntity
 import net.momirealms.craftengine.bukkit.item.BukkitItemManager
 import net.momirealms.craftengine.core.block.ImmutableBlockState
-import net.momirealms.craftengine.core.block.properties.BooleanProperty
 import net.momirealms.craftengine.core.world.BlockPos
 import net.momirealms.craftengine.core.world.CEWorld
 import net.momirealms.craftengine.core.world.Vec3d

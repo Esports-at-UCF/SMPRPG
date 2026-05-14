@@ -5,15 +5,11 @@ import io.papermc.paper.registry.RegistryKey
 import io.papermc.paper.registry.TypedKey
 import io.papermc.paper.registry.keys.EnchantmentKeys
 import org.bukkit.GameMode
-import org.bukkit.Instrument
 import org.bukkit.Material
 import org.bukkit.Registry
-import org.bukkit.block.Block
 import org.bukkit.block.EnchantingTable
-import org.bukkit.block.data.type.NoteBlock
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.enchantments.EnchantmentOffer
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -21,14 +17,12 @@ import org.bukkit.event.enchantment.EnchantItemEvent
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
-import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EnchantingInventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ItemType
 import org.bukkit.inventory.meta.ItemMeta
-import org.bukkit.util.BoundingBox
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
@@ -413,7 +407,7 @@ class EnchantmentService : IService, Listener {
         val AMPLIFICATION_BLESSING: CustomEnchantment = AmplificationBlessing("amplification")
 
         @JvmField
-        val AERIAL_AFFINITY: CustomEnchantment = AerialAffinity("aerial_affinity")
+        val AERIAL_AFFINITY: CustomEnchantment = AerialAffinityEnchantment("aerial_affinity")
 
         @JvmField
         val FORTUITY: CustomEnchantment = FortuityEnchantment("fortuity")
