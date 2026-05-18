@@ -20,6 +20,7 @@ import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.services.IService
 import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
+import xyz.devvydont.smprpg.util.particles.ParticleUtil
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import java.util.*
 
@@ -176,17 +177,17 @@ class AetherDimensionService : IService, Listener {
         val block = event.block
         val clickedBlock = event.blockClicked
         if (clickedBlock.type != Material.GLOWSTONE) return
-        event.isCancelled = true
 
         fun findPortalAxis(clickedBlock: Block) : Axis {
+            val world = block.world
             val bl = clickedBlock.location
             var currAxis = Axis.Y
-            if (block.world.getBlockAt((bl.x+1).toInt(), bl.y.toInt(), bl.z.toInt()).type == Material.GLOWSTONE ||
-                block.world.getBlockAt((bl.x-1).toInt(), bl.y.toInt(), bl.z.toInt()).type == Material.GLOWSTONE) {
+            if (world.getBlockAt((bl.x+1).toInt(), bl.y.toInt(), bl.z.toInt()).type == Material.GLOWSTONE ||
+                world.getBlockAt((bl.x-1).toInt(), bl.y.toInt(), bl.z.toInt()).type == Material.GLOWSTONE) {
                 currAxis = Axis.X
             }
-            if (block.world.getBlockAt(bl.x.toInt(), (bl.y+1).toInt(), bl.z.toInt()).type == Material.GLOWSTONE ||
-                block.world.getBlockAt(bl.x.toInt(), (bl.y-1).toInt(), bl.z.toInt()).type == Material.GLOWSTONE) {
+            if (world.getBlockAt(bl.x.toInt(), (bl.y).toInt(), bl.z.toInt()+1).type == Material.GLOWSTONE ||
+                world.getBlockAt(bl.x.toInt(), (bl.y).toInt(), bl.z.toInt()-1).type == Material.GLOWSTONE) {
                 if (currAxis == Axis.X) {
                     // Predicament! We have blocks everywhere around this portal. Prioritize player facing instead.
                     val yaw = event.player.location.yaw
@@ -209,7 +210,19 @@ class AetherDimensionService : IService, Listener {
             if (alreadyFound == null) found = mutableSetOf()
             else found = alreadyFound.toMutableSet()
 
-            if (block.location.equals(startingBlock.location) && !isFirst) return true
+            // Reached end of iteration through frame
+            if (block.location.equals(startingBlock.location) && !isFirst) {
+                val startY = startingBlock.y
+                var currMaxY = startingBlock.location.world.minHeight
+                for (fb in found) {
+                    if (fb.y > currMaxY)
+                        currMaxY = fb.y
+                }
+                // If portal was ignited from the top, it's invalid even if the shape is.
+                if (startY >= currMaxY)
+                    return false
+                else return true
+            }
 
             val checked = found
             if (axis == Axis.X) {
@@ -252,6 +265,7 @@ class AetherDimensionService : IService, Listener {
                     if (nb == null) continue
                     if (nb.type == Material.GLOWSTONE && !found.contains(nb)) {
                         found += nb
+                        ParticleUtil.spawnParticlesBetweenTwoPoints(Particle.END_ROD, nb.world, startingBlock.location.toVector(), nb.location.toVector(), 20)
                         return isValidPortal(nb, startingBlock, axis, found, false)
                     }
                 }
@@ -261,6 +275,7 @@ class AetherDimensionService : IService, Listener {
         }
 
         if (isValidPortal(clickedBlock, clickedBlock, axis, null, true)) {
+            event.isCancelled = true
 
             fun fillPortalBlocks(axis: Axis, currBlock: Block, facesToExpand: MutableSet<BlockFace>, filledBlocks: MutableSet<Location>) {
                 if (currBlock.location in filledBlocks) return
