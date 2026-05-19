@@ -7,6 +7,7 @@ import kr.toxicity.model.api.tracker.ModelScaler
 import org.bukkit.Bukkit
 import org.bukkit.Sound
 import org.bukkit.damage.DamageType
+import org.bukkit.entity.Axolotl
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Pig
 import org.bukkit.event.EventHandler
@@ -23,7 +24,7 @@ import xyz.devvydont.smprpg.util.items.ChancedItemDrop
 import xyz.devvydont.smprpg.util.items.LootDrop
 import java.util.function.Function
 
-class Shark(entity: LivingEntity?, entityType: CustomEntityType?) : SeaCreature<Pig?>(entity as Pig?, entityType),
+class Shark(entity: LivingEntity?, entityType: CustomEntityType?) : SeaCreature<Axolotl?>(entity as Axolotl?, entityType),
     Listener {
 
     override fun setup() {

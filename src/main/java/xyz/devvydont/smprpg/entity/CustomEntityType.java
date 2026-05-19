@@ -136,7 +136,7 @@ public enum CustomEntityType implements IMenuDisplayable {
             5, 500, 10, Minnow::new),
     SNAPPING_TURTLE(EntityType.TURTLE, "Snapping Turtle",
             10, 1_250, 25, SnappingTurtle::new),
-    SHARK(EntityType.PIG, "Shark",
+    SHARK(EntityType.AXOLOTL, "Shark",
             15, 2_250, 45, Shark::new),
     SEA_HAG(EntityType.WITCH, "Sea Hag",
             20, 3_000, 65, SeaHag::new),

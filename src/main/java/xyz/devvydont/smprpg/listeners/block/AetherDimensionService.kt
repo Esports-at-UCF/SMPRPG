@@ -1,6 +1,7 @@
 package xyz.devvydont.smprpg.listeners.block
 
 import io.papermc.paper.entity.TeleportFlag
+import net.kyori.adventure.text.Component
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import net.momirealms.craftengine.libraries.nbt.CompoundTag
 import net.momirealms.craftengine.libraries.nbt.StringTag
@@ -8,15 +9,24 @@ import net.momirealms.craftengine.libraries.nbt.Tag
 import org.bukkit.*
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockPlaceEvent
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryOpenEvent
+import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.player.PlayerBucketEmptyEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.weather.WeatherChangeEvent
+import org.bukkit.inventory.MenuType
 import org.bukkit.scheduler.BukkitRunnable
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
+import xyz.devvydont.smprpg.gui.player.InterfaceStats
+import xyz.devvydont.smprpg.gui.player.InterfaceWardrobe
+import xyz.devvydont.smprpg.gui.player.MenuStatsRoot
+import xyz.devvydont.smprpg.gui.player.SubmenuStatOverview
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.services.IService
 import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
@@ -177,6 +187,7 @@ class AetherDimensionService : IService, Listener {
         val block = event.block
         val clickedBlock = event.blockClicked
         if (clickedBlock.type != Material.GLOWSTONE) return
+        if (block.world.key == KeyStore.DIM_END) return
 
         fun findPortalAxis(clickedBlock: Block) : Axis {
             val world = block.world

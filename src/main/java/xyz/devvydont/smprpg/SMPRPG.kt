@@ -19,6 +19,7 @@ import xyz.devvydont.smprpg.listeners.crafting.AnvilRepairListener
 import xyz.devvydont.smprpg.listeners.damage.*
 import xyz.devvydont.smprpg.listeners.entity.HealthRegenerationListener
 import xyz.devvydont.smprpg.listeners.entity.HealthScaleListener
+import xyz.devvydont.smprpg.listeners.entity.PlayerInventoryButtonsListener
 import xyz.devvydont.smprpg.listeners.entity.StructureEntitySpawnListener
 import xyz.devvydont.smprpg.listeners.item.ItemDurabilityListener
 import xyz.devvydont.smprpg.loot.LootListener
@@ -122,6 +123,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(CraftEngineBlockEventListener())  // Listens for custom "events" sent by CraftEngine
         generalListeners.add(AscendingBlockListener())  // Listens for transitions regarding the Aether, including portal manufacture
         generalListeners.add(AdvancementTriggerListener())  // Listens for bukkit events to award advancement criterion
+        generalListeners.add(PlayerInventoryButtonsListener())  // Listens for events regarding player inventory buttons.
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.
