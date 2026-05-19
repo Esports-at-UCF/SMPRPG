@@ -608,8 +608,6 @@ class EntityService : IService, Listener {
                 if (custom is CustomEntityInstance<*> && custom.entityType.equals(choice))
                     count++
             }
-            if (count > 25)
-                choices.remove(choice)
         }
 
         // Did we find a custom entity type?
