@@ -7,18 +7,18 @@ import net.minecraft.world.level.block.*
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitBlockBehavior
 import net.momirealms.craftengine.bukkit.util.LocationUtils
-import net.momirealms.craftengine.core.block.CustomBlock
+import net.momirealms.craftengine.core.block.BlockDefinition
 import net.momirealms.craftengine.core.block.behavior.BlockBehavior
 import net.momirealms.craftengine.core.block.behavior.BlockBehaviorFactory
-import java.util.concurrent.Callable
+import net.momirealms.craftengine.core.plugin.config.ConfigSection
 import kotlin.random.Random
 
-class TickAcceleratorBlockBehavior(customBlock: CustomBlock,
+class TickAcceleratorBlockBehavior(blockDefinition: BlockDefinition,
                                    val chance : Float,
-                                   val mode : String): BukkitBlockBehavior(customBlock) {
+                                   val mode : String): BukkitBlockBehavior(blockDefinition) {
 
-    override fun randomTick(thisBlock: Any?, args: Array<out Any?>?, superMethod: Callable<in Any>?) {
-        super.randomTick(thisBlock, args, superMethod)
+    override fun randomTick(thisBlock: Any?, args: Array<out Any?>?) {
+        super.randomTick(thisBlock, args)
         val blockAbovePos = LocationUtils.above(args!![2]) as BlockPos
         val level = args[1] as ServerLevel
         val blockState = level.getBlockState(blockAbovePos)
@@ -67,9 +67,9 @@ class TickAcceleratorBlockBehavior(customBlock: CustomBlock,
         val FACTORY = Factory()
 
         class Factory : BlockBehaviorFactory<BlockBehavior> {
-            override fun create(block: CustomBlock, arguments: Map<String, Any>): TickAcceleratorBlockBehavior {
-                val chance : Float = arguments["chance"] as Float
-                val mode : String = arguments["mode"] as String  // Any, Crop
+            override fun create(block: BlockDefinition, section: ConfigSection): TickAcceleratorBlockBehavior {
+                val chance : Float = section.getFloat("chance")
+                val mode : String = section.getNonNullString("mode") // Any, Crop
                 return TickAcceleratorBlockBehavior(block, chance, mode)
             }
         }

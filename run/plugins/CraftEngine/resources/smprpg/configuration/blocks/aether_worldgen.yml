@@ -389,7 +389,7 @@ blocks:
       require-correct-tools: false
       map-color: 23
       merges:
-        tags: [ "minecraft:dirt", "smprpg:aether_dirt" ]
+        tags: [ "minecraft:dirt", "smprpg:aether_dirt", "minecraft:supports_vegetation" ]
     behavior:
       - type: smprpg:tillable_block
         tilled-block: smprpg:aether_farmland
@@ -416,6 +416,7 @@ blocks:
           - "smprpg:aether_dirt"
           - "minecraft:animals_spawnable_on"
           - "minecraft:grass_blocks"
+          - "minecraft:supports_vegetation"
       overrides:
         propagate-skylight: false
         can-occlude: true
@@ -759,7 +760,7 @@ blocks:
 
 placed-features:
   smprpg:blue_aercloud:
-    environment:
+    dimension_type:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -784,7 +785,7 @@ placed-features:
           min_inclusive:
             absolute: -32
   smprpg:cold_aercloud_lower:
-    environment:
+    dimension_type:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -809,7 +810,7 @@ placed-features:
           min_inclusive:
             absolute: -64
   smprpg:ore_silver_aether:
-    environment:
+    dimension_type:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -834,7 +835,7 @@ placed-features:
           min_inclusive:
             absolute: 22
   smprpg:ore_gravitite:
-    environment:
+    dimension_type:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -859,7 +860,7 @@ placed-features:
           min_inclusive:
             absolute: 22
   smprpg:ore_zanite:
-    environment:
+    dimension_type:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -884,7 +885,7 @@ placed-features:
           min_inclusive:
             absolute: 22
   smprpg:ore_ambrosium:
-    environment:
+    dimension_type:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -909,7 +910,7 @@ placed-features:
           min_inclusive:
             absolute: 22
   smprpg:ore_platinum:
-    environment:
+    dimension_type:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -934,7 +935,7 @@ placed-features:
           min_inclusive:
             absolute: 22
   smprpg:ore_palladium:
-    environment:
+    dimension_type:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -959,7 +960,7 @@ placed-features:
           min_inclusive:
             absolute: 48
   smprpg:ore_aether_dirt:
-    environment:
+    dimension_type:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -984,7 +985,7 @@ placed-features:
           min_inclusive:
             absolute: 0
   smprpg:ore_icestone:
-    environment:
+    dimension_type:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -1009,7 +1010,7 @@ placed-features:
           min_inclusive:
             absolute: 0
   smprpg:aether_springs:
-    environment:
+    dimension_type:
       - smprpg:the_aether
     feature:
       type: minecraft:spring_feature
@@ -1032,7 +1033,7 @@ placed-features:
           min_inclusive:
             absolute: 0
   smprpg:aether_surface_lakes:
-    environment:
+    dimension_type:
       - smprpg:the_aether
     feature:
       type: minecraft:lake
@@ -1051,6 +1052,202 @@ placed-features:
       - type: minecraft:heightmap
         heightmap: WORLD_SURFACE_WG
       - type: minecraft:biome
+  smprpg:flower_aether_meadow:
+    dimension_type:
+      - smprpg:the_aether
+    biome:
+      - smprpg:skyroot_meadow
+    feature:
+      type: 'minecraft:simple_block'
+      config:
+        to_place:
+          type: 'minecraft:noise_threshold_provider'
+          default_state:
+            Name: 'smprpg:puffbloom'
+          high_chance: 0.95
+          high_states:
+          - "Name": 'smprpg:puffbloom'
+          - "Name": 'smprpg:violet'
+          low_states:
+          - "Name": 'smprpg:rainbow_lily'
+          noise:
+            amplitudes: [1.0]
+            firstOctave: 0
+          scale: 0.005
+          seed: 2345
+          threshold: -0.8
+    placement:
+      - type: 'minecraft:rarity_filter'
+        chance: 10
+      - type: 'minecraft:in_square'
+      - type: 'minecraft:heightmap'
+        heightmap: MOTION_BLOCKING
+      - type: 'minecraft:count'
+        count: 192
+      - type: 'minecraft:random_offset'
+        xz_spread:
+          type: 'minecraft:trapezoid'
+          max: 7
+          min: -7
+          plateau: 0
+        y_spread:
+          type: 'minecraft:trapezoid'
+          max: 3
+          min: -3
+          plateau: 0
+      - type: 'minecraft:block_predicate_filter'
+        predicate:
+          type: 'minecraft:all_of'
+          predicates:
+            - type: 'minecraft:matching_block_tag'
+              tag: minecraft:air
+            - type: 'minecraft:matching_blocks'
+              blocks: smprpg:aether_grass_block
+              offset: [0, -1, 0]
+  smprpg:flower_aether_normal:
+    dimension_type:
+      - smprpg:the_aether
+    feature:
+      type: 'minecraft:simple_block'
+      config:
+        to_place:
+          type: 'minecraft:noise_threshold_provider'
+          default_state:
+            Name: 'smprpg:puffbloom'
+          high_chance: 0.99
+          high_states:
+            - "Name": 'smprpg:puffbloom'
+            - "Name": 'smprpg:violet'
+          low_states:
+            - "Name": 'smprpg:rainbow_lily'
+          noise:
+            amplitudes: [1.0]
+            firstOctave: 0
+          scale: 0.005
+          seed: 2345
+          threshold: -0.8
+    placement:
+      - type: 'minecraft:rarity_filter'
+        chance: 30
+      - type: 'minecraft:in_square'
+      - type: 'minecraft:heightmap'
+        heightmap: MOTION_BLOCKING
+      - type: 'minecraft:count'
+        count: 96
+      - type: 'minecraft:random_offset'
+        xz_spread:
+          type: 'minecraft:trapezoid'
+          max: 7
+          min: -7
+          plateau: 0
+        y_spread:
+          type: 'minecraft:trapezoid'
+          max: 3
+          min: -3
+          plateau: 0
+      - type: 'minecraft:block_predicate_filter'
+        predicate:
+          type: 'minecraft:all_of'
+          predicates:
+            - type: 'minecraft:matching_block_tag'
+              tag: minecraft:air
+            - type: 'minecraft:matching_blocks'
+              blocks: smprpg:aether_grass_block
+              offset: [0, -1, 0]
+  smprpg:patch_sky_berry:
+    dimension_type:
+      - smprpg:the_aether
+    feature:
+      type: 'minecraft:simple_block'
+      config:
+        to_place:
+          type: 'minecraft:rule_based_state_provider'
+          rules:
+            - if_true:
+                type: 'minecraft:all_of'
+                predicates:
+                  - type: 'minecraft:replaceable'
+                  - type: 'minecraft:matching_fluids'
+                    fluids: 'minecraft:empty'
+                  - type: 'minecraft:matching_blocks'
+                    offset:
+                      - 0
+                      - -1
+                      - 0
+                    blocks: 'smprpg:aether_grass_block'
+              then:
+                type: 'minecraft:simple_state_provider'
+                state:
+                  Name: 'smprpg:sky_berry_bush'
+                  Properties:
+                    age: 3
+    placement:
+      - type: 'minecraft:rarity_filter'
+        chance: 100
+      - type: 'minecraft:in_square'
+      - type: 'minecraft:heightmap'
+        heightmap: MOTION_BLOCKING
+      - type: 'minecraft:count'
+        count: 64
+      - type: 'minecraft:random_offset'
+        xz_spread:
+          type: 'minecraft:trapezoid'
+          max: 7
+          min: -7
+          plateau: 0
+        y_spread:
+          type: 'minecraft:trapezoid'
+          max: 3
+          min: -3
+          plateau: 0
+  smprpg:tall_grass_aether:
+    dimension_type:
+      - smprpg:the_aether
+    feature:
+      type: 'minecraft:simple_block'
+      config:
+        to_place:
+          type: 'minecraft:noise_threshold_provider'
+          default_state:
+            Name: 'smprpg:puffbloom'
+          high_chance: 0.5
+          high_states:
+            - "Name": 'minecraft:bush'
+            - "Name": 'minecraft:short_grass'
+          low_states:
+            - "Name": 'minecraft:tall_grass'
+          noise:
+            amplitudes: [1.0]
+            firstOctave: 0
+          scale: 0.005
+          seed: 2345
+          threshold: -0.4
+    placement:
+      - type: 'minecraft:in_square'
+      - type: 'minecraft:heightmap'
+        heightmap: MOTION_BLOCKING
+      - type: 'minecraft:count'
+        count: 132
+      - type: 'minecraft:random_offset'
+        xz_spread:
+          type: 'minecraft:trapezoid'
+          max: 12
+          min: -12
+          plateau: 0
+        y_spread:
+          type: 'minecraft:trapezoid'
+          max: 3
+          min: -3
+          plateau: 0
+      - type: 'minecraft:block_predicate_filter'
+        predicate:
+          type: 'minecraft:all_of'
+          predicates:
+            - type: 'minecraft:matching_block_tag'
+              tag: minecraft:air
+            - type: 'minecraft:matching_blocks'
+              blocks: smprpg:aether_grass_block
+              offset: [0, -1, 0]
 
 recipes:
   smprpg:violet_to_purple_dye:

@@ -23,11 +23,7 @@
     [],
     [],
     [],
-    [
-      "minecraft:patch_grass_normal",
-      "minecraft:patch_bush",
-      "smprpg:flower_aether_normal"
-    ],
+    [],
     []
   ],
   "has_precipitation": false,

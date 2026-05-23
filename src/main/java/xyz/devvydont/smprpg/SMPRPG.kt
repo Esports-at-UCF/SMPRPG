@@ -12,7 +12,6 @@ import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
 import xyz.devvydont.smprpg.block.behaviors.SMPRPGBlockBehaviors
-import xyz.devvydont.smprpg.block.entity.SMPRPGBlockEntityTypes
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.listeners.block.*
 import xyz.devvydont.smprpg.listeners.crafting.AnvilRepairListener
@@ -24,8 +23,8 @@ import xyz.devvydont.smprpg.listeners.entity.StructureEntitySpawnListener
 import xyz.devvydont.smprpg.listeners.item.ItemDurabilityListener
 import xyz.devvydont.smprpg.loot.LootListener
 import xyz.devvydont.smprpg.market.MarketService
-import xyz.devvydont.smprpg.recipe.postprocessors.UpdateItemDataPostProcessor
 import xyz.devvydont.smprpg.services.*
+import xyz.devvydont.smprpg.skills.CraftEngineLevelerProvider
 import xyz.devvydont.smprpg.util.animations.AnimationService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
@@ -131,10 +130,15 @@ class SMPRPG : JavaPlugin() {
         // Start all of them.
         for (listener in generalListeners) listener.start()
 
+
+        // CraftEngine Compat
+
+        // Leveler provider, allows us to add skill xp with CraftEngine script functions
+        CraftEngine.instance().compatibilityManager().registerLevelerProvider(CraftEngineLevelerProvider("smprpg"))
+
         // Initialize our CraftEngine block behaviors
         // TODO: This can be deleted if we ever directly access this class, we never do so currently
         SMPRPGBlockBehaviors()
-        SMPRPGBlockEntityTypes()
         Bukkit.getScheduler().runTaskLater(this, Runnable {
             // Reloads CraftEngine's config, since we need to have config available both before and after plugin load.
             Bukkit.getServer().dispatchCommand(
@@ -158,15 +162,6 @@ class SMPRPG : JavaPlugin() {
                 this.logger.warning("The datapack failed to load.")
             }
         }
-        registerRecipePostProcessors()
-    }
-
-
-    fun registerRecipePostProcessors() {
-        PostProcessors.register(
-            CEKey.from("smprpg:update_item_data"),
-            UpdateItemDataPostProcessor.FACTORY
-        )
     }
 
     companion object {

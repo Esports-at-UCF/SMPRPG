@@ -27,10 +27,6 @@ class SMPRPGBlockBehaviors : BlockBehaviors() {
             Key.from("smprpg:ascending_block"),
             AscendingBlockBehavior.FACTORY
         )
-        val BERRY_BUSH = register(
-            Key.from("smprpg:berry_bush"),
-            BerryBushBlockBehavior.FACTORY
-        )
         val TICK_ACCELERATOR = register(
             Key.from("smprpg:tick_accelerator"),
             TickAcceleratorBlockBehavior.FACTORY

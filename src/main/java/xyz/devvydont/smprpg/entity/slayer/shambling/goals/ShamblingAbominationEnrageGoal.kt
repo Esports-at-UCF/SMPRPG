@@ -93,15 +93,15 @@ class ShamblingAbominationEnrageGoal(val slayer : ShamblingAbominationParent, va
 
             val chestplate = zombieEq.chestplate
             chestplate.setData(DataComponentTypes.EQUIPPABLE, Equippable.equippable(EquipmentSlot.CHEST).assetId(ShamblingAbominationParent.enragedAssetId).build())
-            zombieEq.chestplate = chestplate
+            zombieEq.setChestplate(chestplate)
 
             val leggings = zombieEq.leggings
             leggings.setData(DataComponentTypes.EQUIPPABLE, Equippable.equippable(EquipmentSlot.LEGS).assetId(ShamblingAbominationParent.enragedAssetId).build())
-            zombieEq.leggings = leggings
+            zombieEq.setLeggings(leggings)
 
             val boots = zombieEq.boots
             boots.setData(DataComponentTypes.EQUIPPABLE, Equippable.equippable(EquipmentSlot.FEET).assetId(ShamblingAbominationParent.enragedAssetId).build())
-            zombieEq.boots = boots
+            zombieEq.setBoots(boots)
 
             zombie.world.playSound(zombie, Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1f, 0.5f)
         }

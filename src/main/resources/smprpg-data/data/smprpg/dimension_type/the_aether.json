@@ -33,7 +33,9 @@
   "minecraft:gameplay/piglins_zombify": true
   },
   "coordinate_scale": 1.0,
+  "default_clock": "smprpg:the_aether",
   "has_ceiling": false,
+  "has_ender_dragon_fight": false,
   "has_skylight": true,
   "height": 256,
   "infiniburn": "#minecraft:infiniburn_overworld",

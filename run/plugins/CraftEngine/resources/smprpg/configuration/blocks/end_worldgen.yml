@@ -133,6 +133,10 @@ configured-feature:
         type: 'minecraft:simple_state_provider'
         state:
           Name: 'minecraft:end_stone'
+      below_trunk_provider:
+        type: 'minecraft:simple_state_provider'
+        state:
+          Name: 'minecraft:end_stone'
       trunk_provider:
         type: 'minecraft:simple_state_provider'
         state:

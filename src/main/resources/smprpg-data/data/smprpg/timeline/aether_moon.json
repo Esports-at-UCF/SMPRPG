@@ -1,5 +1,6 @@
 {
   "period_ticks": 576000,
+  "clock": "smprpg:the_aether",
   "tracks": {
     "minecraft:gameplay/surface_slime_spawn_chance": {
       "ease": "constant",

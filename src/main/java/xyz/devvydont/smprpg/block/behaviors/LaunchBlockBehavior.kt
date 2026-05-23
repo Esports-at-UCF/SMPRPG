@@ -1,29 +1,25 @@
 package xyz.devvydont.smprpg.block.behaviors
 
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitBlockBehavior
-import net.momirealms.craftengine.core.block.CustomBlock
+import net.momirealms.craftengine.core.block.BlockDefinition
 import net.momirealms.craftengine.core.block.behavior.BlockBehavior
 import net.momirealms.craftengine.core.block.behavior.BlockBehaviorFactory
+import net.momirealms.craftengine.core.plugin.config.ConfigSection
 import net.momirealms.craftengine.core.world.BlockPos
-import org.bukkit.Bukkit
-import org.bukkit.Location
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.Particle
+import org.bukkit.*
 import org.bukkit.block.data.type.BubbleColumn
 import org.bukkit.craftbukkit.entity.CraftPlayer
 import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
 import xyz.devvydont.smprpg.util.persistence.KeyStore
-import java.util.concurrent.Callable
 import kotlin.random.Random
 
-class LaunchBlockBehavior(customBlock: CustomBlock,
+class LaunchBlockBehavior(blockDefinition: BlockDefinition,
                           val launchPower : Float,
                           val bubbleBoosted : Boolean,
-                          val wantParticles : Boolean) : BukkitBlockBehavior(customBlock) {
+                          val wantParticles : Boolean) : BukkitBlockBehavior(blockDefinition) {
 
-    override fun stepOn(thisBlock: Any?, args: Array<out Any?>?, superMethod: Callable<in Any>?) {
-        super.stepOn(thisBlock, args, superMethod)
+    override fun stepOn(thisBlock: Any?, args: Array<out Any?>?) {
+        super.stepOn(thisBlock, args)
 
         val nmsBlockPos = args?.get(1)!! as net.minecraft.core.BlockPos
         val nmsEntity = args[3]!! as net.minecraft.world.entity.Entity
@@ -32,7 +28,7 @@ class LaunchBlockBehavior(customBlock: CustomBlock,
         val entity = nmsEntity.bukkitEntity
 
         if (entity is CraftPlayer) {
-            if (customBlock.id().equals(CraftEngineBlockEnums.BLUE_AERCLOUD.key)) {
+            if (blockDefinition.id().equals(CraftEngineBlockEnums.BLUE_AERCLOUD.key)) {
                 val advancement = Bukkit.getAdvancement(NamespacedKey("smprpg", "aether/bounce_blue_aercloud"))!!
                 val progress = entity.getAdvancementProgress(advancement)
                 progress.awardCriteria("stand_on_aercloud")
@@ -83,7 +79,7 @@ class LaunchBlockBehavior(customBlock: CustomBlock,
         entity.velocity = newVel
     }
 
-    override fun isPathFindable(thisBlock: Any?, args: Array<out Any?>?, superMethod: Callable<in Any>?): Boolean {
+    override fun isPathFindable(thisBlock: Any?, args: Array<out Any?>?): Boolean {
         return false
     }
 
@@ -91,10 +87,10 @@ class LaunchBlockBehavior(customBlock: CustomBlock,
         val FACTORY = Factory()
 
         class Factory : BlockBehaviorFactory<BlockBehavior> {
-            override fun create(block: CustomBlock, arguments: Map<String, Any>): LaunchBlockBehavior {
-                val launchPower : Float = arguments["launch-power"] as Float
-                val bubbleBoosted : Boolean = arguments.getOrDefault("bubble-boosted", false) as Boolean
-                val wantParticles : Boolean = arguments.getOrDefault("want-particles", false) as Boolean
+            override fun create(block: BlockDefinition, section: ConfigSection): LaunchBlockBehavior {
+                val launchPower : Float = section.getFloat("launch-power")
+                val bubbleBoosted : Boolean = section.getBoolean("bubble-boosted", false)
+                val wantParticles : Boolean = section.getBoolean("want-particles", false)
                 return LaunchBlockBehavior(block, launchPower, bubbleBoosted, wantParticles)
             }
         }

@@ -28,15 +28,73 @@ blocks:
       - type: bush_block
         bottom-block-tags:
           - smprpg:aether_dirt
-      - type: smprpg:berry_bush
+      - type: crop_block
         grow-speed: 0.25
         light-requirement: 9
         is-bone-meal-target: true
         bone-meal-age-bonus: 1
-        first-mature-age: 2
-        harvested-item: smprpg:sky_berry
-        sounds:
-          harvest-sound: minecraft:block.sweet_berry_bush.pick_berries
+    events:
+      - on: right_click
+        functions:
+          - type: run
+            functions:
+              - type: update_block_property
+                properties:
+                  age: 1
+              - type: drop_loot
+                loot:
+                  pools:
+                    - rolls: 1
+                      entries:
+                        - type: item
+                          item: smprpg:sky_berry
+                  functions:
+                    type: set_count
+                    count: 2
+              - type: play_sound
+                sound: minecraft:block.sweet_berry_bush.pick_berries
+                target: self
+                source: block
+              - type: leveler_exp
+                plugin: smprpg
+                leveler: farming
+                count: 6
+            conditions:
+              - type: match_block_property
+                properties:
+                  age: 3
+              - type: inverted
+                term:
+                  type: match_item
+                  id: minecraft:bone_meal
+          - type: run
+            functions:
+              - type: update_block_property
+                properties:
+                  age: 1
+              - type: drop_loot
+                loot:
+                  pools:
+                    - rolls: 1
+                      entries:
+                        - type: item
+                          item: smprpg:sky_berry
+              - type: play_sound
+                sound: minecraft:block.sweet_berry_bush.pick_berries
+                target: self
+                source: block
+              - type: leveler_exp
+                plugin: smprpg
+                leveler: farming
+                count: 3
+            conditions:
+              - type: match_block_property
+                properties:
+                  age: 2
+              - type: inverted
+                term:
+                  type: match_item
+                  id: minecraft:bone_meal
     states:
       id: 460
       properties:

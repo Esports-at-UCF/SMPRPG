@@ -6,10 +6,8 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.VanillaEntity;
-import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll;
 import xyz.devvydont.smprpg.services.EnchantmentService;
-import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
 import xyz.devvydont.smprpg.util.items.LootDrop;
 

@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.listeners.block
 import io.papermc.paper.event.block.VaultChangeStateEvent
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import net.momirealms.craftengine.bukkit.api.CraftEngineItems
+import net.momirealms.craftengine.bukkit.util.ItemStackUtils
 import org.bukkit.block.Vault
 import org.bukkit.craftbukkit.entity.CraftFallingBlock
 import org.bukkit.entity.FallingBlock
@@ -64,7 +65,7 @@ class AscendingBlockListener : ToggleableListener() {
                             )
                         }
                         else {
-                            val item = CraftEngineItems.byId(CraftEngineHelpers.getBlockKey(block.blockState)!!)!!.buildItemStack()
+                            val item = ItemStackUtils.getBukkitStack(CraftEngineItems.byId(CraftEngineHelpers.getBlockKey(block.blockState)!!)!!)
                             block.world.dropItemNaturally(block.location, item)
                         }
                     }

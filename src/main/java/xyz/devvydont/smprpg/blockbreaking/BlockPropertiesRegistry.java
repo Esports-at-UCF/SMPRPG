@@ -6223,6 +6223,12 @@ public class BlockPropertiesRegistry implements Listener {
                 .softRequirement(true)
                 .build());
 
+        register(Material.POTTED_GOLDEN_DANDELION, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .hardness(0)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
         register(Material.POTTED_DARK_OAK_SAPLING, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(0)
                 .breakingPower(0)
@@ -6362,6 +6368,12 @@ public class BlockPropertiesRegistry implements Listener {
                 .build());
 
         register(Material.DANDELION, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE)
+                .hardness(0)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
+        register(Material.GOLDEN_DANDELION, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)

@@ -1,19 +1,20 @@
 package xyz.devvydont.smprpg.block.behaviors
 
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitBlockBehavior
-import net.momirealms.craftengine.core.block.CustomBlock
+import net.momirealms.craftengine.core.block.BlockDefinition
 import net.momirealms.craftengine.core.block.behavior.BlockBehavior
 import net.momirealms.craftengine.core.block.behavior.BlockBehaviorFactory
+import net.momirealms.craftengine.core.plugin.config.ConfigSection
 import org.bukkit.Bukkit
 import org.bukkit.util.Vector
 import xyz.devvydont.smprpg.SMPRPG
 import java.util.concurrent.Callable
 
-class AcceleratorBlockBehavior(customBlock: CustomBlock,
-                               val acceleration : Float): BukkitBlockBehavior(customBlock) {
+class AcceleratorBlockBehavior(blockDefinition: BlockDefinition,
+                               val acceleration : Float): BukkitBlockBehavior(blockDefinition) {
 
-    override fun stepOn(thisBlock: Any?, args: Array<out Any?>?, superMethod: Callable<in Any>?) {
-        super.stepOn(thisBlock, args, superMethod)
+    override fun stepOn(thisBlock: Any?, args: Array<out Any?>?) {
+        super.stepOn(thisBlock, args)
         val nmsEntity = args!!.get(3) as net.minecraft.world.entity.Entity
         val craftEntity = nmsEntity.bukkitEntity
 
@@ -38,8 +39,8 @@ class AcceleratorBlockBehavior(customBlock: CustomBlock,
         val FACTORY = Factory()
 
         class Factory : BlockBehaviorFactory<BlockBehavior> {
-            override fun create(block: CustomBlock, arguments: Map<String, Any>): AcceleratorBlockBehavior {
-                val acceleration : Float = arguments["acceleration"] as Float
+            override fun create(block: BlockDefinition, section: ConfigSection): AcceleratorBlockBehavior {
+                val acceleration : Float = section.getFloat("acceleration")
                 return AcceleratorBlockBehavior(block, acceleration)
             }
         }

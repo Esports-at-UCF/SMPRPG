@@ -124,7 +124,7 @@ class EntityService : IService, Listener {
         vanillaEntityHandlers.put(EntityType.SPIDER, LeveledSpider::class.java)
         vanillaEntityHandlers.put(EntityType.CAVE_SPIDER, LeveledSpider::class.java)
         vanillaEntityHandlers.put(EntityType.CREEPER, LeveledCreeper::class.java)
-        vanillaEntityHandlers.put(EntityType.HUSK, LeveledZombie::class.java)
+        vanillaEntityHandlers.put(EntityType.HUSK, LeveledHusk::class.java)
         vanillaEntityHandlers.put(EntityType.GHAST, LeveledGhast::class.java)
         vanillaEntityHandlers.put(EntityType.HAPPY_GHAST, LeveledHappyGhast::class.java)
         vanillaEntityHandlers.put(EntityType.HOGLIN, LeveledHoglin::class.java)

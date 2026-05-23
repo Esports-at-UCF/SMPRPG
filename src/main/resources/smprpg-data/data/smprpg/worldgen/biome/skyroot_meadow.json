@@ -23,12 +23,7 @@
     [],
     [],
     [],
-    [
-      "minecraft:patch_grass_meadow",
-      "minecraft:patch_bush",
-      "smprpg:patch_sky_berry_bush",
-      "smprpg:flower_aether_meadow"
-    ],
+    [],
     []
   ],
   "has_precipitation": false,

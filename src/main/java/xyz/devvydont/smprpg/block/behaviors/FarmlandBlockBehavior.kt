@@ -1,26 +1,21 @@
 package xyz.devvydont.smprpg.block.behaviors
 
 import net.minecraft.core.BlockPos
-import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.LevelReader
-import net.minecraft.world.level.ScheduledTickAccess
 import net.minecraft.world.level.block.state.BlockState
-import net.momirealms.craftengine.bukkit.api.BukkitAdaptors
+import net.momirealms.craftengine.bukkit.api.BukkitAdaptor
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import net.momirealms.craftengine.bukkit.block.behavior.AbstractCanSurviveBlockBehavior
-import net.momirealms.craftengine.bukkit.block.behavior.BukkitBlockBehavior
 import net.momirealms.craftengine.bukkit.block.behavior.FenceGateBlockBehavior
 import net.momirealms.craftengine.bukkit.util.BlockStateUtils
-import net.momirealms.craftengine.core.block.CustomBlock
+import net.momirealms.craftengine.core.block.BlockDefinition
 import net.momirealms.craftengine.core.block.behavior.BlockBehavior
 import net.momirealms.craftengine.core.block.behavior.BlockBehaviorFactory
-import net.momirealms.craftengine.core.block.behavior.FallOnBlockBehavior
+import net.momirealms.craftengine.core.block.behavior.PrioritizedFallOnHandler
+import net.momirealms.craftengine.core.plugin.config.ConfigSection
 import net.momirealms.craftengine.core.util.Key
-import net.momirealms.craftengine.core.util.MiscUtils
-import net.momirealms.craftengine.core.util.ResourceConfigUtils
 import net.momirealms.craftengine.libraries.nbt.CompoundTag
 import net.momirealms.craftengine.libraries.nbt.IntTag
 import net.momirealms.craftengine.libraries.nbt.Tag
@@ -35,15 +30,14 @@ import org.bukkit.event.block.Action
 import org.bukkit.event.entity.EntityInteractEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import xyz.devvydont.smprpg.util.craftengine.CraftEngineHelpers
-import java.util.concurrent.Callable
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
 
-class FarmlandBlockBehavior(customBlock: CustomBlock,
+class FarmlandBlockBehavior(blockDefinition: BlockDefinition,
                             val revertBlockKey: Key,
                             val tagsCanHydrate: Set<Key>,
-                            val statesCanHydrate: Set<Key>): AbstractCanSurviveBlockBehavior(customBlock, 0), FallOnBlockBehavior {
+                            val statesCanHydrate: Set<Key>): AbstractCanSurviveBlockBehavior(blockDefinition, 0), PrioritizedFallOnHandler {
 
     override fun canSurvive(
         thisBlock: Any?,
@@ -67,7 +61,7 @@ class FarmlandBlockBehavior(customBlock: CustomBlock,
 
         if (CraftEngineBlocks.isCustomBlock(blockAbove)) {
             val nms_AboveState = BlockStateUtils.getBlockState(blockAbove) as BlockState  // We are going to use NMS state to work with lower level settings
-            val isGate = !(CraftEngineBlocks.getCustomBlockState(blockAbove)!!.behavior().getAs(FenceGateBlockBehavior::class.java).isEmpty)
+            val isGate = CraftEngineBlocks.getCustomBlockState(blockAbove)!!.behavior().getFirst(FenceGateBlockBehavior::class.java) != null
             return (!nms_AboveState.isSolid || isGate)
         }
         else {
@@ -89,7 +83,7 @@ class FarmlandBlockBehavior(customBlock: CustomBlock,
         for (x in -radius..radius) {
             for (z in -radius..radius) {
                 val blockAt = blockLoc.world.getBlockAt((blockLoc.x + x).toInt(), blockLoc.y.toInt(), (blockLoc.z + z).toInt())
-                val ceBlock = BukkitAdaptors.adapt(blockAt)
+                val ceBlock = BukkitAdaptor.adapt(blockAt)
                 for (tag in tagsCanHydrate)
                     if (BlockStateUtils.isTag(blockAt.blockData, tag)) return true
                 for (state in statesCanHydrate)
@@ -100,7 +94,7 @@ class FarmlandBlockBehavior(customBlock: CustomBlock,
     }
 
     // BlockState state, ServerLevel level, BlockPos pos, RandomSource random
-    override fun randomTick(thisBlock: Any?, args: Array<out Any?>?, superMethod: Callable<in Any>?) {
+    override fun randomTick(thisBlock: Any?, args: Array<out Any?>?) {
         val nms_state = args!![0] as BlockState
         val nms_level = args[1] as ServerLevel
         val nms_pos = args[2] as BlockPos
@@ -123,13 +117,13 @@ class FarmlandBlockBehavior(customBlock: CustomBlock,
                 else moisture = max(moisture - 1, 0)
             }
             val properties = CompoundTag(mutableMapOf(Pair("moisture", IntTag(moisture) as Tag)))
-            CraftEngineBlocks.place(blockLoc, customBlock.id(), properties, false)
+            CraftEngineBlocks.place(blockLoc, blockDefinition.id(), properties, false)
         }
     }
 
     // 1.21.5+ Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance
-    override fun fallOn(thisBlock: Any?, args: Array<out Any?>?, superMethod: Callable<in Any>?) {
-        super.fallOn(thisBlock, args, superMethod)
+    override fun fallOn(thisBlock: Any?, args: Array<out Any?>?) {
+        super.fallOn(thisBlock, args)
         val nms_level = args!![0] as Level
         val nms_pos = args[2] as BlockPos
         val nms_entity = args[3] as Entity
@@ -160,7 +154,7 @@ class FarmlandBlockBehavior(customBlock: CustomBlock,
         }
     }
 
-    override fun tick(thisBlock: Any?, args: Array<out Any?>?, superMethod: Callable<in Any>?) {
+    override fun tick(thisBlock: Any?, args: Array<out Any?>?) {
         val world = (args!![1] as ServerLevel).world
         if (!canFarmlandSurvive(arrayOf(world, args[2] as BlockPos))) {
             val loc = CraftEngineHelpers.getLocationFromBlockPos(args[2] as BlockPos, world)
@@ -172,20 +166,15 @@ class FarmlandBlockBehavior(customBlock: CustomBlock,
         val FACTORY = Factory()
 
         class Factory : BlockBehaviorFactory<BlockBehavior> {
-            override fun create(block: CustomBlock, arguments: Map<String, Any>): FarmlandBlockBehavior {
-                val revertBlockKey = Key.of(
-                    ResourceConfigUtils.requireNonEmptyStringOrThrow(
-                        arguments.get("reverted-block"),
-                        "warning.config.block.behavior.farmland_block.missing_block"
-                    )
-                )
+            override fun create(block: BlockDefinition, section: ConfigSection): FarmlandBlockBehavior {
+                val revertBlockKey = Key.of(section.getNonNullString("reverted-block"))
                 val tagsCanHydrate = mutableSetOf<Key>()
                 val statesCanHydrate = mutableSetOf<Key>()
-                for (tagStr in MiscUtils.getAsStringList(arguments.getOrDefault("hydration-block-tags", listOf<Key>()))) {
+                for (tagStr in section.getStringList("hydration-block-tags")) {
                    tagsCanHydrate += Key.of(tagStr)
                 }
-                for (idStr in MiscUtils.getAsStringList(arguments.getOrDefault("hydration-blocks", listOf<Key>()))) {
-                    statesCanHydrate += Key.of(idStr)
+                for (stateStr in section.getStringList("hydration-blocks")) {
+                    statesCanHydrate += Key.of(stateStr)
                 }
                 return FarmlandBlockBehavior(block, revertBlockKey, tagsCanHydrate, statesCanHydrate)
             }

@@ -1,7 +1,8 @@
 package xyz.devvydont.smprpg.items.blueprints.craftengine
 
-import net.momirealms.craftengine.bukkit.api.BukkitAdaptors
+import net.momirealms.craftengine.bukkit.api.BukkitAdaptor
 import net.momirealms.craftengine.bukkit.api.CraftEngineItems
+import net.momirealms.craftengine.bukkit.util.ItemStackUtils
 import net.momirealms.craftengine.core.util.Key
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
@@ -11,7 +12,6 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
-import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
@@ -27,12 +27,12 @@ open class CraftEngineAttributeItem(itemService: ItemService, type: CustomItemTy
         var itemStack : ItemStack
         val craftEngineItem = CraftEngineItems.byId(Key.of("smprpg:${customItemType.key}"))
         if (craftEngineItem != null) {
-            itemStack = craftEngineItem.buildItemStack()
+            itemStack = craftEngineItem.buildBukkitItem()
         }
         else {
             itemStack = ItemStack.of(customItemType.DisplayMaterial)
         }
-        val ceItem = BukkitAdaptors.adapt(itemStack)
+        val ceItem = BukkitAdaptor.adapt(itemStack)
         ceItem.setTag("craftengine:id", "smprpg:${customItemType.key}")
 
 

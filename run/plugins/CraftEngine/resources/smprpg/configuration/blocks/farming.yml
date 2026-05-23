@@ -132,6 +132,7 @@ blocks:
         - minecraft:dry_vegetation_may_place_on
         - minecraft:big_dripleaf_placeable
         - minecraft:grows_crops
+        - minecraft:supports_crops
     behavior:
       type: smprpg:tick_accelerator
       chance: 1.0

@@ -3,7 +3,7 @@ package xyz.devvydont.smprpg.entity.vanilla;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.entity.Bogged;
+import org.bukkit.entity.Parched;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.MobType;
@@ -11,9 +11,9 @@ import xyz.devvydont.smprpg.entity.base.VanillaEntity;
 import xyz.devvydont.smprpg.services.AttributeService;
 import xyz.devvydont.smprpg.services.ItemService;
 
-public class LeveledParched extends VanillaEntity<Bogged> {
+public class LeveledParched extends VanillaEntity<Parched> {
 
-    public LeveledParched(Bogged entity) {
+    public LeveledParched(Parched entity) {
         super(entity);
     }
 

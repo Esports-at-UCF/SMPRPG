@@ -31,7 +31,8 @@ class SkillExperienceGainEvent(
         XP,
         COMMANDS,
         COOK,
-        UNKNOWN
+        UNKNOWN,
+        CRAFTENGINE_FUNCTION
     }
 
     private var cancelled = false

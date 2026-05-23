@@ -1,5 +1,6 @@
 {
   "asset_id": "smprpg:entity/pig/space_pig",
+  "baby_asset_id": "smprpg:entity/pig/space_pig",
   "spawn_conditions": [
     {
       "condition": {

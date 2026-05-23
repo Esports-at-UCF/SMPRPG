@@ -1,17 +1,18 @@
 package xyz.devvydont.smprpg.block.behaviors
 
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitBlockBehavior
-import net.momirealms.craftengine.core.block.CustomBlock
+import net.momirealms.craftengine.core.block.BlockDefinition
 import net.momirealms.craftengine.core.block.ImmutableBlockState
 import net.momirealms.craftengine.core.block.behavior.BlockBehavior
 import net.momirealms.craftengine.core.block.behavior.BlockBehaviorFactory
 import net.momirealms.craftengine.core.entity.player.InteractionResult
+import net.momirealms.craftengine.core.plugin.config.ConfigSection
 import net.momirealms.craftengine.core.world.context.UseOnContext
 import org.bukkit.Bukkit
 import xyz.devvydont.smprpg.gui.items.MenuReforge
 
-class SMPRPGMenuBlockBehavior(customBlock: CustomBlock,
-                              val menuName: String): BukkitBlockBehavior(customBlock) {
+class SMPRPGMenuBlockBehavior(blockDefinition: BlockDefinition,
+                              val menuName: String): BukkitBlockBehavior(blockDefinition) {
 
     override fun useWithoutItem(context: UseOnContext, state: ImmutableBlockState): InteractionResult {
         if (context.player != null) {
@@ -32,8 +33,8 @@ class SMPRPGMenuBlockBehavior(customBlock: CustomBlock,
         val FACTORY = Factory()
 
         class Factory : BlockBehaviorFactory<BlockBehavior> {
-            override fun create(block: CustomBlock, arguments: Map<String, Any>): SMPRPGMenuBlockBehavior {
-                val menuName : String = arguments["menu"] as String
+            override fun create(block: BlockDefinition, section: ConfigSection): SMPRPGMenuBlockBehavior {
+                val menuName : String = section.getNonNullString("menu")
                 return SMPRPGMenuBlockBehavior(block, menuName)
             }
         }

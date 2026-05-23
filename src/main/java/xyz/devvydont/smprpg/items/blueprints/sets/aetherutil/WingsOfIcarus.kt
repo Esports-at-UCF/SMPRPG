@@ -103,7 +103,7 @@ class WingsOfIcarus(itemService: ItemService, type: CustomItemType) : CustomAttr
     @EventHandler
     fun onFlyAtSun(event: PlayerMoveEvent) {
         val chestplate = event.player.equipment.chestplate
-        if (chestplate == null) return
+        if (chestplate.isEmpty) return
         if (itemService.getBlueprint(chestplate) is WingsOfIcarus) {
             if (event.player.isGliding) {
                 if ((event.player.world.environment == World.Environment.NETHER) || (event.to.y >= event.player.world.seaLevel + MAX_ABOVE_SEA_LEVEL)) {

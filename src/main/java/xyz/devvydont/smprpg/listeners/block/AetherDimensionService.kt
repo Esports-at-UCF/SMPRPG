@@ -276,7 +276,6 @@ class AetherDimensionService : IService, Listener {
                     if (nb == null) continue
                     if (nb.type == Material.GLOWSTONE && !found.contains(nb)) {
                         found += nb
-                        ParticleUtil.spawnParticlesBetweenTwoPoints(Particle.END_ROD, nb.world, startingBlock.location.toVector(), nb.location.toVector(), 20)
                         return isValidPortal(nb, startingBlock, axis, found, false)
                     }
                 }

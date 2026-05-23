@@ -8,6 +8,7 @@ import io.papermc.paper.registry.keys.SoundEventKeys
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import net.momirealms.craftengine.core.plugin.CraftEngine
 import org.bukkit.NamespacedKey
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
@@ -22,6 +23,7 @@ import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
+import xyz.devvydont.smprpg.block.behaviors.SMPRPGBlockBehaviors
 import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationParent
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
 import xyz.devvydont.smprpg.items.CustomItemType

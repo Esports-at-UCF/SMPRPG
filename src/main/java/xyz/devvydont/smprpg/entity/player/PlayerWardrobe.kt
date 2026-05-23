@@ -133,10 +133,10 @@ class EquipmentSet {
         val equipment = living.equipment
         if (equipment == null)
             return
-        equipment.helmet = helmet
-        equipment.chestplate = chestplate
-        equipment.leggings = leggings
-        equipment.boots = boots
+        equipment.setHelmet(helmet)
+        equipment.setChestplate(chestplate)
+        equipment.setLeggings(leggings)
+        equipment.setBoots(boots)
     }
 
 }

@@ -3,8 +3,8 @@ package xyz.devvydont.smprpg.recipe.cookingpot
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.Recipe
-import xyz.devvydont.smprpg.block.entity.CookingPotBlockEntity
-import xyz.devvydont.smprpg.block.entity.CookingPotBlockEntity.Companion.INGREDIENT_SLOTS
+import xyz.devvydont.smprpg.block.entity.CookingPotBlockEntityController
+import xyz.devvydont.smprpg.block.entity.CookingPotBlockEntityController.Companion.INGREDIENT_SLOTS
 import xyz.devvydont.smprpg.skills.utils.SkillExperienceReward
 import xyz.devvydont.smprpg.util.extensions.takeIfPresent
 
@@ -23,11 +23,11 @@ class CookingPotRecipe(val key: NamespacedKey,
     }
 
     companion object {
-        fun getFirstRecipeMatch(pot: CookingPotBlockEntity) : CookingPotRecipe? {
+        fun getFirstRecipeMatch(pot: CookingPotBlockEntityController) : CookingPotRecipe? {
             var isValidRecipe: Boolean
             val potIngs = mutableListOf<ItemStack>()
             for (slot in INGREDIENT_SLOTS) {
-                val ing = pot.inventory().getItem(slot) ?: continue
+                val ing = pot.inventory()?.getItem(slot) ?: continue
                 if (!ing.isEmpty) {
                     potIngs.add(ing)
                 }
@@ -46,7 +46,7 @@ class CookingPotRecipe(val key: NamespacedKey,
                 }
                 isValidRecipe = true
                 if (currRecipe.platingItem != null) {
-                    val platingItem = pot.inventory().getItem(CookingPotBlockEntity.PLATING_SLOT) ?: continue
+                    val platingItem = pot.inventory()?.getItem(CookingPotBlockEntityController.PLATING_SLOT) ?: continue
                     if (!platingItem.isSimilar(currRecipe.platingItem))
                         continue
                 }
@@ -61,15 +61,15 @@ class CookingPotRecipe(val key: NamespacedKey,
             return null
         }
 
-        fun takeIngredients(pot: CookingPotBlockEntity, recipe: CookingPotRecipe) {
-            val inv = pot.inventory()
+        fun takeIngredients(pot: CookingPotBlockEntityController, recipe: CookingPotRecipe) {
+            val inv = pot.inventory()!!
             for (ing in recipe.inputs) {
                 inv.takeIfPresent(ing)
             }
 
             // We can assume the plating item exists if this method is being called.
             if (recipe.platingItem != null)
-                inv.getItem(CookingPotBlockEntity.PLATING_SLOT)!!.amount--
+                inv.getItem(CookingPotBlockEntityController.PLATING_SLOT)!!.amount--
         }
     }
 }
