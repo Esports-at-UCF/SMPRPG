@@ -24,6 +24,15 @@ items:
     behavior:
       type: block_item
       block: smprpg:netherite_anvil
+  smprpg:titanium_cache:
+    data:
+      item-name: <!i><lang:item.smprpg.netherite_anvil>
+      pdc:
+        smprpg:item-type: titanium_cache
+    model: smprpg:block/interactables/titanium_cache
+    behavior:
+      type: block_item
+      block: smprpg:titanium_cache
 
 
 blocks:
@@ -122,6 +131,75 @@ blocks:
         conditions:
           - type: expression
             expression: "!<arg:player.is_sneaking>"
+  smprpg:titanium_cache:
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+      appearances:
+        north:
+          state: barrier
+          entity-renderer:
+            - type: item_display
+              item: smprpg:titanium_cache
+              yaw: 180
+        south:
+          state: barrier
+          entity-renderer:
+            - type: item_display
+              item: smprpg:titanium_cache
+        east:
+          state: barrier
+          entity-renderer:
+            - type: item_display
+              item: smprpg:titanium_cache
+              yaw: 270
+        west:
+          state: barrier
+          entity-renderer:
+            - type: item_display
+              item: smprpg:titanium_cache
+              yaw: 90
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=west:
+          appearance: west
+        facing=south:
+          appearance: south
+    settings:
+      template:
+        - smprpg:settings/metal_block
+        - smprpg:data/breaking_power_5
+        - smprpg:data/beacon_usable
+      overrides:
+        hardness: 25.0
+        resistance: 10.0
+        instrument: guitar
+        map-color: 16
+    behavior:
+      type: drawer_block
+      item_position: 0,0,-0.4575
+      text_position: 0,0.35,-0.52
+      item_scale: 0.6,0.6,0.6
+      text_scale: 0.5,0.5,0.5
+      max_stacks: 32
+      sounds:
+        put:
+          id: minecraft:block.decorated_pot.insert
+          pitch: 0.5
+          volume: 1.0
+        take:
+          id: minecraft:block.decorated_pot.insert_fail
+          pitch: 0.5
+          volume: 1.0
+      has_signal: true
+      allow_input: true
+      allow_output: true
+      data_key: "smprpg:titanium_cache"
+      compatible_mode: false
 
 recipes:
   smprpg:netherite_anvil:

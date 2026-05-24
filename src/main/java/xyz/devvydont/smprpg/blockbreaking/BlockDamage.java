@@ -13,12 +13,14 @@ import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.block.BlockSound;
 import xyz.devvydont.smprpg.enchantments.definitions.MinersFervorArtificeEnchantment;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.interfaces.IFueledEquipment;
+import xyz.devvydont.smprpg.listeners.damage.DamagePopupListener;
 import xyz.devvydont.smprpg.services.*;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.formatting.Symbols;
@@ -248,13 +250,10 @@ public class BlockDamage {
 		}
 		else {
 			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 0.5F);
-			player.sendMessage(ComponentUtils.success(ComponentUtils.merge(
-					ComponentUtils.create("You cannot break this block, as you only have a breaking power of ", NamedTextColor.RED),
-					ComponentUtils.create(Symbols.PICKAXE + String.valueOf((int) playerBp), NamedTextColor.DARK_PURPLE),
-					ComponentUtils.create(". In order to break this block, you need ", NamedTextColor.RED),
-					ComponentUtils.create(Symbols.PICKAXE + String.valueOf((int) entry.getBreakingPower()), NamedTextColor.LIGHT_PURPLE),
-					ComponentUtils.create(" breaking power.", NamedTextColor.RED)
-			)));
+			var popupLoc = player.getEyeLocation().toVector();
+			popupLoc.midpoint(block.getLocation().add(new Vector(0.5, 0, 0.5)).toVector());
+			popupLoc.subtract(new Vector(0.25, 0, 0.25));
+			DamagePopupListener.Companion.spawnTextPopup(popupLoc.toLocation(block.getWorld()), entry.getBreakingPower(), DamagePopupListener.PopupType.BREAKING_POWER);
 			return -1d;
 		}
 		damage = speedMultiplier / hardness;

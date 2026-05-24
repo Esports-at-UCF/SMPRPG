@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.listeners.damage
 
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Color
@@ -48,7 +49,8 @@ class DamagePopupListener : ToggleableListener() {
             )
         ),
         GAIN_ARMOR(ComponentDecorator.color(NamedTextColor.YELLOW)),
-        HEAL(ComponentDecorator.color(NamedTextColor.GREEN))
+        HEAL(ComponentDecorator.color(NamedTextColor.GREEN)),
+        BREAKING_POWER(ComponentDecorator.color(NamedTextColor.DARK_PURPLE))
     }
 
     /**
@@ -179,10 +181,18 @@ class DamagePopupListener : ToggleableListener() {
             val text: String = NUMBER_FORMATTER.format(finalAmount)
 
             // Retrieve the component based on the popup type.
-            val component = type.decorator.decorate(text)
+            var component: Component
+            var spawnLoc: Location
+            if (type == PopupType.BREAKING_POWER) {
+                component = type.decorator.decorate(Symbols.PICKAXE + text)
+                spawnLoc = location
+            }
+            else {
+                component = type.decorator.decorate(text)
+                spawnLoc = location.add(Math.random() - .5, Math.random() + .3, Math.random() - .5)
+            }
 
             // Now actually spawn the text display entity.
-            val spawnLoc = location.add(Math.random() - .5, Math.random() + .3, Math.random() - .5)
             val display =
                 location.getWorld().spawn(spawnLoc, TextDisplay::class.java, Consumer { e: TextDisplay ->
                     e.isPersistent = false

@@ -1353,6 +1353,7 @@ public enum CustomItemType {
     FREEZER(           "Freezer",              Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
     CUTTING_BOARD(     "Cutting Board",        Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
     COOKING_POT(       "Cooking Pot",          Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
+    TITANIUM_CACHE(    "Titanium Cache",       Material.NETHER_BRICK,     ItemRarity.RARE, CraftEngineBlueprint.class),
 
     GRIMSTONE("Grimstone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     COBBLED_GRIMSTONE("Cobbled Grimstone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),

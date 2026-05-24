@@ -86,8 +86,8 @@ blocks:
         - smprpg:sound/endstone
       merges:
         tags:
-          - minecraft:supports_chorus_flower  # Won't function until 26.1+
-          - minecraft:supports_chorus_plant  # Won't function until 26.1+
+          - minecraft:supports_chorus_flower
+          - minecraft:supports_chorus_plant
           - smprpg:supports_end_vegetation
       map-color: 16
       overrides:

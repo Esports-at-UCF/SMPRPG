@@ -296,7 +296,7 @@ items:
         smprpg:item-type: binary_door
     settings:
       fuel-time: 200
-    texture: smprpg:item/aether/binary_door
+    texture: smprpg:item/end/binary_door
     behavior:
       type: double_high_block_item
       block:
