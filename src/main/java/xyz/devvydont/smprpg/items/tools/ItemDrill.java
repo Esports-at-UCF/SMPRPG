@@ -127,26 +127,26 @@ public class ItemDrill extends CustomAttributeItem implements IFueledEquipment, 
 
     public void initialize(ItemStack drill) {
 
-        // Default to steel components if for whatever reason this drill has no components.
-        var items = new ArrayList<ItemStack>();
-        CustomItemType[] comps = {CustomItemType.STEEL_DRILL_BASE, CustomItemType.STEEL_DRILL_HEAD, CustomItemType.SMALL_FUEL_TANK};
-        IModularToolComponent bp;
-        final String[] keys = new String[3];
-        for (var i = 0; i < getModularSlots(); i++) {
-            items.add(ItemService.generate(comps[i]));
-            bp = (IModularToolComponent) ItemService.blueprint(items.get(i));
-            keys[i] = bp.getAttrKey();
-        }
-
-        // Set the stored contents.
-        drill.setData(DataComponentTypes.CONTAINER, ItemContainerContents.containerContents(items));
-        IFueledEquipment drillBlueprint = new ItemDrill(itemService, CustomItemType.DRILL);  // We need to manually create a drill blueprint class here, as the item type key has not been set yet.
-        drill.setData(DataComponentTypes.MAX_DAMAGE, items.get(2).getData(DataComponentTypes.MAX_DAMAGE));
-        drill.setData(DataComponentTypes.SWING_ANIMATION, SwingAnimation.swingAnimation().type(SwingAnimation.Animation.STAB).duration(1));
-        drillBlueprint.setFuelUsed(drill, 0);
-        drill.editPersistentDataContainer(pdc -> pdc.set(drillBaseKey, PersistentDataType.STRING, keys[0]));
-        drill.editPersistentDataContainer(pdc -> pdc.set(drillHeadKey, PersistentDataType.STRING, keys[1]));
-        drill.editPersistentDataContainer(pdc -> pdc.set(drillTankKey, PersistentDataType.STRING, keys[2]));
+        // // Default to steel components if for whatever reason this drill has no components.
+        // var items = new ArrayList<ItemStack>();
+        // CustomItemType[] comps = {CustomItemType.STEEL_DRILL_BASE, CustomItemType.STEEL_DRILL_HEAD, CustomItemType.SMALL_FUEL_TANK};
+        // IModularToolComponent bp;
+        // final String[] keys = new String[3];
+        // for (var i = 0; i < getModularSlots(); i++) {
+        //     items.add(ItemService.generate(comps[i]));
+        //     bp = (IModularToolComponent) ItemService.blueprint(items.get(i));
+        //     keys[i] = bp.getAttrKey();
+        // }
+//
+        // // Set the stored contents.
+        // drill.setData(DataComponentTypes.CONTAINER, ItemContainerContents.containerContents(items));
+        // IFueledEquipment drillBlueprint = new ItemDrill(itemService, CustomItemType.DRILL);  // We need to manually create a drill blueprint class here, as the item type key has not been set yet.
+        // drill.setData(DataComponentTypes.MAX_DAMAGE, items.get(2).getData(DataComponentTypes.MAX_DAMAGE));
+        // drill.setData(DataComponentTypes.SWING_ANIMATION, SwingAnimation.swingAnimation().type(SwingAnimation.Animation.STAB).duration(1));
+        // drillBlueprint.setFuelUsed(drill, 0);
+        // drill.editPersistentDataContainer(pdc -> pdc.set(drillBaseKey, PersistentDataType.STRING, keys[0]));
+        // drill.editPersistentDataContainer(pdc -> pdc.set(drillHeadKey, PersistentDataType.STRING, keys[1]));
+        // drill.editPersistentDataContainer(pdc -> pdc.set(drillTankKey, PersistentDataType.STRING, keys[2]));
     }
 
     @Override

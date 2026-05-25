@@ -233,10 +233,10 @@ class LootService : IService, Listener {
 
             // Convert Enchanted Books into scrolls.
             if (item.type == Material.ENCHANTED_BOOK) {
-                var enchants = item.getData(DataComponentTypes.STORED_ENCHANTMENTS)?.enchantments()
+                val enchants = item.getData(DataComponentTypes.STORED_ENCHANTMENTS)?.enchantments()
                 if (enchants != null) {
                     // Grab random enchant from the book. That will become our scroll enchantment
-                    var customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchants.keys.random())!!
+                    val customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchants.keys.random())!!
                     val scroll = DynamicEnchantingScroll.getScrollWithEnchantment(customEnch)
                     inventory.setItem(i, scroll)
                 }

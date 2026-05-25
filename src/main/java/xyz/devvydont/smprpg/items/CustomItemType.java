@@ -203,10 +203,10 @@ public enum CustomItemType {
     NEO_FRONTIER_BOOTS("Neo Frontier Boots",           Material.LEATHER_BOOTS,      NeoFrontierBoots.class),
 
     // DYNAMIC TOOLS
-    DRILL("Mining Drill", Material.PRISMARINE_SHARD, ItemDrill.class),
-    SMALL_FUEL_TANK("Small Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.COMMON,    SmallFuelTank.class),
-    MEDIUM_FUEL_TANK("Medium Fuel Tank", Material.PRISMARINE_SHARD,   ItemRarity.UNCOMMON,  MediumFuelTank.class),
-    LARGE_FUEL_TANK("Large Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.RARE,      LargeFuelTank.class),
+    // DRILL("Mining Drill", Material.PRISMARINE_SHARD, ItemDrill.class),
+    // SMALL_FUEL_TANK("Small Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.COMMON,    SmallFuelTank.class),
+    // MEDIUM_FUEL_TANK("Medium Fuel Tank", Material.PRISMARINE_SHARD,   ItemRarity.UNCOMMON,  MediumFuelTank.class),
+    // LARGE_FUEL_TANK("Large Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.RARE,      LargeFuelTank.class),
 
     // AUGMENT STONES
     COMMON_REPAIR_CORE("Common Repair Core", Material.HEAVY_CORE, ItemRarity.COMMON, RepairCore.class),
@@ -299,8 +299,8 @@ public enum CustomItemType {
     STEEL_SINGULARITY("Steel Singularity", Material.IRON_INGOT, ItemRarity.MYTHIC, true, SteelFamilyBlueprint.class),
 
     STEEL_TOOL_SHAFT("Steel Tool Shaft", Material.STICK, ItemRarity.UNCOMMON, SteelToolShaft.class),
-    STEEL_DRILL_HEAD("Steel Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillHead.class),
-    STEEL_DRILL_BASE("Steel Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillBase.class),
+    // STEEL_DRILL_HEAD("Steel Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillHead.class),
+    // STEEL_DRILL_BASE("Steel Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillBase.class),
 
     STEEL_PICKAXE("Steel Pickaxe",      Material.IRON_PICKAXE,      ItemRarity.UNCOMMON,   SteelPickaxe.class),
     STEEL_AXE("Steel Axe",              Material.IRON_AXE,          ItemRarity.UNCOMMON,   SteelAxe.class),
@@ -320,8 +320,8 @@ public enum CustomItemType {
     ROSE_GOLD_INGOT("Rose Gold Ingot",                 Material.IRON_INGOT,     ItemRarity.UNCOMMON,   RoseGoldIngot.class),
     ROSE_GOLD_BLOCK("Block of Rose Gold",              Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineBlueprint.class),
 
-    ROSE_GOLD_DRILL_HEAD("Rose Gold Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, RoseGoldDrillHead.class),
-    ROSE_GOLD_DRILL_BASE("Rose Gold Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, RoseGoldDrillBase.class),
+    // ROSE_GOLD_DRILL_HEAD("Rose Gold Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, RoseGoldDrillHead.class),
+    // ROSE_GOLD_DRILL_BASE("Rose Gold Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, RoseGoldDrillBase.class),
 
     ROSE_GOLD_PICKAXE("Rose Gold Pickaxe",  Material.GOLDEN_PICKAXE, ItemRarity.UNCOMMON, RoseGoldPickaxe.class),
     ROSE_GOLD_AXE(    "Rose Gold Axe",      Material.GOLDEN_AXE,     ItemRarity.UNCOMMON, RoseGoldAxe.class),
@@ -350,8 +350,8 @@ public enum CustomItemType {
     ENCHANTED_MITHRIL_BLOCK("Enchanted Block of Mithril",   Material.POISONOUS_POTATO,  ItemRarity.LEGENDARY,      true, MithrilFamilyBlueprint.class),
     MITHRIL_SINGULARITY("Mithril Singularity",              Material.IRON_INGOT,        ItemRarity.MYTHIC, true, MithrilFamilyBlueprint.class),
 
-    MITHRIL_DRILL_HEAD("Mithril Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillHead.class),
-    MITHRIL_DRILL_BASE("Mithril Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillBase.class),
+    // MITHRIL_DRILL_HEAD("Mithril Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillHead.class),
+    // MITHRIL_DRILL_BASE("Mithril Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillBase.class),
 
     MITHRIL_PICKAXE("Mithril Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.UNCOMMON, MithrilPickaxe.class),
     MITHRIL_AXE(    "Mithril Axe",      Material.DIAMOND_AXE,     ItemRarity.UNCOMMON, MithrilAxe.class),
@@ -380,8 +380,8 @@ public enum CustomItemType {
     ENCHANTED_TITANIUM_BLOCK("Enchanted Block of Titanium",   Material.POISONOUS_POTATO,  ItemRarity.MYTHIC,      true, TitaniumFamilyBlueprint.class),
     TITANIUM_SINGULARITY("Titanium Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, TitaniumFamilyBlueprint.class),
 
-    TITANIUM_DRILL_HEAD("Titanium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillHead.class),
-    TITANIUM_DRILL_BASE("Titanium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillBase.class),
+    // TITANIUM_DRILL_HEAD("Titanium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillHead.class),
+    // TITANIUM_DRILL_BASE("Titanium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillBase.class),
 
     TITANIUM_PICKAXE("Titanium Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, TitaniumPickaxe.class),
     TITANIUM_AXE(    "Titanium Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, TitaniumAxe.class),
@@ -408,8 +408,8 @@ public enum CustomItemType {
     ENCHANTED_ADAMANTIUM_BLOCK("Enchanted Block of Adamantium",   Material.NETHER_BRICK,  ItemRarity.MYTHIC,      true, AdamantiumFamilyBlueprint.class),
     ADAMANTIUM_SINGULARITY("Adamantium Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, AdamantiumFamilyBlueprint.class),
 
-    ADAMANTIUM_DRILL_HEAD("Adamantium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillHead.class),
-    ADAMANTIUM_DRILL_BASE("Adamantium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillBase.class),
+    // ADAMANTIUM_DRILL_HEAD("Adamantium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillHead.class),
+    // ADAMANTIUM_DRILL_BASE("Adamantium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillBase.class),
 
     ADAMANTIUM_PICKAXE("Adamantium Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, AdamantiumPickaxe.class),
     ADAMANTIUM_AXE(    "Adamantium Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, AdamantiumAxe.class),

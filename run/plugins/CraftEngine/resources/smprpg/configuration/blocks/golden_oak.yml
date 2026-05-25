@@ -230,7 +230,6 @@ items:
           template:
            - smprpg:settings/leaves
            - smprpg:sound/cherry_leaves
-           - smprpg:data/breaking_power_5
           overrides:
             hardness: 1.0
         states:

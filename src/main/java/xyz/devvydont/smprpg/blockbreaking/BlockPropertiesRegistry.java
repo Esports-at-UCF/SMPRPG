@@ -4184,8 +4184,8 @@ public class BlockPropertiesRegistry implements Listener {
 
         register(Material.BIRCH_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
                 .hardness(25)
-                .breakingPower(1)
-                .softRequirement(false)
+                .breakingPower(0)
+                .softRequirement(true)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Jungle">
@@ -4310,8 +4310,8 @@ public class BlockPropertiesRegistry implements Listener {
 
         register(Material.JUNGLE_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
                 .hardness(25)
-                .breakingPower(1)
-                .softRequirement(false)
+                .breakingPower(0)
+                .softRequirement(true)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Acacia">
@@ -4436,8 +4436,8 @@ public class BlockPropertiesRegistry implements Listener {
 
         register(Material.ACACIA_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
                 .hardness(35)
-                .breakingPower(2)
-                .softRequirement(false)
+                .breakingPower(0)
+                .softRequirement(true)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Dark Oak">
@@ -4562,8 +4562,8 @@ public class BlockPropertiesRegistry implements Listener {
 
         register(Material.DARK_OAK_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
                 .hardness(35)
-                .breakingPower(2)
-                .softRequirement(false)
+                .breakingPower(0)
+                .softRequirement(true)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Bamboo">
@@ -4786,8 +4786,8 @@ public class BlockPropertiesRegistry implements Listener {
 
         register(Material.CHERRY_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
                 .hardness(50)
-                .breakingPower(3)
-                .softRequirement(false)
+                .breakingPower(0)
+                .softRequirement(true)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Mangrove">
@@ -4926,8 +4926,8 @@ public class BlockPropertiesRegistry implements Listener {
 
         register(Material.MANGROVE_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
                 .hardness(50)
-                .breakingPower(3)
-                .softRequirement(false)
+                .breakingPower(0)
+                .softRequirement(true)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Pale Oak">
@@ -5059,8 +5059,8 @@ public class BlockPropertiesRegistry implements Listener {
 
         register(Material.PALE_OAK_LEAVES, BlockPropertiesEntry.builder(ItemClassification.HATCHET, ItemClassification.HOE, ItemClassification.SHEARS)
                 .hardness(75)
-                .breakingPower(4)
-                .softRequirement(false)
+                .breakingPower(0)
+                .softRequirement(true)
                 .build());
         //</editor-fold>
         //<editor-fold desc="Crimson">

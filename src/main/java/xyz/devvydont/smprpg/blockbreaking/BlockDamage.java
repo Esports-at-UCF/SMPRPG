@@ -243,7 +243,7 @@ public class BlockDamage {
 
 		// Failsafe, block is unbreakable if not properly defined.
 		double playerBp = AttributeService.getInstance().getOrCreateAttribute(player, AttributeWrapper.MINING_POWER).getValue();
-		if (playerBp >= entry.getBreakingPower()) {
+		if (playerBp >= entry.getBreakingPower() && (correctTool || entry.getSoftRequirement())) {
 			hardness = entry.getHardness();
 			if (hardness <= -1)
 				return -1d;
@@ -253,7 +253,12 @@ public class BlockDamage {
 			var popupLoc = player.getEyeLocation().toVector();
 			popupLoc.midpoint(block.getLocation().add(new Vector(0.5, 0, 0.5)).toVector());
 			popupLoc.subtract(new Vector(0.25, 0, 0.25));
-			DamagePopupListener.Companion.spawnTextPopup(popupLoc.toLocation(block.getWorld()), entry.getBreakingPower(), DamagePopupListener.PopupType.BREAKING_POWER);
+			if (!correctTool) {
+                assert preferredTools != null;
+                DamagePopupListener.Companion.spawnTextPopup(popupLoc.toLocation(block.getWorld()), "Requires " + preferredTools.toArray()[0].toString().toLowerCase(), DamagePopupListener.PopupType.REQUIRES_TOOL);
+            }
+			else
+				DamagePopupListener.Companion.spawnTextPopup(popupLoc.toLocation(block.getWorld()), entry.getBreakingPower(), DamagePopupListener.PopupType.BREAKING_POWER);
 			return -1d;
 		}
 		damage = speedMultiplier / hardness;

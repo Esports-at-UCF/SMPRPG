@@ -50,7 +50,8 @@ class DamagePopupListener : ToggleableListener() {
         ),
         GAIN_ARMOR(ComponentDecorator.color(NamedTextColor.YELLOW)),
         HEAL(ComponentDecorator.color(NamedTextColor.GREEN)),
-        BREAKING_POWER(ComponentDecorator.color(NamedTextColor.DARK_PURPLE))
+        BREAKING_POWER(ComponentDecorator.color(NamedTextColor.DARK_PURPLE)),
+        REQUIRES_TOOL(ComponentDecorator.color(TextColor.color(125, 144, 255)))
     }
 
     /**
@@ -190,6 +191,48 @@ class DamagePopupListener : ToggleableListener() {
             else {
                 component = type.decorator.decorate(text)
                 spawnLoc = location.add(Math.random() - .5, Math.random() + .3, Math.random() - .5)
+            }
+
+            // Now actually spawn the text display entity.
+            val display =
+                location.getWorld().spawn(spawnLoc, TextDisplay::class.java, Consumer { e: TextDisplay ->
+                    e.isPersistent = false
+                    e.text(component)
+                    e.billboard = Display.Billboard.CENTER
+                    e.isShadowed = true
+                    e.isSeeThrough = false
+                    e.backgroundColor = Color.fromARGB(0, 0, 0, 0)
+                })
+            object : BukkitRunnable() {
+                override fun run() {
+                    display.remove()
+                }
+            }.runTaskLater(plugin, TickTime.seconds(2))
+        }
+
+        /**
+         * This is a helper method to spawn a simple text popup that cleans itself up later.
+         * @param location The location to spawn the text popup.
+         * @param message The message to display within the popup.
+         * @param type The popup type. This affects how to display it.
+         */
+        fun spawnTextPopup(location: Location, message: String, type: PopupType) {
+            // Retrieve the component based on the popup type.
+            var component: Component
+            var spawnLoc: Location
+            when (type) {
+                PopupType.BREAKING_POWER -> {
+                    component = type.decorator.decorate(Symbols.PICKAXE + message)
+                    spawnLoc = location
+                }
+                PopupType.REQUIRES_TOOL -> {
+                    component = type.decorator.decorate(message)
+                    spawnLoc = location
+                }
+                else -> {
+                    component = type.decorator.decorate(message)
+                    spawnLoc = location.add(Math.random() - .5, Math.random() + .3, Math.random() - .5)
+                }
             }
 
             // Now actually spawn the text display entity.

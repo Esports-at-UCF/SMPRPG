@@ -1406,9 +1406,9 @@ class ItemService : IService, Listener {
 
             // Copy over attributes
             fixedRecipe.uses = trade.uses
-            fixedRecipe.setExperienceReward(trade.hasExperienceReward())
             fixedRecipe.villagerExperience = trade.villagerExperience
             fixedRecipe.priceMultiplier = trade.priceMultiplier
+            fixedRecipe.setExperienceReward(false)
             fixedRecipe.specialPrice = trade.specialPrice
             fixedRecipe.demand = trade.demand
             fixedRecipe.setIgnoreDiscounts(trade.shouldIgnoreDiscounts())
