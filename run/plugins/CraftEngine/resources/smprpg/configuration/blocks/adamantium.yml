@@ -87,7 +87,7 @@ blocks:
 
 placed-features:
   smprpg:ore_adamantium:
-    dimension_type:
+    dimension:
       - minecraft:overworld
     feature:
       type: minecraft:scattered_ore

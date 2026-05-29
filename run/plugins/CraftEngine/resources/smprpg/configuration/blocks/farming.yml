@@ -202,11 +202,8 @@ blocks#tomato:
     behaviors:
       - type: liquid_flowable_block
       - type: bush_block
-        bottom-blocks:
-          - minecraft:farmland
-          - smprpg:super_soil
         bottom_block_tags:
-          - minecraft:farmland
+          - smprpg:supports_tomatoes
       - type: crop_block
         grow-speed: 0.125
         light-requirement: 9
@@ -273,11 +270,8 @@ blocks#onion:
     behaviors:
       - type: liquid_flowable_block
       - type: bush_block
-        bottom-blocks:
-          - minecraft:farmland
-          - smprpg:super_soil
         bottom_block_tags:
-          - minecraft:farmland
+          - smprpg:supports_onions
       - type: crop_block
         grow-speed: 0.125
         light-requirement: 9
@@ -432,11 +426,8 @@ blocks#cabbage:
     behaviors:
       - type: liquid_flowable_block
       - type: bush_block
-        bottom-blocks:
-          - minecraft:farmland
-          - smprpg:super_soil
         bottom_block_tags:
-          - minecraft:farmland
+          - smprpg:supports_cabbage
       - type: crop_block
         grow-speed: 0.25
         light-requirement: 9

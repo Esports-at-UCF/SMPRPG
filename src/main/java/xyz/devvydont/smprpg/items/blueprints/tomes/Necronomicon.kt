@@ -1,0 +1,40 @@
+package xyz.devvydont.smprpg.items.blueprints.tomes
+
+import io.papermc.paper.datacomponent.DataComponentTypes
+import net.kyori.adventure.key.Key
+import org.bukkit.Material
+import org.bukkit.inventory.EquipmentSlotGroup
+import org.bukkit.inventory.ItemStack
+import org.checkerframework.common.value.qual.IntRange
+import xyz.devvydont.smprpg.attribute.AttributeWrapper
+import xyz.devvydont.smprpg.items.CustomItemType
+import xyz.devvydont.smprpg.items.ItemClassification
+import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
+import xyz.devvydont.smprpg.items.attribute.AttributeEntry
+import xyz.devvydont.smprpg.items.base.CustomAttributeItem
+import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
+import xyz.devvydont.smprpg.services.ItemService
+import java.util.List
+
+class Necronomicon(itemService: ItemService, type: CustomItemType) : TomeBlueprint(itemService, type),
+    IModelOverridden {
+
+    override val maxSpellSlots: Int get() = 5
+    override val cooldownMult: Double get() = 0.9
+
+    override fun updateItemData(itemStack: ItemStack) {
+        super.updateItemData(itemStack)
+        itemStack.setData(DataComponentTypes.MAX_STACK_SIZE, 1)
+    }
+
+    override fun getAttributeModifiers(item: ItemStack): MutableCollection<AttributeEntry> {
+        return mutableListOf(
+            AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 500.0),
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 150.0)
+        )
+    }
+
+    override fun getPowerRating(): Int { return 50 }
+    override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.HAND }
+    override fun getDisplayKey(): Key { return IModelOverridden.ofMaterial(Material.PAPER) }
+}

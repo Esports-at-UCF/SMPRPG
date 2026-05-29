@@ -312,7 +312,7 @@ blocks:
   smprpg:blue_aercloud:
     state:
       id: 59
-      auto-state: solid
+      auto-state: no_tint_leaves
       model:
         template: smprpg:model/simplified_cube_all
         arguments:
@@ -336,7 +336,7 @@ blocks:
         want-particles: true
   smprpg:cold_aercloud:
     state:
-      auto-state: solid
+      auto-state: no_tint_leaves
       model:
         template: smprpg:model/simplified_cube_all
         arguments:
@@ -356,7 +356,7 @@ blocks:
         fall-damage-multiplier: 0.0
   smprpg:gold_aercloud:
     state:
-      auto-state: solid
+      auto-state: no_tint_leaves
       model:
         template: smprpg:model/simplified_cube_all
         arguments:
@@ -760,7 +760,7 @@ blocks:
 
 placed-features:
   smprpg:blue_aercloud:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -785,7 +785,7 @@ placed-features:
           min_inclusive:
             absolute: -32
   smprpg:cold_aercloud_lower:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -810,7 +810,7 @@ placed-features:
           min_inclusive:
             absolute: -64
   smprpg:ore_silver_aether:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -835,7 +835,7 @@ placed-features:
           min_inclusive:
             absolute: 22
   smprpg:ore_gravitite:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -860,7 +860,7 @@ placed-features:
           min_inclusive:
             absolute: 22
   smprpg:ore_zanite:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -885,7 +885,7 @@ placed-features:
           min_inclusive:
             absolute: 22
   smprpg:ore_ambrosium:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -910,7 +910,7 @@ placed-features:
           min_inclusive:
             absolute: 22
   smprpg:ore_platinum:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -960,7 +960,7 @@ placed-features:
           min_inclusive:
             absolute: 48
   smprpg:ore_aether_dirt:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -985,7 +985,7 @@ placed-features:
           min_inclusive:
             absolute: 0
   smprpg:ore_icestone:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: minecraft:ore
@@ -1010,7 +1010,7 @@ placed-features:
           min_inclusive:
             absolute: 0
   smprpg:aether_springs:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: minecraft:spring_feature
@@ -1033,7 +1033,7 @@ placed-features:
           min_inclusive:
             absolute: 0
   smprpg:aether_surface_lakes:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: minecraft:lake
@@ -1053,7 +1053,7 @@ placed-features:
         heightmap: WORLD_SURFACE_WG
       - type: minecraft:biome
   smprpg:flower_aether_meadow:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     biome:
       - smprpg:skyroot_meadow
@@ -1105,7 +1105,7 @@ placed-features:
               blocks: smprpg:aether_grass_block
               offset: [0, -1, 0]
   smprpg:flower_aether_normal:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: 'minecraft:simple_block'
@@ -1155,7 +1155,7 @@ placed-features:
               blocks: smprpg:aether_grass_block
               offset: [0, -1, 0]
   smprpg:patch_sky_berry:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: 'minecraft:simple_block'
@@ -1201,7 +1201,7 @@ placed-features:
           min: -3
           plateau: 0
   smprpg:tall_grass_aether:
-    dimension_type:
+    dimension:
       - smprpg:the_aether
     feature:
       type: 'minecraft:simple_block'

@@ -149,6 +149,7 @@ public enum ItemClassification {
          KeyStore.ENCHANTABLE_APTITUDE),
     REFORGE_STONE,
     AUGMENT_STONE,
+    SPELL,
     MATERIAL,
     // Stuff that can be eaten
     CONSUMABLE,

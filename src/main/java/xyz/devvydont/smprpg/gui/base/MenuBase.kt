@@ -540,6 +540,8 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
         // -----------
         @JvmField
         protected val BORDER_NORMAL: ItemStack = createNamedItem(Material.BLACK_STAINED_GLASS_PANE, Component.text(""))
+        @JvmField
+        protected val BORDER_VOID: ItemStack = createNamedItem(Material.BLACK_STAINED_GLASS_PANE, Component.text(""))
         @JvmStatic
         protected val BUTTON_PAGE_NEXT: ItemStack =
             createNamedItem(Material.ARROW, Component.text("Next Page ->", NamedTextColor.BLUE))
@@ -556,6 +558,9 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
         init {
             BORDER_NORMAL.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:empty"))
             BORDER_NORMAL.setData(DataComponentTypes.TOOLTIP_DISPLAY,
+                TooltipDisplay.tooltipDisplay().hideTooltip(true).build());
+            BORDER_VOID.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:ui/void_slot"))
+            BORDER_VOID.setData(DataComponentTypes.TOOLTIP_DISPLAY,
                 TooltipDisplay.tooltipDisplay().hideTooltip(true).build());
             BUTTON_PAGE_NEXT.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:ui/right_arrow"))
             BUTTON_PAGE_PREVIOUS.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:ui/left_arrow"))

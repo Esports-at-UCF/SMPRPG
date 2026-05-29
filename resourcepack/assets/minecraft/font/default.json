@@ -893,6 +893,15 @@
         },
         {
             "type": "bitmap",
+            "file": "ui:font/backgrounds/tome_overlay.png",
+            "height": 256,
+            "ascent": 13,
+            "chars": [
+                "\ub013"
+            ]
+        },
+        {
+            "type": "bitmap",
             "file": "ui:font/tooltip_elements/ability.png",
             "height": 10,
             "ascent": 8,

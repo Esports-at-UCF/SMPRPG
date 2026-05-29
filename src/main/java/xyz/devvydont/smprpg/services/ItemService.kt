@@ -101,6 +101,7 @@ class ItemService : IService, Listener {
         listeners.add(AbilityCastingListener())
         listeners.add(CustomItemFurnacePreventions())
         listeners.add(VelocitySensitiveItemListener())
+        listeners.add(TomeInteractionListener())
     }
 
     @Throws(RuntimeException::class)

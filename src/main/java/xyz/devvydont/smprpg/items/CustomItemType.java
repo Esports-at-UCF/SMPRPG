@@ -29,6 +29,7 @@ import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockShoes;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockHood;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockRobes;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockTrousers;
+import xyz.devvydont.smprpg.items.blueprints.tomes.spells.ShardStrikeScroll;
 import xyz.devvydont.smprpg.items.blueprints.tools.augments.RepairCore;
 import xyz.devvydont.smprpg.items.tools.drills.LargeFuelTank;
 import xyz.devvydont.smprpg.items.tools.drills.MediumFuelTank;
@@ -797,7 +798,6 @@ public enum CustomItemType {
     ABOMINABLE_CLEAVER(     "Abominable Cleaver",  Material.GOLDEN_SWORD,     ItemRarity.RARE, AbominableCleaver.class),
     ABOMINABLE_MACHETE(     "Abominable Machete",  Material.DIAMOND_SWORD,    ItemRarity.EPIC, AbominableMachete.class),
     ABOMINABLE_HALBERD(     "Abominable Halberd",  Material.NETHERITE_SWORD,  ItemRarity.LEGENDARY, AbominableHalberd.class),
-    NECRONOMICON(           "Necronomicon",        Material.PAPER,            ItemRarity.LEGENDARY, Necronomicon.class),
     ABOMINABLE_HELMET("Abominable Helmet", Material.DIAMOND_HELMET, ItemRarity.EPIC, AbominationHelmet.class),
     ABOMINABLE_CHESTPLATE("Abominable Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.EPIC, AbominationChestplate.class),
     ABOMINABLE_LEGGINGS("Abominable Leggings", Material.DIAMOND_LEGGINGS, ItemRarity.EPIC, AbominationLeggings.class),
@@ -851,7 +851,11 @@ public enum CustomItemType {
     LUCKY_CHARM("Lucky Charm",       Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      LuckyCharm.class),
 
     // TOMES
-    SIMPLE_TOME("Simple Tome",           Material.PAPER, ItemRarity.UNCOMMON,      SimpleTome.class),
+    SIMPLE_TOME("Simple Tome",          Material.PAPER,  ItemRarity.UNCOMMON,      SimpleTome.class),
+    NECRONOMICON("Necronomicon",        Material.PAPER,  ItemRarity.LEGENDARY,     Necronomicon.class),
+
+    // SPELLS
+    SHARD_STRIKE_SCROLL("Shard Strike Scroll", Material.PAPER, ItemRarity.COMMON, ShardStrikeScroll.class),
 
     // BOWS
     NETHERITE_BOW("Netherite Bow", Material.BOW, ItemRarity.EPIC,     NetheriteBow.class),
