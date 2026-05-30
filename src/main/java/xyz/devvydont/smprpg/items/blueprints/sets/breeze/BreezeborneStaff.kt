@@ -116,7 +116,7 @@ class BreezeborneStaff(itemService: ItemService, type: CustomItemType) : CustomA
         itemStack.setData(DataComponentTypes.USE_COOLDOWN, UseCooldown.useCooldown(0.0001f).cooldownGroup(COOLDOWN_GROUP))
     }
 
-    override fun getAbilities(item: ItemStack?): MutableCollection<AbilityEntry?> {
+    override fun getAbilities(item: ItemStack): Collection<AbilityEntry> {
         return mutableListOf(
             AbilityEntry(
                 Ability.WIND_STORM,
@@ -131,7 +131,7 @@ class BreezeborneStaff(itemService: ItemService, type: CustomItemType) : CustomA
         )
     }
 
-    override fun getCooldown(item: ItemStack?): Long { return TickTime.seconds(3) }
+    override fun getCooldown(item: ItemStack): Long { return TickTime.seconds(3) }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     fun __onAirshotHit(event: CustomEntityDamageByEntityEvent) {

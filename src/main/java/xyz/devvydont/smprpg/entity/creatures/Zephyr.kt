@@ -33,6 +33,8 @@ import xyz.devvydont.smprpg.util.items.QuantityLootDrop
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import java.util.EnumSet
 import java.util.function.Function
+import kotlin.math.cos
+import kotlin.math.sin
 
 class Zephyr : CustomEntityInstance<Ghast?>, Listener {
     constructor(entity: Entity?, entityType: CustomEntityType?) : super(entity, entityType)
@@ -155,7 +157,13 @@ class Zephyr : CustomEntityInstance<Ghast?>, Listener {
 
             if (event.hitEntity != null) {
                 val he = event.hitEntity!!
-                he.velocity = Vector(1.0, 1.05, 1.0).multiply(he.location.direction.normalize()).multiply(-2.0)
+                val yaw = he.location.yaw
+                val normalizedDir = Vector(
+                    -sin(Math.toRadians(yaw.toDouble())),
+                    -0.6,
+                    cos(Math.toRadians(yaw.toDouble()))
+                ).multiply(-1)
+                he.velocity = Vector(1.0, 1.0, 1.0).multiply(normalizedDir).multiply(2.0)
             }
         }
     }

@@ -115,7 +115,7 @@ public class AbilityCastingListener extends ToggleableListener {
         for (var ability : abilities) {
 
             // Skip if click type isn't correct.
-            if (!ability.activation().passes(event.getAction(), event.getPlayer()))
+            if (!ability.activation.passes(event.getAction(), event.getPlayer()))
                 continue;
 
             // Update our ability cost before we check our mana usage
@@ -124,13 +124,13 @@ public class AbilityCastingListener extends ToggleableListener {
 
             // Check if the cost is met.
             if (!abe.getAbilityCost().canUse(player)) {
-                SMPRPG.getService(ActionBarService.class).addActionBarComponent(event.getPlayer(), ActionBarService.ActionBarSource.MISC, ComponentUtils.create("NOT ENOUGH " + ability.cost().resource.name(), NamedTextColor.RED), 1);
+                SMPRPG.getService(ActionBarService.class).addActionBarComponent(event.getPlayer(), ActionBarService.ActionBarSource.MISC, ComponentUtils.create("NOT ENOUGH " + ability.cost.resource.name(), NamedTextColor.RED), 1);
                 event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, .3f, .5f);
                 continue;
             }
 
             // Execute!
-            var success = ability.ability().getHandler().execute(new AbilityContext(event.getPlayer(), event.getHand()));
+            var success = ability.ability.getHandler().execute(new AbilityContext(event.getPlayer(), event.getHand()));
             if (!success)
                 continue;
             __onCastAbility(abe);
@@ -146,11 +146,11 @@ public class AbilityCastingListener extends ToggleableListener {
                 player.getPlayer(),
                 ActionBarService.ActionBarSource.MISC,
                 ComponentUtils.merge(
-                        ComponentUtils.create(ability.ability().getFriendlyName(), NamedTextColor.GOLD),
+                        ComponentUtils.create(ability.ability.getFriendlyName(), NamedTextColor.GOLD),
                         ComponentUtils.SPACE,
                         ComponentUtils.create("-" + event.getAbilityCost().amount + event.getAbilityCost().resource.getSymbol(), event.getAbilityCost().resource.getColor())),
                 3);
-        player.getPlayer().setCooldown(item, (int) ability.ability().getHandler().getCooldown());
+        player.getPlayer().setCooldown(item, (int) ability.ability.getHandler().getCooldown());
     }
 
 }

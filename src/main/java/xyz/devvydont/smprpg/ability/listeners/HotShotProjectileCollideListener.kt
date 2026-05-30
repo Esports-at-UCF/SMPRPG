@@ -55,12 +55,22 @@ class HotShotProjectileCollideListener : ToggleableListener() {
 
             if (falloff < 0) continue
 
-            if (source != null) living.killer = source
-
-            living.damage(
-                damage,
-                DamageSource.builder(DamageType.MAGIC).build()
-            )
+            if (source != null) {
+                living.killer = source
+                living.damage(
+                    damage,
+                    DamageSource.builder(DamageType.MAGIC)
+                        .withDirectEntity(source)
+                        .withCausingEntity(source)
+                        .build()
+                )
+            }
+            else {
+                living.damage(
+                    damage,
+                    DamageSource.builder(DamageType.MAGIC).build()
+                )
+            }
         }
         ParticleBuilder(Particle.EXPLOSION)
             .location(event.location)

@@ -52,12 +52,22 @@ class ShardStrikeCollideListener : ToggleableListener() {
 
             val damage: Double = SMPRPG.getService(EntityDamageCalculatorService::class.java).getBaseProjectileDamage(event.entity as Projectile)
 
-            if (source != null) living.killer = source
-
-            living.damage(
-                damage,
-                DamageSource.builder(DamageType.MAGIC).build()
-            )
+            if (source != null) {
+                living.killer = source
+                living.damage(
+                    damage,
+                    DamageSource.builder(DamageType.MAGIC)
+                        .withDirectEntity(source)
+                        .withCausingEntity(source)
+                        .build()
+                )
+            }
+            else {
+                living.damage(
+                    damage,
+                    DamageSource.builder(DamageType.MAGIC).build()
+                )
+            }
 
             Bukkit.getScheduler().runTaskLater(plugin, Runnable {
                 living.damage(

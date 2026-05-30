@@ -11,7 +11,7 @@ class AbilityCastEvent(val ability: IAbilityCaster.AbilityEntry,
                        val player: LeveledPlayer,
                        val item: ItemStack) : Event() {
 
-   var abilityCost : AbilityCost = ability.cost()
+   var abilityCost : AbilityCost = ability.cost
 
     override fun getHandlers(): HandlerList {
         return handlerList

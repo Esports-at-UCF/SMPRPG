@@ -1,7 +1,9 @@
 package xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops
 
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
@@ -30,5 +32,9 @@ class NecronomiconExcerpts(itemService: ItemService, type: CustomItemType) : Cus
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
         itemStack.editMeta(Consumer { meta: ItemMeta? -> meta!!.setMaxStackSize(4) })
+    }
+
+    companion object {
+        val TOME_SPELL_COUNT_MODIFIER = NamespacedKey(SMPRPG.plugin, "necronomicon_excerpts_modifier")
     }
 }

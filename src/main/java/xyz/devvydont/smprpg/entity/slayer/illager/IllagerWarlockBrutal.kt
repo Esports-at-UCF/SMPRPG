@@ -30,6 +30,9 @@ class IllagerWarlockBrutal(entity: LivingEntity?, entityType: CustomEntityType?)
             ChancedItemDrop(LOOT_BURDEN_SCROLL, 100, this),
             ChancedItemDrop(generate(CustomItemType.CRYSTAL_BALL), 50, this),
             ChancedItemDrop(generate(CustomItemType.HORN_OF_WARLOCK), 15, this),
+            ChancedItemDrop(generate(CustomItemType.FANG_STRIKE_SPELL), 25, this),
+            ChancedItemDrop(generate(CustomItemType.DAMAGE_AURA_SPELL), 50, this),
+            ChancedItemDrop(generate(CustomItemType.HEALING_AURA_SPELL), 75, this)
 
         )
     }

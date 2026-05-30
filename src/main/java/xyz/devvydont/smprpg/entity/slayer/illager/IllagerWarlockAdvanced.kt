@@ -28,7 +28,8 @@ class IllagerWarlockAdvanced(entity: LivingEntity?, entityType: CustomEntityType
             ChancedItemDrop(LOOT_VIGILANTE_SCROLL, 65, this),
             ChancedItemDrop(LOOT_APTITUDE_SCROLL, 100, this),
             ChancedItemDrop(generate(CustomItemType.CRYSTAL_BALL), 200, this),
-            ChancedItemDrop(generate(CustomItemType.HORN_OF_WARLOCK), 50, this)
+            ChancedItemDrop(generate(CustomItemType.HORN_OF_WARLOCK), 50, this),
+            ChancedItemDrop(generate(CustomItemType.FANG_STRIKE_SPELL), 100, this)
         )
     }
 

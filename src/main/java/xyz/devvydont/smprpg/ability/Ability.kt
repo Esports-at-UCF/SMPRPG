@@ -210,6 +210,97 @@ enum class Ability(val friendlyName: String, val description: List<Component>,
         ),
         Supplier { SonicSmashAbilityHandler() }),
 
+    FIREBALL(
+        "Fireball",
+        listOf(
+            ComponentUtils.merge(
+                ComponentUtils.create("Launch a "),
+                ComponentUtils.create("fireball", NamedTextColor.GOLD),
+                ComponentUtils.create(" in the direction")
+            ),
+            ComponentUtils.merge(ComponentUtils.create("you are looking that")),
+            ComponentUtils.merge(
+                ComponentUtils.create("deals "),
+                ComponentUtils.create(FireballAbilityHandler.DAMAGE, NamedTextColor.RED),
+                ComponentUtils.create(" damage and ")
+            ),
+            ComponentUtils.merge(
+                ComponentUtils.create("ignites", NamedTextColor.RED),
+                ComponentUtils.create(" enemies in a ${FireballAbilityHandler.ENGULF_RADIUS.toInt()}")
+            ),
+            ComponentUtils.create("block radius.")
+        ),
+        Supplier { FireballAbilityHandler() }),
+
+    SYPHON(
+        "Syphon",
+        listOf(
+            ComponentUtils.merge(
+                ComponentUtils.create("Cast a beam that deals "),
+                ComponentUtils.create(SyphonAbilityHandler.DAMAGE, NamedTextColor.GOLD),
+                ComponentUtils.create(" damage"),
+            ),
+            ComponentUtils.merge(ComponentUtils.create("and heals for "),
+                ComponentUtils.create("10%", NamedTextColor.GREEN),
+                ComponentUtils.create(" of the dealt damage to the target.")
+            ),
+            ComponentUtils.EMPTY,
+            ComponentUtils.merge(
+                ComponentUtils.create("If you do not hit a target,"),
+                ComponentUtils.create(" you", NamedTextColor.RED)
+            ),
+            ComponentUtils.merge(
+                ComponentUtils.create("will take "),
+                ComponentUtils.create("20%", NamedTextColor.RED),
+                ComponentUtils.create(" of the intended damage instead.")
+            )
+        ),
+        Supplier { SyphonAbilityHandler() }),
+
+    FANG_STRIKE(
+        "Fang Strike",
+        listOf(
+            ComponentUtils.create("Summons a line of fangs"),
+            ComponentUtils.merge(
+                ComponentUtils.create("each dealing "),
+                ComponentUtils.create(FangStrikeAbilityHandler.DAMAGE, NamedTextColor.GOLD),
+                ComponentUtils.create(" damage.")
+            )
+        ),
+        Supplier { FangStrikeAbilityHandler() }),
+
+    DAMAGE_AURA(
+        "Damage Aura",
+        listOf(
+            ComponentUtils.create("Shoots a projectile, spawning"),
+            ComponentUtils.merge(
+                ComponentUtils.create("a "),
+                ComponentUtils.create("damaging aura", NamedTextColor.RED),
+                ComponentUtils.create(" that will hurt")
+            ),
+            ComponentUtils.create("mobs in its range.")
+        ),
+        Supplier { DamageAuraAbilityHandler() }),
+
+    HEALING_AURA(
+        "Healing Aura",
+        listOf(
+            ComponentUtils.create("Shoots a projectile, spawning"),
+            ComponentUtils.merge(
+                ComponentUtils.create("a "),
+                ComponentUtils.create("healing aura", NamedTextColor.GREEN),
+                ComponentUtils.create(" that will heal")
+            ),
+            ComponentUtils.create("players in its range"),
+            ComponentUtils.merge(
+                ComponentUtils.create("for "),
+                ComponentUtils.create("+40", NamedTextColor.GREEN),
+                ComponentUtils.create(Symbols.HEART, NamedTextColor.RED),
+                ComponentUtils.create("/s")
+            )
+        ),
+        Supplier { HealingAuraAbilityHandler() }),
+
     // Admin abilities.
     ITEM_SWEEP(
         "Item Sweep",

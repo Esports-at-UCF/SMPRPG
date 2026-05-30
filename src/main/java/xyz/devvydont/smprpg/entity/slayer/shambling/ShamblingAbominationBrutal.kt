@@ -30,7 +30,9 @@ class ShamblingAbominationBrutal(entity: LivingEntity?, entityType: CustomEntity
             ChancedItemDrop(LOOT_SMITE_SCROLL, 20, this),
             ChancedItemDrop(generate(CustomItemType.REVILED_VISCERA), 5, this),
             ChancedItemDrop(generate(CustomItemType.UNDIGESTED_BRAINS), 100, this),
+            ChancedItemDrop(generate(CustomItemType.SYPHON_SPELL), 100, this),
             ChancedItemDrop(generate(CustomItemType.NECRONOMICON_EXCERPTS), 200, this),
+            ChancedItemDrop(generate(CustomItemType.NECRONOMICON), 500, this),
         )
     }
 

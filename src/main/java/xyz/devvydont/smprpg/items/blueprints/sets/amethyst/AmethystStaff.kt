@@ -1,10 +1,5 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.amethyst
 
-import io.papermc.paper.datacomponent.DataComponentTypes
-import io.papermc.paper.datacomponent.item.AttackRange
-import io.papermc.paper.datacomponent.item.PiercingWeapon
-import io.papermc.paper.datacomponent.item.SwingAnimation
-import io.papermc.paper.datacomponent.item.Weapon
 import io.papermc.paper.registry.keys.SoundEventKeys
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -14,7 +9,6 @@ import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.recipe.CraftingBookCategory
-import org.checkerframework.common.value.qual.IntRange
 import xyz.devvydont.smprpg.ability.Ability
 import xyz.devvydont.smprpg.ability.AbilityActivationMethod
 import xyz.devvydont.smprpg.ability.AbilityCost
@@ -81,7 +75,7 @@ class AmethystStaff(itemService: ItemService, type: CustomItemType) : CustomAttr
     override val particleRange: Int get() = 10
     override val particleDensity: Int get() = particleRange * 2
 
-    override fun getAbilities(item: ItemStack?): MutableCollection<AbilityEntry?> {
+    override fun getAbilities(item: ItemStack): Collection<AbilityEntry> {
         return mutableListOf(
             AbilityEntry(
                 Ability.SHARD_STRIKE,
@@ -91,7 +85,7 @@ class AmethystStaff(itemService: ItemService, type: CustomItemType) : CustomAttr
         )
     }
 
-    override fun getCooldown(item: ItemStack?): Long { return TickTime.seconds(1) }
+    override fun getCooldown(item: ItemStack): Long { return TickTime.seconds(1) }
 
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)

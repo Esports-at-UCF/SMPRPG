@@ -39,7 +39,7 @@ class MenuTomeModification(player: Player, val blueprint: TomeBlueprint, val tom
         val data = tome.getData(DataComponentTypes.CONTAINER)
         val spells: MutableList<ItemStack> = data!!.contents()
         var j = 0
-        for (i in startSlot..<startSlot + blueprint.maxSpellSlots) {
+        for (i in startSlot..<startSlot + blueprint.getModifiedMaxSlots(tome)) {
             this.clearSlot(i)
             if (spells[j].type == DUMMY_MATERIAL)
                 this.setSlot(i, ItemStack.empty())
@@ -51,7 +51,7 @@ class MenuTomeModification(player: Player, val blueprint: TomeBlueprint, val tom
 
     fun saveData() {
         val newSpells = ArrayList<ItemStack>()
-        for (i in 0..<blueprint.maxSpellSlots) {
+        for (i in 0..<blueprint.getModifiedMaxSlots(tome)) {
             var item = inventory.getItem(startSlot + i)
             if (item == null) item = ItemStack.of(DUMMY_MATERIAL)
             newSpells.add(item)
@@ -93,7 +93,7 @@ class MenuTomeModification(player: Player, val blueprint: TomeBlueprint, val tom
     }
 
     fun determineStartSlot(): Int {
-        val maxSlots = blueprint.maxSpellSlots
+        val maxSlots = blueprint.getModifiedMaxSlots(tome)
         return when (maxSlots) {
             1    -> 4
             2, 3 -> 3

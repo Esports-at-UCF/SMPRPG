@@ -2,6 +2,10 @@ package xyz.devvydont.smprpg.services
 
 import xyz.devvydont.smprpg.ability.handlers.passive.AbyssalAnnihilationListener
 import xyz.devvydont.smprpg.ability.handlers.passive.AnglerListener
+import xyz.devvydont.smprpg.ability.listeners.DamageAuraCollideListener
+import xyz.devvydont.smprpg.ability.listeners.FangSpellDamageListener
+import xyz.devvydont.smprpg.ability.listeners.FireballCollideListener
+import xyz.devvydont.smprpg.ability.listeners.HealingAuraCollideListener
 import xyz.devvydont.smprpg.ability.listeners.HotShotProjectileCollideListener
 import xyz.devvydont.smprpg.ability.listeners.ShardStrikeCollideListener
 import xyz.devvydont.smprpg.ability.listeners.WitherSkullProjectileCollideListener
@@ -27,6 +31,10 @@ class AbilityService : IService {
         listeners.add(AbyssalAnnihilationListener());
         listeners.add(WitherSkullProjectileCollideListener());
         listeners.add(ShardStrikeCollideListener());
+        listeners.add(FireballCollideListener());
+        listeners.add(FangSpellDamageListener());
+        listeners.add(DamageAuraCollideListener());
+        listeners.add(HealingAuraCollideListener());
         for (listener in listeners)
             listener.start()
     }

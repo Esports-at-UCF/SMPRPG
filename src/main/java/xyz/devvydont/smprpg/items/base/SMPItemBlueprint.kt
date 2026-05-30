@@ -4,6 +4,7 @@ import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.CustomModelData
 import io.papermc.paper.datacomponent.item.Enchantable
 import io.papermc.paper.datacomponent.item.Equippable
+import io.papermc.paper.datacomponent.item.UseCooldown
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -399,6 +400,20 @@ abstract class SMPItemBlueprint(
                     .canBeSheared(equippable.canBeSheared())
                     .build()
             )
+        }
+
+        // If this is an ability caster, apply the cooldown group data to the item stack.
+        if (this is IAbilityCaster) {
+            val caster = this as IAbilityCaster
+            val cooldown = caster.getCooldown(itemStack).toFloat()
+            val cooldownGroup = caster.getCooldownGroup(itemStack)
+            if (cooldown > 0.0f) {
+                itemStack.setData(
+                    DataComponentTypes.USE_COOLDOWN,
+                    UseCooldown.useCooldown(cooldown)
+                        .cooldownGroup(cooldownGroup).build()
+                )
+            }
         }
 
         // If this is a consumable, apply the consumable data to the item stack.

@@ -38,7 +38,7 @@ class TomeInteractionListener: ToggleableListener() {
             val player = event.player
             val tomeBp = itemService.getBlueprint(tomeToUse)
 
-            val maxSlots = (tomeBp as TomeBlueprint).maxSpellSlots
+            val maxSlots = (tomeBp as TomeBlueprint).getModifiedMaxSlots(tomeToUse)
             val currSlot = tomeToUse.persistentDataContainer.getOrDefault(ACTIVE_SPELL_INDEX_KEY, PersistentDataType.INTEGER, 0)
             val newSlot = if (currSlot + 1 >= maxSlots) 0 else currSlot + 1
             tomeToUse.editPersistentDataContainer { pdc: PersistentDataContainer ->
@@ -53,14 +53,14 @@ class TomeInteractionListener: ToggleableListener() {
                 ActionBarService.ActionBarSource.MISC,
                 ComponentUtils.merge(
                     ComponentUtils.create("Equipped ", NamedTextColor.GOLD),
-                    spellName
+                    spellName,
+                    ComponentUtils.create(" (${newSlot + 1}) ", NamedTextColor.AQUA)
                 ),
                 2)
             tomeBp.updateItemData(tomeToUse)
 
-            // Since event is cancelled now, we can use the proper hands
-            if (offhandIsTome) player.inventory.setItem(EquipmentSlot.OFF_HAND, tomeToUse)
-            else player.inventory.setItem(EquipmentSlot.HAND, tomeToUse)
+            if (mainhandIsTome) player.inventory.setItem(EquipmentSlot.HAND, tomeToUse)
+            else player.inventory.setItem(EquipmentSlot.OFF_HAND, tomeToUse)
         }
     }
 

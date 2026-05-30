@@ -24,7 +24,9 @@ class IllagerWarlockIntermediate(entity: LivingEntity?, entityType: CustomEntity
             ChancedItemDrop(generate(Material.EMERALD_BLOCK), 10, this),
             ChancedItemDrop(generate(CustomItemType.ENCHANTED_EMERALD), 70, this),
 
-            ChancedItemDrop(generate(CustomItemType.HORN_OF_WARLOCK), 100, this)
+            ChancedItemDrop(generate(CustomItemType.HORN_OF_WARLOCK), 100, this),
+            ChancedItemDrop(generate(CustomItemType.FANG_STRIKE_SPELL), 200, this),
+            ChancedItemDrop(generate(CustomItemType.DAMAGE_AURA_SPELL), 200, this)
         )
     }
 

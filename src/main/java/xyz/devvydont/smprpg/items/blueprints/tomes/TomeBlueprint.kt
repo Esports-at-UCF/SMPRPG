@@ -22,6 +22,7 @@ import xyz.devvydont.smprpg.gui.items.MenuTomeModification
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.NecronomiconExcerpts
 import xyz.devvydont.smprpg.items.blueprints.tomes.spells.SpellBlueprint
 import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster
 import xyz.devvydont.smprpg.items.listeners.TomeInteractionListener
@@ -36,12 +37,21 @@ abstract class TomeBlueprint(itemService: ItemService, type: CustomItemType) : C
     fun initialize(tome: ItemStack) {
         // Create an empty container for spell storage.
         val contents = mutableListOf<ItemStack>()
-        for (i in 0..<maxSpellSlots) contents.add(ItemStack.of(MenuTomeModification.DUMMY_MATERIAL))
+        for (i in 0..<getModifiedMaxSlots(tome)) contents.add(ItemStack.of(MenuTomeModification.DUMMY_MATERIAL))
         tome.setData(DataComponentTypes.CONTAINER, ItemContainerContents.containerContents(contents))
         // Default to index 0 of our spell storage.
         tome.editPersistentDataContainer { pdc: PersistentDataContainer ->
             pdc.set(ACTIVE_SPELL_INDEX_KEY, PersistentDataType.INTEGER, 0)
         }
+    }
+
+    fun getModifiedMaxSlots(tome: ItemStack): Int {
+        var maxSlots = maxSpellSlots
+        maxSlots += tome.persistentDataContainer.getOrDefault(
+            NecronomiconExcerpts.TOME_SPELL_COUNT_MODIFIER,
+            PersistentDataType.INTEGER,
+            0)
+        return maxSlots
     }
 
     override fun updateItemData(itemStack: ItemStack) {
