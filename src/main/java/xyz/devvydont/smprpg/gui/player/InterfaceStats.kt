@@ -47,7 +47,7 @@ class InterfaceStats : MenuBase {
 
     fun render() {
         this.clear()
-        this.setBorderFull()
+        this.setSlots(BORDER_VOID)
 
         // Work through each slot and render based on index.
         for (slot in 0..<this.inventorySize) {

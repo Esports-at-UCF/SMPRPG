@@ -193,6 +193,12 @@ public enum CustomItemType {
 //    AMETHYST_COIN( "Amethyst Coin",  Material.FIREWORK_STAR, ItemRarity.MYTHIC,       CustomItemCoin.class),       // 100k coins
     ENCHANTED_COIN("Enchanted Coin", Material.FIREWORK_STAR, ItemRarity.LEGENDARY, true, CustomItemCoin.class), // 100M coins
 
+    SMALL_COIN_PURSE("Small Coin Purse", Material.LEATHER, ItemRarity.COMMON, WalletBlueprint.class),
+    MEDIUM_COIN_PURSE("Medium Coin Purse", Material.LEATHER, ItemRarity.UNCOMMON, WalletBlueprint.class),
+    LARGE_COIN_PURSE("Large Coin Purse", Material.LEATHER, ItemRarity.RARE, WalletBlueprint.class),
+    GIGANTIC_COIN_PURSE("Gigantic Coin Purse", Material.LEATHER, ItemRarity.EPIC, WalletBlueprint.class),
+    COLOSSAL_COIN_PURSE("Colossal Coin Purse", Material.LEATHER, ItemRarity.LEGENDARY, WalletBlueprint.class),
+
     // NEO_FRONTIER SET
     NEO_FRONTIER_HELMET("Neo Frontier Helmet",         Material.IRON_HELMET,        NeoFrontierHelmet.class),
     NEO_FRONTIER_CHESTPLATE("Neo Frontier Chestplate", Material.LEATHER_CHESTPLATE, NeoFrontierChestplate.class),

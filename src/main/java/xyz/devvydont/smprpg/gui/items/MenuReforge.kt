@@ -255,9 +255,9 @@ class MenuReforge(player: Player) : MenuBase(player, ROWS) {
     }
 
     companion object {
-        const val ROWS: Int = 5
+        const val ROWS: Int = 3
 
-        const val INPUT_SLOT: Int = 22
-        const val BUTTON_SLOT: Int = 24
+        const val INPUT_SLOT: Int = 13
+        const val BUTTON_SLOT: Int = 15
     }
 }

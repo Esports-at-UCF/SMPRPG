@@ -326,7 +326,7 @@ abstract class SMPItemBlueprint(
                 itemStack.setData(DataComponentTypes.DAMAGE, dmg ?: 0)
             }
 
-            is ChargedItemBlueprint, is IFueledEquipment -> {
+            is ChargedItemBlueprint, is IFueledEquipment, is ICosmeticDurability -> {
                 // Don't do anything here. We need the damage data to persist.
             }
 

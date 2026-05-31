@@ -51,6 +51,7 @@ import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
+import xyz.devvydont.smprpg.items.blueprints.equipment.WalletBlueprint
 import xyz.devvydont.smprpg.items.blueprints.potion.PotionBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaCompressibleBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource
@@ -102,6 +103,7 @@ class ItemService : IService, Listener {
         listeners.add(CustomItemFurnacePreventions())
         listeners.add(VelocitySensitiveItemListener())
         listeners.add(TomeInteractionListener())
+        listeners.add(WalletListener())
     }
 
     @Throws(RuntimeException::class)
@@ -1181,13 +1183,20 @@ class ItemService : IService, Listener {
         val durabilityUsed = itemStack.getData<@NonNegative Int?>(DataComponentTypes.DAMAGE)
         if (durabilityComponent != null && durabilityUsed != null && (blueprint !is ChargedItemBlueprint)) {
             lore.add(ComponentUtils.EMPTY)
-            if (blueprint is IFueledEquipment || blueprint is FuelTankBlueprint) {
+            if (blueprint is WalletBlueprint) {
+                lore.add(
+                    ComponentUtils.create("Balance: ")
+                        .append(ComponentUtils.create(EconomyService.formatMoney((durabilityComponent - durabilityUsed - 1).toLong()), NamedTextColor.GOLD))
+                        .append(ComponentUtils.create("/" + EconomyService.formatMoney((durabilityComponent - 1).toLong()), NamedTextColor.GOLD))
+                )
+            }
+            else if (blueprint is IFueledEquipment || blueprint is FuelTankBlueprint) {
                 // We need to spoof durability by subtracting 1, since we store as +1 to allow for durability bar rendering.
                 lore.add(
                     ComponentUtils.create("Fuel: ")
                         .append(ComponentUtils.create(MinecraftStringUtils.formatNumber((durabilityComponent - durabilityUsed - 1).toLong()), NamedTextColor.RED))
                         .append(ComponentUtils.create("/" + MinecraftStringUtils.formatNumber((durabilityComponent - 1).toLong()), NamedTextColor.DARK_GRAY))
-                );
+                )
             }
             else{
                 lore.add(
