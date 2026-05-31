@@ -6,6 +6,7 @@ import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
+import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.event.Listener
 import org.bukkit.inventory.EquipmentSlotGroup
@@ -14,6 +15,8 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.base.AttributeEnchantment
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment
+import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
+import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeModifierType
@@ -47,6 +50,86 @@ class FeatherFallingEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment
             MultiplicativeAttributeEntry(AttributeWrapper.FALL_DAMAGE_MULTIPLIER, -getFallResistPercent(level) / 100.0),
             AdditiveAttributeEntry(AttributeWrapper.SAFE_FALL, (level * 2).toDouble())
         )
+    }
+
+    override fun getRecipe(level: Int): EnchantmentRecipe? {
+        when (level) {
+            1 -> {
+                val feather = getIngredientStack(Material.FEATHER, 4)
+                val wool = getIngredientStack(Material.WHITE_WOOL, 2)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 4)
+                return EnchantmentRecipe(getRecipeKey(level), 0, feather, wool, lapis)
+            }
+
+            2 -> {
+                val feather = getIngredientStack(Material.FEATHER, 8)
+                val wool = getIngredientStack(Material.WHITE_WOOL, 4)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 5, feather, wool, lapis)
+            }
+
+            3 -> {
+                val feather = getIngredientStack(Material.FEATHER, 16)
+                val wool = getIngredientStack(Material.WHITE_WOOL, 8)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 10, feather, wool, lapis)
+            }
+
+            4 -> {
+                val feather = getIngredientStack(Material.FEATHER, 32)
+                val wool = getIngredientStack(Material.WHITE_WOOL, 16)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 32)
+                return EnchantmentRecipe(getRecipeKey(level), 15, feather, wool, lapis)
+            }
+
+            5 -> {
+                val feather = getIngredientStack(Material.FEATHER, 64)
+                val wool = getIngredientStack(Material.WHITE_WOOL, 32)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 64)
+                return EnchantmentRecipe(getRecipeKey(level), 20, feather, wool, lapis)
+            }
+
+            6 -> {
+                val feather = getIngredientStack(CustomItemType.PREMIUM_FEATHER, 15)
+                val wool = getIngredientStack(Material.WHITE_WOOL, 64)
+                val aercloud = getIngredientStack(CustomItemType.COLD_AERCLOUD, 4)
+                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 25, feather, wool, aercloud, lapis)
+            }
+
+            7 -> {
+                val feather = getIngredientStack(CustomItemType.PREMIUM_FEATHER, 15)
+                val membrane = getIngredientStack(Material.PHANTOM_MEMBRANE, 5)
+                val aercloud = getIngredientStack(CustomItemType.COLD_AERCLOUD, 8)
+                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 32)
+                return EnchantmentRecipe(getRecipeKey(level), 30, feather, membrane, aercloud, lapis)
+            }
+
+            8 -> {
+                val feather = getIngredientStack(CustomItemType.PREMIUM_FEATHER, 30)
+                val membrane = getIngredientStack(Material.PHANTOM_MEMBRANE, 10)
+                val aercloud = getIngredientStack(CustomItemType.COLD_AERCLOUD, 16)
+                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 64)
+                return EnchantmentRecipe(getRecipeKey(level), 35, feather, membrane, aercloud, lapis)
+            }
+
+            9 -> {
+                val feather = getIngredientStack(CustomItemType.PREMIUM_FEATHER, 30)
+                val membrane = getIngredientStack(Material.PHANTOM_MEMBRANE, 20)
+                val aercloud = getIngredientStack(CustomItemType.COLD_AERCLOUD, 16)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 40, feather, membrane, aercloud, lapis)
+            }
+
+            10 -> {
+                val feather = getIngredientStack(CustomItemType.PREMIUM_FEATHER, 60)
+                val membrane = getIngredientStack(Material.PHANTOM_MEMBRANE, 40)
+                val aercloud = getIngredientStack(CustomItemType.COLD_AERCLOUD, 32)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 32)
+                return EnchantmentRecipe(getRecipeKey(level), 50, feather, membrane, aercloud, lapis)
+            }
+            else -> return null
+        }
     }
 
     companion object {

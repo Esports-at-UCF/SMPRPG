@@ -2,7 +2,7 @@ items:
   smprpg:reforge_table:
     data:
       item-name: <!i><lang:item.smprpg.reforge_table>
-    model: smprpg:block/interactables/reforge_table
+    model: smprpg:block/interactables/reforge_table_item
     behavior:
       type: block_item
       block: smprpg:reforge_table
@@ -40,18 +40,18 @@ blocks:
     loot:
       template: smprpg:loot_table/self
     state:
-      auto-state: note_block
-      model:
-        template: smprpg:model/simplified_cube_all
-        arguments:
-          path: smprpg:block/interactables/reforge_table
+      state: snow[layers=6]
+      entity-renderer:
+        type: better_model
+        model: reforge_table
+        position: 0.5,0.0,0.5
+        sight-trace: true
     settings:
       template:
         - smprpg:settings/metal_block
         - smprpg:data/breaking_power_4
     behavior:
-      - type: smprpg:menu_interactable
-        menu: reforge
+      - type: smprpg:reforge_table
   smprpg:freezer:
     loot:
       template: smprpg:loot_table/self

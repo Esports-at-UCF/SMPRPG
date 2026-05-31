@@ -301,6 +301,46 @@ enum class Ability(val friendlyName: String, val description: List<Component>,
         ),
         Supplier { HealingAuraAbilityHandler() }),
 
+    CONJURE_PLATFORM(
+        "Conjure Platform",
+        listOf(
+            ComponentUtils.merge(
+                ComponentUtils.create("Creates a "),
+                ComponentUtils.create("5x5", NamedTextColor.GRAY),
+                ComponentUtils.create(" platform below")
+            ),
+            ComponentUtils.create("your feet, consisting of"),
+            ComponentUtils.merge(
+                ComponentUtils.create("temporary "),
+                ComponentUtils.create("conjured blocks", NamedTextColor.LIGHT_PURPLE),
+                ComponentUtils.create(".")
+            ),
+            ComponentUtils.EMPTY,
+            ComponentUtils.create("Conjured blocks can be replaced mid-air."),
+            ComponentUtils.create("Perfect for building!", NamedTextColor.GOLD)
+        ),
+        Supplier { ConjurePlatformAbilityHandler() }),
+
+    CONJURE_WALL(
+        "Conjure Wall",
+        listOf(
+            ComponentUtils.merge(
+                ComponentUtils.create("Creates a "),
+                ComponentUtils.create("5x5", NamedTextColor.GRAY),
+                ComponentUtils.create(" wall in")
+            ),
+            ComponentUtils.create("front of you, consisting of"),
+            ComponentUtils.merge(
+                ComponentUtils.create("temporary "),
+                ComponentUtils.create("conjured blocks", NamedTextColor.LIGHT_PURPLE),
+                ComponentUtils.create(".")
+            ),
+            ComponentUtils.EMPTY,
+            ComponentUtils.create("Conjured blocks can be replaced mid-air."),
+            ComponentUtils.create("Perfect for a quick get-away!", NamedTextColor.GOLD)
+        ),
+        Supplier { ConjureWallAbilityHandler() }),
+
     // Admin abilities.
     ITEM_SWEEP(
         "Item Sweep",

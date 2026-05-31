@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.skills.listeners
 
+import org.bukkit.damage.DamageType
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDeathEvent
@@ -7,9 +8,13 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.entity.interfaces.IDamageTrackable
 import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent
 import xyz.devvydont.smprpg.events.slayer.SlayerQuestEarnExperienceEvent
+import xyz.devvydont.smprpg.items.interfaces.IMageBeam
+import xyz.devvydont.smprpg.items.interfaces.IMagicWeapon
 import xyz.devvydont.smprpg.services.EntityService
+import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 class CombatExperienceListener() : Listener {
 
@@ -35,6 +40,12 @@ class CombatExperienceListener() : Listener {
         val experience = dead.generateSkillExperienceReward()
         if (experience.isEmpty)
             return
+
+        // Grant some Magic XP if you killed via magic source (equal to half of the combat xp reward)
+        if (SMPRPG.getService(ItemService::class.java).getBlueprint(event.entity.killer!!.inventory.itemInMainHand) is IMagicWeapon ||
+            event.damageSource.damageType == DamageType.MAGIC) {
+            experience.add(SkillType.MAGIC, (experience.value(SkillType.COMBAT) / 2.0).roundToInt())
+        }
 
         // Loop through everyone who helped kill this entity
         for (entry in dead.getDamageTracker().getPlayerDamageTracker().entries) {

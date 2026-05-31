@@ -9,7 +9,7 @@ import net.kyori.adventure.key.Key
 import org.bukkit.Particle
 import org.bukkit.inventory.ItemStack
 
-interface IMageBeam {
+interface IMageBeam: IMagicWeapon {
     val hitParticle: Particle
     val missParticle: Particle
     val particleDensity: Int

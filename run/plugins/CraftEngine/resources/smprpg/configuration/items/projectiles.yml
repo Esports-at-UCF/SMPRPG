@@ -20,7 +20,6 @@ items:
     data:
       item_name: <!i><lang:item.smprpg.fireball_projectile>
     model: smprpg:item/projectiles/fireball
-
   smprpg:damage_aura_projectile:
     material: snowball
     settings:
@@ -42,7 +41,6 @@ items:
     data:
       item_name: <!i><lang:item.smprpg.damage_aura_projectile>
     model: smprpg:item/projectiles/damage_aura_projectile
-
   smprpg:healing_aura_projectile:
     material: snowball
     settings:
@@ -64,3 +62,61 @@ items:
     data:
       item_name: <!i><lang:item.smprpg.healing_aura_projectile>
     model: smprpg:item/projectiles/healing_aura_projectile
+  smprpg:conjure_block:
+    data:
+      item-name: <!i><lang:item.smprpg.conjure_block>
+    model:
+      template: smprpg:model/simplified_cube_all
+      arguments:
+        path: smprpg:block/misc/conjure_block
+    behavior:
+      type: block_item
+      block: smprpg:conjure_block
+  smprpg:conjure_block_damaged:
+    data:
+      item-name: <!i><lang:item.smprpg.conjure_block_damaged>
+    model:
+      template: smprpg:model/simplified_cube_all
+      arguments:
+        path: smprpg:block/misc/conjure_block_damaged
+    behavior:
+      type: block_item
+      block: smprpg:conjure_block_damaged
+
+blocks:
+  smprpg:conjure_block:
+    states:
+      properties:
+        age:
+          type: int
+          default: 0
+          range: 0~1
+      appearances:
+        normal:
+          state: barrier
+          entity-renderer:
+            item: smprpg:conjure_block
+        damaged:
+          state: barrier
+          entity-renderer:
+            item: smprpg:conjure_block_damaged
+      variants:
+        age=0:
+          appearance: normal
+        age=1:
+          appearance: damaged
+    settings:
+      template:
+        - smprpg:sound/glass
+        - smprpg:hardness/none
+      require-correct-tools: false
+      replaceable: true
+      overrides:
+        push-reaction: destroy
+        map-color: 24
+        resistance: 6000.0
+    behavior:
+      type: decay_block
+      decay-into: minecraft:air
+      delay: 300 # 15 seconds, 30 seconds total lifespan
+      chance: 1.0

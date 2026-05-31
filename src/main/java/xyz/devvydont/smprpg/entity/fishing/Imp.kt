@@ -7,6 +7,7 @@ import kr.toxicity.model.api.data.renderer.ModelRenderer
 import kr.toxicity.model.api.tracker.ModelScaler
 import org.bukkit.Bukkit
 import org.bukkit.Sound
+import org.bukkit.SoundCategory
 import org.bukkit.entity.Blaze
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
@@ -80,7 +81,10 @@ class Imp
     fun onImpDeath(event: EntityDeathEvent) {
         val entity = event.entity
         if (entity == this._entity) {
-            entity.location.world.playSound(entity.location, Sound.ENTITY_VEX_DEATH, 1.0f, 0.75f)
+            event.deathSound = Sound.ENTITY_VEX_DEATH
+            event.deathSoundVolume = 1.0f
+            event.deathSoundPitch = 0.75f
+            event.deathSoundCategory = SoundCategory.HOSTILE
         }
     }
 }

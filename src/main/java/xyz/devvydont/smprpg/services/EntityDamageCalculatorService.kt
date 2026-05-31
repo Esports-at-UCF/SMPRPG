@@ -4,6 +4,8 @@ import org.bukkit.*
 import org.bukkit.attribute.Attributable
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeInstance
+import org.bukkit.damage.DamageSource
+import org.bukkit.damage.DamageType
 import org.bukkit.entity.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -176,8 +178,8 @@ class EntityDamageCalculatorService : Listener, IService {
                     val int = playerWrapper.mana;
                     val arcRatingInst = instance.getOrCreateAttribute(dealer, AttributeWrapper.ARCANE_RATING)
                     damage = getIntelligenceScaledDamage(damage, int, arcRatingInst.value)
-                    playerWrapper.useMana(bp.manaCost);
-                    val meleeAttackEvent = MeleeAttackEvent(playerWrapper, bp);
+                    playerWrapper.useMana(bp.manaCost)
+                    val meleeAttackEvent = MeleeAttackEvent(playerWrapper, bp)
                     meleeAttackEvent.callEvent();
                 }
             }

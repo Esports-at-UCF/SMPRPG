@@ -5,6 +5,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
+import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
@@ -15,8 +16,10 @@ import org.bukkit.inventory.meta.ItemMeta
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.gui.base.MenuBase
+import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
+import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.MinecraftStringUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
@@ -210,6 +213,8 @@ class EnchantmentMenu : MenuBase {
 
         enchantmentDescription.add(ComponentUtils.EMPTY)
         enchantmentDescription.add(ComponentUtils.create("Click to go deeper!", NamedTextColor.YELLOW))
+        if (this.player.gameMode == GameMode.CREATIVE)
+            enchantmentDescription.add(ComponentUtils.create("Shift + Left click to generate an enchantment scroll!", NamedTextColor.GOLD))
         if (enchantment.maxLevel > 1) {
             enchantmentDescription.add(ComponentUtils.EMPTY)
             for (i in 2..enchantment.maxLevel) {
@@ -315,6 +320,17 @@ class EnchantmentMenu : MenuBase {
                 generateEnchantmentButton(enchantment)
             ) { e: InventoryClickEvent ->
                 playSound(Sound.BLOCK_ENCHANTMENT_TABLE_USE)
+                val player = e.whoClicked as Player
+                if (player.gameMode == GameMode.CREATIVE) {
+                    if (e.isShiftClick && e.isLeftClick) {
+                        this.playSound(Sound.ENTITY_ITEM_PICKUP, 1f, .5f)
+                        this.playSound(Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1f, 2f)
+                        val item = DynamicEnchantingScroll.getScrollWithEnchantment(enchantment)
+                        SMPRPG.getService(ItemService::class.java).ensureItemStackUpdated(item)
+                        player.inventory.addItem(item)
+                        return@setButton
+                    }
+                }
                 openSubMenu(EnchantmentSubMenu(player, this, enchantment))
             }
 

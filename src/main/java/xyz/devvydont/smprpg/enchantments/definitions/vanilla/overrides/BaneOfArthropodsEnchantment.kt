@@ -72,92 +72,92 @@ class BaneOfArthropodsEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantme
     override fun getRecipe(level: Int): EnchantmentRecipe? {
         when (level) {
             1 -> {
-                val silver = getIngredientStack(Material.COPPER_INGOT, 5)
-                val flesh = getIngredientStack(Material.SPIDER_EYE, 2)
+                val copper = getIngredientStack(Material.COPPER_INGOT, 5)
+                val spiderComp = getIngredientStack(Material.SPIDER_EYE, 2)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 8)
-                return EnchantmentRecipe(getRecipeKey(level), 0, silver, flesh, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 0, copper, spiderComp, lapis)
             }
 
             2 -> {
-                val silver = getIngredientStack(Material.COPPER_INGOT, 10)
-                val flesh = getIngredientStack(Material.STRING, 4)
+                val copper = getIngredientStack(Material.COPPER_INGOT, 10)
+                val spiderComp = getIngredientStack(Material.STRING, 4)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 5, silver, flesh, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 5, copper, spiderComp, lapis)
             }
 
             3 -> {
-                val silver = getIngredientStack(Material.COPPER_INGOT, 20)
-                val flesh = getIngredientStack(Material.SPIDER_EYE, 8)
+                val copper = getIngredientStack(Material.COPPER_INGOT, 20)
+                val spiderComp = getIngredientStack(Material.SPIDER_EYE, 8)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 32)
-                return EnchantmentRecipe(getRecipeKey(level), 15, silver, flesh, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 15, copper, spiderComp, lapis)
             }
 
             4 -> {
-                val silver = getIngredientStack(Material.COPPER_INGOT, 40)
-                val flesh = getIngredientStack(Material.STRING, 16)
-                val necrotic = getIngredientStack(Material.SPIDER_EYE, 16)
+                val copper = getIngredientStack(Material.COPPER_INGOT, 40)
+                val spiderComp = getIngredientStack(Material.STRING, 16)
+                val otherSpiderComp = getIngredientStack(Material.SPIDER_EYE, 16)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 64)
-                return EnchantmentRecipe(getRecipeKey(level), 20, silver, flesh, necrotic, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 20, copper, spiderComp, otherSpiderComp, lapis)
             }
 
             5 -> {
-                val silver = getIngredientStack(Material.COPPER_INGOT, 80)
-                val flesh = getIngredientStack(Material.SPIDER_EYE, 32)
-                val necrotic = getIngredientStack(Material.STRING, 32)
+                val copper = getIngredientStack(Material.COPPER_INGOT, 80)
+                val spiderComp = getIngredientStack(Material.SPIDER_EYE, 32)
+                val otherSpiderComp = getIngredientStack(Material.STRING, 32)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 30, silver, flesh, necrotic, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 30, copper, spiderComp, otherSpiderComp, lapis)
             }
 
             6 -> {
-                val silver = getIngredientStack(Material.COPPER_BLOCK, 18)
-                val flesh = getIngredientStack(Material.STRING, 64)
-                val necrotic = getIngredientStack(Material.SPIDER_EYE, 64)
+                val copper = getIngredientStack(Material.COPPER_BLOCK, 18)
+                val spiderComp = getIngredientStack(Material.STRING, 64)
+                val otherSpiderComp = getIngredientStack(Material.SPIDER_EYE, 64)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 32)
-                return EnchantmentRecipe(getRecipeKey(level), 40, silver, flesh, necrotic, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 40, copper, spiderComp, otherSpiderComp, lapis)
             }
 
             7 -> {
-                val silver = getIngredientStack(Material.COPPER_BLOCK, 36)
-                val flesh = getIngredientStack(CustomItemType.PREMIUM_SPIDER_EYE, 15)
-                val necrotic = getIngredientStack(CustomItemType.PREMIUM_STRING, 15)
+                val copper = getIngredientStack(Material.COPPER_BLOCK, 36)
+                val spiderComp = getIngredientStack(CustomItemType.PREMIUM_SPIDER_EYE, 15)
+                val otherSpiderComp = getIngredientStack(CustomItemType.PREMIUM_STRING, 15)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 64)
-                return EnchantmentRecipe(getRecipeKey(level), 60, silver, flesh, necrotic, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 60, copper, spiderComp, otherSpiderComp, lapis)
             }
 
             8 -> {
-                val silver = getIngredientStack(Material.COPPER_BLOCK, 72)
-                val flesh = getIngredientStack(CustomItemType.PREMIUM_STRING, 30)
-                val necrotic = getIngredientStack(CustomItemType.PREMIUM_SPIDER_EYE, 30)
+                val copper = getIngredientStack(Material.COPPER_BLOCK, 72)
+                val spiderComp = getIngredientStack(CustomItemType.PREMIUM_STRING, 30)
+                val otherSpiderComp = getIngredientStack(CustomItemType.PREMIUM_SPIDER_EYE, 30)
                 val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 70, silver, flesh, necrotic, lapis)
+                return EnchantmentRecipe(getRecipeKey(level), 70, copper, spiderComp, otherSpiderComp, lapis)
             }
 
             9 -> {
-                val silver = getIngredientStack(CustomItemType.ENCHANTED_COPPER, 8)
-                val flesh = getIngredientStack(CustomItemType.PREMIUM_SPIDER_EYE, 45)
-                val necrotic = getIngredientStack(CustomItemType.PREMIUM_STRING, 45)
+                val copper = getIngredientStack(CustomItemType.ENCHANTED_COPPER, 8)
+                val spiderComp = getIngredientStack(CustomItemType.PREMIUM_SPIDER_EYE, 45)
+                val otherSpiderComp = getIngredientStack(CustomItemType.PREMIUM_STRING, 45)
                 val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 32)
                 return EnchantmentRecipe(
                     getRecipeKey(level),
                     80,
-                    silver,
-                    flesh,
-                    necrotic,
+                    copper,
+                    spiderComp,
+                    otherSpiderComp,
                     lapis
                 )
             }
 
             10 -> {
-                val silver = getIngredientStack(CustomItemType.ENCHANTED_COPPER, 16)
-                val flesh = getIngredientStack(CustomItemType.PREMIUM_STRING, 60)
-                val necrotic = getIngredientStack(CustomItemType.PREMIUM_SPIDER_EYE, 60)
+                val copper = getIngredientStack(CustomItemType.ENCHANTED_COPPER, 16)
+                val spiderComp = getIngredientStack(CustomItemType.PREMIUM_STRING, 60)
+                val otherSpiderComp = getIngredientStack(CustomItemType.PREMIUM_SPIDER_EYE, 60)
                 val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 64)
                 return EnchantmentRecipe(
                     getRecipeKey(level),
                     90,
-                    silver,
-                    flesh,
-                    necrotic,
+                    copper,
+                    spiderComp,
+                    otherSpiderComp,
                     lapis
                 )
             }

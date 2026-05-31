@@ -856,6 +856,8 @@ public enum CustomItemType {
     FANG_STRIKE_SPELL("Fang Strike Spell Scroll", Material.PAPER, ItemRarity.UNCOMMON, FangStrikeSpellScroll.class),
     DAMAGE_AURA_SPELL("Damage Aura Spell Scroll", Material.PAPER, ItemRarity.RARE, DamageAuraSpellScroll.class),
     HEALING_AURA_SPELL("Healing Aura Spell Scroll", Material.PAPER, ItemRarity.RARE, HealingAuraSpellScroll.class),
+    CONJURE_PLATFORM_SPELL("Conjure Platform Spell Scroll", Material.PAPER, ItemRarity.COMMON, ConjurePlatformSpellScroll.class),
+    CONJURE_WALL_SPELL("Conjure Wall Spell Scroll", Material.PAPER, ItemRarity.COMMON, ConjureWallSpellScroll.class),
 
     // BOWS
     NETHERITE_BOW("Netherite Bow", Material.BOW, ItemRarity.EPIC,     NetheriteBow.class),

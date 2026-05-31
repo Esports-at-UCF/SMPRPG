@@ -2,7 +2,9 @@ package xyz.devvydont.smprpg.gui.enchantments
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.GameMode
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
@@ -12,7 +14,9 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.gui.base.MenuButtonClickHandler
+import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
 import xyz.devvydont.smprpg.services.EntityService
+import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
 import java.util.List
@@ -49,13 +53,25 @@ class EnchantmentSubMenu(
             )
         )
         item.editMeta(Consumer { meta: ItemMeta ->
+            val comps = mutableListOf<Component>()
+            comps.add(enchantment.build(level).description)
+            comps.add(ComponentUtils.EMPTY)
+            val recipe = enchantment.getRecipe(level)
+            if (recipe != null) {
+                comps.add(ComponentUtils.create("Reagents required:", NamedTextColor.GOLD))
+                for (ing in recipe.ingredients) {
+                    comps.add(
+                        ComponentUtils.merge(
+                            ing.displayName(),
+                            ComponentUtils.create(" x${ing.amount}")
+                    ))
+                }
+                comps.add(ComponentUtils.EMPTY)
+            }
+            comps.add(ComponentUtils.merge(check, ComponentUtils.SPACE, req))
             meta.lore(
                 ComponentUtils.cleanItalics(
-                    listOf<Component>(
-                        enchantment.build(level).description,
-                        ComponentUtils.EMPTY,
-                        ComponentUtils.merge(check, ComponentUtils.SPACE, req)
-                    )
+                    comps
                 )
             )
         })
@@ -97,10 +113,21 @@ class EnchantmentSubMenu(
 
         // Populate slots with the levels of the enchantment.
         val indexes = this.indexesToPopulate
-        for (level in 1..enchantment.maxLevel) this.setSlot(
+        for (level in 1..enchantment.maxLevel) this.setButton(
             indexes[level - 1],
             createEnchantmentButton(level)
-        )
+        ) { e: InventoryClickEvent ->
+            val player = e.whoClicked as Player
+            if (player.gameMode == GameMode.CREATIVE) {
+                if (e.isShiftClick && e.isLeftClick) {
+                    this.playSound(Sound.ENTITY_ITEM_PICKUP, 1f, .5f)
+                    this.playSound(Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1f, 2f)
+                    val item = DynamicEnchantingScroll.getScrollWithEnchantment(enchantment)
+                    SMPRPG.getService(ItemService::class.java).ensureItemStackUpdated(item)
+                    player.inventory.addItem(item)
+                }
+            }
+        }
 
         this.setButton(
             (ROWS - 1) * 9 + 4,

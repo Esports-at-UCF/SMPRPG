@@ -1,6 +1,6 @@
 {
 	"model": {
 	  "type": "minecraft:model",
-	  "model": "smprpg:item/materials/minnow_scales"
+	  "model": "smprpg:item/materials/minnow_scale"
 	}
 }
