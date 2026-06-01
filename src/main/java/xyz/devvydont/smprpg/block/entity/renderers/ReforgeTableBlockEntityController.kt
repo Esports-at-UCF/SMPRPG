@@ -41,6 +41,8 @@ class ReforgeTableBlockEntityController(blockEntity: BlockEntity): BlockEntityCo
         val checkNearbyTask = object: BukkitRunnable() {
             override fun run() {
                 if (tableLocation == null) {
+                    if (blockEntity.world == null)
+                        this.cancel()  // Failsafe, in case a crash ever happens and the entity isnt cleaned up properly.
                     val bukkitWorld = blockEntity.world.world.platformWorld() as World
                     tableLocation = Location(
                         bukkitWorld,

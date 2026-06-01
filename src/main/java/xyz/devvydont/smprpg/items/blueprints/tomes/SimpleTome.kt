@@ -12,8 +12,7 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
 
-class SimpleTome(itemService: ItemService, type: CustomItemType) : TomeBlueprint(itemService, type),
-    IModelOverridden {
+class SimpleTome(itemService: ItemService, type: CustomItemType) : TomeBlueprint(itemService, type) {
 
     override val maxSpellSlots: Int get() = 1
     override val cooldownMult: Double get() = 1.1
@@ -32,5 +31,4 @@ class SimpleTome(itemService: ItemService, type: CustomItemType) : TomeBlueprint
 
     override fun getPowerRating(): Int { return 10 }
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.HAND }
-    override fun getDisplayKey(): Key { return IModelOverridden.ofMaterial(Material.PAPER) }
 }

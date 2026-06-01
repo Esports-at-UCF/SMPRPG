@@ -231,18 +231,7 @@ abstract class CustomEnchantment(val id: String) : Cloneable {
         }
 
         // If we do not meet the skill requirement for this item, return false.
-        if (itemBp is ISkillRequirement) {
-            for (requirement in itemBp.skillRequirements) {
-                for (skill in player.skills) {
-                    if (skill.type == requirement.key) {
-                        if (skill.level < requirement.value)
-                            return false
-                    }
-                }
-            }
-        }
-
-        return true
+        return ItemService.meetsRequirements(itemStack, player)
     }
 
     companion object {

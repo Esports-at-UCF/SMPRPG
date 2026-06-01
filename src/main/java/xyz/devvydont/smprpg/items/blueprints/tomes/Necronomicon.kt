@@ -13,14 +13,21 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
+import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import java.util.List
 
 class Necronomicon(itemService: ItemService, type: CustomItemType) : TomeBlueprint(itemService, type),
-    IModelOverridden {
+    ISkillRequirement {
 
     override val maxSpellSlots: Int get() = 5
-    override val cooldownMult: Double get() = 0.9
+    override val cooldownMult: Double get() = 0.8
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(
+        Pair(SkillType.COMBAT, 40),
+        Pair(SkillType.MAGIC, 50),
+        Pair(SkillType.SLAYER, 50),
+    )
 
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
@@ -30,11 +37,12 @@ class Necronomicon(itemService: ItemService, type: CustomItemType) : TomeBluepri
     override fun getAttributeModifiers(item: ItemStack): MutableCollection<AttributeEntry> {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 500.0),
-            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 150.0)
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 150.0),
+            AdditiveAttributeEntry(AttributeWrapper.ARCANE_RATING, 15.0)
         )
     }
 
     override fun getPowerRating(): Int { return 50 }
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.HAND }
-    override fun getDisplayKey(): Key { return IModelOverridden.ofMaterial(Material.PAPER) }
+
 }

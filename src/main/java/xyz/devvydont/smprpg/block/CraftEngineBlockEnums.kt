@@ -61,6 +61,8 @@ enum class CraftEngineBlockEnums(val key : Key) {
 
     REFORGE_TABLE(Key.of("smprpg", "reforge_table")),
     NETHERITE_ANVIL(Key.of("smprpg", "netherite_anvil")),
+    COOKING_POT(Key.of("smprpg", "cooking_pot")),
+    CUTTING_BOARD(Key.of("smprpg", "cutting_board")),
     FREEZER(Key.of("smprpg", "freezer")),
 
     RUNE_BLANK(Key.of("smprpg", "rune_blank")),
@@ -106,15 +108,20 @@ enum class CraftEngineBlockEnums(val key : Key) {
     ICESTONE_SLAB(Key.of("smprpg", "icestone_slab")),
     HOLYSTONE_STAIRS(Key.of("smprpg", "holystone_stairs")),
     HOLYSTONE_BRICK_STAIRS(Key.of("smprpg", "holystone_brick_stairs")),
+    HOLYSTONE_BUTTON(Key.of("smprpg", "holystone_button")),
     ICESTONE_STAIRS(Key.of("smprpg", "icestone_stairs")),
 
     SKYROOT_LOG(Key.of("smprpg", "skyroot_log")),
     SKYROOT_WOOD(Key.of("smprpg", "skyroot_wood")),
     SKYROOT_PLANKS(Key.of("smprpg", "skyroot_planks")),
+    SKYROOT_BUTTON(Key.of("smprpg", "skyroot_button")),
+    SKYROOT_TRAPDOOR(Key.of("smprpg", "skyroot_trapdoor")),
 
     GOLDEN_OAK_LOG(Key.of("smprpg", "golden_oak_log")),
     GOLDEN_OAK_WOOD(Key.of("smprpg", "golden_oak_wood")),
     GOLDEN_OAK_PLANKS(Key.of("smprpg", "golden_oak_planks")),
+    GOLDEN_OAK_BUTTON(Key.of("smprpg", "golden_oak_button")),
+    GOLDEN_OAK_TRAPDOOR(Key.of("smprpg", "golden_oak_trapdoor")),
 
     AETHER_SILVER_ORE(Key.of("smprpg", "aether_silver_ore")),
     AMBROSIUM_ORE(Key.of("smprpg", "ambrosium_ore")),
@@ -128,6 +135,8 @@ enum class CraftEngineBlockEnums(val key : Key) {
     BINARY_LOG(Key.of("smprpg", "binary_log")),
     BINARY_WOOD(Key.of("smprpg", "binary_wood")),
     BINARY_PLANKS(Key.of("smprpg", "binary_planks")),
+    BINARY_BUTTON(Key.of("smprpg", "binary_button")),
+    BINARY_TRAPDOOR(Key.of("smprpg", "binary_trapdoor")),
 
     NULLYIUM(Key.of("smprpg", "nullyium")),
 
@@ -141,4 +150,6 @@ enum class CraftEngineBlockEnums(val key : Key) {
     POINTER_PRISM_BLOCK(Key.of("smprpg", "pointer_prism_block")),
 
     KITCHEN_TILES(Key.of("smprpg", "kitchen_tiles")),
+    ACACIA_CABINET(Key.of("smprpg", "acacia_cabinet")),
+    TITANIUM_CACHE(Key.of("smprpg", "titanium_cache")),
 }

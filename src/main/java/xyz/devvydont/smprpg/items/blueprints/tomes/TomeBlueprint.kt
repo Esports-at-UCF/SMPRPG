@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.items.blueprints.tomes
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.ItemContainerContents
 import io.papermc.paper.datacomponent.item.TooltipDisplay
+import net.kyori.adventure.key.Key
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -25,10 +26,11 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.NecronomiconExcerpts
 import xyz.devvydont.smprpg.items.blueprints.tomes.spells.SpellBlueprint
 import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster
+import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.listeners.TomeInteractionListener
 import xyz.devvydont.smprpg.services.ItemService
 
-abstract class TomeBlueprint(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type), Listener, IAbilityCaster {
+abstract class TomeBlueprint(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type), Listener, IAbilityCaster, IModelOverridden {
 
     override val itemClassification: ItemClassification get() = ItemClassification.TOME
     abstract val maxSpellSlots: Int
@@ -93,6 +95,10 @@ abstract class TomeBlueprint(itemService: ItemService, type: CustomItemType) : C
 
         // All checks passed! Return the cooldown of the selected spell, and adjust according to our cooldown reduction.
         return (spellBp.getCooldown(chosenSpellItem) * cooldownMult).toLong()
+    }
+
+    override fun getDisplayKey(): Key {
+        return IModelOverridden.ofItemTypeInDirectory(type, "tomes")
     }
 
     companion object {

@@ -20,6 +20,7 @@ import xyz.devvydont.smprpg.listeners.entity.HealthRegenerationListener
 import xyz.devvydont.smprpg.listeners.entity.HealthScaleListener
 import xyz.devvydont.smprpg.listeners.entity.PlayerInventoryButtonsListener
 import xyz.devvydont.smprpg.listeners.entity.StructureEntitySpawnListener
+import xyz.devvydont.smprpg.listeners.item.EquipmentRequirementValidationListener
 import xyz.devvydont.smprpg.listeners.item.ItemDurabilityListener
 import xyz.devvydont.smprpg.loot.LootListener
 import xyz.devvydont.smprpg.market.MarketService
@@ -118,6 +119,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(MeleeVisualListener())  // Visuals melee attack particles for weapons like staffs
         generalListeners.add(XPOrbDisablerListener())  // Overrides experience orb drops, as to disable vanilla EXP
         generalListeners.add(ItemDurabilityListener())  // Prevents items from fully breaking, capping them at 1 durability remaining.
+        generalListeners.add(EquipmentRequirementValidationListener())  // Validates skill requirements, disallowing items to be used if you do not meet requirements.
         generalListeners.add(UnderwaterArrowListener())  // Listens for arrows that are shot underwater
         generalListeners.add(CraftEngineBlockEventListener())  // Listens for custom "events" sent by CraftEngine
         generalListeners.add(AscendingBlockListener())  // Listens for transitions regarding the Aether, including portal manufacture

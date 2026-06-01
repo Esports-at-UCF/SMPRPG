@@ -43,6 +43,7 @@ import org.bukkit.scheduler.BukkitRunnable
 import org.checkerframework.checker.index.qual.NonNegative
 import org.checkerframework.checker.index.qual.Positive
 import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.entity.player.LeveledPlayer
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemRarity
 import xyz.devvydont.smprpg.items.SMPItemQuery
@@ -55,6 +56,8 @@ import xyz.devvydont.smprpg.items.blueprints.equipment.WalletBlueprint
 import xyz.devvydont.smprpg.items.blueprints.potion.PotionBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaCompressibleBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.NecronomiconExcerpts
+import xyz.devvydont.smprpg.items.blueprints.tomes.TomeBlueprint
 import xyz.devvydont.smprpg.items.blueprints.vanilla.*
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.items.listeners.*
@@ -76,6 +79,7 @@ import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import xyz.devvydont.smprpg.util.time.TickTime
 import java.lang.reflect.InvocationTargetException
 import java.util.*
+import kotlin.collections.iterator
 
 class ItemService : IService, Listener {
 
@@ -922,6 +926,7 @@ class ItemService : IService, Listener {
         // The lore that we are going to return at the end.
         val lore: MutableList<Component?> = ArrayList<Component?>()
 
+
         // Check for stats that the item will apply if equipped.
         if (blueprint is IAttributeItem) {
             val power = blueprint.getPowerRating() + AttributeUtil.getPowerBonus(meta)
@@ -931,6 +936,19 @@ class ItemService : IService, Listener {
             )
             lore.add(ComponentUtils.EMPTY)
             lore.addAll(AttributeUtil.getAttributeLore(blueprint, itemStack))
+            if (blueprint is TomeBlueprint) {
+                val numExcerpts = itemStack.persistentDataContainer.getOrDefault(NecronomiconExcerpts.TOME_SPELL_COUNT_MODIFIER, PersistentDataType.INTEGER, 0)
+                var excerptsAddon: Component
+
+                if (numExcerpts > 0) excerptsAddon = ComponentUtils.create(" (+${numExcerpts})", NamedTextColor.DARK_RED)
+                else excerptsAddon = ComponentUtils.EMPTY
+
+                lore.add(ComponentUtils.merge(
+                    ComponentUtils.create("Max Spell Slots: "),
+                    ComponentUtils.create(blueprint.maxSpellSlots.toString(), NamedTextColor.LIGHT_PURPLE),
+                    excerptsAddon
+                ))
+            }
             lore.add(
                 ComponentUtils.create(
                     "Slot: " + blueprint.getActiveSlot().toString().lowercase(Locale.getDefault()),
@@ -1306,31 +1324,20 @@ class ItemService : IService, Listener {
 
     /**
      * Given a player and an item stack, ensure that the player meets the requirements for this item
+     * Unlike the static meetsRequirements method, this method will clear out any attribute modifiers on the item.
      *
      * @param player A Player entity
      * @param itemStack The item to check skill requirements on
      * @return Whether the player meets requirements for the item.
      */
-    fun assessSkillRequirements(player : Player, itemStack: ItemStack?) : Boolean {
+    fun updateItemSkillRequirements(player : Player, itemStack: ItemStack?) : Boolean {
         if (itemStack == null) return true  // I mean, I guess you can always use nothing?
 
-        val itemBp = blueprint(itemStack)
+        val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
+        val requirementsMet = meetsRequirements(itemStack, leveledPlayer)
+        if (!requirementsMet) AttributeService.instance.clearAttributeModifiers(itemStack)
 
-        if (itemBp is ISkillRequirement) {
-            val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
-            for (requirement in itemBp.skillRequirements) {
-                for (skill in leveledPlayer.skills) {
-                    if (skill.type == requirement.key) {
-                        if (skill.level < requirement.value) {
-                            AttributeService.instance.clearAttributeModifiers(itemStack)
-                            return false
-                        }
-                    }
-                }
-            }
-        }
-
-        return true
+        return requirementsMet
     }
 
     private fun discoverRecipesForItem(player: Player, item: ItemStack) {
@@ -1597,12 +1604,12 @@ class ItemService : IService, Listener {
                 ensureItemStackUpdated(event.player.inventory.itemInMainHand)
                 ensureItemStackUpdated(event.player.inventory.itemInOffHand)
 
-                assessSkillRequirements(event.player, event.player.inventory.itemInMainHand)
-                assessSkillRequirements(event.player, event.player.inventory.itemInOffHand)
-                assessSkillRequirements(event.player, event.player.inventory.helmet)
-                assessSkillRequirements(event.player, event.player.inventory.chestplate)
-                assessSkillRequirements(event.player, event.player.inventory.leggings)
-                assessSkillRequirements(event.player, event.player.inventory.boots)
+                updateItemSkillRequirements(event.player, event.player.inventory.itemInMainHand)
+                updateItemSkillRequirements(event.player, event.player.inventory.itemInOffHand)
+                updateItemSkillRequirements(event.player, event.player.inventory.helmet)
+                updateItemSkillRequirements(event.player, event.player.inventory.chestplate)
+                updateItemSkillRequirements(event.player, event.player.inventory.leggings)
+                updateItemSkillRequirements(event.player, event.player.inventory.boots)
             }
         }.runTaskLater(SMPRPG.plugin, 0L)
     }
@@ -1821,6 +1828,33 @@ class ItemService : IService, Listener {
                 return (damage >= (maxDamage - 1))
             }
             return false  // Can't be broken if it isn't breakable.
+        }
+
+        /**
+         * Given an item, return whether the LeveledPlayer can equip/use it
+         * @param item The item to check
+         * @param player The LeveledPlayer instance to check against
+         * @return Whether it can be used or not
+         */
+        @JvmStatic
+        fun meetsRequirements(item: ItemStack, player: LeveledPlayer): Boolean {
+            val bp = blueprint(item)
+            if (bp is ISkillRequirement) {
+                for (requirement in bp.skillRequirements) {
+                    for (skill in player.skills) {
+                        if (skill.type == requirement.key) {
+                            if (skill.level < requirement.value)
+                                return false
+                        }
+                    }
+                }
+            }
+            return true
+        }
+        @JvmStatic
+        fun meetsRequirements(item: ItemStack, player: Player): Boolean {
+            val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
+            return meetsRequirements(item, leveledPlayer)
         }
 
         /**

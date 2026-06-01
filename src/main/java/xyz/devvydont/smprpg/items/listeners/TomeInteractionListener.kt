@@ -76,7 +76,9 @@ class TomeInteractionListener: ToggleableListener() {
                 if (itemBp is TomeBlueprint) {
                     event.clickedInventory?.close()
                     event.isCancelled = true
-                    MenuTomeModification(event.whoClicked as Player, itemBp, item).openMenu()
+                    val player = event.whoClicked as Player
+                    player.updateInventory()
+                    MenuTomeModification(player, itemBp, item).openMenu()
                 }
             }
         }

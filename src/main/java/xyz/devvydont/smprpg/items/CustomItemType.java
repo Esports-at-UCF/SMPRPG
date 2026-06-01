@@ -29,6 +29,7 @@ import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockShoes;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockHood;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockRobes;
 import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockTrousers;
+import xyz.devvydont.smprpg.items.blueprints.tomes.*;
 import xyz.devvydont.smprpg.items.blueprints.tomes.spells.*;
 import xyz.devvydont.smprpg.items.blueprints.tools.augments.RepairCore;
 import xyz.devvydont.smprpg.items.blueprints.economy.CustomItemCoin;
@@ -61,8 +62,6 @@ import xyz.devvydont.smprpg.items.blueprints.sets.breeze.BreezeborneStaff;
 import xyz.devvydont.smprpg.items.blueprints.sets.leather.LeatherConicalHat;
 import xyz.devvydont.smprpg.items.blueprints.sets.tungsten.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.wood.WoodStaff;
-import xyz.devvydont.smprpg.items.blueprints.tomes.Necronomicon;
-import xyz.devvydont.smprpg.items.blueprints.tomes.SimpleTome;
 import xyz.devvydont.smprpg.items.blueprints.unobtainable.shambling.ShamblingBossBoots;
 import xyz.devvydont.smprpg.items.blueprints.unobtainable.shambling.ShamblingBossChestplate;
 import xyz.devvydont.smprpg.items.blueprints.unobtainable.shambling.ShamblingBossLeggings;
@@ -795,7 +794,7 @@ public enum CustomItemType {
     REVILED_VISCERA("Reviled Viscera", Material.ROTTEN_FLESH, ItemRarity.RARE, ReviledViscera.class),
     VISCERAL_AMALGAMATION("Visceral Amalgamation", Material.ROTTEN_FLESH, ItemRarity.RARE, VisceralAmalgamation.class),
     UNDIGESTED_BRAINS("Undigested Brains", Material.COCOA_BEANS, ItemRarity.EPIC, UndigestedBrains.class),
-    NECRONOMICON_EXCERPTS("Necronomicon Excerpts", Material.PAPER, ItemRarity.LEGENDARY, NecronomiconExcerpts.class),
+    NECRONOMICON_EXCERPTS("Accursed Manuscripts", Material.PAPER, ItemRarity.LEGENDARY, NecronomiconExcerpts.class),
 
     ABOMINABLE_CLEAVER(     "Abominable Cleaver",  Material.GOLDEN_SWORD,     ItemRarity.RARE, AbominableCleaver.class),
     ABOMINABLE_MACHETE(     "Abominable Machete",  Material.DIAMOND_SWORD,    ItemRarity.EPIC, AbominableMachete.class),
@@ -853,7 +852,10 @@ public enum CustomItemType {
     LUCKY_CHARM("Lucky Charm",       Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      LuckyCharm.class),
 
     // TOMES
-    SIMPLE_TOME("Simple Tome",          Material.PAPER,  ItemRarity.UNCOMMON,      SimpleTome.class),
+    SIMPLE_TOME("Simple Tome",          Material.PAPER,  ItemRarity.COMMON,        SimpleTome.class),
+    ENCHANTED_TOME("Enchanted Tome",    Material.PAPER,  ItemRarity.UNCOMMON,      EnchantedTome.class),
+    EVOKATION_CODEX("Evokation Codex",  Material.PAPER,  ItemRarity.RARE,          EvokationCodex.class),
+    BOOK_OF_SHADOWS("Book of Shadows",  Material.PAPER,  ItemRarity.EPIC,          BookOfShadows.class),
     NECRONOMICON("Necronomicon",        Material.PAPER,  ItemRarity.LEGENDARY,     Necronomicon.class),
 
     // SPELLS
