@@ -16,6 +16,7 @@ import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster
 import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster.AbilityEntry
 import xyz.devvydont.smprpg.services.ActionBarService
 import xyz.devvydont.smprpg.services.EntityService
+import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
@@ -28,8 +29,8 @@ class AbilityCastingListener : ToggleableListener() {
     private fun __onInteractWithItem(event: PlayerInteractEvent) {
         // Retrieve the item involved with the interaction. Do nothing if it doesn't exist.
 
-        val item = event.getItem()
-        if (item == null || item.getType() == Material.AIR) return
+        val item = event.item
+        if (item == null || item.type == Material.AIR) return
 
         if (event.getPlayer().hasCooldown(item)) return
 
@@ -51,10 +52,12 @@ class AbilityCastingListener : ToggleableListener() {
         for (ability in abilities) {
             // Skip if click type isn't correct.
 
-            if (!ability.activation.passes(event.getAction(), event.getPlayer())) continue
+            if (!ability.activation.passes(event.action, event.getPlayer())) continue
 
             // Update our ability cost before we check our mana usage
-            val abe = AbilityCastEvent(ability, player, item)
+            if (!ItemService.meetsRequirements(item, player)) return
+            val cooldown = _blueprint.getCooldown(item)
+            val abe = AbilityCastEvent(ability, player, item, cooldown)
             abe.callEvent()
 
             // Check if the cost is met.
@@ -66,12 +69,12 @@ class AbilityCastingListener : ToggleableListener() {
                         ComponentUtils.create("NOT ENOUGH " + ability.cost.resource.name, NamedTextColor.RED),
                         1
                     )
-                event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, .3f, .5f)
+                event.getPlayer().playSound(event.getPlayer().location, Sound.ENTITY_ENDERMAN_TELEPORT, .3f, .5f)
                 continue
             }
 
             // Execute!
-            val success = ability.ability.getHandler().execute(AbilityContext(event.getPlayer(), event.getHand()))
+            val success = ability.ability.getHandler().execute(AbilityContext(event.getPlayer(), event.hand))
             if (!success) continue
             __onCastAbility(abe)
         }
@@ -83,7 +86,7 @@ class AbilityCastingListener : ToggleableListener() {
         val item = event.item
         event.abilityCost.spend(player)
         SMPRPG.getService(ActionBarService::class.java).addActionBarComponent(
-            player.getPlayer(),
+            player.player,
             ActionBarService.ActionBarSource.MISC,
             ComponentUtils.merge(
                 ComponentUtils.create(ability.ability.friendlyName, NamedTextColor.GOLD),
@@ -95,7 +98,7 @@ class AbilityCastingListener : ToggleableListener() {
             ),
             3
         )
-        player.getPlayer().setCooldown(item, ability.ability.getHandler().cooldown.toInt())
+        player.player.setCooldown(item, event.cooldown.toInt())
     }
 
     companion object {

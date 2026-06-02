@@ -6,9 +6,11 @@ import net.kyori.adventure.key.Key
 import net.kyori.adventure.key.Keyed
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.momirealms.craftengine.bukkit.api.CraftEngineItems
 import org.bukkit.Bukkit
+import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.LivingEntity
@@ -80,6 +82,9 @@ import xyz.devvydont.smprpg.util.time.TickTime
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 import kotlin.collections.iterator
+import kotlin.math.abs
+import kotlin.math.ceil
+import kotlin.math.round
 
 class ItemService : IService, Listener {
 
@@ -948,6 +953,25 @@ class ItemService : IService, Listener {
                     ComponentUtils.create(blueprint.maxSpellSlots.toString(), NamedTextColor.LIGHT_PURPLE),
                     excerptsAddon
                 ))
+                val cooldownMult = blueprint.cooldownMult
+                if (cooldownMult != 1.0) {
+                    var operator = "+"
+                    var color: TextColor = NamedTextColor.GREEN
+                    if (cooldownMult > 1.0) {
+                        operator = "-"
+                        color = NamedTextColor.RED
+                    }
+                    // TODO: Just turn this into an attribute at some point.
+                    lore.add(
+                        ComponentUtils.merge(
+                            ComponentUtils.create("Casting Recovery: "),
+                            ComponentUtils.create(
+                                operator + round(abs((1.0 - cooldownMult) * 100.0)).toInt().toString() + "%",
+                                color
+                            )
+                        )
+                    )
+                }
             }
             lore.add(
                 ComponentUtils.create(
@@ -1838,6 +1862,7 @@ class ItemService : IService, Listener {
          */
         @JvmStatic
         fun meetsRequirements(item: ItemStack, player: LeveledPlayer): Boolean {
+            if (player.player.gameMode == GameMode.CREATIVE) return true
             val bp = blueprint(item)
             if (bp is ISkillRequirement) {
                 for (requirement in bp.skillRequirements) {

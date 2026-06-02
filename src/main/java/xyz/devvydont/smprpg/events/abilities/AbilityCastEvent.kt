@@ -9,7 +9,8 @@ import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster
 
 class AbilityCastEvent(val ability: IAbilityCaster.AbilityEntry,
                        val player: LeveledPlayer,
-                       val item: ItemStack) : Event() {
+                       val item: ItemStack,
+                       val cooldown: Long) : Event() {
 
    var abilityCost : AbilityCost = ability.cost
 
