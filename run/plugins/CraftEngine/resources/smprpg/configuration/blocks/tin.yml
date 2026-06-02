@@ -85,6 +85,8 @@ blocks:
       overrides:
         instrument: flute
         map-color: 8
+      merges:
+        tags: [ "smprpg:custom_instrument" ]
 
 placed-features:
   smprpg:ore_tin:

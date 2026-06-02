@@ -69,7 +69,7 @@ blocks:
       - smprpg:data/breaking_power_6
       - smprpg:data/beacon_usable
       merges:
-        tags: ["minecraft:mineable/pickaxe"]
+        tags: ["minecraft:mineable/pickaxe", "smprpg:custom_instrument"]
       overrides:
         hardness: 50.0
         resistance: 25.0

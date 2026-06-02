@@ -602,6 +602,14 @@ object BlockLootRegistry : Listener {
         )
 
         register(
+            CraftEngineBlockEnums.RAW_SILVER_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_SILVER_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_SILVER_BLOCK)))
+                .build()
+        )
+
+        register(
             CraftEngineBlockEnums.SILVER_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
@@ -611,10 +619,11 @@ object BlockLootRegistry : Listener {
         )
 
         register(
-            CraftEngineBlockEnums.RAW_SILVER_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_BLOCK)))
-                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.RAW_SILVER_BLOCK)))
-                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.RAW_SILVER_BLOCK)))
+            CraftEngineBlockEnums.ENCHANTED_SILVER_BLOCK.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.ENCHANTED_SILVER_BLOCK)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ENCHANTED_SILVER_BLOCK)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.ENCHANTED_SILVER_BLOCK)))
+                .ignoresFortune()
                 .build()
         )
 

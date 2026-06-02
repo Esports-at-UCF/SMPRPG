@@ -32,5 +32,5 @@ class TitaniumFamilyBlueprint(itemService: ItemService, type: CustomItemType) :
         else -> null
     }
 
-    override fun getWorth(itemStack: ItemStack) = calculateCompressedWorth(itemStack)
+    override fun getWorth(item: ItemStack) = calculateCompressedWorth(item)
 }

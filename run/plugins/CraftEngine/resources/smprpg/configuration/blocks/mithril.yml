@@ -137,6 +137,8 @@ blocks:
         resistance: 6.0
         instrument: bass
         map-color: 32
+      merges:
+        tags: [ "smprpg:custom_instrument" ]
 
   smprpg:titanium_ore:
     state:
@@ -214,7 +216,7 @@ items#titanium_compression:
   smprpg:enchanted_titanium_block_display:
     data:
       item-name: <!i><lang:item.smprpg.enchanted_titanium_block_display>
-    model: smprpg:block/overworld/enchanted_titanium_block
+    model: smprpg:block/compact/enchanted_titanium_block
   smprpg:enchanted_titanium_block:
     data:
       item-name: <!i><lang:item.smprpg.enchanted_titanium_block>

@@ -141,9 +141,13 @@ items:
         - minecraft:wooden_tool_materials
     data:
       item-name: <!i><lang:item.smprpg.skyroot_planks>
+      pdc:
+        smprpg:item-type: skyroot_planks
+        smprpg:sell-value: 2
     model: smprpg:block/aether/skyroot_planks
     behavior:
       type: block_item
+
       block:
         settings:
           template:

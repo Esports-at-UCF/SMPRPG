@@ -499,7 +499,67 @@
       "smprpg:block/cutting_board/cut1",
       "smprpg:block/cutting_board/cut2"
     ],
-    "subtitle": "subtitles.entity.zephyr.death"
+    "subtitle": "Chopping items."
+  },
+  "block.note_block.sawtooth": {
+	  "sounds": [
+		"smprpg:note/tin"
+	  ],
+	  "subtitle": "subtitles.block.note_block.note"
+  },
+  "block.note_block.snes_piano": {
+	  "sounds": [
+		"smprpg:note/silver"
+	  ],
+	  "subtitle": "subtitles.block.note_block.note"
+  },
+  "block.note_block.steel_drum": {
+	  "sounds": [
+		"smprpg:note/steel"
+	  ],
+	  "subtitle": "subtitles.block.note_block.note"
+  },
+  "block.note_block.orchestra_hit": {
+	  "sounds": [
+		"smprpg:note/bronze"
+	  ],
+	  "subtitle": "subtitles.block.note_block.note"
+  },
+  "block.note_block.doo_high": {
+	  "sounds": [
+		"smprpg:note/doo_high"
+	  ],
+	  "subtitle": "subtitles.block.note_block.note"
+  },
+  "block.note_block.doo_low": {
+	  "sounds": [
+		"smprpg:note/doo_low"
+	  ],
+	  "subtitle": "subtitles.block.note_block.note"
+  },
+  "block.note_block.doo_bass": {
+	  "sounds": [
+		"smprpg:note/doo_bass"
+	  ],
+	  "subtitle": "subtitles.block.note_block.note"
+  },
+  "block.note_block.pah": {
+	  "sounds": [
+		"smprpg:note/pah"
+	  ],
+	  "subtitle": "subtitles.block.note_block.note"
+  },
+  "block.note_block.drum": {
+	  "sounds": [
+		"smprpg:note/cobalt"
+	  ],
+	  "subtitle": "subtitles.block.note_block.note"
+  },
+  "block.note_block.ocarina": {
+	  "sounds": [
+		"smprpg:note/mithril"
+	  ],
+	  "subtitle": "subtitles.block.note_block.note"
   },
   "entity.illager_warlock.cast_toss": {
     "sounds": [

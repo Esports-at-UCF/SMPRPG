@@ -126,6 +126,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(AscendingBlockListener())  // Listens for transitions regarding the Aether, including portal manufacture
         generalListeners.add(AdvancementTriggerListener())  // Listens for bukkit events to award advancement criterion
         generalListeners.add(PlayerInventoryButtonsListener())  // Listens for events regarding player inventory buttons.
+        generalListeners.add(CustomNoteblockSoundListener())  // Listens for custom note block instruments
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.

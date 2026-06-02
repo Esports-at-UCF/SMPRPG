@@ -35,13 +35,6 @@ items:
         smprpg:item-type: raw_silver
         smprpg:sell-value: 15
     texture: smprpg:item/materials/raw_silver
-  smprpg:silver_ingot:
-    data:
-      item-name: <!i><lang:item.smprpg.silver_ingot>
-      pdc:
-        smprpg:item-type: silver_ingot
-        smprpg:sell-value: 50
-    texture: smprpg:item/materials/silver_ingot
   smprpg:silver_nugget:
     data:
       item-name: <!i><lang:item.smprpg.silver_nugget>
@@ -49,6 +42,53 @@ items:
         smprpg:item-type: silver_nugget
         smprpg:sell-value: 5
     texture: smprpg:item/materials/silver_nugget
+  smprpg:silver_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.silver_ingot>
+      pdc:
+        smprpg:item-type: silver_ingot
+        smprpg:sell-value: 50
+    texture: smprpg:item/materials/silver_ingot
+  smprpg:enchanted_silver_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.enchanted_silver_ingot>
+      pdc:
+        smprpg:item-type: enchanted_silver_ingot
+    texture: smprpg:item/materials/silver_ingot
+  smprpg:silver_singularity:
+    data:
+      item-name: <!i><lang:item.smprpg.silver_singularity>
+      pdc:
+        smprpg:item-type: silver_singularity
+    texture: smprpg:item/materials/silver_ingot
+  smprpg:enchanted_silver_block_display:
+    data:
+      item-name: <!i><lang:item.smprpg.enchanted_silver_block_display>
+    model: smprpg:block/compact/enchanted_silver_block
+  smprpg:enchanted_silver_block:
+    data:
+      item-name: <!i><lang:item.smprpg.enchanted_silver_block>
+      pdc:
+        smprpg:item-type: enchanted_silver_block
+    model: smprpg:block/overworld/silver_block
+    behavior:
+      type: block_item
+      block:
+        state:
+          state: barrier
+          entity-renderer:
+            - type: item_display
+              item: smprpg:enchanted_silver_block_display
+        settings:
+          template:
+            - smprpg:settings/metal_block
+            - smprpg:data/breaking_power_1
+            - smprpg:data/beacon_usable
+          overrides:
+            instrument: flute
+            map-color: 31
+          merges:
+            tags: [ "smprpg:custom_instrument" ]
 
 blocks:
   smprpg:silver_ore:
@@ -104,6 +144,8 @@ blocks:
       overrides:
         instrument: flute
         map-color: 31
+      merges:
+        tags: ["smprpg:custom_instrument"]
 
 placed-features:
   smprpg:ore_silver:

@@ -8,11 +8,13 @@ enum class CraftEngineBlockEnums(val key : Key) {
     DEEPSLATE_SILVER_ORE(Key.of("smprpg", "deepslate_silver_ore")),
     RAW_SILVER_BLOCK(Key.of("smprpg", "raw_silver_block")),
     SILVER_BLOCK(Key.of("smprpg", "silver_block")),
+    ENCHANTED_SILVER_BLOCK(Key.of("smprpg", "enchanted_silver_block")),
 
     TIN_ORE(Key.of("smprpg", "tin_ore")),
     DEEPSLATE_TIN_ORE(Key.of("smprpg", "deepslate_tin_ore")),
     RAW_TIN_BLOCK(Key.of("smprpg", "raw_tin_block")),
     TIN_BLOCK(Key.of("smprpg", "tin_block")),
+    ENCHANTED_TIN_BLOCK(Key.of("smprpg", "enchanted_tin_block")),
 
     SPARSE_MITHRIL_ORE(Key.of("smprpg", "sparse_mithril_ore")),
     MITHRIL_ORE(Key.of("smprpg", "mithril_ore")),

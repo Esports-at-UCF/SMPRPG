@@ -6,7 +6,6 @@ items:
     behavior:
       type: block_item
       block: smprpg:adamantium_ore
-
   smprpg:raw_adamantium_block:
     data:
       item-name: <!i><lang:item.smprpg.raw_adamantium_block>
@@ -14,7 +13,6 @@ items:
     behavior:
       type: block_item
       block: smprpg:raw_adamantium_block
-
   smprpg:adamantium_block:
     data:
       item-name: <!i><lang:item.smprpg.adamantium_block>

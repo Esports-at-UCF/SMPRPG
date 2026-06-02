@@ -221,18 +221,18 @@ public enum CustomItemType {
     COPPER_BOW(    "Copper Bow",      Material.BOW,            CopperBow.class),
 
     // SILVER SET
-    RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, CraftEngineBlueprint.class),
+    RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, RawSilver.class),
     SILVER_ORE("Silver Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, CraftEngineBlueprint.class),
     DEEPSLATE_SILVER_ORE("Deepslate Silver Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, CraftEngineBlueprint.class),
-    RAW_SILVER_BLOCK("Block of Raw Silver",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, CraftEngineCompressibleBlueprint.class),
+    RAW_SILVER_BLOCK("Block of Raw Silver",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, RawSilverFamilyBlueprint.class),
     ENCHANTED_RAW_SILVER("Enchanted Raw Silver",      Material.RAW_IRON,        ItemRarity.RARE, true, RawSilverFamilyBlueprint.class),
 
-    SILVER_INGOT("Silver Ingot",                          Material.IRON_INGOT,        ItemRarity.COMMON,    CraftEngineBlueprint.class),
-    SILVER_BLOCK("Block of Silver",                       Material.POISONOUS_POTATO,  ItemRarity.UNCOMMON,  CraftEngineCompressibleBlueprint.class),
-    ENCHANTED_SILVER("Enchanted Silver",                  Material.IRON_INGOT,        ItemRarity.RARE,      true, SilverFamilyBlueprint.class),
-    ENCHANTED_SILVER_BLOCK("Enchanted Block of Silver",   Material.POISONOUS_POTATO,  ItemRarity.EPIC,      true, SilverFamilyBlueprint.class),
-    SILVER_SINGULARITY("Silver Singularity",              Material.IRON_INGOT,        ItemRarity.LEGENDARY, true, SilverFamilyBlueprint.class),
     SILVER_NUGGET("Silver Nugget",                        Material.IRON_NUGGET,       ItemRarity.COMMON,    CraftEngineBlueprint.class),
+    SILVER_INGOT("Silver Ingot",                          Material.IRON_INGOT,        ItemRarity.COMMON,    SilverIngot.class),
+    SILVER_BLOCK("Block of Silver",                       Material.NETHER_BRICK,      ItemRarity.UNCOMMON,  SilverFamilyBlueprint.class),
+    ENCHANTED_SILVER("Enchanted Silver",                  Material.IRON_INGOT,        ItemRarity.RARE,      true, SilverFamilyBlueprint.class),
+    ENCHANTED_SILVER_BLOCK("Enchanted Block of Silver",   Material.NETHER_BRICK,      ItemRarity.EPIC,      true, SilverFamilyBlueprint.class),
+    SILVER_SINGULARITY("Silver Singularity",              Material.IRON_INGOT,        ItemRarity.LEGENDARY, true, SilverFamilyBlueprint.class),
 
     SILVER_PICKAXE("Silver Pickaxe",  Material.IRON_PICKAXE, SilverPickaxe.class),
     SILVER_AXE(    "Silver Axe",      Material.IRON_AXE,     SilverAxe.class),
@@ -374,7 +374,7 @@ public enum CustomItemType {
     RAW_TITANIUM("Raw Titanium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300, "materials"),
     TITANIUM_ORE("Titanium Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineBlueprint.class),
     RAW_TITANIUM_BLOCK("Block of Raw Titanium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, CraftEngineCompressibleBlueprint.class),
-    ENCHANTED_RAW_TITANIUM("Raw Titanium",           Material.RAW_IRON,     ItemRarity.LEGENDARY,   false, RawTitaniumFamilyBlueprint.class),
+    ENCHANTED_RAW_TITANIUM("Enchanted Raw Titanium",           Material.RAW_IRON,     ItemRarity.LEGENDARY,   false, RawTitaniumFamilyBlueprint.class),
 
     TITANIUM_INGOT("Titanium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   TitaniumIngot.class),
     TITANIUM_BLOCK("Block of Titanium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, TitaniumFamilyBlueprint.class),

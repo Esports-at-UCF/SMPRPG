@@ -101,4 +101,15 @@ public class KeyStore {
 
     public static final NamespacedKey AUDIO_CUTTING_BOARD_CUT = new NamespacedKey(NAMESPACE, "block.cutting_board.cut");
 
+    public static final NamespacedKey AUDIO_NOTE_SAWTOOTH = new NamespacedKey(NAMESPACE, "block.note_block.sawtooth");
+    public static final NamespacedKey AUDIO_NOTE_SNES_PIANO = new NamespacedKey(NAMESPACE, "block.note_block.snes_piano");
+    public static final NamespacedKey AUDIO_NOTE_STEEL_DRUM = new NamespacedKey(NAMESPACE, "block.note_block.steel_drum");
+    public static final NamespacedKey AUDIO_NOTE_ORCHESTRA_HIT = new NamespacedKey(NAMESPACE, "block.note_block.orchestra_hit");
+    public static final NamespacedKey AUDIO_NOTE_DOO_HIGH = new NamespacedKey(NAMESPACE, "block.note_block.doo_high");
+    public static final NamespacedKey AUDIO_NOTE_DOO_LOW = new NamespacedKey(NAMESPACE, "block.note_block.doo_low");
+    public static final NamespacedKey AUDIO_NOTE_DOO_BASS = new NamespacedKey(NAMESPACE, "block.note_block.doo_bass");
+    public static final NamespacedKey AUDIO_NOTE_PAH = new NamespacedKey(NAMESPACE, "block.note_block.pah");
+    public static final NamespacedKey AUDIO_NOTE_DRUM = new NamespacedKey(NAMESPACE, "block.note_block.drum");
+    public static final NamespacedKey AUDIO_NOTE_OCARINA = new NamespacedKey(NAMESPACE, "block.note_block.ocarina");
+
 }

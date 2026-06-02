@@ -46,7 +46,7 @@ blocks:
         template:
           - smprpg:sound/copper
       merges:
-        tags: [ "minecraft:mineable/pickaxe" ]
+        tags: [ "minecraft:mineable/pickaxe", "smprpg:custom_instrument" ]
     loot:
       template:
         - smprpg:loot_table/self
@@ -83,7 +83,7 @@ blocks:
         template:
           - smprpg:sound/iron
       merges:
-        tags: ["minecraft:mineable/pickaxe"]
+        tags: ["minecraft:mineable/pickaxe", "smprpg:custom_instrument"]
     loot:
       template:
         - smprpg:loot_table/self

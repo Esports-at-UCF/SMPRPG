@@ -22,17 +22,10 @@ open class CraftEngineBlueprint(itemService: ItemService, type: CustomItemType) 
 
         var itemStack : ItemStack
         val craftEngineItem = BukkitItemManager.instance().createCustomWrappedItem(Key.of("smprpg:${customItemType.key}"), null)
-        if (craftEngineItem != null) {
+        if (craftEngineItem != null)
             itemStack = craftEngineItem.bukkitItem
-            val wrappedItem = BukkitItemManager.instance().wrap(itemStack)
-            val def = wrappedItem.definition.orElse(null)
-            println(def.settings().tags())
-        }
-        else {
+        else
             itemStack = ItemStack.of(customItemType.DisplayMaterial)
-        }
-        //val ceItem = BukkitAdaptor.adapt(itemStack)
-        //ceItem.setTag("smprpg:${customItemType.key}", "craftengine:id")
 
 
         // Apply updates to this item according to our blueprint's spec.
