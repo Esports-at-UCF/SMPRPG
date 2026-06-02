@@ -1,8 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.craftengine
 
-import net.momirealms.craftengine.bukkit.api.BukkitAdaptor
-import net.momirealms.craftengine.bukkit.api.CraftEngineItems
-import net.momirealms.craftengine.bukkit.util.ItemStackUtils
+import net.momirealms.craftengine.bukkit.item.BukkitItemManager
 import net.momirealms.craftengine.core.util.Key
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
@@ -23,15 +21,18 @@ open class CraftEngineBlueprint(itemService: ItemService, type: CustomItemType) 
         // Make the starting item.
 
         var itemStack : ItemStack
-        val craftEngineItem = CraftEngineItems.byId(Key.of("smprpg:${customItemType.key}"))
+        val craftEngineItem = BukkitItemManager.instance().createCustomWrappedItem(Key.of("smprpg:${customItemType.key}"), null)
         if (craftEngineItem != null) {
-            itemStack = craftEngineItem.buildBukkitItem()
+            itemStack = craftEngineItem.bukkitItem
+            val wrappedItem = BukkitItemManager.instance().wrap(itemStack)
+            val def = wrappedItem.definition.orElse(null)
+            println(def.settings().tags())
         }
         else {
             itemStack = ItemStack.of(customItemType.DisplayMaterial)
         }
-        val ceItem = BukkitAdaptor.adapt(itemStack)
-        ceItem.setTag("smprpg:${customItemType.key}", "craftengine:id")
+        //val ceItem = BukkitAdaptor.adapt(itemStack)
+        //ceItem.setTag("smprpg:${customItemType.key}", "craftengine:id")
 
 
         // Apply updates to this item according to our blueprint's spec.

@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
+import net.momirealms.craftengine.bukkit.api.BukkitAdaptor
 import net.momirealms.craftengine.bukkit.api.CraftEngineItems
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
@@ -1583,7 +1584,8 @@ class ItemService : IService, Listener {
         for (input in event.inventory.matrix) {
             if (input == null) continue
 
-            if (this.getItemInformation(input).isCustom) {
+            val ceItem = BukkitAdaptor.adapt(input)
+            if (this.getItemInformation(input).isCustom && !ceItem.isCustomItem) {
                 craftingWithCustomItems = true
                 break
             }

@@ -12,6 +12,7 @@ import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
 import xyz.devvydont.smprpg.block.behaviors.SMPRPGBlockBehaviors
+import xyz.devvydont.smprpg.items.CraftEngineItemSource
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.listeners.block.*
 import xyz.devvydont.smprpg.listeners.crafting.AnvilRepairListener
@@ -137,6 +138,11 @@ class SMPRPG : JavaPlugin() {
 
         // Leveler provider, allows us to add skill xp with CraftEngine script functions
         CraftEngine.instance().compatibilityManager().registerLevelerProvider(CraftEngineLevelerProvider("smprpg"))
+
+        // Item source provider, allows us to use items generated via the ItemService in CraftEngine contexts.
+        //CraftEngine.instance().compatibilityManager().registerItemSource(CraftEngineItemSource("smprpg"))
+
+
 
         // Initialize our CraftEngine block behaviors
         // TODO: This can be deleted if we ever directly access this class, we never do so currently

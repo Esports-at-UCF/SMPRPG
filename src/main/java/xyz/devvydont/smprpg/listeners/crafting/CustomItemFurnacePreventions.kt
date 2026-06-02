@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.listeners.crafting
 
+import net.momirealms.craftengine.bukkit.api.BukkitAdaptor
 import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -28,12 +29,24 @@ class CustomItemFurnacePreventions : ToggleableListener() {
         if (!blueprint.isCustom) return
 
         // If the item is custom and NOT fuel, don't allow this to happen!
-        if (blueprint !is IFurnaceFuel) {
-            event.isCancelled = true
-            return
-        }
 
-        event.burnTime = blueprint.getBurnTime().toInt()
+        // Check if it's a craft engine item with a fuel value first.
+        val ceItem = BukkitAdaptor.adapt((event.fuel))
+        val def = ceItem.definition.orElse(null)
+        if (ceItem.isCustomItem() && def != null) {
+            if (def.settings().fuelTime() == 0) {
+                event.isCancelled = true
+                return
+            }
+        }
+        else {
+            if (blueprint !is IFurnaceFuel) {
+                event.isCancelled = true
+                return
+            }
+
+            event.burnTime = blueprint.getBurnTime().toInt()
+        }
     }
 
     /**
