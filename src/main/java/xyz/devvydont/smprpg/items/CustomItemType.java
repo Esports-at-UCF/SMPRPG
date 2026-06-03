@@ -1602,7 +1602,9 @@ public enum CustomItemType {
     POINTER_PRISM("Pointer Prism", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     POINTER_PRISM_BLOCK("Pointer Prism Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
 
-    KITCHEN_TILES("Kitchen Tiles", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    KITCHEN_TILES("Kitchen Tiles", Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ROPE(       "Rope",            Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ROPE_COIL(       "Rope Coil",  Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
     ;
 
     public final String ItemName;

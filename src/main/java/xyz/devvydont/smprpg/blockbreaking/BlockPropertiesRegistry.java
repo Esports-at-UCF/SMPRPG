@@ -6854,6 +6854,11 @@ public class BlockPropertiesRegistry implements Listener {
                 tools.add(ItemClassification.DRILL);
             }
 
+            key = blockSettings.tags().contains(Key.of("smprpg", "mineable/shears"));
+            if (key) {
+                tools.add(ItemClassification.SHEARS);
+            }
+
             register(customBlock.id(), BlockPropertiesEntry.builder(tools.toArray(new ItemClassification[]{}))
                     .hardness(hardness)
                     .breakingPower(breakingPower)

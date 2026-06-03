@@ -42,6 +42,15 @@ items:
     behavior:
       type: block_item
       block: smprpg:kitchen_tiles
+  smprpg:rope_coil:
+    data:
+      item-name: <!i><lang:item.smprpg.rope_coil>
+      pdc:
+        smprpg:item-type: rope_coil
+    model: smprpg:block/decoration/rope_coil
+    behavior:
+      type: block_item
+      block: smprpg:rope_coil
 
 items#ingredients:
   smprpg:ground_beef:
@@ -378,6 +387,23 @@ blocks:
         - smprpg:sound/stone
         - smprpg:data/breaking_power_1
       map-color: 29
+  smprpg:rope_coil:
+    loot:
+      template: smprpg:loot_table/self
+    settings:
+      template:
+        - smprpg:sound/wool
+        - smprpg:hardness/wool
+        - smprpg:settings/solid_1x1x1
+      require-correct-tools: false
+      tags: [ "smprpg:mineable/shears" ]
+    states:
+      template: smprpg:block_state/pillar
+      arguments:
+        texture_top_path: smprpg:block/decoration/rope_block_top
+        texture_side_path: smprpg:block/decoration/rope_block_side
+        model_vertical_path: smprpg:block/decoration/rope_coil
+        model_horizontal_path: smprpg:block/decoration/rope_coil_horizontal
 
 items#cabinets:
   smprpg:acacia_cabinet:
@@ -480,6 +506,26 @@ recipes:
     result:
       id: smprpg:kitchen_tiles
       count: 1
+  smprpg:rope_to_rope_coil:
+    type: shaped
+    category: building
+    pattern:
+      - RRR
+      - RRR
+      - RRR
+    ingredients:
+      R: smprpg:rope
+    result:
+      id: smprpg:rope_coil
+      count: 1
+  smprpg:rope_coil_to_rope:
+    type: shapeless
+    category: building
+    ingredients:
+      - smprpg:rope_coil
+    result:
+      id: smprpg:rope
+      count: 9
 
 items#food:
   smprpg:apple_cider:
@@ -947,7 +993,213 @@ items#food:
         smprpg:item-type: vegetable_soup
     texture: smprpg:item/consumables/farmers_delight/vegetable_soup
 
+items#rope:
+  smprpg:rope_display_base:
+    data:
+      item-name: <!i><lang:item.smprpg.rope_display_base>
+    model: smprpg:block/decoration/rope
+  smprpg:rope_display_connection:
+    data:
+      item-name: <!i><lang:item.smprpg.rope_display_connection>
+    model: smprpg:block/decoration/rope_connection
+  smprpg:rope:
+    texture: smprpg:item/materials/rope
+    data:
+      item-name: <!i><lang:item.smprpg.rope>
+      pdc:
+        smprpg:item-type: rope
+    behavior:
+      type: smprpg:rope_block_item
+      block: smprpg:rope
 
+blocks#rope:
+  smprpg:rope:
+    states:
+      properties:
+        north:
+          type: boolean
+          default: false
+        east:
+          type: boolean
+          default: false
+        south:
+          type: boolean
+          default: false
+        west:
+          type: boolean
+          default: false
+      appearances:
+        north=true,east=true,south=true,west=true:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -180
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -90
+            - type: item_display
+              item: smprpg:rope_display_connection
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -270
+        north=true,east=true,south=true,west=false:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -180
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -90
+            - type: item_display
+              item: smprpg:rope_display_connection
+        north=true,east=true,south=false,west=true:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -180
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -90
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -270
+        north=true,east=false,south=true,west=true:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -180
+            - type: item_display
+              item: smprpg:rope_display_connection
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -270
+        north=true,east=true,south=false,west=false:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -180
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -90
+        north=true,east=false,south=true,west=false:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -180
+            - type: item_display
+              item: smprpg:rope_display_connection
+        north=true,east=false,south=false,west=true:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -180
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -270
+        north=false,east=true,south=true,west=false:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -90
+            - type: item_display
+              item: smprpg:rope_display_connection
+        north=false,east=true,south=false,west=true:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -90
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -270
+        north=false,east=false,south=true,west=true:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -270
+        north=true,east=false,south=false,west=false:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -180
+        north=false,east=true,south=false,west=false:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -90
+        north=false,east=false,south=true,west=false:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+        north=false,east=false,south=false,west=true:
+          state: cave_vines[age=25,berries=false]
+          entity-renderer:
+            - type: item_display
+              item: smprpg:rope_display_connection
+              yaw: -270
+        north=false,east=false,south=false,west=false:
+          state: cave_vines[age=25,berries=false]
+      variants:
+        north=true,east=true,south=true,west=true:
+          appearance: north=true,east=true,south=true,west=true
+        north=true,east=true,south=true,west=false:
+          appearance: north=true,east=true,south=true,west=false
+        north=true,east=true,south=false,west=true:
+          appearance: north=true,east=true,south=false,west=true
+        north=true,east=false,south=true,west=true:
+          appearance: north=true,east=false,south=true,west=true
+        north=true,east=true,south=false,west=false:
+          appearance: north=true,east=true,south=false,west=false
+        north=true,east=false,south=true,west=false:
+          appearance: north=true,east=false,south=true,west=false
+        north=true,east=false,south=false,west=true:
+          appearance: north=true,east=false,south=false,west=true
+        north=false,east=true,south=true,west=false:
+          appearance: north=false,east=true,south=true,west=false
+        north=false,east=true,south=false,west=true:
+          appearance: north=false,east=true,south=false,west=true
+        north=false,east=false,south=true,west=true:
+          appearance: north=false,east=false,south=true,west=true
+        north=true,east=false,south=false,west=false:
+          appearance: north=true,east=false,south=false,west=false
+        north=false,east=true,south=false,west=false:
+          appearance: north=false,east=true,south=false,west=false
+        north=false,east=false,south=true,west=false:
+          appearance: north=false,east=false,south=true,west=false
+        north=false,east=false,south=false,west=true:
+          appearance: north=false,east=false,south=false,west=true
+        north=false,east=false,south=false,west=false:
+          appearance: north=false,east=false,south=false,west=false
+    settings:
+      template:
+        - smprpg:sound/wool
+      push-reaction: block
+      hardness: 0.3
+      resistance: 0.3
+      map-color: 13
+      tags:
+        - smprpg:rope_connections
+        - smprpg:mineable/shears
+    loot:
+      template: smprpg:loot_table/self
+    behaviors:
+      - type: fence_block
+        connectable-block-tag: smprpg:rope_connections
+        can-leash: false
 
 recipes#food:
   smprpg:beef_patty:

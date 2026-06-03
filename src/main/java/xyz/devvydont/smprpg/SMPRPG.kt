@@ -12,6 +12,7 @@ import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
 import xyz.devvydont.smprpg.block.behaviors.SMPRPGBlockBehaviors
+import xyz.devvydont.smprpg.block.behaviors.SMPRPGItemBehaviors
 import xyz.devvydont.smprpg.items.CraftEngineItemSource
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.listeners.block.*
@@ -148,6 +149,7 @@ class SMPRPG : JavaPlugin() {
         // Initialize our CraftEngine block behaviors
         // TODO: This can be deleted if we ever directly access this class, we never do so currently
         SMPRPGBlockBehaviors()
+        SMPRPGItemBehaviors()
         Bukkit.getScheduler().runTaskLater(this, Runnable {
             // Reloads CraftEngine's config, since we need to have config available both before and after plugin load.
             Bukkit.getServer().dispatchCommand(
