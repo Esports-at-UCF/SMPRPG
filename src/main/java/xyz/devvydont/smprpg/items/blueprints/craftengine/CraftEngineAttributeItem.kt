@@ -32,8 +32,6 @@ open class CraftEngineAttributeItem(itemService: ItemService, type: CustomItemTy
         else {
             itemStack = ItemStack.of(customItemType.DisplayMaterial)
         }
-        val ceItem = BukkitAdaptor.adapt(itemStack)
-        ceItem.setTag("craftengine:id", "smprpg:${customItemType.key}")
 
 
         // Apply updates to this item according to our blueprint's spec.
@@ -53,7 +51,7 @@ open class CraftEngineAttributeItem(itemService: ItemService, type: CustomItemTy
         return individualWorth * item.amount
     }
 
-    override fun getAttributeModifiers(item: ItemStack?): Collection<AttributeEntry?>? {
+    override fun getAttributeModifiers(item: ItemStack): Collection<AttributeEntry> {
         return mutableListOf()
     }
 

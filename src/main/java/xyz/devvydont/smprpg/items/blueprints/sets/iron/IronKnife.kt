@@ -21,7 +21,7 @@ class IronKnife(itemService: ItemService, type: CustomItemType) : CraftEngineAtt
     override val itemClassification: ItemClassification
         get() = ItemClassification.KNIFE
 
-    override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?>? {
+    override fun getAttributeModifiers(item: ItemStack): MutableCollection<AttributeEntry> {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.STRENGTH, ItemSword.getSwordDamage(Material.IRON_SWORD) / 2),
             AdditiveAttributeEntry(AttributeWrapper.ATTACK_SPEED, -0.3)
