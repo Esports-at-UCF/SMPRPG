@@ -447,6 +447,7 @@ blocks:
           - "minecraft:animals_spawnable_on"
           - "minecraft:grass_blocks"
           - "minecraft:supports_vegetation"
+          - "smprpg:quicksoil_shelf_replaceables"
       overrides:
         propagate-skylight: false
         can-occlude: true
@@ -619,7 +620,9 @@ blocks:
       map-color: 18
       merges:
         tags: [ "minecraft:dirt", "smprpg:aether_dirt" ]
-      friction: 1.1  # TODO: Waiting on CraftEngine for friction to apply to players.
+    behavior:
+      type: smprpg:accelerator
+      acceleration: 0.35
   smprpg:icestone:
     state:
       auto-state: solid
@@ -864,6 +867,66 @@ placed-features:
             absolute: 256
           min_inclusive:
             absolute: 128
+  smprpg:disk_quicksoil_shelves:
+    dimension:
+      - smprpg:the_aether
+    feature:
+      type: minecraft:disk
+      config:
+        half_height: 1
+        radius:
+          type: uniform
+          max_inclusive: 5
+          min_inclusive: 3
+        state_provider:
+          type: minecraft:rule_based_state_provider
+          rules:
+            - if_true:
+                type: minecraft:matching_block_tag
+                tag: smprpg:quicksoil_shelf_replaceables
+              then:
+                type: minecraft:simple_state_provider
+                state:
+                  Name: smprpg:quicksoil
+        target:
+          type: minecraft:any_of
+          predicates:
+            - type: all_of
+              predicates:
+                - type: any_of
+                  predicates:
+                    - type: matching_blocks
+                      blocks:
+                        smprpg:quicksoil
+                      offset: [-1, 0, 0]
+                    - type: matching_blocks
+                      blocks:
+                        smprpg:quicksoil
+                      offset: [1, 0, 0]
+                    - type: matching_blocks
+                      blocks:
+                        smprpg:quicksoil
+                      offset: [0, 0, -1]
+                    - type: matching_blocks
+                      blocks:
+                        smprpg:quicksoil
+                      offset: [0, 0, 1]
+                - type: matching_block_tag
+                  tag: smprpg:quicksoil_shelf_replaceables
+            - type: all_of
+              predicates:
+                - type: matching_blocks
+                  blocks:
+                    - smprpg:aether_grass_block
+                - type: matching_block_tag
+                  tag: smprpg:quicksoil_shelf_valid
+                  offset: [0, -1, 0]
+    placement:
+      - type: minecraft:count
+        count: 12
+      - type: minecraft:heightmap
+        heightmap: WORLD_SURFACE_WG
+      - type: minecraft:biome
   smprpg:ore_silver_aether:
     dimension:
       - smprpg:the_aether

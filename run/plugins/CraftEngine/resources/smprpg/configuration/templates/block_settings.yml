@@ -190,6 +190,9 @@ templates#settings:
       - smprpg:hardness/wool
       - smprpg:settings/transparent_1x1x1
     require-correct-tools: false
+    merges:
+      tags:
+        - smprpg:quicksoil_shelf_valid
     overrides:
       push-reaction: block
   smprpg:settings/dirt:

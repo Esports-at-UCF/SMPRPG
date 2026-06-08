@@ -89,6 +89,7 @@ class MiningExperienceListener() : Listener {
 
                     CraftEngineBlockEnums.AETHER_DIRT.key, CraftEngineBlockEnums.AETHER_GRASS_BLOCK.key, CraftEngineBlockEnums.ENCHANTED_AETHER_GRASS_BLOCK.key -> 1
                     CraftEngineBlockEnums.HOLYSTONE.key -> 2
+                    CraftEngineBlockEnums.ICESTONE.key, CraftEngineBlockEnums.QUICKSOIL.key -> 4
                     CraftEngineBlockEnums.AETHER_SILVER_ORE.key -> 18
                     CraftEngineBlockEnums.AMBROSIUM_ORE.key -> 15
                     CraftEngineBlockEnums.ZANITE_ORE.key -> 50

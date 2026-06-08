@@ -17,20 +17,14 @@ class AcceleratorBlockBehavior(blockDefinition: BlockDefinition,
         super.stepOn(thisBlock, args)
         val nmsEntity = args!!.get(3) as net.minecraft.world.entity.Entity
         val craftEntity = nmsEntity.bukkitEntity
-
-        val prevLoc = craftEntity.location.clone()
+        val prevLoc = craftEntity.location
 
         Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable {
-            val vecDif = craftEntity.location.clone().subtract(prevLoc).toVector()
-            if (!vecDif.isZero) {
-                vecDif.y = 0.002
-                vecDif.add(vecDif.normalize().multiply(acceleration).multiply(0.5))
-                println(vecDif.x)
-                println(vecDif.y)
-                println(vecDif.z)
-                if (vecDif.y > 0.9)
-                    vecDif.y = 0.0
-                craftEntity.velocity = vecDif
+            val newLoc = craftEntity.location
+            if (newLoc.x != prevLoc.x || prevLoc.z != newLoc.z) {
+                val direction = craftEntity.location.direction.clone()
+                val newVel = craftEntity.velocity.clone().add(direction.multiply(acceleration))
+                craftEntity.velocity = newVel
             }
         }, 1L)
     }

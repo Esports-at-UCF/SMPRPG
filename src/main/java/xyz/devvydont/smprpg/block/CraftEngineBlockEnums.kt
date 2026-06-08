@@ -95,6 +95,8 @@ enum class CraftEngineBlockEnums(val key : Key) {
     AETHER_PORTAL(Key.of("smprpg", "aether_portal")),
     BLUE_AERCLOUD(Key.of("smprpg", "blue_aercloud")),
     COLD_AERCLOUD(Key.of("smprpg", "cold_aercloud")),
+    GOLD_AERCLOUD(Key.of("smprpg", "gold_aercloud")),
+    WISPY_AERCLOUD(Key.of("smprpg", "wispy_aercloud")),
     AETHER_DIRT(Key.of("smprpg", "aether_dirt")),
     AETHER_GRASS_BLOCK(Key.of("smprpg", "aether_grass_block")),
     ENCHANTED_AETHER_GRASS_BLOCK(Key.of("smprpg", "enchanted_aether_grass_block")),
