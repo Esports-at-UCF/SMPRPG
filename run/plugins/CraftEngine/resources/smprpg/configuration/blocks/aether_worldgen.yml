@@ -100,6 +100,16 @@ items:
     behavior:
       type: block_item
       block: smprpg:gold_aercloud
+  smprpg:wispy_aercloud:
+    data:
+      item-name: <!i><lang:item.smprpg.wispy_aercloud>
+      pdc:
+        smprpg:item-type: wispy_aercloud
+        smprpg:sell-value: 2
+    model: smprpg:block/aether/wispy_aercloud
+    behavior:
+      type: block_item
+      block: smprpg:wispy_aercloud
   smprpg:aether_dirt:
     data:
       item-name: <!i><lang:item.smprpg.aether_dirt>
@@ -374,6 +384,26 @@ blocks:
         bounce-height: 0.0
         sync-player-position: true
         fall-damage-multiplier: 0.0
+  smprpg:wispy_aercloud:
+    state:
+      auto-state: sugar_cane
+      model:
+        template: smprpg:model/simplified_cube_all
+        arguments:
+          path: smprpg:block/aether/wispy_aercloud
+    loot:
+      template: smprpg:loot_table/self
+    settings:
+      template:
+        - smprpg:settings/aercloud
+      block-light: 0
+      propagate-skylight: true
+      map-color: 31
+      merges:
+        tags:
+          - smprpg:aerial_fishing_block
+    behavior:
+    - type: smprpg:zero_gravity_block
   smprpg:aether_dirt:
     state:
       id: 64
@@ -809,6 +839,31 @@ placed-features:
             absolute: 256
           min_inclusive:
             absolute: -64
+  smprpg:wispy_aercloud_higher:
+    dimension:
+      - smprpg:the_aether
+    feature:
+      type: minecraft:ore
+      config:
+        discard_chance_on_air_exposure: 0.0
+        size: 48
+        targets:
+          - state:
+              Name: smprpg:wispy_aercloud
+            target:
+              predicate_type: minecraft:block_match
+              block: minecraft:air
+    placement:
+      - type: minecraft:count
+        count: 8
+      - type: minecraft:in_square
+      - type: minecraft:height_range
+        height:
+          type: minecraft:trapezoid
+          max_inclusive:
+            absolute: 256
+          min_inclusive:
+            absolute: 128
   smprpg:ore_silver_aether:
     dimension:
       - smprpg:the_aether

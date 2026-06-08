@@ -833,6 +833,14 @@ public enum CustomItemType {
     CINDERITE("Cinderite", Material.BLAZE_POWDER, ItemRarity.UNCOMMON, true, 7_500, "materials"),
     ECHO_MEMBRANE("Echo Membrane", Material.PHANTOM_MEMBRANE, ItemRarity.UNCOMMON, true, 15_000, "materials"),
 
+    AERCLOUD_ROD("Aercloud Rod", Material.FISHING_ROD, ItemRarity.COMMON, AerialRod.class),
+    ETHER_ROD("Ether Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, AerialRod.class),
+    MERCURIAL_ROD("Mercurial Rod", Material.FISHING_ROD, ItemRarity.RARE, AerialRod.class),
+    ZEPHYRUS_ROD("Zephyrus Rod", Material.FISHING_ROD, ItemRarity.EPIC, AerialRod.class),
+
+    QUICKSILVER_FILAMENT("Astral Filament", Material.STRING, ItemRarity.RARE, true, 20_000),
+    OLYMPIAN_THREAD("Olypmian Thread", Material.STRING, ItemRarity.EPIC, true, 50_000),
+
     ENDSTONE_ROD("Endstone Rod", Material.FISHING_ROD, ItemRarity.COMMON, VoidRod.class),
     ENDER_ROD("Ender Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, VoidRod.class),
     COMET_ROD("Comet Rod", Material.FISHING_ROD, ItemRarity.RARE, VoidRod.class),
@@ -959,6 +967,21 @@ public enum CustomItemType {
 
     // LEGENDARY NETHER FISH
     DEVIL_RAY("Devil Ray",      Material.TROPICAL_FISH, ItemRarity.LEGENDARY, FishBlueprint.class),
+
+    // COMMON AETHER FISH
+    FLYING_FISH("Flying Fish",  Material.TROPICAL_FISH, ItemRarity.COMMON,    FishBlueprint.class),
+
+    // UNCOMMON AETHER FISH
+    SKY_BARNACLE("Sky Barnacle",  Material.TROPICAL_FISH, ItemRarity.UNCOMMON,  FishBlueprint.class),
+
+    // RARE AETHER FISH
+    CLOUD_CLAM("Cloud Clam",  Material.TROPICAL_FISH, ItemRarity.RARE,  FishBlueprint.class),
+
+    // EPIC AETHER FISH
+    ANGELFISH("Angelfish",     Material.TROPICAL_FISH, ItemRarity.EPIC,    FishBlueprint.class),
+
+    // LEGENDARY AETHER FISH,
+    HOLY_MACKEREL("Holy Mackerel",  Material.TROPICAL_FISH, ItemRarity.LEGENDARY,  FishBlueprint.class),
 
     // COMMON END FISH
     VOIDFIN("Voidfin",                              Material.TROPICAL_FISH, ItemRarity.COMMON,     FishBlueprint.class),

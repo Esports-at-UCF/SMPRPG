@@ -20,6 +20,7 @@ import xyz.devvydont.smprpg.listeners.crafting.AnvilRepairListener
 import xyz.devvydont.smprpg.listeners.damage.*
 import xyz.devvydont.smprpg.listeners.entity.HealthRegenerationListener
 import xyz.devvydont.smprpg.listeners.entity.HealthScaleListener
+import xyz.devvydont.smprpg.listeners.entity.PlayerInputListener
 import xyz.devvydont.smprpg.listeners.entity.PlayerInventoryButtonsListener
 import xyz.devvydont.smprpg.listeners.entity.StructureEntitySpawnListener
 import xyz.devvydont.smprpg.listeners.item.EquipmentRequirementValidationListener
@@ -128,6 +129,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(AdvancementTriggerListener())  // Listens for bukkit events to award advancement criterion
         generalListeners.add(PlayerInventoryButtonsListener())  // Listens for events regarding player inventory buttons.
         generalListeners.add(CustomNoteblockSoundListener())  // Listens for custom note block instruments
+        generalListeners.add(PlayerInputListener())  // Listens for player inputs
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.

@@ -23,5 +23,6 @@ class SMPRPGBlockBehaviors : BlockBehaviors() {
         val REFORGE_TABLE = register(Key.from("smprpg:reforge_table"), ReforgeTableBehavior.FACTORY)
         val TICK_ACCELERATOR = register(Key.from("smprpg:tick_accelerator"), TickAcceleratorBlockBehavior.FACTORY)
         val TILLABLE = register(Key.from("smprpg:tillable_block"), TillableBlockBehavior.FACTORY)
+        val ZERO_GRAVITY = register(Key.from("smprpg:zero_gravity_block"), ZeroGravityBlockBehavior.FACTORY)
     }
 }

@@ -96,7 +96,8 @@ placed-features:
           - state:
               Name: smprpg:adamantium_ore
             target:
-              predicate_type: minecraft:always_true
+              predicate_type: minecraft:tag_match
+              tag: smprpg:grimstone_ore_replaceables
     placement:
       - type: minecraft:count
         count: 2

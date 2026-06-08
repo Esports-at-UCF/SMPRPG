@@ -1,6 +1,8 @@
 package xyz.devvydont.smprpg.fishing.tasks;
 
 import com.destroystokyo.paper.ParticleBuilder;
+import net.momirealms.craftengine.bukkit.api.BukkitAdaptor;
+import net.momirealms.craftengine.core.util.Key;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.ArmorStand;
@@ -16,6 +18,7 @@ import xyz.devvydont.smprpg.fishing.utils.FishingPredicates;
 import xyz.devvydont.smprpg.fishing.utils.HookEffectOptions;
 import xyz.devvydont.smprpg.items.interfaces.IFishingRod;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.persistence.KeyStore;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
 import java.util.Collections;
@@ -130,6 +133,17 @@ public class FishHookBehaviorTask extends BukkitRunnable {
             Particle.PORTAL,
             Particle.DRAGON_BREATH,
             Sound.BLOCK_RESPAWN_ANCHOR_DEPLETE
+    );
+
+    /**
+     * Hook options for when we are void fishing.
+     */
+    public static final HookEffectOptions AERIAL_OPTIONS = new HookEffectOptions(
+            AERIAL_PREDICATE,
+            Particle.END_ROD,
+            Particle.CRIT,
+            Particle.CLOUD,
+            Sound.ENTITY_BREEZE_SHOOT
     );
 
     /**
@@ -330,6 +344,8 @@ public class FishHookBehaviorTask extends BukkitRunnable {
             return IFishingRod.FishingFlag.NORMAL;
         if (this.options.Predicate() == LAVA_PREDICATE)
             return IFishingRod.FishingFlag.LAVA;
+        if (this.options.Predicate() == AERIAL_PREDICATE)
+            return IFishingRod.FishingFlag.AERIAL;
         if (this.options.Predicate() == VOID_PREDICATE)
             return IFishingRod.FishingFlag.VOID;
 
@@ -350,6 +366,7 @@ public class FishHookBehaviorTask extends BukkitRunnable {
         return switch (getFlagFromCurrentState()) {
             case LAVA -> LAVA_OPTIONS;
             case VOID -> VOID_OPTIONS;
+            case AERIAL -> AERIAL_OPTIONS;
             default -> DEFAULT_OPTIONS;
         };
     }
@@ -520,6 +537,8 @@ public class FishHookBehaviorTask extends BukkitRunnable {
 
         if (LAVA_PREDICATE.check(location))
             hook.setMetadata(IFishingRod.FishingFlag.LAVA.toString(), new FixedMetadataValue(SMPRPG.getPlugin(), true));
+        if (AERIAL_PREDICATE.check(location))
+            hook.setMetadata(IFishingRod.FishingFlag.AERIAL.toString(), new FixedMetadataValue(SMPRPG.getPlugin(), true));
         if (VOID_PREDICATE.check(location))
             hook.setMetadata(IFishingRod.FishingFlag.VOID.toString(), new FixedMetadataValue(SMPRPG.getPlugin(), true));
     }
@@ -647,9 +666,7 @@ public class FishHookBehaviorTask extends BukkitRunnable {
      */
     public boolean isCurrentlySurfaced() {
         // We are surfaced if the block above us doesn't satisfy the predicate.
-        return !this.options.Predicate().check(
-                hook.getLocation().getBlock().getRelative(BlockFace.UP).getLocation().toCenterLocation()
-        );
+        return !this.options.Predicate().check(hook.getLocation().getBlock().getRelative(BlockFace.UP).getLocation().toCenterLocation());
     }
 
     /**
