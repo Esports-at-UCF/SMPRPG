@@ -6,7 +6,6 @@ import com.comphenix.protocol.ProtocolManager
 import com.comphenix.protocol.events.ListenerPriority
 import com.comphenix.protocol.events.PacketAdapter
 import com.comphenix.protocol.events.PacketEvent
-import net.momirealms.craftengine.bukkit.api.event.CustomBlockInteractEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -14,13 +13,12 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockDamageEvent
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.util.time.TickTime
+import java.util.UUID
 
 class PacketManager : Listener {
     val plugin: SMPRPG = SMPRPG.plugin
 
     val manager: ProtocolManager = ProtocolLibrary.getProtocolManager()
-
-    val blockPropertiesRegistry : BlockPropertiesRegistry = BlockPropertiesRegistry()
 
     val damage: BlockDamage
 
@@ -35,7 +33,7 @@ class PacketManager : Listener {
         manager.addPacketListener(object :
             PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Client.ARM_ANIMATION) {
             override fun onPacketReceiving(event: PacketEvent) {
-                armSwinging.put(event.getPlayer().getName(), System.currentTimeMillis())
+                armSwinging.put(event.player.uniqueId, System.currentTimeMillis())
             }
         })
     }
@@ -51,14 +49,13 @@ class PacketManager : Listener {
      * Checks that an arm swing packet was delivered in the last tick (0.15 seconds)
      */
     private fun checkArmAnimation() {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, object : Runnable {
-            override fun run() {
-                val keySet: MutableSet<String?> = armSwinging.keys
-                val currentTime = System.currentTimeMillis()
-                for (string in keySet) {
-                    if (armSwinging.get(string)!! + 150 < currentTime) {
-                        armSwinging.remove(string)
-                    }
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, {
+            // Clone our keyset so that we can avoid concurrent modification.
+            val keySet: MutableSet<UUID> = armSwinging.keys.toMutableSet()
+            val currentTime = System.currentTimeMillis()
+            for (uuid in keySet) {
+                if (armSwinging.get(uuid)!! + 150 < currentTime) {
+                    armSwinging.remove(uuid)
                 }
             }
         }, TickTime.INSTANTANEOUSLY, TickTime.TICK)
@@ -66,6 +63,7 @@ class PacketManager : Listener {
 
     companion object {
         @JvmField
-		var armSwinging: HashMap<String?, Long?> = HashMap<String?, Long?>()
+		var armSwinging: HashMap<UUID, Long> = HashMap()
+        val blockPropertiesRegistry = BlockPropertiesRegistry()  // Hacky, but this initializes the class for static references.
     }
 }
