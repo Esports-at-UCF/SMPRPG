@@ -35,7 +35,7 @@ class ShardStrikeAbilityHandler : AbilityHandler {
             Snowball::class.java,
             ctx.caster.location.getDirection().normalize().multiply(2)
         )
-        var dmg = EntityDamageCalculatorService.getIntelligenceScaledDamage(
+        val dmg = EntityDamageCalculatorService.getIntelligenceScaledDamage(
             DAMAGE.toDouble() + instance.getOrCreateAttribute(ctx.caster,
             AttributeWrapper.STRENGTH).value,
             instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.INTELLIGENCE).value,

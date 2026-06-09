@@ -341,6 +341,23 @@ enum class Ability(val friendlyName: String, val description: List<Component>,
         ),
         Supplier { ConjureWallAbilityHandler() }),
 
+    SPREAD_SHOT(
+        "Spread Shot",
+        listOf(
+            ComponentUtils.merge(
+                ComponentUtils.create("Shoots "),
+                ComponentUtils.create("9", NamedTextColor.LIGHT_PURPLE),
+                ComponentUtils.create(" mage beams")
+            ),
+            ComponentUtils.create("in a square area in front of you."),
+            ComponentUtils.merge(
+                ComponentUtils.create("Mobs caught in the beam will take "),
+                ComponentUtils.create(SpreadShotAbilityHandler.DAMAGE, NamedTextColor.RED)
+            ),
+            ComponentUtils.create("damage per beam they get hit by.")
+        ),
+        Supplier { SpreadShotAbilityHandler() }),
+
     // Admin abilities.
     ITEM_SWEEP(
         "Item Sweep",

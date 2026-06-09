@@ -11,6 +11,11 @@ import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.recipe.CraftingBookCategory
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
+import xyz.devvydont.smprpg.ability.Ability
+import xyz.devvydont.smprpg.ability.AbilityActivationMethod
+import xyz.devvydont.smprpg.ability.AbilityCost
+import xyz.devvydont.smprpg.ability.AbilityCost.Companion.of
+import xyz.devvydont.smprpg.ability.handlers.SpreadShotAbilityHandler
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
@@ -19,13 +24,14 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.*
+import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster.AbilityEntry
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 class MithrilStaff(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IBreakableEquipment, ICantCrit, IMageBeam, ICraftable, IRepairable, ISkillRequirement {
+    IBreakableEquipment, ICantCrit, IMageBeam, ICraftable, IRepairable, ISkillRequirement, IAbilityCaster {
 
     override val itemClassification: ItemClassification get() = ItemClassification.STAFF
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.MITHRIL_INGOT))
@@ -80,4 +86,16 @@ class MithrilStaff(itemService: ItemService, type: CustomItemType) : CustomAttri
         super.updateItemData(itemStack)
         IMageBeam.updateStaffComponents(itemStack, particleRange, 0.2f, SoundEventKeys.ENTITY_BLAZE_SHOOT, SoundEventKeys.ENTITY_EXPERIENCE_ORB_PICKUP)
     }
+
+    override fun getAbilities(item: ItemStack): Collection<AbilityEntry> {
+        return mutableListOf(
+            AbilityEntry(
+                Ability.SPREAD_SHOT,
+                AbilityActivationMethod.RIGHT_CLICK,
+                of(AbilityCost.Resource.MANA, 100)
+            )
+        )
+    }
+
+    override fun getCooldown(item: ItemStack): Long { return SpreadShotAbilityHandler.COOLDOWN }
 }
