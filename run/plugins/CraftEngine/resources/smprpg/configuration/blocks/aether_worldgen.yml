@@ -858,7 +858,7 @@ placed-features:
               block: minecraft:air
     placement:
       - type: minecraft:count
-        count: 8
+        count: 3
       - type: minecraft:in_square
       - type: minecraft:height_range
         height:
