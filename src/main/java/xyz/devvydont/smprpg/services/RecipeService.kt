@@ -4,6 +4,7 @@ import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import org.bukkit.Bukkit
 import org.bukkit.Keyed
+import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.event.Listener
 import org.bukkit.inventory.CampfireRecipe
@@ -17,6 +18,9 @@ import xyz.devvydont.smprpg.items.blueprints.fishing.FishBlueprint
 import xyz.devvydont.smprpg.items.interfaces.ISmeltable
 import xyz.devvydont.smprpg.listeners.crafting.CraftingTransmuteUpgradeFix
 import xyz.devvydont.smprpg.listeners.crafting.NormalFishCampfireBlacklist
+import xyz.devvydont.smprpg.recipe.cookingpot.CookingPotRecipes
+import xyz.devvydont.smprpg.recipe.cuttingboard.CuttingBoardRecipes
+import xyz.devvydont.smprpg.recipe.freezer.FreezerRecipes
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
@@ -149,7 +153,30 @@ class RecipeService : IService, Listener {
                     allRecipes.remove(recipe)
                 }
             }
+            allRecipes.addAll(getCustomRecipesFor(item))
             return allRecipes
+        }
+
+        private fun getCustomRecipesFor(item: ItemStack): List<Recipe> {
+            val results = mutableListOf<Recipe>()
+            for (entry in CookingPotRecipes.entries) {
+                val recipe = entry.recipe
+                if (recipe.recipeResult.type == Material.BARRIER) continue
+                if (recipe.recipeResult.isSimilar(item)) results.add(recipe)
+            }
+            for (entry in CuttingBoardRecipes.entries) {
+                val recipe = entry.recipe
+                for ((output, _) in recipe.recipeResult) {
+                    if (output.type == Material.BARRIER) continue
+                    if (output.isSimilar(item)) { results.add(recipe); break }
+                }
+            }
+            for (entry in FreezerRecipes.entries) {
+                val recipe = entry.recipe
+                if (recipe.recipeResult.type == Material.BARRIER) continue
+                if (recipe.recipeResult.isSimilar(item)) results.add(recipe)
+            }
+            return results
         }
     }
 

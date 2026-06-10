@@ -14,8 +14,6 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.gui.base.MenuButtonClickHandler
 import xyz.devvydont.smprpg.items.CustomItemType
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
-import xyz.devvydont.smprpg.items.interfaces.ISmeltable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.RecipeService.Companion.getRecipesFor
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -215,8 +213,8 @@ class MenuItemBrowser @JvmOverloads constructor(
             lore.addFirst(ComponentUtils.create("Click to view recipe!", NamedTextColor.YELLOW))
             lore.addFirst(ComponentUtils.EMPTY)
 
-            // If this ingredient can be crafted, insert the craftable tooltip.
-            if (blueprint is ICraftable || blueprint is ISmeltable) item.editMeta(Consumer { meta: ItemMeta ->
+            // If this item has any known recipe (crafting, smelting, or custom station), show the tooltip.
+            if (getRecipesFor(blueprint.generate()).isNotEmpty()) item.editMeta(Consumer { meta: ItemMeta ->
                 meta.lore(
                     lore
                 )

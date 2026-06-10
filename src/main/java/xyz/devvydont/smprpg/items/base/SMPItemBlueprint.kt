@@ -298,9 +298,14 @@ abstract class SMPItemBlueprint(
      * Ideally, we should only be working with the new component API over item meta.
      */
     open fun updateItemData(itemStack: ItemStack) {
-        // If this is a vanilla item, we need to hack the vanilla food component back on the item.
 
-        if (!this.isCustom) updateVanillaFoodComponent(itemStack)
+        // Air is considered the "null" item. Don't do anything if we don't have an item.
+        if (itemStack.type == Material.AIR)
+            return
+
+        // If this is a vanilla item, we need to hack the vanilla food component back on the item.
+        if (!this.isCustom)
+            updateVanillaFoodComponent(itemStack)
 
         // If it's a custom edible item, do it the preferred way.
         if (this is IEdible) {
@@ -341,7 +346,7 @@ abstract class SMPItemBlueprint(
 
         // This is a hack to allow any item as far as vanilla is concerned to be enchanted.
         // Our plugin decides what enchants get rolled and what items can be enchanted in the first place.
-        if (this.itemClassification!!.isEnchantable) itemStack.setData(
+        if (this.itemClassification.isEnchantable) itemStack.setData(
             DataComponentTypes.ENCHANTABLE,
             Enchantable.enchantable(10)
         )
