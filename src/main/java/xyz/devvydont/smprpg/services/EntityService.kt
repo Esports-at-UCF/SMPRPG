@@ -52,6 +52,11 @@ import java.util.function.Consumer
 const val ENTITY_CLASS_KEY: String = "entity-class"
 const val LEVEL_KEY_STRING: String = "level"
 
+// The radius at which custom entities will be considered when deciding if there are too many already present for natural spawning of custom mobs.
+const val CUSTOM_ENTITY_PROXIMITY_SPAWN_RADIUS = 200
+// How many entities of the same type that must be near each other to effectively abort natural spawning of a custom mob.
+const val CUSTOM_ENTITY_PROXIMITY_SPAWN_LIMIT = 10
+
 class EntityService : IService, Listener {
     private val entityInstances: MutableMap<UUID, LeveledEntity<*>> = HashMap<UUID, LeveledEntity<*>>()
     private val entityResolver: MutableMap<String, CustomEntityType> = HashMap<String, CustomEntityType>()
@@ -341,7 +346,7 @@ class EntityService : IService, Listener {
     /**
      * Spawns a custom entity into the world. This is guaranteed to be successful.
      */
-    fun spawnCustomEntity(type: CustomEntityType, location: Location): LeveledEntity<*>? {
+    fun spawnCustomEntity(type: CustomEntityType, location: Location): LeveledEntity<*> {
         val entity = location.getWorld().spawnEntity(location, type.Type, CreatureSpawnEvent.SpawnReason.CUSTOM, Consumer { e: Entity ->
                 if (e is LivingEntity) {
                     e.equipment?.setItemInMainHand(null)
@@ -579,8 +584,8 @@ class EntityService : IService, Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     @Suppress("unused")
     private fun onSpawn(event: CreatureSpawnEvent) {
-        // Ignore non natural spawns
 
+        // Ignore non natural spawns
         val naturalReasons = listOf<CreatureSpawnEvent.SpawnReason?>(
             CreatureSpawnEvent.SpawnReason.NATURAL,
             CreatureSpawnEvent.SpawnReason.DEFAULT
@@ -596,32 +601,32 @@ class EntityService : IService, Listener {
         // Determine eligible creatures that can spawn in its place
         val choices: MutableList<CustomEntityType> = ArrayList<CustomEntityType>()
         for (type in CustomEntityType.entries)
-            if (type.testNaturalSpawn(event.location)) choices.add(type)
+            if (type.testNaturalSpawn(event.location))
+                choices.add(type)
 
-        // Filter this enemy so it doesn't flood the world. Ensure there already aren't more than 10 present.
-        // The main reason for this existing, is to prevent 1000 iron golems from spawning on the end island since
-        // it is not considered a hostile mob.
-        for (choice in choices.stream().toList()) {
-            var count = 0
-            for (nearby in event.location.getNearbyLivingEntities(500.toDouble())) {
-                val custom = getEntityInstance(nearby)
-                if (custom is CustomEntityInstance<*> && custom.entityType.equals(choice))
-                    count++
-            }
-        }
-
-        // Did we find a custom entity type?
+        // If no choices were found, that means this should be a vanilla mob.
         if (choices.isEmpty())
             return
 
+        // We are making a new entity, so we no longer need to spawn the original one.
+        event.isCancelled = true
+
         // Pick a random entity to make
         val newEntity = choices[(Math.random() * choices.size).toInt()]
-        val entity = this.spawnCustomEntity(newEntity, event.location)
-        if (entity == null)
+        // Filter this enemy so it doesn't flood the world. Ensure there already aren't more than 10 present.
+        // The main reason for this existing, is to prevent 1000 iron golems from spawning on the end island since
+        // it is not considered a hostile mob.
+        var count = 0
+        for (nearby in event.location.getNearbyLivingEntities(CUSTOM_ENTITY_PROXIMITY_SPAWN_RADIUS.toDouble())) {
+            val custom = getEntityInstance(nearby)
+            if (custom is CustomEntityInstance<*> && custom.entityType.equals(newEntity))
+                count++
+        }
+        if (count >= CUSTOM_ENTITY_PROXIMITY_SPAWN_LIMIT)
             return
 
+        val entity = this.spawnCustomEntity(newEntity, event.location)
         entity.setup()
-        event.isCancelled = true
     }
 
     /**
