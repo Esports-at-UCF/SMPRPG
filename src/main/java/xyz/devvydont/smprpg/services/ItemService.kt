@@ -389,8 +389,11 @@ class ItemService : IService, Listener {
             if (blueprint is ICraftable) {
                 // Only register it if it is not registered already
 
-                if (plugin.server.getRecipe(blueprint.getRecipeKey()) == null) plugin.server
-                    .addRecipe(blueprint.getCustomRecipe())
+                if (plugin.server.getRecipe(blueprint.getRecipeKey()) == null) {
+                    val success = plugin.server.addRecipe(blueprint.getCustomRecipe())
+                    if (!success)
+                        SMPRPG.plugin.logger.warning("Failed to register ICraftable recipe with key: ${blueprint.getRecipeKey()}")
+                }
 
                 registeredRecipes.add(blueprint.getCustomRecipe())
             }
@@ -1917,6 +1920,11 @@ class ItemService : IService, Listener {
             // will inject the new desired item class key for us, as well as update required item components.
             newBlueprint.updateItemData(/* itemStack = */ copy)
             return copy
+        }
+
+        @JvmStatic
+        fun isOfSameType(o1: ItemStack, o2: ItemStack): Boolean {
+            return blueprint(o1).isItemOfType(o2)
         }
     }
 }

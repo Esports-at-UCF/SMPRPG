@@ -130,7 +130,7 @@ class RecipeService : IService, Listener {
             for (recipe in allRecipes.stream().toList()) {
 
                 // Filter out items that simply do not match. An iron ingot cannot be crafted by a recipe that is a boiling ingot.
-                if (!recipe.result.isSimilar(item)) {
+                if (!ItemService.isOfSameType(item, recipe.result)) {
                     allRecipes.remove(recipe)
                     continue
                 }
