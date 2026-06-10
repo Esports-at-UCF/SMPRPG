@@ -585,7 +585,14 @@ class EntityDamageCalculatorService : Listener, IService {
         if (event.originalEvent.cause != DamageCause.ENTITY_ATTACK)
             return
 
-        val cooldown: Float = player.attackCooldown
+        val cooldown: Float = getMeleeAttackCharge(player)
+
+        // TEMP DIAGNOSTIC (remove after confirming the fix): compares the per-tick polled charge
+        // against the live (already-reset) cooldown so we can verify the fix in-game.
+        SMPRPG.plugin.logger.info(
+            "[cooldown-debug] polled=$cooldown live=${player.attackCooldown} " +
+            "attackSpeed=${player.getAttribute(Attribute.ATTACK_SPEED)?.value}"
+        )
 
         // Is the player on cooldown? Don't do anything if they are dealing full damage hit.
         // If the player was *close enough* then allow vanilla Minecraft's damage rules for damage reduction.
@@ -792,6 +799,18 @@ class EntityDamageCalculatorService : Listener, IService {
         @JvmStatic
         fun getIntelligenceScaledDamage(baseDmg: Double, intelligence: Double, factor: Double): Double {
             return baseDmg * (1 + ((intelligence / 100.0) * (factor / 100.0)))
+        }
+
+        /**
+         * Returns the player's attack-strength charge (0.0-1.0) captured at the moment of their last
+         * swing. Damage and crit logic must use this instead of the live [Player.getAttackCooldown],
+         * which recent Paper builds reset to zero before the damage event fires.
+         * @param player The player whose captured melee charge to retrieve.
+         * @return The captured charge, in the range [0.0, 1.0].
+         */
+        @JvmStatic
+        fun getMeleeAttackCharge(player: Player): Float {
+            return SMPRPG.getService(EntityService::class.java).getPlayerInstance(player).lastMeleeAttackCharge
         }
     }
 }

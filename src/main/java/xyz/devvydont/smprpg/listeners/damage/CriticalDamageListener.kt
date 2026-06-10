@@ -3,8 +3,8 @@ package xyz.devvydont.smprpg.listeners.damage
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.AbstractArrow
-import org.bukkit.entity.HumanEntity
 import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause
@@ -103,8 +103,9 @@ class CriticalDamageListener : ToggleableListener() {
         if (event.dealer.velocity.getY() >= 0)
             return
 
-        // If this isn't a fully charged attack, it can't be a crit.
-        if (event.dealer is HumanEntity && (event.dealer as HumanEntity).attackCooldown < EntityDamageCalculatorService.COOLDOWN_FORGIVENESS_THRESHOLD)
+        // If this isn't a fully charged attack, it can't be a crit. Players use the charge captured
+        // at swing time, since the live cooldown is reset before this event fires.
+        if (event.dealer is Player && EntityDamageCalculatorService.getMeleeAttackCharge(event.dealer as Player) < EntityDamageCalculatorService.COOLDOWN_FORGIVENESS_THRESHOLD)
             return
 
         // We have met all the conditions for a crit.
@@ -124,8 +125,9 @@ class CriticalDamageListener : ToggleableListener() {
         if (event.vanillaCause != DamageCause.ENTITY_ATTACK)
             return
 
-        // If this isn't a fully charged attack, it can't be a crit.
-        if (event.dealer is HumanEntity && (event.dealer as HumanEntity).attackCooldown < EntityDamageCalculatorService.COOLDOWN_FORGIVENESS_THRESHOLD)
+        // If this isn't a fully charged attack, it can't be a crit. Players use the charge captured
+        // at swing time, since the live cooldown is reset before this event fires.
+        if (event.dealer is Player && EntityDamageCalculatorService.getMeleeAttackCharge(event.dealer as Player) < EntityDamageCalculatorService.COOLDOWN_FORGIVENESS_THRESHOLD)
             return
 
         // No point on continuing unless the dealer can have attributes.

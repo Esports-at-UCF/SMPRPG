@@ -53,6 +53,14 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
     private BukkitTask _manaRegenerateTask;
     private double _mana = 0;
 
+    // The player's attack-strength charge (0.0-1.0), polled once per tick. Recent Paper builds reset
+    // the live attack-strength ticker before the damage event fires, so reading it there yields ~0.
+    // Polling lets us recover the charge the player actually had when they swung. We keep the last two
+    // ticks so the damage/crit logic can read the value from just before the attack reset the ticker.
+    private BukkitTask _attackChargePollTask;
+    private float _currentTickAttackCharge = 1f;
+    private float _previousTickAttackCharge = 1f;
+
     public LeveledPlayer(SMPRPG plugin, Player entity) {
         super(entity);
 
@@ -75,6 +83,7 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
 
         super.setup();
         startManaTask();
+        startAttackChargePollTask();
 
         // This is a temp fix simply due to the fact that vanilla orbs are just sentient beings and award people
         // with stupid amounts of experience for no reason...
@@ -91,6 +100,22 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
 
     public double getMana() {
         return _mana;
+    }
+
+    /**
+     * The player's attack-strength charge (0.0-1.0) from just before their most recent attack reset
+     * the attack-strength ticker. Use this instead of the live {@link Player#getAttackCooldown()}
+     * during damage events, where recent Paper builds have already reset the ticker to ~0.
+     * Returns the higher of the last two polled values so the pre-attack charge survives regardless
+     * of whether the per-tick poll ran before or after the attack within the tick.
+     */
+    public float getLastMeleeAttackCharge() {
+        return Math.max(_currentTickAttackCharge, _previousTickAttackCharge);
+    }
+
+    private void pollAttackCharge() {
+        _previousTickAttackCharge = _currentTickAttackCharge;
+        _currentTickAttackCharge = getPlayer().getAttackCooldown();
     }
 
     public double getMaxMana() {
@@ -340,6 +365,7 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
     public void cleanup() {
         super.cleanup();
         killManaTask();
+        killAttackChargePollTask();
     }
 
     @Override
@@ -390,6 +416,17 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
     private void startManaTask() {
         killManaTask();
         _manaRegenerateTask = Bukkit.getScheduler().runTaskTimer(SMPRPG.getPlugin(), this::regenerateMana, 0, MANA_REGENERATE_FREQUENCY);
+    }
+
+    private void killAttackChargePollTask() {
+        if (_attackChargePollTask != null)
+            _attackChargePollTask.cancel();
+        _attackChargePollTask = null;
+    }
+
+    private void startAttackChargePollTask() {
+        killAttackChargePollTask();
+        _attackChargePollTask = Bukkit.getScheduler().runTaskTimer(SMPRPG.getPlugin(), this::pollAttackCharge, 0, 1);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
