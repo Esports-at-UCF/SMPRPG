@@ -391,7 +391,7 @@ enum class CookingPotRecipes(val recipe: CookingPotRecipe) {
         CookingPotRecipe(
             NamespacedKey(SMPRPG.plugin, "hot_cocoa_cooking_pot"),
             listOf(
-                ItemService.generate(Material.MILK_BUCKET),
+                ItemService.generate(CustomItemType.MILK_BOTTLE),
                 ItemService.generate(Material.SUGAR),
                 ItemService.generate(Material.COCOA_BEANS),
                 ItemService.generate(Material.COCOA_BEANS)
@@ -406,7 +406,7 @@ enum class CookingPotRecipes(val recipe: CookingPotRecipe) {
             NamespacedKey(SMPRPG.plugin, "glow_berry_custard_cooking_pot"),
             listOf(
                 ItemService.generate(Material.GLOW_BERRIES),
-                ItemService.generate(Material.MILK_BUCKET),
+                ItemService.generate(CustomItemType.MILK_BOTTLE),
                 ItemService.generate(Material.EGG),
                 ItemService.generate(Material.SUGAR)
             ),

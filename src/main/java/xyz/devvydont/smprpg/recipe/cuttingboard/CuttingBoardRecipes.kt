@@ -60,25 +60,23 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             CuttingBoardToolTags.KNIVES
         )
     ),
-    // TODO: Replace BARRIER output with SALMON_SLICE when that item is added
     SALMON_TO_SALMON_SLICE(
         CuttingBoardRecipe(
             NamespacedKey(SMPRPG.plugin, "salmon_to_salmon_slice_cutting"),
             ItemService.generate(Material.SALMON),
             listOf(
-                Pair(ItemService.generate(Material.BARRIER, 2), 1.0),
+                Pair(ItemService.generate(CustomItemType.SALMON_FILET, 2), 1.0),
                 Pair(ItemService.generate(Material.BONE_MEAL), 1.0),
             ),
             CuttingBoardToolTags.KNIVES
         )
     ),
-    // TODO: Replace BARRIER output with COD_SLICE when that item is added
     COD_TO_COD_SLICE(
         CuttingBoardRecipe(
             NamespacedKey(SMPRPG.plugin, "cod_to_cod_slice_cutting"),
             ItemService.generate(Material.COD),
             listOf(
-                Pair(ItemService.generate(Material.BARRIER, 2), 1.0),
+                Pair(ItemService.generate(CustomItemType.COD_FILET, 2), 1.0),
                 Pair(ItemService.generate(Material.BONE_MEAL), 1.0),
             ),
             CuttingBoardToolTags.KNIVES
@@ -117,25 +115,23 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             CuttingBoardToolTags.KNIVES
         )
     ),
-    // TODO: Replace BARRIER output with COOKED_SALMON_SLICE when that item is added
     COOKED_SALMON_TO_COOKED_SALMON_SLICE(
         CuttingBoardRecipe(
             NamespacedKey(SMPRPG.plugin, "cooked_salmon_to_cooked_salmon_slice_cutting"),
             ItemService.generate(Material.COOKED_SALMON),
             listOf(
-                Pair(ItemService.generate(Material.BARRIER, 2), 1.0),
+                Pair(ItemService.generate(CustomItemType.COOKED_SALMON_FILET, 2), 1.0),
                 Pair(ItemService.generate(Material.BONE_MEAL), 1.0),
             ),
             CuttingBoardToolTags.KNIVES
         )
     ),
-    // TODO: Replace BARRIER output with COOKED_COD_SLICE when that item is added
     COOKED_COD_TO_COOKED_COD_SLICE(
         CuttingBoardRecipe(
             NamespacedKey(SMPRPG.plugin, "cooked_cod_to_cooked_cod_slice_cutting"),
             ItemService.generate(Material.COOKED_COD),
             listOf(
-                Pair(ItemService.generate(Material.BARRIER, 2), 1.0),
+                Pair(ItemService.generate(CustomItemType.COOKED_COD_FILET, 2), 1.0),
                 Pair(ItemService.generate(Material.BONE_MEAL), 1.0),
             ),
             CuttingBoardToolTags.KNIVES
@@ -204,118 +200,6 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             ItemService.generate(Material.PUMPKIN),
             listOf(
                 Pair(ItemService.generate(CustomItemType.PUMPKIN_SLICE, 4), 1.0),
-            ),
-            CuttingBoardToolTags.KNIVES
-        )
-    ),
-
-    // Wild plants — inputs use BARRIER until wild plant items are added
-    // TODO: Replace BARRIER input with WILD_CABBAGES when that item is added
-    WILD_CABBAGES_CUTTING(
-        CuttingBoardRecipe(
-            NamespacedKey(SMPRPG.plugin, "wild_cabbages_cutting"),
-            ItemService.generate(Material.BARRIER),
-            listOf(
-                Pair(ItemService.generate(CustomItemType.CABBAGE_SEEDS), 1.0),
-                Pair(ItemService.generate(Material.YELLOW_DYE, 2), 0.5),
-            ),
-            CuttingBoardToolTags.KNIVES
-        )
-    ),
-    // TODO: Replace BARRIER input with WILD_ONIONS when that item is added
-    WILD_ONIONS_CUTTING(
-        CuttingBoardRecipe(
-            NamespacedKey(SMPRPG.plugin, "wild_onions_cutting"),
-            ItemService.generate(Material.BARRIER),
-            listOf(
-                Pair(ItemService.generate(CustomItemType.ONION), 1.0),
-                Pair(ItemService.generate(Material.MAGENTA_DYE, 2), 1.0),
-                Pair(ItemService.generate(Material.LIME_DYE), 0.1),
-            ),
-            CuttingBoardToolTags.KNIVES
-        )
-    ),
-    // TODO: Replace BARRIER input with WILD_POTATOES when that item is added
-    WILD_POTATOES_CUTTING(
-        CuttingBoardRecipe(
-            NamespacedKey(SMPRPG.plugin, "wild_potatoes_cutting"),
-            ItemService.generate(Material.BARRIER),
-            listOf(
-                Pair(ItemService.generate(Material.POTATO), 1.0),
-                Pair(ItemService.generate(Material.PURPLE_DYE, 2), 0.5),
-            ),
-            CuttingBoardToolTags.KNIVES
-        )
-    ),
-    // TODO: Replace BARRIER input with WILD_CARROTS when that item is added
-    WILD_CARROTS_CUTTING(
-        CuttingBoardRecipe(
-            NamespacedKey(SMPRPG.plugin, "wild_carrots_cutting"),
-            ItemService.generate(Material.BARRIER),
-            listOf(
-                Pair(ItemService.generate(Material.CARROT), 1.0),
-                Pair(ItemService.generate(Material.LIGHT_GRAY_DYE, 2), 0.5),
-            ),
-            CuttingBoardToolTags.KNIVES
-        )
-    ),
-    // TODO: Replace BARRIER input with WILD_BEETROOTS when that item is added
-    WILD_BEETROOTS_CUTTING(
-        CuttingBoardRecipe(
-            NamespacedKey(SMPRPG.plugin, "wild_beetroots_cutting"),
-            ItemService.generate(Material.BARRIER),
-            listOf(
-                Pair(ItemService.generate(Material.BEETROOT_SEEDS), 1.0),
-                Pair(ItemService.generate(Material.RED_DYE), 1.0),
-            ),
-            CuttingBoardToolTags.KNIVES
-        )
-    ),
-    // TODO: Replace BARRIER input with WILD_RICE when that item is added
-    WILD_RICE_CUTTING(
-        CuttingBoardRecipe(
-            NamespacedKey(SMPRPG.plugin, "wild_rice_cutting"),
-            ItemService.generate(Material.BARRIER),
-            listOf(
-                Pair(ItemService.generate(CustomItemType.RICE), 1.0),
-                Pair(ItemService.generate(CustomItemType.STRAW), 0.5),
-            ),
-            CuttingBoardToolTags.KNIVES
-        )
-    ),
-    // TODO: Replace BARRIER input with WILD_TOMATOES when that item is added
-    WILD_TOMATOES_CUTTING(
-        CuttingBoardRecipe(
-            NamespacedKey(SMPRPG.plugin, "wild_tomatoes_cutting"),
-            ItemService.generate(Material.BARRIER),
-            listOf(
-                Pair(ItemService.generate(CustomItemType.TOMATO_SEEDS), 1.0),
-                Pair(ItemService.generate(CustomItemType.TOMATO), 0.2),
-                Pair(ItemService.generate(Material.GREEN_DYE), 0.1),
-            ),
-            CuttingBoardToolTags.KNIVES
-        )
-    ),
-
-    // Mushroom colonies — inputs use BARRIER until colony items are added
-    // TODO: Replace BARRIER input with BROWN_MUSHROOM_COLONY when that item is added
-    BROWN_MUSHROOM_COLONY_CUTTING(
-        CuttingBoardRecipe(
-            NamespacedKey(SMPRPG.plugin, "brown_mushroom_colony_cutting"),
-            ItemService.generate(Material.BARRIER),
-            listOf(
-                Pair(ItemService.generate(Material.BROWN_MUSHROOM, 5), 1.0),
-            ),
-            CuttingBoardToolTags.KNIVES
-        )
-    ),
-    // TODO: Replace BARRIER input with RED_MUSHROOM_COLONY when that item is added
-    RED_MUSHROOM_COLONY_CUTTING(
-        CuttingBoardRecipe(
-            NamespacedKey(SMPRPG.plugin, "red_mushroom_colony_cutting"),
-            ItemService.generate(Material.BARRIER),
-            listOf(
-                Pair(ItemService.generate(Material.RED_MUSHROOM, 5), 1.0),
             ),
             CuttingBoardToolTags.KNIVES
         )
@@ -516,6 +400,22 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             CuttingBoardToolTags.KNIVES
         )
     ),
+    VIOLET_TO_PURPLE_DYE(
+        CuttingBoardRecipe(
+            NamespacedKey(SMPRPG.plugin, "violet_to_purple_dye_cutting"),
+            ItemService.generate(CustomItemType.VIOLET),
+            listOf(Pair(ItemService.generate(Material.PURPLE_DYE, 2), 1.0)),
+            CuttingBoardToolTags.KNIVES
+        )
+    ),
+    PUFFBLOOM_TO_WHITE_DYE(
+        CuttingBoardRecipe(
+            NamespacedKey(SMPRPG.plugin, "puffbloom_to_white_dye_cutting"),
+            ItemService.generate(CustomItemType.PUFFBLOOM),
+            listOf(Pair(ItemService.generate(Material.WHITE_DYE, 2), 1.0)),
+            CuttingBoardToolTags.KNIVES
+        )
+    ),
 
     // Terrain processing (shovels)
     CLAY_TO_CLAY_BALLS(
@@ -540,15 +440,12 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
         )
     ),
 
-    // Log stripping (axes) — TREE_BARK uses BARRIER until that item is added
-    // TODO: Replace BARRIER outputs with TREE_BARK when that item is added
     OAK_LOG_STRIPPING(
         CuttingBoardRecipe(
             NamespacedKey(SMPRPG.plugin, "oak_log_stripping_cutting"),
             ItemService.generate(Material.OAK_LOG),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_OAK_LOG), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_OAK_LOG), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -558,8 +455,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "oak_wood_stripping_cutting"),
             ItemService.generate(Material.OAK_WOOD),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_OAK_WOOD), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_OAK_WOOD), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -569,8 +465,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "birch_log_stripping_cutting"),
             ItemService.generate(Material.BIRCH_LOG),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_BIRCH_LOG), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_BIRCH_LOG), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -580,8 +475,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "birch_wood_stripping_cutting"),
             ItemService.generate(Material.BIRCH_WOOD),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_BIRCH_WOOD), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_BIRCH_WOOD), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -591,8 +485,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "spruce_log_stripping_cutting"),
             ItemService.generate(Material.SPRUCE_LOG),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_SPRUCE_LOG), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_SPRUCE_LOG), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -602,8 +495,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "spruce_wood_stripping_cutting"),
             ItemService.generate(Material.SPRUCE_WOOD),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_SPRUCE_WOOD), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_SPRUCE_WOOD), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -613,8 +505,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "jungle_log_stripping_cutting"),
             ItemService.generate(Material.JUNGLE_LOG),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_JUNGLE_LOG), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_JUNGLE_LOG), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -624,8 +515,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "jungle_wood_stripping_cutting"),
             ItemService.generate(Material.JUNGLE_WOOD),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_JUNGLE_WOOD), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_JUNGLE_WOOD), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -635,8 +525,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "dark_oak_log_stripping_cutting"),
             ItemService.generate(Material.DARK_OAK_LOG),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_DARK_OAK_LOG), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_DARK_OAK_LOG), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -646,8 +535,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "dark_oak_wood_stripping_cutting"),
             ItemService.generate(Material.DARK_OAK_WOOD),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_DARK_OAK_WOOD), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_DARK_OAK_WOOD), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -657,8 +545,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "acacia_log_stripping_cutting"),
             ItemService.generate(Material.ACACIA_LOG),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_ACACIA_LOG), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_ACACIA_LOG), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -668,8 +555,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "acacia_wood_stripping_cutting"),
             ItemService.generate(Material.ACACIA_WOOD),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_ACACIA_WOOD), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_ACACIA_WOOD), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -679,8 +565,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "cherry_log_stripping_cutting"),
             ItemService.generate(Material.CHERRY_LOG),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_CHERRY_LOG), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_CHERRY_LOG), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -690,8 +575,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "cherry_wood_stripping_cutting"),
             ItemService.generate(Material.CHERRY_WOOD),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_CHERRY_WOOD), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_CHERRY_WOOD), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -701,8 +585,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "mangrove_log_stripping_cutting"),
             ItemService.generate(Material.MANGROVE_LOG),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_MANGROVE_LOG), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_MANGROVE_LOG), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -712,8 +595,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "mangrove_wood_stripping_cutting"),
             ItemService.generate(Material.MANGROVE_WOOD),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_MANGROVE_WOOD), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_MANGROVE_WOOD), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -723,8 +605,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "crimson_stem_stripping_cutting"),
             ItemService.generate(Material.CRIMSON_STEM),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_CRIMSON_STEM), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_CRIMSON_STEM), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -734,8 +615,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "crimson_hyphae_stripping_cutting"),
             ItemService.generate(Material.CRIMSON_HYPHAE),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_CRIMSON_HYPHAE), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_CRIMSON_HYPHAE), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -745,8 +625,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "warped_stem_stripping_cutting"),
             ItemService.generate(Material.WARPED_STEM),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_WARPED_STEM), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_WARPED_STEM), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -756,8 +635,7 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             NamespacedKey(SMPRPG.plugin, "warped_hyphae_stripping_cutting"),
             ItemService.generate(Material.WARPED_HYPHAE),
             listOf(
-                Pair(ItemService.generate(Material.STRIPPED_WARPED_HYPHAE), 1.0),
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
+                Pair(ItemService.generate(Material.STRIPPED_WARPED_HYPHAE), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
@@ -773,28 +651,62 @@ enum class CuttingBoardRecipes(val recipe: CuttingBoardRecipe) {
             CuttingBoardToolTags.AXES
         )
     ),
-
-    // Basket disassembly (axes) — inputs/canvas use BARRIER until those items are added
-    // TODO: Replace BARRIER input with BAMBOO_BASKET and first BARRIER output with CANVAS when those items are added
-    BAMBOO_BASKET_DISASSEMBLY(
+    SKYROOT_LOG_STRIPPING(
         CuttingBoardRecipe(
-            NamespacedKey(SMPRPG.plugin, "bamboo_basket_disassembly_cutting"),
-            ItemService.generate(Material.BARRIER),
+            NamespacedKey(SMPRPG.plugin, "skyroot_log_stripping_cutting"),
+            ItemService.generate(CustomItemType.SKYROOT_LOG),
             listOf(
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
-                Pair(ItemService.generate(Material.BAMBOO), 1.0),
+                Pair(ItemService.generate(CustomItemType.STRIPPED_SKYROOT_LOG), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
     ),
-    // TODO: Replace BARRIER input with WOODEN_BASKET and first BARRIER output with CANVAS when those items are added
-    WOODEN_BASKET_DISASSEMBLY(
+    SKYROOT_WOOD_STRIPPING(
         CuttingBoardRecipe(
-            NamespacedKey(SMPRPG.plugin, "wooden_basket_disassembly_cutting"),
-            ItemService.generate(Material.BARRIER),
+            NamespacedKey(SMPRPG.plugin, "skyroot_wood_stripping_cutting"),
+            ItemService.generate(CustomItemType.SKYROOT_LOG),
             listOf(
-                Pair(ItemService.generate(Material.BARRIER), 1.0),
-                Pair(ItemService.generate(Material.STICK), 1.0),
+                Pair(ItemService.generate(CustomItemType.STRIPPED_SKYROOT_WOOD), 1.0)
+            ),
+            CuttingBoardToolTags.AXES
+        )
+    ),
+    GOLDEN_OAK_LOG_STRIPPING(
+        CuttingBoardRecipe(
+            NamespacedKey(SMPRPG.plugin, "golden_oak_log_stripping_cutting"),
+            ItemService.generate(CustomItemType.SKYROOT_LOG),
+            listOf(
+                Pair(ItemService.generate(CustomItemType.STRIPPED_GOLDEN_OAK_LOG), 1.0)
+            ),
+            CuttingBoardToolTags.AXES
+        )
+    ),
+    GOLDEN_OAK_WOOD_STRIPPING(
+        CuttingBoardRecipe(
+            NamespacedKey(SMPRPG.plugin, "golden_oak_wood_stripping_cutting"),
+            ItemService.generate(CustomItemType.SKYROOT_LOG),
+            listOf(
+                Pair(ItemService.generate(CustomItemType.STRIPPED_GOLDEN_OAK_WOOD), 1.0)
+            ),
+            CuttingBoardToolTags.AXES
+        )
+    ),
+    BINARY_LOG_STRIPPING(
+        CuttingBoardRecipe(
+            NamespacedKey(SMPRPG.plugin, "binary_log_stripping_cutting"),
+            ItemService.generate(CustomItemType.BINARY_LOG),
+            listOf(
+                Pair(ItemService.generate(CustomItemType.STRIPPED_BINARY_LOG), 1.0)
+            ),
+            CuttingBoardToolTags.AXES
+        )
+    ),
+    BINARY_WOOD_STRIPPING(
+        CuttingBoardRecipe(
+            NamespacedKey(SMPRPG.plugin, "binary_wood_stripping_cutting"),
+            ItemService.generate(CustomItemType.BINARY_LOG),
+            listOf(
+                Pair(ItemService.generate(CustomItemType.STRIPPED_BINARY_WOOD), 1.0)
             ),
             CuttingBoardToolTags.AXES
         )
