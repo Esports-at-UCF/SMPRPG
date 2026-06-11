@@ -8,14 +8,14 @@
       "spawns": [
         {
           "type": "minecraft:zombie_villager",
-          "maxCount": 18,
-          "minCount": 12,
+          "maxCount": 12,
+          "minCount": 6,
           "weight": 1
         },
         {
           "type": "minecraft:skeleton",
-          "maxCount": 8,
-          "minCount": 4,
+          "maxCount": 6,
+          "minCount": 2,
           "weight": 1
         }
       ]
