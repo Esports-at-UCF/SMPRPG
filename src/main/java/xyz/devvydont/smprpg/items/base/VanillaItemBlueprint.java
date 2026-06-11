@@ -55,7 +55,9 @@ public class VanillaItemBlueprint extends SMPItemBlueprint implements ISellable 
 
     @Override
     public boolean isItemOfType(ItemStack itemStack) {
-        return !isCustom() && itemStack.getType().equals(material);
+        // A stack only counts as this vanilla type if it carries no custom item key,
+        // otherwise custom items sharing the same base material would falsely match.
+        return itemService.getItemKey(itemStack) == null && itemStack.getType().equals(material);
     }
 
     @Override
