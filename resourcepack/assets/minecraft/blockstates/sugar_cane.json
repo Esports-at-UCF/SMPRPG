@@ -4,7 +4,7 @@
       "model": "minecraft:block/sugar_cane"
     },
 	"age=15": {
-	  "model": "minecraft:empty"
+	  "model": "minecraft:block/air"
 	}
   }
 }
