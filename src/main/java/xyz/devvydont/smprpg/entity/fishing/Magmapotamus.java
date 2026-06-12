@@ -6,6 +6,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
@@ -28,6 +29,15 @@ public class Magmapotamus extends SeaCreature<Hoglin> {
     }
 
     @Override
+    public void setup() {
+        mobTypes.add(MobType.SEA_CREATURE);
+        mobTypes.add(MobType.NETHER);
+        mobTypes.add(MobType.ANIMAL);
+
+        super.setup();
+    }
+
+    @Override
     public void updateAttributes() {
         super.updateAttributes();
         updateBaseAttribute(AttributeWrapper.SCALE, 3);
@@ -36,7 +46,12 @@ public class Magmapotamus extends SeaCreature<Hoglin> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.FLAMEBROILED_PORKCHOP), 1, this)
+                new ChancedItemDrop(ItemService.generate(CustomItemType.FLAMEBROILED_PORKCHOP), 1, this),
+                new ChancedItemDrop(lureScroll, 300, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 300, this),
+                new ChancedItemDrop(impalingScroll, 300, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 300, this),
+                new ChancedItemDrop(treasureHunterScroll, 300, this)
         );
     }
 }

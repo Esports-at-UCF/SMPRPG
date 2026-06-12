@@ -12,8 +12,8 @@
   "disable_mob_generation": false,
   "legacy_random_source": false,
   "noise": {
-    "height": 512,
-    "min_y": -128,
+    "height": 384,
+    "min_y": -64,
     "size_horizontal": 1,
     "size_vertical": 2
   },
@@ -389,7 +389,7 @@
     }
   },
   "ore_veins_enabled": true,
-  "sea_level": 63,
+  "sea_level": 95,
   "spawn_target": [
     {
       "continentalness": [
@@ -2577,22 +2577,17 @@
         "if_true": {
           "type": "minecraft:vertical_gradient",
           "false_at_and_above": {
-            "absolute": -56
+            "absolute": 8
           },
-          "random_name": "minecraft:deepslate",
+          "random_name": "smprpg:grimstone",
           "true_at_and_below": {
-            "absolute": -64
+            "absolute": 0
           }
         },
         "then_run": {
           "type": "minecraft:block",
           "result_state": {
-            "Name": "minecraft:note_block",
-            "Properties": {
-              "instrument": "harp",
-              "note": "14",
-              "powered": "true"
-            }
+            "Name": "craftengine:custom_4"
           }
         }
       },
@@ -2601,11 +2596,11 @@
         "if_true": {
           "type": "minecraft:vertical_gradient",
           "false_at_and_above": {
-            "absolute": 8
+            "absolute": 72
           },
           "random_name": "minecraft:deepslate",
           "true_at_and_below": {
-            "absolute": 0
+            "absolute": 64
           }
         },
         "then_run": {

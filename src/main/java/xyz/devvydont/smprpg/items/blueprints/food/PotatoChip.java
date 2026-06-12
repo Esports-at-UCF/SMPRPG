@@ -28,17 +28,17 @@ public class PotatoChip extends CustomItemBlueprint implements IEdible, ISellabl
 
     @Override
     public int getNutrition(ItemStack item) {
-        return 4;
+        return 6;
     }
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 2;
+        return 0;
     }
 
     @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 
     @Override

@@ -9,32 +9,44 @@ import org.bukkit.potion.PotionEffectType;
 import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
-import xyz.devvydont.smprpg.items.base.CustomCompressableBlueprint;
-import xyz.devvydont.smprpg.items.interfaces.IEdible;
+import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
+import xyz.devvydont.smprpg.items.interfaces.ICompressible;
 import xyz.devvydont.smprpg.items.interfaces.IConsumable;
+import xyz.devvydont.smprpg.items.interfaces.IEdible;
+import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
-import xyz.devvydont.smprpg.util.crafting.CompressionRecipeMember;
-import xyz.devvydont.smprpg.util.crafting.MaterialWrapper;
+import xyz.devvydont.smprpg.util.extensions.ItemExtensionsKt;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SteakFamilyBlueprint extends CustomCompressableBlueprint implements IEdible, IConsumable {
-
-    public static final List<CompressionRecipeMember> COMPRESSION_FLOW = List.of(
-            new CompressionRecipeMember(new MaterialWrapper(Material.COOKED_BEEF)),
-            new CompressionRecipeMember(new MaterialWrapper(CustomItemType.PREMIUM_STEAK)),
-            new CompressionRecipeMember(new MaterialWrapper(CustomItemType.ENCHANTED_STEAK))
-    );
+public class SteakFamilyBlueprint extends CustomItemBlueprint implements ICompressible, ISellable, IEdible, IConsumable {
 
     public SteakFamilyBlueprint(ItemService itemService, CustomItemType type) {
         super(itemService, type);
     }
 
     @Override
-    public List<CompressionRecipeMember> getCompressionFlow() {
-        return COMPRESSION_FLOW;
+    public CompressionStep getDecompressor() {
+        return switch (getCustomItemType()) {
+            case PREMIUM_STEAK -> new CompressionStep((ICompressible) itemService.getVanillaBlueprint(ItemStack.of(Material.COOKED_BEEF)), 1, 9);
+            case ENCHANTED_STEAK -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.PREMIUM_STEAK), 1, 9);
+            default -> null;
+        };
+    }
+
+    @Override
+    public CompressionStep getCompressor() {
+        return switch (getCustomItemType()) {
+            case PREMIUM_STEAK -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.ENCHANTED_STEAK), 9, 1);
+            default -> null;
+        };
+    }
+
+    @Override
+    public int getWorth(ItemStack itemStack) {
+        return ItemExtensionsKt.calculateCompressedWorth(this, itemStack);
     }
 
     @Override
@@ -88,5 +100,4 @@ public class SteakFamilyBlueprint extends CustomCompressableBlueprint implements
     public ItemClassification getItemClassification() {
         return ItemClassification.CONSUMABLE;
     }
-    
 }

@@ -30,7 +30,7 @@ public class SakuraLeggings extends SakuraArmorSet implements ITrimmable {
 
     @Override
     public CraftingRecipe getCustomRecipe() {
-        return new LeggingsRecipe(this, itemService.getCustomItem(Material.CHERRY_LEAVES), generate()).build();
+        return new LeggingsRecipe(this, itemService.getCustomItem(Material.CHERRY_LOG), generate()).build();
     }
 
     @Override

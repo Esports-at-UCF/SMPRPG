@@ -149,12 +149,12 @@ public class AttributeUtil {
         // Query base attributes...
         for (var baseAttribute : attributeItem.getAttributeModifiers(item)) {
             NamespacedKey key;
-            if (baseAttribute.getKey() == null)
+            if (baseAttribute.key == null)
                 key = AttributeModifierType.BASE.keyForItem(nameKey);
             else
-                key = new NamespacedKey("smprpg", baseAttribute.getKey());
+                key = new NamespacedKey("smprpg", baseAttribute.key);
             modifiers.put(
-                    baseAttribute.getAttribute(),
+                    baseAttribute.attribute,
                     new SourcedAttributeModifier(baseAttribute.asModifier(key, attributeItem.getActiveSlot()), AttributeModifierType.BASE)
             );
         }
@@ -165,7 +165,7 @@ public class AttributeUtil {
         if (reforge != null)
             for (var reforgeAttribute : reforge.getAttributeModifiersWithRarity(rarity))
                 modifiers.put(
-                        reforgeAttribute.getAttribute(),
+                        reforgeAttribute.attribute,
                         new SourcedAttributeModifier(reforgeAttribute.asModifier(AttributeModifierType.REFORGE.keyForItem(nameKey), attributeItem.getActiveSlot()), AttributeModifierType.REFORGE)
                 );
 
@@ -179,7 +179,7 @@ public class AttributeUtil {
             // Add the modifiers.
             for (var enchantmentAttribute : attributeContainer.getHeldAttributes())
                 modifiers.put(
-                        enchantmentAttribute.getAttribute(),
+                        enchantmentAttribute.attribute,
                         new SourcedAttributeModifier(enchantmentAttribute.asModifier(AttributeModifierType.ENCHANTMENT.keyForItem(nameKey), attributeItem.getActiveSlot()), AttributeModifierType.ENCHANTMENT)
                 );
         }

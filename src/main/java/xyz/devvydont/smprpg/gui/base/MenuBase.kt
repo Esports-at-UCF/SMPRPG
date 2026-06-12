@@ -2,6 +2,8 @@ package xyz.devvydont.smprpg.gui.base
 
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.CustomModelData
+import io.papermc.paper.datacomponent.item.TooltipDisplay
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -40,7 +42,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     protected val sounds: MenuSoundManager
 
     private var shouldPlayOpeningSound = false
-    private var shouldPlayClosingSound = false
+    protected var shouldPlayClosingSound = false
     private var activeAnimation: AnimationHandle? = null
     private val buttonSlots: MutableMap<Int, MenuButtonClickHandler> = HashMap()
 
@@ -538,6 +540,8 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
         // -----------
         @JvmField
         protected val BORDER_NORMAL: ItemStack = createNamedItem(Material.BLACK_STAINED_GLASS_PANE, Component.text(""))
+        @JvmField
+        protected val BORDER_VOID: ItemStack = createNamedItem(Material.BLACK_STAINED_GLASS_PANE, Component.text(""))
         @JvmStatic
         protected val BUTTON_PAGE_NEXT: ItemStack =
             createNamedItem(Material.ARROW, Component.text("Next Page ->", NamedTextColor.BLUE))
@@ -552,31 +556,16 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
             createNamedItem(Material.BARRIER, Component.text("Exit", NamedTextColor.RED))
 
         init {
-            BORDER_NORMAL.setData<CustomModelData?>(
-                DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
-                    .addString("smprpg:border_normal")
-                    .build()
-            )
-            BUTTON_PAGE_NEXT.setData<CustomModelData?>(
-                DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
-                    .addString("smprpg:icon_next_page")
-                    .build()
-            )
-            BUTTON_PAGE_PREVIOUS.setData<CustomModelData?>(
-                DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
-                    .addString("smprpg:icon_previous_page")
-                    .build()
-            )
-            BUTTON_BACK.setData<CustomModelData?>(
-                DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
-                    .addString("smprpg:icon_back")
-                    .build()
-            )
-            BUTTON_EXIT.setData<CustomModelData?>(
-                DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
-                    .addString("smprpg:icon_exit")
-                    .build()
-            )
+            BORDER_NORMAL.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:empty"))
+            BORDER_NORMAL.setData(DataComponentTypes.TOOLTIP_DISPLAY,
+                TooltipDisplay.tooltipDisplay().hideTooltip(true).build());
+            BORDER_VOID.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:ui/void_slot"))
+            BORDER_VOID.setData(DataComponentTypes.TOOLTIP_DISPLAY,
+                TooltipDisplay.tooltipDisplay().hideTooltip(true).build());
+            BUTTON_PAGE_NEXT.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:ui/right_arrow"))
+            BUTTON_PAGE_PREVIOUS.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:ui/left_arrow"))
+            BUTTON_BACK.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:ui/left_arrow"))
+            BUTTON_EXIT.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:ui/close"))
         }
 
         /**

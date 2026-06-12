@@ -5,6 +5,7 @@ import org.bukkit.entity.Phantom;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
@@ -28,9 +29,23 @@ public class Nidhogg extends SeaCreature<Phantom> {
     }
 
     @Override
+    public void setup() {
+        mobTypes.add(MobType.SEA_CREATURE);
+        mobTypes.add(MobType.RARE);
+        mobTypes.add(MobType.ENDER);
+
+        super.setup();
+    }
+
+    @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.ECHO_MEMBRANE), 1, this)
+                new ChancedItemDrop(ItemService.generate(CustomItemType.ECHO_MEMBRANE), 1, this),
+                new ChancedItemDrop(lureScroll, 1, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 1, this),
+                new ChancedItemDrop(impalingScroll, 1, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 1, this),
+                new ChancedItemDrop(treasureHunterScroll, 1, this)
         );
     }
 

@@ -12,17 +12,23 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
 import xyz.devvydont.smprpg.commands.ICommand
 import xyz.devvydont.smprpg.commands.ICommandBase
 import xyz.devvydont.smprpg.commands.LegacyCommand
+import xyz.devvydont.smprpg.market.commands.CommandAuctionHouse
+import xyz.devvydont.smprpg.market.commands.CommandBazaar
+import xyz.devvydont.smprpg.market.gui.auction.MenuAuctionBrowser
+import xyz.devvydont.smprpg.market.gui.bazaar.MenuBazaarBrowser
 import xyz.devvydont.smprpg.commands.admin.CommandAttribute
 import xyz.devvydont.smprpg.commands.admin.CommandEcoAdmin
 import xyz.devvydont.smprpg.commands.admin.CommandSimulateFishing
 import xyz.devvydont.smprpg.commands.admin.CommandSteal
 import xyz.devvydont.smprpg.commands.entity.CommandSummon
 import xyz.devvydont.smprpg.commands.inventory.CommandPeek
+import xyz.devvydont.smprpg.commands.items.CommandEnchant
 import xyz.devvydont.smprpg.commands.items.CommandGiveItem
 import xyz.devvydont.smprpg.commands.items.CommandReforge
 import xyz.devvydont.smprpg.commands.items.CommandSearchItem
 import xyz.devvydont.smprpg.commands.player.*
 import xyz.devvydont.smprpg.fishing.gui.LootTypeChancesMenu
+import xyz.devvydont.smprpg.fishing.gui.MenuSlayer
 import xyz.devvydont.smprpg.gui.MainMenu
 import xyz.devvydont.smprpg.gui.MenuReforgeBrowser
 import xyz.devvydont.smprpg.gui.economy.MenuDeposit
@@ -49,6 +55,7 @@ class SMPRPGBootstrapper : PluginBootstrap {
             CommandPeek("peek"),
 
             // New commands that use the new API.
+            CommandEnchant("enchant"),  // Override for the vanilla enchant command.
             CommandSteal(),
             CommandAttribute(),
             CommandEcoAdmin(),
@@ -57,6 +64,9 @@ class SMPRPGBootstrapper : PluginBootstrap {
             CommandBalance("bal"),  // Effectively functions as an alias. We can register the same command multiple times!
             CommandStatistics("statistics"),
             CommandStatistics("stats"),
+            CommandWardrobe("wardrobe"),
+            CommandWardrobe("sets"),
+            CommandWardrobe("wd"),
             CommandWhatAmIHolding("whatamiholding"),
             CommandWhatAmIHolding("waih"),
             CommandBalanceTop("balancetop"),
@@ -67,10 +77,16 @@ class SMPRPGBootstrapper : PluginBootstrap {
             ICommand.SimplePlayerCommand("difficulty", { player -> MenuDifficultyChooser(player).openMenu()}),
             ICommand.SimplePlayerCommand("fishing", { player -> LootTypeChancesMenu(player).openMenu()}),
             ICommand.SimplePlayerCommand("deposit", { player -> MenuDeposit(player).openMenu()}),
+            ICommand.SimplePlayerCommand("sell", { player -> MenuDeposit(player).openMenu()}),
             ICommand.SimplePlayerCommand("withdrawal", { player -> MenuWithdraw(player).openMenu()}),
             ICommand.SimplePlayerCommand("trash", { player -> MenuTrashItems(player).openMenu()}),
             ICommand.SimplePlayerCommand("enchantments", { player -> EnchantmentMenu(player).openMenu()}),
             ICommand.SimplePlayerCommand("reforges", { player -> MenuReforgeBrowser(player).openMenu()}),
+            CommandAuctionHouse(),
+            ICommand.SimplePlayerCommand("auctionhouse", { player -> MenuAuctionBrowser(player).openMenu()}),
+            CommandBazaar(),
+            ICommand.SimplePlayerCommand("bazaar", { player -> MenuBazaarBrowser(player).openMenu()}),
+            ICommand.SimplePlayerCommand("slayer", { player -> MenuSlayer(player).openMenu()}),
         )
 
         val manager: LifecycleEventManager<BootstrapContext> = context.lifecycleManager
@@ -122,8 +138,8 @@ class SMPRPGBootstrapper : PluginBootstrap {
 
     override fun bootstrap(bootstrapContext: BootstrapContext) {
         bootstrapCommands(bootstrapContext)
+        bootstrapDatapack(bootstrapContext)  // We MUST bootstrap datapack first to have access to tags on enchantment definitions.
         bootstrapEnchantments(bootstrapContext)
-//        bootstrapDatapack(bootstrapContext)
     }
 
 

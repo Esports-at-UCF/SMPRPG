@@ -51,6 +51,6 @@ public class SakuraHelmet extends SakuraArmorSet implements IBreakableEquipment,
 
     @Override
     public CraftingRecipe getCustomRecipe() {
-        return new HelmetRecipe(this, itemService.getCustomItem(Material.CHERRY_LEAVES), generate()).build();
+        return new HelmetRecipe(this, itemService.getCustomItem(Material.CHERRY_LOG), generate()).build();
     }
 }

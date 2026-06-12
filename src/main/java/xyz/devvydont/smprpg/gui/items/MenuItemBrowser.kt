@@ -14,8 +14,6 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.gui.base.MenuButtonClickHandler
 import xyz.devvydont.smprpg.items.CustomItemType
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
-import xyz.devvydont.smprpg.items.interfaces.ISmeltable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.RecipeService.Companion.getRecipesFor
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -27,6 +25,7 @@ import java.util.function.Consumer
  * Functions as a server side version of J/NEI. Players can view this interface to view custom items and their recipes.
  */
 class MenuItemBrowser @JvmOverloads constructor(
+    parent: MenuBase?,
     player: Player,
     /**
      * Retrieve the query that is currently being used for this display.
@@ -55,7 +54,7 @@ class MenuItemBrowser @JvmOverloads constructor(
         // If the item cache hasn't initialized yet, go ahead and do that.
         if (ITEM_CACHE.isEmpty()) {
             for (type in CustomItemType.entries) ITEM_CACHE.add(ItemService.generate(type))
-            for (material in Material.entries) if (!material.isLegacy && material.isItem) ITEM_CACHE.add(
+            for (material in Material.entries) if (!material.isLegacy && material.isItem && material !in BLACKLISTED_MATERIALS) ITEM_CACHE.add(
                 ItemService.generate(
                     material
                 )
@@ -72,7 +71,7 @@ class MenuItemBrowser @JvmOverloads constructor(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.RECIPE_MENU, NamedTextColor.WHITE),  // Background
                 ComponentUtils.create(
                     Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Item Directory: " + (if (query!!.isEmpty()) "All Items" else query),
-                    NamedTextColor.BLACK
+                    Symbols.INVENTORY_TITLE_COLOR
                 )
             )
         )
@@ -129,7 +128,7 @@ class MenuItemBrowser @JvmOverloads constructor(
 
         // Do vanilla items too.
         for (material in Material.entries) {
-            if (material.isLegacy || !material.isItem || material == Material.AIR) continue
+            if (material.isLegacy || !material.isItem || material == Material.AIR || material in BLACKLISTED_MATERIALS) continue
 
             val simpleName =
                 material.name.lowercase(Locale.getDefault()).replace(" ", "").replace("_", "").replace("-", "")
@@ -214,8 +213,8 @@ class MenuItemBrowser @JvmOverloads constructor(
             lore.addFirst(ComponentUtils.create("Click to view recipe!", NamedTextColor.YELLOW))
             lore.addFirst(ComponentUtils.EMPTY)
 
-            // If this ingredient can be crafted, insert the craftable tooltip.
-            if (blueprint is ICraftable || blueprint is ISmeltable) item.editMeta(Consumer { meta: ItemMeta ->
+            // If this item has any known recipe (crafting, smelting, or custom station), show the tooltip.
+            if (getRecipesFor(blueprint.generate()).isNotEmpty()) item.editMeta(Consumer { meta: ItemMeta ->
                 meta.lore(
                     lore
                 )
@@ -232,24 +231,22 @@ class MenuItemBrowser @JvmOverloads constructor(
         // Now set the slots for a next/prev page that increment/decrement the page and re-render
         val displayPage = page + 1
         val displayPageMax = lastPage + 1
+        val previousButton = BUTTON_PAGE_PREVIOUS.clone()
+        previousButton.editMeta {  meta -> meta.itemName(ComponentUtils.create("Previous Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD))}
         this.setButton(
             (ROWS - 1) * 9,
-            createNoRenderNamedItem(
-                Material.BLACK_STAINED_GLASS_PANE,
-                ComponentUtils.create("Previous Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD)
-            )
+            previousButton
         ) { _: InventoryClickEvent ->
             page--
             this.render()
             this.sounds.playPagePrevious()
         }
 
+        val nextButton = BUTTON_PAGE_NEXT.clone()
+        nextButton.editMeta {  meta -> meta.itemName(ComponentUtils.create("Next Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD))}
         this.setButton(
             (ROWS - 1) * 9 + 8,
-            createNoRenderNamedItem(
-                Material.BLACK_STAINED_GLASS_PANE,
-                ComponentUtils.create("Next Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD)
-            )
+            nextButton
         ) { _: InventoryClickEvent ->
             page++
             this.render()
@@ -265,6 +262,11 @@ class MenuItemBrowser @JvmOverloads constructor(
 
     companion object {
         private val ITEM_CACHE: MutableList<ItemStack> = ArrayList<ItemStack>()
+        private val BLACKLISTED_MATERIALS = arrayOf(
+            Material.STONE_AXE, Material.STONE_PICKAXE, Material.STONE_HOE, Material.STONE_SWORD, Material.STONE_SHOVEL, Material.STONE_SPEAR,
+            Material.DIAMOND_AXE, Material.DIAMOND_PICKAXE, Material.DIAMOND_HOE, Material.DIAMOND_SWORD, Material.DIAMOND_SHOVEL, Material.DIAMOND_SPEAR, Material.DIAMOND_HELMET, Material.DIAMOND_BOOTS, Material.DIAMOND_LEGGINGS, Material.DIAMOND_CHESTPLATE
+        )
+
 
         const val ROWS: Int = 6
     }

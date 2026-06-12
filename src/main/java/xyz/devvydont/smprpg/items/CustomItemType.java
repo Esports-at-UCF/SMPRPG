@@ -2,22 +2,39 @@ package xyz.devvydont.smprpg.items;
 
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
-import xyz.devvydont.smprpg.items.blueprints.block.ore.*;
-import xyz.devvydont.smprpg.items.blueprints.block.rawmaterials.*;
-import xyz.devvydont.smprpg.items.blueprints.block.ReforgeTableBlock;
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.block.interactable.ReforgeTable;
+import xyz.devvydont.smprpg.items.blueprints.block.runes.*;
 import xyz.devvydont.smprpg.items.blueprints.boss.DiamondToolRod;
 import xyz.devvydont.smprpg.items.blueprints.boss.InfernoArrow;
 import xyz.devvydont.smprpg.items.blueprints.boss.NeptunesConch;
 import xyz.devvydont.smprpg.items.blueprints.charms.LuckyCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.SpeedCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineCompressibleBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineFoodBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.crops.*;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
-import xyz.devvydont.smprpg.items.blueprints.drills.LargeFuelTank;
-import xyz.devvydont.smprpg.items.blueprints.drills.MediumFuelTank;
-import xyz.devvydont.smprpg.items.blueprints.drills.SmallFuelTank;
+import xyz.devvydont.smprpg.items.blueprints.food.ingredients.*;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.aetherium.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.aetherutil.WingsOfIcarus;
+import xyz.devvydont.smprpg.items.blueprints.sets.cobalt.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.iron.IronKnife;
+import xyz.devvydont.smprpg.items.blueprints.sets.orichalcum.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.palladium.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.platinum.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockShoes;
+import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockHood;
+import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockRobes;
+import xyz.devvydont.smprpg.items.blueprints.sets.warlock.WarlockTrousers;
+import xyz.devvydont.smprpg.items.blueprints.tomes.*;
+import xyz.devvydont.smprpg.items.blueprints.tomes.spells.*;
+import xyz.devvydont.smprpg.items.blueprints.tools.augments.RepairCore;
 import xyz.devvydont.smprpg.items.blueprints.economy.CustomItemCoin;
 import xyz.devvydont.smprpg.items.blueprints.equipment.*;
-import xyz.devvydont.smprpg.items.blueprints.equipment.EnderPack;
+import xyz.devvydont.smprpg.items.blueprints.storage.EnderPack;
 import xyz.devvydont.smprpg.items.blueprints.fishing.FishBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.food.*;
 import xyz.devvydont.smprpg.items.blueprints.misc.DeathCertificate;
@@ -34,12 +51,22 @@ import xyz.devvydont.smprpg.items.blueprints.resources.fishing.EtherealFiber;
 import xyz.devvydont.smprpg.items.blueprints.resources.fishing.HolomokuCrest;
 import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
+import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFlesh;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFleshFamilyBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowder;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
+import xyz.devvydont.smprpg.items.blueprints.sets.abomination.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.breeze.BreezeborneStaff;
+import xyz.devvydont.smprpg.items.blueprints.sets.leather.LeatherConicalHat;
+import xyz.devvydont.smprpg.items.blueprints.sets.tungsten.*;
+import xyz.devvydont.smprpg.items.blueprints.sets.wood.WoodStaff;
+import xyz.devvydont.smprpg.items.blueprints.unobtainable.shambling.ShamblingBossBoots;
+import xyz.devvydont.smprpg.items.blueprints.unobtainable.shambling.ShamblingBossChestplate;
+import xyz.devvydont.smprpg.items.blueprints.unobtainable.shambling.ShamblingBossLeggings;
+import xyz.devvydont.smprpg.items.blueprints.wardrobe.WardrobeSlotToken;
 import xyz.devvydont.smprpg.items.blueprints.sets.adamantium.*;
-import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystBoots;
-import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystChestplate;
-import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystHelmet;
-import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.AmethystLeggings;
 import xyz.devvydont.smprpg.items.blueprints.sets.araxys.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.bedrock.BedrockBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.bedrock.BedrockChestplate;
@@ -52,8 +79,6 @@ import xyz.devvydont.smprpg.items.blueprints.sets.bone.BoneLeggings;
 import xyz.devvydont.smprpg.items.blueprints.sets.bronze.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.cobblestone.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.copper.*;
-import xyz.devvydont.smprpg.items.blueprints.sets.diamond.DiamondBow;
-import xyz.devvydont.smprpg.items.blueprints.sets.diamond.DiamondHatchet;
 import xyz.devvydont.smprpg.items.blueprints.sets.dragonsteel.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.elderflame.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.emberclad.*;
@@ -155,7 +180,6 @@ import xyz.devvydont.smprpg.items.blueprints.sets.valiant.ValiantLeggings;
 import xyz.devvydont.smprpg.items.blueprints.sets.wood.WoodHatchet;
 import xyz.devvydont.smprpg.items.blueprints.storage.*;
 import xyz.devvydont.smprpg.items.interfaces.ICustomTextured;
-import xyz.devvydont.smprpg.items.tools.ItemDrill;
 
 public enum CustomItemType {
 
@@ -168,6 +192,12 @@ public enum CustomItemType {
 //    AMETHYST_COIN( "Amethyst Coin",  Material.FIREWORK_STAR, ItemRarity.MYTHIC,       CustomItemCoin.class),       // 100k coins
     ENCHANTED_COIN("Enchanted Coin", Material.FIREWORK_STAR, ItemRarity.LEGENDARY, true, CustomItemCoin.class), // 100M coins
 
+    SMALL_COIN_PURSE("Small Coin Purse", Material.LEATHER, ItemRarity.COMMON, WalletBlueprint.class),
+    MEDIUM_COIN_PURSE("Medium Coin Purse", Material.LEATHER, ItemRarity.UNCOMMON, WalletBlueprint.class),
+    LARGE_COIN_PURSE("Large Coin Purse", Material.LEATHER, ItemRarity.RARE, WalletBlueprint.class),
+    GIGANTIC_COIN_PURSE("Gigantic Coin Purse", Material.LEATHER, ItemRarity.EPIC, WalletBlueprint.class),
+    COLOSSAL_COIN_PURSE("Colossal Coin Purse", Material.LEATHER, ItemRarity.LEGENDARY, WalletBlueprint.class),
+
     // NEO_FRONTIER SET
     NEO_FRONTIER_HELMET("Neo Frontier Helmet",         Material.IRON_HELMET,        NeoFrontierHelmet.class),
     NEO_FRONTIER_CHESTPLATE("Neo Frontier Chestplate", Material.LEATHER_CHESTPLATE, NeoFrontierChestplate.class),
@@ -175,31 +205,34 @@ public enum CustomItemType {
     NEO_FRONTIER_BOOTS("Neo Frontier Boots",           Material.LEATHER_BOOTS,      NeoFrontierBoots.class),
 
     // DYNAMIC TOOLS
-    DRILL("Mining Drill", Material.PRISMARINE_SHARD, ItemDrill.class),
-    SMALL_FUEL_TANK("Small Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.COMMON,    SmallFuelTank.class),
-    MEDIUM_FUEL_TANK("Medium Fuel Tank", Material.PRISMARINE_SHARD,   ItemRarity.UNCOMMON,  MediumFuelTank.class),
-    LARGE_FUEL_TANK("Large Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.RARE,      LargeFuelTank.class),
+    // DRILL("Mining Drill", Material.PRISMARINE_SHARD, ItemDrill.class),
+    // SMALL_FUEL_TANK("Small Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.COMMON,    SmallFuelTank.class),
+    // MEDIUM_FUEL_TANK("Medium Fuel Tank", Material.PRISMARINE_SHARD,   ItemRarity.UNCOMMON,  MediumFuelTank.class),
+    // LARGE_FUEL_TANK("Large Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.RARE,      LargeFuelTank.class),
+
+    // AUGMENT STONES
+    COMMON_REPAIR_CORE("Common Repair Core", Material.HEAVY_CORE, ItemRarity.COMMON, RepairCore.class),
+    UNCOMMON_REPAIR_CORE("Uncommon Repair Core", Material.HEAVY_CORE, ItemRarity.UNCOMMON, RepairCore.class),
+    RARE_REPAIR_CORE("Rare Repair Core", Material.HEAVY_CORE, ItemRarity.RARE, RepairCore.class),
+    EPIC_REPAIR_CORE("Epic Repair Core", Material.HEAVY_CORE, ItemRarity.EPIC, RepairCore.class),
+    LEGENDARY_REPAIR_CORE("Legendary Repair Core", Material.HEAVY_CORE, ItemRarity.LEGENDARY, RepairCore.class),
 
     // COPPER SET
-    COPPER_PICKAXE("Copper Pickaxe",  Material.WOODEN_PICKAXE, CopperPickaxe.class),
-    COPPER_AXE(    "Copper Axe",      Material.WOODEN_AXE,     CopperAxe.class),
-    COPPER_HOE(    "Copper Hoe",      Material.WOODEN_HOE,     CopperHoe.class),
-    COPPER_SHOVEL( "Copper Shovel",   Material.WOODEN_SHOVEL,  CopperShovel.class),
-    COPPER_SWORD(  "Copper Sword",    Material.WOODEN_SWORD,   CopperSword.class),
     COPPER_BOW(    "Copper Bow",      Material.BOW,            CopperBow.class),
 
-    COPPER_HELMET(    "Copper Helmet",     Material.LEATHER_HELMET,     CopperHelmet.class),
-    COPPER_CHESTPLATE("Copper Chestplate", Material.LEATHER_CHESTPLATE, CopperChestplate.class),
-    COPPER_LEGGINGS(  "Copper Leggings",   Material.LEATHER_LEGGINGS,   CopperLeggings.class),
-    COPPER_BOOTS(     "Copper Boots",      Material.LEATHER_BOOTS,      CopperBoots.class),
-
     // SILVER SET
-    RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, false, 15),
-    SILVER_INGOT("Silver Ingot",                 Material.IRON_INGOT,     ItemRarity.COMMON, SilverIngot.class),
-    SILVER_ORE("Silver Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, SilverOre.class),
-    DEEPSLATE_SILVER_ORE("Deepslate Silver Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, DeepslateSilverOre.class),
-    RAW_SILVER_BLOCK("Block of Raw Silver",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, RawSilverBlock.class),
-    SILVER_BLOCK("Block of Silver",              Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, SilverBlock.class),
+    RAW_SILVER("Raw Silver",                     Material.RAW_IRON,       ItemRarity.COMMON, RawSilver.class),
+    SILVER_ORE("Silver Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, CraftEngineBlueprint.class),
+    DEEPSLATE_SILVER_ORE("Deepslate Silver Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, CraftEngineBlueprint.class),
+    RAW_SILVER_BLOCK("Block of Raw Silver",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, RawSilverFamilyBlueprint.class),
+    ENCHANTED_RAW_SILVER("Enchanted Raw Silver",      Material.RAW_IRON,        ItemRarity.RARE, true, RawSilverFamilyBlueprint.class),
+
+    SILVER_NUGGET("Silver Nugget",                        Material.IRON_NUGGET,       ItemRarity.COMMON,    CraftEngineBlueprint.class),
+    SILVER_INGOT("Silver Ingot",                          Material.IRON_INGOT,        ItemRarity.COMMON,    SilverIngot.class),
+    SILVER_BLOCK("Block of Silver",                       Material.NETHER_BRICK,      ItemRarity.UNCOMMON,  SilverFamilyBlueprint.class),
+    ENCHANTED_SILVER("Enchanted Silver",                  Material.IRON_INGOT,        ItemRarity.RARE,      true, SilverFamilyBlueprint.class),
+    ENCHANTED_SILVER_BLOCK("Enchanted Block of Silver",   Material.NETHER_BRICK,      ItemRarity.EPIC,      true, SilverFamilyBlueprint.class),
+    SILVER_SINGULARITY("Silver Singularity",              Material.IRON_INGOT,        ItemRarity.LEGENDARY, true, SilverFamilyBlueprint.class),
 
     SILVER_PICKAXE("Silver Pickaxe",  Material.IRON_PICKAXE, SilverPickaxe.class),
     SILVER_AXE(    "Silver Axe",      Material.IRON_AXE,     SilverAxe.class),
@@ -208,6 +241,7 @@ public enum CustomItemType {
     SILVER_SWORD(  "Silver Sword",    Material.IRON_SWORD,   SilverSword.class),
     SILVER_HATCHET("Silver Hatchet",  Material.IRON_AXE,      ItemRarity.COMMON,   SilverHatchet.class),
     SILVER_BOW(    "Silver Bow",      Material.BOW,            SilverBow.class),
+    SILVER_SPEAR(     "Silver Spear",    Material.IRON_SPEAR,   ItemRarity.COMMON,   SilverSpear.class),
 
     SILVER_HELMET(    "Silver Helmet",     Material.IRON_HELMET,     SilverHelmet.class),
     SILVER_CHESTPLATE("Silver Chestplate", Material.IRON_CHESTPLATE, SilverChestplate.class),
@@ -215,20 +249,26 @@ public enum CustomItemType {
     SILVER_BOOTS(     "Silver Boots",      Material.IRON_BOOTS,      SilverBoots.class),
 
     // TIN SET
-    RAW_TIN("Raw Tin",                     Material.RAW_IRON,       ItemRarity.COMMON, false, 5),
+    RAW_TIN("Raw Tin",                      Material.RAW_IRON,         ItemRarity.COMMON, false, 5, "materials"),
+    TIN_ORE("Tin Ore",                      Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    DEEPSLATE_TIN_ORE("Deepslate Tin Ore",  Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    RAW_TIN_BLOCK("Block of Raw Tin",       Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineCompressibleBlueprint.class),
+    ENCHANTED_RAW_TIN("Enchanted Raw Tin",  Material.RAW_IRON,         ItemRarity.RARE,   true, RawTinFamilyBlueprint.class),
+
     TIN_INGOT("Tin Ingot",                 Material.IRON_INGOT,     ItemRarity.COMMON, TinIngot.class),
-    TIN_ORE("Tin Ore",                     Material.POISONOUS_POTATO,        ItemRarity.COMMON, TinOre.class),
-    DEEPSLATE_TIN_ORE("Deepslate Tin Ore", Material.POISONOUS_POTATO,        ItemRarity.COMMON, DeepslateTinOre.class),
-    RAW_TIN_BLOCK("Block of Raw Tin",      Material.POISONOUS_POTATO,        ItemRarity.COMMON, RawTinBlock.class),
-    TIN_BLOCK("Block of Tin",              Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, TinBlock.class),
+    TIN_BLOCK("Block of Tin",              Material.NETHER_BRICK,        ItemRarity.UNCOMMON, CraftEngineCompressibleBlueprint.class),
+    ENCHANTED_TIN("Enchanted Tin",                  Material.IRON_INGOT,        ItemRarity.RARE,      true, TinFamilyBlueprint.class),
+    ENCHANTED_TIN_BLOCK("Enchanted Block of Tin",   Material.POISONOUS_POTATO,  ItemRarity.EPIC,      true, TinFamilyBlueprint.class),
+    TIN_SINGULARITY("Tin Singularity",              Material.IRON_INGOT,        ItemRarity.LEGENDARY, true, TinFamilyBlueprint.class),
 
     TIN_PICKAXE("Tin Pickaxe",  Material.IRON_PICKAXE, TinPickaxe.class),
     TIN_AXE(    "Tin Axe",      Material.IRON_AXE,     TinAxe.class),
     TIN_HOE(    "Tin Hoe",      Material.IRON_HOE,     TinHoe.class),
     TIN_SHOVEL( "Tin Shovel",   Material.IRON_SHOVEL,  TinShovel.class),
     TIN_SWORD(  "Tin Sword",    Material.IRON_SWORD,   TinSword.class),
-    TIN_HATCHET("Tin Hatchet",  Material.IRON_AXE,      ItemRarity.COMMON,   TinHatchet.class),
-    TIN_BOW(    "Tin Bow",      Material.BOW,            TinBow.class),
+    TIN_HATCHET("Tin Hatchet",  Material.IRON_AXE,     ItemRarity.COMMON,   TinHatchet.class),
+    TIN_BOW(    "Tin Bow",      Material.BOW,          TinBow.class),
+    TIN_SPEAR(  "Tin Spear",    Material.IRON_SPEAR,   ItemRarity.COMMON,   TinSpear.class),
 
     TIN_HELMET(    "Tin Helmet",     Material.IRON_HELMET,     TinHelmet.class),
     TIN_CHESTPLATE("Tin Chestplate", Material.IRON_CHESTPLATE, TinChestplate.class),
@@ -237,7 +277,7 @@ public enum CustomItemType {
 
     // BRONZE SET
     BRONZE_INGOT("Bronze Ingot",                 Material.COPPER_INGOT,   ItemRarity.COMMON,   BronzeIngot.class),
-    BRONZE_BLOCK("Block of Bronze",              Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, BronzeBlock.class),
+    BRONZE_BLOCK("Block of Bronze",              Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
 
     BRONZE_PICKAXE("Bronze Pickaxe",  Material.WOODEN_PICKAXE, BronzePickaxe.class),
     BRONZE_AXE(    "Bronze Axe",      Material.WOODEN_AXE,     BronzeAxe.class),
@@ -246,6 +286,7 @@ public enum CustomItemType {
     BRONZE_SWORD(  "Bronze Sword",    Material.WOODEN_SWORD,   BronzeSword.class),
     BRONZE_HATCHET("Bronze Hatchet",  Material.WOODEN_AXE,      ItemRarity.COMMON,   BronzeHatchet.class),
     BRONZE_BOW(    "Bronze Bow",      Material.BOW,            BronzeBow.class),
+    BRONZE_SPEAR(  "Bronze Spear",    Material.IRON_SPEAR,   ItemRarity.COMMON,   BronzeSpear.class),
 
     BRONZE_HELMET(    "Bronze Helmet",     Material.LEATHER_HELMET,     BronzeHelmet.class),
     BRONZE_CHESTPLATE("Bronze Chestplate", Material.LEATHER_CHESTPLATE, BronzeChestplate.class),
@@ -254,11 +295,14 @@ public enum CustomItemType {
 
     // STEEL SET
     STEEL_INGOT("Steel Ingot", Material.IRON_INGOT, ItemRarity.UNCOMMON, SteelIngot.class),
-    STEEL_BLOCK(     "Block of Steel",      Material.POISONOUS_POTATO,     ItemRarity.RARE, SteelBlock.class),
-    STEEL_TOOL_SHAFT("Steel Tool Shaft", Material.STICK, ItemRarity.UNCOMMON, SteelToolShaft.class),
+    STEEL_BLOCK(     "Block of Steel",      Material.POISONOUS_POTATO,     ItemRarity.RARE, CraftEngineCompressibleBlueprint.class),
+    ENCHANTED_STEEL("Enchanted Steel", Material.IRON_INGOT, ItemRarity.EPIC, true, SteelFamilyBlueprint.class),
+    ENCHANTED_STEEL_BLOCK("Enchanted Steel Block", Material.POISONOUS_POTATO, ItemRarity.LEGENDARY, true, SteelFamilyBlueprint.class),
+    STEEL_SINGULARITY("Steel Singularity", Material.IRON_INGOT, ItemRarity.MYTHIC, true, SteelFamilyBlueprint.class),
 
-    STEEL_DRILL_HEAD("Steel Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillHead.class),
-    STEEL_DRILL_BASE("Steel Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillBase.class),
+    STEEL_TOOL_SHAFT("Steel Tool Shaft", Material.STICK, ItemRarity.UNCOMMON, SteelToolShaft.class),
+    // STEEL_DRILL_HEAD("Steel Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillHead.class),
+    // STEEL_DRILL_BASE("Steel Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, SteelDrillBase.class),
 
     STEEL_PICKAXE("Steel Pickaxe",      Material.IRON_PICKAXE,      ItemRarity.UNCOMMON,   SteelPickaxe.class),
     STEEL_AXE("Steel Axe",              Material.IRON_AXE,          ItemRarity.UNCOMMON,   SteelAxe.class),
@@ -266,6 +310,8 @@ public enum CustomItemType {
     STEEL_SWORD("Steel Sword",          Material.IRON_SWORD,        ItemRarity.UNCOMMON,   SteelSword.class),
     STEEL_HOE("Steel Hoe",              Material.IRON_HOE,          ItemRarity.UNCOMMON,   SteelHoe.class),
     STEEL_SHOVEL("Steel Shovel",        Material.IRON_SHOVEL,       ItemRarity.UNCOMMON,   SteelShovel.class),
+    STEEL_BOW(  "Steel Bow",            Material.BOW,               ItemRarity.UNCOMMON,   SteelBow.class),
+    STEEL_SPEAR(  "Steel Spear",        Material.IRON_SPEAR,        ItemRarity.UNCOMMON,   SteelSpear.class),
 
     STEEL_HELMET(    "Steel Helmet",     Material.IRON_HELMET,     SteelHelmet.class),
     STEEL_CHESTPLATE("Steel Chestplate", Material.IRON_CHESTPLATE, SteelChestplate.class),
@@ -274,45 +320,50 @@ public enum CustomItemType {
 
     // ROSE GOLD SET
     ROSE_GOLD_INGOT("Rose Gold Ingot",                 Material.IRON_INGOT,     ItemRarity.UNCOMMON,   RoseGoldIngot.class),
-    ROSE_GOLD_BLOCK("Block of Rose Gold",              Material.POISONOUS_POTATO,        ItemRarity.RARE, RoseGoldBlock.class),
+    ROSE_GOLD_BLOCK("Block of Rose Gold",              Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineBlueprint.class),
 
-    ROSE_GOLD_DRILL_HEAD("Rose Gold Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, RoseGoldDrillHead.class),
-    ROSE_GOLD_DRILL_BASE("Rose Gold Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, RoseGoldDrillBase.class),
+    // ROSE_GOLD_DRILL_HEAD("Rose Gold Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, RoseGoldDrillHead.class),
+    // ROSE_GOLD_DRILL_BASE("Rose Gold Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, RoseGoldDrillBase.class),
 
     ROSE_GOLD_PICKAXE("Rose Gold Pickaxe",  Material.GOLDEN_PICKAXE, ItemRarity.UNCOMMON, RoseGoldPickaxe.class),
     ROSE_GOLD_AXE(    "Rose Gold Axe",      Material.GOLDEN_AXE,     ItemRarity.UNCOMMON, RoseGoldAxe.class),
     ROSE_GOLD_HOE(    "Rose Gold Hoe",      Material.GOLDEN_HOE,     ItemRarity.UNCOMMON, RoseGoldHoe.class),
     ROSE_GOLD_SHOVEL( "Rose Gold Shovel",   Material.GOLDEN_SHOVEL,  ItemRarity.UNCOMMON, RoseGoldShovel.class),
     ROSE_GOLD_SWORD(  "Rose Gold Sword",    Material.GOLDEN_SWORD,   ItemRarity.UNCOMMON, RoseGoldSword.class),
-    ROSE_GOLD_HATCHET("Rose Gold Hatchet",  Material.GOLDEN_AXE,     ItemRarity.UNCOMMON,   RoseGoldHatchet.class),
+    ROSE_GOLD_HATCHET("Rose Gold Hatchet",  Material.GOLDEN_AXE,     ItemRarity.UNCOMMON, RoseGoldHatchet.class),
     ROSE_GOLD_BOW(    "Rose Gold Bow",      Material.BOW,            ItemRarity.UNCOMMON, RoseGoldBow.class),
+    ROSE_GOLD_SPEAR(    "Rose Gold Spear",    Material.IRON_SPEAR,     ItemRarity.UNCOMMON, RoseGoldSpear.class),
 
     ROSE_GOLD_HELMET(    "Rose Gold Helmet",     Material.GOLDEN_HELMET,     ItemRarity.UNCOMMON, RoseGoldHelmet.class),
     ROSE_GOLD_CHESTPLATE("Rose Gold Chestplate", Material.GOLDEN_CHESTPLATE, ItemRarity.UNCOMMON,RoseGoldChestplate.class),
     ROSE_GOLD_LEGGINGS(  "Rose Gold Leggings",   Material.GOLDEN_LEGGINGS,   ItemRarity.UNCOMMON, RoseGoldLeggings.class),
     ROSE_GOLD_BOOTS(     "Rose Gold Boots",      Material.GOLDEN_BOOTS,      ItemRarity.UNCOMMON, RoseGoldBoots.class),
 
-    DRAGONSTEEL_BLOCK(     "Block of Dragonsteel",      Material.POISONOUS_POTATO,     ItemRarity.LEGENDARY, DragonsteelBlock.class),
-
     // MITHRIL SET
-    RAW_MITHRIL("Raw Mithril",                     Material.RAW_IRON,     ItemRarity.UNCOMMON,   false, 75),
-    MITHRIL_INGOT("Mithril Ingot",                 Material.IRON_INGOT,     ItemRarity.UNCOMMON,   MithrilIngot.class),
-    SPARSE_MITHRIL_ORE("Sparse Mithril Ore",       Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, SparseMithrilOre.class),
-    MITHRIL_ORE("Mithril Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, MithrilOre.class),
-    DENSE_MITHRIL_ORE("Dense Mithril Ore",         Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, DenseMithrilOre.class),
-    RAW_MITHRIL_BLOCK("Block of Raw Mithril",      Material.POISONOUS_POTATO,        ItemRarity.RARE, RawMithrilBlock.class),
-    MITHRIL_BLOCK("Block of Mithril",              Material.POISONOUS_POTATO,        ItemRarity.RARE, MithrilBlock.class),
+    RAW_MITHRIL("Raw Mithril",                     Material.RAW_IRON,     ItemRarity.UNCOMMON,   false, 75, "materials"),
+    SPARSE_MITHRIL_ORE("Sparse Mithril Ore",       Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    MITHRIL_ORE("Mithril Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    DENSE_MITHRIL_ORE("Dense Mithril Ore",         Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    RAW_MITHRIL_BLOCK("Block of Raw Mithril",      Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineBlueprint.class),
 
-    MITHRIL_DRILL_HEAD("Mithril Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillHead.class),
-    MITHRIL_DRILL_BASE("Mithril Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillBase.class),
+    MITHRIL_INGOT("Mithril Ingot",                 Material.IRON_INGOT,     ItemRarity.UNCOMMON,   MithrilIngot.class),
+    MITHRIL_BLOCK("Block of Mithril",              Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineCompressibleBlueprint.class),
+    ENCHANTED_MITHRIL("Enchanted Mithril",                  Material.IRON_INGOT,        ItemRarity.EPIC,      true, MithrilFamilyBlueprint.class),
+    ENCHANTED_MITHRIL_BLOCK("Enchanted Block of Mithril",   Material.POISONOUS_POTATO,  ItemRarity.LEGENDARY,      true, MithrilFamilyBlueprint.class),
+    MITHRIL_SINGULARITY("Mithril Singularity",              Material.IRON_INGOT,        ItemRarity.MYTHIC, true, MithrilFamilyBlueprint.class),
+
+    // MITHRIL_DRILL_HEAD("Mithril Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillHead.class),
+    // MITHRIL_DRILL_BASE("Mithril Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, MithrilDrillBase.class),
 
     MITHRIL_PICKAXE("Mithril Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.UNCOMMON, MithrilPickaxe.class),
     MITHRIL_AXE(    "Mithril Axe",      Material.DIAMOND_AXE,     ItemRarity.UNCOMMON, MithrilAxe.class),
     MITHRIL_HOE(    "Mithril Hoe",      Material.DIAMOND_HOE,     ItemRarity.UNCOMMON, MithrilHoe.class),
     MITHRIL_SHOVEL( "Mithril Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.UNCOMMON, MithrilShovel.class),
     MITHRIL_SWORD(  "Mithril Sword",    Material.DIAMOND_SWORD,   ItemRarity.UNCOMMON, MithrilSword.class),
-    MITHRIL_HATCHET("Mithril Hatchet",  Material.DIAMOND_AXE,     ItemRarity.UNCOMMON,   MithrilHatchet.class),
+    MITHRIL_HATCHET("Mithril Hatchet",  Material.DIAMOND_AXE,     ItemRarity.UNCOMMON, MithrilHatchet.class),
     MITHRIL_BOW(    "Mithril Bow",      Material.BOW,             ItemRarity.UNCOMMON, MithrilBow.class),
+    MITHRIL_SPEAR(    "Mithril Spear",    Material.IRON_SPEAR,     ItemRarity.UNCOMMON, MithrilSpear.class),
+    MITHRIL_STAFF(    "Mithril Staff",  Material.STICK,           ItemRarity.RARE,     MithrilStaff.class),
 
     MITHRIL_HELMET(    "Mithril Helmet",     Material.DIAMOND_HELMET,     ItemRarity.UNCOMMON, MithrilHelmet.class),
     MITHRIL_CHESTPLATE("Mithril Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.UNCOMMON,MithrilChestplate.class),
@@ -320,14 +371,19 @@ public enum CustomItemType {
     MITHRIL_BOOTS(     "Mithril Boots",      Material.DIAMOND_BOOTS,      ItemRarity.UNCOMMON, MithrilBoots.class),
 
     // TITANIUM SET
-    RAW_TITANIUM("Raw Titanium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300),
-    TITANIUM_INGOT("Titanium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   TitaniumIngot.class),
-    TITANIUM_ORE("Titanium Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, TitaniumOre.class),
-    RAW_TITANIUM_BLOCK("Block of Raw Titanium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, RawTitaniumBlock.class),
-    TITANIUM_BLOCK("Block of Titanium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, TitaniumBlock.class),
+    RAW_TITANIUM("Raw Titanium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300, "materials"),
+    TITANIUM_ORE("Titanium Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineBlueprint.class),
+    RAW_TITANIUM_BLOCK("Block of Raw Titanium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, CraftEngineCompressibleBlueprint.class),
+    ENCHANTED_RAW_TITANIUM("Enchanted Raw Titanium",           Material.RAW_IRON,     ItemRarity.LEGENDARY,   false, RawTitaniumFamilyBlueprint.class),
 
-    TITANIUM_DRILL_HEAD("Titanium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillHead.class),
-    TITANIUM_DRILL_BASE("Titanium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillBase.class),
+    TITANIUM_INGOT("Titanium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   TitaniumIngot.class),
+    TITANIUM_BLOCK("Block of Titanium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, TitaniumFamilyBlueprint.class),
+    ENCHANTED_TITANIUM("Enchanted Titanium",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, TitaniumFamilyBlueprint.class),
+    ENCHANTED_TITANIUM_BLOCK("Enchanted Block of Titanium",   Material.POISONOUS_POTATO,  ItemRarity.MYTHIC,      true, TitaniumFamilyBlueprint.class),
+    TITANIUM_SINGULARITY("Titanium Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, TitaniumFamilyBlueprint.class),
+
+    // TITANIUM_DRILL_HEAD("Titanium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillHead.class),
+    // TITANIUM_DRILL_BASE("Titanium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.RARE, TitaniumDrillBase.class),
 
     TITANIUM_PICKAXE("Titanium Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, TitaniumPickaxe.class),
     TITANIUM_AXE(    "Titanium Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, TitaniumAxe.class),
@@ -336,6 +392,7 @@ public enum CustomItemType {
     TITANIUM_SWORD(  "Titanium Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, TitaniumSword.class),
     TITANIUM_HATCHET("Titanium Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE,   TitaniumHatchet.class),
     TITANIUM_BOW(    "Titanium Bow",      Material.BOW,             ItemRarity.RARE, TitaniumBow.class),
+    TITANIUM_SPEAR(  "Titanium Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, TitaniumSpear.class),
 
     TITANIUM_HELMET(    "Titanium Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, TitaniumHelmet.class),
     TITANIUM_CHESTPLATE("Titanium Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE,TitaniumChestplate.class),
@@ -343,14 +400,18 @@ public enum CustomItemType {
     TITANIUM_BOOTS(     "Titanium Boots",      Material.DIAMOND_BOOTS,      ItemRarity.RARE, TitaniumBoots.class),
 
     // ADAMANTIUM SET
-    RAW_ADAMANTIUM("Raw Adamantium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300),
-    ADAMANTIUM_INGOT("Adamantium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   AdamantiumIngot.class),
-    ADAMANTIUM_ORE("Adamantium Ore",                     Material.POISONOUS_POTATO,        ItemRarity.RARE, AdamantiumOre.class),
-    RAW_ADAMANTIUM_BLOCK("Block of Raw Adamantium",      Material.POISONOUS_POTATO,        ItemRarity.EPIC, RawAdamantiumBlock.class),
-    ADAMANTIUM_BLOCK("Block of Adamantium",              Material.POISONOUS_POTATO,        ItemRarity.EPIC, AdamantiumBlock.class),
+    RAW_ADAMANTIUM("Raw Adamantium",                     Material.RAW_IRON,     ItemRarity.RARE,   false, 300, "materials"),
+    ADAMANTIUM_ORE("Adamantium Ore",                     Material.NETHER_BRICK,        ItemRarity.RARE, CraftEngineBlueprint.class),
+    RAW_ADAMANTIUM_BLOCK("Block of Raw Adamantium",      Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineBlueprint.class),
 
-    ADAMANTIUM_DRILL_HEAD("Adamantium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillHead.class),
-    ADAMANTIUM_DRILL_BASE("Adamantium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillBase.class),
+    ADAMANTIUM_INGOT("Adamantium Ingot",                 Material.IRON_INGOT,     ItemRarity.RARE,   AdamantiumIngot.class),
+    ADAMANTIUM_BLOCK("Block of Adamantium",              Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineCompressibleBlueprint.class),
+    ENCHANTED_ADAMANTIUM("Enchanted Adamantium",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, AdamantiumFamilyBlueprint.class),
+    ENCHANTED_ADAMANTIUM_BLOCK("Enchanted Block of Adamantium",   Material.NETHER_BRICK,  ItemRarity.MYTHIC,      true, AdamantiumFamilyBlueprint.class),
+    ADAMANTIUM_SINGULARITY("Adamantium Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, AdamantiumFamilyBlueprint.class),
+
+    // ADAMANTIUM_DRILL_HEAD("Adamantium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillHead.class),
+    // ADAMANTIUM_DRILL_BASE("Adamantium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.RARE, AdamantiumDrillBase.class),
 
     ADAMANTIUM_PICKAXE("Adamantium Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, AdamantiumPickaxe.class),
     ADAMANTIUM_AXE(    "Adamantium Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, AdamantiumAxe.class),
@@ -359,37 +420,120 @@ public enum CustomItemType {
     ADAMANTIUM_SWORD(  "Adamantium Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, AdamantiumSword.class),
     ADAMANTIUM_HATCHET("Adamantium Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE,   AdamantiumHatchet.class),
     ADAMANTIUM_BOW(    "Adamantium Bow",      Material.BOW,             ItemRarity.RARE, AdamantiumBow.class),
+    ADAMANTIUM_SPEAR(  "Adamantium Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, AdamantiumSpear.class),
 
     ADAMANTIUM_HELMET(    "Adamantium Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, AdamantiumHelmet.class),
-    ADAMANTIUM_CHESTPLATE("Adamantium Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE,AdamantiumChestplate.class),
+    ADAMANTIUM_CHESTPLATE("Adamantium Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE, AdamantiumChestplate.class),
     ADAMANTIUM_LEGGINGS(  "Adamantium Leggings",   Material.DIAMOND_LEGGINGS,   ItemRarity.RARE, AdamantiumLeggings.class),
     ADAMANTIUM_BOOTS(     "Adamantium Boots",      Material.DIAMOND_BOOTS,      ItemRarity.RARE, AdamantiumBoots.class),
 
     // SULFUR
-    SULFUR_ORE("Sulfur Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, SulfurOre.class),
-    //SULFUR_BLOCK("Block of Sulfur",              Material.POISONOUS_POTATO,        ItemRarity.RARE, SulfurOre.class),
-    SULFUR(    "Sulfur",                         Material.GUNPOWDER,               ItemRarity.UNCOMMON, false, 20),
+    SULFUR_ORE("Sulfur Ore",                     Material.NETHER_BRICK,        ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    SULFUR_TREATED_TOOL_SHAFT(    "Sulfur Treated Shaft",      Material.STICK,     ItemRarity.UNCOMMON, SulfurToolShaft.class),
+
+    SULFUR(    "Sulfur",                         Material.GUNPOWDER,               ItemRarity.UNCOMMON, false, 20, "materials"),
+    SULFUR_BLOCK("Block of Sulfur",              Material.NETHER_BRICK,        ItemRarity.RARE, CraftEngineCompressibleBlueprint.class),
+    ENCHANTED_SULFUR("Enchanted Sulfur",                  Material.GUNPOWDER,        ItemRarity.EPIC,      true, SulfurFamilyBlueprint.class),
+    ENCHANTED_SULFUR_BLOCK("Enchanted Block of Sulfur",   Material.POISONOUS_POTATO,  ItemRarity.LEGENDARY,      true, SulfurFamilyBlueprint.class),
+    SULFUR_SINGULARITY("Sulfur Singularity",              Material.GUNPOWDER,        ItemRarity.MYTHIC, true, SulfurFamilyBlueprint.class),
 
     // ONYX
-    ONYX_ORE("Onyx Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, OnyxOre.class),
-    //ONYX_BLOCK("Block of Onyx",              Material.POISONOUS_POTATO,        ItemRarity.RARE, SulfurOre.class),
-    ONYX(    "Onyx",     Material.COAL,     ItemRarity.RARE, false, 20),
+    ONYX(    "Onyx",     Material.COAL,      ItemRarity.RARE, false, 500, "materials"),
+    ONYX_ORE("Onyx Ore",                     Material.NETHER_BRICK,        ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    ONYX_BLOCK("Block of Onyx",              Material.NETHER_BRICK,        ItemRarity.RARE, CraftEngineBlueprint.class),
 
     // TUNGSTEN SET
-    TUNGSTEN_ORE("Tungsten Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, TungstenOre.class),
-    RAW_TUNGSTEN("Raw Tungsten",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 40),
-    //TUNGSTEN_INGOT("Tungsten Ore",                   Material.IRON_INGOT,              ItemRarity.UNCOMMON, false, 60),
+    RAW_TUNGSTEN("Raw Tungsten",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 40, "materials"),
+    TUNGSTEN_ORE("Tungsten Ore",                     Material.NETHER_BRICK,        ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    RAW_TUNGSTEN_BLOCK("Block of Raw Tungsten",      Material.NETHER_BRICK,        ItemRarity.RARE, CraftEngineBlueprint.class),
+
+    TUNGSTEN_INGOT("Tungsten Ingot",                 Material.IRON_INGOT,              ItemRarity.UNCOMMON, TungstenIngot.class),
+    TUNGSTEN_BLOCK("Block of Tungsten",              Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineCompressibleBlueprint.class),
+    ENCHANTED_TUNGSTEN("Enchanted Tungsten",                  Material.IRON_INGOT,        ItemRarity.EPIC,      true, TungstenFamilyBlueprint.class),
+    ENCHANTED_TUNGSTEN_BLOCK("Enchanted Block of Tungsten",   Material.NETHER_BRICK,  ItemRarity.LEGENDARY,      true, TungstenFamilyBlueprint.class),
+    TUNGSTEN_SINGULARITY("Tungsten Singularity",              Material.IRON_INGOT,        ItemRarity.MYTHIC, true, TungstenFamilyBlueprint.class),
+
+    // TUNGSTEN_DRILL_HEAD("Tungsten Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, AdamantiumDrillHead.class),
+    // TUNGSTEN_DRILL_BASE("Tungsten Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, AdamantiumDrillBase.class),
+
+    TUNGSTEN_PICKAXE("Tungsten Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.UNCOMMON, TungstenPickaxe.class),
+    TUNGSTEN_AXE(    "Tungsten Axe",      Material.DIAMOND_AXE,     ItemRarity.UNCOMMON, TungstenAxe.class),
+    TUNGSTEN_HOE(    "Tungsten Hoe",      Material.DIAMOND_HOE,     ItemRarity.UNCOMMON, TungstenHoe.class),
+    TUNGSTEN_SHOVEL( "Tungsten Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.UNCOMMON, TungstenShovel.class),
+    TUNGSTEN_SWORD(  "Tungsten Sword",    Material.DIAMOND_SWORD,   ItemRarity.UNCOMMON, TungstenSword.class),
+    TUNGSTEN_HATCHET("Tungsten Hatchet",  Material.DIAMOND_AXE,     ItemRarity.UNCOMMON, TungstenHatchet.class),
+    TUNGSTEN_BOW(    "Tungsten Bow",      Material.BOW,             ItemRarity.UNCOMMON, TungstenBow.class),
+    TUNGSTEN_SPEAR(  "Tungsten Spear",    Material.IRON_SPEAR,      ItemRarity.UNCOMMON, TungstenSpear.class),
+
+    TUNGSTEN_HELMET(    "Tungsten Helmet",     Material.DIAMOND_HELMET,     ItemRarity.UNCOMMON, TungstenHelmet.class),
+    TUNGSTEN_CHESTPLATE("Tungsten Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.UNCOMMON, TungstenChestplate.class),
+    TUNGSTEN_LEGGINGS(  "Tungsten Leggings",   Material.DIAMOND_LEGGINGS,   ItemRarity.UNCOMMON, TungstenLeggings.class),
+    TUNGSTEN_BOOTS(     "Tungsten Boots",      Material.DIAMOND_BOOTS,      ItemRarity.UNCOMMON, TungstenBoots.class),
 
     // COBALT SET
-    COBALT_ORE("Cobalt Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, CobaltOre.class),
-    RAW_COBALT("Raw Cobalt",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 200),
+    RAW_COBALT("Raw Cobalt",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 100, "materials"),
+    COBALT_ORE("Cobalt Ore",                     Material.NETHER_BRICK,        ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    RAW_COBALT_BLOCK("Block of Raw Cobalt",      Material.NETHER_BRICK,        ItemRarity.RARE, CraftEngineBlueprint.class),
+
+    COBALT_INGOT("Cobalt Ingot",                 Material.IRON_INGOT,              ItemRarity.RARE, CobaltIngot.class),
+    COBALT_BLOCK("Block of Cobalt",              Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineCompressibleBlueprint.class),
+    ENCHANTED_COBALT("Enchanted Cobalt",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, CobaltFamilyBlueprint.class),
+    ENCHANTED_COBALT_BLOCK("Enchanted Block of Cobalt",   Material.POISONOUS_POTATO,  ItemRarity.MYTHIC,      true, CobaltFamilyBlueprint.class),
+    COBALT_SINGULARITY("Cobalt Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, CobaltFamilyBlueprint.class),
+
+    // COBALT_DRILL_HEAD("Cobalt Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, CobaltDrillHead.class),
+    // COBALT_DRILL_BASE("Cobalt Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, CobaltDrillBASE.class),
+
+    COBALT_PICKAXE("Cobalt Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, CobaltPickaxe.class),
+    COBALT_AXE(    "Cobalt Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, CobaltAxe.class),
+    COBALT_HOE(    "Cobalt Hoe",      Material.DIAMOND_HOE,     ItemRarity.RARE, CobaltHoe.class),
+    COBALT_SHOVEL( "Cobalt Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.RARE, CobaltShovel.class),
+    COBALT_SWORD(  "Cobalt Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, CobaltSword.class),
+    COBALT_HATCHET("Cobalt Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE, CobaltHatchet.class),
+    COBALT_BOW(    "Cobalt Bow",      Material.BOW,             ItemRarity.RARE, CobaltBow.class),
+    COBALT_SPEAR(  "Cobalt Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, CobaltSpear.class),
+
+    COBALT_HELMET(    "Cobalt Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, CobaltHelmet.class),
+    COBALT_CHESTPLATE("Cobalt Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE, CobaltChestplate.class),
+    COBALT_LEGGINGS(  "Cobalt Leggings",   Material.DIAMOND_LEGGINGS,   ItemRarity.RARE, CobaltLeggings.class),
+    COBALT_BOOTS(     "Cobalt Boots",      Material.DIAMOND_BOOTS,      ItemRarity.RARE, CobaltBoots.class),
 
     // ORICHALCUM SET
-    ORICHALCUM_ORE("Orichalcum Ore",                     Material.POISONOUS_POTATO,        ItemRarity.UNCOMMON, OrichalcumOre.class),
-    RAW_ORICHALCUM("Raw Orichalcum",                     Material.RAW_IRON,                ItemRarity.UNCOMMON, false, 200),
+    RAW_ORICHALCUM("Raw Orichalcum",                     Material.RAW_IRON,                ItemRarity.RARE, false, 100, "materials"),
+    ORICHALCUM_ORE("Orichalcum Ore",                     Material.NETHER_BRICK,        ItemRarity.RARE, CraftEngineBlueprint.class),
+    RAW_ORICHALCUM_BLOCK("Block of Raw Orichalcum",      Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineBlueprint.class),
+
+    ORICHALCUM_INGOT("Orichalcum Ingot",                 Material.IRON_INGOT,              ItemRarity.RARE, OrichalcumIngot.class),
+    ORICHALCUM_BLOCK("Block of Orichalcum",              Material.NETHER_BRICK,        ItemRarity.EPIC, CraftEngineCompressibleBlueprint.class),
+    ENCHANTED_ORICHALCUM("Enchanted Orichalcum",                  Material.IRON_INGOT,        ItemRarity.LEGENDARY,      true, OrichalcumFamilyBlueprint.class),
+    ENCHANTED_ORICHALCUM_BLOCK("Enchanted Block of Orichalcum",   Material.POISONOUS_POTATO,  ItemRarity.MYTHIC,      true, OrichalcumFamilyBlueprint.class),
+    ORICHALCUM_SINGULARITY("Orichalcum Singularity",              Material.IRON_INGOT,        ItemRarity.DIVINE, true, OrichalcumFamilyBlueprint.class),
+
+    // ORICHALCUM_DRILL_HEAD("Orichalcum Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, OrichalcumDrillHead.class),
+    // ORICHALCUM_DRILL_BASE("Orichalcum Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, OrichalcumDrillBase.class),
+
+    ORICHALCUM_PICKAXE("Orichalcum Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, OrichalcumPickaxe.class),
+    ORICHALCUM_AXE(    "Orichalcum Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, OrichalcumAxe.class),
+    ORICHALCUM_HOE(    "Orichalcum Hoe",      Material.DIAMOND_HOE,     ItemRarity.RARE, OrichalcumHoe.class),
+    ORICHALCUM_SHOVEL( "Orichalcum Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.RARE, OrichalcumShovel.class),
+    ORICHALCUM_SWORD(  "Orichalcum Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, OrichalcumSword.class),
+    ORICHALCUM_HATCHET("Orichalcum Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE, OrichalcumHatchet.class),
+    ORICHALCUM_BOW(    "Orichalcum Bow",      Material.BOW,             ItemRarity.RARE, OrichalcumBow.class),
+    ORICHALCUM_SPEAR(  "Orichalcum Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, OrichalcumSpear.class),
+
+    ORICHALCUM_HELMET(    "Orichalcum Helmet",     Material.DIAMOND_HELMET,     ItemRarity.RARE, OrichalcumHelmet.class),
+    ORICHALCUM_CHESTPLATE("Orichalcum Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.RARE, OrichalcumChestplate.class),
+    ORICHALCUM_LEGGINGS(  "Orichalcum Leggings",   Material.DIAMOND_LEGGINGS,   ItemRarity.RARE, OrichalcumLeggings.class),
+    ORICHALCUM_BOOTS(     "Orichalcum Boots",      Material.DIAMOND_BOOTS,      ItemRarity.RARE, OrichalcumBoots.class),
+
+    // WOODEN SET
+    WOODEN_STAFF("Wooden Staff",                     Material.STICK,              ItemRarity.COMMON,   WoodStaff.class),
+
+    // LEATHER SET
+    LEATHER_CONICAL_HAT("Leather Conical Hat", Material.LEATHER_HELMET, ItemRarity.COMMON, LeatherConicalHat.class),
 
     // COBBLESTONE SET
-    COBBLESTONE_HELMET("Cobblestone Helmet",         Material.LEATHER_HELMET,        ItemRarity.UNCOMMON, CobblestoneHelmet.class),
+    COBBLESTONE_HELMET("Cobblestone Helmet",         Material.LEATHER_HELMET,     ItemRarity.UNCOMMON, CobblestoneHelmet.class),
     COBBLESTONE_CHESTPLATE("Cobblestone Chestplate", Material.LEATHER_CHESTPLATE, ItemRarity.UNCOMMON, CobblestoneChestplate.class),
     COBBLESTONE_LEGGINGS("Cobblestone Leggings",     Material.LEATHER_LEGGINGS,   ItemRarity.UNCOMMON, CobblestoneLeggings.class),
     COBBLESTONE_BOOTS("Cobblestone Boots",           Material.LEATHER_BOOTS,      ItemRarity.UNCOMMON, CobblestoneBoots.class),
@@ -413,10 +557,11 @@ public enum CustomItemType {
     BONE_BOOTS(     "Bone Boots",          Material.LEATHER_BOOTS,      BoneBoots.class),
 
     // AMETHYST
-    AMETHYST_HELMET(    "Amethyst Helmet",     Material.IRON_HELMET   ,  ItemRarity.RARE, AmethystHelmet.class),
-    AMETHYST_CHESTPLATE("Amethyst Chestplate", Material.IRON_CHESTPLATE, ItemRarity.RARE, AmethystChestplate.class),
-    AMETHYST_LEGGINGS(  "Amethyst Leggings",   Material.IRON_LEGGINGS,   ItemRarity.RARE, AmethystLeggings.class),
-    AMETHYST_BOOTS(     "Amethyst Boots",      Material.IRON_BOOTS,      ItemRarity.RARE, AmethystBoots.class),
+    AMETHYST_HELMET(    "Amethyst Helmet",     Material.IRON_HELMET   ,  ItemRarity.RARE,     AmethystHelmet.class),
+    AMETHYST_CHESTPLATE("Amethyst Chestplate", Material.IRON_CHESTPLATE, ItemRarity.RARE,     AmethystChestplate.class),
+    AMETHYST_LEGGINGS(  "Amethyst Leggings",   Material.IRON_LEGGINGS,   ItemRarity.RARE,     AmethystLeggings.class),
+    AMETHYST_BOOTS(     "Amethyst Boots",      Material.IRON_BOOTS,      ItemRarity.RARE,     AmethystBoots.class),
+    AMETHYST_STAFF(     "Amethyst Staff",      Material.STICK,           ItemRarity.UNCOMMON, AmethystStaff.class),
 
     // SMITE SET
     SMITE_HELMET(    "Smite Helmet",         Material.CHAINMAIL_HELMET,     ItemRarity.RARE, SmiteHelmet.class),
@@ -469,6 +614,9 @@ public enum CustomItemType {
     EMERALD_LEGGINGS(  "Emerald Leggings",       Material.DIAMOND_LEGGINGS,   ItemRarity.RARE, EmeraldLeggings.class),
     EMERALD_BOOTS(     "Emerald Boots",          Material.DIAMOND_BOOTS,      ItemRarity.RARE, EmeraldBoots.class),
 
+    // BREEZE/TRIAL CHAMBERS
+    BREEZEBORNE_STAFF(    "Breezeborne Staff",  Material.STICK,           ItemRarity.LEGENDARY,     BreezeborneStaff.class),
+
     // REAVER
     REAVER_HELMET("Reaver Helmet",         Material.BLACK_STAINED_GLASS, ItemRarity.EPIC, ReaverHelmet.class),
     REAVER_CHESTPLATE("Reaver Chestplate", Material.LEATHER_CHESTPLATE,  ItemRarity.EPIC, ReaverChestplate.class),
@@ -503,7 +651,7 @@ public enum CustomItemType {
     CYRAX_BOOTS(     "Cyrax Boots",      Material.GOLDEN_BOOTS,      ItemRarity.EPIC, CryaxBoots.class),
     CYRAX_BOW(       "Cyrax Bow",        Material.BOW,               ItemRarity.EPIC, CryaxBow.class),
 
-    BOILING_PICKAXE(       "Boiling Pickaxe",        Material.NETHERITE_PICKAXE,        ItemRarity.EPIC, BoilingPickaxe.class),
+    // BOILING_PICKAXE(       "Boiling Pickaxe",        Material.NETHERITE_PICKAXE,        ItemRarity.EPIC, BoilingPickaxe.class),
 
     OBSIDIAN_TOOL_ROD("Obsidian Tool Rod", Material.STICK, ItemRarity.RARE, true, ObsidianToolRod.class),
     BOILING_INGOT("Boiling Ingot", Material.GOLD_INGOT, ItemRarity.RARE, true, BoilingIngot.class),
@@ -534,7 +682,7 @@ public enum CustomItemType {
     PROTOCOL_CHESTPLATE("Protocol 781-A Chestplate", Material.IRON_CHESTPLATE,ItemRarity.EPIC, ProtocolArmorSet.class),
     PROTOCOL_LEGGINGS(  "Protocol 781-A Leggings",   Material.IRON_LEGGINGS,  ItemRarity.EPIC, ProtocolArmorSet.class),
     PROTOCOL_BOOTS(     "Protocol 781-A Boots",      Material.IRON_BOOTS,     ItemRarity.EPIC, ProtocolArmorSet.class),
-    DISPLACEMENT_MATRIX("Displacement Matrix",      Material.NETHER_STAR,     ItemRarity.RARE, true, 60_000),
+    DISPLACEMENT_MATRIX("Displacement Matrix",      Material.NETHER_STAR,     ItemRarity.RARE, true, 60_000, "materials"),
     WARP_CATALYST("Warp Catalyst", ItemRarity.EPIC, WarpCatalyst.class),
 
     // ELDERFLAME
@@ -575,7 +723,7 @@ public enum CustomItemType {
     PRELUDE_CHESTPLATE("Prelude to Chaos Chestplate",     Material.NETHERITE_CHESTPLATE, ItemRarity.LEGENDARY,  PreludeChestplate.class),
     PRELUDE_LEGGINGS(  "Prelude to Chaos Leggings",       Material.NETHERITE_LEGGINGS,   ItemRarity.LEGENDARY,  PreludeLeggings.class),
     PRELUDE_BOOTS(     "Prelude to Chaos Boots",          Material.NETHERITE_BOOTS,      ItemRarity.LEGENDARY,  PreludeBoots.class),
-    
+
     // ALL AROUND FISHING
     MURKY_HELMET(    "Murky Helmet",     Material.LEATHER_HELMET,     ItemRarity.COMMON, MurkySet.class),
     MURKY_CHESTPLATE("Murky Chestplate", Material.LEATHER_CHESTPLATE, ItemRarity.COMMON, MurkySet.class),
@@ -583,7 +731,7 @@ public enum CustomItemType {
     MURKY_BOOTS(     "Murky Boots",      Material.LEATHER_BOOTS,      ItemRarity.COMMON, MurkySet.class),
 
     // SEA CREATURE FISHING
-    MINNOW_SCALE("Minnow Scale", Material.LIGHT_GRAY_DYE, ItemRarity.COMMON, false, 2_000),
+    MINNOW_SCALE("Minnow Scale", Material.LIGHT_GRAY_DYE, ItemRarity.COMMON, false, 2_000, "materials"),
     MINNOW_HELMET(    "Minnow Helmet",     Material.LEATHER_HELMET,     ItemRarity.COMMON, MinnowSet.class),
     MINNOW_CHESTPLATE("Minnow Chestplate", Material.LEATHER_CHESTPLATE, ItemRarity.COMMON, MinnowSet.class),
     MINNOW_LEGGINGS(  "Minnow Leggings",   Material.LEATHER_LEGGINGS,   ItemRarity.COMMON, MinnowSet.class),
@@ -597,7 +745,7 @@ public enum CustomItemType {
     HOLOMOKU_BOOTS("Holomoku Boots",           Material.DIAMOND_BOOTS,      ItemRarity.UNCOMMON, HolomokuBoots.class),
     HOLOMOKU_ROD("Holomoku Rod",               Material.FISHING_ROD,        ItemRarity.UNCOMMON, HolomokuRod.class),
 
-    HEXED_CLOTH("Hexed Cloth", Material.DRIED_KELP, ItemRarity.UNCOMMON, true, 8_000),
+    HEXED_CLOTH("Hexed Cloth", Material.DRIED_KELP, ItemRarity.UNCOMMON, true, HexedCloth.class),
     RAW_TRIDENTITE_CHUNK("Raw Tridentite Chunk", Material.CYAN_DYE, ItemRarity.RARE, true, TridentiteChunk.class),
     TRIDENTITE("Tridentite", Material.IRON_INGOT, ItemRarity.RARE, Tridentite.class),
     RUINATION_HELMET("Ruination Helmet",         Material.DIAMOND_HELMET,     ItemRarity.RARE, RuinationHelmet.class),
@@ -634,8 +782,46 @@ public enum CustomItemType {
     XENOHUNTER_BOOTS(     "Xenohunter Boots",       Material.NETHERITE_BOOTS,      ItemRarity.LEGENDARY, XenohunterBoots.class),
     XENOHUNTER_ROD(       "Xenohunter Rod",         Material.FISHING_ROD,          ItemRarity.LEGENDARY, XenohunterRod.class),
 
+    // SLAYER
+
+    // SHAMBLING ABOMINATION
+
+    NECROTIC_FLESH(      "Necrotic Flesh",          Material.ROTTEN_FLESH,       ItemRarity.UNCOMMON,      false, NecroticFlesh.class),
+    PREMIUM_NECROTIC_FLESH("Premium Necrotic Flesh", Material.ROTTEN_FLESH, ItemRarity.RARE, true, NecroticFleshFamilyBlueprint.class),
+    ENCHANTED_NECROTIC_FLESH(    "Enchanted Necrotic Flesh",        Material.ROTTEN_FLESH,       ItemRarity.EPIC,    true, NecroticFleshFamilyBlueprint.class),
+    NECROTIC_FLESH_SINGULARITY(    "Necrotic Flesh Singularity",        Material.ROTTEN_FLESH,       ItemRarity.LEGENDARY,    true, NecroticFleshFamilyBlueprint.class),
+
+    REVILED_VISCERA("Reviled Viscera", Material.ROTTEN_FLESH, ItemRarity.RARE, ReviledViscera.class),
+    VISCERAL_AMALGAMATION("Visceral Amalgamation", Material.ROTTEN_FLESH, ItemRarity.RARE, VisceralAmalgamation.class),
+    UNDIGESTED_BRAINS("Undigested Brains", Material.COCOA_BEANS, ItemRarity.EPIC, UndigestedBrains.class),
+    NECRONOMICON_EXCERPTS("Accursed Manuscripts", Material.PAPER, ItemRarity.LEGENDARY, NecronomiconExcerpts.class),
+
+    ABOMINABLE_CLEAVER(     "Abominable Cleaver",  Material.GOLDEN_SWORD,     ItemRarity.RARE, AbominableCleaver.class),
+    ABOMINABLE_MACHETE(     "Abominable Machete",  Material.DIAMOND_SWORD,    ItemRarity.EPIC, AbominableMachete.class),
+    ABOMINABLE_HALBERD(     "Abominable Halberd",  Material.NETHERITE_SWORD,  ItemRarity.LEGENDARY, AbominableHalberd.class),
+    ABOMINABLE_HELMET("Abominable Helmet", Material.DIAMOND_HELMET, ItemRarity.EPIC, AbominationHelmet.class),
+    ABOMINABLE_CHESTPLATE("Abominable Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.EPIC, AbominationChestplate.class),
+    ABOMINABLE_LEGGINGS("Abominable Leggings", Material.DIAMOND_LEGGINGS, ItemRarity.EPIC, AbominationLeggings.class),
+    ABOMINABLE_BOOTS("Abominable Boots", Material.DIAMOND_BOOTS, ItemRarity.EPIC, AbominationBoots.class),
+
+    // ILLAGER WARLOCK
+
+    SPELL_POWDER(      "Spell Powder",          Material.GUNPOWDER,       ItemRarity.UNCOMMON,      false, SpellPowder.class),
+    PREMIUM_SPELL_POWDER("Premium Spell Powder", Material.GUNPOWDER, ItemRarity.RARE, true, SpellPowderFamilyBlueprint.class),
+    ENCHANTED_SPELL_POWDER(    "Enchanted Spell Powder",        Material.GUNPOWDER,       ItemRarity.EPIC,    true, SpellPowderFamilyBlueprint.class),
+    SPELL_POWDER_SINGULARITY(    "Spell Powder Singularity",        Material.GUNPOWDER,       ItemRarity.LEGENDARY,    true, SpellPowderFamilyBlueprint.class),
+
+    SPELLBOUND_CLOTH("Spellbound Cloth", Material.FLINT, ItemRarity.RARE, true, SpellboundCloth.class),
+    HORN_OF_WARLOCK("Horn of Warlock", Material.FLINT, ItemRarity.RARE, HornOfWarlock.class),
+    CRYSTAL_BALL("Crystal Ball", Material.FLINT, ItemRarity.RARE, CrystalBallBlueprint.class),
+
+    WARLOCK_HOOD("Warlock's Hood", Material.DIAMOND_HELMET, ItemRarity.EPIC, WarlockHood.class),
+    WARLOCK_ROBES("Warlock's Robes", Material.DIAMOND_CHESTPLATE, ItemRarity.EPIC, WarlockRobes.class),
+    WARLOCK_TROUSERS("Warlock's Trousers", Material.DIAMOND_LEGGINGS, ItemRarity.EPIC, WarlockTrousers.class),
+    WARLOCK_SHOES("Warlock's Shoes", Material.DIAMOND_BOOTS, ItemRarity.EPIC, WarlockShoes.class),
+
     IRON_ROD("Iron Rod", Material.FISHING_ROD, ItemRarity.COMMON, WaterRod.class),
-    DIAMOND_ROD("Diamond Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, WaterRod.class),
+    MITHRIL_ROD("Mithril Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, WaterRod.class),
     PRISMARINE_ROD("Prismarine Rod", Material.FISHING_ROD, ItemRarity.RARE, WaterRod.class),
 
     GOLD_ROD("Gold Rod", Material.FISHING_ROD, ItemRarity.COMMON, LavaRod.class),
@@ -643,9 +829,17 @@ public enum CustomItemType {
     NETHERITE_ROD("Netherite Rod", Material.FISHING_ROD, ItemRarity.RARE, LavaRod.class),
     SPITFIRE_ROD("Spitfire Rod", Material.FISHING_ROD, ItemRarity.EPIC, LavaRod.class),
 
-    SHARK_FIN("Shark Fin", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, true, 5000),
-    CINDERITE("Cinderite", Material.BLAZE_POWDER, ItemRarity.UNCOMMON, true, 7500),
-    ECHO_MEMBRANE("Echo Membrane", Material.PHANTOM_MEMBRANE, ItemRarity.UNCOMMON, true, 15000),
+    SHARK_FIN("Shark Fin", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, true, 5_000),
+    CINDERITE("Cinderite", Material.BLAZE_POWDER, ItemRarity.UNCOMMON, true, 7_500, "materials"),
+    ECHO_MEMBRANE("Echo Membrane", Material.PHANTOM_MEMBRANE, ItemRarity.UNCOMMON, true, 15_000, "materials"),
+
+    AERCLOUD_ROD("Aercloud Rod", Material.FISHING_ROD, ItemRarity.COMMON, AerialRod.class),
+    ETHER_ROD("Ether Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, AerialRod.class),
+    MERCURIAL_ROD("Mercurial Rod", Material.FISHING_ROD, ItemRarity.RARE, AerialRod.class),
+    ZEPHYRUS_ROD("Zephyrus Rod", Material.FISHING_ROD, ItemRarity.EPIC, AerialRod.class),
+
+    QUICKSILVER_FILAMENT("Astral Filament", Material.STRING, ItemRarity.RARE, true, 20_000),
+    OLYMPIAN_THREAD("Olypmian Thread", Material.STRING, ItemRarity.EPIC, true, 50_000),
 
     ENDSTONE_ROD("Endstone Rod", Material.FISHING_ROD, ItemRarity.COMMON, VoidRod.class),
     ENDER_ROD("Ender Rod", Material.FISHING_ROD, ItemRarity.UNCOMMON, VoidRod.class),
@@ -658,15 +852,32 @@ public enum CustomItemType {
     // ELYTRAS
     PHANTOM_WINGS("Phantom Wings", Material.ELYTRA, ItemRarity.RARE, PhantomWings.class),
     EVORI_DREAMWINGS("Evori Dreamwings", Material.ELYTRA, ItemRarity.EPIC, EvoriDreamwings.class),
+    WINGS_OF_ICARUS("Wings of Icarus", Material.ELYTRA, ItemRarity.UNCOMMON, WingsOfIcarus.class),
 
     // CHARMS
     SPEED_CHARM("Speed Charm",       Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      SpeedCharm.class),
     STRENGTH_CHARM("Strength Charm", Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      StrengthCharm.class),
     LUCKY_CHARM("Lucky Charm",       Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      LuckyCharm.class),
 
+    // TOMES
+    SIMPLE_TOME("Simple Tome",          Material.PAPER,  ItemRarity.COMMON,        SimpleTome.class),
+    ENCHANTED_TOME("Enchanted Tome",    Material.PAPER,  ItemRarity.UNCOMMON,      EnchantedTome.class),
+    EVOKATION_CODEX("Evokation Codex",  Material.PAPER,  ItemRarity.RARE,          EvokationCodex.class),
+    BOOK_OF_SHADOWS("Book of Shadows",  Material.PAPER,  ItemRarity.EPIC,          BookOfShadows.class),
+    NECRONOMICON("Necronomicon",        Material.PAPER,  ItemRarity.LEGENDARY,     Necronomicon.class),
+
+    // SPELLS
+    FIREBALL_SPELL("Fireball Spell Scroll", Material.PAPER, ItemRarity.COMMON, FireballSpellScroll.class),
+    SYPHON_SPELL("Syphon Spell Scroll", Material.PAPER, ItemRarity.RARE, SyphonSpellScroll.class),
+    FANG_STRIKE_SPELL("Fang Strike Spell Scroll", Material.PAPER, ItemRarity.UNCOMMON, FangStrikeSpellScroll.class),
+    DAMAGE_AURA_SPELL("Damage Aura Spell Scroll", Material.PAPER, ItemRarity.RARE, DamageAuraSpellScroll.class),
+    HEALING_AURA_SPELL("Healing Aura Spell Scroll", Material.PAPER, ItemRarity.RARE, HealingAuraSpellScroll.class),
+    CONJURE_PLATFORM_SPELL("Conjure Platform Spell Scroll", Material.PAPER, ItemRarity.COMMON, ConjurePlatformSpellScroll.class),
+    CONJURE_WALL_SPELL("Conjure Wall Spell Scroll", Material.PAPER, ItemRarity.COMMON, ConjureWallSpellScroll.class),
+
     // BOWS
-    NETHERITE_BOW("Netherite Bow", Material.BOW, ItemRarity.RARE,     NetheriteBow.class),
-    DIAMOND_BOW("Diamond Bow",     Material.BOW, ItemRarity.UNCOMMON, DiamondBow.class),
+    NETHERITE_BOW("Netherite Bow", Material.BOW, ItemRarity.EPIC,     NetheriteBow.class),
+    // DIAMOND_BOW("Diamond Bow",     Material.BOW, ItemRarity.UNCOMMON, DiamondBow.class),
     IRON_BOW(   "Iron Bow",        Material.BOW, ItemRarity.COMMON,   IronBow.class),
 
     // HATCHETS
@@ -675,8 +886,11 @@ public enum CustomItemType {
     COPPER_HATCHET("Copper Hatchet",    Material.WOODEN_AXE,    ItemRarity.COMMON,   CopperHatchet.class),
     IRON_HATCHET("Iron Hatchet",      Material.IRON_AXE,      ItemRarity.COMMON,   IronHatchet.class),
     GOLD_HATCHET("Golden Hatchet",      Material.GOLDEN_AXE,    ItemRarity.COMMON,   GoldHatchet.class),
-    DIAMOND_HATCHET("Diamond Hatchet",   Material.DIAMOND_AXE,   ItemRarity.RARE, DiamondHatchet.class),
+    // DIAMOND_HATCHET("Diamond Hatchet",   Material.DIAMOND_AXE,   ItemRarity.RARE, DiamondHatchet.class),
     NETHERITE_HATCHET("Netherite Hatchet", Material.NETHERITE_AXE, ItemRarity.EPIC,     NetheriteHatchet.class),
+
+    // KNIVES
+    IRON_KNIFE("Iron Knife", Material.IRON_SWORD, ItemRarity.COMMON, IronKnife.class),
 
     // EXILED SET
     EXILED_CROSSBOW("Exiled Crossbow", Material.CROSSBOW, ItemRarity.EPIC,  ExiledCrossbow.class),
@@ -754,6 +968,21 @@ public enum CustomItemType {
     // LEGENDARY NETHER FISH
     DEVIL_RAY("Devil Ray",      Material.TROPICAL_FISH, ItemRarity.LEGENDARY, FishBlueprint.class),
 
+    // COMMON AETHER FISH
+    FLYING_FISH("Flying Fish",  Material.TROPICAL_FISH, ItemRarity.COMMON,    FishBlueprint.class),
+
+    // UNCOMMON AETHER FISH
+    SKY_BARNACLE("Sky Barnacle",  Material.TROPICAL_FISH, ItemRarity.UNCOMMON,  FishBlueprint.class),
+
+    // RARE AETHER FISH
+    CLOUD_CLAM("Cloud Clam",  Material.TROPICAL_FISH, ItemRarity.RARE,  FishBlueprint.class),
+
+    // EPIC AETHER FISH
+    ANGELFISH("Angelfish",     Material.TROPICAL_FISH, ItemRarity.EPIC,    FishBlueprint.class),
+
+    // LEGENDARY AETHER FISH,
+    HOLY_MACKEREL("Holy Mackerel",  Material.TROPICAL_FISH, ItemRarity.LEGENDARY,  FishBlueprint.class),
+
     // COMMON END FISH
     VOIDFIN("Voidfin",                              Material.TROPICAL_FISH, ItemRarity.COMMON,     FishBlueprint.class),
     ORBLING("Orbling",                              Material.TROPICAL_FISH, ItemRarity.COMMON,     FishBlueprint.class),
@@ -785,6 +1014,18 @@ public enum CustomItemType {
     // FISH STUFF
     CAVIAR("Caviar", Material.PHANTOM_MEMBRANE, ItemRarity.EPIC, true, Caviar.class),
 
+    // CROPS
+    TOMATO("Tomato", Material.APPLE, ItemRarity.COMMON, Tomato.class),
+    TOMATO_SEEDS("Tomato Seeds", Material.WHEAT, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ONION("Onion", Material.APPLE, ItemRarity.COMMON, Onion.class),
+    CABBAGE("Cabbage", Material.APPLE, ItemRarity.COMMON, Cabbage.class),
+    CABBAGE_SEEDS("Cabbage Seeds", Material.WHEAT, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    CABBAGE_LEAF("Cabbage Leaf", Material.APPLE, ItemRarity.COMMON, CabbageLeaf.class),
+    RICE("Rice", Material.WHEAT, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    RICE_PANICLE("Rice Pannicle", Material.WHEAT, ItemRarity.COMMON, false, 5, "materials"),
+    HEARTBEET("Heartbeet", Material.BEETROOT, ItemRarity.UNCOMMON, Heartbeet.class),
+    STRAW("Straw", Material.WHEAT, ItemRarity.COMMON, false, 1, "materials"),
+
     // FOOD
     STALE_BREAD("Stale Bread", Material.BREAD, ItemRarity.COMMON, StaleBread.class),
     POTATO_CHIP("Potato Chips", Material.RAW_GOLD, ItemRarity.COMMON, PotatoChip.class),
@@ -797,6 +1038,98 @@ public enum CustomItemType {
     ENDERIOS("Enderios", Material.DISC_FRAGMENT_5, ItemRarity.COMMON, EnderiosBlueprint.class),
     BREADBOARD("Breadboard", Material.PAPER, ItemRarity.COMMON, BreadboardBlueprint.class),
     CHARRED_CRISP("Charred Crisp", Material.DRIED_KELP, ItemRarity.COMMON, CharredCrispBlueprint.class),
+
+    // INGREDIENTS
+    UNFIRED_CERAMIC_PLATE("Unfired Ceramic Plate", Material.CLAY_BALL, ItemRarity.COMMON, UnfiredCeramicPlate.class),
+    CERAMIC_PLATE("Ceramic Plate", Material.BRICK, ItemRarity.COMMON, CeramicPlate.class),
+
+    BACON("Bacon", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    BEEF_PATTY("Beef Patty", Material.NETHER_BRICK, ItemRarity.COMMON, BeefPatty.class),
+    CHICKEN_CUTS("Chicken Cuts", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    COD_FILET("Cod Filet", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    COOKED_BACON("Cooked Bacon", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    COOKED_BEEF_PATTY("Cooked Beef Patty", Material.NETHER_BRICK, ItemRarity.COMMON, CookedBeefPatty.class),
+    COOKED_CHICKEN_CUTS("Cooked Chicken Cuts", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    COOKED_COD_FILET("Cod Filet", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    COOKED_GROUND_BEEF("Cooked Ground Beef", Material.NETHER_BRICK, ItemRarity.COMMON, CookedGroundBeef.class),
+    COOKED_GROUND_PORK("Cooked Ground Pork", Material.NETHER_BRICK, ItemRarity.COMMON, CookedGroundPork.class),
+    COOKED_MUTTON_CHOPS("Cooked Mutton Chops", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    COOKED_SALMON_FILET("Cooked Salmon Filet", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    FRIED_EGG("Cooked Salmon Filet", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    GROUND_BEEF("Ground Beef", Material.NETHER_BRICK, ItemRarity.COMMON, GroundBeef.class),
+    GROUND_PORK("Ground Pork", Material.NETHER_BRICK, ItemRarity.COMMON, GroundPork.class),
+    HAM("Ham", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    MILK_BOTTLE("Milk Bottle", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    MUTTON_CHOPS("Mutton Chops", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    PIE_CRUST("Pie Crust", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    PUMPKIN_SLICE("Pumpkin Slice", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    RAW_PASTA("Raw Pasta", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    SALMON_FILET("Salmon Filet", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    STEAK_STRIPS("Steak Strips", Material.NETHER_BRICK, ItemRarity.COMMON, SteakStrips.class),
+    TOMATO_SAUCE("Tomato Sauce", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+    WHEAT_DOUGH("Wheat Dough", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineFoodBlueprint.class),
+
+    // MEALS
+    APPLE_CIDER("Apple Cider", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    APPLE_PIE("Apple Pie", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    APPLE_PIE_SLICE("Slice of Apple Pie", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    BACON_AND_EGGS("Bacon and Eggs", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    BACON_SANDWICH("Bacon Sandwich", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    BAKED_COD_STEW("Baked Cod Stew", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    BARBECUE_STICK("Barbecue Stick", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    BEEF_STEW("Beef Stew", Material.MUSHROOM_STEW, ItemRarity.UNCOMMON, BeefStew.class),
+    BONE_BROTH("Bone Broth", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    CABBAGE_ROLLS("Cabbage Rolls", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    CAKE_SLICE("Slice of Cake", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    CHICKEN_SANDWICH("Chicken Sandwich", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    CHICKEN_SOUP("Chicken Soup", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    CHOCOLATE_PIE("Chocolate Pie", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    CHOCOLATE_PIE_SLICE("Slice of Chocolate Pie", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    COD_ROLL("Cod Roll", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    COOKED_RICE("Cooked Rice", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    DOG_FOOD("Dog Food", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    DUMPLINGS("Dumplings", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    EGG_SANDWICH("Egg Sandwich", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    FISH_STEW("Fish Stew", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    FRIED_RICE("Fried Rice", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    FRUIT_SALAD("Fruit Salad", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    GLEAMING_SALAD("Gleaming Salad", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    GLOW_BERRY_CUSTARD("Glow Berry Custard", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    GRILLED_SALMON("Grilled Salmon", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    HAMBURGER("Hamburger", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    HONEY_COOKIE("Honey Cookies", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    HONEY_GLAZED_HAM("Honey Glazed Ham", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    HORSE_FEED("Horse Feed", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    HOT_COCOA("Hot Cocoa", Material.NETHER_BRICK, ItemRarity.UNCOMMON, HotCocoa.class),
+    KELP_ROLL("Kelp Roll", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    KELP_ROLL_SLICE("Kelp Roll Slice", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    MELON_JUICE("Melon Juice", Material.NETHER_BRICK, ItemRarity.UNCOMMON, MelonJuice.class),
+    MELON_POPSICLE("Melon Popsicle", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    MIXED_SALAD("Mixed Salad", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    MUSHROOM_RICE("Mushroom Rice", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    MUTTON_WRAP("Mutton Wrap", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    NETHER_SALAD("Nether Salad", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    NOODLE_SOUP("Noodle Soup", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    ONION_SOUP("Onion Soup", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    PASTA_WITH_MEATBALLS("Pasta with Meatballs", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    PASTA_WITH_MUTTON_CHOP("Pasta with Mutton Chop", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    PUMPKIN_PIE_SLICE("Slice of Pumpkin Pie", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    PUMPKIN_SOUP("Pumpkin Soup", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    RATATOUILLE("Ratatouille", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    ROAST_CHICKEN("Roast Chicken", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    ROASTED_MUTTON_CHOPS("Roasted Mutton Chops", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    SALMON_ROLL("Salmon Roll", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    SHEPHERDS_PIE("Shepherd's Pie", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    SMOKED_HAM("Smoked Ham", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    SQUID_INK_PASTA("Squid Ink Pasta", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    STEAK_AND_POTATOES("Steak and Potatoes", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    STUFFED_POTATO("Stuffed Potato", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    STUFFED_PUMPKIN("Stuffed Pumpkin", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    SWEET_BERRY_CHEESECAKE("Sweet Berry Cheesecake", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    SWEET_BERRY_CHEESECAKE_SLICE("Slice of Sweet Berry Cheesecake", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    SWEET_BERRY_COOKIE("Sweet Berry Cookie", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    VEGETABLE_NOODLES("Vegetable Noodles", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
+    VEGETABLE_SOUP("Vegetable Soup", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineFoodBlueprint.class),
 
     // EXP BOTTLES
     EXPERIENCE_BOTTLE("Experience Bottle", Material.EXPERIENCE_BOTTLE, ItemRarity.COMMON, ExperienceBottle.class),  // normal lapis
@@ -968,11 +1301,11 @@ public enum CustomItemType {
     ENCHANTED_MILK_BUCKET("Enchanted Milk Bucket", Material.MILK_BUCKET, ItemRarity.RARE, true, EnchantedMilkBucket.class),
     DIAMOND_TOOL_ROD("Diamond Tool Rod", Material.BREEZE_ROD, ItemRarity.UNCOMMON, DiamondToolRod.class),
     NEPTUNES_CONCH("Neptune's Conch Shell", Material.NAUTILUS_SHELL, ItemRarity.EPIC, true, NeptunesConch.class),
-    PLUTO_FRAGMENT("Pluto Fragment", Material.PRISMARINE_SHARD, ItemRarity.RARE, true, 4000),
+    PLUTO_FRAGMENT("Pluto Fragment", Material.PRISMARINE_SHARD, ItemRarity.RARE, true, 4000, "materials"),
     PLUTOS_ARTIFACT("Pluto's Artifact", ItemRarity.EPIC, PlutosArtifact.class),
-    JUPITER_CRYSTAL("Jupiter Crystal", Material.PRISMARINE_CRYSTALS, ItemRarity.RARE, true, 1000),
+    JUPITER_CRYSTAL("Jupiter Crystal", Material.PRISMARINE_CRYSTALS, ItemRarity.RARE, true, 1000, "materials"),
     JUPITERS_ARTIFACT("Jupiter's Artifact", ItemRarity.EPIC, JupiterArtifact.class),
-    IRIDESCENT_LENS("Iridescent Lens", ItemRarity.LEGENDARY, IridescentLens.class),
+    IRIDESCENT_LENS("Iridescent Lens", Material.FLINT, ItemRarity.LEGENDARY, IridescentLens.class),
     PREDATOR_TOOTH("Predator Tooth", ItemRarity.LEGENDARY, PredatorTooth.class),
     HYPNOTIC_EYE("Hypnotic Eye", ItemRarity.LEGENDARY, HypnoticEye.class),
 
@@ -980,8 +1313,7 @@ public enum CustomItemType {
     GILDED_SKULL("Gilded Skull", ItemRarity.LEGENDARY, GildedSkull.class),
 
     // DRAGON
-    DRAGONSTEEL_INGOT("Dragonsteel Ingot", Material.IRON_INGOT, ItemRarity.EPIC, DragonsteelIngot.class),
-    DRAGON_SCALES(   "Dragon Scales",    Material.PHANTOM_MEMBRANE, ItemRarity.RARE, true, 50_000),
+    DRAGON_SCALES(   "Dragon Scales",    Material.PHANTOM_MEMBRANE, ItemRarity.RARE, true, 50_000, "materials"),
     DRACONIC_CRYSTAL("Draconic Crystal", ItemRarity.EPIC, DraconicCrystal.class),
     TRANSMISSION_WAND("Transmission Wand", Material.PRISMARINE_SHARD, ItemRarity.EPIC, TransmissionWand.class),
     MAGIC_MIRROR("Magic Mirror", Material.RECOVERY_COMPASS, ItemRarity.EPIC, MagicMirror.class),
@@ -991,13 +1323,17 @@ public enum CustomItemType {
 
     SUMMONING_CRYSTAL("Summoning Crystal", Material.END_CRYSTAL, ItemRarity.EPIC, true, 50_000),
 
-    // DRAGONSTEEL TOOLS
+    // DRAGONSTEEL
+    DRAGONSTEEL_BLOCK(     "Block of Dragonsteel",      Material.NETHER_BRICK,     ItemRarity.LEGENDARY, CraftEngineBlueprint.class),
+    DRAGONSTEEL_INGOT("Dragonsteel Ingot", Material.IRON_INGOT, ItemRarity.EPIC, DragonsteelIngot.class),
+
     DRAGONSTEEL_PICKAXE("Dragonsteel Pickaxe",      Material.NETHERITE_PICKAXE,      ItemRarity.LEGENDARY,   DragonsteelPickaxe.class),
     DRAGONSTEEL_AXE("Dragonsteel Axe",              Material.NETHERITE_AXE,          ItemRarity.LEGENDARY,   DragonsteelAxe.class),
     DRAGONSTEEL_HATCHET("Dragonsteel Hatchet",      Material.NETHERITE_AXE,          ItemRarity.LEGENDARY,   DragonsteelHatchet.class),
     DRAGONSTEEL_SWORD("Dragonsteel Sword",          Material.NETHERITE_SWORD,        ItemRarity.LEGENDARY,   DragonsteelSword.class),
     DRAGONSTEEL_HOE("Dragonsteel Hoe",              Material.NETHERITE_HOE,          ItemRarity.LEGENDARY,   DragonsteelHoe.class),
     DRAGONSTEEL_SHOVEL("Dragonsteel Shovel",        Material.NETHERITE_SHOVEL,       ItemRarity.LEGENDARY,   DragonsteelShovel.class),
+    DRAGONSTEEL_SPEAR(  "Dragonsteel Spear",        Material.IRON_SPEAR,             ItemRarity.LEGENDARY,   DragonsteelSpear.class),
 
     // PASSIVE MOBS
     PREMIUM_PORKCHOP("Premium Porkchop", Material.COOKED_PORKCHOP, ItemRarity.UNCOMMON, true, PorkchopFamilyBlueprint.class),
@@ -1039,10 +1375,39 @@ public enum CustomItemType {
     SINGULARITY_LEGGINGS(  "Singularity Leggings",   Material.NETHERITE_LEGGINGS,   ItemRarity.MYTHIC, SingularityLeggings.class),
     SINGULARITY_BOOTS(     "Singularity Boots",      Material.NETHERITE_BOOTS,      ItemRarity.MYTHIC, SingularityBoots.class),
 
+    // WARDROBE TOKENS
+    WARDROBE_SLOT_COMMON(   "Common Wardrobe Token",    Material.ARMOR_STAND, ItemRarity.COMMON,    WardrobeSlotToken.class),
+    WARDROBE_SLOT_UNCOMMON( "Uncommon Wardrobe Token",  Material.ARMOR_STAND, ItemRarity.UNCOMMON,  WardrobeSlotToken.class),
+    WARDROBE_SLOT_RARE(     "Rare Wardrobe Token",      Material.ARMOR_STAND, ItemRarity.RARE,      WardrobeSlotToken.class),
+    WARDROBE_SLOT_EPIC(     "Epic Wardrobe Token",      Material.ARMOR_STAND, ItemRarity.EPIC,      WardrobeSlotToken.class),
+    WARDROBE_SLOT_LEGENDARY("Legendary Wardrobe Token", Material.ARMOR_STAND, ItemRarity.LEGENDARY, WardrobeSlotToken.class),
+
     DEATH_CERTIFICATE("Death Certificate", Material.PAPER, ItemRarity.SPECIAL, DeathCertificate.class),
 
     // BLOCKS
-    REFORGE_TABLE(     "Reforge Table",      Material.POISONOUS_POTATO,     ItemRarity.UNCOMMON, ReforgeTableBlock.class),
+    REFORGE_TABLE(     "Reforge Table",        Material.NETHER_BRICK,     ItemRarity.UNCOMMON, ReforgeTable.class),
+    NETHERITE_ANVIL(   "Netherite Anvil",      Material.NETHER_BRICK,     ItemRarity.EPIC, CraftEngineBlueprint.class),
+    FREEZER(           "Freezer",              Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
+    CUTTING_BOARD(     "Cutting Board",        Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
+    COOKING_POT(       "Cooking Pot",          Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
+    TITANIUM_CACHE(    "Titanium Cache",       Material.NETHER_BRICK,     ItemRarity.RARE, CraftEngineBlueprint.class),
+
+    GRIMSTONE("Grimstone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    COBBLED_GRIMSTONE("Cobbled Grimstone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GRIMSTONE_DIAMOND_ORE("Grimstone Diamond Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GRIMSTONE_IRON_ORE("Grimstone Iron Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GRIMSTONE_GOLD_ORE("Grimstone Gold Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GRIMSTONE_SILVER_ORE("Grimstone Silver Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GRIMSTONE_LAPIS_ORE("Grimstone Lapis Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    RUNE_BLANK("Unattuned Enchantment Rune", Material.POISONOUS_POTATO, ItemRarity.UNCOMMON, RuneBlank.class),
+    RUNE_POTENTIAL("Rune of Potential", Material.POISONOUS_POTATO, ItemRarity.RARE, RunePotential.class),
+    RUNE_AMBITION("Rune of Ambition", Material.POISONOUS_POTATO, ItemRarity.RARE, RuneAmbition.class),
+    RUNE_MEMORIZATION("Rune of Memorization", Material.POISONOUS_POTATO, ItemRarity.RARE, RuneMemorization.class),
+    RUNE_GREED("Rune of Greed", Material.POISONOUS_POTATO, ItemRarity.RARE, RuneGreed.class),
+    RUNE_INSIGHT("Rune of Insight", Material.POISONOUS_POTATO, ItemRarity.RARE, RuneInsight.class),
+    RUNE_FORTUITY("Rune of Fortuity", Material.POISONOUS_POTATO, ItemRarity.RARE, RuneFortuity.class),
+    RUNE_DIVINITY("Rune of Divinity", Material.POISONOUS_POTATO, ItemRarity.EPIC, RuneDivinity.class),
 
     // ADMIN UTILITY
     INFINILYTRA("Infini-lytra", Material.ELYTRA, ItemRarity.SPECIAL, InfinilytraBlueprint.class),
@@ -1074,7 +1439,196 @@ public enum CustomItemType {
     SPAWNER_EDITING_WAND("Spawner Editor Wand", Material.BREEZE_ROD, ItemRarity.SPECIAL, true, SpawnerEditorBlueprint.class),
 
     LEGACY_ITEM("Legacy Item", Material.PAPER, ItemRarity.SPECIAL, LegacyItemBlueprint.class),
-    DUMMY_SMITHING_RESULT("DUMMY SMITHING RESULT", Material.BARRIER, ItemRarity.SPECIAL)
+    DUMMY_SMITHING_RESULT("DUMMY SMITHING RESULT", Material.BARRIER, ItemRarity.SPECIAL),
+
+    // SLAYER BOSS ARMOR (Worn by boss, not used by players)
+    SHAMBLING_BOOTS("Shambling Boss Boots (not used by players)", Material.DIAMOND_BOOTS, ItemRarity.SPECIAL, ShamblingBossBoots.class),
+    SHAMBLING_LEGGINGS("Shambling Boss Leggings (not used by players)", Material.DIAMOND_LEGGINGS, ItemRarity.SPECIAL, ShamblingBossLeggings.class),
+    SHAMBLING_CHESTPLATE("Shambling Boss Chestplate (not used by players)", Material.DIAMOND_CHESTPLATE, ItemRarity.SPECIAL, ShamblingBossChestplate.class),
+
+    // ENCHANTING SCROLLS
+    ENCHANTING_SCROLL("Scroll of Imbuement", Material.PAPER, ItemRarity.RARE, true, DynamicEnchantingScroll.class),
+
+    // AETHER
+    COLD_AERCLOUD("Cold Aercloud", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BLUE_AERCLOUD("Blue Aercloud", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLD_AERCLOUD("Gold Aercloud", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    WISPY_AERCLOUD("Wispy Aercloud", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    AEROGEL("Aerogel", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    AETHER_DIRT("Aether Dirt", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    AETHER_GRASS_BLOCK("Aether Grass Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ENCHANTED_AETHER_GRASS_BLOCK("Enchanted Aether Grass Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE("Holystone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ICESTONE("Icestone", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    QUICKSOIL("Quicksoil", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    HOLYSTONE_BRICKS("Holystone Bricks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE_BRICK_STAIRS("Holystone Brick Stairs", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE_BRICK_SLAB("Holystone Brick Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE_STAIRS("Holystone Stairs", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE_SLAB("Holystone Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ICESTONE_STAIRS("Icestone Stairs", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ICESTONE_SLAB("Icestone Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE_BUTTON("Holystone Button", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HOLYSTONE_PRESSURE_PLATE("Holystone Pressure Plate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    AETHER_SILVER_ORE("Aether Silver Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    AMBROSIUM_ORE("Ambrosium Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ZANITE_ORE("Zanite Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    PLATINUM_ORE("Platinum Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    PALLADIUM_ORE("Palladium Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GRAVITITE_ORE("Gravitite Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    PUFFBLOOM("Puffbloom", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    VIOLET("Violet", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    RAINBOW_LILY("Rainbow Lily", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    EXTINGUISHED_TORCH("Extinguished Torch", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    AMBROSIUM_TORCH("Ambrosium Torch", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKY_BERRY("Sky Berry", Material.NETHER_BRICK, ItemRarity.COMMON, SkyBerry.class),
+    SQUASH("Squash", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SQUASH_SEEDS("Squash Seeds", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    HALVED_SQUASH("Halved Squash", Material.NETHER_BRICK, ItemRarity.COMMON, HalvedSquash.class),
+
+    AMBROSIUM("Ambrosium", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    ZANITE("Zanite", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+
+    AMBROSIUM_BLOCK("Block of Ambrosium", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    ZANITE_BLOCK("Block of Zanite", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    AMBROSIUM_ENCRUSTED_SHAFT(    "Ambrosium Encrusted Shaft",      Material.STICK,     ItemRarity.UNCOMMON, AmbrosiumToolShaft.class),
+
+    // PALLADIUM
+    RAW_PALLADIUM("Raw Palladium", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    PALLADIUM_INGOT("Palladium Ingot", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+
+    // PALLADIUM_DRILL_HEAD("Palladium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, PalladiumDrillHead.class),
+    // PALLADIUM_DRILL_BASE("Palladium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, PalladiumDrillBase.class),
+
+    PALLADIUM_PICKAXE("Palladium Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.RARE, PalladiumPickaxe.class),
+    PALLADIUM_AXE(    "Palladium Axe",      Material.DIAMOND_AXE,     ItemRarity.RARE, PalladiumAxe.class),
+    PALLADIUM_HOE(    "Palladium Hoe",      Material.DIAMOND_HOE,     ItemRarity.RARE, PalladiumHoe.class),
+    PALLADIUM_SHOVEL( "Palladium Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.RARE, PalladiumShovel.class),
+    PALLADIUM_SWORD(  "Palladium Sword",    Material.DIAMOND_SWORD,   ItemRarity.RARE, PalladiumSword.class),
+    PALLADIUM_HATCHET("Palladium Hatchet",  Material.DIAMOND_AXE,     ItemRarity.RARE, PalladiumHatchet.class),
+    PALLADIUM_BOW(    "Palladium Bow",      Material.BOW,             ItemRarity.RARE, PalladiumBow.class),
+    PALLADIUM_SPEAR(  "Palladium Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, PalladiumSpear.class),
+
+    PALLADIUM_BOOTS(     "Palladium Boots",      Material.IRON_BOOTS,       ItemRarity.RARE, PalladiumBoots.class),
+    PALLADIUM_LEGGINGS(  "Palladium Leggings",   Material.IRON_LEGGINGS,    ItemRarity.RARE, PalladiumLeggings.class),
+    PALLADIUM_CHESTPLATE("Palladium Chestplate", Material.IRON_CHESTPLATE,  ItemRarity.RARE, PalladiumChestplate.class),
+    PALLADIUM_HELMET(    "Palladium Helmet",     Material.IRON_HELMET,      ItemRarity.RARE, PalladiumHelmet.class),
+
+    // PLATINUM
+    RAW_PLATINUM("Raw Platinum", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    PLATINUM_INGOT("Platinum Ingot", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+
+    // PLATINUM_DRILL_HEAD("Platinum Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, PlatinummDrillHead.class),
+    // PLATINUM_DRILL_BASE("Platinum Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, PlatinummDrillBase.class),
+
+    PLATINUM_PICKAXE("Platinum Pickaxe",  Material.IRON_PICKAXE, ItemRarity.RARE, PlatinumPickaxe.class),
+    PLATINUM_AXE(    "Platinum Axe",      Material.IRON_AXE,     ItemRarity.RARE, PlatinumAxe.class),
+    PLATINUM_HOE(    "Platinum Hoe",      Material.IRON_HOE,     ItemRarity.RARE, PlatinumHoe.class),
+    PLATINUM_SHOVEL( "Platinum Shovel",   Material.IRON_SHOVEL,  ItemRarity.RARE, PlatinumShovel.class),
+    PLATINUM_SWORD(  "Platinum Sword",    Material.IRON_SWORD,   ItemRarity.RARE, PlatinumSword.class),
+    PLATINUM_HATCHET("Platinum Hatchet",  Material.IRON_AXE,     ItemRarity.RARE, PlatinumHatchet.class),
+    PLATINUM_BOW(    "Platinum Bow",      Material.BOW,             ItemRarity.RARE, PlatinumBow.class),
+    PLATINUM_SPEAR(  "Platinum Spear",    Material.IRON_SPEAR,      ItemRarity.RARE, PlatinumSpear.class),
+
+    PLATINUM_BOOTS(     "Platinum Boots",      Material.IRON_BOOTS,      ItemRarity.RARE, PlatinumBoots.class),
+    PLATINUM_LEGGINGS(  "Platinum Leggings",   Material.IRON_LEGGINGS,   ItemRarity.RARE, PlatinumLeggings.class),
+    PLATINUM_CHESTPLATE("Platinum Chestplate", Material.IRON_CHESTPLATE, ItemRarity.RARE, PlatinumChestplate.class),
+    PLATINUM_HELMET(    "Platinum Helmet",     Material.IRON_HELMET,     ItemRarity.RARE, PlatinumHelmet.class),
+
+    // AETHERIUM
+    GRAVITITE_SHARDS("Gravitite Shards", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    AETHERIUM_INGOT("Aetherium Ingot", Material.IRON_INGOT, ItemRarity.EPIC, AetheriumIngot.class),
+
+    // AETHERIUM_DRILL_HEAD("Aetherium Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, AetheriumDrillHead.class),
+    // AETHERIUM_DRILL_BASE("Aetherium Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, AetheriumDrillBase.class),
+
+    AETHERIUM_PICKAXE("Aetherium Pickaxe",  Material.DIAMOND_PICKAXE, ItemRarity.EPIC, AetheriumPickaxe.class),
+    AETHERIUM_AXE(    "Aetherium Axe",      Material.DIAMOND_AXE,     ItemRarity.EPIC, AetheriumAxe.class),
+    AETHERIUM_HOE(    "Aetherium Hoe",      Material.DIAMOND_HOE,     ItemRarity.EPIC, AetheriumHoe.class),
+    AETHERIUM_SHOVEL( "Aetherium Shovel",   Material.DIAMOND_SHOVEL,  ItemRarity.EPIC, AetheriumShovel.class),
+    AETHERIUM_SWORD(  "Aetherium Sword",    Material.DIAMOND_SWORD,   ItemRarity.EPIC, AetheriumSword.class),
+    AETHERIUM_HATCHET("Aetherium Hatchet",  Material.DIAMOND_AXE,     ItemRarity.EPIC, AetheriumHatchet.class),
+    AETHERIUM_BOW(    "Aetherium Bow",      Material.BOW,             ItemRarity.EPIC, AetheriumBow.class),
+    AETHERIUM_SPEAR(  "Aetherium Spear",    Material.IRON_SPEAR,      ItemRarity.EPIC, AetheriumSpear.class),
+
+    AETHERIUM_BOOTS(     "Aetherium Boots",      Material.IRON_BOOTS,      ItemRarity.EPIC, AetheriumBoots.class),
+    AETHERIUM_LEGGINGS(  "Aetherium Leggings",   Material.IRON_LEGGINGS,   ItemRarity.EPIC, AetheriumLeggings.class),
+    AETHERIUM_CHESTPLATE("Aetherium Chestplate", Material.IRON_CHESTPLATE, ItemRarity.EPIC, AetheriumChestplate.class),
+    AETHERIUM_HELMET(    "Aetherium Helmet",     Material.IRON_HELMET,     ItemRarity.EPIC, AetheriumHelmet.class),
+
+    SKYROOT_BUTTON("Skyroot Button", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_DOOR("Skyroot Door", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_FENCE("Skyroot Fence", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_FENCE_GATE("Skyroot Fence Gate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_LEAVES("Skyroot Leaves", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_LOG("Skyroot Log", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_PLANKS("Skyroot Planks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_PRESSURE_PLATE("Skyroot Pressure Plate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_SAPLING("Skyroot Sapling", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_SLAB("Skyroot Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_STAIRS("Skyroot Stairs", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_TRAPDOOR("Skyroot Trapdoor", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_WOOD("Skyroot Wood", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    STRIPPED_SKYROOT_LOG("Stripped Skyroot Log", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    STRIPPED_SKYROOT_WOOD("Stripped Skyroot Wood", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    GOLDEN_OAK_BUTTON("Golden Oak Button", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_DOOR("Golden Oak Door", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_FENCE("Golden Oak Fence", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_FENCE_GATE("Golden Oak Fence Gate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_LEAVES("Golden Oak Leaves", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_LOG("Golden Oak Log", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_PLANKS("Golden Oak Planks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_PRESSURE_PLATE("Golden Oak Pressure Plate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_SAPLING("Golden Oak Sapling", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_SLAB("Golden Oak Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_STAIRS("Golden Oak Stairs", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_TRAPDOOR("Golden Oak Trapdoor", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_WOOD("Golden Oak Wood", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    STRIPPED_GOLDEN_OAK_LOG("Stripped Golden Oak Log", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    STRIPPED_GOLDEN_OAK_WOOD("Stripped Golden Oak Wood", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    CRYSTAL_SAPLING("Crystal Sapling", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    CRYSTAL_LEAVES("Crystal Leaves", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    CRYSTAL_FRUIT_LEAVES("Crystal Fruit Leaves", Material.NETHER_BRICK, ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
+    CRYSTAL_FRUIT("Crystal Fruit", Material.NETHER_BRICK, ItemRarity.COMMON, CrystalFruit.class),
+
+    // END
+    NULLYIUM("Nullyium", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    BINARY_BUTTON("Binary Button", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_DOOR("Binary Door", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_FENCE("Binary Fence", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_FENCE_GATE("Binary Fence Gate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_LEAVES("Binary Nodes", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_LOG("Binary Branch", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_PLANKS("Binary Planks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_PRESSURE_PLATE("Binary Pressure Plate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_SAPLING("Binary Root", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_SLAB("Binary Slab", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_STAIRS("Binary Stairs", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_TRAPDOOR("Binary Trapdoor", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_WOOD("Binary Arborescence", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    STRIPPED_BINARY_LOG("Stripped Binary Branch", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    STRIPPED_BINARY_WOOD("Stripped Binary Arborescence", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    SMOKY_QUARTZ_ORE("Smoky Quartz Ore", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SMOKY_QUARTZ("Smoky Quartz", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SMOKY_QUARTZ_BLOCK("Smoky Quartz Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SMOOTH_SMOKY_QUARTZ("Smooth Smoky Quartz", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SMOKY_QUARTZ_BRICKS("Smoky Quartz Bricks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SMOKY_QUARTZ_PILLAR("Smoky Quartz Pillar", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    CHISELED_SMOKY_QUARTZ_BLOCK("Chiseled Smoky Quartz Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    POINTER_PRISM("Pointer Prism", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    POINTER_PRISM_BLOCK("Pointer Prism Block", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+
+    KITCHEN_TILES("Kitchen Tiles", Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ROPE(       "Rope",            Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
+    ROPE_COIL(       "Rope Coil",  Material.NETHER_BRICK,     ItemRarity.COMMON, CraftEngineBlueprint.class),
     ;
 
     public final String ItemName;
@@ -1082,6 +1636,7 @@ public enum CustomItemType {
     public final ItemRarity DefaultRarity;
     public final boolean WantGlow;
     public int Worth = 0;
+    public String ModelDir = null;
     public final Class<? extends CustomItemBlueprint> Handler;
 
     /**
@@ -1148,6 +1703,12 @@ public enum CustomItemType {
     CustomItemType(String name, Material material, ItemRarity rarity, boolean WantGlow, int worth) {
         this(name, material, rarity, WantGlow, SellableResource.class);
         this.Worth = worth;
+    }
+
+    CustomItemType(String name, Material material, ItemRarity rarity, boolean WantGlow, int worth, String modelDir) {
+        this(name, material, rarity, WantGlow, SellableResource.class);
+        this.Worth = worth;
+        this.ModelDir = modelDir;
     }
 
     /**

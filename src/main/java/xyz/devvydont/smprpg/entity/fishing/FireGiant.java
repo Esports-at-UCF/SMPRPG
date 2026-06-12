@@ -5,6 +5,7 @@ import org.bukkit.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
@@ -27,6 +28,15 @@ public class FireGiant extends SeaCreature<IronGolem> {
     }
 
     @Override
+    public void setup() {
+        mobTypes.add(MobType.SEA_CREATURE);
+        mobTypes.add(MobType.NETHER);
+        mobTypes.add(MobType.CONSTRUCT);
+
+        super.setup();
+    }
+
+    @Override
     public void updateAttributes() {
         super.updateAttributes();
         updateBaseAttribute(AttributeWrapper.SCALE, 3);
@@ -35,7 +45,12 @@ public class FireGiant extends SeaCreature<IronGolem> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.BRIMSTONE_RESIN), 1, this)
+                new ChancedItemDrop(ItemService.generate(CustomItemType.BRIMSTONE_RESIN), 1, this),
+                new ChancedItemDrop(lureScroll, 500, this),
+                new ChancedItemDrop(abyssalInstinctScroll, 500, this),
+                new ChancedItemDrop(impalingScroll, 500, this),
+                new ChancedItemDrop(luckOfTheSeaScroll, 500, this),
+                new ChancedItemDrop(treasureHunterScroll, 500, this)
         );
     }
 }

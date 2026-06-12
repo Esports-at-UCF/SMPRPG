@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.gui.items
 
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.CustomModelData
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.NamedTextColor
@@ -21,7 +22,12 @@ import xyz.devvydont.smprpg.SMPRPG.Companion.broadcastToOperatorsCausedBy
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItemWithDescription
 import xyz.devvydont.smprpg.gui.base.MenuBase
+import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.recipe.cookingpot.CookingPotRecipe
+import xyz.devvydont.smprpg.recipe.cuttingboard.CuttingBoardRecipe
+import xyz.devvydont.smprpg.recipe.cuttingboard.CuttingBoardToolTags
+import xyz.devvydont.smprpg.recipe.freezer.FreezerRecipe
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.RecipeService.Companion.getRecipesFor
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -46,7 +52,7 @@ class MenuRecipeViewer(
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
         super.handleInventoryOpened(event)
-        event.titleOverride(ComponentUtils.merge(ComponentUtils.create("Recipes for: "), result.displayName()))
+        event.titleOverride(ComponentUtils.merge(ComponentUtils.create("Recipes for: "), ItemService.blueprint(result).getNameComponent(result)))
         this.render(event)
         Bukkit.getScheduler().runTaskTimer(SMPRPG.plugin, Consumer runTaskTimer@{ task: BukkitTask ->
 
@@ -141,7 +147,15 @@ class MenuRecipeViewer(
         if (currentRecipe >= recipes.size) currentRecipe = 0
         if (currentRecipe < 0) currentRecipe = recipes.size - 1
 
-        when (val recipe = recipes[currentRecipe]) {
+        val currentRecipeObj = recipes[currentRecipe]
+        // CuttingBoardRecipe.getResult() throws by design — amount stays as-is for multi-output recipes.
+        if (currentRecipeObj !is CuttingBoardRecipe)
+            result.amount = currentRecipeObj.result.amount
+
+        when (val recipe = currentRecipeObj) {
+            is CookingPotRecipe -> renderCookingPotRecipe(recipe)
+            is CuttingBoardRecipe -> renderCuttingBoardRecipe(recipe)
+            is FreezerRecipe -> renderFreezerRecipe(recipe)
             is CookingRecipe<*> -> renderCookingRecipe(recipe, event)
             is ShapelessRecipe -> renderShapelessRecipe(recipe, event)
             is ShapedRecipe -> renderShapedRecipe(recipe, event)
@@ -176,14 +190,105 @@ class MenuRecipeViewer(
         )
     }
 
+    private fun prepareIngredientDisplay(item: ItemStack): ItemStack {
+        val display = item.clone()
+        ItemService.blueprint(display).updateItemData(display)
+        if (getRecipesFor(display).isNotEmpty()) {
+            val lore = mutableListOf<Component>(ComponentUtils.EMPTY, ComponentUtils.create("Click to view recipe!", NamedTextColor.YELLOW), ComponentUtils.EMPTY)
+            if (display.lore() != null) lore.addAll(display.lore()!!)
+            display.lore(lore)
+        }
+        return display
+    }
+
+    private fun renderCookingPotRecipe(recipe: CookingPotRecipe) {
+        var x = 0
+        var y = 0
+        for (ingredient in recipe.inputs) {
+            setButton(y * 9 + x + CORNER, prepareIngredientDisplay(ingredient)) { _: InventoryClickEvent -> handleIngredientClick(ingredient) }
+            x++
+            if (x >= 3) { x = 0; y++ }
+        }
+        if (recipe.platingItem != null) {
+            val plating = recipe.platingItem.clone()
+            ItemService.blueprint(plating).updateItemData(plating)
+            val lore = mutableListOf<Component>(ComponentUtils.EMPTY, ComponentUtils.create("Place in the plating slot", NamedTextColor.YELLOW))
+            if (plating.lore() != null) lore.addAll(plating.lore()!!)
+            plating.lore(ComponentUtils.cleanItalics(lore))
+            setSlot(CORNER + 4, plating)
+        }
+        setSlot(CORNER + 37, getNamedItemWithDescription(
+            Material.CAULDRON,
+            ComponentUtils.create("Cooking Pot Recipe", NamedTextColor.GOLD),
+            ComponentUtils.EMPTY,
+            ComponentUtils.merge(ComponentUtils.create("for "), ComponentUtils.create("${recipe.cookTime / 20}s", NamedTextColor.GREEN))
+        ))
+    }
+
+    private fun renderCuttingBoardRecipe(recipe: CuttingBoardRecipe) {
+        setButton(CORNER + 1, prepareIngredientDisplay(recipe.input)) { _: InventoryClickEvent -> handleIngredientClick(recipe.input) }
+
+        val toolMaterial = when (recipe.processToolTag) {
+            CuttingBoardToolTags.KNIVES -> Material.IRON_SWORD
+            CuttingBoardToolTags.AXES -> Material.IRON_AXE
+            CuttingBoardToolTags.SHOVELS -> Material.IRON_SHOVEL
+            else -> Material.IRON_SWORD
+        }
+        val toolLabel = when (recipe.processToolTag) {
+            CuttingBoardToolTags.KNIVES -> "Knife"
+            CuttingBoardToolTags.AXES -> "Axe"
+            CuttingBoardToolTags.SHOVELS -> "Shovel"
+            else -> "Tool"
+        }
+        setSlot(CORNER + 3, getNamedItemWithDescription(
+            toolMaterial,
+            ComponentUtils.create("Required Tool", NamedTextColor.GOLD),
+            ComponentUtils.EMPTY,
+            ComponentUtils.create("Use a $toolLabel")
+        ))
+
+        var outputSlot = CORNER + 18
+        for ((output, chance) in recipe.recipeResult) {
+            if (output.type == Material.BARRIER) continue
+            val outDisplay = output.clone()
+            ItemService.blueprint(outDisplay).updateItemData(outDisplay)
+            val chanceStr = if (chance >= 1.0) "Guaranteed" else "${"%.0f".format(chance * 100)}% chance"
+            val chanceColor = if (chance >= 1.0) NamedTextColor.GREEN else NamedTextColor.YELLOW
+            val lore = mutableListOf<Component>(ComponentUtils.EMPTY, ComponentUtils.create(chanceStr, chanceColor))
+            if (outDisplay.lore() != null) lore.addAll(outDisplay.lore()!!)
+            outDisplay.lore(ComponentUtils.cleanItalics(lore))
+            setSlot(outputSlot, outDisplay)
+            outputSlot++
+        }
+
+        setSlot(CORNER + 37, getNamedItem(Material.CRAFTING_TABLE, ComponentUtils.create("Cutting Board Recipe", NamedTextColor.GOLD)))
+    }
+
+    private fun renderFreezerRecipe(recipe: FreezerRecipe) {
+        val top = CORNER + 1
+        val middle = top + 9
+        val bottom = middle + 9
+
+        setButton(top, prepareIngredientDisplay(recipe.input)) { _: InventoryClickEvent -> handleIngredientClick(recipe.input) }
+        setSlot(middle, getNamedItem(Material.ICE, ComponentUtils.EMPTY))
+        setSlot(bottom, getNamedItem(Material.PACKED_ICE, ComponentUtils.EMPTY))
+        setSlot(CORNER + 37, getNamedItemWithDescription(
+            Material.BLUE_ICE,
+            ComponentUtils.create("Freezer Recipe", NamedTextColor.GOLD),
+            ComponentUtils.EMPTY,
+            ComponentUtils.merge(ComponentUtils.create("for "), ComponentUtils.create("${recipe.freezeTime / 20}s", NamedTextColor.GREEN))
+        ))
+    }
+
     private fun renderStonecuttingRecipe(stonecutting: StonecuttingRecipe, event: InventoryOpenEvent) {
         event.titleOverride(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.STONECUTTER_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
                     NamedTextColor.BLACK
-                )
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
             )
         )
 
@@ -203,9 +308,10 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SMITHING_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
                     NamedTextColor.BLACK
-                )
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
             )
         )
 
@@ -253,9 +359,10 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SHAPELESS_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
                     NamedTextColor.BLACK
-                )
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
             )
         )
 
@@ -290,9 +397,10 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SHAPED_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
                     NamedTextColor.BLACK
-                )
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
             )
         )
         for (row in shaped.shape) {
@@ -349,9 +457,10 @@ class MenuRecipeViewer(
             ComponentUtils.merge(
                 ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.FURNACE_RECIPE_MENU, NamedTextColor.WHITE),
                 ComponentUtils.create(
-                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: " + result.i18NDisplayName,
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
                     NamedTextColor.BLACK
-                )
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
             )
         )
 
@@ -400,11 +509,7 @@ class MenuRecipeViewer(
         )
 
         val fire = BORDER_NORMAL.clone()
-        fire.setData<CustomModelData?>(
-            DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData()
-                .addString("smprpg:furnace_burn")
-                .build()
-        )
+        fire.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:ui/furnace_burn"))
 
         val ingredient = getItemFromRecipeChoice(cooking.inputChoice)
         this.setButton(

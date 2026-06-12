@@ -23,17 +23,17 @@ public class PhantomCurry extends CustomItemBlueprint implements ISellable, IEdi
 
     @Override
     public int getNutrition(ItemStack item) {
-        return 6;
-    }
-
-    @Override
-    public float getSaturation(ItemStack item) {
         return 8;
     }
 
     @Override
+    public float getSaturation(ItemStack item) {
+        return 20;
+    }
+
+    @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 
     @Override

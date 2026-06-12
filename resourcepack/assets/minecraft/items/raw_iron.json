@@ -41,6 +41,27 @@
                     "type": "model",
                     "model": "materials:item/raw_adamantium"
                 }
+            },
+			{
+                "when": "smprpg:raw_tungsten",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/raw_tungsten"
+                }
+            },
+			{
+                "when": "smprpg:raw_cobalt",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/raw_cobalt"
+                }
+            },
+			{
+                "when": "smprpg:raw_orichalcum",
+                "model": {
+                    "type": "model",
+                    "model": "materials:item/raw_orichalcum"
+                }
             }
         ]
     }

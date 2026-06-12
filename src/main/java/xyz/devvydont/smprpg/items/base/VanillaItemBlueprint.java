@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.items.base;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.ItemRarity;
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource;
@@ -54,7 +55,9 @@ public class VanillaItemBlueprint extends SMPItemBlueprint implements ISellable 
 
     @Override
     public boolean isItemOfType(ItemStack itemStack) {
-        return !isCustom() && itemStack.getType().equals(material);
+        // A stack only counts as this vanilla type if it carries no custom item key,
+        // otherwise custom items sharing the same base material would falsely match.
+        return itemService.getItemKey(itemStack) == null && itemStack.getType().equals(material);
     }
 
     @Override
@@ -63,8 +66,10 @@ public class VanillaItemBlueprint extends SMPItemBlueprint implements ISellable 
     }
 
     @Override
-    public ItemStack generate() {
-        return ItemStack.of(material);
+    public @NonNull ItemStack generate() {
+        var item = ItemStack.of(material);
+        updateItemData(item);
+        return item;
     }
 
     /**

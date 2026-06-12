@@ -24,7 +24,7 @@ class CustomEntityDamageByEntityEvent(
 
     val audience: Audience = Audience.audience(damaged, dealer)
 
-    val originalDamage: Double = originalEvent.damage
+    var originalDamage: Double = originalEvent.damage
 
     private var additiveDamage = 0.0
     private var scalarDamage = 1.0
@@ -71,6 +71,16 @@ class CustomEntityDamageByEntityEvent(
 
     fun multiplyDamage(multiplier: Double) {
         multiplicativeDamage *= multiplier
+    }
+
+    /**
+     * Completely overrides any sort of modifications done so far and sets the damage to an explicit value.
+     */
+    fun setDamage(damage: Double) {
+        additiveDamage = 0.0
+        scalarDamage = 1.0
+        multiplicativeDamage = 1.0
+        originalDamage = damage
     }
 
     val finalDamage: Double

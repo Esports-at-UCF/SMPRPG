@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.items.blueprints.food;
 
 import io.papermc.paper.datacomponent.item.Consumable;
 import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect;
+import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -15,13 +16,12 @@ import xyz.devvydont.smprpg.items.interfaces.IEdible;
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden;
 import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
+import xyz.devvydont.smprpg.util.persistence.KeyStore;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
 import java.util.List;
 
 public class BreadboardBlueprint extends CustomItemBlueprint implements IEdible, ISellable, IModelOverridden {
-
-    public final NamespacedKey EatSound = new NamespacedKey("audio", "food.breadboard.eat");
 
     public BreadboardBlueprint(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -39,7 +39,7 @@ public class BreadboardBlueprint extends CustomItemBlueprint implements IEdible,
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 2;
+        return 0;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class BreadboardBlueprint extends CustomItemBlueprint implements IEdible,
         return Consumable.consumable()
                 .consumeSeconds(1.5f)
                 .addEffect(ConsumeEffect.applyStatusEffects(List.of(new PotionEffect(PotionEffectType.GLOWING, (int) TickTime.seconds(30), 0, true, true)), .5f))
-                .sound(EatSound)
+                .sound(KeyStore.AUDIO_BREADBOARD_EAT)
                 .build();
     }
 
@@ -63,13 +63,13 @@ public class BreadboardBlueprint extends CustomItemBlueprint implements IEdible,
      * @return The material this item should render as.
      */
     @Override
-    public Material getDisplayMaterial() {
-        return Material.IRON_TRAPDOOR;
+    public Key getDisplayKey() {
+        return IModelOverridden.ofMaterial(Material.IRON_TRAPDOOR);
     }
 
     @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 
 }

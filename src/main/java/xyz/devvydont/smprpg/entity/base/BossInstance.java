@@ -27,6 +27,7 @@ import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.entity.components.DamageTracker;
 import xyz.devvydont.smprpg.entity.interfaces.IDamageTrackable;
+import xyz.devvydont.smprpg.entity.slayer.SlayerBossInstance;
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
 import xyz.devvydont.smprpg.events.CustomItemDropRollEvent;
 import xyz.devvydont.smprpg.services.AttributeService;
@@ -476,7 +477,8 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
 
     @Override
     public int getMinecraftExperienceDropped() {
-        return super.getMinecraftExperienceDropped() * 18;
+        // return super.getMinecraftExperienceDropped() * 18;
+        return 0;
     }
 
     @Override
@@ -669,6 +671,10 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
     public void __onReceiveDamage(EntityDamageByEntityEvent event) {
 
         if (!event.getEntity().equals(_entity))
+            return;
+
+        // Slayer bosses don't have damage caps.
+        if (this instanceof SlayerBossInstance<?>)
             return;
 
         // Only living entities have damage caps.

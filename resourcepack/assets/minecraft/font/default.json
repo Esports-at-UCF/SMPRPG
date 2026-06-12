@@ -110,9 +110,36 @@
         },
         {
             "type": "bitmap",
+            "file": "ui:font/mana_full.png",
+            "height": 9,
+            "ascent": -26,
+            "chars": [
+                "\ua00D"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/mana_half.png",
+            "height": 9,
+            "ascent": -26,
+            "chars": [
+                "\ua00E"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/mana_empty.png",
+            "height": 9,
+            "ascent": -26,
+            "chars": [
+                "\ua00F"
+            ]
+        },
+        {
+            "type": "bitmap",
             "file": "ui:font/bars/bar_left_0_desat.png",
             "height": 10,
-            "ascent": -24,
+            "ascent": 0,
             "chars": [
                 "\ua100"
             ]
@@ -781,6 +808,114 @@
             "ascent": -4,
             "chars": [
                 "\ub009"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/enchanting_table.png",
+            "height": 256,
+            "ascent": -4,
+            "chars": [
+                "\ub00A"
+            ]
+        },
+		{
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/slayer_menu_main.png",
+            "height": 256,
+            "ascent": -4,
+            "chars": [
+                "\ub00B"
+            ]
+        },
+		{
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/slayer_menu_shambling.png",
+            "height": 256,
+            "ascent": 34,
+            "chars": [
+                "\ub00C"
+            ]
+        },
+				{
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/slayer_menu_piglin.png",
+            "height": 256,
+            "ascent": 34,
+            "chars": [
+                "\ub00D"
+            ]
+        },
+				{
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/slayer_menu_illager.png",
+            "height": 256,
+            "ascent": 34,
+            "chars": [
+                "\ub00E"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/stats_menu_main.png",
+            "height": 256,
+            "ascent": -4,
+            "chars": [
+                "\ub00F"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/stats_menu_sub.png",
+            "height": 256,
+            "ascent": -4,
+            "chars": [
+                "\ub010"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/freezer.png",
+            "height": 256,
+            "ascent": -4,
+            "chars": [
+                "\ub011"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/cooking_pot.png",
+            "height": 256,
+            "ascent": -4,
+            "chars": [
+                "\ub012"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/backgrounds/tome_overlay.png",
+            "height": 256,
+            "ascent": 13,
+            "chars": [
+                "\ub013"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/tooltip_elements/ability.png",
+            "height": 10,
+            "ascent": 8,
+            "chars": [
+                "\uc001"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "ui:font/tooltip_elements/passive.png",
+            "height": 10,
+            "ascent": 8,
+            "chars": [
+                "\uc002"
             ]
         },
         {

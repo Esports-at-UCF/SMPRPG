@@ -286,6 +286,45 @@ public class FishingRewardRegistry {
                         .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.LAVA))
                         .build(),
 
+                new ItemStackFishingLoot.Builder(CustomItemType.FLYING_FISH)
+                        .withWeight(COMMON_WEIGHT)
+                        .withMinecraftExperience(45)
+                        .withSkillExperience(30)
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.AERIAL))
+                        .build(),
+
+                new ItemStackFishingLoot.Builder(CustomItemType.SKY_BARNACLE)
+                        .withWeight(UNCOMMON_WEIGHT)
+                        .withMinecraftExperience(80)
+                        .withSkillExperience(750)
+                        .withRequirement(FishingLootRequirement.quality(100))
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.AERIAL))
+                        .build(),
+
+                new ItemStackFishingLoot.Builder(CustomItemType.CLOUD_CLAM)
+                        .withWeight(RARE_WEIGHT)
+                        .withMinecraftExperience(125)
+                        .withSkillExperience(4000)
+                        .withRequirement(FishingLootRequirement.quality(220))
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.AERIAL))
+                        .build(),
+
+                new ItemStackFishingLoot.Builder(CustomItemType.ANGELFISH)
+                        .withWeight(EPIC_WEIGHT)
+                        .withMinecraftExperience(300)
+                        .withSkillExperience(12_000)
+                        .withRequirement(FishingLootRequirement.quality(600))
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.AERIAL))
+                        .build(),
+
+                new ItemStackFishingLoot.Builder(CustomItemType.HOLY_MACKEREL)
+                        .withWeight(LEGENDARY_WEIGHT)
+                        .withMinecraftExperience(750)
+                        .withSkillExperience(30_000)
+                        .withRequirement(FishingLootRequirement.quality(900))
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.LAVA))
+                        .build(),
+
                 new ItemStackFishingLoot.Builder(CustomItemType.VOIDFIN)
                         .withWeight(COMMON_WEIGHT)
                         .withMinecraftExperience(30)
@@ -400,38 +439,6 @@ public class FishingRewardRegistry {
                         .withRequirement(FishingLootRequirement.biomes(BiomeChoiceRequirement.BiomeGroup.SWAMP))
                         .build(),
 
-                new ItemStackFishingLoot.Builder(CustomItemType.EXPERIENCE_BOTTLE)
-                        .withSkillExperience(500)
-                        .withMinecraftExperience(50)
-                        .withRequirement(FishingLootRequirement.quality(10))
-                        .withWeight(2)
-                        .build(),
-
-                new ItemStackFishingLoot.Builder(CustomItemType.LARGE_EXPERIENCE_BOTTLE)
-                        .withSkillExperience(750)
-                        .withMinecraftExperience(75)
-                        .withRequirement(FishingLootRequirement.quality(75))
-                        .build(),
-
-
-                new ItemStackFishingLoot.Builder(CustomItemType.HEFTY_EXPERIENCE_BOTTLE)
-                        .withSkillExperience(1000)
-                        .withMinecraftExperience(100)
-                        .withRequirement(FishingLootRequirement.quality(200))
-                        .build(),
-
-                new ItemStackFishingLoot.Builder(CustomItemType.GIGANTIC_EXPERIENCE_BOTTLE)
-                        .withSkillExperience(1250)
-                        .withMinecraftExperience(125)
-                        .withRequirement(FishingLootRequirement.quality(500))
-                        .build(),
-
-                new ItemStackFishingLoot.Builder(CustomItemType.COLOSSAL_EXPERIENCE_BOTTLE)
-                        .withSkillExperience(1500)
-                        .withMinecraftExperience(150)
-                        .withRequirement(FishingLootRequirement.quality(1000))
-                        .build(),
-
                 new ItemStackFishingLoot.Builder(CustomItemType.CAVIAR)
                         .withRequirement(FishingLootRequirement.quality(250))
                         .withMinecraftExperience(75)
@@ -457,6 +464,12 @@ public class FishingRewardRegistry {
                         .withMinecraftExperience(500)
                         .withSkillExperience(5000)
                         .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.VOID))
+                        .build(),
+
+                new ItemStackFishingLoot.Builder(CustomItemType.AETHERIUM_INGOT)
+                        .withSkillExperience(500)
+                        .withRequirement(FishingLootRequirement.quality(50))
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.AERIAL))
                         .build()
         );
 
@@ -709,6 +722,31 @@ public class FishingRewardRegistry {
                         .withMinecraftExperience(3)
                         .withSkillExperience(20)
                         .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.LAVA))
+                        .build(),
+
+                new ItemStackFishingLoot.Builder(CustomItemType.AMBROSIUM)
+                        .withSkillExperience(30)
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.AERIAL))
+                        .build(),
+
+                new ItemStackFishingLoot.Builder(CustomItemType.ZANITE)
+                        .withSkillExperience(50)
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.AERIAL))
+                        .build(),
+
+                new ItemStackFishingLoot.Builder(CustomItemType.PLATINUM_INGOT)
+                        .withSkillExperience(75)
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.AERIAL))
+                        .build(),
+
+                new ItemStackFishingLoot.Builder(CustomItemType.PALLADIUM_INGOT)
+                        .withSkillExperience(75)
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.AERIAL))
+                        .build(),
+
+                new ItemStackFishingLoot.Builder(CustomItemType.ICESTONE)
+                        .withSkillExperience(25)
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.AERIAL))
                         .build(),
 
                 new ItemStackFishingLoot.Builder(Material.CHORUS_FLOWER)

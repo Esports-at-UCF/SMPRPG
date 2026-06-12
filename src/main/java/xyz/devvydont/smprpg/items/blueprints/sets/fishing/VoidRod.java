@@ -4,16 +4,14 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
+import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
-import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
-import xyz.devvydont.smprpg.items.interfaces.ICraftable;
-import xyz.devvydont.smprpg.items.interfaces.IFishingRod;
-import xyz.devvydont.smprpg.items.interfaces.ISellable;
+import xyz.devvydont.smprpg.items.interfaces.*;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ToolGlobals;
 
@@ -21,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class VoidRod extends CustomAttributeItem implements IBreakableEquipment, IFishingRod, ICraftable, ISellable {
+public class VoidRod extends CustomAttributeItem implements IBreakableEquipment, IFishingRod, ICraftable, ISellable, IRepairable {
 
     public VoidRod(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -193,6 +191,17 @@ public class VoidRod extends CustomAttributeItem implements IBreakableEquipment,
             case COMET_ROD -> 15_000;
             case NEBULA_ROD -> 500_000;
             default -> 0;
+        };
+    }
+
+    @Override
+    public @NotNull Collection<@NotNull ItemStack> getRepairMaterial() {
+        return switch (getCustomItemType()) {
+            case ENDSTONE_ROD -> List.of(itemService.getCustomItem(Material.END_STONE));
+            case ENDER_ROD -> List.of(itemService.getCustomItem(CustomItemType.PREMIUM_ENDER_PEARL));
+            case COMET_ROD -> List.of(itemService.getCustomItem(CustomItemType.OBSIDIAN_TOOL_ROD));
+            case NEBULA_ROD -> List.of(itemService.getCustomItem(CustomItemType.DRACONIC_CRYSTAL));
+            default -> List.of();
         };
     }
 }

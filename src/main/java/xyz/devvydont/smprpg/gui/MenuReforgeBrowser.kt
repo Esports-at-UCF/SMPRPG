@@ -1,7 +1,9 @@
 package xyz.devvydont.smprpg.gui
 
+import io.papermc.paper.datacomponent.DataComponentTypes
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -16,6 +18,7 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.MinecraftStringUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
+import xyz.devvydont.smprpg.util.formatting.TooltipStyle
 
 /**
  * Renders all the reforges in the game for people to browse.
@@ -37,10 +40,11 @@ class MenuReforgeBrowser : MenuBase {
     }
 
     fun generateReforgeButton(type: ReforgeType): ItemStack {
-        val button: ItemStack = createNamedItem(
-            type.displayMaterial,
-            ComponentUtils.create(type.display(), NamedTextColor.GOLD)
-        )
+        val button: ItemStack = type.displayItem
+        val meta = button.itemMeta
+        meta.displayName(ComponentUtils.create(type.display(), NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false))
+        button.setItemMeta(meta)
+        button.setData(DataComponentTypes.TOOLTIP_STYLE, TooltipStyle.INFO.key)
         val reforge = SMPRPG.getService(ItemService::class.java).getReforge(type)
         if (reforge == null) return button
 

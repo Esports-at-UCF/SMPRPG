@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
+import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.items.CustomItemType;
@@ -14,6 +15,7 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword;
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
 import xyz.devvydont.smprpg.items.interfaces.IFishingRod;
+import xyz.devvydont.smprpg.items.interfaces.IRepairable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ToolGlobals;
 
@@ -21,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class LavaRod extends CustomAttributeItem implements IBreakableEquipment, IFishingRod, ICraftable {
+public class LavaRod extends CustomAttributeItem implements IBreakableEquipment, IFishingRod, ICraftable, IRepairable {
 
     public LavaRod(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -30,6 +32,17 @@ public class LavaRod extends CustomAttributeItem implements IBreakableEquipment,
     @Override
     public ItemClassification getItemClassification() {
         return ItemClassification.ROD;
+    }
+
+    @Override
+    public @NotNull Collection<@NotNull ItemStack> getRepairMaterial() {
+        return switch (getCustomItemType()) {
+            case GOLD_ROD -> List.of(itemService.getCustomItem(Material.GOLD_INGOT));
+            case STEEL_ROD -> List.of(itemService.getCustomItem(CustomItemType.STEEL_INGOT));
+            case NETHERITE_ROD -> List.of(itemService.getCustomItem(Material.NETHERITE_INGOT));
+            case SPITFIRE_ROD -> List.of(itemService.getCustomItem(CustomItemType.BOILING_INGOT));
+            default -> List.of();
+        };
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.entity.CustomEntityType;
+import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.CustomEntityInstance;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
@@ -33,7 +34,6 @@ public class FierySylph<T extends LivingEntity> extends CustomEntityInstance<T> 
                 new ChancedItemDrop(ItemService.generate(CustomItemType.CYRAX_LEGGINGS), 450, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.CYRAX_BOOTS), 425, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.CYRAX_BOW), 500, this),
-                new ChancedItemDrop(ItemService.generate(CustomItemType.BOILING_PICKAXE), 1000, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.BOILING_INGOT), 250, this),
 
                 new ChancedItemDrop(ItemService.generate(Material.BLAZE_ROD), 2, this),
@@ -42,6 +42,14 @@ public class FierySylph<T extends LivingEntity> extends CustomEntityInstance<T> 
 
                 new ChancedItemDrop(ItemService.generate(CustomItemType.INFERNO_ARROW), 150, this)
         );
+    }
+
+    @Override
+    public void setup() {
+        mobTypes.add(MobType.NETHER);
+        mobTypes.add(MobType.ELEMENTAL);
+
+        super.setup();
     }
 
 }

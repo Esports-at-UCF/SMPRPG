@@ -33,17 +33,17 @@ public class CottonCandy extends CustomItemBlueprint implements IEdible, ISellab
 
     @Override
     public int getNutrition(ItemStack item) {
-        return 4;
+        return 5;
     }
 
     @Override
     public float getSaturation(ItemStack item) {
-        return 2;
+        return 10;
     }
 
     @Override
     public boolean canAlwaysEat(ItemStack item) {
-        return false;
+        return true;
     }
 
     @Override

@@ -3,6 +3,8 @@ package xyz.devvydont.smprpg.items.interfaces;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.ItemStack;
+import xyz.devvydont.smprpg.SMPRPG;
+import xyz.devvydont.smprpg.items.CustomItemType;
 
 import java.util.Collection;
 import java.util.List;
@@ -47,5 +49,9 @@ public interface ICraftable {
                 return List.of();
             }
         };
+    }
+
+    static NamespacedKey getDefaultRecipeKey(CustomItemType type) {
+        return new NamespacedKey(SMPRPG.getPlugin(), type.getKey() + "-recipe");
     }
 }

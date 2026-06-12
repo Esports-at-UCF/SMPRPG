@@ -79,7 +79,7 @@ class MenuReforge(player: Player) : MenuBase(player, ROWS) {
 
         // Is this item not able to receive a reforge?
         if (getRandomReforge(
-                blueprint.getItemClassification(),
+                blueprint.itemClassification,
                 blueprint.getReforgeType(input)
             ).type == ReforgeType.ERROR
         ) {
@@ -174,7 +174,7 @@ class MenuReforge(player: Player) : MenuBase(player, ROWS) {
 
         // Analyze the current reforge on the gear and determine if we can even roll another reforge without erroring
         val currentReforgeType = blueprint.getReforgeType(item)
-        val newReforge = getRandomReforge(blueprint.getItemClassification(), currentReforgeType)
+        val newReforge = getRandomReforge(blueprint.itemClassification, currentReforgeType)
         var success = newReforge.type != ReforgeType.ERROR
 
         // Determine if we can afford this reforge
@@ -212,7 +212,7 @@ class MenuReforge(player: Player) : MenuBase(player, ROWS) {
         this.render()
         event.titleOverride(
             ComponentUtils.merge(
-                ComponentUtils.create("Tool Reforging", NamedTextColor.BLACK),
+                ComponentUtils.create("Tool Reforging", Symbols.INVENTORY_TITLE_COLOR),
                 ComponentUtils.create(
                     Symbols.OFFSET_NEG_64 + Symbols.OFFSET_NEG_8 + Symbols.OFFSET_NEG_3 + Symbols.REFORGE_BACKGROUND,
                     NamedTextColor.WHITE
@@ -255,9 +255,9 @@ class MenuReforge(player: Player) : MenuBase(player, ROWS) {
     }
 
     companion object {
-        const val ROWS: Int = 5
+        const val ROWS: Int = 3
 
-        const val INPUT_SLOT: Int = 22
-        const val BUTTON_SLOT: Int = 24
+        const val INPUT_SLOT: Int = 13
+        const val BUTTON_SLOT: Int = 15
     }
 }

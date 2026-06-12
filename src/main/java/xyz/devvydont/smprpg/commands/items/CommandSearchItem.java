@@ -23,7 +23,7 @@ public class CommandSearchItem extends CommandSimplePlayer {
     @Override
     protected void playerInvoked(@NotNull Player player, @NotNull CommandSourceStack ctx, @NotNull String @NotNull [] args) {
         String query = String.join(" ", args).replace("_", " ").trim();
-        new MenuItemBrowser(player, query).openMenu();
+        new MenuItemBrowser(null, player, query).openMenu();
         if (query.equalsIgnoreCase(""))
             query = "ALL ITEMS";
 

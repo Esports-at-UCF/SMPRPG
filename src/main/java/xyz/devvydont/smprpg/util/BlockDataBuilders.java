@@ -4,6 +4,7 @@ import org.bukkit.Instrument;
 import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.Leaves;
 import org.bukkit.block.data.type.NoteBlock;
 
 public class BlockDataBuilders {
@@ -15,5 +16,12 @@ public class BlockDataBuilders {
         noteBlockData.setNote(note);
         noteBlockData.setPowered(isPowered);
         return noteBlockData;
+    }
+
+    public static BlockData newLeavesData(Material leafType, Boolean persistent, int distance) {
+        var leavesData = (Leaves) leafType.createBlockData();
+        leavesData.setDistance(distance);
+        leavesData.setPersistent(persistent);
+        return leavesData;
     }
 }

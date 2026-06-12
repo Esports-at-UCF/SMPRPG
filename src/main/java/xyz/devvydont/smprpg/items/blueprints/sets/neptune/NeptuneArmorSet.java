@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.items.blueprints.sets.neptune;
 
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
@@ -9,17 +10,23 @@ import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
+import xyz.devvydont.smprpg.items.interfaces.IRepairable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 
 import java.util.Collection;
 import java.util.List;
 
-public abstract class NeptuneArmorSet extends CustomAttributeItem implements IBreakableEquipment, ICraftable {
+public abstract class NeptuneArmorSet extends CustomAttributeItem implements IBreakableEquipment, ICraftable, IRepairable {
 
     public static final int POWER_LEVEL = 20;
     public static final int OXYGEN_BONUS = 20;
     public static final int DURABILITY = 25_000;
+
+    @Override
+    public @NotNull Collection<@NotNull ItemStack> getRepairMaterial() {
+        return List.of(itemService.getCustomItem(CustomItemType.JUPITERS_ARTIFACT));
+    }
 
     public NeptuneArmorSet(ItemService itemService, CustomItemType type) {
         super(itemService, type);
