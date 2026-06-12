@@ -50,6 +50,26 @@ items:
       type: block_item
       block: smprpg:raw_titanium_block
 
+  smprpg:raw_mithril:
+    data:
+      item-name: <!i><lang:item.smprpg.raw_mithril>
+      pdc:
+        smprpg:item-type: raw_mithril
+        smprpg:sell-value: 75
+    model: smprpg:item/materials/raw_mithril
+  smprpg:mithril_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.mithril_ingot>
+      pdc:
+        smprpg:item-type: mithril_ingot
+    model: smprpg:item/materials/mithril_ingot
+  smprpg:raw_titanium:
+    data:
+      item-name: <!i><lang:item.smprpg.raw_titanium>
+      pdc:
+        smprpg:item-type: raw_titanium
+    model: smprpg:item/materials/raw_titanium
+
 blocks:
   smprpg:sparse_mithril_ore:
     state:

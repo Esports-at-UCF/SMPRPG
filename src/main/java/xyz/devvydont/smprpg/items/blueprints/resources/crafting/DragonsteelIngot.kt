@@ -9,13 +9,14 @@ import org.bukkit.inventory.recipe.CraftingBookCategory
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 
-class DragonsteelIngot(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
+class DragonsteelIngot(itemService: ItemService, type: CustomItemType) : CraftEngineBlueprint(itemService, type),
     ISellable, ICraftable, IModelOverridden {
     override val itemClassification: ItemClassification get() = ItemClassification.MATERIAL
 
@@ -37,5 +38,5 @@ class DragonsteelIngot(itemService: ItemService, type: CustomItemType) : CustomI
 
     override fun getWorth(itemStack: ItemStack): Int { return 200000 * itemStack.amount }
 
-    override fun getDisplayKey(): Key? { return IModelOverridden.ofItemTypeInDirectory(customItemType, "materials") }
+    override fun getDisplayKey(): Key { return IModelOverridden.ofItemTypeInDirectory(customItemType, "materials") }
 }

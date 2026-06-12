@@ -7,13 +7,14 @@ import org.bukkit.inventory.RecipeChoice.ExactChoice
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.interfaces.ICompressible
 import xyz.devvydont.smprpg.items.interfaces.ICompressible.CompressionStep
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 
-class CobaltIngot(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
+class CobaltIngot(itemService: ItemService, type: CustomItemType) : CraftEngineBlueprint(itemService, type),
     ISellable, IModelOverridden, ICompressible {
     override val itemClassification: ItemClassification get() = ItemClassification.MATERIAL
 

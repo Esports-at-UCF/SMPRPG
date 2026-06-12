@@ -11,6 +11,7 @@ import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
@@ -18,7 +19,7 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import java.util.List
 
-class RoseGoldIngot(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type), ISellable,
+class RoseGoldIngot(itemService: ItemService, type: CustomItemType) : CraftEngineBlueprint(itemService, type), ISellable,
     ICraftable, IModelOverridden {
     override val itemClassification: ItemClassification get() = ItemClassification.MATERIAL
 

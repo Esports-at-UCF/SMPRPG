@@ -6,7 +6,6 @@ items:
     behavior:
       type: block_item
       block: smprpg:tungsten_ore
-
   smprpg:raw_tungsten_block:
     data:
       item-name: <!i><lang:item.smprpg.tungsten_block>
@@ -14,7 +13,6 @@ items:
     behavior:
       type: block_item
       block: smprpg:raw_tungsten_block
-
   smprpg:tungsten_block:
     data:
       item-name: <!i><lang:item.smprpg.tungsten_block>
@@ -22,6 +20,18 @@ items:
     behavior:
       type: block_item
       block: smprpg:tungsten_block
+  smprpg:raw_tungsten:
+    data:
+      item-name: <!i><lang:item.smprpg.raw_tungsten>
+      pdc:
+        smprpg:item-type: raw_tungsten
+    model: smprpg:item/materials/raw_tungsten
+  smprpg:tungsten_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.tungsten_ingot>
+      pdc:
+        smprpg:item-type: tungsten_ingot
+    model: smprpg:item/materials/tungsten_ingot
 
 
 blocks:

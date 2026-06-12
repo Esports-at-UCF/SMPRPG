@@ -23,6 +23,21 @@ items:
       type: block_item
       block: smprpg:cobalt_block
 
+  smprpg:raw_cobalt:
+    data:
+      item-name: <!i><lang:item.smprpg.raw_cobalt>
+      pdc:
+        smprpg:item-type: raw_cobalt
+        smprpg:sell-value: 100
+    model: smprpg:item/materials/raw_cobalt
+  smprpg:cobalt_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.cobalt_ingot>
+      pdc:
+        smprpg:item-type: cobalt_ingot
+        smprpg:sell-value: 300
+    model: smprpg:item/materials/cobalt_ingot
+
 
 blocks:
   smprpg:cobalt_ore:

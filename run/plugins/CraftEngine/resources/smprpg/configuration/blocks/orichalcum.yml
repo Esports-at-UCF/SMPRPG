@@ -6,7 +6,6 @@ items:
     behavior:
       type: block_item
       block: smprpg:orichalcum_ore
-
   smprpg:raw_orichalcum_block:
     data:
       item-name: <!i><lang:item.smprpg.orichalcum_block>
@@ -14,7 +13,6 @@ items:
     behavior:
       type: block_item
       block: smprpg:raw_orichalcum_block
-
   smprpg:orichalcum_block:
     data:
       item-name: <!i><lang:item.smprpg.orichalcum_block>
@@ -22,6 +20,18 @@ items:
     behavior:
       type: block_item
       block: smprpg:orichalcum_block
+  smprpg:raw_orichalcum:
+    data:
+      item-name: <!i><lang:item.smprpg.raw_orichalcum>
+      pdc:
+        smprpg:item-type: raw_orichalcum
+    model: smprpg:item/materials/raw_orichalcum
+  smprpg:orichalcum_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.orichalcum_ingot>
+      pdc:
+        smprpg:item-type: orichalcum_ingot
+    model: smprpg:item/materials/orichalcum_ingot
 
 
 blocks:

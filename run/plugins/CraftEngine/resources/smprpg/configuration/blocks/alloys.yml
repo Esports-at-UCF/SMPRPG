@@ -27,6 +27,22 @@ items:
     behavior:
       type: block_item
       block: smprpg:dragonsteel_block
+  smprpg:bronze_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.bronze_ingot>
+    model: smprpg:item/materials/bronze_ingot
+  smprpg:steel_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.steel_ingot>
+    model: smprpg:item/materials/steel_ingot
+  smprpg:rose_gold_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.rose_gold_ingot>
+    model: smprpg:item/materials/rose_gold_ingot
+  smprpg:dragonsteel_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.dragonsteel_ingot>
+    model: smprpg:item/materials/dragonsteel_ingot
 
 
 blocks:
@@ -104,3 +120,15 @@ blocks:
     loot:
       template:
         - smprpg:loot_table/self
+
+recipes:
+  smprpg:steel_from_blasting_iron:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: steel
+    time: 800
+    ingredient: minecraft:iron_ingot
+    result:
+      id: smprpg:steel_ingot
+      count: 1

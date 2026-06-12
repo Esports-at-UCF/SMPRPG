@@ -6,7 +6,6 @@ items:
     behavior:
       type: block_item
       block: smprpg:tin_ore
-
   smprpg:deepslate_tin_ore:
     data:
       item-name: <!i><lang:item.smprpg.deepslate_tin_ore>
@@ -14,7 +13,6 @@ items:
     behavior:
       type: block_item
       block: smprpg:deepslate_tin_ore
-
   smprpg:raw_tin_block:
     data:
       item-name: <!i><lang:item.smprpg.raw_tin_block>
@@ -22,7 +20,6 @@ items:
     behavior:
       type: block_item
       block: smprpg:raw_tin_block
-
   smprpg:tin_block:
     data:
       item-name: <!i><lang:item.smprpg.tin_block>
@@ -30,6 +27,18 @@ items:
     behavior:
       type: block_item
       block: smprpg:tin_block
+  smprpg:raw_tin:
+    data:
+      item-name: <!i><lang:item.smprpg.raw_tin>
+      pdc:
+        smprpg:item-type: raw_tin
+    model: smprpg:item/materials/raw_tin
+  smprpg:tin_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.tin_ingot>
+      pdc:
+        smprpg:item-type: tin_ingot
+    model: smprpg:item/materials/tin_ingot
 
 blocks:
   smprpg:tin_ore:

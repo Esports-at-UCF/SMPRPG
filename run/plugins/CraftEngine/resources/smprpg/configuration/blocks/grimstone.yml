@@ -81,6 +81,7 @@ blocks:
 
   smprpg:grimstone_iron_ore:
     state:
+      id: 6
       auto-state: solid
       model:
         template: smprpg:model/simplified_cube_all
@@ -94,6 +95,7 @@ blocks:
         tags: [ "minecraft:iron_ores" ]
   smprpg:grimstone_gold_ore:
     state:
+      id: 7
       auto-state: solid
       model:
         template: smprpg:model/simplified_cube_all
@@ -107,6 +109,7 @@ blocks:
         tags: [ "minecraft:gold_ores" ]
   smprpg:grimstone_lapis_ore:
     state:
+      id: 8
       auto-state: solid
       model:
         template: smprpg:model/simplified_cube_all
@@ -120,6 +123,7 @@ blocks:
         tags: [ "minecraft:lapis_ores" ]
   smprpg:grimstone_diamond_ore:
     state:
+      id: 9
       auto-state: solid
       model:
         template: smprpg:model/simplified_cube_all

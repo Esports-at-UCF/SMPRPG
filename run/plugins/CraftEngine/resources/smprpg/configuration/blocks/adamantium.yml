@@ -20,6 +20,20 @@ items:
     behavior:
       type: block_item
       block: smprpg:adamantium_block
+  smprpg:raw_adamantium:
+    data:
+      item-name: <!i><lang:item.smprpg.raw_adamantium>
+      pdc:
+        smprpg:item-type: raw_adamantium
+        smprpg:sell-value: 500
+    model: smprpg:item/materials/raw_adamantium
+  smprpg:adamantium_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.adamantium_ingot>
+      pdc:
+        smprpg:item-type: adamantium_ingot
+        smprpg:sell-value: 2000
+    model: smprpg:item/materials/adamantium_ingot
 
 blocks:
   smprpg:adamantium_ore:
