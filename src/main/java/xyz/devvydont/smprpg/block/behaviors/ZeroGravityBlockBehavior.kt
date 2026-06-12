@@ -8,6 +8,7 @@ import net.momirealms.craftengine.core.block.behavior.BlockBehaviorFactory
 import net.momirealms.craftengine.core.plugin.config.ConfigSection
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.FishHook
+import org.bukkit.entity.Item
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.entity.Projectile
@@ -39,7 +40,8 @@ class ZeroGravityBlockBehavior(blockDefinition: BlockDefinition): BukkitBlockBeh
                 else newVelocity.y = -0.005
             }
         }
-        if (entity !is ArmorStand && entity !is Projectile)
+        val canMove = !(entity is ArmorStand || entity is Projectile || entity is Item)
+        if (canMove)
             entity.velocity = newVelocity
         super.entityInside(thisBlock, args)
     }

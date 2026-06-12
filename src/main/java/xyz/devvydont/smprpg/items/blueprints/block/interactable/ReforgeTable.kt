@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.block.interactable
 
+import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.ItemStack
@@ -20,11 +21,11 @@ class ReforgeTable(itemService: ItemService, type: CustomItemType) : CraftEngine
     override fun getCustomRecipe(): CraftingRecipe {
         val recipe = ShapedRecipe(recipeKey, generate())
         recipe.shape(
-            "zz",
-            "ss",
-            "ss"
+            "szs",
+            "SSS"
         )
         recipe.setIngredient('s', itemService.getCustomItem(CustomItemType.STEEL_INGOT))
+        recipe.setIngredient('S', itemService.getCustomItem(Material.STONE))
         recipe.setIngredient('z', itemService.getCustomItem(CustomItemType.ZANITE))
         recipe.setCategory(CraftingBookCategory.MISC)
         return recipe
@@ -32,7 +33,6 @@ class ReforgeTable(itemService: ItemService, type: CustomItemType) : CraftEngine
 
     override fun unlockedBy(): Collection<ItemStack?> {
         return mutableListOf(
-            itemService.getCustomItem(CustomItemType.STEEL_INGOT),
             itemService.getCustomItem(CustomItemType.ZANITE)
         )
     }
