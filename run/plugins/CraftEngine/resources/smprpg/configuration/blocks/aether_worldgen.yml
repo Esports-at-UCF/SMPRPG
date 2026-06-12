@@ -1386,3 +1386,45 @@ recipes:
     result:
       id: minecraft:white_dye
       count: 1
+
+recipes#smelting:
+  smprpg:palladium_from_blasting_raw_palladium:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: palladium
+    time: 1600
+    ingredient: smprpg:raw_palladium
+    result:
+      id: smprpg:palladium_ingot
+      count: 1
+  smprpg:palladium_from_blasting_palladium_ore:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 1600
+    ingredient: smprpg:palladium_ore
+    result:
+      id: smprpg:palladium_ingot
+      count: 1
+  smprpg:platinum_from_blasting_raw_platinum:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: platinum
+    time: 1600
+    ingredient: smprpg:raw_platinum
+    result:
+      id: smprpg:platinum_ingot
+      count: 1
+  smprpg:platinum_from_blasting_platinum_ore:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 1600
+    ingredient: smprpg:platinum_ore
+    result:
+      id: smprpg:platinum_ingot
+      count: 1

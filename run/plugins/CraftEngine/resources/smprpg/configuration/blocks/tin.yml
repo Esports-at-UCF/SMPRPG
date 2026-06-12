@@ -119,3 +119,66 @@ placed-features:
             absolute: 128
           min_inclusive:
             absolute: 16
+
+recipes:
+  # Smelting/Blasting
+  smprpg:tin_from_smelting_raw_tin:
+    type: smelting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 200
+    ingredient: smprpg:raw_tin
+    result:
+      id: smprpg:tin_ingot
+      count: 1
+  smprpg:tin_from_smelting_tin_ore:
+    type: smelting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 200
+    ingredient: smprpg:tin_ore
+    result:
+      id: smprpg:tin_ingot
+      count: 1
+  smprpg:tin_from_smelting_deepslate_tin_ore:
+    type: smelting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 200
+    ingredient: smprpg:deepslate_tin_ore
+    result:
+      id: smprpg:tin_ingot
+      count: 1
+  smprpg:tin_from_blasting_raw_tin:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 200
+    ingredient: smprpg:raw_tin
+    result:
+      id: smprpg:tin_ingot
+      count: 1
+  smprpg:tin_from_blasting_tin_ore:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 200
+    ingredient: smprpg:tin_ore
+    result:
+      id: smprpg:tin_ingot
+      count: 1
+  smprpg:tin_from_blasting_deepslate_tin_ore:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 200
+    ingredient: smprpg:deepslate_tin_ore
+    result:
+      id: smprpg:tin_ingot
+      count: 1

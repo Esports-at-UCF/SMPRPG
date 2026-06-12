@@ -311,3 +311,66 @@ placed-features:
           min_inclusive:
             above_bottom: 6
       - type: minecraft:biome
+
+recipes:
+  # Smelting/Blasting
+  smprpg:mithril_from_blasting_raw_mithril:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: mithril
+    time: 400
+    ingredient: smprpg:raw_mithril
+    result:
+      id: smprpg:mithril_ingot
+      count: 1
+  smprpg:mithril_from_blasting_sparse_mithril_ore:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 400
+    ingredient: smprpg:sparse_mithril_ore
+    result:
+      id: smprpg:mithril_ingot
+      count: 1
+  smprpg:mithril_from_blasting_mithril_ore:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 400
+    ingredient: smprpg:mithril_ore
+    result:
+      id: smprpg:mithril_ingot
+      count: 2
+  smprpg:mithril_from_blasting_dense_mithril_ore:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 400
+    ingredient: smprpg:dense_mithril_ore
+    result:
+      id: smprpg:mithril_ingot
+      count: 3
+  smprpg:titanium_from_blasting_raw_titanium:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: titanium
+    time: 400
+    ingredient: smprpg:raw_titanium
+    result:
+      id: smprpg:titanium_ingot
+      count: 1
+  smprpg:titanium_from_blasting_titanium_ore:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 400
+    ingredient: smprpg:titanium_ore
+    result:
+      id: smprpg:titanium_ingot
+      count: 1

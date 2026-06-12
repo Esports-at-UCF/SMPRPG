@@ -1,6 +1,22 @@
 lang#items:
   en_us:
+    item.smprpg.tin_ingot: Tin Ingot
     item.smprpg.silver_ingot: Silver Ingot
+    item.smprpg.bronze_ingot: Bronze Ingot
+    item.smprpg.rose_gold_ingot: Rose Gold Ingot
+    item.smprpg.mithril_ingot: Mithril Ingot
+    item.smprpg.steel_ingot: Steel Ingot
+    item.smprpg.titanium_ingot: Titanium Ingot
+    item.smprpg.adamantium_ingot: Adamantium Ingot
+
+    item.smprpg.tungsten_ingot: Tungsten Ingot
+    item.smprpg.cobalt_ingot: Cobalt Ingot
+    item.smprpg.orichalcum_ingot: Orichalcum Ingot
+
+    item.smprpg.platinum_ingot: Platinum Ingot
+    item.smprpg.palladium_ingot: Palladium Ingot
+    item.smprpg.aetherium_ingot: Aetherium Ingot
+
     item.smprpg.holystone: Holystone
     item.smprpg.holystone_bricks: Holystone Bricks
     item.smprpg.holystone_brick_slab: Holystone Brick Slab

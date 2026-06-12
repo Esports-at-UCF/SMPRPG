@@ -109,3 +109,25 @@ placed-features:
             absolute: -60
           min_inclusive:
             absolute: -62
+
+recipes:
+  smprpg:adamantium_from_blasting_raw_adamantium:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: adamantium
+    time: 800
+    ingredient: smprpg:raw_adamantium
+    result:
+      id: smprpg:adamantium_ingot
+      count: 1
+  smprpg:adamantium_from_blasting_adamantium_ore:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 800
+    ingredient: smprpg:adamantium_ore
+    result:
+      id: smprpg:adamantium_ingot
+      count: 1

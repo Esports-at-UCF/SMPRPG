@@ -100,3 +100,25 @@ placed-features:
             absolute: 114
           min_inclusive:
             absolute: 64
+
+recipes:
+  smprpg:orichalcum_from_blasting_raw_orichalcum:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: orichalcum
+    time: 1600
+    ingredient: smprpg:raw_orichalcum
+    result:
+      id: smprpg:orichalcum_ingot
+      count: 1
+  smprpg:orichalcum_from_blasting_orichalcum_ore:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 1600
+    ingredient: smprpg:orichalcum_ore
+    result:
+      id: smprpg:orichalcum_ingot
+      count: 1

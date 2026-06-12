@@ -102,3 +102,25 @@ placed-features:
             absolute: 64
           min_inclusive:
             absolute: 16
+
+recipes:
+  smprpg:cobalt_from_blasting_raw_cobalt:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: cobalt
+    time: 1600
+    ingredient: smprpg:raw_cobalt
+    result:
+      id: smprpg:cobalt_ingot
+      count: 1
+  smprpg:cobalt_from_blasting_cobalt_ore:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 1600
+    ingredient: smprpg:cobalt_ore
+    result:
+      id: smprpg:cobalt_ingot
+      count: 1

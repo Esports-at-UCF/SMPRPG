@@ -101,3 +101,25 @@ placed-features:
             absolute: 100
           min_inclusive:
             absolute: 16
+
+recipes:
+  smprpg:tungsten_from_blasting_raw_tungsten:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tungsten
+    time: 1600
+    ingredient: smprpg:raw_tungsten
+    result:
+      id: smprpg:tungsten_ingot
+      count: 1
+  smprpg:tungsten_from_blasting_tungsten_ore:
+    type: blasting
+    experience: 0.0
+    category: misc
+    group: tin
+    time: 1600
+    ingredient: smprpg:tungsten_ore
+    result:
+      id: smprpg:tungsten_ingot
+      count: 1
