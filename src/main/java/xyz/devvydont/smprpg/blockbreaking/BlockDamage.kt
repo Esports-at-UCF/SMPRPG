@@ -260,13 +260,15 @@ class BlockDamage {
             popupLoc.subtract(Vector(0.25, 0.0, 0.25))
             if (!correctTool) {
                 checkNotNull(preferredTools)
-                spawnTextPopup(
-                    popupLoc.toLocation(block.world),
-                    "Requires " + preferredTools.toTypedArray()[0].toString().lowercase(
-                        Locale.getDefault()
-                    ),
-                    DamagePopupListener.PopupType.REQUIRES_TOOL
-                )
+                if (preferredTools.isNotEmpty()) {
+                    spawnTextPopup(
+                        popupLoc.toLocation(block.world),
+                        "Requires " + preferredTools.toTypedArray()[0].toString().lowercase(
+                            Locale.getDefault()
+                        ),
+                        DamagePopupListener.PopupType.REQUIRES_TOOL
+                    )
+                }
             } else spawnTextPopup(
                 popupLoc.toLocation(block.world),
                 entry.breakingPower.toDouble(),
