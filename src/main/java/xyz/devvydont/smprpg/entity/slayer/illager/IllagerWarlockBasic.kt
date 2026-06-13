@@ -22,6 +22,7 @@ class IllagerWarlockBasic(entity: LivingEntity?, entityType: CustomEntityType?) 
             QuantityLootDrop(ItemService.Companion.generate(Material.EMERALD), 5, 16, this),
             ChancedItemDrop(ItemService.Companion.generate(CustomItemType.PREMIUM_SPELL_POWDER), 20, this),
             ChancedItemDrop(ItemService.Companion.generate(CustomItemType.ENCHANTED_SPELL_POWDER), 100, this),
+            ChancedItemDrop(ItemService.Companion.generate(CustomItemType.EVOKATION_CODEX), 100, this),
 
             ChancedItemDrop(ItemService.Companion.generate(CustomItemType.HORN_OF_WARLOCK), 200, this)
         )

@@ -113,7 +113,7 @@ class CookingPotBlockBehavior(
         val ceBlock = BukkitAdaptor.adapt(belowBlock)
         var entityAt = ceBlock.world().storageWorld().getBlockEntityAtIfLoaded(BlockPos(pos.x, pos.y, pos.z))
         if (entityAt != null) {
-            (entityAt as CookingPotBlockEntityController).updateHeated()
+            (entityAt.controller as CookingPotBlockEntityController).updateHeated()
         }
     }
 

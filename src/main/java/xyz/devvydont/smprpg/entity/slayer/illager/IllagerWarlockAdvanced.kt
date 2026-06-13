@@ -25,6 +25,7 @@ class IllagerWarlockAdvanced(entity: LivingEntity?, entityType: CustomEntityType
             QuantityLootDrop(generate(Material.EMERALD_BLOCK), 1, 2, this),
             ChancedItemDrop(generate(CustomItemType.ENCHANTED_EMERALD), 50, this),
 
+            ChancedItemDrop(generate(CustomItemType.EVOKATION_CODEX), 25, this),
             ChancedItemDrop(LOOT_VIGILANTE_SCROLL, 65, this),
             ChancedItemDrop(LOOT_APTITUDE_SCROLL, 100, this),
             ChancedItemDrop(generate(CustomItemType.CRYSTAL_BALL), 200, this),
