@@ -1408,7 +1408,7 @@ public class BlockPropertiesRegistry implements Listener {
                 .softRequirement(false)
                 .build());
 
-        register(Material.NETHER_BRICK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+        register(Material.NETHER_BRICKS, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(200)
                 .breakingPower(1)
                 .softRequirement(false)
@@ -6541,7 +6541,7 @@ public class BlockPropertiesRegistry implements Listener {
                 .softRequirement(true)
                 .build());
         //</editor-fold>
-        register(Material.KELP, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
+        register(Material.KELP_PLANT, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
@@ -6620,6 +6620,12 @@ public class BlockPropertiesRegistry implements Listener {
                 .build());
 
         register(Material.DEAD_BUSH, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET, ItemClassification.SHEARS)
+                .hardness(0)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
+        register(Material.FIREFLY_BUSH, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET, ItemClassification.SHEARS)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)
