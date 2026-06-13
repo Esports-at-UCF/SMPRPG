@@ -182,7 +182,7 @@ blocks:
     settings:
       template:
         - smprpg:settings/solid_1x1x1
-        - smprpg:data/breaking_power_5
+        - smprpg:data/breaking_power_4
         - smprpg:sound/blackstone
       merges:
         tags: ["minecraft:mineable/pickaxe"]
@@ -218,7 +218,7 @@ blocks:
     settings:
       template:
         - smprpg:settings/metal_block
-        - smprpg:data/breaking_power_5
+        - smprpg:data/breaking_power_4
         - smprpg:data/beacon_usable
       merges:
         tags: [ "minecraft:mineable/pickaxe" ]
@@ -272,7 +272,7 @@ items#titanium_compression:
         settings:
           template:
             - smprpg:settings/metal_block
-            - smprpg:data/breaking_power_5
+            - smprpg:data/breaking_power_4
             - smprpg:data/beacon_usable
           overrides:
             hardness: 25.0
