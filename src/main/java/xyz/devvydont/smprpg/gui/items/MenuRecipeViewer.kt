@@ -153,9 +153,9 @@ class MenuRecipeViewer(
             result.amount = currentRecipeObj.result.amount
 
         when (val recipe = currentRecipeObj) {
-            is CookingPotRecipe -> renderCookingPotRecipe(recipe)
+            is CookingPotRecipe -> renderCookingPotRecipe(recipe, event)
             is CuttingBoardRecipe -> renderCuttingBoardRecipe(recipe)
-            is FreezerRecipe -> renderFreezerRecipe(recipe)
+            is FreezerRecipe -> renderFreezerRecipe(recipe, event)
             is CookingRecipe<*> -> renderCookingRecipe(recipe, event)
             is ShapelessRecipe -> renderShapelessRecipe(recipe, event)
             is ShapedRecipe -> renderShapedRecipe(recipe, event)
@@ -201,7 +201,18 @@ class MenuRecipeViewer(
         return display
     }
 
-    private fun renderCookingPotRecipe(recipe: CookingPotRecipe) {
+    private fun renderCookingPotRecipe(recipe: CookingPotRecipe, event: InventoryOpenEvent) {
+        event.titleOverride(
+            ComponentUtils.merge(
+                ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.COOKING_POT_RECIPE_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
+                    NamedTextColor.BLACK
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
+            )
+        )
+
         var x = 0
         var y = 0
         for (ingredient in recipe.inputs) {
@@ -215,10 +226,10 @@ class MenuRecipeViewer(
             val lore = mutableListOf<Component>(ComponentUtils.EMPTY, ComponentUtils.create("Place in the plating slot", NamedTextColor.YELLOW))
             if (plating.lore() != null) lore.addAll(plating.lore()!!)
             plating.lore(ComponentUtils.cleanItalics(lore))
-            setSlot(CORNER + 4, plating)
+            setSlot(CORNER + 32, plating)
         }
         setSlot(CORNER + 37, getNamedItemWithDescription(
-            Material.CAULDRON,
+            CustomItemType.COOKING_POT,
             ComponentUtils.create("Cooking Pot Recipe", NamedTextColor.GOLD),
             ComponentUtils.EMPTY,
             ComponentUtils.merge(ComponentUtils.create("for "), ComponentUtils.create("${recipe.cookTime / 20}s", NamedTextColor.GREEN))
@@ -261,19 +272,33 @@ class MenuRecipeViewer(
             outputSlot++
         }
 
-        setSlot(CORNER + 37, getNamedItem(Material.CRAFTING_TABLE, ComponentUtils.create("Cutting Board Recipe", NamedTextColor.GOLD)))
+        setSlot(CORNER + 37, getNamedItem(CustomItemType.CUTTING_BOARD, ComponentUtils.create("Cutting Board Recipe", NamedTextColor.GOLD)))
     }
 
-    private fun renderFreezerRecipe(recipe: FreezerRecipe) {
+    private fun renderFreezerRecipe(recipe: FreezerRecipe, event: InventoryOpenEvent) {
         val top = CORNER + 1
         val middle = top + 9
         val bottom = middle + 9
 
+        event.titleOverride(
+            ComponentUtils.merge(
+                ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.FURNACE_RECIPE_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
+                    NamedTextColor.BLACK
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
+            )
+        )
+
+        val flame = BORDER_NORMAL.clone()
+        flame.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:ui/freezer_burn_recipe"))
+
         setButton(top, prepareIngredientDisplay(recipe.input)) { _: InventoryClickEvent -> handleIngredientClick(recipe.input) }
-        setSlot(middle, getNamedItem(Material.ICE, ComponentUtils.EMPTY))
-        setSlot(bottom, getNamedItem(Material.PACKED_ICE, ComponentUtils.EMPTY))
+        setSlot(middle, flame)
+        setSlot(bottom, getNamedItem(CustomItemType.ICESTONE, ComponentUtils.EMPTY))
         setSlot(CORNER + 37, getNamedItemWithDescription(
-            Material.BLUE_ICE,
+            CustomItemType.FREEZER,
             ComponentUtils.create("Freezer Recipe", NamedTextColor.GOLD),
             ComponentUtils.EMPTY,
             ComponentUtils.merge(ComponentUtils.create("for "), ComponentUtils.create("${recipe.freezeTime / 20}s", NamedTextColor.GREEN))
