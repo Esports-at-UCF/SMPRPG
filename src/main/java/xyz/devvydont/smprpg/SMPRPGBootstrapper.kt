@@ -12,8 +12,10 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
 import xyz.devvydont.smprpg.commands.ICommand
 import xyz.devvydont.smprpg.commands.ICommandBase
 import xyz.devvydont.smprpg.commands.LegacyCommand
+import xyz.devvydont.smprpg.market.MarketService
 import xyz.devvydont.smprpg.market.commands.CommandAuctionHouse
 import xyz.devvydont.smprpg.market.commands.CommandBazaar
+import xyz.devvydont.smprpg.market.commands.CommandMarket
 import xyz.devvydont.smprpg.market.gui.auction.MenuAuctionBrowser
 import xyz.devvydont.smprpg.market.gui.bazaar.MenuBazaarBrowser
 import xyz.devvydont.smprpg.commands.admin.CommandAttribute
@@ -82,10 +84,11 @@ class SMPRPGBootstrapper : PluginBootstrap {
             ICommand.SimplePlayerCommand("trash", { player -> MenuTrashItems(player).openMenu()}),
             ICommand.SimplePlayerCommand("enchantments", { player -> EnchantmentMenu(player).openMenu()}),
             ICommand.SimplePlayerCommand("reforges", { player -> MenuReforgeBrowser(player).openMenu()}),
+            CommandMarket(),
             CommandAuctionHouse(),
-            ICommand.SimplePlayerCommand("auctionhouse", { player -> MenuAuctionBrowser(player).openMenu()}),
+            ICommand.SimplePlayerCommand("auctionhouse", { player -> if (SMPRPG.getService(MarketService::class.java).tryOpenAuction(player)) MenuAuctionBrowser(player).openMenu()}),
             CommandBazaar(),
-            ICommand.SimplePlayerCommand("bazaar", { player -> MenuBazaarBrowser(player).openMenu()}),
+            ICommand.SimplePlayerCommand("bazaar", { player -> if (SMPRPG.getService(MarketService::class.java).tryOpenBazaar(player)) MenuBazaarBrowser(player).openMenu()}),
             ICommand.SimplePlayerCommand("slayer", { player -> MenuSlayer(player).openMenu()}),
         )
 

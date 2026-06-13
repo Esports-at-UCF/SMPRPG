@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.market.MarketConstants
+import xyz.devvydont.smprpg.market.MarketService
 import xyz.devvydont.smprpg.market.storage.MarketDataStore
 import xyz.devvydont.smprpg.services.EconomyService
 import xyz.devvydont.smprpg.services.ItemService
@@ -19,6 +20,15 @@ import kotlin.math.roundToLong
 class AuctionManager(private val dataStore: MarketDataStore) {
 
     private val economy get() = SMPRPG.getService(EconomyService::class.java)
+
+    /**
+     * Returns the disabled error message if the auction house is off and [player] cannot bypass it,
+     * or null if the player is allowed to trade. Claiming items is intentionally never gated so
+     * players can always retrieve what they already own.
+     */
+    private fun disabledMessageFor(player: Player): String? =
+        if (SMPRPG.getService(MarketService::class.java).canUseAuction(player)) null
+        else MarketConstants.MARKET_DISABLED_MESSAGE
 
     fun getActiveAuctions(): List<Auction> {
         return dataStore.auctionData.auctions.filter { it.status == AuctionStatus.ACTIVE && !it.isExpired() }
@@ -58,6 +68,7 @@ class AuctionManager(private val dataStore: MarketDataStore) {
         startingPrice: Long,
         durationMs: Long
     ): String? {
+        disabledMessageFor(seller)?.let { return it }
         val playerUUID = seller.uniqueId.toString()
         val activeCount = getActiveAuctionsByPlayer(playerUUID).size
         if (activeCount >= MarketConstants.AUCTION_MAX_ACTIVE_PER_PLAYER) {
@@ -113,6 +124,7 @@ class AuctionManager(private val dataStore: MarketDataStore) {
      * Returns null on success, or an error message string.
      */
     fun placeBid(bidder: Player, auction: Auction, bidAmount: Long): String? {
+        disabledMessageFor(bidder)?.let { return it }
         if (auction.status != AuctionStatus.ACTIVE) {
             return "This auction is no longer active!"
         }
@@ -206,6 +218,7 @@ class AuctionManager(private val dataStore: MarketDataStore) {
      * Returns null on success, or an error message string.
      */
     fun buyItNow(buyer: Player, auction: Auction): String? {
+        disabledMessageFor(buyer)?.let { return it }
         if (auction.type != AuctionType.BUY_IT_NOW) {
             return "This is not a Buy It Now auction!"
         }

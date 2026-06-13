@@ -5,11 +5,14 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.items.CustomItemType
+import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint
-import xyz.devvydont.smprpg.items.blueprints.resources.SellableResource
+import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource
 import xyz.devvydont.smprpg.items.interfaces.ICompressible
+import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.market.MarketConstants
+import xyz.devvydont.smprpg.market.MarketService
 import xyz.devvydont.smprpg.market.storage.MarketDataStore
 import xyz.devvydont.smprpg.services.EconomyService
 import xyz.devvydont.smprpg.services.ItemService
@@ -60,6 +63,20 @@ class BazaarManager(private val dataStore: MarketDataStore) {
     private val economy get() = SMPRPG.getService(EconomyService::class.java)
     private var compressionFlowCache: Map<String, List<CompressionRecipeMember>>? = null
     private var categoryTreeCache: List<BazaarCategoryNode>? = null
+
+    /**
+     * Runtime source of truth: structure merged with current stock. Rebuilt from the data store on
+     * startup and on [reloadStructure]. Stock mutations happen here and are flushed via [persistStock].
+     */
+    private val items = mutableMapOf<String, BazaarItem>()
+
+    /**
+     * Returns the disabled error message if the bazaar is off and [player] cannot bypass it,
+     * or null if the player is allowed to trade. Used to gate every transaction entry point.
+     */
+    private fun disabledMessageFor(player: Player): String? =
+        if (SMPRPG.getService(MarketService::class.java).canUseBazaar(player)) null
+        else MarketConstants.MARKET_DISABLED_MESSAGE
 
     fun findCompressionFlow(bazaarKey: String): List<CompressionRecipeMember>? {
         val cache = compressionFlowCache ?: buildCompressionFlowCache().also { compressionFlowCache = it }
@@ -117,58 +134,112 @@ class BazaarManager(private val dataStore: MarketDataStore) {
         return DEFAULT_CATEGORY
     }
 
-    // ── Initialization & migration ──────────────────────────────────────
+    // ── Initialization & runtime state ──────────────────────────────────
 
+    /**
+     * Generates default structure from [CustomItemType] entries if no structure exists yet,
+     * then builds the runtime item map. Safe to call on every startup.
+     */
     fun initializeDefaults() {
-        if (dataStore.bazaarData.items.isNotEmpty()) return
-
-        for (type in CustomItemType.entries) {
-            if (type.Worth <= 0) continue
-            if (type.Handler != SellableResource::class.java) continue
-
-            val key = type.getKey()
-            val minPrice = (type.Worth * MarketConstants.BAZAAR_MIN_PRICE_MULTIPLIER).roundToLong().coerceAtLeast(1)
-            val maxPrice = (type.Worth * MarketConstants.BAZAAR_MAX_PRICE_MULTIPLIER).roundToLong().coerceAtLeast(minPrice + 1)
-            val maxStock = MarketConstants.BAZAAR_DEFAULT_MAX_STOCK
-            val startingStock = (maxStock * MarketConstants.BAZAAR_DEFAULT_STARTING_STOCK_RATIO).toInt()
-
-            val category = classifyItem(type.name)
-
-            dataStore.bazaarData.items[key] = BazaarItem(
-                key = key,
-                displayName = type.ItemName,
-                category = category,
-                minPrice = minPrice,
-                maxPrice = maxPrice,
-                maxStock = maxStock,
-                currentStock = startingStock
-            )
+        if (dataStore.bazaarStructure.items.isEmpty()) {
+            generateDefaults()
+            dataStore.saveBazaarStructure()
+            SMPRPG.plugin.logger.info("Initialized ${dataStore.bazaarStructure.items.size} default bazaar items")
         }
 
-        dataStore.saveBazaar()
-        SMPRPG.plugin.logger.info("Initialized ${dataStore.bazaarData.items.size} default bazaar items")
+        buildRuntimeItems()
     }
 
     /**
-     * Detects legacy enum-style category values (all-uppercase with underscores)
-     * and re-classifies them using keyword matching. Preserves stock and pricing.
+     * Populates the structure with every tradeable commodity: custom items whose blueprint is
+     * [ISellable] with a commodity classification and a positive worth, plus vanilla materials in
+     * [VanillaResource]'s worth map (excluding cosmetic color/shape variants). Prices derive from
+     * worth via the configured multipliers; stock uses value-inverse tiers.
      */
-    fun migrateIfNeeded() {
-        val legacyPattern = Regex("^[A-Z_]+$")
-        var changed = false
+    private fun generateDefaults() {
+        val itemService = SMPRPG.getService(ItemService::class.java)
+        val structures = dataStore.bazaarStructure.items
 
-        for (item in dataStore.bazaarData.items.values.toList()) {
-            if (!legacyPattern.matches(item.category)) continue
-
-            val newCategory = classifyItem(item.key)
-            dataStore.bazaarData.items[item.key] = item.copy(category = newCategory)
-            changed = true
+        for (type in CustomItemType.entries) {
+            val blueprint = itemService.getBlueprint(type)
+            if (blueprint.itemClassification !in COMMODITY_CLASSIFICATIONS) continue
+            if (blueprint !is ISellable) continue
+            val worth = sampleWorth(type, blueprint).toLong()
+            if (worth <= 0) continue
+            val key = type.getKey()
+            structures[key] = buildDefaultStructure(key, type.ItemName, classifyItem(type.name), worth)
         }
 
-        if (changed) {
-            dataStore.saveBazaar()
-            SMPRPG.plugin.logger.info("Migrated bazaar items from legacy enum categories to path-based categories")
+        for ((material, worth) in VanillaResource.getMaterialWorthMap()) {
+            if (worth <= 0 || isExcludedVanillaMaterial(material)) continue
+            val key = material.name.lowercase()
+            if (structures.containsKey(key)) continue
+            structures[key] = buildDefaultStructure(key, vanillaDisplayName(material), classifyItem(key), worth.toLong())
         }
+    }
+
+    /** Worth of a single unit of a custom item, resolved via its blueprint (0 if it can't be generated). */
+    private fun sampleWorth(type: CustomItemType, sellable: ISellable): Int {
+        return try {
+            val sample = ItemService.generate(type)
+            sample.amount = 1
+            sellable.getWorth(sample)
+        } catch (_: IllegalArgumentException) {
+            0
+        }
+    }
+
+    private fun buildDefaultStructure(key: String, displayName: String, category: String, worth: Long): BazaarItemStructure {
+        val minPrice = (worth * MarketConstants.BAZAAR_MIN_PRICE_MULTIPLIER).roundToLong().coerceAtLeast(1)
+        val maxPrice = (worth * MarketConstants.BAZAAR_MAX_PRICE_MULTIPLIER).roundToLong().coerceAtLeast(minPrice + 1)
+        return BazaarItemStructure(key, displayName, category, minPrice, maxPrice, stockTierFor(worth))
+    }
+
+    private fun isExcludedVanillaMaterial(material: Material): Boolean {
+        val name = material.name
+        if (name in VANILLA_EXCLUDED_MATERIALS) return true
+        return VANILLA_EXCLUDED_SUFFIXES.any { name.endsWith(it) }
+    }
+
+    private fun vanillaDisplayName(material: Material): String =
+        material.name.split("_").joinToString(" ") { it.lowercase().replaceFirstChar(Char::uppercase) }
+
+    /**
+     * Rebuilds the runtime item map by merging structure with persisted stock. Structure entries
+     * without a stock entry are seeded at the default starting ratio. Seeded stock is flushed back
+     * to the data store so the stock file stays in sync with the structure.
+     */
+    private fun buildRuntimeItems() {
+        items.clear()
+        for ((key, structure) in dataStore.bazaarStructure.items) {
+            val stock = dataStore.bazaarData.stock[key]
+                ?: (structure.maxStock * MarketConstants.BAZAAR_DEFAULT_STARTING_STOCK_RATIO).toInt()
+            items[key] = BazaarItem(structure, stock)
+        }
+        persistStock()
+    }
+
+    /** Copies runtime stock levels back into the data store, dropping stale keys. */
+    fun persistStock() {
+        dataStore.bazaarData.stock.keys.retainAll(items.keys)
+        for ((key, item) in items) {
+            dataStore.bazaarData.stock[key] = item.currentStock
+        }
+    }
+
+    /**
+     * Re-reads the structure and stock files from disk, rebuilds the runtime map (preserving live
+     * stock by flushing it first), and invalidates derived caches. Backs the `/bz reload` command.
+     * Returns the number of items loaded.
+     */
+    fun reloadStructure(): Int {
+        persistStock()
+        dataStore.saveBazaarData()
+        dataStore.load()
+        buildRuntimeItems()
+        invalidateCategoryTree()
+        compressionFlowCache = null
+        return items.size
     }
 
     // ── Category tree ───────────────────────────────────────────────────
@@ -179,7 +250,7 @@ class BazaarManager(private val dataStore: MarketDataStore) {
     }
 
     fun getItemsByPath(path: String): List<BazaarItem> {
-        return dataStore.bazaarData.items.values.filter { it.category == path }
+        return items.values.filter { it.category == path }
     }
 
     fun invalidateCategoryTree() {
@@ -189,11 +260,11 @@ class BazaarManager(private val dataStore: MarketDataStore) {
     // ── Item queries ────────────────────────────────────────────────────
 
     fun getAllItems(): List<BazaarItem> {
-        return dataStore.bazaarData.items.values.toList()
+        return items.values.toList()
     }
 
     fun getItem(key: String): BazaarItem? {
-        return dataStore.bazaarData.items[key]
+        return items[key]
     }
 
     fun searchItems(query: String): List<BazaarItem> {
@@ -210,6 +281,7 @@ class BazaarManager(private val dataStore: MarketDataStore) {
      * Returns null on success, or an error message string.
      */
     fun buyItems(buyer: Player, bazaarItem: BazaarItem, quantity: Int): String? {
+        disabledMessageFor(buyer)?.let { return it }
         if (quantity <= 0 || quantity > MarketConstants.BAZAAR_MAX_TRANSACTION_QUANTITY) {
             return "Invalid quantity! (1-${MarketConstants.BAZAAR_MAX_TRANSACTION_QUANTITY})"
         }
@@ -252,7 +324,8 @@ class BazaarManager(private val dataStore: MarketDataStore) {
         )
 
         invalidateCategoryTree()
-        dataStore.saveBazaar()
+        persistStock()
+        dataStore.saveBazaarData()
         return null
     }
 
@@ -261,6 +334,7 @@ class BazaarManager(private val dataStore: MarketDataStore) {
      * Returns null on success, or an error message string.
      */
     fun sellItems(seller: Player, bazaarItem: BazaarItem, quantity: Int): String? {
+        disabledMessageFor(seller)?.let { return it }
         if (quantity <= 0 || quantity > MarketConstants.BAZAAR_MAX_TRANSACTION_QUANTITY) {
             return "Invalid quantity! (1-${MarketConstants.BAZAAR_MAX_TRANSACTION_QUANTITY})"
         }
@@ -300,7 +374,8 @@ class BazaarManager(private val dataStore: MarketDataStore) {
         )
 
         invalidateCategoryTree()
-        dataStore.saveBazaar()
+        persistStock()
+        dataStore.saveBazaarData()
         return null
     }
 
@@ -316,6 +391,7 @@ class BazaarManager(private val dataStore: MarketDataStore) {
         compressionAmount: Int,
         quantity: Int
     ): String? {
+        disabledMessageFor(buyer)?.let { return it }
         val baseQuantity = quantity * compressionAmount
         if (baseQuantity <= 0) return "Invalid quantity!"
 
@@ -347,7 +423,8 @@ class BazaarManager(private val dataStore: MarketDataStore) {
         )
 
         invalidateCategoryTree()
-        dataStore.saveBazaar()
+        persistStock()
+        dataStore.saveBazaarData()
         return null
     }
 
@@ -363,6 +440,7 @@ class BazaarManager(private val dataStore: MarketDataStore) {
         compressionAmount: Int,
         quantity: Int
     ): String? {
+        disabledMessageFor(seller)?.let { return it }
         val baseQuantity = quantity * compressionAmount
         if (baseQuantity <= 0) return "Invalid quantity!"
 
@@ -392,7 +470,8 @@ class BazaarManager(private val dataStore: MarketDataStore) {
         )
 
         invalidateCategoryTree()
-        dataStore.saveBazaar()
+        persistStock()
+        dataStore.saveBazaarData()
         return null
     }
 
@@ -439,6 +518,7 @@ class BazaarManager(private val dataStore: MarketDataStore) {
      * Returns null on success, or an error message string.
      */
     fun executeSellAll(player: Player, entries: List<BazaarSellEntry>): String? {
+        disabledMessageFor(player)?.let { return it }
         if (entries.isEmpty()) return "Nothing to sell!"
 
         var totalPayout = 0L
@@ -496,7 +576,8 @@ class BazaarManager(private val dataStore: MarketDataStore) {
         )
 
         invalidateCategoryTree()
-        dataStore.saveBazaar()
+        persistStock()
+        dataStore.saveBazaarData()
         return null
     }
 
@@ -623,30 +704,65 @@ class BazaarManager(private val dataStore: MarketDataStore) {
 
         private const val DEFAULT_CATEGORY = "Miscellaneous"
 
+        /** Item classifications that represent fungible, stackable commodities (vs. gear). */
+        private val COMMODITY_CLASSIFICATIONS = setOf(
+            ItemClassification.MATERIAL,
+            ItemClassification.ITEM,
+            ItemClassification.BLOCK,
+            ItemClassification.CONSUMABLE,
+        )
+
+        /** Vanilla materials skipped during default generation (utility items, not commodities). */
+        private val VANILLA_EXCLUDED_MATERIALS = setOf("NAME_TAG", "SADDLE")
+
+        /**
+         * Vanilla material name suffixes skipped during default generation: cosmetic color matrices
+         * (wool/terracotta/glass/carpet/dye/concrete) and crafted shape variants (slab/stairs/wall).
+         */
+        private val VANILLA_EXCLUDED_SUFFIXES = listOf(
+            "_WOOL", "_TERRACOTTA", "_STAINED_GLASS", "_STAINED_GLASS_PANE", "_CARPET",
+            "_DYE", "_CONCRETE", "_CONCRETE_POWDER", "_SLAB", "_STAIRS", "_WALL", "_FENCE",
+        )
+
         private val CATEGORY_DISPLAY_ORDER = listOf(
             "Mining", "Combat", "Farming", "Fishing", "Foraging", "Crafting", "Magic",
             "Bosses", "Consumables", "Augmenting", "Decorative", "Miscellaneous"
         )
 
+        // Checked in order; first keyword substring match wins. More specific paths come first.
         private val SUBCATEGORY_KEYWORDS = mapOf(
-            "Mining/Ores" to listOf("raw", "ore", "cobalt", "orichalcum", "tungsten", "silver", "tin"),
-            "Mining/Stone" to listOf("cobblestone", "deepslate", "granite", "diorite", "andesite", "tuff", "calcite", "basalt"),
-            "Mining/Gems" to listOf("sulfur", "onyx", "diamond", "emerald", "lapis", "amethyst"),
-            "Combat/Overworld" to listOf("bone", "rotten", "gunpowder"),
-            "Combat/Nether" to listOf("blaze", "cinderite"),
-            "Combat/End" to listOf("ender", "echo"),
+            "Mining/Alloys" to listOf("ingot", "nugget", "iron_block", "gold_block", "copper_block", "netherite_block", "tridentite"),
+            "Mining/Ores" to listOf("raw", "ore", "ancient_debris"),
+            "Mining/Gems" to listOf("diamond", "emerald", "lapis", "amethyst", "quartz", "onyx"),
+            "Mining/Dusts" to listOf("coal", "charcoal", "redstone", "glowstone", "sulfur"),
+            "Combat/Nether" to listOf("blaze", "cinderite", "magma_cream", "nether_star", "wither"),
+            "Combat/End" to listOf("ender", "echo", "shulker"),
+            "Combat/Overworld" to listOf("bone", "rotten", "gunpowder", "string", "spider", "slime", "feather", "phantom", "arrow", "necrotic"),
             "Crafting/Rare" to listOf("singularity", "hexed"),
             "Crafting/Components" to listOf("barnacle", "tendril", "resin", "erratic", "minnow", "dissipating", "midnight_hide"),
-            "Crafting/Processed" to listOf("enchanted"),
+            "Mining/Stones/Nether" to listOf("netherrack", "nether_brick", "basalt", "soul_sand", "soul_soil", "blackstone"),
+            "Mining/Stones/Building" to listOf("end_stone", "purpur", "obsidian", "prismarine", "magma_block", "clay", "glass", "terracotta"),
+            "Mining/Stones/Generic" to listOf("stone", "cobble", "deepslate", "granite", "diorite", "andesite", "tuff", "calcite", "sand", "dirt", "gravel", "flint", "brick", "dripstone"),
         )
 
         private val CATEGORY_KEYWORDS = mapOf(
-            "Farming" to listOf("wheat", "melon", "sugar", "cane", "potato", "carrot", "pumpkin"),
-            "Fishing" to listOf("fish", "filament", "fiber", "holomoku", "shark"),
-            "Foraging" to listOf("log", "wood", "plank"),
+            "Farming" to listOf("seed", "sapling", "mushroom", "wheat", "bread", "hay", "carrot", "potato", "beetroot", "sugar", "cane", "pumpkin", "melon", "cactus", "kelp", "wart", "cocoa", "cookie", "beef", "mutton", "chicken", "porkchop", "egg", "leather", "stick"),
+            "Fishing" to listOf("fish", "cod", "salmon", "tropical", "ink_sac", "lily", "nautilus", "shark", "filament", "fiber", "holomoku", "heart_of_the_sea", "turtle", "tripwire"),
+            "Foraging" to listOf("log", "wood", "plank", "leaves", "stem", "hyphae", "bamboo"),
             "Magic" to listOf("displacement", "warp"),
-            "Bosses" to listOf("dragon", "summoning", "heart_of_the_void", "pluto", "jupiter", "smoldering", "draconic"),
+            "Bosses" to listOf("dragon", "summoning", "heart_of_the_void", "pluto", "jupiter", "smoldering", "draconic", "viscera", "warlock", "spellbound", "brains", "amalgamation", "necroplasm"),
         )
+
+        /** Value-inverse maxStock tiers tuned for a 10-40 player server. */
+        fun stockTierFor(worth: Long): Int = when {
+            worth <= 5 -> 50_000
+            worth <= 25 -> 20_000
+            worth <= 150 -> 8_000
+            worth <= 1_000 -> 3_000
+            worth <= 10_000 -> 1_000
+            worth <= 100_000 -> 400
+            else -> 200
+        }
 
         fun calculateCompressionAmount(flow: List<CompressionRecipeMember>, tierIndex: Int): Int {
             var amount = 1

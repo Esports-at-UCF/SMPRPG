@@ -14,7 +14,9 @@ class MarketDataStore(dataFolder: File) {
 
     private val marketDir = File(dataFolder, MARKET_DIRECTORY)
     private val auctionFile = File(marketDir, AUCTION_FILE_NAME)
-    private val bazaarFile = File(marketDir, BAZAAR_FILE_NAME)
+    private val bazaarStructureFile = File(marketDir, BAZAAR_STRUCTURE_FILE_NAME)
+    private val bazaarDataFile = File(marketDir, BAZAAR_DATA_FILE_NAME)
+    private val settingsFile = File(marketDir, SETTINGS_FILE_NAME)
 
     private val gson: Gson = GsonBuilder()
         .registerTypeAdapter(ItemStack::class.java, ItemStackSerializer())
@@ -24,23 +26,35 @@ class MarketDataStore(dataFolder: File) {
     var auctionData = AuctionDataFile()
         private set
 
+    var bazaarStructure = BazaarStructureFile()
+        private set
+
     var bazaarData = BazaarDataFile()
+        private set
+
+    var marketSettings = MarketSettings()
         private set
 
     fun load() {
         marketDir.mkdirs()
 
         auctionData = loadFile(auctionFile, AuctionDataFile::class.java) ?: AuctionDataFile()
-        bazaarData = loadFile(bazaarFile, BazaarDataFile::class.java) ?: BazaarDataFile()
+        bazaarStructure = loadFile(bazaarStructureFile, BazaarStructureFile::class.java) ?: BazaarStructureFile()
+        bazaarData = loadFile(bazaarDataFile, BazaarDataFile::class.java) ?: BazaarDataFile()
+        marketSettings = loadFile(settingsFile, MarketSettings::class.java) ?: MarketSettings()
 
-        SMPRPG.plugin.logger.info("Market data loaded (${auctionData.auctions.size} auctions, ${bazaarData.items.size} bazaar items)")
+        SMPRPG.plugin.logger.info("Market data loaded (${auctionData.auctions.size} auctions, ${bazaarStructure.items.size} bazaar items)")
     }
 
+    /**
+     * Saves frequently-changing market state: auctions and bazaar stock.
+     * Deliberately does NOT write the bazaar structure file so hand-edits survive autosaves.
+     */
     fun save() {
         marketDir.mkdirs()
 
         saveFile(auctionFile, auctionData)
-        saveFile(bazaarFile, bazaarData)
+        saveFile(bazaarDataFile, bazaarData)
 
         SMPRPG.plugin.logger.fine("Market data saved")
     }
@@ -50,9 +64,19 @@ class MarketDataStore(dataFolder: File) {
         saveFile(auctionFile, auctionData)
     }
 
-    fun saveBazaar() {
+    fun saveBazaarStructure() {
         marketDir.mkdirs()
-        saveFile(bazaarFile, bazaarData)
+        saveFile(bazaarStructureFile, bazaarStructure)
+    }
+
+    fun saveBazaarData() {
+        marketDir.mkdirs()
+        saveFile(bazaarDataFile, bazaarData)
+    }
+
+    fun saveSettings() {
+        marketDir.mkdirs()
+        saveFile(settingsFile, marketSettings)
     }
 
     private fun <T> loadFile(file: File, clazz: Class<T>): T? {
@@ -77,6 +101,8 @@ class MarketDataStore(dataFolder: File) {
     companion object {
         private const val MARKET_DIRECTORY = "market"
         private const val AUCTION_FILE_NAME = "auctions.json"
-        private const val BAZAAR_FILE_NAME = "bazaar.json"
+        private const val BAZAAR_STRUCTURE_FILE_NAME = "bazaar_structure.json"
+        private const val BAZAAR_DATA_FILE_NAME = "bazaar_data.json"
+        private const val SETTINGS_FILE_NAME = "settings.json"
     }
 }

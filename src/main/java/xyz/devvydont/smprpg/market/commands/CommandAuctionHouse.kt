@@ -6,7 +6,9 @@ import com.mojang.brigadier.tree.LiteralCommandNode
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
 import org.bukkit.entity.Player
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.commands.ICommand
+import xyz.devvydont.smprpg.market.MarketService
 import xyz.devvydont.smprpg.market.gui.auction.MenuAuctionBrowser
 import xyz.devvydont.smprpg.market.gui.auction.MenuAuctionClaimBox
 import xyz.devvydont.smprpg.market.gui.auction.MenuAuctionCreate
@@ -18,7 +20,7 @@ class CommandAuctionHouse : ICommand {
         return Commands.literal("ah")
             .executes { ctx ->
                 val sender = ctx.source.executor
-                if (sender is Player) {
+                if (sender is Player && canOpen(sender)) {
                     MenuAuctionBrowser(sender).openMenu()
                 }
                 Command.SINGLE_SUCCESS
@@ -27,7 +29,7 @@ class CommandAuctionHouse : ICommand {
                 Commands.literal("sell")
                     .executes { ctx ->
                         val sender = ctx.source.executor
-                        if (sender is Player) {
+                        if (sender is Player && canOpen(sender)) {
                             MenuAuctionCreate(sender).openMenu()
                         }
                         Command.SINGLE_SUCCESS
@@ -37,7 +39,7 @@ class CommandAuctionHouse : ICommand {
                 Commands.literal("manage")
                     .executes { ctx ->
                         val sender = ctx.source.executor
-                        if (sender is Player) {
+                        if (sender is Player && canOpen(sender)) {
                             MenuAuctionManage(sender).openMenu()
                         }
                         Command.SINGLE_SUCCESS
@@ -59,7 +61,7 @@ class CommandAuctionHouse : ICommand {
                         Commands.argument("query", StringArgumentType.greedyString())
                             .executes { ctx ->
                                 val sender = ctx.source.executor
-                                if (sender is Player) {
+                                if (sender is Player && canOpen(sender)) {
                                     val query = StringArgumentType.getString(ctx, "query")
                                     MenuAuctionBrowser(sender, null, query).openMenu()
                                 }
@@ -69,4 +71,8 @@ class CommandAuctionHouse : ICommand {
             )
             .build()
     }
+
+    /** Auction menu opens are blocked when the house is disabled (claim is intentionally exempt). */
+    private fun canOpen(player: Player): Boolean =
+        SMPRPG.getService(MarketService::class.java).tryOpenAuction(player)
 }

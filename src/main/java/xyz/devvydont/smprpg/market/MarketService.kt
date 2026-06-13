@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.market
 import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Sound
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
@@ -36,10 +37,10 @@ class MarketService : IService, Listener {
         auctionManager = AuctionManager(dataStore)
         bazaarManager = BazaarManager(dataStore)
         bazaarManager.initializeDefaults()
-        bazaarManager.migrateIfNeeded()
 
         autoSaveTask = object : BukkitRunnable() {
             override fun run() {
+                bazaarManager.persistStock()
                 dataStore.save()
             }
         }
@@ -66,8 +67,51 @@ class MarketService : IService, Listener {
     override fun cleanup() {
         autoSaveTask?.cancel()
         expiryCheckTask?.cancel()
+        bazaarManager.persistStock()
         dataStore.save()
         SMPRPG.plugin.logger.info("Market service cleaned up")
+    }
+
+    // ── Admin enable/disable toggles ────────────────────────────────────
+
+    var bazaarEnabled: Boolean
+        get() = dataStore.marketSettings.bazaarEnabled
+        set(value) {
+            dataStore.marketSettings.bazaarEnabled = value
+            dataStore.saveSettings()
+        }
+
+    var auctionEnabled: Boolean
+        get() = dataStore.marketSettings.auctionEnabled
+        set(value) {
+            dataStore.marketSettings.auctionEnabled = value
+            dataStore.saveSettings()
+        }
+
+    /** True if the player may use the bazaar (it is enabled, or they have the bypass permission). */
+    fun canUseBazaar(player: Player): Boolean = bazaarEnabled || canBypass(player)
+
+    /** True if the player may use the auction house (it is enabled, or they have the bypass permission). */
+    fun canUseAuction(player: Player): Boolean = auctionEnabled || canBypass(player)
+
+    /**
+     * Guards a bazaar menu open: returns true if allowed, otherwise notifies the player and
+     * returns false so the caller can abort opening the menu.
+     */
+    fun tryOpenBazaar(player: Player): Boolean = guard(canUseBazaar(player), player)
+
+    /**
+     * Guards an auction house menu open: returns true if allowed, otherwise notifies the player and
+     * returns false so the caller can abort opening the menu.
+     */
+    fun tryOpenAuction(player: Player): Boolean = guard(canUseAuction(player), player)
+
+    private fun canBypass(player: Player): Boolean =
+        player.isOp || player.hasPermission(MarketConstants.MARKET_BYPASS_PERMISSION)
+
+    private fun guard(allowed: Boolean, player: Player): Boolean {
+        if (!allowed) player.sendMessage(ComponentUtils.error(MarketConstants.MARKET_DISABLED_MESSAGE))
+        return allowed
     }
 
     @EventHandler

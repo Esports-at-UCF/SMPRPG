@@ -83,6 +83,14 @@ object MarketConstants {
     /** Maximum quantity a player can buy/sell in a single transaction */
     const val BAZAAR_MAX_TRANSACTION_QUANTITY = 640
 
+    // --- Administration ---
+
+    /** Permission allowing a player to use the markets even while they are disabled. */
+    const val MARKET_BYPASS_PERMISSION = "smprpg.market.bypass"
+
+    /** Message shown to players who try to use a market that has been disabled by an admin. */
+    const val MARKET_DISABLED_MESSAGE = "This market is currently disabled by an administrator."
+
     // --- Auto-save ---
 
     /** Auto-save interval in minutes */

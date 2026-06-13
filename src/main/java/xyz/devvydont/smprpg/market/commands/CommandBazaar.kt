@@ -19,7 +19,7 @@ class CommandBazaar : ICommand {
         return Commands.literal("bz")
             .executes { ctx ->
                 val sender = ctx.source.executor
-                if (sender is Player) {
+                if (sender is Player && SMPRPG.getService(MarketService::class.java).tryOpenBazaar(sender)) {
                     MenuBazaarBrowser(sender).openMenu()
                 }
                 Command.SINGLE_SUCCESS
@@ -38,11 +38,30 @@ class CommandBazaar : ICommand {
                             }
                     )
             )
+            .then(
+                Commands.literal("reload")
+                    .requires { ctx -> ctx.sender.hasPermission(RELOAD_PERMISSION) || ctx.sender.isOp }
+                    .executes { ctx ->
+                        reloadStructure(ctx.source)
+                        Command.SINGLE_SUCCESS
+                    }
+            )
             .build()
     }
 
-    private fun openSearchResults(player: Player, query: String) {
+    private fun reloadStructure(source: CommandSourceStack) {
         val bazaarManager = SMPRPG.getService(MarketService::class.java).bazaarManager
+        val count = bazaarManager.reloadStructure()
+        source.sender.sendMessage(
+            ComponentUtils.success("Reloaded bazaar structure ($count items). Stock preserved.")
+        )
+    }
+
+    private fun openSearchResults(player: Player, query: String) {
+        val marketService = SMPRPG.getService(MarketService::class.java)
+        if (!marketService.tryOpenBazaar(player)) return
+
+        val bazaarManager = marketService.bazaarManager
         val results = bazaarManager.searchItems(query)
 
         if (results.isEmpty()) {
@@ -56,5 +75,9 @@ class CommandBazaar : ICommand {
             { bazaarManager.searchItems(query) },
             null
         ).openMenu()
+    }
+
+    companion object {
+        private const val RELOAD_PERMISSION = "smprpg.command.bazaar.reload"
     }
 }

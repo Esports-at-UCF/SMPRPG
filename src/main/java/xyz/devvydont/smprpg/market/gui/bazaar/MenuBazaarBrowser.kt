@@ -39,36 +39,41 @@ class MenuBazaarBrowser(
         val bazaarManager = SMPRPG.getService(MarketService::class.java).bazaarManager
         val categories = bazaarManager.getRootCategories()
 
-        val topRowCount = (categories.size + 1) / 2
-        val bottomRowCount = categories.size - topRowCount
+        // Split the categories across the two middle rows and horizontally center each row.
+        // Prefer an odd-sized top row so it centers perfectly in the 9-wide grid (e.g. 8 -> 5 + 3).
+        var topRowCount = categories.size - categories.size / 2
+        if (topRowCount % 2 == 0 && categories.size > topRowCount) topRowCount++
+        val rows = listOf(categories.take(topRowCount), categories.drop(topRowCount))
 
-        for ((index, node) in categories.withIndex()) {
-            val row = if (index < topRowCount) 0 else 1
-            val col = if (row == 0) index else index - topRowCount
-            val rowOffset = if (row > 0) (topRowCount - bottomRowCount) / 2 else 0
-            val slot = ROW_START_SLOTS[row] + col + rowOffset
-            if (slot >= inventorySize) break
+        for ((rowIndex, rowCategories) in rows.withIndex()) {
+            if (rowCategories.isEmpty()) continue
+            val startColumn = ((WIDTH - rowCategories.size) / 2).coerceAtLeast(0)
 
-            val loreLines = buildItemTooltip(node)
-            loreLines.add(ComponentUtils.EMPTY)
-            loreLines.add(ComponentUtils.create("Click to browse!", NamedTextColor.YELLOW))
+            for ((columnIndex, node) in rowCategories.withIndex()) {
+                val slot = CATEGORY_ROWS[rowIndex] * WIDTH + startColumn + columnIndex
+                if (slot >= inventorySize) break
 
-            val item = InterfaceUtil.getNamedItemWithDescription(
-                node.icon,
-                ComponentUtils.create(node.name, NamedTextColor.GREEN),
-                loreLines
-            )
+                val loreLines = buildItemTooltip(node)
+                loreLines.add(ComponentUtils.EMPTY)
+                loreLines.add(ComponentUtils.create("Click to browse!", NamedTextColor.YELLOW))
 
-            setButton(slot, item) { _: InventoryClickEvent ->
-                if (node.hasChildren) {
-                    openSubMenu(MenuBazaarSubcategoryBrowser(player, node, this))
-                } else {
-                    openSubMenu(MenuBazaarCategory(
-                        player,
-                        "Bazaar - ${node.name}",
-                        { bazaarManager.getItemsByPath(node.path) },
-                        this
-                    ))
+                val item = InterfaceUtil.getNamedItemWithDescription(
+                    node.icon,
+                    ComponentUtils.create(node.name, NamedTextColor.GREEN),
+                    loreLines
+                )
+
+                setButton(slot, item) { _: InventoryClickEvent ->
+                    if (node.hasChildren) {
+                        openSubMenu(MenuBazaarSubcategoryBrowser(player, node, this))
+                    } else {
+                        openSubMenu(MenuBazaarCategory(
+                            player,
+                            "Bazaar - ${node.name}",
+                            { bazaarManager.getItemsByPath(node.path) },
+                            this
+                        ))
+                    }
                 }
             }
         }
@@ -85,9 +90,10 @@ class MenuBazaarBrowser(
 
     companion object {
         private const val ROWS = 4
+        private const val WIDTH = 9
         private const val SELL_ALL_SLOT = 34
         private const val MAX_TOOLTIP_ITEMS = 15
-        private val ROW_START_SLOTS = intArrayOf(10, 19)
+        private val CATEGORY_ROWS = intArrayOf(1, 2)
 
         fun buildItemTooltip(node: BazaarCategoryNode): MutableList<Component> {
             val allItems = node.allItems

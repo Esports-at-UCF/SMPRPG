@@ -1,11 +1,9 @@
 package xyz.devvydont.smprpg.market.storage
 
-import xyz.devvydont.smprpg.market.bazaar.BazaarItem
-
 /**
- * Serializable container for all bazaar state.
- * Persisted as JSON via Gson.
+ * Serializable container for the bazaar's runtime data: current stock per item key.
+ * This is the only bazaar state that mutates during play and is written by the autosave.
  */
 data class BazaarDataFile(
-    val items: MutableMap<String, BazaarItem> = mutableMapOf()
+    val stock: MutableMap<String, Int> = mutableMapOf()
 )

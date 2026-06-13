@@ -109,32 +109,37 @@ class MenuBazaarCategory(
             itemIndexOffset++
         }
 
-        // Pagination buttons
+        // Pagination buttons — visible arrows, shown only when that direction has a page so the
+        // arrow itself signals that more items exist. Unused corners keep the border pane.
         val displayPage = page + 1
         val displayPageMax = lastPage + 1
 
-        setButton(
-            (ROWS - 1) * 9,
-            createNoRenderNamedItem(
-                Material.BLACK_STAINED_GLASS_PANE,
-                ComponentUtils.create("Previous Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD)
-            )
-        ) { _: InventoryClickEvent ->
-            page--
-            render()
-            sounds.playPagePrevious()
+        if (page > 0) {
+            setButton(
+                (ROWS - 1) * 9,
+                createNamedItem(
+                    Material.ARROW,
+                    ComponentUtils.create("<- Previous Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD)
+                )
+            ) { _: InventoryClickEvent ->
+                page--
+                render()
+                sounds.playPagePrevious()
+            }
         }
 
-        setButton(
-            (ROWS - 1) * 9 + 8,
-            createNoRenderNamedItem(
-                Material.BLACK_STAINED_GLASS_PANE,
-                ComponentUtils.create("Next Page ($displayPage/$displayPageMax)", NamedTextColor.GOLD)
-            )
-        ) { _: InventoryClickEvent ->
-            page++
-            render()
-            sounds.playPageNext()
+        if (page < lastPage) {
+            setButton(
+                (ROWS - 1) * 9 + 8,
+                createNamedItem(
+                    Material.ARROW,
+                    ComponentUtils.create("Next Page ($displayPage/$displayPageMax) ->", NamedTextColor.GOLD)
+                )
+            ) { _: InventoryClickEvent ->
+                page++
+                render()
+                sounds.playPageNext()
+            }
         }
 
         setBackButton()

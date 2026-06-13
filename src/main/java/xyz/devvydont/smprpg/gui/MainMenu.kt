@@ -15,6 +15,7 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.fishing.gui.LootTypeChancesMenu
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.gui.enchantments.MagicMenu
+import xyz.devvydont.smprpg.market.MarketService
 import xyz.devvydont.smprpg.market.gui.auction.MenuAuctionBrowser
 import xyz.devvydont.smprpg.market.gui.bazaar.MenuBazaarBrowser
 import xyz.devvydont.smprpg.gui.items.MenuItemBrowser
@@ -120,14 +121,20 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
             AUCTION_HOUSE_INDEX,
             this.auctionHouseDisplay
         ) { e: InventoryClickEvent ->
-            this.openSubMenu(MenuAuctionBrowser(this.player, this))
+            if (SMPRPG.getService(MarketService::class.java).tryOpenAuction(this.player))
+                this.openSubMenu(MenuAuctionBrowser(this.player, this))
+            else
+                this.playInvalidAnimation()
         }
 
         this.setButton(
             BAZAAR_INDEX,
             this.bazaarDisplay
         ) { e: InventoryClickEvent ->
-            this.openSubMenu(MenuBazaarBrowser(this.player, this))
+            if (SMPRPG.getService(MarketService::class.java).tryOpenBazaar(this.player))
+                this.openSubMenu(MenuBazaarBrowser(this.player, this))
+            else
+                this.playInvalidAnimation()
         }
 
         this.setButton(
