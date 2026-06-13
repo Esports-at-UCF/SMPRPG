@@ -139,19 +139,21 @@ class RecipeService : IService, Listener {
                     continue
 
                 // Filter out a recipe if it is vanilla, but thinks it can craft a custom item.
-                val recipeIsVanilla = recipe.key.namespace == NamespacedKey.MINECRAFT_NAMESPACE
-
-                val resultBlueprint = blueprint(recipe.result)
-                if (recipeIsVanilla && resultBlueprint.isCustom) {
-                    allRecipes.remove(recipe)
-                    continue
-                }
-
-                // Filter out a recipe if it is one of our recipes, but a vanilla item is generated. This could potentially
-                // filter out recipes we want to consider valid, but there are more "lying" recipes if we allow them.
-                if (!recipeIsVanilla && resultBlueprint.isVanilla) {
-                    allRecipes.remove(recipe)
-                }
+                //todo commented out to see if recipe browser behaves better with displaying recipes with strange
+                //todo ways to make them (vanilla items making custom items)
+//                val recipeIsVanilla = recipe.key.namespace == NamespacedKey.MINECRAFT_NAMESPACE
+//
+//                val resultBlueprint = blueprint(recipe.result)
+//                if (recipeIsVanilla && resultBlueprint.isCustom) {
+//                    allRecipes.remove(recipe)
+//                    continue
+//                }
+//
+//                // Filter out a recipe if it is one of our recipes, but a vanilla item is generated. This could potentially
+//                // filter out recipes we want to consider valid, but there are more "lying" recipes if we allow them.
+//                if (!recipeIsVanilla && resultBlueprint.isVanilla) {
+//                    allRecipes.remove(recipe)
+//                }
             }
             allRecipes.addAll(getCustomRecipesFor(item))
             return allRecipes
