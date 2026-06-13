@@ -36,6 +36,7 @@ class PlayerInventoryButtonsListener: ToggleableListener() {
                 -999 -> return
                 else -> event.isCancelled = true
             }
+            player.updateInventory()
         }
     }
 }
