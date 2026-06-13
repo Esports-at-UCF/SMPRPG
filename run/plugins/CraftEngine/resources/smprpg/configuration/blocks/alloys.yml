@@ -30,18 +30,30 @@ items:
   smprpg:bronze_ingot:
     data:
       item-name: <!i><lang:item.smprpg.bronze_ingot>
+      pdc:
+        smprpg:item-type: bronze_ingot
+        smprpg:sell-value: 50
     model: smprpg:item/materials/bronze_ingot
   smprpg:steel_ingot:
     data:
       item-name: <!i><lang:item.smprpg.steel_ingot>
+      pdc:
+        smprpg:item-type: steel_ingot
+        smprpg:sell-value: 50
     model: smprpg:item/materials/steel_ingot
   smprpg:rose_gold_ingot:
     data:
       item-name: <!i><lang:item.smprpg.rose_gold_ingot>
+      pdc:
+        smprpg:item-type: rose_gold_ingot
+        smprpg:sell-value: 350
     model: smprpg:item/materials/rose_gold_ingot
   smprpg:dragonsteel_ingot:
     data:
       item-name: <!i><lang:item.smprpg.dragonsteel_ingot>
+      pdc:
+        smprpg:item-type: dragonsteel_ingot
+        smprpg:sell-value: 200000
     model: smprpg:item/materials/dragonsteel_ingot
 
 
