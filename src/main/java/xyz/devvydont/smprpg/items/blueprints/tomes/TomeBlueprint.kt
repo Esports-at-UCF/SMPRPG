@@ -4,21 +4,15 @@ import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.ItemContainerContents
 import io.papermc.paper.datacomponent.item.TooltipDisplay
 import net.kyori.adventure.key.Key
-import org.bukkit.Bukkit
-import org.bukkit.Material
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
-import org.bukkit.Sound
-import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.event.inventory.InventoryType
-import org.bukkit.event.player.PlayerSwapHandItemsEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
-import xyz.devvydont.smprpg.gui.base.MenuBase.Companion.BORDER_VOID
 import xyz.devvydont.smprpg.gui.items.MenuTomeModification
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
@@ -26,11 +20,12 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.NecronomiconExcerpts
 import xyz.devvydont.smprpg.items.blueprints.tomes.spells.SpellBlueprint
 import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster
+import xyz.devvydont.smprpg.items.interfaces.IFooterDescribable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
-import xyz.devvydont.smprpg.items.listeners.TomeInteractionListener
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
-abstract class TomeBlueprint(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type), Listener, IAbilityCaster, IModelOverridden {
+abstract class TomeBlueprint(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type), Listener, IAbilityCaster, IModelOverridden, IFooterDescribable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.TOME
     abstract val maxSpellSlots: Int
@@ -99,6 +94,21 @@ abstract class TomeBlueprint(itemService: ItemService, type: CustomItemType) : C
 
     override fun getDisplayKey(): Key {
         return IModelOverridden.ofItemTypeInDirectory(type, "tomes")
+    }
+
+    override fun getFooter(itemStack: ItemStack): List<Component> {
+        return listOf(
+            ComponentUtils.merge(
+                ComponentUtils.create("Right click ", NamedTextColor.GOLD, TextDecoration.BOLD),
+                ComponentUtils.create("this tome while in your inventory", NamedTextColor.GRAY),
+                ),
+            ComponentUtils.create("to open the spell inventory.", NamedTextColor.GRAY),
+            ComponentUtils.merge(
+                ComponentUtils.create("Press ", NamedTextColor.GRAY),
+                Component.keybind("key.swapOffhand").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD),
+                ComponentUtils.create(" while holding to change the active spell.", NamedTextColor.GRAY)
+            )
+        )
     }
 
     companion object {
