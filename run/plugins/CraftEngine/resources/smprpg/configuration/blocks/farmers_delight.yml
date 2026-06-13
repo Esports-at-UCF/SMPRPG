@@ -526,6 +526,17 @@ recipes:
     result:
       id: smprpg:rope
       count: 9
+  smprpg:rope_from_straw:
+    type: shaped
+    category: building
+    pattern:
+      - SS
+      - SS
+    ingredients:
+      S: smprpg:straw
+    result:
+      id: smprpg:rope
+      count: 2
 
 items#food:
   smprpg:apple_cider:
