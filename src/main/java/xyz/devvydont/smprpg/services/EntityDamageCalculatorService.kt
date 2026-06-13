@@ -587,13 +587,6 @@ class EntityDamageCalculatorService : Listener, IService {
 
         val cooldown: Float = getMeleeAttackCharge(player)
 
-        // TEMP DIAGNOSTIC (remove after confirming the fix): compares the per-tick polled charge
-        // against the live (already-reset) cooldown so we can verify the fix in-game.
-        SMPRPG.plugin.logger.info(
-            "[cooldown-debug] polled=$cooldown live=${player.attackCooldown} " +
-            "attackSpeed=${player.getAttribute(Attribute.ATTACK_SPEED)?.value}"
-        )
-
         // Is the player on cooldown? Don't do anything if they are dealing full damage hit.
         // If the player was *close enough* then allow vanilla Minecraft's damage rules for damage reduction.
         if (cooldown >= COOLDOWN_FORGIVENESS_THRESHOLD)
