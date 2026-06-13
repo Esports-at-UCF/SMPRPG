@@ -48,12 +48,14 @@ blocks:
       - smprpg:settings/solid_1x1x1
       - smprpg:data/breaking_power_5
       - smprpg:sound/adamantium_ore
+      require-correct-tools: true
+      merges:
+        tags: [ "minecraft:mineable/pickaxe" ]
       overrides:
         hardness: 150.0
         resistance: 1200.0
         instrument: basedrum
         map-color: 11
-        tags: ["minecraft:mineable/pickaxe"]
     events:
       - on: break
         functions:

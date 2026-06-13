@@ -83,12 +83,14 @@ blocks:
       - smprpg:settings/solid_1x1x1
       - smprpg:data/breaking_power_4
       - smprpg:sound/blackstone
+      merges:
+        tags: [ "minecraft:mineable/pickaxe" ]
       overrides:
+        require-correct-tools: true
         hardness: 6.25
         resistance: 10.0
         instrument: basedrum
         map-color: 39
-        tags: ["minecraft:mineable/pickaxe"]
   smprpg:mithril_ore:
     state:
       auto-state: solid
@@ -101,12 +103,14 @@ blocks:
         - smprpg:settings/solid_1x1x1
         - smprpg:data/breaking_power_4
         - smprpg:sound/blackstone
+      merges:
+        tags: [ "minecraft:mineable/pickaxe" ]
       overrides:
+        require-correct-tools: true
         hardness: 12.5
         resistance: 10.0
         instrument: basedrum
         map-color: 32
-        tags: ["minecraft:mineable/pickaxe"]
   smprpg:dense_mithril_ore:
     state:
       auto-state: solid
@@ -119,12 +123,14 @@ blocks:
         - smprpg:settings/solid_1x1x1
         - smprpg:data/breaking_power_5
         - smprpg:sound/blackstone
+      merges:
+        tags: [ "minecraft:mineable/pickaxe" ]
       overrides:
+        require-correct-tools: true
         hardness: 25.0
         resistance: 10.0
         instrument: basedrum
         map-color: 32
-        tags: ["minecraft:mineable/pickaxe"]
   smprpg:raw_mithril_block:
     state:
       auto-state: solid
@@ -136,7 +142,10 @@ blocks:
       template:
         - smprpg:settings/raw_metal_block
         - smprpg:data/breaking_power_4
+      merges:
+        tags: [ "minecraft:mineable/pickaxe" ]
       overrides:
+        require-correct-tools: true
         hardness: 8.0
         resistance: 6.0
         map-color: 32
@@ -152,13 +161,16 @@ blocks:
         - smprpg:settings/metal_block
         - smprpg:data/breaking_power_4
         - smprpg:data/beacon_usable
+      merges:
+        tags:
+          - "minecraft:mineable/pickaxe"
+          - "smprpg:custom_instrument"
       overrides:
+        require-correct-tools: true
         hardness: 8.0
         resistance: 6.0
         instrument: bass
         map-color: 32
-      merges:
-        tags: [ "smprpg:custom_instrument" ]
 
   smprpg:titanium_ore:
     state:
@@ -172,12 +184,14 @@ blocks:
         - smprpg:settings/solid_1x1x1
         - smprpg:data/breaking_power_5
         - smprpg:sound/blackstone
+      merges:
+        tags: ["minecraft:mineable/pickaxe"]
       overrides:
+        require-correct-tools: true
         hardness: 75.0
         resistance: 20.0
         instrument: basedrum
         map-color: 16
-        tags: ["minecraft:mineable/pickaxe"]
   smprpg:raw_titanium_block:
     state:
       auto-state: solid
@@ -189,6 +203,7 @@ blocks:
       template:
         - smprpg:settings/raw_metal_block
         - smprpg:data/breaking_power_5
+      require-correct-tools: true
       overrides:
         hardness: 25.0
         resistance: 10.0
@@ -205,7 +220,10 @@ blocks:
         - smprpg:settings/metal_block
         - smprpg:data/breaking_power_5
         - smprpg:data/beacon_usable
+      merges:
+        tags: [ "minecraft:mineable/pickaxe" ]
       overrides:
+        require-correct-tools: true
         hardness: 25.0
         resistance: 10.0
         instrument: guitar
@@ -261,6 +279,7 @@ items#titanium_compression:
             resistance: 10.0
             instrument: guitar
             map-color: 16
+            require-correct-tools: true
   smprpg:titanium_singularity:
     data:
       item-name: <!i><lang:item.smprpg.titanium_singularity>
