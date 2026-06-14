@@ -117,7 +117,7 @@ class AnvilRepairListener : ToggleableListener() {
                 // Now that we know the item is repairable, check if our second item is the material we need to repair with
                 var isValidMaterial : Boolean = false
                 for (repairItem in firstItemBlueprint.repairMaterial) {
-                    if (secondItem.isSimilar(repairItem)) {
+                    if (ItemService.isInternalIdMatch(repairItem, secondItem)) {
                         isValidMaterial = true
                         break
                     }
