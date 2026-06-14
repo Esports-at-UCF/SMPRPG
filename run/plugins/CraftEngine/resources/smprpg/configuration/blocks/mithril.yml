@@ -232,7 +232,7 @@ blocks:
 items#titanium_compression:
   smprpg:titanium_ingot:
     data:
-      item-name: <!i><lang:item.smprpg.titanium_block>
+      item-name: <!i><lang:item.smprpg.titanium_ingot>
       pdc:
         smprpg:item-type: titanium_ingot
     model: smprpg:item/materials/titanium_ingot

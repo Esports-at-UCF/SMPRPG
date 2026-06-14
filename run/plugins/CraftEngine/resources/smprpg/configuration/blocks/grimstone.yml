@@ -2,6 +2,9 @@ items:
   smprpg:grimstone:
     data:
       item-name: <!i><lang:item.smprpg.grimstone>
+      pdc:
+        smprpg:item-type: cobbled_grimstone
+        smprpg:sell-value: 1
     model: smprpg:block/overworld/grimstone
     behavior:
       type: block_item
@@ -9,10 +12,13 @@ items:
   smprpg:cobbled_grimstone:
     data:
       item-name: <!i><lang:item.smprpg.cobbled_grimstone>
+      pdc:
+        smprpg:item-type: cobbled_grimstone
+        smprpg:sell-value: 1
     model: smprpg:block/overworld/cobbled_grimstone
     behavior:
       type: block_item
-      block: smprpg:grimstone
+      block: smprpg:cobbled_grimstone
   smprpg:grimstone_iron_ore:
     data:
       item-name: <!i><lang:item.smprpg.grimstone_iron_ore>
@@ -201,3 +207,15 @@ placed-features:
             absolute: 0
           min_inclusive:
             above_bottom: 0
+
+recipes:
+  smprpg:grimstone_from_smelting_cobbled_grimstone:
+    type: smelting
+    experience: 0.0
+    category: misc
+    group: silver
+    time: 200
+    ingredient: smprpg:cobbled_grimstone
+    result:
+      id: smprpg:grimstone
+      count: 1

@@ -8,8 +8,10 @@ import com.comphenix.protocol.wrappers.BlockPosition
 import com.destroystokyo.paper.ParticleBuilder
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
+import org.bukkit.Keyed
 import org.bukkit.Particle
 import org.bukkit.Sound
+import org.bukkit.Tag
 import org.bukkit.block.Block
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffectType
@@ -159,28 +161,63 @@ class BlockDamage {
         // Check if held item has a proper tool component. If it doesn't, assume unarmed
         val item = player.equipment.itemInMainHand
         val blueprint = SMPRPG.getService(ItemService::class.java).getBlueprint(item)
-        val entry = BlockPropertiesRegistry.get(block)
+        var entry = BlockPropertiesRegistry.get(block)
         val preferredTools: MutableSet<ItemClassification?>?
 
         // Failfast if entry is null.
         if (entry == null) {
-            player.sendMessage(
-                ComponentUtils.alert(
-                    ComponentUtils.merge(
-                        ComponentUtils.create(
-                            "This block is missing block properties! Tell a developer that the following block is not defined: ",
-                            NamedTextColor.RED
-                        ),
-                        ComponentUtils.create(block.blockData.asString, NamedTextColor.WHITE),
-                        ComponentUtils.create("\nBlockState: ", NamedTextColor.LIGHT_PURPLE),
-                        ComponentUtils.create(block.toString(), NamedTextColor.GRAY)
-                    )
-                )
-            )
+            val tools = mutableSetOf<ItemClassification?>()
+            var entryBp = 0.0f
+            if (Tag.MINEABLE_AXE.isTagged(block.type)) {
+                tools.add(ItemClassification.AXE)
+                tools.add(ItemClassification.HATCHET)
+            }
+            if (Tag.MINEABLE_PICKAXE.isTagged(block.type)) {
+                tools.add(ItemClassification.PICKAXE)
+                tools.add(ItemClassification.DRILL)
+            }
+            if (Tag.MINEABLE_SHOVEL.isTagged(block.type)) {
+                tools.add(ItemClassification.SHOVEL)
+                tools.add(ItemClassification.DRILL)
+            }
+            if (Tag.MINEABLE_HOE.isTagged(block.type)) {
+                tools.add(ItemClassification.HOE)
+                tools.add(ItemClassification.HATCHET)
+            }
+
+            if (Tag.INCORRECT_FOR_DIAMOND_TOOL.isTagged(block.type))
+                entryBp = 4.0f
+            else if (Tag.INCORRECT_FOR_IRON_TOOL.isTagged(block.type))
+                entryBp = 3.0f
+            else if (Tag.INCORRECT_FOR_STONE_TOOL.isTagged(block.type))
+                entryBp = 2.0f
+            else if (Tag.INCORRECT_FOR_WOODEN_TOOL.isTagged(block.type))
+                entryBp = 1.0f
+
+            entry = BlockPropertiesEntry.builder(*tools.toTypedArray())
+                .hardness(block.type.hardness * 100)
+                .breakingPower(entryBp)
+                .softRequirement(tools.isEmpty())
+                .build()
+            BlockPropertiesRegistry.register(block.type, entry)
+            //player.sendMessage(
+            //    ComponentUtils.alert(
+            //        ComponentUtils.merge(
+            //            ComponentUtils.create(
+            //                "This block is missing block properties! Tell a developer that the following block is not defined: ",
+            //                NamedTextColor.RED
+            //            ),
+            //            ComponentUtils.create(block.blockData.asString, NamedTextColor.WHITE),
+            //            ComponentUtils.create("\nBlockState: ", NamedTextColor.LIGHT_PURPLE),
+            //            ComponentUtils.create(block.toString(), NamedTextColor.GRAY)
+            //        )
+            //    )
+            //)
             SMPRPG.plugin.logger
-                .warning("Unknown block entry " + block.state + ". Please add it to BlockPropertiesRegistry!")
-            player.world.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 0.5f, 0.75f)
-            return -1.0
+                .warning("Unknown block entry " + block.blockData.asString + ". Dynamically created for now, but please add it to BlockPropertiesRegistry!")
+            //player.world.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 0.5f, 0.75f)
+            //return -1.0
+            preferredTools = entry.preferredTools
         } else if (blueprint is IFueledEquipment) {
             val maxFuel = (blueprint as IFueledEquipment).getMaxFuel(item)
             val fuelUsed = (blueprint as IFueledEquipment).getFuelUsed(item)

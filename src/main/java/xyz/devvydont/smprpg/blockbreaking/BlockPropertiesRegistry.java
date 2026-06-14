@@ -5719,6 +5719,12 @@ public class BlockPropertiesRegistry implements Listener {
 
         //<editor-fold desc="Other/No Tool Blocks">
         //<editor-fold desc="Wool Blocks">
+        register(Material.COBWEB, BlockPropertiesEntry.builder(ItemClassification.SHEARS, ItemClassification.SWORD)
+                .hardness(800)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
         register(Material.WHITE_WOOL, BlockPropertiesEntry.builder(ItemClassification.SHEARS)
                 .hardness(80)
                 .breakingPower(0)
@@ -6542,6 +6548,12 @@ public class BlockPropertiesRegistry implements Listener {
                 .build());
         //</editor-fold>
         register(Material.KELP_PLANT, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
+                .hardness(0)
+                .breakingPower(0)
+                .softRequirement(true)
+                .build());
+
+        register(Material.KELP, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
                 .hardness(0)
                 .breakingPower(0)
                 .softRequirement(true)

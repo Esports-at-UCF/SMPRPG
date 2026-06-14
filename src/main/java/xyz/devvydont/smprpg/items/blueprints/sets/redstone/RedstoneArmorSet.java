@@ -29,7 +29,7 @@ public abstract class RedstoneArmorSet extends CustomAttributeItem implements IB
 
     public static final double MOVEMENT_BUFF = .05;
     public static final double ATTACK_BUFF = .1;
-    public static final double MINING_BUFF = .2;
+    public static final double MINING_BUFF = 100.0;
 
     public static final CustomItemType INGREDIENT = CustomItemType.ENCHANTED_REDSTONE;
 
@@ -54,7 +54,7 @@ public abstract class RedstoneArmorSet extends CustomAttributeItem implements IB
                 new AdditiveAttributeEntry(AttributeWrapper.DEFENSE, getDefense()),
                 new ScalarAttributeEntry(AttributeWrapper.MOVEMENT_SPEED, MOVEMENT_BUFF),
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ATTACK_BUFF),
-                new ScalarAttributeEntry(AttributeWrapper.MINING_POWER, MINING_BUFF)
+                new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, MINING_BUFF)
         );
     }
 
