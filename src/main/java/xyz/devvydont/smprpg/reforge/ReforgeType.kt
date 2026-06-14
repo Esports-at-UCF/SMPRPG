@@ -166,6 +166,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.CHARM,
         ItemClassification.AXE,
         ItemClassification.PICKAXE,
+        ItemClassification.SHOVEL,
         ItemClassification.HOE,
         ItemClassification.HATCHET,
         ItemClassification.DRILL
@@ -176,6 +177,7 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.CHARM,
         ItemClassification.AXE,
         ItemClassification.PICKAXE,
+        ItemClassification.SHOVEL,
         ItemClassification.HOE,
         ItemClassification.HATCHET,
         ItemClassification.DRILL
