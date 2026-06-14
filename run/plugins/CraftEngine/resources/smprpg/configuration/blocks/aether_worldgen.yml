@@ -303,6 +303,44 @@ items:
         smprpg:item-type: platinum_ingot
         smprpg:sell-value: 450
     texture: smprpg:item/aether/platinum_ingot
+  smprpg:platinum_block:
+    data:
+      item-name: <!i><lang:item.smprpg.platinum_block>
+      pdc:
+        smprpg:item-type: platinum_block
+        smprpg:sell-value: 4050
+    model: smprpg:block/aether/platinum_block
+    behavior:
+      type: block_item
+      block: smprpg:platinum_block
+  smprpg:enchanted_platinum:
+    data:
+      item-name: <!i><lang:item.smprpg.enchanted_platinum_ingot>
+      pdc:
+        smprpg:item-type: enchanted_platinum
+        smprpg:sell-value: 36450
+    texture: smprpg:item/aether/platinum_ingot
+  smprpg:enchanted_platinum_block_display:
+    data:
+      item-name: <!i><lang:item.smprpg.enchanted_platinum_block_display>
+    model: smprpg:block/compact/enchanted_platinum_block
+  smprpg:enchanted_platinum_block:
+    data:
+      item-name: <!i><lang:item.smprpg.enchanted_platinum_block>
+      pdc:
+        smprpg:item-type: enchanted_platinum_block
+        smprpg:sell-value: 328050
+    model: smprpg:block/aether/platinum_block
+    behavior:
+      type: block_item
+      block: smprpg:enchanted_platinum_block
+  smprpg:platinum_singularity:
+    data:
+      item-name: <!i><lang:item.smprpg.platinum_singularity>
+      pdc:
+        smprpg:item-type: platinum_singularity
+        smprpg:sell-value: 2952450
+    texture: smprpg:item/aether/platinum_ingot
   smprpg:raw_palladium:
     data:
       item-name: <!i><lang:item.smprpg.raw_palladium>
@@ -709,6 +747,35 @@ blocks:
       template:
         - smprpg:settings/aether_ore
         - smprpg:data/breaking_power_6
+      overrides:
+        hardness: 35.0
+        resistance: 25.0
+  smprpg:platinum_block:
+    state:
+      auto-state: solid
+      model:
+        template: smprpg:model/simplified_cube_all
+        arguments:
+          path: smprpg:block/aether/platinum_block
+    settings:
+      template:
+        - smprpg:sound/metal
+        - smprpg:data/breaking_power_6
+        - smprpg:data/beacon_usable
+      overrides:
+        hardness: 35.0
+        resistance: 25.0
+  smprpg:enchanted_platinum_block:
+    state:
+      state: barrier
+      entity-renderer:
+        - type: item_display
+          item: smprpg:enchanted_platinum_block_display
+    settings:
+      template:
+        - smprpg:sound/metal
+        - smprpg:data/breaking_power_6
+        - smprpg:data/beacon_usable
       overrides:
         hardness: 35.0
         resistance: 25.0

@@ -49,7 +49,7 @@ items:
         smprpg:item-type: silver_ingot
         smprpg:sell-value: 50
     texture: smprpg:item/materials/silver_ingot
-  smprpg:enchanted_silver_ingot:
+  smprpg:enchanted_silver:
     data:
       item-name: <!i><lang:item.smprpg.enchanted_silver_ingot>
       pdc:

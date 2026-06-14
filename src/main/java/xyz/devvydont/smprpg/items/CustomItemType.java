@@ -1519,7 +1519,11 @@ public enum CustomItemType {
 
     // PLATINUM
     RAW_PLATINUM("Raw Platinum", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
-    PLATINUM_INGOT("Platinum Ingot", Material.NETHER_BRICK, ItemRarity.RARE, CraftEngineBlueprint.class),
+    PLATINUM_INGOT("Platinum Ingot", Material.NETHER_BRICK, ItemRarity.RARE, PlatinumIngot.class),
+    PLATINUM_BLOCK("Platinum Block", Material.NETHER_BRICK, ItemRarity.EPIC, PlatinumFamilyBlueprint.class),
+    ENCHANTED_PLATINUM("Enchanted Platinum",                  Material.NETHER_BRICK,        ItemRarity.LEGENDARY,true, PlatinumFamilyBlueprint.class),
+    ENCHANTED_PLATINUM_BLOCK("Enchanted Block of Platinum",   Material.NETHER_BRICK,        ItemRarity.MYTHIC, true, PlatinumFamilyBlueprint.class),
+    PLATINUM_SINGULARITY("Platinum Singularity",              Material.NETHER_BRICK,        ItemRarity.DIVINE, true, PlatinumFamilyBlueprint.class),
 
     // PLATINUM_DRILL_HEAD("Platinum Drill Head", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, PlatinummDrillHead.class),
     // PLATINUM_DRILL_BASE("Platinum Drill Base", Material.PRISMARINE_SHARD, ItemRarity.UNCOMMON, PlatinummDrillBase.class),

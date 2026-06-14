@@ -10,24 +10,24 @@ class GoalUtils {
     companion object {
         fun chaseClosestPlayer(mob: Mob, radius: Double, speed: Double, priorityPlayer : Player? = null): Player {
             var closestPlayer = getClosestPlayer(mob, radius, priorityPlayer) as LivingEntity
-            mob.setTarget(closestPlayer)
-            if (mob.getLocation().distanceSquared(closestPlayer.getLocation()) < 0.25) {
-                mob.getPathfinder().stopPathfinding()
+            mob.target = closestPlayer
+            if (mob.location.distanceSquared(closestPlayer.location) < 0.25) {
+                mob.pathfinder.stopPathfinding()
             } else {
-                mob.getPathfinder().moveTo(closestPlayer, speed)
+                mob.pathfinder.moveTo(closestPlayer, speed)
             }
             return closestPlayer as Player
         }
 
         fun getClosestPlayer(mob: Mob, radius: Double, priorityPlayer: Player? = null): Player? {
-            val nearbyPlayers: MutableCollection<Player> = mob.getWorld().getNearbyPlayers(
-                mob.getLocation(),
+            val nearbyPlayers: MutableCollection<Player> = mob.world.getNearbyPlayers(
+                mob.location,
                 radius,
-                { player -> !player.isDead() && (player.getGameMode() !== GameMode.SPECTATOR && player.getGameMode() !== GameMode.CREATIVE) && player.isValid() })
+                { player -> !player.isDead && (player.gameMode !== GameMode.SPECTATOR && player.gameMode !== GameMode.CREATIVE) && player.isValid })
             var closestDistance = -1.0
             var closestPlayer: Player? = null
             for (player in nearbyPlayers) {
-                val distance = player.getLocation().distanceSquared(mob.getLocation())
+                val distance = player.location.distanceSquared(mob.getLocation())
                 if ((priorityPlayer != null) && player == priorityPlayer) {
                     closestDistance = player.getLocation().distanceSquared(mob.getLocation())
                     if (closestDistance != -1.0 && !(distance < closestDistance)) {
