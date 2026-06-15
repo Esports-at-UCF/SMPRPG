@@ -32,7 +32,7 @@ class SpellboundCloth(itemService: ItemService, type: CustomItemType) : CustomIt
      * @param item The item that can be sold.
      * @return The worth of the item.
      */
-    override fun getWorth(item: ItemStack): Int { return 56600 * item.amount }
+    override fun getWorth(item: ItemStack): Int { return 13_400 * item.amount }
 
     override fun getHeader(itemStack: ItemStack?): MutableList<Component?> {
         return mutableListOf(
@@ -58,7 +58,7 @@ class SpellboundCloth(itemService: ItemService, type: CustomItemType) : CustomIt
             "shs",
             "sss"
         )
-        recipe.setIngredient('s', itemService.getCustomItem(CustomItemType.ENCHANTED_SPELL_POWDER))
+        recipe.setIngredient('s', itemService.getCustomItem(CustomItemType.PREMIUM_SPELL_POWDER))
         recipe.setIngredient('h', itemService.getCustomItem(CustomItemType.HEXED_CLOTH))
         return recipe
     }
