@@ -395,13 +395,13 @@ public class BlockPropertiesRegistry implements Listener {
 
         register(Material.DEEPSLATE_DIAMOND_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
-                .breakingPower(6)
+                .breakingPower(5)
                 .softRequirement(false)
                 .build());
 
         register(Material.DEEPSLATE_EMERALD_ORE, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(450)
-                .breakingPower(6)
+                .breakingPower(5)
                 .softRequirement(false)
                 .build());
 
