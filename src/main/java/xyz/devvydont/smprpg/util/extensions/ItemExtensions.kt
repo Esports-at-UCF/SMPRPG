@@ -3,6 +3,7 @@
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.Recipe
+import org.bukkit.inventory.RecipeChoice.ExactChoice
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.recipe.CraftingBookCategory
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
@@ -76,7 +77,14 @@ fun ICompressible.buildCompressionRecipe(doDecompress: Boolean): Recipe? {
 
     val recipe = ShapedRecipe(NamespacedKey("smprpg", key), result)
     recipe.shape(*ICompressible.shape(step.inputAmount).toTypedArray())
-    recipe.setIngredient(ICompressible.MATERIAL_CHAR, this.generate())
+    // Custom items must be matched exactly by their data, otherwise the vanilla crafting grid only matches them by
+    // base material. Because many custom resources share a base material, a material-only match is ambiguous and the
+    // recipe will not auto-resolve when items are placed manually (forcing recipe-book selection). Vanilla members
+    // keep the lenient material match so any equivalent vanilla item qualifies.
+    if (this.isCustom)
+        recipe.setIngredient(ICompressible.MATERIAL_CHAR, ExactChoice(this.generate()))
+    else
+        recipe.setIngredient(ICompressible.MATERIAL_CHAR, this.generate())
     recipe.category = CraftingBookCategory.MISC
 
     val root = this.resolveFirstItemInCompressionChain(this.getGenericMaterial())

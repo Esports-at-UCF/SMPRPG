@@ -1570,8 +1570,43 @@ class ItemService : IService, Listener {
             return
 
         // So now we know we are using a vanilla recipe, and custom items are in the input.
-        // This is probably undesirable as custom items yielding vanilla items should be defined by us.
-        event.inventory.result = null
+        // Custom compression items reuse vanilla materials (e.g. an enchanted iron block is a IRON_BLOCK), so a
+        // vanilla recipe greedily matches them and wins the auto-pick before our compression recipe can. Recover the
+        // intended compression result so the grid auto-resolves; if there is no compression result, fall back to
+        // refusing the craft so custom items can never yield vanilla output through a vanilla recipe.
+        event.inventory.result = resolveCollidingCompressionResult(event.inventory.matrix)
+    }
+
+    /**
+     * Given a crafting matrix that a vanilla recipe matched while it actually contained custom items, work out the
+     * compression result the player intended. Returns null when the matrix is not a uniform compression grid.
+     *
+     * The matrix must hold a single custom [ICompressible] item in every occupied slot; the number of occupied slots
+     * then selects the direction (the compressor input count compresses, a single item decompresses). The amounts are
+     * read straight from the compression model, so this stays in sync with the recipes built in buildCompressionRecipe.
+     */
+    private fun resolveCollidingCompressionResult(matrix: Array<ItemStack?>): ItemStack? {
+        val items = matrix.filterNotNull().filter { it.type != Material.AIR }
+        if (items.isEmpty()) return null
+
+        val ingredient = items.first()
+        val blueprint = getBlueprint(ingredient)
+        if (blueprint !is ICompressible || !blueprint.isCustom) return null
+
+        // Every occupied slot must hold the exact same custom item for a compression recipe to apply.
+        val ingredientKey = getItemKey(ingredient)
+        if (items.any { getItemKey(it) != ingredientKey }) return null
+
+        val occupiedSlots = items.size
+        blueprint.compressor?.let { step ->
+            if (occupiedSlots == step.inputAmount)
+                return (step.blueprint as SMPItemBlueprint).generate(step.resultAmount)
+        }
+        blueprint.decompressor?.let { step ->
+            if (occupiedSlots == step.inputAmount)
+                return (step.blueprint as SMPItemBlueprint).generate(step.resultAmount)
+        }
+        return null
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
