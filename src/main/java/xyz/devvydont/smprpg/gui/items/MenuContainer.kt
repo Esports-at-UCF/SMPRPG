@@ -25,7 +25,7 @@ class MenuContainer(player: Player, private val blueprint: IItemContainer, priva
     }
 
     fun render() {
-        this.setBorderFull()
+        this.setSlots(BORDER_VOID)
 
         // Clone all the items stored in the meta to this inventory.
         // Once we do this, this inventory becomes the source of truth!

@@ -4,9 +4,11 @@ import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Location
 import org.bukkit.Particle
 import org.bukkit.Sound
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
+import org.bukkit.event.entity.EntityTargetEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.persistence.PersistentDataType
@@ -68,6 +70,7 @@ class SlayerService : IService, Listener {
                 if (clock > 40) {
                     val entity = SMPRPG.getService(EntityService::class.java).spawnCustomEntity(quest.bossToSpawn, location)
                     val slayer = entity as SlayerBossInstance<*>
+                    slayer.spawner = player
                     player.world.spawnParticle(Particle.EXPLOSION, locCopy, 5, -4.0, 0.0, 0.0, 0.0)
                     player.world.playSound(location, Sound.ENTITY_WITHER_SPAWN, 0.5f, 2f)
                     player.world.playSound(location, Sound.ENTITY_GENERIC_EXPLODE, 1f, 0.5f)
@@ -231,6 +234,32 @@ class SlayerService : IService, Listener {
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Prevent player from being targeted if their boss is spawned.
+     */
+    @EventHandler
+    @Suppress("unused")
+    private fun onPlayerTargeted(event: EntityTargetEvent) {
+        // We don't care for untarget events
+        if (event.target == null) return
+
+        // We don't care for non player targets
+        if (event.target !is Player) return
+
+        val playerQuest = playersToQuests.getOrDefault(event.target!!.uniqueId, null)
+        if (playerQuest == null) return
+
+        if (playerQuest.questState == SlayerQuest.SlayerQuestState.BOSS_ACTIVE) {
+            // We don't want slayer bosses to not target their spawner, so return out.
+            if (SMPRPG.getService(EntityService::class.java)
+                    .getEntityInstance(event.entity) is SlayerBossInstance<*>
+            ) return
+
+            // Our player is being targeted while a slayer boss is active, and it isn't the boss. Cancel it.
+            event.isCancelled = true
         }
     }
 }

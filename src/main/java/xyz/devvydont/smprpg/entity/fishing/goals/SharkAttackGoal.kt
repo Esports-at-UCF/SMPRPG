@@ -20,7 +20,7 @@ class SharkAttackGoal(val axolotl : Axolotl, val customEntity : Shark) : Goal<Ax
     var attackClock = 0
 
     override fun shouldActivate(): Boolean {
-        if (GoalUtils.getClosestPlayer(axolotl, 20.0) != null) {
+        if (GoalUtils.getClosestPlayer(axolotl, 20.0, null) != null) {
             return true
         }
         else
@@ -40,7 +40,7 @@ class SharkAttackGoal(val axolotl : Axolotl, val customEntity : Shark) : Goal<Ax
     }
 
     override fun start() {
-        axolotl.target = GoalUtils.chaseClosestPlayer(axolotl, 20.0, 1.0)
+        axolotl.target = GoalUtils.chaseClosestPlayer(axolotl, 20.0, 1.0, null)
     }
 
     override fun stop() {
@@ -49,7 +49,7 @@ class SharkAttackGoal(val axolotl : Axolotl, val customEntity : Shark) : Goal<Ax
     }
 
     override fun tick() {
-        var closestPlayer = GoalUtils.chaseClosestPlayer(axolotl, 30.0, 1.0)
+        var closestPlayer = GoalUtils.chaseClosestPlayer(axolotl, 30.0, 1.0, null)
         axolotl.lookAt(closestPlayer)
         if (closestPlayer in axolotl.world.getNearbyPlayers(axolotl.location, 1.25) && attackClock <= 0) {
             axolotl.attack(closestPlayer)

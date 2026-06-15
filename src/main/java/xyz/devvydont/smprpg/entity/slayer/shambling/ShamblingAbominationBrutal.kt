@@ -1,8 +1,10 @@
 package xyz.devvydont.smprpg.entity.slayer.shambling
 
 import org.bukkit.Bukkit
+import org.bukkit.attribute.Attribute
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Zombie
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.slayer.shambling.goals.ShamblingAbominationChaseGoal
@@ -50,10 +52,15 @@ class ShamblingAbominationBrutal(entity: LivingEntity?, entityType: CustomEntity
         if (zombie.vehicle != null)
             zombie.vehicle!!.removePassenger(zombie)
         val mobGoals = Bukkit.getMobGoals()
+        val reinforcements = zombie.getAttribute(Attribute.SPAWN_REINFORCEMENTS)
+        if (reinforcements != null)
+            reinforcements.baseValue = 0.0
         mobGoals.removeAllGoals(zombie)
-        mobGoals.addGoal(zombie, 0, ShamblingAbominationChaseGoal(this, null, 2.0))
-        mobGoals.addGoal(zombie, 1, ShamblingAbominationEnrageGoal(this, null))
-        mobGoals.addGoal(zombie, 2, ShamblingAbominationImplodeGoal(this, null, TickTime.seconds(10).toInt()))
-        mobGoals.addGoal(zombie, 3, ShamblingAbominationSyphonGoal(this, null, 0.1))
+        Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable {
+            mobGoals.addGoal(zombie, 0, ShamblingAbominationChaseGoal(this, spawner, 2.0))
+            mobGoals.addGoal(zombie, 1, ShamblingAbominationEnrageGoal(this, spawner))
+            mobGoals.addGoal(zombie, 2, ShamblingAbominationImplodeGoal(this, spawner, TickTime.seconds(10).toInt()))
+            mobGoals.addGoal(zombie, 3, ShamblingAbominationSyphonGoal(this, spawner, 0.1))
+        }, 1L)
     }
 }

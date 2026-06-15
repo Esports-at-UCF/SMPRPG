@@ -20,7 +20,7 @@ class ImpAttackGoal(val blaze : Blaze, val customEntity : Imp) : Goal<Blaze> {
     var attackClock = 100
 
     override fun shouldActivate(): Boolean {
-        if (GoalUtils.getClosestPlayer(blaze, 20.0) != null) {
+        if (GoalUtils.getClosestPlayer(blaze, 20.0, null) != null) {
             return true
         }
         else
@@ -40,7 +40,7 @@ class ImpAttackGoal(val blaze : Blaze, val customEntity : Imp) : Goal<Blaze> {
     }
 
     override fun start() {
-        blaze.target = GoalUtils.chaseClosestPlayer(blaze, 20.0, 1.0)
+        blaze.target = GoalUtils.chaseClosestPlayer(blaze, 20.0, 1.0, null)
     }
 
     override fun stop() {

@@ -10,7 +10,6 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityTransformEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
-import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.MobType
@@ -75,6 +74,13 @@ open class ShamblingAbominationParent
 
     override fun getSkillExperienceMultiplier(): Double {
         return 10.0
+    }
+
+    /*
+     * 5 min
+     */
+    override fun getTimeLimit(): Long {
+        return 60L * 5L
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

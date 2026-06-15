@@ -4,12 +4,15 @@ import org.bukkit.GameMode
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Mob
 import org.bukkit.entity.Player
+import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.effects.tasks.ShroudedEffect
+import xyz.devvydont.smprpg.services.SpecialEffectService
 
 class GoalUtils {
 
     companion object {
-        fun chaseClosestPlayer(mob: Mob, radius: Double, speed: Double, priorityPlayer : Player? = null): Player {
-            var closestPlayer = getClosestPlayer(mob, radius, priorityPlayer) as LivingEntity
+        fun chaseClosestPlayer(mob: Mob, radius: Double, speed: Double, priorityPlayer : Player?): Player {
+            val closestPlayer = getClosestPlayer(mob, radius, priorityPlayer) as LivingEntity
             mob.target = closestPlayer
             if (mob.location.distanceSquared(closestPlayer.location) < 0.25) {
                 mob.pathfinder.stopPathfinding()
@@ -19,7 +22,7 @@ class GoalUtils {
             return closestPlayer as Player
         }
 
-        fun getClosestPlayer(mob: Mob, radius: Double, priorityPlayer: Player? = null): Player? {
+        fun getClosestPlayer(mob: Mob, radius: Double, priorityPlayer: Player?): Player? {
             val nearbyPlayers: MutableCollection<Player> = mob.world.getNearbyPlayers(
                 mob.location,
                 radius,
@@ -27,13 +30,15 @@ class GoalUtils {
             var closestDistance = -1.0
             var closestPlayer: Player? = null
             for (player in nearbyPlayers) {
-                val distance = player.location.distanceSquared(mob.getLocation())
+                val activeEffect = SMPRPG.getService(SpecialEffectService::class.java).getActiveEffectTask(player)
+                if (activeEffect is ShroudedEffect) continue
+                val distance = player.location.distanceSquared(mob.location)
                 if ((priorityPlayer != null) && player == priorityPlayer) {
-                    closestDistance = player.getLocation().distanceSquared(mob.getLocation())
-                    if (closestDistance != -1.0 && !(distance < closestDistance)) {
-                        continue
+                    closestDistance = player.location.distanceSquared(mob.location)
+                    if (distance <= closestDistance) {
+                        return player
                     }
-                    return player
+                    continue
                 }
                 if (closestDistance != -1.0 && !(distance < closestDistance)) {
                     continue

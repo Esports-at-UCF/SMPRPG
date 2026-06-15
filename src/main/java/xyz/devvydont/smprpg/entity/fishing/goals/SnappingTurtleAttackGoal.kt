@@ -18,7 +18,7 @@ class SnappingTurtleAttackGoal(val turtle : Turtle) : Goal<Turtle> {
     var attackClock = 0
 
     override fun shouldActivate(): Boolean {
-        if (GoalUtils.getClosestPlayer(turtle, 20.0) != null) {
+        if (GoalUtils.getClosestPlayer(turtle, 20.0, null) != null) {
             return true
         }
         else
@@ -38,7 +38,7 @@ class SnappingTurtleAttackGoal(val turtle : Turtle) : Goal<Turtle> {
     }
 
     override fun start() {
-        turtle.target = GoalUtils.chaseClosestPlayer(turtle, 20.0, 1.0)
+        turtle.target = GoalUtils.chaseClosestPlayer(turtle, 20.0, 1.0, null)
     }
 
     override fun stop() {
@@ -47,7 +47,7 @@ class SnappingTurtleAttackGoal(val turtle : Turtle) : Goal<Turtle> {
     }
 
     override fun tick() {
-        var closestPlayer = GoalUtils.chaseClosestPlayer(turtle, 20.0, 5.0)
+        var closestPlayer = GoalUtils.chaseClosestPlayer(turtle, 20.0, 5.0, null)
         turtle.lookAt(closestPlayer)
         if (closestPlayer in turtle.world.getNearbyPlayers(turtle.location, 0.75) && attackClock <= 0) {
             turtle.attack(closestPlayer)

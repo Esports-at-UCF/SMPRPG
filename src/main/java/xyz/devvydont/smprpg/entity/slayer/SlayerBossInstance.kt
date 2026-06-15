@@ -6,6 +6,7 @@ import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDeathEvent
@@ -21,6 +22,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 open class SlayerBossInstance<T>(T : LivingEntity?, entityType: CustomEntityType?) : CustomBossInstance<LivingEntity?>(T, entityType), Listener {
 
     var quest : SlayerQuest? = null
+    var spawner: Player? = null
 
     override fun getNameColor(): TextColor? {
         return NamedTextColor.DARK_PURPLE

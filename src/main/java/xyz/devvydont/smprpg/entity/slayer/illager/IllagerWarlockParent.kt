@@ -104,6 +104,13 @@ open class IllagerWarlockParent
         return 20.0
     }
 
+    /*
+    * 5 min
+    */
+    override fun getTimeLimit(): Long {
+        return 60L * 5L
+    }
+
     @EventHandler
     fun onRemoveEntity(event : EntityRemoveFromWorldEvent) {
         if (event.entity == this.entity) {

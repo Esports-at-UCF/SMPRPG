@@ -18,7 +18,7 @@ class SeaBearAttackGoal(val polarBear : PolarBear) : Goal<PolarBear> {
     var standClock = 0
 
     override fun shouldActivate(): Boolean {
-        if (GoalUtils.getClosestPlayer(polarBear, 20.0) != null) {
+        if (GoalUtils.getClosestPlayer(polarBear, 20.0, null) != null) {
             return true
         }
         else
@@ -38,7 +38,7 @@ class SeaBearAttackGoal(val polarBear : PolarBear) : Goal<PolarBear> {
     }
 
     override fun start() {
-        polarBear.target = GoalUtils.chaseClosestPlayer(polarBear, 20.0, 1.0)
+        polarBear.target = GoalUtils.chaseClosestPlayer(polarBear, 20.0, 1.0, null)
     }
 
     override fun stop() {
@@ -47,7 +47,7 @@ class SeaBearAttackGoal(val polarBear : PolarBear) : Goal<PolarBear> {
     }
 
     override fun tick() {
-        var closestPlayer = GoalUtils.chaseClosestPlayer(polarBear, 20.0, 1.0)
+        var closestPlayer = GoalUtils.chaseClosestPlayer(polarBear, 20.0, 1.0, null)
         polarBear.lookAt(closestPlayer)
         if (closestPlayer in polarBear.world.getNearbyPlayers(polarBear.location, 0.75) && attackClock <= 0) {
             polarBear.attack(closestPlayer)

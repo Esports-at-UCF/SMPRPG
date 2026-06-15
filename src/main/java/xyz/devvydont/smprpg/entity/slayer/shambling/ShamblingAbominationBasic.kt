@@ -2,8 +2,11 @@ package xyz.devvydont.smprpg.entity.slayer.shambling
 
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.attribute.Attribute
+import org.bukkit.attribute.AttributeInstance
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Zombie
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.slayer.shambling.goals.ShamblingAbominationChaseGoal
@@ -38,8 +41,14 @@ class ShamblingAbominationBasic(entity: LivingEntity?, entityType: CustomEntityT
         zombie.setAdult()
         if (zombie.vehicle != null)
             zombie.vehicle!!.removePassenger(zombie)
+        val reinforcements = zombie.getAttribute(Attribute.SPAWN_REINFORCEMENTS)
+        if (reinforcements != null)
+            reinforcements.baseValue = 0.0
         val mobGoals = Bukkit.getMobGoals()
         mobGoals.removeAllGoals(zombie)
-        mobGoals.addGoal(zombie, 3, ShamblingAbominationChaseGoal(this, null, 1.5))
+        Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable {
+            mobGoals.addGoal(zombie, 3, ShamblingAbominationChaseGoal(this, spawner, 1.5))
+        }, 1L)
+
     }
 }

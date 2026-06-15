@@ -16,7 +16,7 @@ class SpacePigAttackGoal(val pig : Pig) : Goal<Pig> {
     var attackClock = 0
 
     override fun shouldActivate(): Boolean {
-        if (GoalUtils.getClosestPlayer(pig, 20.0) != null) {
+        if (GoalUtils.getClosestPlayer(pig, 20.0, null) != null) {
             return true
         }
         else
@@ -36,7 +36,7 @@ class SpacePigAttackGoal(val pig : Pig) : Goal<Pig> {
     }
 
     override fun start() {
-        pig.target = GoalUtils.chaseClosestPlayer(pig, 20.0, 1.0)
+        pig.target = GoalUtils.chaseClosestPlayer(pig, 20.0, 1.0, null)
     }
 
     override fun stop() {
@@ -45,7 +45,7 @@ class SpacePigAttackGoal(val pig : Pig) : Goal<Pig> {
     }
 
     override fun tick() {
-        var closestPlayer = GoalUtils.chaseClosestPlayer(pig, 20.0, 1.0)
+        var closestPlayer = GoalUtils.chaseClosestPlayer(pig, 20.0, 1.0, null)
         pig.lookAt(closestPlayer)
         if (closestPlayer in pig.world.getNearbyPlayers(pig.location, 0.75) && attackClock <= 0) {
             pig.attack(closestPlayer)

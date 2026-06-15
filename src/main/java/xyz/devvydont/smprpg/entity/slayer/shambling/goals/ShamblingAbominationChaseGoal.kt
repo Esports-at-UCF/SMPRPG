@@ -19,7 +19,7 @@ class ShamblingAbominationChaseGoal(val slayer : ShamblingAbominationParent, val
     var stopped = false
 
     override fun shouldActivate(): Boolean {
-        if (GoalUtils.getClosestPlayer(zombie, 20.0) != null) {
+        if (GoalUtils.getClosestPlayer(zombie, 20.0, spawnPlayer) != null) {
             return true
         }
         else
@@ -40,7 +40,7 @@ class ShamblingAbominationChaseGoal(val slayer : ShamblingAbominationParent, val
 
     override fun start() {
         stopped = false
-        zombie.target = GoalUtils.getClosestPlayer(zombie, 20.0)
+        zombie.target = GoalUtils.getClosestPlayer(zombie, 20.0, spawnPlayer)
     }
 
     override fun stop() {
@@ -51,7 +51,18 @@ class ShamblingAbominationChaseGoal(val slayer : ShamblingAbominationParent, val
 
     override fun tick() {
         if (!stopped) {
-            var closestPlayer = GoalUtils.chaseClosestPlayer(zombie, 20.0, chaseSpeed, spawnPlayer)
+            var priorityPlayer: Player? = null
+            for (player in slayer.damageTracker.playerDamageTracker.keys) {
+                val damage = slayer.damageTracker.playerDamageTracker[player]
+                if (damage != null) {
+                    // Player that has dealt more than 40% of the boss's health becomes the priority.
+                    if (damage >= slayer.maxHp * 0.4)
+                        priorityPlayer = player
+                    else
+                        priorityPlayer = spawnPlayer
+                }
+            }
+            val closestPlayer = GoalUtils.chaseClosestPlayer(zombie, 20.0, chaseSpeed, priorityPlayer)
             zombie.lookAt(closestPlayer)
             if (closestPlayer in zombie.world.getNearbyPlayers(zombie.location, 1.0) && attackClock <= 0) {
                 zombie.attack(closestPlayer)
