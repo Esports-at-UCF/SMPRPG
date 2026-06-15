@@ -69,6 +69,9 @@ abstract class CustomShortbow(itemService: ItemService, type: CustomItemType) : 
         // Are we on attack cooldown?
         if (event.player.getCooldown(customItemType.DisplayMaterial) > 0) return
 
+        // Do we meet skill requirements?
+        if (!ItemService.meetsRequirements(item, event.player)) return
+
         // Do we have an arrow to use as a consumable?
         var consumable: ItemStack? = null
         var arrowClass: Class<out AbstractArrow>? = null
