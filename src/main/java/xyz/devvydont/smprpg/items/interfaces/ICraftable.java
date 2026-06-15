@@ -13,7 +13,7 @@ import java.util.List;
  * An interface for descendants of SMPItemBlueprint to implement for our plugin to detect that this blueprint
  * can be custom crafted.
  */
-public interface ICraftable {
+public interface ICraftable extends IRecipeProvider {
 
     NamespacedKey getRecipeKey();
     CraftingRecipe getCustomRecipe();
@@ -25,6 +25,14 @@ public interface ICraftable {
      * @return
      */
     Collection<ItemStack> unlockedBy();
+
+    /**
+     * A craftable item contributes exactly one recipe, unlocked by the items declared in {@link #unlockedBy()}.
+     */
+    @Override
+    default Collection<IRecipeProvider.UnlockableRecipe> getProvidedRecipes() {
+        return List.of(new IRecipeProvider.UnlockableRecipe(getCustomRecipe(), unlockedBy()));
+    }
 
     /**
      * A simplistic implementation to allow a recipe to be viewable in contexts where you are checking against this

@@ -69,11 +69,9 @@ import xyz.devvydont.smprpg.listeners.crafting.CustomItemFurnacePreventions
 import xyz.devvydont.smprpg.reforge.ReforgeBase
 import xyz.devvydont.smprpg.reforge.ReforgeType
 import xyz.devvydont.smprpg.util.attributes.AttributeUtil
-import xyz.devvydont.smprpg.util.crafting.CompressionRecipeMember
 import xyz.devvydont.smprpg.util.crafting.ItemUtil
 import xyz.devvydont.smprpg.util.crafting.MaterialWrapper
 import xyz.devvydont.smprpg.util.extensions.resolveFirstItemInCompressionChain
-import xyz.devvydont.smprpg.util.extensions.setupCompressionRecipe
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.MinecraftStringUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
@@ -84,7 +82,6 @@ import java.lang.reflect.InvocationTargetException
 import java.util.*
 import kotlin.collections.iterator
 import kotlin.math.abs
-import kotlin.math.ceil
 import kotlin.math.round
 
 class ItemService : IService, Listener {
@@ -123,7 +120,6 @@ class ItemService : IService, Listener {
         val plugin = SMPRPG.plugin
         plugin.logger.info(String.format("Successfully registered %d reforges", reforges.size))
 
-        val recipeCount = countRecipes()
         registerCustomItems()
         plugin.logger.info(
             String.format(
@@ -132,21 +128,14 @@ class ItemService : IService, Listener {
             )
         )
         plugin.logger.info(String.format("Successfully registered %d custom item blueprints", blueprints.size))
-        val postCustomRegisteredRecipeCount = countRecipes()
-        plugin.logger.info(
-            String.format(
-                "Successfully registered %d custom crafting recipes",
-                postCustomRegisteredRecipeCount - recipeCount
-            )
-        )
 
-        val preCompressionRecipeCount = countRecipes()
-        registerCompressionCraftingChains()
-        val postCompressionRecipeCount = countRecipes()
+        val preProvidedRecipeCount = countRecipes()
+        registerProvidedRecipes()
+        val postProvidedRecipeCount = countRecipes()
         plugin.logger.info(
             String.format(
-                "Successfully registered %d compression recipes",
-                postCompressionRecipeCount - preCompressionRecipeCount
+                "Successfully registered %d craftable & compression recipes",
+                postProvidedRecipeCount - preProvidedRecipeCount
             )
         )
 
@@ -384,31 +373,8 @@ class ItemService : IService, Listener {
             registerCustomItem(blueprint)
         }
 
-        // Now go back through and register item recipes since every item is generated
-        for (blueprint in this.customBlueprints) {
-            if (blueprint is ICraftable) {
-                // Only register it if it is not registered already
-
-                if (plugin.server.getRecipe(blueprint.getRecipeKey()) == null) {
-                    val success = plugin.server.addRecipe(blueprint.getCustomRecipe())
-                    if (!success)
-                        SMPRPG.plugin.logger.warning("Failed to register ICraftable recipe with key: ${blueprint.getRecipeKey()}")
-                }
-
-                registeredRecipes.add(blueprint.getCustomRecipe())
-            }
-        }
-
-        // Go back through all items and find recipe links, kind of ugly but this will save us computation time
-        for (blueprint in this.customBlueprints) {
-            if (blueprint is ICraftable) {
-                for (unlockedBy in blueprint.unlockedBy()) {
-                    val unlockBlueprint = getBlueprint(unlockedBy)
-                    registerUnlockRecipe(unlockBlueprint, blueprint.getRecipeKey())
-                }
-            }
-        }
-
+        // Recipe + unlock registration for every blueprint that provides recipes (craftable items, compression
+        // chain members, etc.) happens uniformly in registerProvidedRecipes(), called once every blueprint exists.
         registerNetheriteRecipes()
         Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable {
             removeUnusedVanillaRecipes()
@@ -629,43 +595,41 @@ class ItemService : IService, Listener {
         if (blueprint is Listener) plugin.server.pluginManager.registerEvents(blueprint, plugin)
     }
 
-    private fun registerCompressionCraftingChains() {
+    /**
+     * Registers every recipe contributed by any blueprint (craftable items, compression chain members, etc.) along
+     * with the unlock links that reveal each recipe in the recipe book. This is the single source of truth for recipe
+     * registration so that adding a recipe and wiring up its discovery can never drift apart.
+     */
+    private fun registerProvidedRecipes() {
+        val providers = ArrayList<IRecipeProvider>()
+        for (blueprint in blueprints.values)
+            if (blueprint is IRecipeProvider) providers.add(blueprint)
+        for (blueprint in vanillaBlueprintResolver.values)
+            if (blueprint is IRecipeProvider) providers.add(blueprint)
 
-        // Loop through every blueprint (both custom and registered vanilla) and register compression/decompression
-        // recipes for any blueprint that participates in a compression chain.
-        var id = 1
-        for (blueprint in blueprints.values) {
-            if (blueprint !is ICompressible) continue
-            id = registerCompressionRecipeDirection(blueprint, id, doDecompress = false)
-            id = registerCompressionRecipeDirection(blueprint, id, doDecompress = true)
-        }
-        for (blueprint in vanillaBlueprintResolver.values) {
-            if (blueprint !is ICompressible) continue
-            id = registerCompressionRecipeDirection(blueprint, id, doDecompress = false)
-            id = registerCompressionRecipeDirection(blueprint, id, doDecompress = true)
-        }
+        for (provider in providers)
+            for (provided in provider.getProvidedRecipes())
+                registerProvidedRecipe(provided)
     }
 
-    private fun registerCompressionRecipeDirection(
-        blueprint: SMPItemBlueprint,
-        recipeId: Int,
-        doDecompress: Boolean
-    ): Int {
-        val compressibleBlueprint = blueprint as? ICompressible ?: return recipeId + 1
-        val recipe = compressibleBlueprint.setupCompressionRecipe(recipeId, doDecompress)
-        if (recipe == null) {
-            return recipeId + 1
+    private fun registerProvidedRecipe(provided: IRecipeProvider.UnlockableRecipe) {
+        val plugin = SMPRPG.plugin
+        val recipe = provided.recipe
+        val key = (recipe as? Keyed)?.key()?.asString()?.let(NamespacedKey::fromString)
+        if (key == null) {
+            plugin.logger.warning("Skipping a provided recipe that has no resolvable key")
+            return
         }
 
+        // Add the recipe itself only if it is not already present, keeping registration idempotent across reloads.
+        if (plugin.server.getRecipe(key) == null && !plugin.server.addRecipe(recipe))
+            plugin.logger.warning("Failed to register recipe with key: $key")
         registeredRecipes.add(recipe)
-        val firstInChain = compressibleBlueprint.resolveFirstItemInCompressionChain(blueprint.getGenericMaterial())
-        registerUnlockRecipe(firstInChain, recipe)
-        return recipeId + 1
-    }
 
-    private fun registerUnlockRecipe(unlockBlueprint: Any, recipe: Recipe) {
-        val key = (recipe as? Keyed)?.key()?.asString()?.let(NamespacedKey::fromString) ?: return
-        registerUnlockRecipe(unlockBlueprint, key)
+        // Always wire up the unlock links by key, independent of whether the recipe was freshly added above.
+        // This decoupling is what guarantees discovery works even when the recipe already existed.
+        for (unlockItem in provided.unlockedBy)
+            registerUnlockRecipe(getBlueprint(unlockItem), key)
     }
 
     private fun registerUnlockRecipe(unlockBlueprint: Any, recipeKey: NamespacedKey) {

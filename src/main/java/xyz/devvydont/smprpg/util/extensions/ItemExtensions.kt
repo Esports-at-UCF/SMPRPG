@@ -1,11 +1,10 @@
 ﻿package xyz.devvydont.smprpg.util.extensions
 
-import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.Recipe
 import org.bukkit.inventory.ShapedRecipe
+import org.bukkit.inventory.recipe.CraftingBookCategory
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource
@@ -54,33 +53,37 @@ fun ICompressible.calculateCompressionChain(type: MaterialWrapper): List<Compres
 }
 
 /**
- * Shortcut method to register a recipe to the server using the compression recipe rules and utilities.
- * If null is returned, the recipe was not registered due to not existing or already being registered.
+ * Builds (but does not register) the compression or decompression recipe for this item.
+ * Returns null when there is nothing to compress/decompress into in the requested direction, which marks the
+ * corresponding end of the compression chain.
+ *
+ * The recipe key is deterministic ("<item>-compress" / "<item>-decompress") so registration is stable across
+ * reloads and idempotent. Actually adding the recipe and wiring up its unlock links is the caller's responsibility
+ * (see ItemService), keeping recipe creation decoupled from recipe registration.
  */
-fun ICompressible.setupCompressionRecipe(id: Int, doDecompress: Boolean): Recipe? {
+fun ICompressible.buildCompressionRecipe(doDecompress: Boolean): Recipe? {
 
     if (this !is SMPItemBlueprint)
         throw IllegalStateException("Only SMPItemBlueprint is supported")
 
-    val key = this.getGenericMaterial().key() + "-comp-id-$id"
-    var result = ItemStack.of(Material.AIR)
-    val compressor = if (doDecompress) this.decompressor else this.compressor
-    if (compressor == null)
+    val step = if (doDecompress) this.decompressor else this.compressor
+    if (step == null)
         return null
 
-    val compressorBlueprint = compressor.blueprint
-    if (compressorBlueprint is SMPItemBlueprint)
-        result = compressorBlueprint.generate(compressor.resultAmount)
-    val recipe = ShapedRecipe(NamespacedKey("smprpg", key), result)
-    recipe.shape(*ICompressible.shape(compressor.inputAmount).toTypedArray())
-    recipe.setIngredient(ICompressible.MATERIAL_CHAR, this.generate())
-    val firstBlueprint = this.resolveFirstItemInCompressionChain(this.getGenericMaterial())
-    if (firstBlueprint is SMPItemBlueprint)
-        recipe.group = firstBlueprint.getGenericMaterial().key()
+    val direction = if (doDecompress) "decompress" else "compress"
+    val key = this.getGenericMaterial().key() + "-" + direction
+    val result = (step.blueprint as SMPItemBlueprint).generate(step.resultAmount)
 
-    if (Bukkit.addRecipe(recipe))
-        return recipe
-    return null
+    val recipe = ShapedRecipe(NamespacedKey("smprpg", key), result)
+    recipe.shape(*ICompressible.shape(step.inputAmount).toTypedArray())
+    recipe.setIngredient(ICompressible.MATERIAL_CHAR, this.generate())
+    recipe.category = CraftingBookCategory.MISC
+
+    val root = this.resolveFirstItemInCompressionChain(this.getGenericMaterial())
+    if (root is SMPItemBlueprint)
+        recipe.group = root.getGenericMaterial().key()
+
+    return recipe
 }
 
 /**

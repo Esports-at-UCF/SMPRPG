@@ -1,6 +1,8 @@
 package xyz.devvydont.smprpg.items.interfaces
 
-import xyz.devvydont.smprpg.util.crafting.MaterialWrapper
+import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
+import xyz.devvydont.smprpg.util.extensions.buildCompressionRecipe
+import xyz.devvydont.smprpg.util.extensions.resolveFirstItemInCompressionChain
 
 /**
  * Represents an item that may "compress" or "decompress" into another item.
@@ -9,7 +11,7 @@ import xyz.devvydont.smprpg.util.crafting.MaterialWrapper
  * A "Decompressor" property represents the result that this item would decompress into, whereas the "Compressor"
  * property represents the result that this item can compress into.
  */
-interface ICompressible {
+interface ICompressible : IRecipeProvider {
 
     companion object {
 
@@ -57,4 +59,22 @@ interface ICompressible {
      * that this item can compress into making it the most expensive material in the chain.
      */
     val compressor: CompressionStep?
+
+    /**
+     * A compression member contributes up to two recipes (compressing into its [compressor] and decompressing into its
+     * [decompressor]). Every recipe in the chain is unlocked by acquiring the base material at the root of the chain,
+     * so obtaining the raw resource reveals the entire compression ladder in the recipe book.
+     */
+    override fun getProvidedRecipes(): Collection<IRecipeProvider.UnlockableRecipe> {
+        val self = this as? SMPItemBlueprint ?: return emptyList()
+        val root = resolveFirstItemInCompressionChain(self.getGenericMaterial())
+        val rootItem = (root as SMPItemBlueprint).generate()
+
+        val recipes = ArrayList<IRecipeProvider.UnlockableRecipe>()
+        buildCompressionRecipe(doDecompress = false)
+            ?.let { recipes.add(IRecipeProvider.UnlockableRecipe(it, listOf(rootItem))) }
+        buildCompressionRecipe(doDecompress = true)
+            ?.let { recipes.add(IRecipeProvider.UnlockableRecipe(it, listOf(rootItem))) }
+        return recipes
+    }
 }
