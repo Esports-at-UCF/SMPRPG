@@ -270,11 +270,11 @@ class BlockDamage {
         }
 
         // Haste gives +100 mining speed per level, Mining Fatigue gives -100 mining speed per level.
-        if (player.hasPotionEffect(PotionEffectType.HASTE)) speedMultiplier += (100 * player.getPotionEffect(
+        if (player.hasPotionEffect(PotionEffectType.HASTE)) speedMultiplier += (400 * player.getPotionEffect(
             PotionEffectType.HASTE
         )!!
             .amplifier).toDouble()
-        if (player.hasPotionEffect(PotionEffectType.MINING_FATIGUE)) speedMultiplier -= (100 * player.getPotionEffect(
+        if (player.hasPotionEffect(PotionEffectType.MINING_FATIGUE)) speedMultiplier -= (400 * player.getPotionEffect(
             PotionEffectType.MINING_FATIGUE
         )!!
             .amplifier).toDouble()
