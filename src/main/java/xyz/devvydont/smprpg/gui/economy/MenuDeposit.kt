@@ -45,6 +45,10 @@ class MenuDeposit(owner: Player) : MenuBase(owner, 5) {
         val itemBlueprint = this.itemService.getBlueprint(event.getCurrentItem()!!)
         event.isCancelled = itemBlueprint !is ISellable
 
+        // If the item is sellable, but not worth anything, don't let them sell it.
+        // This is usually the case with some CraftEngine items, as they use a universal parent blueprint.
+        if ((itemBlueprint as ISellable).getWorth(event.currentItem) == 0) event.isCancelled = true
+
         // If the item clicked is enchanted or reforged, we should prevent the item from being shift clicked.
         if (event.isShiftClick && (!event.getCurrentItem()!!.enchantments.isEmpty() || itemBlueprint.isReforged(
                 event.getCurrentItem()
