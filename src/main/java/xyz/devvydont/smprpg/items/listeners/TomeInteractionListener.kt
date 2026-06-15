@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.items.listeners
 
 import io.papermc.paper.datacomponent.DataComponentTypes
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Bukkit
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -77,7 +78,7 @@ class TomeInteractionListener: ToggleableListener() {
                     event.clickedInventory?.close()
                     event.isCancelled = true
                     val player = event.whoClicked as Player
-                    player.updateInventory()
+                    Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable { player.updateInventory() }, 1L)
                     MenuTomeModification(player, itemBp, item).openMenu()
                 }
             }

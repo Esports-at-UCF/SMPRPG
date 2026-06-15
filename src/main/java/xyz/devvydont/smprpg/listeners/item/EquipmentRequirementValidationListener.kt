@@ -18,6 +18,7 @@ import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.player.PlayerHarvestBlockEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerItemDamageEvent
+import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.items.interfaces.IDamageFromCrops
 import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
@@ -45,7 +46,7 @@ class EquipmentRequirementValidationListener : ToggleableListener() {
                     ComponentUtils.error(ComponentUtils.create("You do not meet the skill requirements to use ", NamedTextColor.RED)),
                     item.displayName()
                 ))
-            event.player.updateInventory() // Force client update to prevent ghosting items.
+            Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable { event.player.updateInventory() }, 1L)
             event.player.playSound(event.player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 0.5f)
         }
     }
@@ -53,18 +54,41 @@ class EquipmentRequirementValidationListener : ToggleableListener() {
     // Handles attempts to equip armor
     @EventHandler
     private fun onAttemptEquipArmor(event: InventoryClickEvent) {
+        // This portion handles regular clicking
         if (event.slotType == InventoryType.SlotType.ARMOR) {
             val item = event.cursor
             val player = event.whoClicked as Player
             if (!ItemService.meetsRequirements(item, player)) {
                 event.isCancelled = true
-                player.updateInventory()
+                Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable { player.updateInventory() }, 1L)
                 player.sendMessage(
                     ComponentUtils.merge(
                         ComponentUtils.error(ComponentUtils.create("You do not meet the skill requirements to equip ", NamedTextColor.RED)),
                         item.displayName()
                     ))
                 player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 0.5f)
+            }
+        }
+
+        // This portion handles shift clicking
+        if (event.isShiftClick || event.hotbarButton != -1) {
+            val player = event.whoClicked as Player
+            val item: ItemStack
+            if (event.isShiftClick) item = event.currentItem ?: return
+            else if (event.slotType == InventoryType.SlotType.ARMOR) item = player.inventory.getItem(event.hotbarButton) ?: return
+            else return
+            if (item.getData(DataComponentTypes.EQUIPPABLE) != null) {
+
+                if (!ItemService.meetsRequirements(item, player)) {
+                    event.isCancelled = true
+                    Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable { player.updateInventory() }, 1L)
+                    player.sendMessage(
+                        ComponentUtils.merge(
+                            ComponentUtils.error(ComponentUtils.create("You do not meet the skill requirements to equip ", NamedTextColor.RED)),
+                            item.displayName()
+                        ))
+                    player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 0.5f)
+                }
             }
         }
     }

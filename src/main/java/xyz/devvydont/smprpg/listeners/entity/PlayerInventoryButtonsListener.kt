@@ -1,12 +1,14 @@
 package xyz.devvydont.smprpg.listeners.entity
 
 import net.kyori.adventure.text.Component
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.MenuType
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.gui.player.InterfaceStats
 import xyz.devvydont.smprpg.gui.player.InterfaceWardrobe
 import xyz.devvydont.smprpg.gui.player.MenuStatsRoot
@@ -36,7 +38,7 @@ class PlayerInventoryButtonsListener: ToggleableListener() {
                 -999 -> return
                 else -> event.isCancelled = true
             }
-            player.updateInventory()
+            Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable { player.updateInventory() }, 1L)
         }
     }
 }
