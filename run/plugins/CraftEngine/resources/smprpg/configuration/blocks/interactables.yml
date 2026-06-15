@@ -214,3 +214,16 @@ recipes:
     result:
       id: smprpg:netherite_anvil
       count: 1
+  smprpg:titanium_cache:
+    type: shaped
+    ingredients:
+      t: smprpg:titanium_ingot
+      s: smprpg:steel_ingot
+      c: minecraft:chest
+    pattern:
+      - "sts"
+      - "tct"
+      - "sts"
+    result:
+      id: smprpg:titanium_cache
+      count: 1
