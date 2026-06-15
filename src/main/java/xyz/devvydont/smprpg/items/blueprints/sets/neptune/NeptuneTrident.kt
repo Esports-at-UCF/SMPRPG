@@ -18,12 +18,14 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword.Companion.getSwordDamage
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.SwordRecipe
 
 class NeptuneTrident(itemService: ItemService, type: CustomItemType) : CraftEngineAttributeItem(itemService, type),
-    IBreakableEquipment, ICraftable, IPassiveProvider, IRepairable, IModelOverridden {
+    IBreakableEquipment, ICraftable, IPassiveProvider, IRepairable, IModelOverridden, ISkillRequirement {
     override val itemClassification: ItemClassification get() = ItemClassification.TRIDENT
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.PLUTOS_ARTIFACT))
+    override val skillRequirements: MutableMap<SkillType, Int> = mutableMapOf(Pair(SkillType.COMBAT, 15))
 
     override fun wantNerfedSellPrice(): Boolean {
         return false

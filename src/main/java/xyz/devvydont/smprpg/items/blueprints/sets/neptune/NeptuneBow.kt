@@ -20,16 +20,19 @@ import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IPassiveProvider
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
+import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.items.interfaces.IUnderwaterBow
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.crafting.builders.BowRecipe
 import java.util.List
 import java.util.Set
 
 class NeptuneBow(itemService: ItemService, type: CustomItemType) : CustomShortbow(itemService, type),
-    IBreakableEquipment, ICraftable, IPassiveProvider, IRepairable, IUnderwaterBow, Listener {
+    IBreakableEquipment, ICraftable, IPassiveProvider, IRepairable, IUnderwaterBow, ISkillRequirement, Listener {
 
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.PLUTOS_ARTIFACT))
+    override val skillRequirements: MutableMap<SkillType, Int> = mutableMapOf(Pair(SkillType.COMBAT, 15))
 
     override fun wantNerfedSellPrice(): Boolean { return false }
 
