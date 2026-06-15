@@ -313,13 +313,13 @@ class CookingPotBlockEntityController(val entity: BlockEntity, val behavior: Coo
         return super.blockEntity.isValid()
     }
 
-    fun addXpReward() {
+    fun addXpReward(recipe: CookingPotRecipe) {
         Bukkit.getScheduler().runTask(plugin, Runnable {
             if (boundPlayer == null) return@Runnable
             val player = Bukkit.getPlayer(boundPlayer!!)
             if (player != null) {
                 val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
-                if (recipe!!.skillXpReward != null) recipe!!.skillXpReward!!.apply(leveledPlayer, SkillExperienceGainEvent.ExperienceSource.COOK)
+                recipe.skillXpReward?.apply(leveledPlayer, SkillExperienceGainEvent.ExperienceSource.COOK)
             }
         })
     }
@@ -421,12 +421,12 @@ class CookingPotBlockEntityController(val entity: BlockEntity, val behavior: Coo
                     if (result == null) {
                         inv.setItem(OUTPUT_SLOT, pot.recipe!!.result)
                         CookingPotRecipe.takeIngredients(pot, pot.recipe!!)
-                        pot.addXpReward()
+                        pot.addXpReward(pot.recipe!!)
                     }
                     else if (result.isSimilar(pot.recipe!!.recipeResult) && result.amount < result.maxStackSize) {
                         result.add()
                         CookingPotRecipe.takeIngredients(pot, pot.recipe!!)
-                        pot.addXpReward()
+                        pot.addXpReward(pot.recipe!!)
                     }
 
                     val newOutput = inv.getItem(OUTPUT_SLOT)!!
