@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.listeners.crafting
 import com.destroystokyo.paper.event.inventory.PrepareResultEvent
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.Repairable
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -143,7 +144,9 @@ class AnvilRepairListener : ToggleableListener() {
                     max((result.getData(DataComponentTypes.DAMAGE)!! - repairAmount * secondItem.amount), 0)
                 )
                 firstItemBlueprint.updateItemData(result)
-                event.result = result
+                Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable {
+                    event.inventory.result = result
+                }, 0L)
             }
         }
     }
