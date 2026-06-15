@@ -7,6 +7,7 @@ import org.bukkit.Sound
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerInteractEvent
+import xyz.devvydont.smprpg.items.ItemRarity
 import xyz.devvydont.smprpg.items.blueprints.fishing.FishBlueprint
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -33,6 +34,12 @@ class NormalFishCampfireBlacklist : ToggleableListener() {
         val blueprint = ItemService.blueprint(event.item!!)
         if (blueprint !is FishBlueprint)
             return
+
+        val fishRarity = blueprint.getRarity(event.item!!)
+        when (fishRarity) {
+            ItemRarity.COMMON, ItemRarity.UNCOMMON -> return
+            else -> {}
+        }
 
         event.setCancelled(true)
         val phrase: String? = ERRORS[(Math.random() * ERRORS.size).toInt()]
