@@ -1320,6 +1320,15 @@ object BlockLootRegistry : Listener {
                 .ignoresFortune()
                 .build()
         )
+
+        register(
+            CraftEngineBlockEnums.TITANIUM_CACHE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.TITANIUM_CACHE)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.TITANIUM_CACHE)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.TITANIUM_CACHE)))
+                .ignoresFortune()
+                .build()
+        )
     }
 
     fun register(material: Material?, entry: BlockLootEntry?) {

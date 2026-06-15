@@ -132,6 +132,8 @@ blocks:
           - type: expression
             expression: "!<arg:player.is_sneaking>"
   smprpg:titanium_cache:
+    loot:
+      template: smprpg:loot_table/self
     states:
       properties:
         facing:
