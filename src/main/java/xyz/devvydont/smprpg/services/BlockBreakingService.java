@@ -9,7 +9,6 @@ public class BlockBreakingService implements IService, Listener {
     @Override
     public void setup() throws RuntimeException {
         PacketManager packetManager = new PacketManager();
-
     }
 
     @Override
