@@ -31,7 +31,7 @@ open class ShamblingAbominationParent
  * @param entity     The entity that should map the T type parameter.
  * @param entityType The entity type.
  */
-    (entity: LivingEntity?, entityType: CustomEntityType?) : SlayerBossInstance<Zombie>(entity as Zombie?, entityType) {
+    (entity: LivingEntity?, val entityType: CustomEntityType?) : SlayerBossInstance<Zombie>(entity as Zombie?, entityType) {
 
     open var attackCooldown = 10
     open var enrageThreshold = 0.5
@@ -81,6 +81,26 @@ open class ShamblingAbominationParent
      */
     override fun getTimeLimit(): Long {
         return 60L * 5L
+    }
+
+    override fun getLevel(): Int {
+        return when (entityType) {
+            CustomEntityType.SHAMBLING_ABOMINATION_2 -> 20
+            CustomEntityType.SHAMBLING_ABOMINATION_3 -> 30
+            CustomEntityType.SHAMBLING_ABOMINATION_4 -> 40
+            CustomEntityType.SHAMBLING_ABOMINATION_5 -> 50
+            else -> 10
+        }
+    }
+
+    override fun getMaxHp(): Double {
+        return when (entityType) {
+            CustomEntityType.SHAMBLING_ABOMINATION_2 -> 25_000.0
+            CustomEntityType.SHAMBLING_ABOMINATION_3 -> 300_000.0
+            CustomEntityType.SHAMBLING_ABOMINATION_4 -> 1_500_000.0
+            CustomEntityType.SHAMBLING_ABOMINATION_5 -> 10_000_000.0
+            else -> 1_000.0
+        }
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
