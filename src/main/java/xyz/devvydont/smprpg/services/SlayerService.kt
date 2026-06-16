@@ -4,6 +4,8 @@ import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Location
 import org.bukkit.Particle
 import org.bukkit.Sound
+import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Mob
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -77,6 +79,11 @@ class SlayerService : IService, Listener {
                     slayer.quest = quest
                     quest.bossEntity = entity
                     quest.questState = SlayerQuest.SlayerQuestState.BOSS_ACTIVE
+                    for (entity in player.getNearbyEntities(20.0, 20.0, 20.0)) {
+                        if (entity is Mob) {
+                            if (entity.target == player) entity.target = null
+                        }
+                    }
 
                     // Fire off a slayer spawn boss event for bukkit tracking
                     SlayerSpawnBossEvent(entity, quest.owner.player).callEvent()
