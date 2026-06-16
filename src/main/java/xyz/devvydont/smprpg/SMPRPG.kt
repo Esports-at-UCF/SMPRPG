@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
 import xyz.devvydont.smprpg.block.behaviors.SMPRPGBlockBehaviors
 import xyz.devvydont.smprpg.block.behaviors.SMPRPGItemBehaviors
+import xyz.devvydont.smprpg.gui.items.MenuItemBrowser
 import xyz.devvydont.smprpg.items.CraftEngineItemSource
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.listeners.block.*
@@ -159,6 +160,15 @@ class SMPRPG : JavaPlugin() {
                 "ce reload"
             )
         }, TickTime.TICK)
+
+        // Pre-build the item directory's display cache off the back of startup, once recipes have settled (including
+        // CraftEngine's reload above). This moves the expensive item/lore/recipe rendering out of the player's first
+        // menu open and off every page flip. Items aren't updated dynamically while browsing, so the cache is safe
+        // for the server's lifetime; the menu also builds it lazily if a player somehow opens it before this runs.
+        Bukkit.getScheduler().runTaskLater(this, Runnable {
+            MenuItemBrowser.warmCache()
+            logger.info("Item directory display cache warmed.")
+        }, TickTime.seconds(5))
     }
 
     override fun onDisable() {
