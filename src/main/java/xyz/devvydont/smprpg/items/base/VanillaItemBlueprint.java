@@ -81,6 +81,6 @@ public class VanillaItemBlueprint extends SMPItemBlueprint implements ISellable 
      */
     @Override
     public int getWorth(ItemStack item) {
-        return VanillaResource.getMaterialValue(material);
+        return VanillaResource.getMaterialValue(material) * item.getAmount();
     }
 }
