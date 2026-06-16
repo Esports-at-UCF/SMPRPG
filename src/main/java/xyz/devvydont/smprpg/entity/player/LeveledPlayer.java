@@ -3,8 +3,10 @@ package xyz.devvydont.smprpg.entity.player;
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import com.destroystokyo.paper.event.player.PlayerPickupExperienceEvent;
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.scoreboard.numbers.NumberFormat;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -19,11 +21,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
+import xyz.devvydont.smprpg.entity.EntityGlobals;
 import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.LeveledEntity;
 import xyz.devvydont.smprpg.entity.components.EntityConfiguration;
@@ -33,6 +38,8 @@ import xyz.devvydont.smprpg.skills.SkillInstance;
 import xyz.devvydont.smprpg.skills.SkillType;
 import xyz.devvydont.smprpg.util.attributes.AttributeUtil;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.formatting.MinecraftStringUtils;
+import xyz.devvydont.smprpg.util.formatting.Symbols;
 
 import java.util.Collection;
 import java.util.List;
@@ -61,6 +68,15 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
     private float _currentTickAttackCharge = 1f;
     private float _previousTickAttackCharge = 1f;
 
+    // How often (in ticks) we refresh the below-name HP display, and how many segments its bar has.
+    private static final int BELOW_NAME_UPDATE_FREQUENCY = 2;
+    private static final int HEALTH_BAR_SEGMENTS = 10;
+    private BukkitTask _belowNameHealthTask;
+    // Last values we rendered to the below-name display, so we can skip redundant scoreboard writes.
+    private int _lastBelowNameHp = Integer.MIN_VALUE;
+    private int _lastBelowNameMaxHp = Integer.MIN_VALUE;
+    private int _lastBelowNameAbsorption = Integer.MIN_VALUE;
+
     public LeveledPlayer(SMPRPG plugin, Player entity) {
         super(entity);
 
@@ -84,6 +100,7 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         super.setup();
         startManaTask();
         startAttackChargePollTask();
+        startBelowNameHealthTask();
 
         // This is a temp fix simply due to the fact that vanilla orbs are just sentient beings and award people
         // with stupid amounts of experience for no reason...
@@ -366,6 +383,8 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         super.cleanup();
         killManaTask();
         killAttackChargePollTask();
+        killBelowNameHealthTask();
+        clearBelowNameHealthScore();
     }
 
     @Override
@@ -427,6 +446,134 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
     private void startAttackChargePollTask() {
         killAttackChargePollTask();
         _attackChargePollTask = Bukkit.getScheduler().runTaskTimer(SMPRPG.getPlugin(), this::pollAttackCharge, 0, 1);
+    }
+
+    private void killBelowNameHealthTask() {
+        if (_belowNameHealthTask != null)
+            _belowNameHealthTask.cancel();
+        _belowNameHealthTask = null;
+    }
+
+    private void startBelowNameHealthTask() {
+        killBelowNameHealthTask();
+        // Force the next tick to render, in case the backing objective was recreated under us.
+        _lastBelowNameHp = Integer.MIN_VALUE;
+        _lastBelowNameMaxHp = Integer.MIN_VALUE;
+        _lastBelowNameAbsorption = Integer.MIN_VALUE;
+        _belowNameHealthTask = Bukkit.getScheduler().runTaskTimer(
+                SMPRPG.getPlugin(), this::updateBelowNameHealthDisplay, 0, BELOW_NAME_UPDATE_FREQUENCY);
+    }
+
+    /**
+     * Returns the objective backing the below-name HP display, or {@code null} if it isn't set up yet.
+     */
+    @Nullable
+    private Objective getBelowNameHealthObjective() {
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        return scoreboard.getObjective(EntityService.BELOW_NAME_HEALTH_OBJECTIVE);
+    }
+
+    /**
+     * Refreshes this player's styled HP readout in the below-name scoreboard slot.
+     *
+     * <p>The below-name slot is global on the server, but on our Minecraft version (26.1.x) the client
+     * draws it under every entity that has a custom name. To keep it player-only we render it through a
+     * DUMMY objective (see {@link EntityService}) and write a score here for players exclusively; entities
+     * without a score render nothing. We replace the raw score number with a fully styled component via
+     * {@link NumberFormat#fixed(Component)}, which is what lets us color HP and append a bar.
+     *
+     * <p>Skips the scoreboard write when the rendered values are unchanged so we aren't spamming packets.
+     */
+    private void updateBelowNameHealthDisplay() {
+        int hp = clampDisplayHealth(getTotalHp());
+        int maxHp = (int) Math.ceil(getMaxHp());
+        int absorption = (int) Math.ceil(getAbsorptionHealth());
+
+        if (hp == _lastBelowNameHp && maxHp == _lastBelowNameMaxHp && absorption == _lastBelowNameAbsorption)
+            return;
+        _lastBelowNameHp = hp;
+        _lastBelowNameMaxHp = maxHp;
+        _lastBelowNameAbsorption = absorption;
+
+        Objective objective = getBelowNameHealthObjective();
+        if (objective == null)
+            return;
+
+        Score score = objective.getScore(getPlayer().getName());
+        score.setScore(hp);  // The value is hidden behind the fixed format below; we set it for sanity only.
+        score.numberFormat(NumberFormat.fixed(buildBelowNameHealthComponent()));
+    }
+
+    /**
+     * Removes this player's below-name HP score, e.g. when they log out, so it doesn't linger.
+     */
+    private void clearBelowNameHealthScore() {
+        Objective objective = getBelowNameHealthObjective();
+        if (objective != null)
+            objective.getScoreboard().resetScores(getPlayer().getName());
+        _lastBelowNameHp = Integer.MIN_VALUE;
+        _lastBelowNameMaxHp = Integer.MIN_VALUE;
+        _lastBelowNameAbsorption = Integer.MIN_VALUE;
+    }
+
+    /**
+     * Builds the styled below-name HP component, e.g. {@code 1,847/2,000 ❤ +250 ▰▰▰▰▰▰▰▰▱▱}. The current
+     * HP is colored by how much is missing (reusing {@link EntityGlobals#getChatColorFromHealth}),
+     * absorption is shown in gold, and the bar fills by health percentage.
+     */
+    private Component buildBelowNameHealthComponent() {
+        double totalHp = getTotalHp();
+        double maxHp = getMaxHp();
+        int hp = clampDisplayHealth(totalHp);
+        int maxHpInt = (int) Math.ceil(maxHp);
+        TextColor hpColor = EntityGlobals.getChatColorFromHealth(totalHp, maxHp);
+
+        Component readout = ComponentUtils.merge(
+                ComponentUtils.create(MinecraftStringUtils.formatNumber(hp), hpColor),
+//                ComponentUtils.create("/"),  // Uncomment for max HP number
+//                ComponentUtils.create(MinecraftStringUtils.formatNumber(maxHpInt), NamedTextColor.GREEN),  // Uncomment for max HP number
+                ComponentUtils.create(" " + Symbols.HEART, NamedTextColor.DARK_RED)
+        );
+
+        double absorption = getAbsorptionHealth();
+        return ComponentUtils.merge(readout, ComponentUtils.create(" "), buildHealthBar(totalHp, maxHp, absorption, hpColor));
+    }
+
+    /**
+     * Builds a fixed-width health bar whose filled portion reflects the current health percentage. The
+     * filled segments take the same color as the HP number; empty segments are dark gray. A living player
+     * always shows at least one filled segment, and the bar only reads as full when health is actually at
+     * (or above) max.
+     */
+    private Component buildHealthBar(double hp, double maxHp, double absorption, TextColor filledColor) {
+        double percent = maxHp <= 0 ? 0 : Math.clamp(hp / maxHp, 0, 1);
+        int filled = (int) Math.round(percent * HEALTH_BAR_SEGMENTS);
+        if (filled <= 0 && hp > 0)
+            filled = 1;
+        if (filled >= HEALTH_BAR_SEGMENTS && percent < 1.0)
+            filled = HEALTH_BAR_SEGMENTS - 1;
+
+        var absorptionBar = absorption > 0 ?
+                ComponentUtils.create(String.format("+%d", (int)(Math.ceil(getPlayer().getAbsorptionAmount() / 2.0))), NamedTextColor.AQUA) :
+                ComponentUtils.EMPTY;
+
+        return ComponentUtils.merge(
+                ComponentUtils.create(Symbols.HEALTH_BAR_FILLED.repeat(filled), filledColor),
+                ComponentUtils.create(Symbols.HEALTH_BAR_EMPTY.repeat(HEALTH_BAR_SEGMENTS - filled), NamedTextColor.DARK_GRAY),
+                absorptionBar
+        );
+    }
+
+    /**
+     * Rounds health for display: never shows 0 while the player is technically alive, and never shows a
+     * fractional heart's worth of HP as 0.
+     */
+    private int clampDisplayHealth(double health) {
+        if (health <= 0)
+            return 0;
+        if (health < 1)
+            return 1;
+        return (int) Math.ceil(health);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

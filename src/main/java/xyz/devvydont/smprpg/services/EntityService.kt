@@ -4,6 +4,7 @@ import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent
 import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
 import com.destroystokyo.paper.event.player.PlayerPostRespawnEvent
+import io.papermc.paper.scoreboard.numbers.NumberFormat
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -42,7 +43,6 @@ import xyz.devvydont.smprpg.listeners.damage.ShulkerDefenseModeFix
 import xyz.devvydont.smprpg.listeners.entity.EntityTamingAttributeFix
 import xyz.devvydont.smprpg.listeners.entity.TamedEntityFeedFix
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
-import xyz.devvydont.smprpg.util.formatting.Symbols
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import xyz.devvydont.smprpg.util.tasks.PlaytimeTracker
 import xyz.devvydont.smprpg.util.time.TickTime
@@ -181,19 +181,38 @@ class EntityService : IService, Listener {
 
         plugin.logger.info("Associated ${vanillaEntityHandlers.size} vanilla entities with custom handlers")
 
-        // Setting up default scoreboard options
+        // --- Below-name HP display ---
+        // We pin a scoreboard objective to the BELOW_NAME slot so HP renders under player names.
+        //
+        // This used to use the vanilla `health` criteria. The server auto-tracks a health score for every
+        // entity, but on MC 1.21 and earlier the client only *rendered* below-name scores under players,
+        // so in practice it was player-only. Minecraft 26.1 "fixed" MC-99647 and now renders below-name
+        // scores under EVERY entity that has a custom name -- which is all of our mobs, and it leaks onto
+        // displays/items too -- spamming a stray heart number on everything.
+        //
+        // Workaround while we're on 26.1.x: use a DUMMY objective (no auto-tracking) and write a styled
+        // score for players only (see LeveledPlayer#updateBelowNameHealthDisplay), so non-players have no
+        // score and render nothing. 26.2 reverts the client behavior and adds the `below_name_distance`
+        // attribute to control it, so this can go back to a plain `health` objective once we update past
+        // 26.1. We unregister any pre-existing objective first to migrate old `health` objectives in
+        // already-generated worlds over to the dummy.
         val scoreboard = Bukkit.getScoreboardManager().mainScoreboard
-        var hpObjective = scoreboard.getObjective("hp_objective")
-        if (hpObjective == null) hpObjective = scoreboard.registerNewObjective(
-            "hp_objective",
-            Criteria.HEALTH,
-            ComponentUtils.create(Symbols.HEART, NamedTextColor.RED)
+        scoreboard.getObjective(BELOW_NAME_HEALTH_OBJECTIVE)?.unregister()
+        val hpObjective = scoreboard.registerNewObjective(
+            BELOW_NAME_HEALTH_OBJECTIVE,
+            Criteria.DUMMY,
+            ComponentUtils.create("", NamedTextColor.WHITE)
         )
         hpObjective.displaySlot = DisplaySlot.BELOW_NAME
-        hpObjective.setAutoUpdateDisplay(true)
 
         // Initialize entities that are already loaded
         for (world in Bukkit.getWorlds()) for (entity in world.entities) {
+
+            // Ensures that this entity does not display any sort of information under their name unless
+            // we explicitly say so in our class.
+            val obj = Bukkit.getScoreboardManager().mainScoreboard.getObjective(BELOW_NAME_HEALTH_OBJECTIVE)
+            obj?.getScoreFor(entity)?.numberFormat(NumberFormat.blank())
+
             // Ignore non living/displays
             if (entity !is LivingEntity && entity !is Display)
                 continue
@@ -435,6 +454,12 @@ class EntityService : IService, Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     @Suppress("unused")
     private fun onEntitySpawn(event: EntityAddToWorldEvent) {
+
+        // Ensures that this entity does not display any sort of information under their name unless
+        // we explicitly say so in our class.
+        val obj = Bukkit.getScoreboardManager().mainScoreboard.getObjective(BELOW_NAME_HEALTH_OBJECTIVE)
+        obj?.getScoreFor(event.entity)?.numberFormat(NumberFormat.blank())
+
         if (event.getEntity() !is LivingEntity && event.getEntity() !is Display)
             return
 
@@ -640,6 +665,10 @@ class EntityService : IService, Listener {
     }
 
     companion object {
+
+        // Scoreboard objective used to render HP under player names in the BELOW_NAME slot. See the
+        // setup code for why this is a DUMMY objective populated only for players.
+        const val BELOW_NAME_HEALTH_OBJECTIVE: String = "hp_objective"
 
         @JvmStatic
         val classNamespacedKey: NamespacedKey

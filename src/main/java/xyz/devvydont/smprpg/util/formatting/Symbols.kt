@@ -11,6 +11,8 @@ object Symbols {
     const val POWER: String = "✦"
 
     const val HEART: String = "❤"
+    const val HEALTH_BAR_FILLED: String = "▰"
+    const val HEALTH_BAR_EMPTY: String = "▱"
     const val MANA: String = "\uD83C\uDF1F"
     const val SHIELD: String = "⛊"
     const val SWORD: String = "\uD83D\uDDE1"
