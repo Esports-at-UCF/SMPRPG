@@ -26,7 +26,7 @@ items:
       block: smprpg:netherite_anvil
   smprpg:titanium_cache:
     data:
-      item-name: <!i><lang:item.smprpg.netherite_anvil>
+      item-name: <!i><lang:item.smprpg.titanium_cache>
       pdc:
         smprpg:item-type: titanium_cache
     model: smprpg:block/interactables/titanium_cache

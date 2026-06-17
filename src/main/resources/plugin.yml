@@ -7,3 +7,5 @@ depend:
   - ProtocolLib
   - CraftEngine
   - BetterModel
+softdepend:
+  - WorldGuard
