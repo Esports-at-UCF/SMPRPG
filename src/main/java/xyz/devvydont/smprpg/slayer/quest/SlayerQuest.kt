@@ -1,25 +1,14 @@
 package xyz.devvydont.smprpg.slayer.quest
 
-import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.bossbar.BossBar
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.Location
-import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.entity.EntityDeathEvent
-import org.bukkit.persistence.PersistentDataType
 import org.bukkit.scheduler.BukkitRunnable
 import xyz.devvydont.smprpg.SMPRPG
-import xyz.devvydont.smprpg.entity.CustomEntityType
 import xyz.devvydont.smprpg.entity.player.LeveledPlayer
 import xyz.devvydont.smprpg.entity.slayer.SlayerBossInstance
-import xyz.devvydont.smprpg.events.slayer.SlayerQuestEarnExperienceEvent
-import xyz.devvydont.smprpg.events.slayer.SlayerSpawnBossEvent
-import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
-import xyz.devvydont.smprpg.util.persistence.KeyStore
 import xyz.devvydont.smprpg.util.time.TickTime
 
 class SlayerQuest(val owner: LeveledPlayer,  val classification: SlayerClassification) : Listener

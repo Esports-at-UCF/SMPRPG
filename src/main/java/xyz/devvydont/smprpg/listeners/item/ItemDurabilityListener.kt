@@ -80,7 +80,7 @@ class ItemDurabilityListener : ToggleableListener() {
             if (itemBp is IDamageFromCrops) {
 
                 // Is our crop fully mature?
-                if (event.block.blockData is Ageable) {
+                if (event.block.blockData is Ageable || event.block.type == Material.SUGAR_CANE) {
                     val ageable = event.block.blockData as Ageable
                     if (ageable.age >= ageable.maximumAge)
                         event.player.damageItemStack(event.player.inventory.itemInMainHand, 1)

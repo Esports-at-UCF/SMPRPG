@@ -156,6 +156,7 @@ class SlayerService : IService, Listener {
             return
 
         // Attempt to despawn the entity and remove the quest. they failed.
+        playerQuest.cleanup()
         playerQuest.bossEntity?.entity?.remove()
         playersToQuests.remove(event.player.uniqueId)
         event.player.playSound(event.player.location, Sound.ENTITY_WARDEN_SONIC_BOOM, 1f, .1f)
