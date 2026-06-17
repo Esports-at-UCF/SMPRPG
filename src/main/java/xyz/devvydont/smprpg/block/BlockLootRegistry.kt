@@ -446,7 +446,7 @@ object BlockLootRegistry : Listener {
         // Farming. Keep in mind, we actually set farming fortune overrides for a lot of entries.
         // The reason for this is so that fist breaking procs farming fortune.
         register(
-            Material.MELON, builder(ItemClassification.AXE, ItemClassification.HATCHET)
+            Material.MELON, builder(ItemClassification.HOE, ItemClassification.HATCHET)
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.MELON_SLICE), 3.5))
                 .add(BlockLootContext.INCORRECT_TOOL, of(ItemService.generate(Material.MELON_SLICE), 3.5))
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.MELON_SLICE), 3.5))
@@ -456,7 +456,7 @@ object BlockLootRegistry : Listener {
         )
 
         register(
-            Material.PUMPKIN, builder(ItemClassification.AXE, ItemClassification.HATCHET)
+            Material.PUMPKIN, builder(ItemClassification.HOE, ItemClassification.HATCHET)
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.PUMPKIN)))
                 .add(BlockLootContext.INCORRECT_TOOL, of(ItemService.generate(Material.PUMPKIN)))
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.PUMPKIN)))

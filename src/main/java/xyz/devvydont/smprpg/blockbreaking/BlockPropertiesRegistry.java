@@ -5434,35 +5434,35 @@ public class BlockPropertiesRegistry implements Listener {
                 .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
         //</editor-fold>
-        register(Material.PUMPKIN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+        register(Material.PUMPKIN, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
                 .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
-        register(Material.CARVED_PUMPKIN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+        register(Material.CARVED_PUMPKIN, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
                 .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
-        register(Material.JACK_O_LANTERN, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+        register(Material.JACK_O_LANTERN, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
                 .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
-        register(Material.MELON, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+        register(Material.MELON, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
                 .hardness(100)
                 .breakingPower(0)
                 .softRequirement(true)
                 .blockSound(BlockSound.WOOD_GENERIC)
                 .build());
 
-        register(Material.COCOA_BEANS, BlockPropertiesEntry.builder(ItemClassification.AXE, ItemClassification.HATCHET)
+        register(Material.COCOA_BEANS, BlockPropertiesEntry.builder(ItemClassification.HOE, ItemClassification.HATCHET)
                 .hardness(20)
                 .breakingPower(0)
                 .softRequirement(true)
