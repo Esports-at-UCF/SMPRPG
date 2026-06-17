@@ -292,7 +292,7 @@ class BlockDamage {
             hardness = entry.hardness
             if (hardness <= -1) return -1.0
             if (Bukkit.getServer().pluginManager.getPlugin("WorldGuard") != null)
-                if (!WorldGuardHook.isLocationBreakable(block.location)) return -1.0
+                if (!WorldGuardHook.isLocationBreakable(block.location, player)) return -1.0
         } else {
             player.world.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 0.5f, 0.5f)
             val popupLoc = player.eyeLocation.toVector()
