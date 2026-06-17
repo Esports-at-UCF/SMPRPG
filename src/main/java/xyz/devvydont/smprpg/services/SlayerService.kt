@@ -1,7 +1,9 @@
 package xyz.devvydont.smprpg.services
 
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Bukkit
 import org.bukkit.Location
+import org.bukkit.NamespacedKey
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
@@ -145,6 +147,18 @@ class SlayerService : IService, Listener {
         player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1f, 2f)
 
         event.slayer.generateSkillExperienceReward()
+
+        if (player.persistentDataContainer.getOrDefault(AUTOSLAYER_PDC_KEY, PersistentDataType.BOOLEAN, false)) {
+            val potentialQuest = SlayerQuest(SMPRPG.getService(EntityService::class.java).getPlayerInstance(player), quest.classification)
+            Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+                if (canStartQuest(potentialQuest)) {
+                    val newQuest = SlayerQuest(potentialQuest.owner, potentialQuest.classification)
+                    newQuest.questState = SlayerQuest.SlayerQuestState.XP_COLLECTION
+                    registerQuest(newQuest)
+                    player.playSound(player, Sound.ENTITY_WITHER_DEATH, 1.0f, 1.5f)
+                }
+            }, 20L)
+        }
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)  // We ignoreCancelled=true so that in the event the death was cancelled, we don't stop the slayer.
@@ -269,5 +283,9 @@ class SlayerService : IService, Listener {
             // Our player is being targeted while a slayer boss is active, and it isn't the boss. Cancel it.
             event.isCancelled = true
         }
+    }
+
+    companion object {
+        val AUTOSLAYER_PDC_KEY = NamespacedKey(plugin, "autoslayer_toggle")
     }
 }

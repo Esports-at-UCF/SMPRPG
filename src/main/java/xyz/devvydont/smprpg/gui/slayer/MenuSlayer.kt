@@ -5,13 +5,16 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.Sound
+import org.bukkit.SoundCategory
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
+import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItemWithDescription
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.gui.slayer.MenuSlayerQuest
 import xyz.devvydont.smprpg.items.CustomItemType
+import xyz.devvydont.smprpg.services.SlayerService
 import xyz.devvydont.smprpg.slayer.quest.SlayerType
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
@@ -36,6 +39,8 @@ class MenuSlayer : MenuBase {
         this.sounds.setMenuOpenSub(Sound.ENTITY_ENDER_DRAGON_HURT, 1f, 1.0f)
         this.sounds.setMenuClose(Sound.ENTITY_ENDER_DRAGON_HURT, 1f, 0.5f)
         this.setBorderFull()
+
+        generateAutoslayerButton()
 
         this.setBackButton(22)
         // Place buttons for each slayer
@@ -108,6 +113,29 @@ class MenuSlayer : MenuBase {
 
     override fun handleInventoryClicked(event: InventoryClickEvent) {
         event.setCancelled(true)
+    }
+
+    fun generateAutoslayerButton() {
+        val autoslayerSetting = player.persistentDataContainer.getOrDefault(SlayerService.AUTOSLAYER_PDC_KEY, PersistentDataType.BOOLEAN, false)
+        val itemType = if (autoslayerSetting) Material.LIME_DYE else Material.GRAY_DYE
+        this.setButton(
+            18, getNamedItemWithDescription(
+                itemType,
+                ComponentUtils.create("Auto-Slayer", NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD),
+                ComponentUtils.EMPTY,
+                ComponentUtils.create("Automatically starts another"),
+                ComponentUtils.create("Slayer Quest when you complete"),
+                ComponentUtils.create("your current quest."),
+                ComponentUtils.EMPTY,
+                ComponentUtils.merge(
+                    ComponentUtils.create("Currently toggled: "),
+                    ComponentUtils.create(if (autoslayerSetting) "ON" else "OFF", if (autoslayerSetting) NamedTextColor.GREEN else NamedTextColor.RED),
+                )
+            ), { e: InventoryClickEvent? ->
+                player.playSound(player.location, Sound.UI_BUTTON_CLICK, SoundCategory.UI, 1f, 2f)
+                player.persistentDataContainer.set<Byte, Boolean>(SlayerService.AUTOSLAYER_PDC_KEY, PersistentDataType.BOOLEAN, !autoslayerSetting)
+                this.generateAutoslayerButton()
+            })
     }
 
 
