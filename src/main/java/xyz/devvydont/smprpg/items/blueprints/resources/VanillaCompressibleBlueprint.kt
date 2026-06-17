@@ -35,6 +35,7 @@ class VanillaCompressibleBlueprint(itemService: ItemService, material: Material)
             Material.SLIME_BLOCK -> CompressionStep(itemService.getVanillaBlueprint(ItemStack.of(Material.SLIME_BALL)) as ICompressible, 1, 9)
             // Farming — melon decompresses to melon slices
             Material.MELON -> CompressionStep(itemService.getVanillaBlueprint(ItemStack.of(Material.MELON_SLICE)) as ICompressible, 1, 9)
+            Material.HAY_BLOCK -> CompressionStep(itemService.getVanillaBlueprint(ItemStack.of(Material.WHEAT)) as ICompressible, 1, 9)
             else -> null
         }
 
@@ -101,6 +102,11 @@ class VanillaCompressibleBlueprint(itemService: ItemService, material: Material)
             Material.SUGAR_CANE -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_SUGAR) as ICompressible, 9, 1)
             Material.MELON_SLICE -> CompressionStep(itemService.getVanillaBlueprint(ItemStack.of(Material.MELON)) as ICompressible, 9, 1)
             Material.MELON -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_MELON_SLICE) as ICompressible, 9, 1)
+            Material.WHEAT -> CompressionStep(itemService.getVanillaBlueprint(Material.HAY_BLOCK) as ICompressible, 9, 1)
+            Material.HAY_BLOCK -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_WHEAT) as ICompressible, 9, 1)
+            Material.POTATO -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_POTATO) as ICompressible, 9, 1)
+            Material.CARROT -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_CARROT) as ICompressible, 9, 1)
+            Material.BEETROOT -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_BEETROOT) as ICompressible, 9, 1)
             else -> null
         }
 }

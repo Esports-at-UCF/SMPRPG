@@ -56,8 +56,8 @@ class AmplificationBlessing(id: String) : CustomEnchantment(id), AttributeEnchan
                 val blaze = getIngredientStack(Material.BLAZE_POWDER, 64)
                 val wart = getIngredientStack(Material.NETHER_WART, 64)
                 val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 1)
-                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 8)
-                return EnchantmentRecipe(getRecipeKey(level), 0, blaze, wart, amethyst, lapis)
+                val lapis = getIngredientStack(CustomItemType.MITHRIL_BLOCK, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 20, blaze, wart, amethyst, lapis)
             }
 
             2 -> {
@@ -65,31 +65,35 @@ class AmplificationBlessing(id: String) : CustomEnchantment(id), AttributeEnchan
                 val wart = getIngredientStack(Material.NETHER_WART_BLOCK, 64)
                 val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 2)
                 val spellPowder = getIngredientStack(CustomItemType.PREMIUM_SPELL_POWDER, 16)
-                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 32)
-                return EnchantmentRecipe(getRecipeKey(level), 0, blaze, wart, amethyst, spellPowder, lapis)
+                val lapis = getIngredientStack(CustomItemType.MITHRIL_BLOCK, 32)
+                return EnchantmentRecipe(getRecipeKey(level), 35, blaze, wart, amethyst, spellPowder, lapis)
             }
 
             3 -> {
-                val amethyst = getIngredientStack(Material.AMETHYST_SHARD, 80)
-                val flint = getIngredientStack(Material.FLINT, 20)
-                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 32)
-                return EnchantmentRecipe(getRecipeKey(level), 15, amethyst, flint, lapis)
+                val blaze = getIngredientStack(CustomItemType.PREMIUM_BLAZE_ROD, 64)
+                val wart = getIngredientStack(CustomItemType.PREMIUM_MEMBRANE, 8)
+                val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 8)
+                val spellPowder = getIngredientStack(CustomItemType.PREMIUM_SPELL_POWDER, 64)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_MITHRIL, 15)
+                return EnchantmentRecipe(getRecipeKey(level), 50, blaze, wart, amethyst, spellPowder, lapis)
             }
 
             4 -> {
-                val amethyst = getIngredientStack(Material.AMETHYST_BLOCK, 40)
-                val flint = getIngredientStack(Material.FLINT, 40)
-                val quartz = getIngredientStack(Material.QUARTZ, 10)
-                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 64)
-                return EnchantmentRecipe(getRecipeKey(level), 20, amethyst, flint, quartz, lapis)
+                val blaze = getIngredientStack(Material.ECHO_SHARD, 1)
+                val wart = getIngredientStack(CustomItemType.PREMIUM_MEMBRANE, 32)
+                val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 32)
+                val spellPowder = getIngredientStack(CustomItemType.ENCHANTED_SPELL_POWDER, 16)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_MITHRIL, 60)
+                return EnchantmentRecipe(getRecipeKey(level), 65, blaze, wart, amethyst, spellPowder, lapis)
             }
 
             5 -> {
-                val amethyst = getIngredientStack(Material.ECHO_SHARD, 2)
-                val flint = getIngredientStack(Material.FLINT, 80)
-                val quartz = getIngredientStack(Material.QUARTZ, 40)
-                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 30, amethyst, flint, quartz, lapis)
+                val blaze = getIngredientStack(CustomItemType.PREMIUM_ECHO_SHARD, 8)
+                val wart = getIngredientStack(CustomItemType.ENCHANTED_MEMBRANE, 16)
+                val amethyst = getIngredientStack(CustomItemType.DRAGONSTEEL_BLOCK, 4)
+                val spellPowder = getIngredientStack(CustomItemType.ENCHANTED_SPELL_POWDER, 64)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_MITHRIL_BLOCK, 15)
+                return EnchantmentRecipe(getRecipeKey(level), 80, blaze, wart, amethyst, spellPowder, lapis)
             }
 
             else -> {

@@ -16,6 +16,7 @@ import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineFoodBlueprin
 import xyz.devvydont.smprpg.items.blueprints.crops.*;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
 import xyz.devvydont.smprpg.items.blueprints.food.ingredients.*;
+import xyz.devvydont.smprpg.items.blueprints.resources.farming.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.aetherium.*;
@@ -44,8 +45,6 @@ import xyz.devvydont.smprpg.items.blueprints.reforge.VoidRelic;
 import xyz.devvydont.smprpg.items.blueprints.resources.EmptyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.SellableResource;
 import xyz.devvydont.smprpg.items.blueprints.resources.crafting.*;
-import xyz.devvydont.smprpg.items.blueprints.resources.farming.MelonBlueprintFamily;
-import xyz.devvydont.smprpg.items.blueprints.resources.farming.SugarCaneBlueprintFamily;
 import xyz.devvydont.smprpg.items.blueprints.resources.fishing.AstralFilament;
 import xyz.devvydont.smprpg.items.blueprints.resources.fishing.EtherealFiber;
 import xyz.devvydont.smprpg.items.blueprints.resources.fishing.HolomokuCrest;
@@ -1368,6 +1367,28 @@ public enum CustomItemType {
     ENCHANTED_MELON_SLICE("Enchanted Melon Slice", Material.MELON_SLICE, ItemRarity.RARE, true, MelonBlueprintFamily.class),
     ENCHANTED_MELON("Enchanted Melon", Material.MELON, ItemRarity.EPIC, true, MelonBlueprintFamily.class),
     MELON_SLICE_SINGULARITY("Melon Slice Singularity", Material.GLISTERING_MELON_SLICE, ItemRarity.LEGENDARY, true, MelonBlueprintFamily.class),
+
+    PREMIUM_WHEAT("Premium Wheat", Material.WHEAT, ItemRarity.UNCOMMON, true, WheatBlueprintFamily.class),
+    PREMIUM_HAY_BLOCK("Premium Hay Block", Material.HAY_BLOCK, ItemRarity.UNCOMMON, true, WheatBlueprintFamily.class),
+    ENCHANTED_WHEAT("Enchanted Wheat", Material.WHEAT, ItemRarity.RARE, true, WheatBlueprintFamily.class),
+    ENCHANTED_HAY_BLOCK("Enchanted Hay Block", Material.HAY_BLOCK, ItemRarity.EPIC, true, WheatBlueprintFamily.class),
+    WHEAT_SINGULARITY("Wheat Singularity", Material.WHEAT, ItemRarity.LEGENDARY, true, WheatBlueprintFamily.class),
+
+    PREMIUM_CARROT("Premium Carrot", Material.CARROT, ItemRarity.UNCOMMON, true, CarrotBlueprintFamily.class),
+    PREMIUM_GOLDEN_CARROT("Premium Golden Carrot", Material.GOLDEN_CARROT, ItemRarity.UNCOMMON, true, CarrotBlueprintFamily.class),
+    ENCHANTED_CARROT("Enchanted Carrot", Material.CARROT, ItemRarity.RARE, true, CarrotBlueprintFamily.class),
+    ENCHANTED_GOLDEN_CARROT("Enchanted Golden Carrot", Material.GOLDEN_CARROT, ItemRarity.EPIC, true, CarrotBlueprintFamily.class),
+    CARROT_SINGULARITY("Carrot Singularity", Material.GOLDEN_CARROT, ItemRarity.LEGENDARY, true, CarrotBlueprintFamily.class),
+
+    PREMIUM_POTATO("Premium Potato", Material.POTATO, ItemRarity.UNCOMMON, true, PotatoBlueprintFamily.class),
+    PREMIUM_BAKED_POTATO("Premium Baked Potato", Material.BAKED_POTATO, ItemRarity.UNCOMMON, true, PotatoBlueprintFamily.class),
+    ENCHANTED_POTATO("Enchanted Potato", Material.POTATO, ItemRarity.RARE, true, PotatoBlueprintFamily.class),
+    ENCHANTED_BAKED_POTATO("Enchanted Baked Potato", Material.BAKED_POTATO, ItemRarity.EPIC, true, PotatoBlueprintFamily.class),
+    POTATO_SINGULARITY("Potato Singularity", Material.POTATO, ItemRarity.LEGENDARY, true, PotatoBlueprintFamily.class),
+
+    PREMIUM_BEETROOT("Premium Beetroot", Material.BEETROOT, ItemRarity.UNCOMMON, true, BeetrootBlueprintFamily.class),
+    ENCHANTED_BEETROOT("Enchanted Beetroot", Material.BEETROOT, ItemRarity.RARE, true, BeetrootBlueprintFamily.class),
+    BEETROOT_SINGULARITY("Beetroot Singularity", Material.BEETROOT, ItemRarity.EPIC, true, BeetrootBlueprintFamily.class),
 
     // SINGULARITY SET
     SINGULARITY_HELMET(    "Singularity Helmet",     Material.CRYING_OBSIDIAN,      ItemRarity.MYTHIC, SingularityHelmet.class),

@@ -340,6 +340,11 @@ class ItemService : IService, Listener {
         registerVanillaMaterialResolver(Material.MELON_SLICE, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.MELON, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.SUGAR_CANE, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.WHEAT, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.HAY_BLOCK, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.POTATO, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.CARROT, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.BEETROOT, VanillaCompressibleBlueprint::class.java)
 
         // Register vanilla items that should have a sell price.
         for (entry in VanillaResource.getMaterialWorthMap().entries) {
