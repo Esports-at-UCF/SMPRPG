@@ -1933,7 +1933,7 @@ class ItemService : IService, Listener {
 
         @JvmStatic
         fun isInternalIdMatch(o1: ItemStack, o2: ItemStack) : Boolean {
-            // TODO: Super hacky, find out why the repair item is failing "isSimilar" check with secondItem in AnvilRepairListener
+            // TODO: Super hacky, find out why repair items fail an "isSimilar" check, forcing an internal-id comparison
             return o1.persistentDataContainer.get(NamespacedKey("smprpg", "item-type"), PersistentDataType.STRING).equals(
                 o2.persistentDataContainer.get(NamespacedKey("smprpg", "item-type"), PersistentDataType.STRING))
         }
