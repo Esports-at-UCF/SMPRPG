@@ -344,6 +344,7 @@ blocks#rice:
       - type: bush_block
         bottom-blocks:
           - minecraft:dirt
+          - minecraft:grass_block
           - smprpg:super_soil
         bottom_block_tags:
           - minecraft:dirt

@@ -4,6 +4,7 @@ import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.CustomModelData
 import io.papermc.paper.datacomponent.item.ItemEnchantments
 import io.papermc.paper.datacomponent.item.TooltipDisplay
+import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -20,6 +21,7 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.ItemRarity
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
+import xyz.devvydont.smprpg.items.interfaces.IFooterDescribable
 import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
@@ -28,10 +30,11 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
+import xyz.devvydont.smprpg.util.persistence.KeyStore
 import java.util.function.Consumer
 
 class DynamicEnchantingScroll(itemService: ItemService, type: CustomItemType) :
-    CustomItemBlueprint(itemService, type), IHeaderDescribable, ISellable, IModelOverridden {
+    CustomItemBlueprint(itemService, type), IHeaderDescribable, IFooterDescribable, ISellable, IModelOverridden {
     /**
      * Determine what type of item this is.
      */
@@ -109,6 +112,88 @@ class DynamicEnchantingScroll(itemService: ItemService, type: CustomItemType) :
 
     override fun getDisplayKey(): Key? {
         return IModelOverridden.ofItemType(customItemType)
+    }
+
+    override fun getFooter(itemStack: ItemStack): List<Component> {
+        val retComps = mutableListOf<Component>()
+        val enchant = itemStack.getData(DataComponentTypes.STORED_ENCHANTMENTS)!!.enchantments().keys.toTypedArray()[0]
+        val customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant)
+        customEnch!!.level = 1
+        val altasKey = Key.key("minecraft:items")
+        val comp = when (customEnch.itemTypeTag) {
+            ItemTypeTagKeys.ENCHANTABLE_WEAPON -> ComponentUtils.merge(
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_sword")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_axe")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_spear")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/bow")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/crossbow_standby")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/trident")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/mace")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("staffs:item/amethyst_staff")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("smprpg:item/tools/iron_knife")),
+            )
+            ItemTypeTagKeys.ENCHANTABLE_BOW -> ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/bow"))
+            ItemTypeTagKeys.ENCHANTABLE_MACE -> ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/mace"))
+            ItemTypeTagKeys.ENCHANTABLE_CROSSBOW -> ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/crossbow_standby"))
+            ItemTypeTagKeys.ENCHANTABLE_SWEEPING -> ComponentUtils.atlasSprite(altasKey, Key.key("smprpg:item/enchantable_icons/sweeping"))
+            ItemTypeTagKeys.ENCHANTABLE_ARMOR -> ComponentUtils.merge(
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_helmet")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_chestplate")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_leggings")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_boots"))
+            )
+            ItemTypeTagKeys.ENCHANTABLE_CHEST_ARMOR -> ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_chestplate"))
+            ItemTypeTagKeys.ENCHANTABLE_DURABILITY -> ItemService.COMMON_REPAIR_CORE_ATLAS_ICON.append(ComponentUtils.create(" Any durable item"))
+            ItemTypeTagKeys.ENCHANTABLE_FIRE_ASPECT -> ComponentUtils.merge(
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_sword")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_axe")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_spear")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/trident")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/mace")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("staffs:item/amethyst_staff")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("smprpg:item/tools/iron_knife")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_pickaxe")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_hoe")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_shovel")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/shears")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("tools:item/iron_hatchet"))
+            )
+            ItemTypeTagKeys.ENCHANTABLE_FISHING -> ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/fishing_rod"))
+            ItemTypeTagKeys.ENCHANTABLE_FOOT_ARMOR -> ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_boots"))
+            ItemTypeTagKeys.ENCHANTABLE_HEAD_ARMOR -> ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_helmet"))
+            ItemTypeTagKeys.ENCHANTABLE_LEG_ARMOR -> ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_leggings"))
+            ItemTypeTagKeys.ENCHANTABLE_LUNGE -> ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_spear"))
+            ItemTypeTagKeys.ENCHANTABLE_MELEE_WEAPON -> ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_sword"))
+            ItemTypeTagKeys.ENCHANTABLE_MINING -> ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_pickaxe"))
+            ItemTypeTagKeys.ENCHANTABLE_MINING_LOOT -> ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/golden_pickaxe"))
+            ItemTypeTagKeys.ENCHANTABLE_SHARP_WEAPON -> ComponentUtils.merge(
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_sword")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_axe")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_spear")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/trident")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("staffs:item/amethyst_staff")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("smprpg:item/tools/iron_knife"))
+            )
+            KeyStore.ENCHANTABLE_TOME -> ComponentUtils.atlasSprite(altasKey, Key.key("tools:item/simple_tome_ui"))
+            KeyStore.ENCHANTABLE_APTITUDE -> ComponentUtils.merge(
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_helmet")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_chestplate")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_leggings")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("minecraft:item/iron_boots")),
+                ComponentUtils.atlasSprite(altasKey, Key.key("tools:item/simple_tome_ui"))
+            )
+            else -> ComponentUtils.create("Anything enchantable", NamedTextColor.LIGHT_PURPLE)
+        }
+        val applicationComp = ComponentUtils.merge(
+            ComponentUtils.create("Applies to: ", NamedTextColor.GOLD),
+            comp
+        )
+        return listOf(
+            customEnch.description,
+            ComponentUtils.create("(Values for level 1 enchantment shown.)", NamedTextColor.DARK_GRAY),
+            ComponentUtils.EMPTY,
+            applicationComp
+        )
     }
 
     companion object {
