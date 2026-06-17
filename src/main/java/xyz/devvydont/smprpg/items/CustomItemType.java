@@ -1024,7 +1024,7 @@ public enum CustomItemType {
     RICE("Rice", Material.WHEAT, ItemRarity.COMMON, CraftEngineBlueprint.class),
     RICE_PANICLE("Rice Pannicle", Material.WHEAT, ItemRarity.COMMON, false, 5, "materials"),
     HEARTBEET("Heartbeet", Material.BEETROOT, ItemRarity.UNCOMMON, Heartbeet.class),
-    STRAW("Straw", Material.WHEAT, ItemRarity.COMMON, false, 1, "materials"),
+    STRAW("Straw", Material.WHEAT, ItemRarity.COMMON, CraftEngineBlueprint.class),
 
     // FOOD
     STALE_BREAD("Stale Bread", Material.BREAD, ItemRarity.COMMON, StaleBread.class),

@@ -51,6 +51,13 @@ items:
     behavior:
       type: block_item
       block: smprpg:rope_coil
+  smprpg:straw:
+    data:
+      item-name: <!i><lang:item.smprpg.straw>
+      pdc:
+        smprpg:item-type: straw
+        smprpg:sell-value: 1
+    texture: smprpg:item/materials/straw
 
 items#ingredients:
   smprpg:ground_beef:
