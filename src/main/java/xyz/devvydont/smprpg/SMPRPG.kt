@@ -61,7 +61,6 @@ class SMPRPG : JavaPlugin() {
         // Instantiate services. As a programmer, if you create a service class in the codebase you should have it
         // instantiated here no matter what to prevent runtime exceptions from nonexistent services.
         // Services are meant to be singleton instances that ALWAYS exist.
-        services.add(ResourcePackService()) // Hosts and sends the resource pack to players.
         services.add(EconomyService()) // Allows transactions/money to work.
         services.add(ChatService()) // Provides plugin with player display names and chat formatting.
         services.add(EnchantmentService()) // Provides base enchantment functionality.

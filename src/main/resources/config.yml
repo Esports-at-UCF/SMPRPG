@@ -3,12 +3,6 @@
 # skill level to surpass it will result in no rewards.
 max-skill-level: 100
 
-# The skill level required in order to enter the Nether.
-nether-skill-unlock: 15
-
-# The skill level required in order to enter The End.
-end-skill-unlock: 30
-
 # Set these if you want certain dimensions to be locked behind average skill requirements.
 # If you don't want dimensions to be level locked, then set them to 0.
 # Keep in mind that players on "Easy" (Wanderer) can bypass this.
@@ -24,11 +18,4 @@ world_time_unlocks:
   nether: "2025-01-01T00:00:00Z"
   aether: "2025-01-01T00:00:00Z"
   end: "2025-01-01T00:00:00Z"
-
-# The port the embedded HTTP server listens on to serve the resource pack to players.
-resource-pack-port: 8080
-
-# The public address (IP or domain) players use to reach this server.
-# Must be set to the server's public IP or domain for the resource pack to work.
-# Leave empty to disable automatic resource pack hosting.
-resource-pack-host: ""
+  
