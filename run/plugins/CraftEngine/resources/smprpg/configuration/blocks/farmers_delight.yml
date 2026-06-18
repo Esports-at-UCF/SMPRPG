@@ -1225,6 +1225,7 @@ blocks#rope:
       tags:
         - smprpg:rope_connections
         - smprpg:mineable/shears
+        - minecraft:climbable
     loot:
       template: smprpg:loot_table/self
     behaviors:
