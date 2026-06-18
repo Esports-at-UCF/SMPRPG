@@ -49,7 +49,7 @@ class IronKnife(itemService: ItemService, type: CustomItemType) : CraftEngineAtt
         recipe.shape("i",
                      "s")
         recipe.setIngredient('i', itemService.getCustomItem(Material.IRON_INGOT))
-        recipe.setIngredient('i', itemService.getCustomItem(Material.STICK))
+        recipe.setIngredient('s', itemService.getCustomItem(Material.STICK))
         recipe.setCategory(CraftingBookCategory.MISC)
         return recipe
     }
