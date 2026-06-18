@@ -430,8 +430,8 @@ public enum CustomItemType {
     SULFUR_ORE("Sulfur Ore",                     Material.NETHER_BRICK,        ItemRarity.UNCOMMON, CraftEngineBlueprint.class),
     SULFUR_TREATED_TOOL_SHAFT(    "Sulfur Treated Shaft",      Material.STICK,     ItemRarity.UNCOMMON, SulfurToolShaft.class),
 
-    SULFUR(    "Sulfur",                         Material.GUNPOWDER,               ItemRarity.UNCOMMON, false, 20, "materials"),
-    SULFUR_BLOCK("Block of Sulfur",              Material.NETHER_BRICK,        ItemRarity.RARE, CraftEngineCompressibleBlueprint.class),
+    SULFUR(    "Sulfur",                         Material.GUNPOWDER,               ItemRarity.UNCOMMON, Sulfur.class),
+    SULFUR_BLOCK("Block of Sulfur",              Material.NETHER_BRICK,        ItemRarity.RARE, SulfurFamilyBlueprint.class),
     ENCHANTED_SULFUR("Enchanted Sulfur",                  Material.GUNPOWDER,        ItemRarity.EPIC,      true, SulfurFamilyBlueprint.class),
     ENCHANTED_SULFUR_BLOCK("Enchanted Block of Sulfur",   Material.POISONOUS_POTATO,  ItemRarity.LEGENDARY,      true, SulfurFamilyBlueprint.class),
     SULFUR_SINGULARITY("Sulfur Singularity",              Material.GUNPOWDER,        ItemRarity.MYTHIC, true, SulfurFamilyBlueprint.class),
