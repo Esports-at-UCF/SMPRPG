@@ -4,6 +4,7 @@ import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.DeathProtection
 import io.papermc.paper.datacomponent.item.DyedItemColor
+import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect
 import net.kyori.adventure.key.Key
 import org.bukkit.Bukkit
 import org.bukkit.Color
@@ -23,6 +24,8 @@ import org.bukkit.event.entity.EntityResurrectEvent
 import org.bukkit.event.entity.EntityTransformEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.entity.CustomEntityType
@@ -78,7 +81,8 @@ open class IllagerWarlockParent
         val equipment = _entity.equipment
 
         val totem = generate(Material.TOTEM_OF_UNDYING)
-        totem.setData(DataComponentTypes.DEATH_PROTECTION, DeathProtection.deathProtection().build())
+        totem.setData(DataComponentTypes.DEATH_PROTECTION, DeathProtection.deathProtection().addEffect(ConsumeEffect.applyStatusEffects(listOf(
+            PotionEffect(PotionEffectType.RESISTANCE, 20, 100, false, false)), 1.0f)).build())
         equipment?.setItemInOffHand(totem)
         val helmet = generate(Material.DISPENSER)
         helmet.setData(DataComponentTypes.ITEM_MODEL, HOOD_KEY)
@@ -130,10 +134,12 @@ open class IllagerWarlockParent
     fun onBossResurrect(event : EntityResurrectEvent) {
         val entity = event.entity
         if (entity == this.entity) {
+            entity.isInvulnerable = true
             Bukkit.getScheduler().runTaskLater(plugin, Runnable {
                 val maxHp: AttributeInstance? = entity.getAttribute(Attribute.MAX_HEALTH)
                 entity.heal(maxHp!!.value)
-            }, TickTime.TICK)
+                entity.isInvulnerable = false
+            }, 0L)
             this.revived = true
         }
     }
@@ -142,14 +148,24 @@ open class IllagerWarlockParent
     fun onWarlockTakeDamage(event: EntityDamageEvent) {
         val entity = event.entity
         if (entity == this._entity) {
+            if (entity.isInvulnerable) {
+                event.isCancelled = true
+                return
+            }
             entity.location.world.playSound(entity.location, Sound.ENTITY_EVOKER_HURT, 1.0f, 0.8f)
         }
     }
 
     @EventHandler
     fun onWarlockDeath(event: EntityDeathEvent) {
+        println("death")
         val entity = event.entity
         if (entity == this._entity) {
+            if (!this.revived) {
+                val maxHp: AttributeInstance? = _entity.getAttribute(Attribute.MAX_HEALTH)
+                _entity.heal(maxHp!!.value)
+                return
+            }
             entity.location.world.playSound(entity.location, Sound.ENTITY_EVOKER_DEATH, 1.0f, 0.8f)
         }
     }

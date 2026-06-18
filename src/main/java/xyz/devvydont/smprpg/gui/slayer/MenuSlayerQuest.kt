@@ -246,6 +246,17 @@ class MenuSlayerQuest : MenuBase {
                             ComponentUtils.create(".")
                         ),
                         ComponentUtils.EMPTY,
+                        ComponentUtils.create("Postmortal", NamedTextColor.DARK_RED, TextDecoration.UNDERLINED),
+                        ComponentUtils.merge(
+                            ComponentUtils.create("The "),
+                            ComponentUtils.create("Illager Warlock", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
+                            ComponentUtils.create(" will use their")
+                        ),
+                        ComponentUtils.merge(
+                            ComponentUtils.create("Totem of Undying", NamedTextColor.BLUE),
+                            ComponentUtils.create(" and revive on first death.")
+                        ),
+                        ComponentUtils.EMPTY,
                         ComponentUtils.merge(ComponentUtils.create("Cost: "), ComponentUtils.money(SlayerClassification.ILLAGER_WARLOCK_1.cost)),
                         ComponentUtils.merge(ComponentUtils.create("Exp Needed: "), ComponentUtils.create(String.format("%,d", SlayerClassification.ILLAGER_WARLOCK_1.xpToSpawn),
                             NamedTextColor.AQUA)),
