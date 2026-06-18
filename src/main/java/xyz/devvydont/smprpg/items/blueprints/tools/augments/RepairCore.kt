@@ -21,7 +21,7 @@ open class RepairCore(itemService: ItemService, type: CustomItemType) : CustomIt
 
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
-        itemStack.setData(DataComponentTypes.MAX_STACK_SIZE, 1)
+        itemStack.setData(DataComponentTypes.MAX_STACK_SIZE, MAX_STACK_SIZE)
     }
 
     override fun getHeader(itemStack: ItemStack?): List<Component?>? {
@@ -116,5 +116,7 @@ open class RepairCore(itemService: ItemService, type: CustomItemType) : CustomIt
             repairValue += 0.1 * (coreBp.getRarity(coreItem).ordinal - repairBp.getRarity(repairItem).ordinal)
             return repairValue
         }
+
+        const val MAX_STACK_SIZE = 4
     }
 }
