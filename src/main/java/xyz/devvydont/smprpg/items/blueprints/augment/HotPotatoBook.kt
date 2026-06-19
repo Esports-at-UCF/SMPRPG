@@ -41,7 +41,7 @@ class HotPotatoBook(itemService: ItemService, type: CustomItemType) : CustomItem
 
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
-        itemStack.editMeta(Consumer { meta: ItemMeta? -> meta!!.setMaxStackSize(4) })
+        itemStack.editMeta(Consumer { meta: ItemMeta? -> meta!!.setMaxStackSize(1) })
     }
 
     override fun getHeader(itemStack: ItemStack): List<Component> {
