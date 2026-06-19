@@ -107,6 +107,7 @@ class VanillaCompressibleBlueprint(itemService: ItemService, material: Material)
             Material.POTATO -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_POTATO) as ICompressible, 9, 1)
             Material.CARROT -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_CARROT) as ICompressible, 9, 1)
             Material.BEETROOT -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_BEETROOT) as ICompressible, 9, 1)
+            Material.PUMPKIN -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_PUMPKIN) as ICompressible, 9, 1)
             // Woodcutting
             Material.OAK_LOG -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_OAK_LOG) as ICompressible, 9, 1)
             Material.SPRUCE_LOG -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_SPRUCE_LOG) as ICompressible, 9, 1)

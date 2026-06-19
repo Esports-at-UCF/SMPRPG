@@ -187,7 +187,7 @@ blocks:
       text_position: 0,0.35,-0.52
       item_scale: 0.6,0.6,0.6
       text_scale: 0.5,0.5,0.5
-      max_stacks: 32
+      max_stacks: 128
       sounds:
         put:
           id: minecraft:block.decorated_pot.insert

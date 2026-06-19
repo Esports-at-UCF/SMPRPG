@@ -1394,6 +1394,10 @@ public enum CustomItemType {
     ENCHANTED_BEETROOT("Enchanted Beetroot", Material.BEETROOT, ItemRarity.RARE, true, BeetrootBlueprintFamily.class),
     BEETROOT_SINGULARITY("Beetroot Singularity", Material.BEETROOT, ItemRarity.EPIC, true, BeetrootBlueprintFamily.class),
 
+    PREMIUM_PUMPKIN("Premium Pumpkin", Material.PUMPKIN, ItemRarity.UNCOMMON, true, PumpkinBlueprintFamily.class),
+    ENCHANTED_PUMPKIN("Enchanted Pumpkin", Material.PUMPKIN, ItemRarity.RARE, true, PumpkinBlueprintFamily.class),
+    PUMPKIN_SINGULARITY("Pumpkin Singularity", Material.CARVED_PUMPKIN, ItemRarity.EPIC, true, PumpkinBlueprintFamily.class),
+
     PREMIUM_OAK_LOG("Premium Oak Log", Material.OAK_LOG, ItemRarity.UNCOMMON, true, OakBlueprintFamily.class),
     ENCHANTED_OAK_LOG("Enchanted Oak Log", Material.OAK_LOG, ItemRarity.RARE, true, OakBlueprintFamily.class),
     OAK_LOG_SINGULARITY("Oak Log Singularity", Material.OAK_LOG, ItemRarity.EPIC, true, OakBlueprintFamily.class),

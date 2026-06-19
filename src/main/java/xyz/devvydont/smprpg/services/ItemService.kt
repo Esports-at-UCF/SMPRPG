@@ -345,6 +345,7 @@ class ItemService : IService, Listener {
         registerVanillaMaterialResolver(Material.POTATO, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.CARROT, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.BEETROOT, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.PUMPKIN, VanillaCompressibleBlueprint::class.java)
         // Woodcutting — vanilla chain members
         registerVanillaMaterialResolver(Material.OAK_LOG, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.SPRUCE_LOG, VanillaCompressibleBlueprint::class.java)
