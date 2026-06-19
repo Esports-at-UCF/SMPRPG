@@ -12,6 +12,7 @@ import org.bukkit.event.entity.EntityTargetEvent
 import org.bukkit.event.world.LootGenerateEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
+import xyz.devvydont.smprpg.events.ContainerLootGeneratedEvent
 import xyz.devvydont.smprpg.services.SpecialEffectService
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -106,17 +107,11 @@ class ShroudedEffect(service: SpecialEffectService, player: Player, seconds: Int
      */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     @Suppress("unused")
-    private fun onOpenLootChest(event: LootGenerateEvent) {
-        // Ignore non players
-
-        if (event.entity !is Player)
-            return
-        val eventPlayer = event.entity as Player
-
+    private fun onOpenLootChest(event: ContainerLootGeneratedEvent) {
         // Ignore players that aren't our player
-        if (event.entity != player)
+        if (event.player != player)
             return
 
-        service.removeEffect(eventPlayer)
+        service.removeEffect(player)
     }
 }
