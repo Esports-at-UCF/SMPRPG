@@ -73,12 +73,12 @@ class EnchantmentMenu : MenuBase {
         var book : ItemStack
         if (enchantment.enchantColor == CustomEnchantment.ARTIFICE_COLOR) {
             book =
-                createNamedItem(Material.ENCHANTED_BOOK, ComponentUtils.gradient(PlainTextComponentSerializer.plainText().serialize(enchantment.displayName),
+                renameItem(DynamicEnchantingScroll.getScrollWithEnchantment(enchantment), ComponentUtils.gradient(PlainTextComponentSerializer.plainText().serialize(enchantment.displayName),
                 NamedTextColor.DARK_PURPLE, TextColor.color(255, 0, 0)))
         }
         else {
             book =
-                createNamedItem(Material.ENCHANTED_BOOK, enchantment.displayName.color(enchantment.enchantColor))
+                renameItem(DynamicEnchantingScroll.getScrollWithEnchantment(enchantment), enchantment.displayName.color(enchantment.enchantColor))
         }
 
         // Start constructing the lore of the item, this is essentially an in depth description of the enchantment.
@@ -197,28 +197,15 @@ class EnchantmentMenu : MenuBase {
         enchantmentDescription.add(ComponentUtils.EMPTY)
         val magicLvl = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
             .magicSkill.level
-        val isUnlocked = magicLvl >= enchantment.skillRequirement
-        enchantmentDescription.add(
-            ComponentUtils.merge(
-                ComponentUtils.create(
-                    "Magic Skill Level Requirement: ",
-                    if (isUnlocked) NamedTextColor.GRAY else NamedTextColor.RED
-                ),
-                ComponentUtils.create(
-                    enchantment.skillRequirement.toString(),
-                    if (isUnlocked) NamedTextColor.LIGHT_PURPLE else NamedTextColor.DARK_RED
-                )
-            )
-        )
 
-        enchantmentDescription.add(ComponentUtils.EMPTY)
         enchantmentDescription.add(ComponentUtils.create("Click to go deeper!", NamedTextColor.YELLOW))
         if (this.player.gameMode == GameMode.CREATIVE)
             enchantmentDescription.add(ComponentUtils.create("Shift + Left click to generate an enchantment scroll!", NamedTextColor.GOLD))
         if (enchantment.maxLevel > 1) {
             enchantmentDescription.add(ComponentUtils.EMPTY)
             for (i in 2..enchantment.maxLevel) {
-                val unlocked = if (magicLvl >= enchantment.getSkillRequirementForLevel(i)) ComponentUtils.create(
+                val recipe = enchantment.getRecipe(i)
+                val unlocked = if (magicLvl >= (recipe?.power ?: 999)) ComponentUtils.create(
                     Symbols.CHECK,
                     NamedTextColor.GREEN
                 ) else ComponentUtils.create(Symbols.X, NamedTextColor.RED)
@@ -230,7 +217,7 @@ class EnchantmentMenu : MenuBase {
                             Component.text(" $i")
                         ).color(NamedTextColor.DARK_GRAY),
                         ComponentUtils.create(
-                            ": Magic " + enchantment.getSkillRequirementForLevel(i),
+                            ": Magic " + (recipe?.power ?: "undefined"),
                             NamedTextColor.DARK_GRAY
                         )
                     )

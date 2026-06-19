@@ -601,6 +601,21 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
         }
 
         /**
+         * Renames an item stack with a custom name.
+         *
+         * @param material The type of the item to create an item stack of.
+         * @param name     The name to apply to the item stack.
+         * @return The named item stack.
+         */
+        @JvmStatic
+        protected fun renameItem(item: ItemStack, name: Component): ItemStack {
+            val meta = item.itemMeta
+            meta.displayName(name.decoration(TextDecoration.ITALIC, false))
+            item.setItemMeta(meta)
+            return item
+        }
+
+        /**
          * Creates an item stack with a custom name, and marks it with no render.
          * 
          * @param material The type of the item to create an item stack of.

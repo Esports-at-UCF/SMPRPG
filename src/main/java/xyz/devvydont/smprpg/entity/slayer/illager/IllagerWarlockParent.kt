@@ -158,7 +158,6 @@ open class IllagerWarlockParent
 
     @EventHandler
     fun onWarlockDeath(event: EntityDeathEvent) {
-        println("death")
         val entity = event.entity
         if (entity == this._entity) {
             if (!this.revived) {

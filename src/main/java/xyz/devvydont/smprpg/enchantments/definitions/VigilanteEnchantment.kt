@@ -53,84 +53,84 @@ class VigilanteEnchantment(id: String) : CustomEnchantment(id), Listener {
     override fun getRecipe(level: Int): EnchantmentRecipe? {
         when (level) {
             1 -> {
-                val silver = getIngredientStack(CustomItemType.SILVER_INGOT, 5)
-                val flesh = getIngredientStack(Material.ROTTEN_FLESH, 2)
+                val silver = getIngredientStack(Material.EMERALD, 5)
+                val flesh = getIngredientStack(Material.DARK_OAK_LOG, 2)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 8)
                 return EnchantmentRecipe(getRecipeKey(level), 0, silver, flesh, lapis)
             }
 
             2 -> {
-                val silver = getIngredientStack(CustomItemType.SILVER_INGOT, 10)
-                val flesh = getIngredientStack(Material.ROTTEN_FLESH, 4)
+                val silver = getIngredientStack(Material.EMERALD, 10)
+                val flesh = getIngredientStack(Material.DARK_OAK_LOG, 4)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 16)
                 return EnchantmentRecipe(getRecipeKey(level), 5, silver, flesh, lapis)
             }
 
             3 -> {
-                val silver = getIngredientStack(CustomItemType.SILVER_INGOT, 20)
-                val flesh = getIngredientStack(Material.ROTTEN_FLESH, 8)
+                val silver = getIngredientStack(Material.EMERALD, 20)
+                val flesh = getIngredientStack(Material.DARK_OAK_LOG, 8)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 32)
                 return EnchantmentRecipe(getRecipeKey(level), 15, silver, flesh, lapis)
             }
 
             4 -> {
-                val silver = getIngredientStack(CustomItemType.SILVER_INGOT, 40)
-                val flesh = getIngredientStack(Material.ROTTEN_FLESH, 16)
-                val necrotic = getIngredientStack(CustomItemType.PREMIUM_NECROTIC_FLESH, 16)
+                val silver = getIngredientStack(Material.EMERALD, 40)
+                val flesh = getIngredientStack(Material.DARK_OAK_LOG, 16)
+                val necrotic = getIngredientStack(CustomItemType.PREMIUM_SPELL_POWDER, 16)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 64)
                 return EnchantmentRecipe(getRecipeKey(level), 20, silver, flesh, necrotic, lapis)
             }
 
             5 -> {
-                val silver = getIngredientStack(CustomItemType.SILVER_INGOT, 80)
-                val flesh = getIngredientStack(Material.ROTTEN_FLESH, 32)
-                val necrotic = getIngredientStack(CustomItemType.PREMIUM_NECROTIC_FLESH, 32)
+                val silver = getIngredientStack(Material.EMERALD, 80)
+                val flesh = getIngredientStack(Material.DARK_OAK_LOG, 32)
+                val necrotic = getIngredientStack(CustomItemType.PREMIUM_SPELL_POWDER, 32)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
                 return EnchantmentRecipe(getRecipeKey(level), 30, silver, flesh, necrotic, lapis)
             }
 
             6 -> {
-                val silver = getIngredientStack(CustomItemType.SILVER_BLOCK, 18)
-                val flesh = getIngredientStack(Material.ROTTEN_FLESH, 64)
-                val necrotic = getIngredientStack(CustomItemType.PREMIUM_NECROTIC_FLESH, 64)
+                val silver = getIngredientStack(Material.EMERALD_BLOCK, 18)
+                val flesh = getIngredientStack(Material.DARK_OAK_LOG, 64)
+                val necrotic = getIngredientStack(CustomItemType.PREMIUM_SPELL_POWDER, 64)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 32)
                 return EnchantmentRecipe(getRecipeKey(level), 40, silver, flesh, necrotic, lapis)
             }
 
             7 -> {
-                val silver = getIngredientStack(CustomItemType.SILVER_BLOCK, 36)
-                val flesh = getIngredientStack(CustomItemType.PREMIUM_FLESH, 15)
-                val necrotic = getIngredientStack(CustomItemType.ENCHANTED_NECROTIC_FLESH, 15)
+                val silver = getIngredientStack(Material.EMERALD_BLOCK, 36)
+                val flesh = getIngredientStack(CustomItemType.PREMIUM_DARK_OAK_LOG, 15)
+                val necrotic = getIngredientStack(CustomItemType.ENCHANTED_SPELL_POWDER, 15)
                 val viscera = getIngredientStack(CustomItemType.REVILED_VISCERA, 1)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 64)
                 return EnchantmentRecipe(getRecipeKey(level), 60, silver, flesh, necrotic, viscera, lapis)
             }
 
             8 -> {
-                val silver = getIngredientStack(CustomItemType.SILVER_BLOCK, 72)
-                val flesh = getIngredientStack(CustomItemType.PREMIUM_FLESH, 30)
-                val necrotic = getIngredientStack(CustomItemType.ENCHANTED_NECROTIC_FLESH, 30)
-                val viscera = getIngredientStack(CustomItemType.REVILED_VISCERA, 2)
+                val silver = getIngredientStack(Material.EMERALD_BLOCK, 72)
+                val flesh = getIngredientStack(CustomItemType.PREMIUM_DARK_OAK_LOG, 30)
+                val necrotic = getIngredientStack(CustomItemType.ENCHANTED_SPELL_POWDER, 30)
+                val viscera = getIngredientStack(CustomItemType.HORN_OF_WARLOCK, 2)
                 val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
                 return EnchantmentRecipe(getRecipeKey(level), 70, silver, flesh, necrotic, viscera, lapis)
             }
 
             9 -> {
-                val silver = getIngredientStack(CustomItemType.ENCHANTED_SILVER, 8)
-                val flesh = getIngredientStack(CustomItemType.PREMIUM_FLESH, 45)
-                val necrotic = getIngredientStack(CustomItemType.ENCHANTED_NECROTIC_FLESH, 45)
-                val viscera = getIngredientStack(CustomItemType.REVILED_VISCERA, 3)
-                val amalgamation = getIngredientStack(CustomItemType.VISCERAL_AMALGAMATION, 1)
+                val silver = getIngredientStack(CustomItemType.ENCHANTED_EMERALD, 8)
+                val flesh = getIngredientStack(CustomItemType.PREMIUM_DARK_OAK_LOG, 45)
+                val necrotic = getIngredientStack(CustomItemType.ENCHANTED_SPELL_POWDER, 45)
+                val viscera = getIngredientStack(CustomItemType.HORN_OF_WARLOCK, 3)
+                val amalgamation = getIngredientStack(CustomItemType.CRYSTAL_BALL, 1)
                 val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 32)
                 return EnchantmentRecipe(getRecipeKey(level), 80, silver, flesh, necrotic, viscera, amalgamation, lapis)
             }
 
             10 -> {
-                val silver = getIngredientStack(CustomItemType.ENCHANTED_SILVER, 16)
-                val flesh = getIngredientStack(CustomItemType.PREMIUM_FLESH, 60)
-                val necrotic = getIngredientStack(CustomItemType.ENCHANTED_NECROTIC_FLESH, 60)
-                val viscera = getIngredientStack(CustomItemType.REVILED_VISCERA, 4)
-                val amalgamation = getIngredientStack(CustomItemType.VISCERAL_AMALGAMATION, 2)
+                val silver = getIngredientStack(CustomItemType.ENCHANTED_EMERALD, 16)
+                val flesh = getIngredientStack(CustomItemType.PREMIUM_DARK_OAK_LOG, 60)
+                val necrotic = getIngredientStack(CustomItemType.ENCHANTED_SPELL_POWDER, 60)
+                val viscera = getIngredientStack(CustomItemType.HORN_OF_WARLOCK, 4)
+                val amalgamation = getIngredientStack(CustomItemType.CRYSTAL_BALL, 2)
                 val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 64)
                 return EnchantmentRecipe(getRecipeKey(level), 90, silver, flesh, necrotic, viscera, amalgamation, lapis)
             }

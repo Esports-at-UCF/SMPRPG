@@ -345,6 +345,18 @@ class ItemService : IService, Listener {
         registerVanillaMaterialResolver(Material.POTATO, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.CARROT, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.BEETROOT, VanillaCompressibleBlueprint::class.java)
+        // Woodcutting — vanilla chain members
+        registerVanillaMaterialResolver(Material.OAK_LOG, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.SPRUCE_LOG, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.BIRCH_LOG, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.JUNGLE_LOG, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.DARK_OAK_LOG, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.ACACIA_LOG, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.MANGROVE_LOG, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.CHERRY_LOG, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.PALE_OAK_LOG, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.CRIMSON_STEM, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.WARPED_STEM, VanillaCompressibleBlueprint::class.java)
 
         // Register vanilla items that should have a sell price.
         for (entry in VanillaResource.getMaterialWorthMap().entries) {

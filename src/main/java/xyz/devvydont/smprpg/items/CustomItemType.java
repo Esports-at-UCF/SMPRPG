@@ -19,6 +19,7 @@ import xyz.devvydont.smprpg.items.blueprints.food.ingredients.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.farming.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
+import xyz.devvydont.smprpg.items.blueprints.resources.woodcutting.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.aetherium.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.aetherutil.WingsOfIcarus;
 import xyz.devvydont.smprpg.items.blueprints.sets.cobalt.*;
@@ -1390,6 +1391,62 @@ public enum CustomItemType {
     ENCHANTED_BEETROOT("Enchanted Beetroot", Material.BEETROOT, ItemRarity.RARE, true, BeetrootBlueprintFamily.class),
     BEETROOT_SINGULARITY("Beetroot Singularity", Material.BEETROOT, ItemRarity.EPIC, true, BeetrootBlueprintFamily.class),
 
+    PREMIUM_OAK_LOG("Premium Oak Log", Material.OAK_LOG, ItemRarity.UNCOMMON, true, OakBlueprintFamily.class),
+    ENCHANTED_OAK_LOG("Enchanted Oak Log", Material.OAK_LOG, ItemRarity.RARE, true, OakBlueprintFamily.class),
+    OAK_LOG_SINGULARITY("Oak Log Singularity", Material.OAK_LOG, ItemRarity.EPIC, true, OakBlueprintFamily.class),
+
+    PREMIUM_SPRUCE_LOG("Premium Spruce Log", Material.SPRUCE_LOG, ItemRarity.UNCOMMON, true, SpruceBlueprintFamily.class),
+    ENCHANTED_SPRUCE_LOG("Enchanted Spruce Log", Material.SPRUCE_LOG, ItemRarity.RARE, true, SpruceBlueprintFamily.class),
+    SPRUCE_LOG_SINGULARITY("Spruce Log Singularity", Material.SPRUCE_LOG, ItemRarity.EPIC, true, SpruceBlueprintFamily.class),
+
+    PREMIUM_BIRCH_LOG("Premium Birch Log", Material.BIRCH_LOG, ItemRarity.UNCOMMON, true, BirchBlueprintFamily.class),
+    ENCHANTED_BIRCH_LOG("Enchanted Birch Log", Material.BIRCH_LOG, ItemRarity.RARE, true, BirchBlueprintFamily.class),
+    BIRCH_LOG_SINGULARITY("Birch Log Singularity", Material.BIRCH_LOG, ItemRarity.EPIC, true, BirchBlueprintFamily.class),
+
+    PREMIUM_JUNGLE_LOG("Premium Jungle Log", Material.JUNGLE_LOG, ItemRarity.UNCOMMON, true, JungleBlueprintFamily.class),
+    ENCHANTED_JUNGLE_LOG("Enchanted Jungle Log", Material.JUNGLE_LOG, ItemRarity.RARE, true, JungleBlueprintFamily.class),
+    JUNGLE_LOG_SINGULARITY("Jungle Log Singularity", Material.JUNGLE_LOG, ItemRarity.EPIC, true, JungleBlueprintFamily.class),
+
+    PREMIUM_DARK_OAK_LOG("Premium Jungle Log", Material.JUNGLE_LOG, ItemRarity.UNCOMMON, true, DarkOakBlueprintFamily.class),
+    ENCHANTED_DARK_OAK_LOG("Enchanted Jungle Log", Material.JUNGLE_LOG, ItemRarity.RARE, true, DarkOakBlueprintFamily.class),
+    DARK_OAK_LOG_SINGULARITY("Jungle Log Singularity", Material.JUNGLE_LOG, ItemRarity.EPIC, true, DarkOakBlueprintFamily.class),
+
+    PREMIUM_ACACIA_LOG("Premium Acacia Log", Material.ACACIA_LOG, ItemRarity.UNCOMMON, true, AcaciaBlueprintFamily.class),
+    ENCHANTED_ACACIA_LOG("Enchanted Acacia Log", Material.ACACIA_LOG, ItemRarity.RARE, true, AcaciaBlueprintFamily.class),
+    ACACIA_LOG_SINGULARITY("Acacia Log Singularity", Material.ACACIA_LOG, ItemRarity.EPIC, true, AcaciaBlueprintFamily.class),
+
+    PREMIUM_MANGROVE_LOG("Premium Mangrove Log", Material.MANGROVE_LOG, ItemRarity.UNCOMMON, true, MangroveBlueprintFamily.class),
+    ENCHANTED_MANGROVE_LOG("Enchanted Mangrove Log", Material.MANGROVE_LOG, ItemRarity.RARE, true, MangroveBlueprintFamily.class),
+    MANGROVE_LOG_SINGULARITY("Mangrove Log Singularity", Material.MANGROVE_LOG, ItemRarity.EPIC, true, MangroveBlueprintFamily.class),
+
+    PREMIUM_CHERRY_LOG("Premium Cherry Log", Material.CHERRY_LOG, ItemRarity.UNCOMMON, true, CherryBlueprintFamily.class),
+    ENCHANTED_CHERRY_LOG("Enchanted Cherry Log", Material.CHERRY_LOG, ItemRarity.RARE, true, CherryBlueprintFamily.class),
+    CHERRY_LOG_SINGULARITY("Cherry Log Singularity", Material.CHERRY_LOG, ItemRarity.EPIC, true, CherryBlueprintFamily.class),
+
+    PREMIUM_PALE_OAK_LOG("Premium Pale Oak Log", Material.PALE_OAK_LOG, ItemRarity.UNCOMMON, true, PaleOakBlueprintFamily.class),
+    ENCHANTED_PALE_OAK_LOG("Enchanted Pale Oak Log", Material.PALE_OAK_LOG, ItemRarity.RARE, true, PaleOakBlueprintFamily.class),
+    PALE_OAK_LOG_SINGULARITY("Pale Oak Log Singularity", Material.PALE_OAK_LOG, ItemRarity.EPIC, true, PaleOakBlueprintFamily.class),
+
+    PREMIUM_CRIMSON_STEM("Premium Crimson Stem", Material.CRIMSON_STEM, ItemRarity.UNCOMMON, true, CrimsonBlueprintFamily.class),
+    ENCHANTED_CRIMSON_STEM("Enchanted Crimson Stem", Material.CRIMSON_STEM, ItemRarity.RARE, true, CrimsonBlueprintFamily.class),
+    CRIMSON_STEM_SINGULARITY("Crimson Stem Singularity", Material.CRIMSON_STEM, ItemRarity.EPIC, true, CrimsonBlueprintFamily.class),
+
+    PREMIUM_WARPED_STEM("Premium Warped Stem", Material.WARPED_STEM, ItemRarity.UNCOMMON, true, WarpedBlueprintFamily.class),
+    ENCHANTED_WARPED_STEM("Enchanted Warped Stem", Material.WARPED_STEM, ItemRarity.RARE, true, WarpedBlueprintFamily.class),
+    WARPED_STEM_SINGULARITY("Warped Stem Singularity", Material.WARPED_STEM, ItemRarity.EPIC, true, WarpedBlueprintFamily.class),
+
+    PREMIUM_SKYROOT_LOG("Premium Skyroot Log", Material.NETHER_BRICK, ItemRarity.UNCOMMON, true, SkyrootBlueprintFamily.class),
+    ENCHANTED_SKYROOT_LOG("Enchanted Skyroot Log", Material.NETHER_BRICK, ItemRarity.RARE, true, SkyrootBlueprintFamily.class),
+    SKYROOT_LOG_SINGULARITY("Skyroot Log Singularity", Material.NETHER_BRICK, ItemRarity.EPIC, true, SkyrootBlueprintFamily.class),
+
+    PREMIUM_GOLDEN_OAK_LOG("Premium Golden Oak Log", Material.NETHER_BRICK, ItemRarity.UNCOMMON, true, GoldenOakBlueprintFamily.class),
+    ENCHANTED_GOLDEN_OAK_LOG("Enchanted Golden Oak Log", Material.NETHER_BRICK, ItemRarity.RARE, true, GoldenOakBlueprintFamily.class),
+    GOLDEN_OAK_LOG_SINGULARITY("Golden Oak Log Singularity", Material.NETHER_BRICK, ItemRarity.EPIC, true, GoldenOakBlueprintFamily.class),
+
+    PREMIUM_BINARY_LOG("Premium Binary Log", Material.NETHER_BRICK, ItemRarity.UNCOMMON, true, BinaryBlueprintFamily.class),
+    ENCHANTED_BINARY_LOG("Enchanted Binary Log", Material.NETHER_BRICK, ItemRarity.RARE, true, BinaryBlueprintFamily.class),
+    BINARY_LOG_SINGULARITY("Binary Log Singularity", Material.NETHER_BRICK, ItemRarity.EPIC, true, BinaryBlueprintFamily.class),
+
     // SINGULARITY SET
     SINGULARITY_HELMET(    "Singularity Helmet",     Material.CRYING_OBSIDIAN,      ItemRarity.MYTHIC, SingularityHelmet.class),
     SINGULARITY_CHESTPLATE("Singularity Chestplate", Material.NETHERITE_CHESTPLATE, ItemRarity.MYTHIC, SingularityChestplate.class),
@@ -1589,7 +1646,7 @@ public enum CustomItemType {
     SKYROOT_FENCE("Skyroot Fence", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     SKYROOT_FENCE_GATE("Skyroot Fence Gate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     SKYROOT_LEAVES("Skyroot Leaves", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
-    SKYROOT_LOG("Skyroot Log", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SKYROOT_LOG("Skyroot Log", Material.NETHER_BRICK, ItemRarity.COMMON, SkyrootLog.class),
     SKYROOT_PLANKS("Skyroot Planks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     SKYROOT_PRESSURE_PLATE("Skyroot Pressure Plate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     SKYROOT_SAPLING("Skyroot Sapling", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
@@ -1605,7 +1662,7 @@ public enum CustomItemType {
     GOLDEN_OAK_FENCE("Golden Oak Fence", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     GOLDEN_OAK_FENCE_GATE("Golden Oak Fence Gate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     GOLDEN_OAK_LEAVES("Golden Oak Leaves", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
-    GOLDEN_OAK_LOG("Golden Oak Log", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    GOLDEN_OAK_LOG("Golden Oak Log", Material.NETHER_BRICK, ItemRarity.COMMON, GoldenOakLog.class),
     GOLDEN_OAK_PLANKS("Golden Oak Planks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     GOLDEN_OAK_PRESSURE_PLATE("Golden Oak Pressure Plate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     GOLDEN_OAK_SAPLING("Golden Oak Sapling", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
@@ -1629,7 +1686,7 @@ public enum CustomItemType {
     BINARY_FENCE("Binary Fence", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     BINARY_FENCE_GATE("Binary Fence Gate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     BINARY_LEAVES("Binary Nodes", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
-    BINARY_LOG("Binary Branch", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    BINARY_LOG("Binary Branch", Material.NETHER_BRICK, ItemRarity.COMMON, BinaryLog.class),
     BINARY_PLANKS("Binary Planks", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     BINARY_PRESSURE_PLATE("Binary Pressure Plate", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),
     BINARY_SAPLING("Binary Root", Material.NETHER_BRICK, ItemRarity.COMMON, CraftEngineBlueprint.class),

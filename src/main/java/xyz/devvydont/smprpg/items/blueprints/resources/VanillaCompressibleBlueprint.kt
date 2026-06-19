@@ -107,6 +107,18 @@ class VanillaCompressibleBlueprint(itemService: ItemService, material: Material)
             Material.POTATO -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_POTATO) as ICompressible, 9, 1)
             Material.CARROT -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_CARROT) as ICompressible, 9, 1)
             Material.BEETROOT -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_BEETROOT) as ICompressible, 9, 1)
+            // Woodcutting
+            Material.OAK_LOG -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_OAK_LOG) as ICompressible, 9, 1)
+            Material.SPRUCE_LOG -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_SPRUCE_LOG) as ICompressible, 9, 1)
+            Material.BIRCH_LOG -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_BIRCH_LOG) as ICompressible, 9, 1)
+            Material.JUNGLE_LOG -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_JUNGLE_LOG) as ICompressible, 9, 1)
+            Material.DARK_OAK_LOG -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_DARK_OAK_LOG) as ICompressible, 9, 1)
+            Material.ACACIA_LOG -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_ACACIA_LOG) as ICompressible, 9, 1)
+            Material.MANGROVE_LOG -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_MANGROVE_LOG) as ICompressible, 9, 1)
+            Material.CHERRY_LOG -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_CHERRY_LOG) as ICompressible, 9, 1)
+            Material.PALE_OAK_LOG -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_PALE_OAK_LOG) as ICompressible, 9, 1)
+            Material.CRIMSON_STEM -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_CRIMSON_STEM) as ICompressible, 9, 1)
+            Material.WARPED_STEM -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_WARPED_STEM) as ICompressible, 9, 1)
             else -> null
         }
 }

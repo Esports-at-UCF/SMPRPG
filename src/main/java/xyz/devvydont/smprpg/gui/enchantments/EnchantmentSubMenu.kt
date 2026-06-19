@@ -36,7 +36,8 @@ class EnchantmentSubMenu(
             enchantment.enchantment.displayName(level).color(enchantment.enchantColor)
         )
         val magicLvl = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player).magicSkill.level
-        val isUnlocked = magicLvl >= enchantment.getSkillRequirementForLevel(level)
+        val recipe = enchantment.getRecipe(level)
+        val isUnlocked = if (recipe != null) magicLvl >= recipe.power else false
         val check =
             if (isUnlocked) ComponentUtils.create(Symbols.CHECK, NamedTextColor.GREEN) else ComponentUtils.create(
                 Symbols.X,
@@ -48,7 +49,7 @@ class EnchantmentSubMenu(
                 if (isUnlocked) NamedTextColor.GRAY else NamedTextColor.RED
             ),
             ComponentUtils.create(
-                enchantment.getSkillRequirementForLevel(level).toString(),
+                recipe?.power?.toString() ?: "Not implemented",
                 if (isUnlocked) NamedTextColor.LIGHT_PURPLE else NamedTextColor.DARK_RED
             )
         )
