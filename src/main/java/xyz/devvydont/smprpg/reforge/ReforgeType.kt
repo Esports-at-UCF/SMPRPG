@@ -109,6 +109,24 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.CHARM
     ),
 
+    // Magic focused for armor
+    SMART(
+        SmartReforge::class.java,
+        ItemClassification.HELMET,
+        ItemClassification.CHESTPLATE,
+        ItemClassification.LEGGINGS,
+        ItemClassification.BOOTS,
+        ItemClassification.CHARM
+    ),
+    WISE(
+        WiseReforge::class.java,
+        ItemClassification.HELMET,
+        ItemClassification.CHESTPLATE,
+        ItemClassification.LEGGINGS,
+        ItemClassification.BOOTS,
+        ItemClassification.CHARM
+    ),
+
     // ALL AROUND ARMOR
     POLISHED(
         PolishedReforge::class.java,
@@ -496,6 +514,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
                 EXTENDED -> ItemService.generate(Material.SPYGLASS)
                 REACHING -> ItemService.generate(Material.SPYGLASS)
                 SAVAGE -> ItemService.generate(Material.FIRE_CHARGE)
+                SMART -> ItemService.generate(Material.BOOK)
+                WISE -> ItemService.generate(Material.ENCHANTED_BOOK)
                 ACCELERATED -> ItemService.generate(Material.DIAMOND_PICKAXE)
                 POWERFUL -> ItemService.generate(Material.STONE_AXE)
                 WITHERED -> ItemService.generate(CustomItemType.DESOLATED_STONE)
