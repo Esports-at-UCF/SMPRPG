@@ -82,7 +82,7 @@ class GrapplingHook(itemService: ItemService, type: CustomItemType) : CustomAttr
     }
 
     override fun getMaxDurability(): Int {
-        return 192
+        return 1024
     }
 
     enum class GrapplingState {
