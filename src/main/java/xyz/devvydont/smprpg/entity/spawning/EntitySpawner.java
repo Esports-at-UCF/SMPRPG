@@ -341,6 +341,12 @@ public class EntitySpawner extends CustomEntityInstance<Entity> implements Liste
     }
 
     @Override
+    public void updateNametag() {
+        super.updateNametag();
+        _entity.setCustomNameVisible(false);
+    }
+
+    @Override
     public void cleanup() {
 
         for (var entity : spawned.entrySet()) {
