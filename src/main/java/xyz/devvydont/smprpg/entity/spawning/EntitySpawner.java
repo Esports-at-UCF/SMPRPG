@@ -314,6 +314,18 @@ public class EntitySpawner extends CustomEntityInstance<Entity> implements Liste
         return (ItemDisplay) _entity;
     }
 
+    // A display spawned while an admin looks up or down inherits their pitch (and yaw), leaving the
+    // beacon tilted. Force a level, forward-facing orientation so spawners always render upright.
+    private static final float UPRIGHT_YAW = 0f;
+    private static final float UPRIGHT_PITCH = 0f;
+
+    private void orientUpright(ItemDisplay display) {
+        Location location = display.getLocation();
+        location.setYaw(UPRIGHT_YAW);
+        location.setPitch(UPRIGHT_PITCH);
+        display.teleport(location);
+    }
+
     @Override
     public void setup() {
         super.setup();
@@ -321,6 +333,7 @@ public class EntitySpawner extends CustomEntityInstance<Entity> implements Liste
 
         ItemDisplay display = getBlockDisplay();
         display.setItemStack(new ItemStack(Material.BEACON));
+        orientUpright(display);
 
         if (tickTask != null)
             tickTask.cancel();
