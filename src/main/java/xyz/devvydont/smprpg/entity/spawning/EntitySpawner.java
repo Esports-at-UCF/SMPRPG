@@ -351,7 +351,7 @@ public class EntitySpawner extends CustomEntityInstance<Entity> implements Liste
 
         for (var entity : spawned.entrySet()) {
             var bukkitEntity = Bukkit.getEntity(entity.getKey());
-            if (bukkitEntity != null)
+            if (bukkitEntity != null && bukkitEntity.isValid())
                 bukkitEntity.remove();
         }
 
