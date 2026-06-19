@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.gui.anvil
 
+import xyz.devvydont.smprpg.gui.anvil.operations.HotPotatoBookOperation
 import xyz.devvydont.smprpg.gui.anvil.operations.NecronomiconExcerptOperation
 import xyz.devvydont.smprpg.gui.anvil.operations.RepairCoreOperation
 import xyz.devvydont.smprpg.gui.anvil.operations.ReforgeStoneOperation
@@ -18,6 +19,7 @@ object AnvilOperations {
     val ALL: List<AnvilOperation> = listOf(
         RepairCoreOperation,
         NecronomiconExcerptOperation,
+        HotPotatoBookOperation,
         ReforgeStoneOperation
     )
 }

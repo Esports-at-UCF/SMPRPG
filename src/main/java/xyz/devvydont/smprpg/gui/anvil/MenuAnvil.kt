@@ -40,7 +40,9 @@ class MenuAnvil(player: Player, private val anvilLocation: Location? = null) : M
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
         super.handleInventoryOpened(event)
-        event.titleOverride(ComponentUtils.create("Anvil", Symbols.INVENTORY_TITLE_COLOR))
+        event.titleOverride(ComponentUtils.merge(
+            ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.ANVIL_MENU, NamedTextColor.WHITE),
+            ComponentUtils.create(Symbols.OVERLAY_BG_OFFSET_STANDARD + "Anvil", Symbols.INVENTORY_TITLE_COLOR)))
         render()
     }
 
@@ -127,6 +129,7 @@ class MenuAnvil(player: Player, private val anvilLocation: Location? = null) : M
         if (nextState == Material.AIR) {
             block.type = Material.AIR
             world.playSound(location, Sound.BLOCK_ANVIL_DESTROY, 1.0f, 1.0f)
+            closeMenu()
             return
         }
 
@@ -233,7 +236,7 @@ class MenuAnvil(player: Player, private val anvilLocation: Location? = null) : M
             ComponentUtils.EMPTY,
             ComponentUtils.create("Place an item to repair or modify on", NamedTextColor.DARK_GRAY),
             ComponentUtils.create("the left, and a material, repair core,", NamedTextColor.DARK_GRAY),
-            ComponentUtils.create("reforge stone, or excerpt on the right.", NamedTextColor.DARK_GRAY)
+            ComponentUtils.create("reforge stone, or augment stone on the right.", NamedTextColor.DARK_GRAY)
         )
     }
 }

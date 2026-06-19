@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.items;
 
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.augment.HotPotatoBook;
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.block.interactable.ReforgeTable;
 import xyz.devvydont.smprpg.items.blueprints.block.runes.*;
@@ -1387,6 +1388,8 @@ public enum CustomItemType {
     ENCHANTED_BAKED_POTATO("Enchanted Baked Potato", Material.BAKED_POTATO, ItemRarity.EPIC, true, PotatoBlueprintFamily.class),
     POTATO_SINGULARITY("Potato Singularity", Material.POTATO, ItemRarity.LEGENDARY, true, PotatoBlueprintFamily.class),
 
+    HOT_POTATO_BOOK("Hot Potato Book", Material.BOOK, ItemRarity.EPIC, HotPotatoBook.class),
+
     PREMIUM_BEETROOT("Premium Beetroot", Material.BEETROOT, ItemRarity.UNCOMMON, true, BeetrootBlueprintFamily.class),
     ENCHANTED_BEETROOT("Enchanted Beetroot", Material.BEETROOT, ItemRarity.RARE, true, BeetrootBlueprintFamily.class),
     BEETROOT_SINGULARITY("Beetroot Singularity", Material.BEETROOT, ItemRarity.EPIC, true, BeetrootBlueprintFamily.class),
@@ -1407,9 +1410,9 @@ public enum CustomItemType {
     ENCHANTED_JUNGLE_LOG("Enchanted Jungle Log", Material.JUNGLE_LOG, ItemRarity.RARE, true, JungleBlueprintFamily.class),
     JUNGLE_LOG_SINGULARITY("Jungle Log Singularity", Material.JUNGLE_LOG, ItemRarity.EPIC, true, JungleBlueprintFamily.class),
 
-    PREMIUM_DARK_OAK_LOG("Premium Jungle Log", Material.JUNGLE_LOG, ItemRarity.UNCOMMON, true, DarkOakBlueprintFamily.class),
-    ENCHANTED_DARK_OAK_LOG("Enchanted Jungle Log", Material.JUNGLE_LOG, ItemRarity.RARE, true, DarkOakBlueprintFamily.class),
-    DARK_OAK_LOG_SINGULARITY("Jungle Log Singularity", Material.JUNGLE_LOG, ItemRarity.EPIC, true, DarkOakBlueprintFamily.class),
+    PREMIUM_DARK_OAK_LOG("Premium Dark Oak Log", Material.DARK_OAK_LOG, ItemRarity.UNCOMMON, true, DarkOakBlueprintFamily.class),
+    ENCHANTED_DARK_OAK_LOG("Enchanted Dark Oak Log", Material.DARK_OAK_LOG, ItemRarity.RARE, true, DarkOakBlueprintFamily.class),
+    DARK_OAK_LOG_SINGULARITY("Dark Oak Log Singularity", Material.DARK_OAK_LOG, ItemRarity.EPIC, true, DarkOakBlueprintFamily.class),
 
     PREMIUM_ACACIA_LOG("Premium Acacia Log", Material.ACACIA_LOG, ItemRarity.UNCOMMON, true, AcaciaBlueprintFamily.class),
     ENCHANTED_ACACIA_LOG("Enchanted Acacia Log", Material.ACACIA_LOG, ItemRarity.RARE, true, AcaciaBlueprintFamily.class),

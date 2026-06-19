@@ -116,7 +116,7 @@ class ReforgeTableBlockEntityController(blockEntity: BlockEntity): BlockEntityCo
 
             if (table.currState == ReforgeTableAnimationState.HAMMER && table.clock == 15) {
                 Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable {
-                    table.tableLocation!!.world.playSound(table.tableLocation!!, Sound.BLOCK_ANVIL_PLACE, 1f, 2f)
+                    table.tableLocation!!.world.playSound(table.tableLocation!!, Sound.BLOCK_ANVIL_PLACE, 0.5f, 2f)
                     val particleLoc = table.tableLocation!!.clone()
                     particleLoc.x += 0.5
                     particleLoc.y += 0.85

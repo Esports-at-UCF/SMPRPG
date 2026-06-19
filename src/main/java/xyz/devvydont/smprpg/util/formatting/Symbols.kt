@@ -129,6 +129,7 @@ object Symbols {
     const val COOKING_POT_MENU: String = "\ub012"
     const val TOME_MENU: String = "\ub013"
     const val COOKING_POT_RECIPE_MENU: String = "\ub014"
+    const val ANVIL_MENU: String = "\ub015"
 
     const val ABILITY: String = "\uc001"
     const val PASSIVE: String = "\uc002"

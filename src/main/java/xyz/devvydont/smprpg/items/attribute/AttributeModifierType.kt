@@ -7,6 +7,7 @@ enum class AttributeModifierType {
     BASE,
     ENCHANTMENT,
     REFORGE,
+    AUGMENT
     ;
 
     val Key: NamespacedKey = NamespacedKey("smprpg", "modifier-" + name.lowercase(Locale.getDefault()))

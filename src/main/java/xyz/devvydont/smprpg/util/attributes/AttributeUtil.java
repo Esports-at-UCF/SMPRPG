@@ -9,6 +9,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeType;
@@ -16,9 +17,11 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment;
 import xyz.devvydont.smprpg.enchantments.base.AttributeEnchantment;
 import xyz.devvydont.smprpg.items.ItemRarity;
+import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeModifierType;
 import xyz.devvydont.smprpg.items.attribute.IAttributeContainer;
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.augment.HotPotatoBook;
 import xyz.devvydont.smprpg.items.interfaces.IAttributeItem;
 import xyz.devvydont.smprpg.reforge.ReforgeBase;
 import xyz.devvydont.smprpg.services.AttributeService;
@@ -184,6 +187,34 @@ public class AttributeUtil {
                 );
         }
 
+        // Then augments
+
+        // Hot potato books
+        int potatoBooks = item.getPersistentDataContainer().getOrDefault(HotPotatoBook.Companion.getHOT_POTATO_BOOK_KEY(), PersistentDataType.INTEGER, 0);
+        if (potatoBooks > 0) {
+            switch (blueprint.getItemClassification()) {
+                case HELMET, CHESTPLATE, LEGGINGS, BOOTS: {
+                    var defEntry = AttributeEntry.additive(AttributeWrapper.DEFENSE, HotPotatoBook.DEFENSE_BONUS * potatoBooks);
+                    var hpEntry = AttributeEntry.additive(AttributeWrapper.HEALTH, HotPotatoBook.HEALTH_BONUS * potatoBooks);
+                    modifiers.put(
+                            AttributeWrapper.DEFENSE,
+                            new SourcedAttributeModifier(defEntry.asModifier(AttributeModifierType.AUGMENT.keyForItem(nameKey), attributeItem.getActiveSlot()), AttributeModifierType.AUGMENT)
+                    );
+                    modifiers.put(
+                            AttributeWrapper.HEALTH,
+                            new SourcedAttributeModifier(hpEntry.asModifier(AttributeModifierType.AUGMENT.keyForItem(nameKey), attributeItem.getActiveSlot()), AttributeModifierType.AUGMENT)
+                    );
+                }
+                default: {
+                    var strEntry = AttributeEntry.additive(AttributeWrapper.STRENGTH, HotPotatoBook.STRENGTH_BONUS * potatoBooks);
+                    modifiers.put(
+                            AttributeWrapper.STRENGTH,
+                            new SourcedAttributeModifier(strEntry.asModifier(AttributeModifierType.AUGMENT.keyForItem(nameKey), attributeItem.getActiveSlot()), AttributeModifierType.AUGMENT)
+                    );
+                }
+            }
+        }
+
         return modifiers;
     }
 
@@ -248,6 +279,12 @@ public class AttributeUtil {
             var enchantResult = calculateAttributeBonus(modifiersForEnchant, 0);
             if (!enchantResult.empty())
                 line = line.append(formatBonus(NamedTextColor.LIGHT_PURPLE, enchantResult, displayOption));
+
+            // Augments only...
+            var modifiersForAugment = modifiersForAttribute.stream().filter(m -> m.getSource().equals(AttributeModifierType.AUGMENT)).toList();
+            var augmentResult = calculateAttributeBonus(modifiersForAugment, 0);
+            if (!augmentResult.empty())
+                line = line.append(formatBonus(NamedTextColor.DARK_GREEN, augmentResult, displayOption));
 
             // Done! Add the line :)
             lines.add(line);
