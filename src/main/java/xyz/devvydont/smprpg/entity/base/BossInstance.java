@@ -18,10 +18,8 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.Nullable;
 import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
@@ -34,7 +32,7 @@ import xyz.devvydont.smprpg.services.AttributeService;
 import xyz.devvydont.smprpg.services.ChatService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.formatting.MinecraftStringUtils;
-import xyz.devvydont.smprpg.util.scoreboard.SimpleGlobalScoreboard;
+import xyz.devvydont.smprpg.util.scoreboard.BossSidebar;
 
 import java.util.*;
 
@@ -49,8 +47,8 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
     // The bossbar attached to this boss to update whenever possible. It is possible this will be null.
     @Nullable protected BossBar bossBar = null;
 
-    // The scoreboard wrapper to make text display much easier.
-    private SimpleGlobalScoreboard scoreboard;
+    // The packet-driven sidebar shown to involved players. Players stay on the main scoreboard at all times.
+    private BossSidebar scoreboard;
 
     // The task that is responsible for the AI/decisions that the entity makes based on certain conditions and
     // scoreboard updates.
@@ -439,32 +437,6 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
         updateBaseAttribute(AttributeWrapper.ARMOR, 0);
     }
 
-    private Scoreboard cloneScoreboard() {
-        Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-        Scoreboard main = Bukkit.getScoreboardManager().getMainScoreboard();
-
-        // Copy all the teams over
-        for (Team team : main.getTeams()) {
-            Team newTeam = scoreboard.registerNewTeam(team.getName());
-            newTeam.prefix(team.prefix());
-            if (team.hasColor())
-                newTeam.color(NamedTextColor.nearestTo(team.color()));
-            newTeam.suffix(team.suffix());
-
-            for (String entry : team.getEntries())
-                newTeam.addEntry(entry);
-        }
-
-        // Dupe scoreboard properties to this one
-        for (Objective obj : main.getObjectives()) {
-            Objective newObjective = scoreboard.registerNewObjective(obj.getName(), obj.getTrackedCriteria(), obj.displayName());
-            newObjective.setDisplaySlot(obj.getDisplaySlot());
-            newObjective.setRenderType(obj.getRenderType());
-        }
-
-        return scoreboard;
-    }
-
     @Override
     public double getHalfHeartValue() {
         return Math.max(2, getMaxHp() / 300.0);
@@ -491,7 +463,7 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
         super.setup();
         cleanupBrainTickTask();
         cleanupScoreboard();
-        scoreboard = new SimpleGlobalScoreboard(cloneScoreboard(), getPowerComponent().append(ComponentUtils.SPACE).append(getNameComponent()));
+        scoreboard = new BossSidebar(getPowerComponent().append(ComponentUtils.SPACE).append(getNameComponent()));
         heal();
         bossBar = createBossBar();
         cleanupBrainTickTask();
@@ -603,6 +575,16 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
     }
 
     /*
+     * Respawning resets the client's scoreboard state, which would drop our packet-driven sidebar. Re-send it
+     * to any player who is still being shown this boss's sidebar.
+     */
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        if (scoreboard != null && scoreboard.showing(event.getPlayer()))
+            scoreboard.refresh(event.getPlayer());
+    }
+
+    /*
      * If a player has moved 200 blocks away from this entity, remove them from the involved players.
      */
     @EventHandler
@@ -644,6 +626,9 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
         activelyInvolvedPlayers.remove(event.getPlayer().getUniqueId());
         if (bossBar != null)
             bossBar.removeViewer(event.getPlayer());
+        // Drop them as a sidebar viewer so we don't try to send packets to an offline player.
+        if (scoreboard != null && scoreboard.showing(event.getPlayer()))
+            scoreboard.hide(event.getPlayer());
     }
 
     /**

@@ -82,10 +82,11 @@ public class BlazeBoss extends CustomBossInstance<Blaze> implements Listener {
         tick++;
 
         // Check on all the minions. If they are either too far or not alive, clear them
-        for (var entry : minions.entrySet()) {
+        for (var uuid : minions.keySet().stream().toList()) {
 
-            var uuid = entry.getKey();
-            var minion = entry.getValue();
+            var minion = minions.get(uuid);
+            if (minion == null)
+                continue;
 
             if (!minion.getEntity().isValid()) {
                 minions.remove(uuid);
