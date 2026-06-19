@@ -136,17 +136,17 @@ class IllagerWarlockSpellGoal(val slayer : IllagerWarlockParent, val spawnPlayer
                 val numPlayersVeryNearby = evoker.world.getNearbyPlayers(evoker.location, 8.0).size
                 val numPlayersNearby = evoker.world.getNearbyPlayers(evoker.location, 20.0).size
 
-                if (SpellType.TOSS in spells) {
-                    // Crowd control for toss spell
-                    // No need to crowd control if it's just one player nearby, just rely on regular weighted chance to toss.
-
-                    if (numPlayersVeryNearby != 1) {
-                        // If at least 60% of the actively involved players are right next to the boss, he needs to yeet them away
-                        if (numPlayersVeryNearby >= slayer.activelyInvolvedPlayers.size * 0.6) {
-                            nextSpell = SpellType.TOSS
-                        }
-                    }
-                }
+                //if (SpellType.TOSS in spells) {
+                //    // Crowd control for toss spell
+                //    // No need to crowd control if it's just one player nearby, just rely on regular weighted chance to toss.
+//
+                //    if (numPlayersVeryNearby != 1) {
+                //        // If at least 60% of the actively involved players are right next to the boss, he needs to yeet them away
+                //        if (numPlayersVeryNearby >= slayer.activelyInvolvedPlayers.size * 0.6) {
+                //            nextSpell = SpellType.TOSS
+                //        }
+                //    }
+                //}
 
                 if (nextSpell == SpellType.TELEPORT) {
                     // Nobody in a 20 block radius? Force them to us.
