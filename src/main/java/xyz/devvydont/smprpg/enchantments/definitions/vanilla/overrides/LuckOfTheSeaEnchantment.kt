@@ -6,6 +6,7 @@ import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
+import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
@@ -13,6 +14,8 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.base.AttributeEnchantment
 import xyz.devvydont.smprpg.enchantments.definitions.vanilla.VanillaEnchantment
+import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
+import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeModifierType
@@ -45,6 +48,49 @@ class LuckOfTheSeaEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(k
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.FISHING_RATING, getRatingIncrease(level).toDouble())
         )
+    }
+
+    override fun getRecipe(level: Int): EnchantmentRecipe? {
+        when (level) {
+            1 -> {
+                val essence = getIngredientStack(CustomItemType.COMMON_FISH_ESSENCE, 16)
+                val nautilus = getIngredientStack(Material.NAUTILUS_SHELL, 2)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 0, essence, nautilus, lapis)
+            }
+
+            2 -> {
+                val essence = getIngredientStack(CustomItemType.UNCOMMON_FISH_ESSENCE, 16)
+                val nautilus = getIngredientStack(Material.NAUTILUS_SHELL, 4)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 20, essence, nautilus, lapis)
+            }
+
+            3 -> {
+                val essence = getIngredientStack(CustomItemType.RARE_FISH_ESSENCE, 16)
+                val crystals = getIngredientStack(Material.PRISMARINE_CRYSTALS, 16)
+                val heart = getIngredientStack(Material.HEART_OF_THE_SEA, 1)
+                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 40, essence, crystals, heart, lapis)
+            }
+
+            4 -> {
+                val essence = getIngredientStack(CustomItemType.EPIC_FISH_ESSENCE, 16)
+                val nautilus = getIngredientStack(Material.NAUTILUS_SHELL, 8)
+                val heart = getIngredientStack(Material.HEART_OF_THE_SEA, 2)
+                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 60, essence, nautilus, heart, lapis)
+            }
+
+            5 -> {
+                val essence = getIngredientStack(CustomItemType.LEGENDARY_FISH_ESSENCE, 16)
+                val caviar = getIngredientStack(CustomItemType.CAVIAR, 4)
+                val heart = getIngredientStack(Material.HEART_OF_THE_SEA, 4)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 80, essence, caviar, heart, lapis)
+            }
+            else -> return null
+        }
     }
 
     companion object {

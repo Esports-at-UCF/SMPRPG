@@ -25,6 +25,8 @@ import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.ScrollColor
+import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
+import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.skills.listeners.FarmingExperienceListener
@@ -58,6 +60,20 @@ class ReplenishingBlessing(id: String) : CustomEnchantment(id), Listener {
             EnchantmentService.TELEKINESIS_BLESSING.typedKey,
             EnchantmentService.VOIDSTRIDING_BLESSING.typedKey
         )
+
+    override fun getRecipe(level: Int): EnchantmentRecipe? {
+        when (level) {
+            1 -> {
+                val wheat = getIngredientStack(CustomItemType.PREMIUM_HAY_BLOCK, 1)
+                val potato = getIngredientStack(CustomItemType.ENCHANTED_POTATO, 1)
+                val carrot = getIngredientStack(CustomItemType.ENCHANTED_CARROT, 1)
+                val bone = getIngredientStack(Material.BONE_BLOCK, 64)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 30, wheat, potato, carrot, bone, lapis)
+            }
+            else -> return null
+        }
+    }
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     fun onBreakBlock(event: BlockBreakEvent) {

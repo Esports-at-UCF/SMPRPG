@@ -9,6 +9,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Color
+import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -20,7 +21,9 @@ import xyz.devvydont.smprpg.ability.AbilityCost
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.ScrollColor
+import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
 import xyz.devvydont.smprpg.events.abilities.AbilityCastEvent
+import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -52,6 +55,51 @@ class IgnoranceBlessing(id: String) : CustomEnchantment(id), Listener {
             EnchantmentService.REPLENISHING.typedKey,
             EnchantmentService.TELEKINESIS_BLESSING.typedKey
         )
+
+    override fun getRecipe(level: Int): EnchantmentRecipe? {
+        when (level) {
+            1 -> {
+                val powder = getIngredientStack(CustomItemType.PREMIUM_SPELL_POWDER, 16)
+                val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 1)
+                val cloth = getIngredientStack(CustomItemType.SPELLBOUND_CLOTH, 2)
+                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 25, powder, amethyst, cloth, lapis)
+            }
+
+            2 -> {
+                val powder = getIngredientStack(CustomItemType.PREMIUM_SPELL_POWDER, 64)
+                val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 4)
+                val cloth = getIngredientStack(CustomItemType.SPELLBOUND_CLOTH, 4)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 40, powder, amethyst, cloth, lapis)
+            }
+
+            3 -> {
+                val powder = getIngredientStack(CustomItemType.ENCHANTED_SPELL_POWDER, 16)
+                val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 16)
+                val pearl = getIngredientStack(CustomItemType.PREMIUM_ENDER_PEARL, 16)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 55, powder, amethyst, pearl, lapis)
+            }
+
+            4 -> {
+                val powder = getIngredientStack(CustomItemType.ENCHANTED_SPELL_POWDER, 64)
+                val amethyst = getIngredientStack(CustomItemType.AMETHYST_SINGULARITY, 2)
+                val pearl = getIngredientStack(CustomItemType.ENCHANTED_ENDER_PEARL, 16)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 32)
+                return EnchantmentRecipe(getRecipeKey(level), 70, powder, amethyst, pearl, lapis)
+            }
+
+            5 -> {
+                val powder = getIngredientStack(CustomItemType.SPELL_POWDER_SINGULARITY, 2)
+                val amethyst = getIngredientStack(CustomItemType.AMETHYST_SINGULARITY, 8)
+                val pearl = getIngredientStack(CustomItemType.ENCHANTED_ENDER_PEARL, 64)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS_BLOCK, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 85, powder, amethyst, pearl, lapis)
+            }
+            else -> return null
+        }
+    }
 
     @EventHandler
     private fun onAbilityCast(event: AbilityCastEvent) {
