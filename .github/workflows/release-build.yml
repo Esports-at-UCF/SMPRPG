@@ -27,10 +27,14 @@ jobs:
         env:
           RELEASE_TAG: ${{ github.ref_name }}
 
-      - name: Upload plugin jar to release
+      - name: Package server data
+        run: zip -r server-data.zip resourcepack run
+
+      - name: Upload plugin jar and server data to release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             ./build/libs/*.jar
+            ./server-data.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
