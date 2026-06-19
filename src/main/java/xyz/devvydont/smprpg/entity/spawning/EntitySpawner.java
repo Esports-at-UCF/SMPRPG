@@ -320,10 +320,9 @@ public class EntitySpawner extends CustomEntityInstance<Entity> implements Liste
     private static final float UPRIGHT_PITCH = 0f;
 
     private void orientUpright(ItemDisplay display) {
-        Location location = display.getLocation();
-        location.setYaw(UPRIGHT_YAW);
-        location.setPitch(UPRIGHT_PITCH);
-        display.teleport(location);
+        // Only adjust rotation; a full teleport re-applies position and is refused by the server while
+        // the entity is still being added to the world (processing a section status update).
+        display.setRotation(UPRIGHT_YAW, UPRIGHT_PITCH);
     }
 
     @Override
