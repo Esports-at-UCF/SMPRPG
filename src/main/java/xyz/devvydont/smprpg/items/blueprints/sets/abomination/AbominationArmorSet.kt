@@ -33,25 +33,25 @@ abstract class AbominationArmorSet(itemService: ItemService, type: CustomItemTyp
             0
         )!!
         if (numKills >= 25000) {
-            return 0.2
+            return 0.50
         } else if (numKills >= 15000) {
-            return 0.18
+            return 0.45
         } else if (numKills >= 10000) {
-            return 0.16
+            return 0.40
         } else if (numKills >= 5000) {
-            return 0.14
+            return 0.35
         } else if (numKills >= 2500) {
-            return 0.12
+            return 0.30
         } else if (numKills >= 1500) {
-            return 0.1
+            return 0.25
         } else if (numKills >= 1000) {
-            return 0.08
+            return 0.20
         } else if (numKills >= 500) {
-            return 0.06
+            return 0.15
         } else if (numKills >= 250) {
-            return 0.04
+            return 0.1
         } else if (numKills >= 100) {
-            return 0.02
+            return 0.05
         } else {
             return 0.0
         }
@@ -117,7 +117,7 @@ abstract class AbominationArmorSet(itemService: ItemService, type: CustomItemTyp
             ),
             ComponentUtils.merge(
                 ComponentUtils.create("Gains "),
-                ComponentUtils.create("+2% Strength", NamedTextColor.RED),
+                ComponentUtils.create("+5% Strength", NamedTextColor.RED),
                 ComponentUtils.create(" for every kill milestone reached.")
             ),
             killComp
