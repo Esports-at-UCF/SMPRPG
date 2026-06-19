@@ -9,10 +9,12 @@ import com.destroystokyo.paper.ParticleBuilder
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.Keyed
+import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.Tag
 import org.bukkit.block.Block
+import org.bukkit.block.data.Waterlogged
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.util.Vector
@@ -139,7 +141,7 @@ class BlockDamage {
                 }
 
                 var tickInc = 1.0
-                if (player.isUnderWater) tickInc *= instance.getOrCreateAttribute(
+                if (isEyesInWater(player)) tickInc *= instance.getOrCreateAttribute(
                     player,
                     AttributeWrapper.UNDERWATER_MINING
                 ).getValue()
@@ -154,6 +156,21 @@ class BlockDamage {
         }, 0L, 1L)
 
         scheduleId.put(player.uniqueId, ScheduleTask(taskId, originalBlock))
+    }
+
+    /**
+     * Determines whether the player's eyes are submerged in water, mirroring vanilla's underwater mining
+     * penalty which only applies when the eye line is in a water fluid. This intentionally checks the eye
+     * location rather than the player's feet/body, so a player merely standing in shallow water is not
+     * penalized.
+     */
+    private fun isEyesInWater(player: Player): Boolean {
+        val eyeBlock = player.eyeLocation.block
+        if (eyeBlock.type == Material.WATER || eyeBlock.type == Material.BUBBLE_COLUMN)
+            return true
+
+        val data = eyeBlock.blockData
+        return data is Waterlogged && data.isWaterlogged
     }
 
     private fun getBreakingTime(player: Player, block: Block): Double {
