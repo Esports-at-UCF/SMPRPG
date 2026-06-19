@@ -11,12 +11,17 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
+import org.bukkit.Sound
 import org.bukkit.enchantments.Enchantment
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
+import xyz.devvydont.smprpg.gui.enchantments.EnchantmentSubMenu
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.ItemRarity
@@ -34,7 +39,7 @@ import xyz.devvydont.smprpg.util.persistence.KeyStore
 import java.util.function.Consumer
 
 class DynamicEnchantingScroll(itemService: ItemService, type: CustomItemType) :
-    CustomItemBlueprint(itemService, type), IHeaderDescribable, IFooterDescribable, ISellable, IModelOverridden {
+    CustomItemBlueprint(itemService, type), IHeaderDescribable, IFooterDescribable, ISellable, IModelOverridden, Listener {
     /**
      * Determine what type of item this is.
      */
@@ -188,12 +193,56 @@ class DynamicEnchantingScroll(itemService: ItemService, type: CustomItemType) :
             ComponentUtils.create("Applies to: ", NamedTextColor.GOLD),
             comp
         )
-        return listOf(
+        val footer = mutableListOf(
             customEnch.description,
             ComponentUtils.create("(Values for level 1 enchantment shown.)", NamedTextColor.DARK_GRAY),
             ComponentUtils.EMPTY,
             applicationComp
         )
+
+        // If this enchantment has application recipes defined, hint that the reagents can be viewed.
+        if (hasApplicationRecipes(customEnch)) {
+            footer.add(ComponentUtils.EMPTY)
+            footer.add(ComponentUtils.create("Right click while holding to view", NamedTextColor.YELLOW))
+            footer.add(ComponentUtils.create("required reagents to apply!", NamedTextColor.YELLOW))
+        }
+
+        return footer
+    }
+
+    /**
+     * Determines whether the enchantment this scroll holds has any application recipe defined across its levels.
+     * Some enchantments have no recipes, in which case there are no reagents to display.
+     *
+     * @param enchant The enchantment to check.
+     * @return True if at least one level has a recipe defined, otherwise false.
+     */
+    private fun hasApplicationRecipes(enchant: CustomEnchantment): Boolean {
+        for (level in 1..enchant.maxLevel)
+            if (enchant.getRecipe(level) != null) return true
+        return false
+    }
+
+    /**
+     * Opens the recipe viewer for the scroll's enchantment when it is right clicked while held, provided that the
+     * enchantment actually has application recipes defined.
+     */
+    @EventHandler
+    fun onInteract(event: PlayerInteractEvent) {
+        if (!event.action.isRightClick) return
+
+        val item = event.item ?: return
+        if (!isItemOfType(item)) return
+
+        val stored = item.getData(DataComponentTypes.STORED_ENCHANTMENTS) ?: return
+        val enchant = stored.enchantments().keys.firstOrNull() ?: return
+        val customEnch = SMPRPG.getService(EnchantmentService::class.java).getEnchantment(enchant) ?: return
+
+        if (!hasApplicationRecipes(customEnch)) return
+
+        event.isCancelled = true
+        event.player.playSound(event.player.location, Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1f, 1f)
+        EnchantmentSubMenu(event.player, null, customEnch).openMenu()
     }
 
     companion object {

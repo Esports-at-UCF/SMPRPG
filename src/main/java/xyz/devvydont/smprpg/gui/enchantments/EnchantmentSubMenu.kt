@@ -1,9 +1,9 @@
 package xyz.devvydont.smprpg.gui.enchantments
 
+import io.papermc.paper.datacomponent.DataComponentTypes
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.GameMode
-import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -13,13 +13,11 @@ import org.bukkit.inventory.meta.ItemMeta
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.gui.base.MenuBase
-import xyz.devvydont.smprpg.gui.base.MenuButtonClickHandler
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
-import java.util.List
 import java.util.function.Consumer
 
 /*
@@ -31,10 +29,11 @@ class EnchantmentSubMenu(
     private val enchantment: CustomEnchantment
 ) : MenuBase(player, ROWS, parentMenu) {
     fun createEnchantmentButton(level: Int): ItemStack {
-        val item = createNamedItem(
-            Material.ENCHANTED_BOOK,
-            enchantment.enchantment.displayName(level).color(enchantment.enchantColor)
-        )
+        // Display the actual scroll for this enchantment instead of a generic enchanted book, and set the stack
+        // size to the enchantment level so the requirements for each tier can be told apart at a glance.
+        val item = DynamicEnchantingScroll.getScrollWithEnchantment(enchantment)
+        item.amount = level
+        renameItem(item, enchantment.enchantment.displayName(level).color(enchantment.enchantColor))
         val magicLvl = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player).magicSkill.level
         val recipe = enchantment.getRecipe(level)
         val isUnlocked = if (recipe != null) magicLvl >= recipe.power else false
@@ -53,6 +52,7 @@ class EnchantmentSubMenu(
                 if (isUnlocked) NamedTextColor.LIGHT_PURPLE else NamedTextColor.DARK_RED
             )
         )
+        item.setData(DataComponentTypes.MAX_STACK_SIZE, 64)
         item.editMeta(Consumer { meta: ItemMeta ->
             val comps = mutableListOf<Component>()
             comps.add(enchantment.build(level).description)
@@ -110,6 +110,7 @@ class EnchantmentSubMenu(
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
         event.titleOverride(enchantment.displayName)
+        event.inventory.maxStackSize = 64
         this.setBorderFull()
 
         // Populate slots with the levels of the enchantment.
@@ -120,7 +121,7 @@ class EnchantmentSubMenu(
         ) { e: InventoryClickEvent ->
             val player = e.whoClicked as Player
             if (player.gameMode == GameMode.CREATIVE) {
-                if (e.isShiftClick && e.isLeftClick) {
+                if (e.isShiftClick) {
                     this.playSound(Sound.ENTITY_ITEM_PICKUP, 1f, .5f)
                     this.playSound(Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1f, 2f)
                     val item = DynamicEnchantingScroll.getScrollWithEnchantment(enchantment)
@@ -130,10 +131,7 @@ class EnchantmentSubMenu(
             }
         }
 
-        this.setButton(
-            (ROWS - 1) * 9 + 4,
-            BUTTON_BACK
-        ) { e: InventoryClickEvent -> this.openParentMenu() }
+        this.setBackButton((ROWS - 1) * 9 + 4)
     }
 
     companion object {

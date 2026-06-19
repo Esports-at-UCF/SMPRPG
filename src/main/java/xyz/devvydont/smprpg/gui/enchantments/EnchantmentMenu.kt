@@ -309,7 +309,7 @@ class EnchantmentMenu : MenuBase {
                 playSound(Sound.BLOCK_ENCHANTMENT_TABLE_USE)
                 val player = e.whoClicked as Player
                 if (player.gameMode == GameMode.CREATIVE) {
-                    if (e.isShiftClick && e.isLeftClick) {
+                    if (e.isShiftClick) {
                         this.playSound(Sound.ENTITY_ITEM_PICKUP, 1f, .5f)
                         this.playSound(Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1f, 2f)
                         val item = DynamicEnchantingScroll.getScrollWithEnchantment(enchantment)
