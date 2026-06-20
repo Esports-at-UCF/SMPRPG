@@ -44,6 +44,7 @@ class VanillaCompressibleBlueprint(itemService: ItemService, material: Material)
             // Mining — single-vanilla-base items
             Material.COBBLESTONE -> CompressionStep(itemService.getBlueprint(CustomItemType.COMPRESSED_COBBLESTONE) as ICompressible, 9, 1)
             Material.COBBLED_DEEPSLATE -> CompressionStep(itemService.getBlueprint(CustomItemType.COMPRESSED_DEEPSLATE) as ICompressible, 9, 1)
+            Material.DIRT -> CompressionStep(itemService.getBlueprint(CustomItemType.COMPRESSED_DIRT) as ICompressible, 9, 1)
             Material.FLINT -> CompressionStep(itemService.getBlueprint(CustomItemType.COMPRESSED_FLINT) as ICompressible, 9, 1)
             Material.OBSIDIAN -> CompressionStep(itemService.getBlueprint(CustomItemType.COMPRESSED_OBSIDIAN) as ICompressible, 9, 1)
             Material.CHARCOAL -> CompressionStep(itemService.getBlueprint(CustomItemType.COMPRESSED_CHARCOAL) as ICompressible, 9, 1)

@@ -319,5 +319,38 @@ class FarmingExperienceListener : Listener {
                 else -> -1
             }
         }
+
+        fun getVanillaCropMaxAge(type: Material) : Int {
+            return when (type) {
+                Material.WHEAT -> 7
+                Material.CARROTS -> 7
+                Material.POTATOES -> 7
+                Material.BEETROOTS -> 3
+                Material.NETHER_WART -> 3
+                Material.COCOA -> 2
+                Material.SWEET_BERRY_BUSH -> 3
+                Material.MELON_STEM -> 7
+                Material.PUMPKIN_STEM -> 7
+                Material.CAVE_VINES_PLANT -> 25
+                Material.KELP_PLANT -> 25
+                Material.CHORUS_FLOWER -> 5
+                Material.TORCHFLOWER_CROP -> 1
+                Material.PITCHER_CROP -> 1
+                Material.SUGAR_CANE -> 9
+                Material.CACTUS -> 9
+
+                Material.OAK_SAPLING -> 1
+                Material.SPRUCE_SAPLING -> 1
+                Material.BIRCH_SAPLING -> 1
+                Material.JUNGLE_SAPLING -> 1
+                Material.DARK_OAK_SAPLING -> 1
+                Material.ACACIA_SAPLING -> 1
+                Material.MANGROVE_PROPAGULE -> 4
+                Material.CHERRY_SAPLING -> 1
+                Material.PALE_OAK_SAPLING -> 1
+                Material.BAMBOO -> 1
+                else -> 1
+            }
+        }
     }
 }

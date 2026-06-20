@@ -4,13 +4,20 @@ import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
 import net.minecraft.world.level.block.*
+import net.minecraft.world.level.block.state.BlockState
+import net.momirealms.craftengine.bukkit.api.BukkitAdaptor
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitBlockBehavior
 import net.momirealms.craftengine.bukkit.util.LocationUtils
 import net.momirealms.craftengine.core.block.BlockDefinition
+import net.momirealms.craftengine.core.block.UpdateFlags
 import net.momirealms.craftengine.core.block.behavior.BlockBehavior
 import net.momirealms.craftengine.core.block.behavior.BlockBehaviorFactory
+import net.momirealms.craftengine.core.block.property.IntegerProperty
 import net.momirealms.craftengine.core.plugin.config.ConfigSection
+import org.bukkit.block.BlockFace
+import xyz.devvydont.smprpg.skills.listeners.FarmingExperienceListener
+import kotlin.math.min
 import kotlin.random.Random
 
 class TickAcceleratorBlockBehavior(blockDefinition: BlockDefinition,
@@ -34,30 +41,36 @@ class TickAcceleratorBlockBehavior(blockDefinition: BlockDefinition,
         if (Random.nextFloat() <= chanceDupe)
             numTicks += 1
 
+        if (numTicks == 0) { return }
+
         when (mode) {
             "any", "all" -> { blockState.randomTick(level, blockAbovePos, RandomSource.create()) }
             "crop" -> {
-                if (CraftEngineBlocks.isCustomBlock(bukkitBlock)) {
-                    val ceBlockState = CraftEngineBlocks.getCustomBlockState(bukkitBlock) ?: return
-                    val properties = ceBlockState.propertyEntries().keys
-                    val propertyNames = mutableListOf<String>()
-                    for (property in properties)
-                        propertyNames.add(property.name())
-                    // Little hacky, but we can't check composite behaviors yet.
-                    if (propertyNames.contains("age") || propertyNames.contains("stage")) {
-                        for (i in 1..numTicks) {
-                            blockState.randomTick(level, blockAbovePos, RandomSource.create())
-                            return
-                        }
-                    }
+                // For crops, our "chance" field becomes an extra growth stage tick.
+                val ceBlock = BukkitAdaptor.adapt(bukkitBlock)
+                if (ceBlock.isCustom) {
+                    val ceBlockState = ceBlock.customBlockState() ?: return
+                    var propertyToCheck = "age"
+                    if (ceBlockState.customBlockState().hasProperty("age")) { propertyToCheck = "age" }
+                    else if (ceBlockState.customBlockState().hasProperty("stage")) { propertyToCheck = "stage"}
+                    else { return }
+
+                    val ageProperty = ceBlockState.customBlockState().getProperty(propertyToCheck) as IntegerProperty
+                    ceBlock.customBlockState()!!.setCustomBlockState(ceBlockState.customBlockState().withProperty(propertyToCheck, min(ceBlockState.get<Int>(ageProperty) + numTicks, ageProperty.max).toString()))
                 }
-                if (block is CropBlock || block is SugarCaneBlock || block is VegetationBlock ||
-                    block is GrowingPlantBodyBlock || block is ChorusFlowerBlock || block is BambooStalkBlock) {
-                    for (i in 1..numTicks) {
-                        blockState.randomTick(level, blockAbovePos, RandomSource.create())
-                        return
-                    }
-                    return
+                else {
+                    val ceBlockState = ceBlock.blockState()
+                    var propertyToCheck = "age"
+                    if (ceBlockState.hasProperty("age")) { propertyToCheck = "age" }
+                    else if (ceBlockState.hasProperty("stage")) { propertyToCheck = "stage"}
+                    else { return }
+
+                    val currAge = ceBlockState.getProperty<Int>(propertyToCheck)
+                    ceBlock.world().setBlockState(ceBlock.x(), ceBlock.y(), ceBlock.z(),
+                        ceBlock.blockState().withProperty(propertyToCheck,
+                            min(currAge + numTicks, FarmingExperienceListener.getVanillaCropMaxAge(bukkitBlock.type)).toString()),
+                        UpdateFlags.UPDATE_ALL)
+
                 }
             }
         }

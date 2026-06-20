@@ -282,6 +282,7 @@ class ItemService : IService, Listener {
         // Mining — single vanilla base items
         registerVanillaMaterialResolver(Material.COBBLESTONE, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.COBBLED_DEEPSLATE, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.DIRT, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.FLINT, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.OBSIDIAN, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.CHARCOAL, VanillaCompressibleBlueprint::class.java)

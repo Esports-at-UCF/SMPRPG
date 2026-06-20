@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.items;
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.augment.HotPotatoBook;
+import xyz.devvydont.smprpg.items.blueprints.block.SuperSoil;
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.block.interactable.ReforgeTable;
 import xyz.devvydont.smprpg.items.blueprints.block.runes.*;
@@ -110,10 +111,10 @@ import xyz.devvydont.smprpg.items.blueprints.sets.mystic.LuxeBoots;
 import xyz.devvydont.smprpg.items.blueprints.sets.mystic.LuxeChestplate;
 import xyz.devvydont.smprpg.items.blueprints.sets.mystic.LuxeHelmet;
 import xyz.devvydont.smprpg.items.blueprints.sets.mystic.LuxeLeggings;
-import xyz.devvydont.smprpg.items.blueprints.sets.neofrontier.NeoFrontierBoots;
-import xyz.devvydont.smprpg.items.blueprints.sets.neofrontier.NeoFrontierChestplate;
-import xyz.devvydont.smprpg.items.blueprints.sets.neofrontier.NeoFrontierHelmet;
-import xyz.devvydont.smprpg.items.blueprints.sets.neofrontier.NeoFrontierLeggings;
+import xyz.devvydont.smprpg.items.blueprints.sets.cultivator.CultivatorBoots;
+import xyz.devvydont.smprpg.items.blueprints.sets.cultivator.CultivatorChestplate;
+import xyz.devvydont.smprpg.items.blueprints.sets.cultivator.CultivatorHelmet;
+import xyz.devvydont.smprpg.items.blueprints.sets.cultivator.CultivatorLeggings;
 import xyz.devvydont.smprpg.items.blueprints.sets.neptune.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.netherite.NetheriteBow;
 import xyz.devvydont.smprpg.items.blueprints.sets.netherite.NetheriteHatchet;
@@ -198,12 +199,6 @@ public enum CustomItemType {
     LARGE_COIN_PURSE("Large Coin Purse", Material.LEATHER, ItemRarity.RARE, WalletBlueprint.class),
     GIGANTIC_COIN_PURSE("Gigantic Coin Purse", Material.LEATHER, ItemRarity.EPIC, WalletBlueprint.class),
     COLOSSAL_COIN_PURSE("Colossal Coin Purse", Material.LEATHER, ItemRarity.LEGENDARY, WalletBlueprint.class),
-
-    // NEO_FRONTIER SET
-    NEO_FRONTIER_HELMET("Neo Frontier Helmet",         Material.IRON_HELMET,        NeoFrontierHelmet.class),
-    NEO_FRONTIER_CHESTPLATE("Neo Frontier Chestplate", Material.LEATHER_CHESTPLATE, NeoFrontierChestplate.class),
-    NEO_FRONTIER_LEGGINGS("Neo Frontier Leggings",     Material.IRON_LEGGINGS,      NeoFrontierLeggings.class),
-    NEO_FRONTIER_BOOTS("Neo Frontier Boots",           Material.LEATHER_BOOTS,      NeoFrontierBoots.class),
 
     // DYNAMIC TOOLS
     // DRILL("Mining Drill", Material.PRISMARINE_SHARD, ItemDrill.class),
@@ -637,6 +632,12 @@ public enum CustomItemType {
     BEDROCK_LEGGINGS("Bedrock Leggings",     Material.NETHERITE_LEGGINGS, ItemRarity.EPIC, BedrockLeggings.class),
     BEDROCK_BOOTS("Bedrock Boots",           Material.LEATHER_BOOTS,      ItemRarity.EPIC, BedrockBoots.class),
 
+    // CULTIVATOR SET
+    CULTIVATOR_HAT("Cultivator Hat",               Material.LEATHER_HELMET,     ItemRarity.RARE, CultivatorHelmet.class),
+    CULTIVATOR_SHIRT("Cultivator Shirt",           Material.LEATHER_CHESTPLATE, ItemRarity.RARE, CultivatorChestplate.class),
+    CULTIVATOR_OVERALLS("Cultivator Overalls",     Material.LEATHER_LEGGINGS,   ItemRarity.RARE, CultivatorLeggings.class),
+    CULTIVATOR_BOOTS("Cultivator Boots",           Material.LEATHER_BOOTS,      ItemRarity.RARE, CultivatorBoots.class),
+
     // FORSAKEN
     FORSAKEN_HELMET(    "Forsaken Helmet",     Material.NETHERITE_HELMET,    ItemRarity.LEGENDARY, ForsakenHelmet.class),
     FORSAKEN_CHESTPLATE("Forsaken Chestplate", Material.LEATHER_CHESTPLATE,  ItemRarity.LEGENDARY, ForsakenChestplate.class),
@@ -1026,6 +1027,7 @@ public enum CustomItemType {
     RICE_PANICLE("Rice Pannicle", Material.WHEAT, ItemRarity.COMMON, false, 5, "materials"),
     HEARTBEET("Heartbeet", Material.BEETROOT, ItemRarity.UNCOMMON, Heartbeet.class),
     STRAW("Straw", Material.WHEAT, ItemRarity.COMMON, CraftEngineBlueprint.class),
+    SUPER_SOIL("Super Soil", Material.NETHER_BRICK, ItemRarity.UNCOMMON, SuperSoil.class),
 
     // FOOD
     STALE_BREAD("Stale Bread", Material.BREAD, ItemRarity.COMMON, StaleBread.class),
@@ -1152,6 +1154,12 @@ public enum CustomItemType {
     DOUBLE_COMPRESSED_DEEPSLATE( "Double Compressed Deepslate",  Material.COBBLED_DEEPSLATE, ItemRarity.UNCOMMON,      true, DeepslateFamilyBlueprint.class),
     ENCHANTED_DEEPSLATE(  "Enchanted Deepslate",                 Material.COBBLED_DEEPSLATE, ItemRarity.UNCOMMON,      true, DeepslateFamilyBlueprint.class),
     DEEPSLATE_SINGULARITY("Deepslate Singularity",               Material.BEDROCK,           ItemRarity.RARE, true, DeepslateFamilyBlueprint.class),
+
+    // Dirt
+    COMPRESSED_DIRT("Compressed Dirt", Material.DIRT, ItemRarity.COMMON, true, DirtFamilyBlueprint.class),
+    DOUBLE_COMPRESSED_DIRT("Double Compressed Dirt", Material.DIRT, ItemRarity.UNCOMMON, true, DirtFamilyBlueprint.class),
+    ENCHANTED_DIRT("Enchanted Dirt", Material.DIRT, ItemRarity.UNCOMMON, true, DirtFamilyBlueprint.class),
+    DIRT_SINGULARITY("Dirt Singularity", Material.PACKED_MUD, ItemRarity.RARE, true, DirtFamilyBlueprint.class),
 
     COMPRESSED_OBSIDIAN("Compressed Obsidian", Material.OBSIDIAN, ItemRarity.UNCOMMON, true, ObsidianFamilyBlueprint.class),
     ENCHANTED_OBSIDIAN("Enchanted Obsidian", Material.OBSIDIAN, ItemRarity.RARE, true, ObsidianFamilyBlueprint.class),

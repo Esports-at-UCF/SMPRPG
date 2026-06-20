@@ -1,0 +1,63 @@
+package xyz.devvydont.smprpg.items.blueprints.block
+
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Material
+import org.bukkit.NamespacedKey
+import org.bukkit.inventory.CraftingRecipe
+import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.ShapedRecipe
+import org.bukkit.inventory.recipe.CraftingBookCategory
+import xyz.devvydont.smprpg.items.CustomItemType
+import xyz.devvydont.smprpg.items.ItemClassification
+import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
+import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable
+import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.util.formatting.ComponentUtils
+
+class SuperSoil(itemService: ItemService, type: CustomItemType) : CraftEngineBlueprint(itemService, type),
+    ICraftable, IHeaderDescribable {
+
+    override val itemClassification: ItemClassification get() = ItemClassification.BLOCK
+
+    override fun getRecipeKey(): NamespacedKey {
+        return ICraftable.getDefaultRecipeKey(customItemType)
+    }
+
+    override fun getCustomRecipe(): CraftingRecipe {
+        val recipe = ShapedRecipe(recipeKey, generate())
+        recipe.shape(
+            "bfb",
+            "fdf",
+            "bfb"
+        )
+        recipe.setIngredient('b', itemService.getCustomItem(CustomItemType.PREMIUM_BONE))
+        recipe.setIngredient('f', itemService.getCustomItem(CustomItemType.PREMIUM_FLESH))
+        recipe.setIngredient('d', itemService.getCustomItem(CustomItemType.COMPRESSED_DIRT))
+        recipe.setCategory(CraftingBookCategory.MISC)
+        return recipe
+    }
+
+    override fun unlockedBy(): Collection<ItemStack> {
+        return mutableListOf(
+            itemService.getCustomItem(CustomItemType.COMPRESSED_DIRT)
+        )
+    }
+
+    override fun getHeader(itemStack: ItemStack): List<Component> {
+        return listOf(
+            ComponentUtils.create("Increases growth speed of crops"),
+            ComponentUtils.merge(
+                ComponentUtils.create("planted on this soil by "),
+                ComponentUtils.create("25%", NamedTextColor.GREEN)
+            ),
+            ComponentUtils.EMPTY,
+            ComponentUtils.merge(
+                ComponentUtils.create("Doesn't require "),
+                ComponentUtils.create("water", NamedTextColor.BLUE),
+                ComponentUtils.create(", and comes pre-tilled!")
+            )
+        )
+    }
+}

@@ -113,6 +113,8 @@ items:
 
 blocks:
   smprpg:super_soil:
+    loot:
+      template: smprpg:loot_table/self
     state:
       auto-state: solid
       model:
@@ -133,9 +135,16 @@ blocks:
         - minecraft:big_dripleaf_placeable
         - minecraft:grows_crops
         - minecraft:supports_crops
+        - minecraft:supports_melon_stem
+        - minecraft:supports_melon_stem_fruit
+        - minecraft:supports_pumpkin_stem_fruit
+        - minecraft:supports_pumpkin_stem_fruit
+        - smprpg:supports_onions
+        - smprpg:supports_tomatoes
+        - smprpg:supports_cabbage
     behavior:
       type: smprpg:tick_accelerator
-      chance: 1.0
+      chance: 0.25
       mode: crop
   smprpg:apple_crop:
     state:
