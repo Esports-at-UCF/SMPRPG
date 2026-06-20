@@ -59,7 +59,7 @@ class ProtectionEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key
         when (level) {
             1 -> {
                 val iron = getIngredientStack(Material.IRON_INGOT, 5)
-                val titanium = getIngredientStack(CustomItemType.TITANIUM_INGOT, 2)
+                val titanium = getIngredientStack(CustomItemType.STEEL_INGOT, 2)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 8)
                 return EnchantmentRecipe(getRecipeKey(level), 0, iron, titanium, lapis)
             }
