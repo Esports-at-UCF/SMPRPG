@@ -252,7 +252,7 @@ public enum CustomItemType {
     ENCHANTED_RAW_TIN("Enchanted Raw Tin",  Material.RAW_IRON,         ItemRarity.RARE,   true, RawTinFamilyBlueprint.class),
 
     TIN_INGOT("Tin Ingot",                 Material.NETHER_BRICK,     ItemRarity.COMMON, TinIngot.class),
-    TIN_BLOCK("Block of Tin",              Material.NETHER_BRICK,        ItemRarity.UNCOMMON, CraftEngineCompressibleBlueprint.class),
+    TIN_BLOCK("Block of Tin",              Material.NETHER_BRICK,        ItemRarity.UNCOMMON, TinFamilyBlueprint.class),
     ENCHANTED_TIN("Enchanted Tin",                  Material.IRON_INGOT,        ItemRarity.RARE,      true, TinFamilyBlueprint.class),
     ENCHANTED_TIN_BLOCK("Enchanted Block of Tin",   Material.POISONOUS_POTATO,  ItemRarity.EPIC,      true, TinFamilyBlueprint.class),
     TIN_SINGULARITY("Tin Singularity",              Material.IRON_INGOT,        ItemRarity.LEGENDARY, true, TinFamilyBlueprint.class),
@@ -343,7 +343,7 @@ public enum CustomItemType {
     RAW_MITHRIL_BLOCK("Block of Raw Mithril",      Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineBlueprint.class),
 
     MITHRIL_INGOT("Mithril Ingot",                 Material.NETHER_BRICK,     ItemRarity.UNCOMMON,   MithrilIngot.class),
-    MITHRIL_BLOCK("Block of Mithril",              Material.POISONOUS_POTATO,        ItemRarity.RARE, CraftEngineCompressibleBlueprint.class),
+    MITHRIL_BLOCK("Block of Mithril",              Material.POISONOUS_POTATO,        ItemRarity.RARE, MithrilFamilyBlueprint.class),
     ENCHANTED_MITHRIL("Enchanted Mithril",                  Material.IRON_INGOT,        ItemRarity.EPIC,      true, MithrilFamilyBlueprint.class),
     ENCHANTED_MITHRIL_BLOCK("Enchanted Block of Mithril",   Material.POISONOUS_POTATO,  ItemRarity.LEGENDARY,      true, MithrilFamilyBlueprint.class),
     MITHRIL_SINGULARITY("Mithril Singularity",              Material.IRON_INGOT,        ItemRarity.MYTHIC, true, MithrilFamilyBlueprint.class),

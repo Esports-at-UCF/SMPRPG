@@ -27,13 +27,6 @@ items:
     behavior:
       type: block_item
       block: smprpg:raw_mithril_block
-  smprpg:mithril_block:
-    data:
-      item-name: <!i><lang:item.smprpg.mithril_block>
-    model: smprpg:block/overworld/mithril_block
-    behavior:
-      type: block_item
-      block: smprpg:mithril_block
 
   smprpg:titanium_ore:
     data:
@@ -57,12 +50,6 @@ items:
         smprpg:item-type: raw_mithril
         smprpg:sell-value: 75
     model: smprpg:item/materials/raw_mithril
-  smprpg:mithril_ingot:
-    data:
-      item-name: <!i><lang:item.smprpg.mithril_ingot>
-      pdc:
-        smprpg:item-type: mithril_ingot
-    model: smprpg:item/materials/mithril_ingot
   smprpg:raw_titanium:
     data:
       item-name: <!i><lang:item.smprpg.raw_titanium>
@@ -228,6 +215,68 @@ blocks:
         resistance: 10.0
         instrument: guitar
         map-color: 16
+
+items#mithril_compression:
+  smprpg:mithril_ingot:
+    data:
+      item-name: <!i><lang:item.smprpg.mithril_ingot>
+      pdc:
+        smprpg:item-type: mithril_ingot
+    model: smprpg:item/materials/mithril_ingot
+  smprpg:mithril_block:
+    data:
+      item-name: <!i><lang:item.smprpg.mithril_block>
+      pdc:
+        smprpg:item-type: mithril_block
+    model: smprpg:block/overworld/mithril_block
+    behavior:
+      type: block_item
+      block: smprpg:mithril_block
+  smprpg:enchanted_mithril:
+    data:
+      item-name: <!i><lang:item.smprpg.enchanted_mithril>
+      pdc:
+        smprpg:item-type: enchanted_mithril
+    model: smprpg:item/materials/mithril_ingot
+  smprpg:enchanted_mithril_block_display:
+    data:
+      item-name: <!i><lang:item.smprpg.enchanted_mithril_block_display>
+    model: smprpg:block/compact/enchanted_mithril_block
+  smprpg:enchanted_mithril_block:
+    data:
+      item-name: <!i><lang:item.smprpg.enchanted_mithril_block>
+      pdc:
+        smprpg:item-type: enchanted_mithril_block
+    model: smprpg:block/overworld/mithril_block
+    behavior:
+      type: block_item
+      block:
+        state:
+          state: barrier
+          entity-renderer:
+            - type: item_display
+              item: smprpg:enchanted_mithril_block_display
+        settings:
+          template:
+            - smprpg:settings/metal_block
+            - smprpg:data/breaking_power_4
+            - smprpg:data/beacon_usable
+          merges:
+            tags:
+              - "minecraft:mineable/pickaxe"
+              - "smprpg:custom_instrument"
+          overrides:
+            require-correct-tools: true
+            hardness: 8.0
+            resistance: 6.0
+            instrument: bass
+            map-color: 32
+  smprpg:mithril_singularity:
+    data:
+      item-name: <!i><lang:item.smprpg.mithril_singularity>
+      pdc:
+        smprpg:item-type: mithril_singularity
+    model: smprpg:item/materials/mithril_ingot
 
 items#titanium_compression:
   smprpg:titanium_ingot:

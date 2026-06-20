@@ -39,6 +39,29 @@ items:
       pdc:
         smprpg:item-type: tin_ingot
     model: smprpg:item/materials/tin_ingot
+  smprpg:enchanted_tin:
+    data:
+      item-name: <!i><lang:item.smprpg.enchanted_tin>
+      pdc:
+        smprpg:item-type: enchanted_tin
+    model: smprpg:item/materials/tin_ingot
+  smprpg:enchanted_tin_block_display:
+    data:
+      item-name: <!i><lang:item.smprpg.enchanted_tin_block_display>
+    model: smprpg:block/compact/enchanted_tin_block
+  smprpg:enchanted_tin_block:
+    data:
+      item-name: <!i><lang:item.smprpg.tin_block>
+    model: smprpg:block/overworld/tin_block
+    behavior:
+      type: block_item
+      block: smprpg:enchanted_tin_block
+  smprpg:tin_singularity:
+    data:
+      item-name: <!i><lang:item.smprpg.tin_singularity>
+      pdc:
+        smprpg:item-type: tin_singularity
+    model: smprpg:item/materials/tin_ingot
 
 blocks:
   smprpg:tin_ore:
@@ -86,6 +109,23 @@ blocks:
         template: smprpg:model/simplified_cube_all
         arguments:
           path: smprpg:block/overworld/tin_block
+    settings:
+      template:
+        - smprpg:settings/metal_block
+        - smprpg:data/breaking_power_1
+        - smprpg:data/beacon_usable
+      overrides:
+        instrument: flute
+        map-color: 8
+      merges:
+        tags: [ "smprpg:custom_instrument" ]
+
+  smprpg:enchanted_tin_block:
+    state:
+      state: barrier
+      entity-renderer:
+        - type: item_display
+          item: smprpg:enchanted_tin_block_display
     settings:
       template:
         - smprpg:settings/metal_block
