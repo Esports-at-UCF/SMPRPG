@@ -116,7 +116,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.CHESTPLATE,
         ItemClassification.LEGGINGS,
         ItemClassification.BOOTS,
-        ItemClassification.CHARM
+        ItemClassification.CHARM,
+        ItemClassification.TOME
     ),
     WISE(
         WiseReforge::class.java,
@@ -124,7 +125,8 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.CHESTPLATE,
         ItemClassification.LEGGINGS,
         ItemClassification.BOOTS,
-        ItemClassification.CHARM
+        ItemClassification.CHARM,
+        ItemClassification.TOME
     ),
 
     // ALL AROUND ARMOR
@@ -199,6 +201,40 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
         ItemClassification.HOE,
         ItemClassification.HATCHET,
         ItemClassification.DRILL
+    ),
+    PROSPECTING(
+        ProspectingReforge::class.java,
+        ItemClassification.PICKAXE,
+        ItemClassification.DRILL,
+    ),
+    SURVEYING(
+        SurveyingReforge::class.java,
+        ItemClassification.PICKAXE,
+        ItemClassification.DRILL,
+    ),
+
+    // Farming oriented
+    GLEANING(
+        GleaningReforge::class.java,
+        ItemClassification.HOE,
+        ItemClassification.HATCHET
+    ),
+    CULTIVATING(
+        CultivatingReforge::class.java,
+        ItemClassification.HOE,
+        ItemClassification.HATCHET
+    ),
+
+    // Wooductting oriented
+    CANADIAN(
+        CanadianReforge::class.java,
+        ItemClassification.AXE,
+        ItemClassification.HATCHET
+    ),
+    ARBOR(
+        ArborReforge::class.java,
+        ItemClassification.AXE,
+        ItemClassification.HATCHET
     ),
 
     // Fishing oriented (RODS)
@@ -516,6 +552,12 @@ enum class ReforgeType(val handler: Class<out ReforgeBase>, vararg whitelist: It
                 SAVAGE -> ItemService.generate(Material.FIRE_CHARGE)
                 SMART -> ItemService.generate(Material.BOOK)
                 WISE -> ItemService.generate(Material.ENCHANTED_BOOK)
+                PROSPECTING -> ItemService.generate(Material.IRON_PICKAXE)
+                SURVEYING -> ItemService.generate(Material.STONE_PICKAXE)
+                GLEANING -> ItemService.generate(Material.GOLDEN_HOE)
+                CULTIVATING -> ItemService.generate(Material.DIAMOND_HOE)
+                CANADIAN -> ItemService.generate(Material.RED_DYE)
+                ARBOR -> ItemService.generate(Material.OAK_LOG)
                 ACCELERATED -> ItemService.generate(Material.DIAMOND_PICKAXE)
                 POWERFUL -> ItemService.generate(Material.STONE_AXE)
                 WITHERED -> ItemService.generate(CustomItemType.DESOLATED_STONE)
