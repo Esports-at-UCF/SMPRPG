@@ -39,14 +39,6 @@ class ProtectionEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(key
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.ARMOR
     override val skillRequirement: Int get()                   = 0
 
-    override val conflictingEnchantments: RegistryKeySet<Enchantment>
-        get() = RegistrySet.keySet(
-            RegistryKey.ENCHANTMENT,
-            EnchantmentKeys.FIRE_PROTECTION,
-            EnchantmentKeys.BLAST_PROTECTION,
-            EnchantmentKeys.PROJECTILE_PROTECTION
-        )
-
     override val powerRating : Int get() = level / 2
     override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
     override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {

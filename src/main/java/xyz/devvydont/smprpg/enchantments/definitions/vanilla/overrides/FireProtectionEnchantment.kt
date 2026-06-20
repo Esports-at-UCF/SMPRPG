@@ -44,7 +44,6 @@ class FireProtectionEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment
     override val conflictingEnchantments: RegistryKeySet<Enchantment>
         get() = RegistrySet.keySet(
             RegistryKey.ENCHANTMENT,
-            EnchantmentKeys.PROTECTION,
             EnchantmentKeys.BLAST_PROTECTION,
             EnchantmentKeys.PROJECTILE_PROTECTION
         )

@@ -45,7 +45,6 @@ class ProjectileProtectionEnchantment(key: TypedKey<Enchantment>) : VanillaEncha
             RegistryKey.ENCHANTMENT,
             EnchantmentKeys.FIRE_PROTECTION,
             EnchantmentKeys.BLAST_PROTECTION,
-            EnchantmentKeys.PROTECTION
         )
 
     @EventHandler(priority = EventPriority.HIGH)

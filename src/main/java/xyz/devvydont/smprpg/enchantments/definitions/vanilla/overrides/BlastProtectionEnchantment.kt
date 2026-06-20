@@ -62,7 +62,6 @@ class BlastProtectionEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantmen
         get() = RegistrySet.keySet(
             RegistryKey.ENCHANTMENT,
             EnchantmentKeys.FIRE_PROTECTION,
-            EnchantmentKeys.PROTECTION,
             EnchantmentKeys.PROJECTILE_PROTECTION
         )
 
