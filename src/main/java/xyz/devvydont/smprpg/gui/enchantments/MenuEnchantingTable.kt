@@ -433,7 +433,7 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
             }
             if (numMemorizationRunes > 0) {
                 // Roll 5% per Memorization rune to not consume scroll.
-                if ((numMemorizationRunes * 0.05) > random)
+                if ((numMemorizationRunes * 0.05) < random)
                     scrollItem.amount--
                 else {
                     player.playSound(player.location, Sound.ENTITY_MOOSHROOM_CONVERT, 1f, 2f)
