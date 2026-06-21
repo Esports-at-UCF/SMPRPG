@@ -12,7 +12,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.attribute.CustomAttributeInstance;
 import xyz.devvydont.smprpg.fishing.FishingConstants;
+import xyz.devvydont.smprpg.items.interfaces.IFishingRod;
 import xyz.devvydont.smprpg.services.AttributeService;
+import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.persistence.KeyStore;
 
@@ -46,6 +48,15 @@ public class FishingWeatherBonusTask extends BukkitRunnable {
      * @param pitch The pitch of the sound. Higher pitches read as "gained", lower pitches read as "lost".
      */
     private static void announce(Player player, Component message, Sound sound, float pitch) {
+
+        // Skip the message if they don't have a fishing rod anywhere in their inventory.
+        var hasRod = false;
+        for (var item : player.getInventory().getContents())
+            if (item != null && ItemService.blueprint(item) instanceof IFishingRod)
+                hasRod = true;
+        if (!hasRod)
+            return;
+        
         player.sendMessage(message);
         player.playSound(player.getLocation(), sound, NOTIFICATION_VOLUME, pitch);
     }
