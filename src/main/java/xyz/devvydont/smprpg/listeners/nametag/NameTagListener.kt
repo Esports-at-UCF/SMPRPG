@@ -3,6 +3,8 @@ package xyz.devvydont.smprpg.listeners.nametag
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Material
+import org.bukkit.Particle
+import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -87,7 +89,22 @@ class NameTagListener : ToggleableListener() {
         target.persistentDataContainer.set(KeyStore.ASSIGNED_NAME, PersistentDataType.STRING, assignedName)
         leveled.updateNametag()
         consumeOne(player, item)
+        playNamingEffects(target)
         player.sendMessage(ComponentUtils.success("Named the ${leveled.entityName} \"$assignedName\"!"))
+    }
+
+    /**
+     * Plays a celebratory chime and green sparkles around a freshly named mob. Spawned at the world level so every
+     * nearby player sees the feedback, not just the one holding the tag.
+     */
+    private fun playNamingEffects(target: LivingEntity) {
+        val world = target.world
+        val center = target.location.add(0.0, target.height * PARTICLE_HEIGHT_RATIO, 0.0)
+        world.spawnParticle(
+            Particle.HAPPY_VILLAGER, center, NAMING_PARTICLE_COUNT,
+            PARTICLE_SPREAD, PARTICLE_SPREAD, PARTICLE_SPREAD, 0.0
+        )
+        world.playSound(target.location, Sound.BLOCK_AMETHYST_BLOCK_CHIME, NAMING_SOUND_VOLUME, NAMING_SOUND_PITCH)
     }
 
     private fun openRenameDialog(player: Player, item: ItemStack) {
@@ -108,5 +125,10 @@ class NameTagListener : ToggleableListener() {
 
     companion object {
         private const val NEXT_TICK_DELAY = 1L
+        private const val NAMING_PARTICLE_COUNT = 12
+        private const val PARTICLE_SPREAD = 0.4
+        private const val PARTICLE_HEIGHT_RATIO = 0.6
+        private const val NAMING_SOUND_VOLUME = 1.0f
+        private const val NAMING_SOUND_PITCH = 1.2f
     }
 }
