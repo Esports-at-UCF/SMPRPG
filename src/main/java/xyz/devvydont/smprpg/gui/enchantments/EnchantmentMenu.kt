@@ -148,7 +148,7 @@ class EnchantmentMenu : MenuBase {
                 ComponentUtils.create("Applicable Item Type: "),
                 ComponentUtils.create(
                     MinecraftStringUtils.getTitledString(
-                        enchantment.itemTypeTag.key().asMinimalString().replace("/", " ")
+                        enchantment.itemTypeTag.key().asMinimalString().replace("/", " ").replace("smprpg:", "")
                     ), NamedTextColor.GOLD
                 )
             )
