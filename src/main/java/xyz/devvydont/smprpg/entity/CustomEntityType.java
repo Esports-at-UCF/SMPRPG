@@ -134,6 +134,10 @@ public enum CustomEntityType implements IMenuDisplayable {
     // Water fishing creatures.
     MINNOW(EntityType.SILVERFISH, "Minnow",
             5, 500, 10, Minnow::new),
+    CUTTLEFISH(EntityType.SQUID, "Cuttlefish",
+            5, 500, 10, Cuttlefish::new),
+    DROWNLING(EntityType.DROWNED, "Drownling",
+            5, 500, 10, Drownling::new),
     SNAPPING_TURTLE(EntityType.TURTLE, "Snapping Turtle",
             10, 1_250, 25, SnappingTurtle::new),
     SHARK(EntityType.AXOLOTL, "Shark",
@@ -377,6 +381,8 @@ public enum CustomEntityType implements IMenuDisplayable {
             case SNAPPING_TURTLE -> Material.TURTLE_SCUTE;
             case SEA_BEAR -> Material.SALMON;
             case MINNOW -> Material.COD;
+            case CUTTLEFISH -> Material.INK_SAC;
+            case DROWNLING -> Material.NAUTILUS_SHELL;
             case PROTOCOL_SENTINEL -> Material.IRON_INGOT;
             case PHANTOM_THIEF -> Material.STRAY_SPAWN_EGG;
             case CINDERLING -> Material.MAGMA_CREAM;
