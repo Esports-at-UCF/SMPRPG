@@ -169,7 +169,7 @@ blocks:
         - smprpg:supports_rice
     behavior:
       type: smprpg:tick_accelerator
-      chance: 0.25
+      chance: 0.5
       mode: crop
   smprpg:apple_crop:
     state:

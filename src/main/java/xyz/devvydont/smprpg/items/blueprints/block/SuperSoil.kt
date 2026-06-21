@@ -50,7 +50,7 @@ class SuperSoil(itemService: ItemService, type: CustomItemType) : CraftEngineBlu
             ComponentUtils.create("Increases growth speed of crops"),
             ComponentUtils.merge(
                 ComponentUtils.create("planted on this soil by "),
-                ComponentUtils.create("25%", NamedTextColor.GREEN)
+                ComponentUtils.create("50%", NamedTextColor.GREEN)
             ),
             ComponentUtils.merge(
                 ComponentUtils.create("Crops grown on this block gain "),
