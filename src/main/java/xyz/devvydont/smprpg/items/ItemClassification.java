@@ -146,7 +146,8 @@ public enum ItemClassification {
     // Stuff used for crafting mainly, like ores and stuff
     CHARM(ItemTypeTagKeys.ENCHANTABLE_VANISHING),
     TOME(KeyStore.ENCHANTABLE_TOME,
-         KeyStore.ENCHANTABLE_APTITUDE),
+         KeyStore.ENCHANTABLE_APTITUDE,
+         ItemTypeTagKeys.ENCHANTABLE_VANISHING),
     REFORGE_STONE,
     AUGMENT_STONE,
     SPELL,
