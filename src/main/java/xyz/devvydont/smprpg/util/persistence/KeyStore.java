@@ -57,6 +57,16 @@ public class KeyStore {
     public static final NamespacedKey FISHING_ATTRIBUTE_DUAL_WIELD_NERF = key("rod_dual_wield_nerf");
 
     /**
+     * Used to grant bonus fishing speed while a player is standing in the rain.
+     */
+    public static final NamespacedKey FISHING_RAIN_BONUS = key("rain_bonus");
+
+    /**
+     * Used to grant bonus fishing speed while a player is standing in a thunderstorm.
+     */
+    public static final NamespacedKey FISHING_THUNDERSTORM_BONUS = key("thunderstorm_bonus");
+
+    /**
      * Used on slayer spawn entity PDCs to flag them for slayer quests
      */
     public static final NamespacedKey SLAYER_SPAWN_TYPE = key("slayer_spawn_type");
