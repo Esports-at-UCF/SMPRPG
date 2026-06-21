@@ -22,6 +22,7 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop
 import xyz.devvydont.smprpg.util.items.LootDrop
+import xyz.devvydont.smprpg.util.items.QuantityLootDrop
 import java.util.function.Function
 
 class Shark(entity: LivingEntity?, entityType: CustomEntityType?) : SeaCreature<Axolotl?>(entity as Axolotl?, entityType),
@@ -55,7 +56,7 @@ class Shark(entity: LivingEntity?, entityType: CustomEntityType?) : SeaCreature<
 
     override fun getItemDrops(): MutableCollection<LootDrop> {
         return mutableListOf(
-            ChancedItemDrop(generate(CustomItemType.SHARK_FIN), 1, this),
+            QuantityLootDrop(generate(CustomItemType.SHARK_FIN), 1, 2, this),
             ChancedItemDrop(generate(CustomItemType.PREDATOR_TOOTH), 50, this),
             ChancedItemDrop(lureScroll, 800, this),
             ChancedItemDrop(abyssalInstinctScroll, 800, this),

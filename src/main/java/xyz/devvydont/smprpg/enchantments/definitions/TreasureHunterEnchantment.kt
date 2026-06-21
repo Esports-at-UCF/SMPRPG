@@ -49,12 +49,12 @@ class TreasureHunterEnchantment(id: String) : CustomEnchantment(id), AttributeEn
         fun getTreasureChance(level: Int): Double {
             return when (level) {
                 0 -> 0.0
-                1 -> 0.5
-                2 -> 1.0
-                3 -> 1.5
-                4 -> 2.0
-                5 -> 2.5
-                else -> 3.0
+                1 -> 1.0
+                2 -> 2.0
+                3 -> 3.0
+                4 -> 4.0
+                5 -> 5.0
+                else -> 6.0
             }
         }
     }

@@ -13,6 +13,7 @@ import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
 import xyz.devvydont.smprpg.util.items.LootDrop;
+import xyz.devvydont.smprpg.util.items.QuantityLootDrop;
 
 import java.util.Collection;
 import java.util.List;
@@ -56,7 +57,7 @@ public class SeaBear extends SeaCreature<PolarBear> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.MIDNIGHT_HIDE), 1, this),
+                new QuantityLootDrop(ItemService.generate(CustomItemType.MIDNIGHT_HIDE), 1, 2, this),
                 new ChancedItemDrop(lureScroll, 600, this),
                 new ChancedItemDrop(abyssalInstinctScroll, 600, this),
                 new ChancedItemDrop(impalingScroll, 600, this),

@@ -14,6 +14,7 @@ import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
 import xyz.devvydont.smprpg.util.items.LootDrop;
+import xyz.devvydont.smprpg.util.items.QuantityLootDrop;
 
 import java.util.Collection;
 import java.util.List;
@@ -43,7 +44,7 @@ public class FlamingSiren extends SeaCreature<Bogged> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.DISSIPATING_SEA_SHELL), 1, this),
+                new QuantityLootDrop(ItemService.generate(CustomItemType.DISSIPATING_SEA_SHELL), 1, 2, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.HYPNOTIC_EYE), 25, this),
                 new ChancedItemDrop(lureScroll, 400, this),
                 new ChancedItemDrop(abyssalInstinctScroll, 400, this),

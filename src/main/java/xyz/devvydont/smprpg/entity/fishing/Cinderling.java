@@ -14,6 +14,7 @@ import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
 import xyz.devvydont.smprpg.util.items.LootDrop;
+import xyz.devvydont.smprpg.util.items.QuantityLootDrop;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
 import java.util.Collection;
@@ -36,7 +37,7 @@ public class Cinderling extends SeaCreature<LivingEntity> implements Listener {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.CINDERITE), 2, this),
+                new QuantityLootDrop(ItemService.generate(CustomItemType.CINDERITE), 1, 2, this),
                 new ChancedItemDrop(lureScroll, 800, this),
                 new ChancedItemDrop(abyssalInstinctScroll, 800, this),
                 new ChancedItemDrop(impalingScroll, 800, this),

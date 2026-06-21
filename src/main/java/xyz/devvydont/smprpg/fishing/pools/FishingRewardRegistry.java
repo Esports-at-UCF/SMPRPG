@@ -416,7 +416,7 @@ public class FishingRewardRegistry {
                         .withWeight(2)
                         .build(),
 
-                new ItemStackFishingLoot.Builder(Material.NAUTILUS_SHELL)
+                new ItemStackFishingLoot.Builder(CustomItemType.PREMIUM_NAUTILUS_SHELL)
                         .withMinecraftExperience(50)
                         .withSkillExperience(500)
                         .withRequirement(FishingLootRequirement.quality(100))
@@ -478,6 +478,22 @@ public class FishingRewardRegistry {
 
                 // The minnow can always be caught, no matter what. Can't leave a pool potentially empty.
                 new SeaCreatureFishingLoot.Builder(CustomEntityType.MINNOW)
+                        .withMinecraftExperience(10)
+                        .withSkillExperience(100)
+                        .withWeight(COMMON_WEIGHT)
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.NORMAL))
+                        .build(),
+
+                // The cuttlefish shares the minnow's requirements and serves as a generous source of ink sacs.
+                new SeaCreatureFishingLoot.Builder(CustomEntityType.CUTTLEFISH)
+                        .withMinecraftExperience(10)
+                        .withSkillExperience(100)
+                        .withWeight(COMMON_WEIGHT)
+                        .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.NORMAL))
+                        .build(),
+
+                // The drownling shares the minnow's requirements and serves as a generous source of nautilus shells.
+                new SeaCreatureFishingLoot.Builder(CustomEntityType.DROWNLING)
                         .withMinecraftExperience(10)
                         .withSkillExperience(100)
                         .withWeight(COMMON_WEIGHT)

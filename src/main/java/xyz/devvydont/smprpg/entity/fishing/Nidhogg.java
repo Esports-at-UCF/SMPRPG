@@ -10,6 +10,7 @@ import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
 import xyz.devvydont.smprpg.util.items.LootDrop;
+import xyz.devvydont.smprpg.util.items.QuantityLootDrop;
 
 import java.util.Collection;
 import java.util.List;
@@ -40,7 +41,7 @@ public class Nidhogg extends SeaCreature<Phantom> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.ECHO_MEMBRANE), 1, this),
+                new QuantityLootDrop(ItemService.generate(CustomItemType.ECHO_MEMBRANE), 1, 2, this),
                 new ChancedItemDrop(lureScroll, 1, this),
                 new ChancedItemDrop(abyssalInstinctScroll, 1, this),
                 new ChancedItemDrop(impalingScroll, 1, this),

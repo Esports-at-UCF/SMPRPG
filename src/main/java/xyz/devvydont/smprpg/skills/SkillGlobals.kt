@@ -160,7 +160,7 @@ object SkillGlobals {
     const val REGENERATION_LEVEL_FREQUENCY: Int = 2
 
     // Fishing skill gives fishing chances every 4 levels.
-    const val FISHING_CHANCE_PER_4_LEVEL: Double = 0.8
+    const val FISHING_CHANCE_PER_4_LEVEL: Double = 1.0
     const val FISHING_CHANCE_FREQUENCY: Int = 4
     const val FISHING_SPEED_PER_LEVEL: Int = 1
 

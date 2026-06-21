@@ -11,6 +11,7 @@ import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.items.ChancedItemDrop;
 import xyz.devvydont.smprpg.util.items.LootDrop;
+import xyz.devvydont.smprpg.util.items.QuantityLootDrop;
 
 import java.util.Collection;
 import java.util.List;
@@ -46,7 +47,7 @@ public class Magmapotamus extends SeaCreature<Hoglin> {
     @Override
     public @Nullable Collection<LootDrop> getItemDrops() {
         return List.of(
-                new ChancedItemDrop(ItemService.generate(CustomItemType.FLAMEBROILED_PORKCHOP), 1, this),
+                new QuantityLootDrop(ItemService.generate(CustomItemType.FLAMEBROILED_PORKCHOP), 1, 2, this),
                 new ChancedItemDrop(lureScroll, 300, this),
                 new ChancedItemDrop(abyssalInstinctScroll, 300, this),
                 new ChancedItemDrop(impalingScroll, 300, this),
