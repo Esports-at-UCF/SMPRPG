@@ -61,7 +61,7 @@ class ExecuteEnchantment(id: String) : CustomEnchantment(id), Listener {
 
             3 -> {
                 val flesh = getIngredientStack(CustomItemType.PREMIUM_NECROTIC_FLESH, 16)
-                val obsidian = getIngredientStack(Material.OBSIDIAN, 32)
+                val obsidian = getIngredientStack(CustomItemType.COMPRESSED_OBSIDIAN, 16)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 8)
                 return EnchantmentRecipe(getRecipeKey(level), 44, flesh, obsidian, lapis)
             }
@@ -69,15 +69,15 @@ class ExecuteEnchantment(id: String) : CustomEnchantment(id), Listener {
             4 -> {
                 val flesh = getIngredientStack(CustomItemType.ENCHANTED_NECROTIC_FLESH, 8)
                 val obsidian = getIngredientStack(CustomItemType.ENCHANTED_OBSIDIAN, 8)
-                val adamantium = getIngredientStack(CustomItemType.ENCHANTED_ADAMANTIUM, 2)
-                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
+                val adamantium = getIngredientStack(CustomItemType.ADAMANTIUM_BLOCK, 2)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 8)
                 return EnchantmentRecipe(getRecipeKey(level), 62, flesh, obsidian, adamantium, lapis)
             }
 
             5 -> {
                 val flesh = getIngredientStack(CustomItemType.NECROTIC_FLESH_SINGULARITY, 2)
                 val obsidian = getIngredientStack(CustomItemType.ENCHANTED_OBSIDIAN, 16)
-                val adamantium = getIngredientStack(CustomItemType.ENCHANTED_ADAMANTIUM, 8)
+                val adamantium = getIngredientStack(CustomItemType.ENCHANTED_ADAMANTIUM, 1)
                 val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
                 return EnchantmentRecipe(getRecipeKey(level), 80, flesh, obsidian, adamantium, lapis)
             }
