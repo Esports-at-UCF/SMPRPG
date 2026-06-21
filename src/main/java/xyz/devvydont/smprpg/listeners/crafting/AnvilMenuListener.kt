@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.listeners.crafting
 
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.Player
@@ -9,6 +10,8 @@ import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.Inventory
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.gui.anvil.MenuAnvil
+import xyz.devvydont.smprpg.hooks.WorldGuardHook
+import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 
 /**
@@ -29,6 +32,14 @@ class AnvilMenuListener : ToggleableListener() {
         // Remember which anvil block was used so the menu can mimic vanilla anvil wear.
         val anvilLocation = resolveAnvilLocation(event.inventory, player)
 
+        // Respect WorldGuard region protection. Because our menu (and our anvil wear) entirely replaces the
+        // vanilla anvil, we must enforce the USE flag ourselves; otherwise players could use and damage anvils
+        // inside protected zones. Virtual anvils with no backing block are unaffected.
+        if (anvilLocation != null && !isUseAllowed(anvilLocation, player)) {
+            player.sendMessage(ComponentUtils.error("You don't have permission to use this anvil here."))
+            return
+        }
+
         // Opening an inventory from within an InventoryOpenEvent is unsafe, so defer it a tick.
         Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable { MenuAnvil(player, anvilLocation).openMenu() }, 1L)
     }
@@ -43,7 +54,21 @@ class AnvilMenuListener : ToggleableListener() {
         return player.getTargetBlockExact(ANVIL_REACH)?.location
     }
 
+    /**
+     * Whether the player may use the anvil at the given location. Defers to WorldGuard's USE flag when the
+     * plugin is present, and allows the interaction otherwise (WorldGuard is an optional dependency).
+     *
+     * Custom blocks (such as the netherite anvil) are always permitted: they never degrade or break, so there
+     * is nothing for region protection to guard against.
+     */
+    private fun isUseAllowed(location: Location, player: Player): Boolean {
+        if (CraftEngineBlocks.isCustomBlock(location.block)) return true
+        if (Bukkit.getServer().pluginManager.getPlugin(WORLDGUARD_PLUGIN) == null) return true
+        return WorldGuardHook.isLocationUsable(location, player)
+    }
+
     companion object {
         private const val ANVIL_REACH = 6
+        private const val WORLDGUARD_PLUGIN = "WorldGuard"
     }
 }

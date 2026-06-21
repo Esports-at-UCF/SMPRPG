@@ -10,25 +10,39 @@ import org.bukkit.entity.Player
 class WorldGuardHook {
 
     companion object {
-        fun isLocationBreakable(loc: Location, player: Player?): Boolean {
+
+        /**
+         * Whether [player] is allowed to break the block at [loc] according to WorldGuard's region protection.
+         */
+        fun isLocationBreakable(loc: Location, player: Player? = null): Boolean {
+            return isFlagAllowed(loc, player, Flags.BLOCK_BREAK)
+        }
+
+        /**
+         * Whether [player] is allowed to interact with (use) the block at [loc] according to WorldGuard's
+         * region protection. Consults the USE flag, which governs interactable blocks such as anvils, doors,
+         * and buttons.
+         */
+        fun isLocationUsable(loc: Location, player: Player? = null): Boolean {
+            return isFlagAllowed(loc, player, Flags.USE)
+        }
+
+        /**
+         * Whether [player] is permitted the action represented by [flag] at [loc]. The action is allowed unless
+         * an applicable region explicitly denies it. Region owners and members are exempt for a given region,
+         * but an overlapping region they do not belong to can still deny them.
+         */
+        private fun isFlagAllowed(loc: Location, player: Player?, flag: StateFlag): Boolean {
             val container = WorldGuard.getInstance().platform.regionContainer
             val query = container.createQuery()
             val regionSet = query.getApplicableRegions(BukkitAdapter.adapt(loc))
             for (region in regionSet) {
-                if (player != null) {
-                    if (region.owners.contains(player.uniqueId) || region.members.contains(player.uniqueId)) {
-                        continue  // We can break in this region, but what if there is an overlapping region that doesnt allow us?
-                    }
-                }
-                if (region.getFlag(Flags.BLOCK_BREAK) == StateFlag.State.DENY) {
+                if (player != null && (region.owners.contains(player.uniqueId) || region.members.contains(player.uniqueId)))
+                    continue
+                if (region.getFlag(flag) == StateFlag.State.DENY)
                     return false
-                }
             }
             return true
-        }
-
-        fun isLocationBreakable(loc: Location): Boolean {
-            return isLocationBreakable(loc, null)
         }
     }
 }
