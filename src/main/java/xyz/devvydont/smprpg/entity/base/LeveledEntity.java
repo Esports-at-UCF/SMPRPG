@@ -5,6 +5,7 @@ import kr.toxicity.model.api.tracker.EntityTracker;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -30,6 +31,7 @@ import xyz.devvydont.smprpg.util.formatting.MinecraftStringUtils;
 import xyz.devvydont.smprpg.util.formatting.Symbols;
 import xyz.devvydont.smprpg.util.items.LootDrop;
 import xyz.devvydont.smprpg.util.items.LootSource;
+import xyz.devvydont.smprpg.util.persistence.KeyStore;
 
 import java.util.*;
 
@@ -204,7 +206,23 @@ public abstract class LeveledEntity<T extends Entity> implements LootSource {
      * @return A component representing the name portion of a nametag
      */
     public Component getNameComponent() {
+        String assignedName = getAssignedName();
+        if (assignedName != null)
+            return ComponentUtils.create(assignedName, getNameColor(), TextDecoration.ITALIC);
         return ComponentUtils.create(getEntityName(), getNameColor());
+    }
+
+    /**
+     * The name a player has given this entity using a name tag, or null if it has not been named. Italicizing this
+     * name in the nametag is how we signify a mob has been given a custom name.
+     * @return The player-assigned name, or null if there isn't one.
+     */
+    @Nullable
+    public String getAssignedName() {
+        String assignedName = _entity.getPersistentDataContainer().get(KeyStore.ASSIGNED_NAME, PersistentDataType.STRING);
+        if (assignedName == null || assignedName.isBlank())
+            return null;
+        return assignedName;
     }
 
     /**
@@ -253,7 +271,8 @@ public abstract class LeveledEntity<T extends Entity> implements LootSource {
     public void updateNametag() {
 
         // Don't show animals that are lvl 10 or lower unless they are missing HP. Helps FPS with large animal farms.
-        if (this._entity instanceof Animals)
+        // A player-assigned name always shows, otherwise naming a low level animal would appear to do nothing.
+        if (this._entity instanceof Animals && getAssignedName() == null)
             if (this.getLevel() <= 10 && this.getHealthPercentage() >= 1.0) {
                 _entity.setCustomNameVisible(false);
                 return;

@@ -26,6 +26,7 @@ import xyz.devvydont.smprpg.listeners.entity.PlayerInventoryButtonsListener
 import xyz.devvydont.smprpg.listeners.entity.StructureEntitySpawnListener
 import xyz.devvydont.smprpg.listeners.item.EquipmentRequirementValidationListener
 import xyz.devvydont.smprpg.listeners.item.ItemDurabilityListener
+import xyz.devvydont.smprpg.listeners.nametag.NameTagListener
 import xyz.devvydont.smprpg.loot.LootListener
 import xyz.devvydont.smprpg.market.MarketService
 import xyz.devvydont.smprpg.services.*
@@ -130,6 +131,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(CustomNoteblockSoundListener())  // Listens for custom note block instruments
         generalListeners.add(PlayerInputListener())  // Listens for player inputs
         generalListeners.add(CatPufferfishPoisonListener())  // Feeding our pufferfish to a cat poisons it.
+        generalListeners.add(NameTagListener())  // Restores name tag usage (dialog + PDC) now that the vanilla anvil GUI is gone.
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.

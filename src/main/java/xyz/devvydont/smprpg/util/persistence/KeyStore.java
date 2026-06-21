@@ -71,6 +71,12 @@ public class KeyStore {
      */
     public static final NamespacedKey SLAYER_SPAWN_TYPE = key("slayer_spawn_type");
 
+    /**
+     * Used on a name tag item to store the name a player has typed in (the pending name to apply), and on an
+     * entity to store the name a player has assigned to it with that name tag.
+     */
+    public static final NamespacedKey ASSIGNED_NAME = key("assigned_name");
+
     // Easy access use to RegistryAccess, for code readability
     private static final RegistryAccess access = RegistryAccess.registryAccess();
 
