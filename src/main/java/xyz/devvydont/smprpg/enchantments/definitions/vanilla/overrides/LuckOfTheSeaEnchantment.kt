@@ -54,14 +54,14 @@ class LuckOfTheSeaEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(k
         when (level) {
             1 -> {
                 val essence = getIngredientStack(CustomItemType.COMMON_FISH_ESSENCE, 16)
-                val nautilus = getIngredientStack(Material.NAUTILUS_SHELL, 2)
+                val nautilus = getIngredientStack(Material.NAUTILUS_SHELL, 8)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 8)
                 return EnchantmentRecipe(getRecipeKey(level), 0, essence, nautilus, lapis)
             }
 
             2 -> {
                 val essence = getIngredientStack(CustomItemType.UNCOMMON_FISH_ESSENCE, 16)
-                val nautilus = getIngredientStack(Material.NAUTILUS_SHELL, 4)
+                val nautilus = getIngredientStack(Material.NAUTILUS_SHELL, 32)
                 val lapis = getIngredientStack(Material.LAPIS_LAZULI, 16)
                 return EnchantmentRecipe(getRecipeKey(level), 20, essence, nautilus, lapis)
             }
@@ -76,7 +76,7 @@ class LuckOfTheSeaEnchantment(key: TypedKey<Enchantment>) : VanillaEnchantment(k
 
             4 -> {
                 val essence = getIngredientStack(CustomItemType.EPIC_FISH_ESSENCE, 16)
-                val nautilus = getIngredientStack(Material.NAUTILUS_SHELL, 8)
+                val nautilus = getIngredientStack(CustomItemType.ENCHANTED_NAUTILUS_SHELL, 1)
                 val heart = getIngredientStack(Material.HEART_OF_THE_SEA, 2)
                 val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
                 return EnchantmentRecipe(getRecipeKey(level), 60, essence, nautilus, heart, lapis)

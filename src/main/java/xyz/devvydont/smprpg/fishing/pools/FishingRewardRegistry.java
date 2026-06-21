@@ -27,9 +27,9 @@ import java.util.Collection;
 public class FishingRewardRegistry {
 
     public static final int COMMON_WEIGHT = 100;
-    public static final int UNCOMMON_WEIGHT = 35;
-    public static final int RARE_WEIGHT = 15;
-    public static final int EPIC_WEIGHT = 4;
+    public static final int UNCOMMON_WEIGHT = 50;
+    public static final int RARE_WEIGHT = 25;
+    public static final int EPIC_WEIGHT = 5;
     public static final int LEGENDARY_WEIGHT = 1;
 
     private static final Multimap<FishingLootType, FishingLootBase> REGISTRY;
@@ -488,7 +488,7 @@ public class FishingRewardRegistry {
                 new SeaCreatureFishingLoot.Builder(CustomEntityType.CUTTLEFISH)
                         .withMinecraftExperience(10)
                         .withSkillExperience(100)
-                        .withWeight(COMMON_WEIGHT)
+                        .withWeight(UNCOMMON_WEIGHT)
                         .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.NORMAL))
                         .build(),
 
@@ -496,7 +496,7 @@ public class FishingRewardRegistry {
                 new SeaCreatureFishingLoot.Builder(CustomEntityType.DROWNLING)
                         .withMinecraftExperience(10)
                         .withSkillExperience(100)
-                        .withWeight(COMMON_WEIGHT)
+                        .withWeight(UNCOMMON_WEIGHT)
                         .withRequirement(FishingLootRequirement.rod(IFishingRod.FishingFlag.NORMAL))
                         .build(),
 
