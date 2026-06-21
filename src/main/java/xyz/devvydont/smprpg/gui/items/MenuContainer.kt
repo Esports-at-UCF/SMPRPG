@@ -63,11 +63,11 @@ class MenuContainer(player: Player, private val blueprint: IItemContainer, priva
         this.setButton(
             53,
             createNamedItem(Material.ARROW, "Next Page $page")
-        ) { e: InventoryClickEvent -> changePage(1) }
+        ) { changePage(1) }
         this.setButton(
             45,
             createNamedItem(Material.ARROW, "Previous Page $page")
-        ) { e: InventoryClickEvent -> changePage(-1) }
+        ) { changePage(-1) }
     }
 
     fun savePage() {
@@ -112,8 +112,20 @@ class MenuContainer(player: Player, private val blueprint: IItemContainer, priva
         val clicked = event.getCurrentItem() ?:
             return
 
+        // The decorative border is purely cosmetic. Nobody (not even an admin) is ever meant to move it.
+        if (isBorderDecoration(clicked)) {
+            event.isCancelled = true
+            this.playInvalidAnimation()
+            return
+        }
+
+        // Ordinary items are free to be moved around; only nested storage items are illegal.
+        if (!isIllegalStorageItem(clicked))
+            return
+
         // If they have a special permission, allow them to bypass the check. This is mainly only meant for admins
-        // to be able to fix people's items if they somehow break
+        // to be able to fix people's items if they somehow break. We don't allow bypassing for the backpack itself,
+        // otherwise it could be nested inside of itself.
         if (event.whoClicked.permissionValue("smprpg.storage.stackbypass") == TriState.TRUE && clicked != backpack) {
             event.whoClicked.sendMessage(ComponentUtils.merge(
                 ComponentUtils.create("You were permitted to interact with illegal storage item ", NamedTextColor.GREEN),
@@ -124,17 +136,19 @@ class MenuContainer(player: Player, private val blueprint: IItemContainer, priva
             return
         }
 
-        if (blueprint(clicked) is IItemContainer
-            || clicked.type == Material.BLACK_STAINED_GLASS_PANE
-            || clicked.type == Material.RED_STAINED_GLASS_PANE
-            || clicked.type == Material.GREEN_STAINED_GLASS_PANE
-            || clicked.type == Material.BUNDLE
-            || clicked.type.name.lowercase().contains("shulker_box")
-        ) {
-            event.isCancelled = true
-            this.playInvalidAnimation()
-        }
+        event.isCancelled = true
+        this.playInvalidAnimation()
     }
+
+    private fun isBorderDecoration(item: ItemStack): Boolean =
+        item.type == Material.BLACK_STAINED_GLASS_PANE
+            || item.type == Material.RED_STAINED_GLASS_PANE
+            || item.type == Material.GREEN_STAINED_GLASS_PANE
+
+    private fun isIllegalStorageItem(item: ItemStack): Boolean =
+        blueprint(item) is IItemContainer
+            || item.type == Material.BUNDLE
+            || item.type.name.lowercase().contains("shulker_box")
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
         event.titleOverride(blueprint.getInterfaceTitleComponent())
