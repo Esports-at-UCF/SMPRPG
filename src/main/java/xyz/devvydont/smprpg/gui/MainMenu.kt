@@ -22,6 +22,7 @@ import xyz.devvydont.smprpg.gui.items.MenuItemBrowser
 import xyz.devvydont.smprpg.gui.player.InterfaceStats
 import xyz.devvydont.smprpg.gui.player.InterfaceWardrobe
 import xyz.devvydont.smprpg.gui.player.MenuDifficultyChooser
+import xyz.devvydont.smprpg.gui.player.MenuPlayerSettings
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.skills.SkillGlobals.getExperienceForLevel
 import xyz.devvydont.smprpg.skills.SkillInstance
@@ -153,7 +154,12 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
             SETTINGS_INDEX,
             this.settingsDisplay
         ) { e: InventoryClickEvent ->
-            this.playInvalidAnimation()
+            this.openSubMenu(
+                MenuPlayerSettings(
+                    this.player,
+                    this
+                )
+            )
         }
     }
 
@@ -203,7 +209,6 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
                 Material.COMPARATOR,
                 ComponentUtils.create("Settings", NamedTextColor.GREEN),
                 ComponentUtils.create("Tweak certain behaviors for the game!"),
-                ComponentUtils.create("Coming soon!", NamedTextColor.RED),
                 ComponentUtils.EMPTY,
                 ComponentUtils.create("Click to change your settings!", NamedTextColor.YELLOW)
             )

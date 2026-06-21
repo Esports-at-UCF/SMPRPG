@@ -47,6 +47,11 @@ public class KeyStore {
     public static final NamespacedKey WARDROBE_UPGRADES = key("wardrobe_upgrades");
 
     /**
+     * Used for storing a player's personal HUD/gameplay preferences.
+     */
+    public static final NamespacedKey PLAYER_SETTINGS = key("player_settings");
+
+    /**
      * Used for item rarity adjustments in item blueprints.
      */
     public static final NamespacedKey ITEM_RARITY_OVERRIDE = key("item_rarity_override");

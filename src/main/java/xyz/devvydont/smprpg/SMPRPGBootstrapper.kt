@@ -38,6 +38,7 @@ import xyz.devvydont.smprpg.gui.economy.MenuWithdraw
 import xyz.devvydont.smprpg.gui.enchantments.EnchantmentMenu
 import xyz.devvydont.smprpg.gui.items.MenuTrashItems
 import xyz.devvydont.smprpg.gui.player.MenuDifficultyChooser
+import xyz.devvydont.smprpg.gui.player.MenuPlayerSettings
 import xyz.devvydont.smprpg.services.EnchantmentService
 import java.io.IOException
 import java.net.URI
@@ -77,6 +78,7 @@ class SMPRPGBootstrapper : PluginBootstrap {
             CommandReforge(),
             ICommand.SimplePlayerCommand("menu", { player -> MainMenu(player).openMenu()}),
             ICommand.SimplePlayerCommand("difficulty", { player -> MenuDifficultyChooser(player).openMenu()}),
+            ICommand.SimplePlayerCommand("settings", { player -> MenuPlayerSettings(player).openMenu()}),
             ICommand.SimplePlayerCommand("fishing", { player -> LootTypeChancesMenu(player).openMenu()}),
             ICommand.SimplePlayerCommand("deposit", { player -> MenuDeposit(player).openMenu()}),
             ICommand.SimplePlayerCommand("sell", { player -> MenuDeposit(player).openMenu()}),

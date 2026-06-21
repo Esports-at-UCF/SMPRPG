@@ -1,7 +1,6 @@
 package xyz.devvydont.smprpg.entity.player;
 
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
-import com.destroystokyo.paper.event.player.PlayerPickupExperienceEvent;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.scoreboard.numbers.NumberFormat;
 import net.kyori.adventure.text.Component;
@@ -17,8 +16,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Objective;
@@ -32,10 +31,14 @@ import xyz.devvydont.smprpg.entity.EntityGlobals;
 import xyz.devvydont.smprpg.entity.MobType;
 import xyz.devvydont.smprpg.entity.base.LeveledEntity;
 import xyz.devvydont.smprpg.entity.components.EntityConfiguration;
+import xyz.devvydont.smprpg.entity.player.settings.PlayerSettings;
+import xyz.devvydont.smprpg.events.skills.SkillExperiencePostGainEvent;
 import xyz.devvydont.smprpg.items.interfaces.IAttributeItem;
 import xyz.devvydont.smprpg.services.*;
 import xyz.devvydont.smprpg.skills.SkillInstance;
 import xyz.devvydont.smprpg.skills.SkillType;
+import xyz.devvydont.smprpg.util.persistence.KeyStore;
+import xyz.devvydont.smprpg.util.persistence.PDCAdapters;
 import xyz.devvydont.smprpg.util.attributes.AttributeUtil;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.formatting.MinecraftStringUtils;
@@ -59,6 +62,20 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
 
     private BukkitTask _manaRegenerateTask;
     private double _mana = 0;
+
+    // The player's personal HUD preferences. Cached here so it can be read cheaply, including from the
+    // asynchronous action bar task. Loaded from the player's PDC on setup and re-saved when changed via the menu.
+    private PlayerSettings _settings = new PlayerSettings();
+
+    // The last values we wrote to the (purely visual) experience bar, so updateExperienceBar() can be called
+    // freely on a fast cadence without re-sending identical packets to the client.
+    private int _lastExpBarLevel = Integer.MIN_VALUE;
+    private float _lastExpBarProgress = Float.NaN;
+
+    // The skill this player most recently gained experience in, used by the "last skill" experience bar modes.
+    // Null until they gain any skill experience this session, in which case those modes fall back to the average.
+    @Nullable
+    private SkillInstance _lastGainedSkill = null;
 
     // The player's attack-strength charge (0.0-1.0), polled once per tick. Recent Paper builds reset
     // the live attack-strength ticker before the damage event fires, so reading it there yields ~0.
@@ -98,21 +115,121 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         mobTypes.add(MobType.HUMANOID);
 
         super.setup();
+
+        // Load the player's saved HUD preferences before anything that reads them (tasks, exp bar) starts.
+        _settings = _entity.getPersistentDataContainer()
+                .getOrDefault(KeyStore.PLAYER_SETTINGS, PDCAdapters.PLAYER_SETTINGS, new PlayerSettings());
+
         startManaTask();
         startAttackChargePollTask();
         startBelowNameHealthTask();
 
-        // This is a temp fix simply due to the fact that vanilla orbs are just sentient beings and award people
-        // with stupid amounts of experience for no reason...
-        _entity.setLevel(Math.min(999, _entity.getLevel()));// todo: when mana becomes the xp bar, this NEEDS to be removed.
+        // Initialize the (purely visual) experience bar to reflect the player's settings.
+        updateExperienceBar();
+
+        // Vanilla food is disabled (see __onHungerChange), so crank up the regen rates to avoid the vanilla
+        // hunger system ever interfering with our custom healing.
         _entity.setSaturatedRegenRate(160);
         _entity.setUnsaturatedRegenRate(160);
+    }
+
+    /**
+     * The player's personal HUD preferences. Mutating the returned instance and then calling
+     * {@link PlayerSettings#save(org.bukkit.persistence.PersistentDataHolder)} persists the change.
+     * @return The cached settings instance for this player.
+     */
+    public PlayerSettings getSettings() {
+        return _settings;
+    }
+
+    /**
+     * Re-renders the vanilla experience bar to reflect this player's current settings. The bar is purely a
+     * visual on this server, so this is the single authority that writes to it (all vanilla experience gains
+     * are suppressed in {@link #__onVanillaExperienceGain}). The number and the bar fill are configured
+     * independently, so this resolves each from settings. Redundant writes are skipped, so this is safe to
+     * call on a fast cadence.
+     */
+    public void updateExperienceBar() {
+        int level = computeExperienceBarNumber();
+        float progress = computeExperienceBarProgress();
+
+        if (level == _lastExpBarLevel && Float.compare(progress, _lastExpBarProgress) == 0)
+            return;
+        _lastExpBarLevel = level;
+        _lastExpBarProgress = progress;
+
+        _entity.setLevel(level);
+        _entity.setExp(progress);
+    }
+
+    /**
+     * Resolves the number to show on the experience bar from this player's settings.
+     * @return The level number to display.
+     */
+    private int computeExperienceBarNumber() {
+        return switch (_settings.getExperienceBarNumber()) {
+            case MANA_PERCENT -> {
+                double max = getMaxMana();
+                yield max <= 0 ? 0 : (int) Math.round(Math.clamp(_mana / max, 0, 1) * 100);
+            }
+            case MANA -> (int) Math.round(_mana);
+            case POWER_RATING -> getLevel();
+            case SKILL_AVERAGE -> (int) getAverageSkillLevel();
+            // Fall back to the average until the player has gained skill experience this session.
+            case LAST_SKILL -> _lastGainedSkill != null ? _lastGainedSkill.getLevel() : (int) getAverageSkillLevel();
+            case HIDDEN -> 0;  // Vanilla draws no number when the level is 0.
+        };
+    }
+
+    /**
+     * Resolves the fill (0.0-1.0) of the experience bar from this player's settings.
+     * @return The bar progress to display.
+     */
+    private float computeExperienceBarProgress() {
+        return switch (_settings.getExperienceBarFill()) {
+            case MANA -> {
+                double max = getMaxMana();
+                yield max <= 0 ? 0f : (float) Math.clamp(_mana / max, 0, 1);
+            }
+            case SKILL_AVERAGE -> skillAverageProgress();
+            // Fall back to the average progress until the player has gained skill experience this session.
+            case LAST_SKILL -> _lastGainedSkill != null ? skillProgressFraction(_lastGainedSkill) : skillAverageProgress();
+            case HIDDEN -> 0f;
+        };
+    }
+
+    /**
+     * The fractional progress (0.0-1.0) toward the player's next average skill level. Creeps up as skill
+     * experience is earned.
+     * @return The average progress fraction.
+     */
+    private float skillAverageProgress() {
+        double average = getAverageSkillLevel();
+        return (float) (average - Math.floor(average));
+    }
+
+    /**
+     * The fractional progress (0.0-1.0) through a single skill's current level.
+     * @param skill The skill to measure.
+     * @return The progress fraction, or full when the skill is maxed.
+     */
+    private float skillProgressFraction(SkillInstance skill) {
+        int into = skill.getExperienceProgress();
+        int band = into + skill.getExperienceForNextLevel();
+        if (band <= 0)
+            return 1f;  // Max level (or no further progression) — render the bar as full.
+        return (float) Math.clamp((double) into / band, 0, 1);
     }
 
     public void regenerateMana() {
         var max = getMaxMana();
         this._mana += getMaxMana() / 100;
         this._mana = Math.min(Math.max(0, _mana), max);
+
+        // Refresh the experience bar on this periodic tick. It de-dupes redundant writes internally, so this
+        // cheaply keeps mana-driven, power-rating (gear changes), and skill displays current without spamming
+        // packets when nothing has actually changed.
+        updateExperienceBar();
     }
 
     public double getMana() {
@@ -369,7 +486,6 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         Team team = getNametagTeam();
         var chatInformation = SMPRPG.getService(ChatService.class).getPlayerInfo(getPlayer());
         Component newPrefix = ComponentUtils.powerLevelPrefix(getLevel()).append(ComponentUtils.SPACE);
-        getPlayer().setLevel(getLevel());
         team.prefix(newPrefix);
         if (!chatInformation.prefix().isEmpty())
             team.suffix(Component.text(" " + chatInformation.prefix().stripTrailing(), NamedTextColor.WHITE));
@@ -591,40 +707,34 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
             return;
 
         updateNametag();
+        updateExperienceBar();
     }
 
     /**
-     * Prevent players from going over level 999.
+     * Keeps the experience bar in sync the instant the player earns skill experience, so progress is
+     * visualized in real time rather than only on the next periodic refresh.
      */
-    @EventHandler(priority = EventPriority.HIGHEST)
-    private void __onLevelChange(PlayerLevelChangeEvent event) {
+    @EventHandler(priority = EventPriority.MONITOR)
+    private void __onSkillExperienceGained(SkillExperiencePostGainEvent event) {
 
         if (!event.getPlayer().equals(getPlayer()))
             return;
 
-        if (event.getNewLevel() > 999)
-            event.getPlayer().setLevel(999);
-
-        if (event.getNewLevel() == 999)
-            event.getPlayer().setExp(.9999f);
+        _lastGainedSkill = event.getSkill();
+        updateExperienceBar();
     }
 
     /**
-     * Prevent players from going over level 999 by preventing orb pickups if they are at level 999.
+     * The experience bar is purely a visual that we drive ourselves, so we suppress all vanilla experience
+     * gains (orbs, thrown bottles, smelting, etc.) to keep the bar under our exclusive control.
      */
     @EventHandler
-    private void __onPickupExperienceAtMax(PlayerPickupExperienceEvent event) {
+    private void __onVanillaExperienceGain(PlayerExpChangeEvent event) {
 
         if (!event.getPlayer().equals(getPlayer()))
             return;
 
-        if (event.getPlayer().getLevel() > 999)
-            event.getPlayer().setLevel(999);
-
-        if (event.getPlayer().getLevel() == 999) {
-            event.getPlayer().setExp(.9999f);
-            event.setCancelled(true);
-        }
+        event.setAmount(0);
     }
 
     /**
