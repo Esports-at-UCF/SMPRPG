@@ -29,9 +29,9 @@ public class WheatBlueprintFamily extends CustomItemBlueprint implements ICompre
         return switch (getCustomItemType()) {
             case PREMIUM_WHEAT -> new CompressionStep((ICompressible) itemService.getVanillaBlueprint(ItemStack.of(Material.HAY_BLOCK)), 1, 9);
             case PREMIUM_HAY_BLOCK -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.PREMIUM_WHEAT), 1, 9);
-            case ENCHANTED_WHEAT -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.PREMIUM_MELON), 1, 9);
-            case ENCHANTED_HAY_BLOCK -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.ENCHANTED_MELON_SLICE), 1, 9);
-            case WHEAT_SINGULARITY -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.ENCHANTED_MELON), 1, 9);
+            case ENCHANTED_WHEAT -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.PREMIUM_HAY_BLOCK), 1, 9);
+            case ENCHANTED_HAY_BLOCK -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.ENCHANTED_WHEAT), 1, 9);
+            case WHEAT_SINGULARITY -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.ENCHANTED_HAY_BLOCK), 1, 9);
             default -> null;
         };
     }
