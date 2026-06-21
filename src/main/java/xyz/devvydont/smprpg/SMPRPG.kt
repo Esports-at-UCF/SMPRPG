@@ -18,6 +18,7 @@ import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.listeners.block.*
 import xyz.devvydont.smprpg.listeners.crafting.AnvilMenuListener
 import xyz.devvydont.smprpg.listeners.damage.*
+import xyz.devvydont.smprpg.listeners.entity.CatPufferfishPoisonListener
 import xyz.devvydont.smprpg.listeners.entity.HealthRegenerationListener
 import xyz.devvydont.smprpg.listeners.entity.HealthScaleListener
 import xyz.devvydont.smprpg.listeners.entity.PlayerInputListener
@@ -128,6 +129,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(PlayerInventoryButtonsListener())  // Listens for events regarding player inventory buttons.
         generalListeners.add(CustomNoteblockSoundListener())  // Listens for custom note block instruments
         generalListeners.add(PlayerInputListener())  // Listens for player inputs
+        generalListeners.add(CatPufferfishPoisonListener())  // Feeding our pufferfish to a cat poisons it.
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.
