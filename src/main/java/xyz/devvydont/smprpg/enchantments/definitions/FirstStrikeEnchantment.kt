@@ -8,6 +8,7 @@ import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
+import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
@@ -18,8 +19,10 @@ import org.bukkit.inventory.ItemType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
+import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
 import xyz.devvydont.smprpg.entity.interfaces.IDamageTrackable
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
+import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -42,13 +45,55 @@ class FirstStrikeEnchantment(id: String) : CustomEnchantment(id), Listener {
     override val maxLevel: Int get()                           = 5
     override val weight: Int get()                             = EnchantmentRarity.COMMON.weight
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.HAND
-    override val skillRequirement: Int get()                   = 7
+    override val skillRequirement: Int get()                   = 2
 
     override val conflictingEnchantments: RegistryKeySet<Enchantment>
         get() = RegistrySet.keySet(
             RegistryKey.ENCHANTMENT,
             EnchantmentService.DOUBLE_TAP.typedKey
         )
+
+    override fun getRecipe(level: Int): EnchantmentRecipe? {
+        when (level) {
+            1 -> {
+                val flint = getIngredientStack(Material.FLINT, 32)
+                val feather = getIngredientStack(Material.FEATHER, 32)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 2, flint, feather, lapis)
+            }
+
+            2 -> {
+                val flint = getIngredientStack(Material.FLINT, 64)
+                val feather = getIngredientStack(CustomItemType.PREMIUM_FEATHER, 16)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 25, flint, feather, lapis)
+            }
+
+            3 -> {
+                val flint = getIngredientStack(CustomItemType.COMPRESSED_FLINT, 16)
+                val feather = getIngredientStack(CustomItemType.PREMIUM_FEATHER, 32)
+                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 43, flint, feather, lapis)
+            }
+
+            4 -> {
+                val flint = getIngredientStack(CustomItemType.ENCHANTED_FLINT, 8)
+                val feather = getIngredientStack(CustomItemType.ENCHANTED_FEATHER, 16)
+                val onyx = getIngredientStack(CustomItemType.ONYX, 8)
+                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 61, flint, feather, onyx, lapis)
+            }
+
+            5 -> {
+                val flint = getIngredientStack(CustomItemType.ENCHANTED_FLINT, 16)
+                val feather = getIngredientStack(CustomItemType.ENCHANTED_FEATHER, 32)
+                val onyx = getIngredientStack(CustomItemType.ONYX, 16)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 80, flint, feather, onyx, lapis)
+            }
+            else -> return null
+        }
+    }
 
     @EventHandler(ignoreCancelled = true)
     fun onDealDamage(event: CustomEntityDamageByEntityEvent) {

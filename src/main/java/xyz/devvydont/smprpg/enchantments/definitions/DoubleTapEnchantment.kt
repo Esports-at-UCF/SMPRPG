@@ -8,6 +8,7 @@ import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
+import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
@@ -18,8 +19,10 @@ import org.bukkit.inventory.ItemType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
+import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
 import xyz.devvydont.smprpg.entity.interfaces.IDamageTrackable
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
+import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -48,6 +51,46 @@ class DoubleTapEnchantment(id: String) : CustomEnchantment(id), Listener {
             RegistryKey.ENCHANTMENT,
             EnchantmentService.FIRST_STRIKE.typedKey
         )
+
+    override fun getRecipe(level: Int): EnchantmentRecipe? {
+        when (level) {
+            1 -> {
+                val copper = getIngredientStack(Material.COPPER_INGOT, 16)
+                val redstone = getIngredientStack(Material.REDSTONE, 32)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 2, copper, redstone, lapis)
+            }
+
+            2 -> {
+                val copper = getIngredientStack(Material.COPPER_INGOT, 64)
+                val redstone = getIngredientStack(Material.REDSTONE_BLOCK, 16)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 21, copper, redstone, lapis)
+            }
+
+            3 -> {
+                val copper = getIngredientStack(Material.COPPER_BLOCK, 16)
+                val redstone = getIngredientStack(Material.REDSTONE_BLOCK, 16)
+                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 40, copper, redstone, lapis)
+            }
+
+            4 -> {
+                val copper = getIngredientStack(CustomItemType.ENCHANTED_COPPER, 16)
+                val redstone = getIngredientStack(CustomItemType.ENCHANTED_REDSTONE, 16)
+                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 60, copper, redstone, lapis)
+            }
+
+            5 -> {
+                val copper = getIngredientStack(CustomItemType.ENCHANTED_COPPER_BLOCK, 4)
+                val redstone = getIngredientStack(CustomItemType.ENCHANTED_REDSTONE_BLOCK, 4)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 80, copper, redstone, lapis)
+            }
+            else -> return null
+        }
+    }
 
     @EventHandler(ignoreCancelled = true)
     fun onDealDamage(event: CustomEntityDamageByEntityEvent) {
