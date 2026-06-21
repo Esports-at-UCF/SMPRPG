@@ -311,6 +311,50 @@ enum class AttributeWrapper @JvmOverloads constructor(
         )
     ),
 
+    CRITTER_CHANCE(
+        "Uprooting",
+        AttributeCategory.FORAGING,
+        AttributeType.HELPFUL,
+        ComponentUtils.merge(
+            ComponentUtils.create("Affects the chance of digging up "),
+            ComponentUtils.create("crop critters", NamedTextColor.GOLD),
+            ComponentUtils.create(".")
+        )
+    ),
+
+    WHEAT_FORTUNE(
+        "Wheat Yield",
+        AttributeCategory.FORAGING,
+        AttributeType.HELPFUL,
+        ComponentUtils.merge(
+            ComponentUtils.create("Affects the amount of drops received from "),
+            ComponentUtils.create("farming wheat", NamedTextColor.GOLD),
+            ComponentUtils.create(".")
+        )
+    ),
+
+    POTATO_FORTUNE(
+        "Potato Yield",
+        AttributeCategory.FORAGING,
+        AttributeType.HELPFUL,
+        ComponentUtils.merge(
+            ComponentUtils.create("Affects the amount of drops received from "),
+            ComponentUtils.create("farming potato", NamedTextColor.GOLD),
+            ComponentUtils.create(".")
+        )
+    ),
+
+    ONION_FORTUNE(
+        "Onion Yield",
+        AttributeCategory.FORAGING,
+        AttributeType.HELPFUL,
+        ComponentUtils.merge(
+            ComponentUtils.create("Affects the amount of drops received from "),
+            ComponentUtils.create("farming onion", NamedTextColor.GOLD),
+            ComponentUtils.create(".")
+        )
+    ),
+
     LUMBERING(
         "Lumbering",
         AttributeCategory.FORAGING,

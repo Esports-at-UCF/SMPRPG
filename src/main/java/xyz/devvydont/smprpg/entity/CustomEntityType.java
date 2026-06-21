@@ -14,6 +14,9 @@ import xyz.devvydont.smprpg.entity.base.CustomEntityInstance;
 import xyz.devvydont.smprpg.entity.base.LeveledEntity;
 import xyz.devvydont.smprpg.entity.bosses.BlazeBoss;
 import xyz.devvydont.smprpg.entity.creatures.*;
+import xyz.devvydont.smprpg.entity.farming.Earthworm;
+import xyz.devvydont.smprpg.entity.farming.Mite;
+import xyz.devvydont.smprpg.entity.farming.Ogreling;
 import xyz.devvydont.smprpg.entity.fishing.*;
 import xyz.devvydont.smprpg.entity.npc.ReforgeNPC;
 import xyz.devvydont.smprpg.entity.slayer.illager.*;
@@ -192,6 +195,17 @@ public enum CustomEntityType implements IMenuDisplayable {
     NIDHOGG(EntityType.PHANTOM, "Níðhöggr",
             100, 1_000_000_000, 90_000, Nidhogg::new),
 
+    // Crop Critters
+    MITE(EntityType.SPIDER, "Mite",
+            20, 2_500, 50, Mite::new),
+
+    EARTHWORM(EntityType.SILVERFISH, "Earthworm",
+            20, 2_500, 50, Earthworm::new),
+
+    OGRELING(EntityType.ZOMBIE, "Ogreling",
+            20, 2_500, 50, Ogreling::new),
+
+    // Test Monsters
     TEST_ZOMBIE(EntityType.ZOMBIE, "Test Zombie",
             5, 120, 15,
             TestZombie::new),

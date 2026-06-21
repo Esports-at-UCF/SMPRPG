@@ -17,10 +17,12 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.attribute.AttributeCategory
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.gui.base.MenuBase
+import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EntityDamageCalculatorService.Companion.calculateEffectiveHealth
 import xyz.devvydont.smprpg.services.EntityDamageCalculatorService.Companion.calculateResistancePercentage
 import xyz.devvydont.smprpg.services.EntityService
+import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
 import xyz.devvydont.smprpg.util.formatting.TooltipStyle
@@ -331,6 +333,10 @@ class SubmenuStatOverview(player: Player, private val target: LivingEntity, val 
             AttributeWrapper.MINING_REACH -> ItemStack.of(Material.BRUSH)
             AttributeWrapper.MINING_FORTUNE -> ItemStack.of(Material.DIAMOND)
             AttributeWrapper.FARMING_FORTUNE -> ItemStack.of(Material.WHEAT)
+            AttributeWrapper.CRITTER_CHANCE -> ItemStack.of(Material.ROOTED_DIRT)
+            AttributeWrapper.WHEAT_FORTUNE -> ItemStack.of(Material.WHEAT)
+            AttributeWrapper.POTATO_FORTUNE -> ItemStack.of(Material.POTATO)
+            AttributeWrapper.ONION_FORTUNE -> ItemService.generate(CustomItemType.ONION)
             AttributeWrapper.LUMBERING -> ItemStack.of(Material.IRON_AXE)
             AttributeWrapper.WOODCUTTING_FORTUNE -> ItemStack.of(Material.OAK_LOG)
             AttributeWrapper.FISHING_SPEED -> ItemStack.of(Material.PRISMARINE)

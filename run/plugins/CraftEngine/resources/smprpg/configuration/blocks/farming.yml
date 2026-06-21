@@ -61,6 +61,30 @@ items:
         chance: 0.65
       - type: block_item
         block: smprpg:onion_plant
+  smprpg:premium_onion:
+    material: minecraft:wheat
+    data:
+      item-name: <!i><lang:item.smprpg.premium_onion>
+      pdc:
+        smprpg:item-type: premium_onion
+        smprpg:sell-value: 45
+    texture: smprpg:item/crop/onion
+  smprpg:enchanted_onion:
+    material: minecraft:wheat
+    data:
+      item-name: <!i><lang:item.smprpg.enchanted_onion>
+      pdc:
+        smprpg:item-type: enchanted_onion
+        smprpg:sell-value: 405
+    texture: smprpg:item/crop/onion
+  smprpg:onion_singularity:
+    material: minecraft:wheat
+    data:
+      item-name: <!i><lang:item.smprpg.onion_singularity>
+      pdc:
+        smprpg:item-type: onion_singularity
+        smprpg:sell-value: 3645
+    texture: smprpg:item/crop/onion
   smprpg:rice:
     material: minecraft:wheat
     data:
@@ -142,6 +166,7 @@ blocks:
         - smprpg:supports_onions
         - smprpg:supports_tomatoes
         - smprpg:supports_cabbage
+        - smprpg:supports_rice
     behavior:
       type: smprpg:tick_accelerator
       chance: 0.25
@@ -351,12 +376,8 @@ blocks#rice:
         is-randomly-ticking: true
     behaviors:
       - type: bush_block
-        bottom-blocks:
-          - minecraft:dirt
-          - minecraft:grass_block
-          - smprpg:super_soil
         bottom_block_tags:
-          - minecraft:dirt
+          - smprpg:supports_rice
       - type: crop_block
         grow-speed: 0.125
         light-requirement: 9

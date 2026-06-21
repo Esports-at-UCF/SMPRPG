@@ -52,12 +52,22 @@ class SuperSoil(itemService: ItemService, type: CustomItemType) : CraftEngineBlu
                 ComponentUtils.create("planted on this soil by "),
                 ComponentUtils.create("25%", NamedTextColor.GREEN)
             ),
+            ComponentUtils.merge(
+                ComponentUtils.create("Crops grown on this block gain "),
+                ComponentUtils.create("+${UPROOTING_BONUS.toInt()}", NamedTextColor.GREEN),
+                ComponentUtils.create(" Uprooting", NamedTextColor.YELLOW),
+                ComponentUtils.create("."),
+            ),
             ComponentUtils.EMPTY,
             ComponentUtils.merge(
                 ComponentUtils.create("Doesn't require "),
                 ComponentUtils.create("water", NamedTextColor.BLUE),
                 ComponentUtils.create(", and comes pre-tilled!")
-            )
+            ),
         )
+    }
+
+    companion object {
+        const val UPROOTING_BONUS = 200.0
     }
 }

@@ -25,6 +25,14 @@ class FarmingSkillRewards : SkillRewardContainer() {
             SkillGlobals.REGENERATION_LEVEL_FREQUENCY
         )
 
+        // Loop every 10 levels and add Critter Chance
+        this.addAttributeRewardEveryXLevels(
+            AttributeWrapper.CRITTER_CHANCE,
+            AttributeModifier.Operation.ADD_NUMBER,
+            SkillGlobals.CRITTER_CHANCE_PER_10_LEVELS,
+            SkillGlobals.CRITTER_CHANCE_LEVEL_FREQUENCY
+        )
+
         // Typical HP every level
         this.addScalingAttributeRewardEveryXLevels(
             AttributeWrapper.HEALTH,

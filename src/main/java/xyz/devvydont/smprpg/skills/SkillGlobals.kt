@@ -155,9 +155,11 @@ object SkillGlobals {
     // All foraging skills give fortune for their respective attribute.
     const val FORTUNE_PER_LEVEL: Double = 3.0
 
-    // Farming gives regeneration every 2 levels.
+    // Farming gives regeneration every 2 levels, and critter chance every 10 levels.
     const val REGENERATION_PER_2_LEVELS: Double = 2.0
     const val REGENERATION_LEVEL_FREQUENCY: Int = 2
+    const val CRITTER_CHANCE_PER_10_LEVELS: Double = 10.0
+    const val CRITTER_CHANCE_LEVEL_FREQUENCY: Int = 10
 
     // Fishing skill gives fishing chances every 4 levels.
     const val FISHING_CHANCE_PER_4_LEVEL: Double = 1.0

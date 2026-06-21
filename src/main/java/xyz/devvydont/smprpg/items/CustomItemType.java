@@ -17,6 +17,7 @@ import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineCompressible
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineFoodBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.crops.*;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
+import xyz.devvydont.smprpg.items.blueprints.farming.ProgressiveHoeBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.food.ingredients.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.farming.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
@@ -891,6 +892,11 @@ public enum CustomItemType {
     // DIAMOND_HATCHET("Diamond Hatchet",   Material.DIAMOND_AXE,   ItemRarity.RARE, DiamondHatchet.class),
     NETHERITE_HATCHET("Netherite Hatchet", Material.NETHERITE_AXE, ItemRarity.EPIC,     NetheriteHatchet.class),
 
+    // PROGRESSIVE HOES
+    WHEAT_HOE("Wheat Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
+    POTATO_HOE("Potato Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
+    ONION_HOE("Onion Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
+
     // KNIVES
     IRON_KNIFE("Iron Knife", Material.IRON_SWORD, ItemRarity.COMMON, IronKnife.class),
 
@@ -1019,7 +1025,6 @@ public enum CustomItemType {
     // CROPS
     TOMATO("Tomato", Material.APPLE, ItemRarity.COMMON, Tomato.class),
     TOMATO_SEEDS("Tomato Seeds", Material.WHEAT, ItemRarity.COMMON, CraftEngineBlueprint.class),
-    ONION("Onion", Material.APPLE, ItemRarity.COMMON, Onion.class),
     CABBAGE("Cabbage", Material.APPLE, ItemRarity.COMMON, Cabbage.class),
     CABBAGE_SEEDS("Cabbage Seeds", Material.WHEAT, ItemRarity.COMMON, CraftEngineBlueprint.class),
     CABBAGE_LEAF("Cabbage Leaf", Material.APPLE, ItemRarity.COMMON, CabbageLeaf.class),
@@ -1384,6 +1389,8 @@ public enum CustomItemType {
     ENCHANTED_HAY_BLOCK("Enchanted Hay Block", Material.HAY_BLOCK, ItemRarity.EPIC, true, WheatBlueprintFamily.class),
     WHEAT_SINGULARITY("Wheat Singularity", Material.WHEAT, ItemRarity.LEGENDARY, true, WheatBlueprintFamily.class),
 
+    WHEAT_GRAINS("Wheat Grains", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
+
     PREMIUM_CARROT("Premium Carrot", Material.CARROT, ItemRarity.UNCOMMON, true, CarrotBlueprintFamily.class),
     PREMIUM_GOLDEN_CARROT("Premium Golden Carrot", Material.GOLDEN_CARROT, ItemRarity.UNCOMMON, true, CarrotBlueprintFamily.class),
     ENCHANTED_CARROT("Enchanted Carrot", Material.CARROT, ItemRarity.RARE, true, CarrotBlueprintFamily.class),
@@ -1397,6 +1404,7 @@ public enum CustomItemType {
     POTATO_SINGULARITY("Potato Singularity", Material.POTATO, ItemRarity.LEGENDARY, true, PotatoBlueprintFamily.class),
 
     HOT_POTATO_BOOK("Hot Potato Book", Material.BOOK, ItemRarity.EPIC, HotPotatoBook.class),
+    POTATO_SKINS("Potato Skins", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
 
     PREMIUM_BEETROOT("Premium Beetroot", Material.BEETROOT, ItemRarity.UNCOMMON, true, BeetrootBlueprintFamily.class),
     ENCHANTED_BEETROOT("Enchanted Beetroot", Material.BEETROOT, ItemRarity.RARE, true, BeetrootBlueprintFamily.class),
@@ -1405,6 +1413,13 @@ public enum CustomItemType {
     PREMIUM_PUMPKIN("Premium Pumpkin", Material.PUMPKIN, ItemRarity.UNCOMMON, true, PumpkinBlueprintFamily.class),
     ENCHANTED_PUMPKIN("Enchanted Pumpkin", Material.PUMPKIN, ItemRarity.RARE, true, PumpkinBlueprintFamily.class),
     PUMPKIN_SINGULARITY("Pumpkin Singularity", Material.CARVED_PUMPKIN, ItemRarity.EPIC, true, PumpkinBlueprintFamily.class),
+
+    ONION("Onion", Material.APPLE, ItemRarity.COMMON, Onion.class),
+    PREMIUM_ONION("Premium Onion", Material.APPLE, ItemRarity.COMMON, OnionBlueprintFamily.class),
+    ENCHANTED_ONION("Enchanted Onion", Material.APPLE, ItemRarity.COMMON, OnionBlueprintFamily.class),
+    ONION_SINGULARITY("Onion Singularity", Material.APPLE, ItemRarity.COMMON, OnionBlueprintFamily.class),
+
+    ONION_SKIN("Onion Skin", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
 
     PREMIUM_OAK_LOG("Premium Oak Log", Material.OAK_LOG, ItemRarity.UNCOMMON, true, OakBlueprintFamily.class),
     ENCHANTED_OAK_LOG("Enchanted Oak Log", Material.OAK_LOG, ItemRarity.RARE, true, OakBlueprintFamily.class),

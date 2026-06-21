@@ -55,7 +55,7 @@ class TickAcceleratorBlockBehavior(blockDefinition: BlockDefinition,
                     else if (ceBlockState.customBlockState().hasProperty("stage")) { propertyToCheck = "stage"}
                     else { return }
 
-                    val ageProperty = ceBlockState.customBlockState().getProperty(propertyToCheck) as IntegerProperty
+                    val ageProperty = ceBlockState.getProperty<Int>("age") as IntegerProperty
                     ceBlock.customBlockState()!!.setCustomBlockState(ceBlockState.customBlockState().withProperty(propertyToCheck, min(ceBlockState.get<Int>(ageProperty) + numTicks, ageProperty.max).toString()))
                 }
                 else {

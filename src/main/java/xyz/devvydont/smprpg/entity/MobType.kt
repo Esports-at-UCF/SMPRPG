@@ -11,6 +11,7 @@ enum class MobType(val symbol: String, val symbolColor: TextColor) {
     ARTHROPOD(Symbols.MOB_TYPE_ARTHROPOD, NamedTextColor.DARK_RED),
     BOSS(Symbols.MOB_TYPE_BOSS, NamedTextColor.DARK_PURPLE),
     CONSTRUCT(Symbols.MOB_TYPE_CONSTRUCT, NamedTextColor.GRAY),
+    CROP_CRITTER(Symbols.MOB_TYPE_CROP_CRITTER, TextColor.color(0x1E8C00)),
     CUBIC(Symbols.MOB_TYPE_CUBIC, NamedTextColor.GREEN),
     DRACONIC(Symbols.MOB_TYPE_DRACONIC, TextColor.color(10_027_263)),
     ELEMENTAL(Symbols.MOB_TYPE_ELEMENTAL, NamedTextColor.WHITE),

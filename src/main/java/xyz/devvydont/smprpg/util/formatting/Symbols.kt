@@ -49,6 +49,7 @@ object Symbols {
     const val MOB_TYPE_ARTHROPOD: String = "\uD83D\uDD77"
     const val MOB_TYPE_BOSS: String = "\uD83D\uDC7F"
     const val MOB_TYPE_CONSTRUCT: String = "\uD83E\uDD16"
+    const val MOB_TYPE_CROP_CRITTER: String = "\uD83D\uDE9C"
     const val MOB_TYPE_CUBIC: String = "\uD83D\uDD32"
     const val MOB_TYPE_DRACONIC: String = "\uD83D\uDC09"
     const val MOB_TYPE_ELEMENTAL: String = "\uD83E\uDDEA"

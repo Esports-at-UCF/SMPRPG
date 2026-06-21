@@ -14,6 +14,7 @@ import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
 import xyz.devvydont.smprpg.block.behaviors.SMPRPGBlockBehaviors
 import xyz.devvydont.smprpg.block.behaviors.SMPRPGItemBehaviors
 import xyz.devvydont.smprpg.items.CraftEngineItemSource
+import xyz.devvydont.smprpg.items.listeners.ToolListeners
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.listeners.block.*
 import xyz.devvydont.smprpg.listeners.crafting.AnvilMenuListener
@@ -88,6 +89,7 @@ class SMPRPG : JavaPlugin() {
         services.add(SlayerService()) // Manages slayer quests
         services.add(LootService()) // Manages client sided, refreshable loot containers
         services.add(AetherDimensionService()) // Manages Aether dimensional interactions
+        services.add(CropCritterService()) // Manages Crop Critter spawning and heartbeats
 
         // Start all the services. Make sure nothing goes wrong.
         for (service in services) {
@@ -132,6 +134,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(PlayerInputListener())  // Listens for player inputs
         generalListeners.add(CatPufferfishPoisonListener())  // Feeding our pufferfish to a cat poisons it.
         generalListeners.add(NameTagListener())  // Restores name tag usage (dialog + PDC) now that the vanilla anvil GUI is gone.
+        generalListeners.add(ToolListeners())  // Listens for events related to tool progression/management
 
         // Uncomment this if you want some debugging events.
 //        generalListeners.add(new DebuggingListeners());  // Enables some debugging functionality.
