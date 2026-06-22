@@ -23,6 +23,11 @@ class BlockLootEntry(
      * @return An attribute (if set) that is used for fortune calculation.
      */
     val fortuneOverride: AttributeWrapper?,
+    /**
+     * Get the special attribute used for fortune, such as Wheat Yield/Potato Yield. This can be null, in which the field is ignored
+     * @return An attribute (if set) that is added onto fortune calculation.
+     */
+    val specialFortune: AttributeWrapper?,
 
     /**
      * The set of tools that is considered "valid" to trigger fortune.
@@ -60,6 +65,7 @@ class BlockLootEntry(
         private val preferredTool: MutableSet<ItemClassification> = ImmutableSet.copyOf(preferredTool)
         private val loot: Multimap<BlockLootContext, BlockLoot> = HashMultimap.create<BlockLootContext, BlockLoot>()
         private var fortuneOverride: AttributeWrapper? = null
+        private var specialFortune: AttributeWrapper? = null
         private var dontUseFortune: Boolean = false
 
         /**
@@ -87,6 +93,17 @@ class BlockLootEntry(
         }
 
         /**
+         * Adds an special fortune attribute for this block. This is used for blocks such as potatoes/wheat where
+         * there is a dedicated fortune specifically for that block type.
+         * @param attributeWrapper The attribute that will be used for fortune calculation.
+         * @return The same builder instance for proper builder pattern calls.
+         */
+        fun usesSpecial(attributeWrapper: AttributeWrapper?): Builder {
+            this.specialFortune = attributeWrapper
+            return this
+        }
+
+        /**
          * Flags this block entry as not using fortune at all in drop loot calculation.
          * Useful for things such as utility blocks to prevent duplication.
          * @return The same builder instance for proper builder pattern calls.
@@ -101,7 +118,7 @@ class BlockLootEntry(
          * @return The new entry.
          */
         fun build(): BlockLootEntry {
-            return BlockLootEntry(this.loot, this.fortuneOverride, this.preferredTool, this.dontUseFortune)
+            return BlockLootEntry(this.loot, this.fortuneOverride, this.specialFortune, this.preferredTool, this.dontUseFortune)
         }
 
     }

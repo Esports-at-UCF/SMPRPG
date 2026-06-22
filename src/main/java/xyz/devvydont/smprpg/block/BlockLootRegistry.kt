@@ -476,6 +476,7 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.WHEAT_SEEDS), 1.5))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(Material.WHEAT_SEEDS), 1.5))
                 .uses(AttributeWrapper.FARMING_FORTUNE)
+                .usesSpecial(AttributeWrapper.WHEAT_FORTUNE)
                 .build()
         )
 
@@ -500,6 +501,7 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.POISONOUS_POTATO), 0.02))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(Material.POISONOUS_POTATO), 0.02))
                 .uses(AttributeWrapper.FARMING_FORTUNE)
+                .usesSpecial(AttributeWrapper.POTATO_FORTUNE)
                 .build()
         )
 
@@ -566,6 +568,7 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ONION), 2.5))
                 .add(BlockLootContext.IMMATURE_AGEABLE, of(ItemService.generate(CustomItemType.ONION)))
                 .uses(AttributeWrapper.FARMING_FORTUNE)
+                .usesSpecial(AttributeWrapper.ONION_FORTUNE)
                 .build()
         )
 
