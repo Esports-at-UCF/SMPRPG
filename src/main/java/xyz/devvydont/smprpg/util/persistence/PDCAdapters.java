@@ -12,6 +12,7 @@ public class PDCAdapters {
     public static final RarityAdapter RARITY = new RarityAdapter();
     public static final SpawnerOptionsAdapter SPAWNER_OPTIONS = new SpawnerOptionsAdapter();
     public static final PlayerSettingsAdapter PLAYER_SETTINGS = new PlayerSettingsAdapter();
+    public static final LocationAdapter LOCATION = new LocationAdapter();
 
     // Adapters for items.
     public static final EquipmentSetAdapter EQUIPMENT_SET_ADAPTER = new EquipmentSetAdapter();

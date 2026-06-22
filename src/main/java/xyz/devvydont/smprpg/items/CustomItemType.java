@@ -19,6 +19,7 @@ import xyz.devvydont.smprpg.items.blueprints.crops.*;
 import xyz.devvydont.smprpg.items.blueprints.debug.*;
 import xyz.devvydont.smprpg.items.blueprints.farming.ProgressiveHoeBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.food.ingredients.*;
+import xyz.devvydont.smprpg.items.blueprints.misc.DeathCompass;
 import xyz.devvydont.smprpg.items.blueprints.resources.farming.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
@@ -1497,6 +1498,7 @@ public enum CustomItemType {
     WARDROBE_SLOT_LEGENDARY("Legendary Wardrobe Token", Material.ARMOR_STAND, ItemRarity.LEGENDARY, WardrobeSlotToken.class),
 
     DEATH_CERTIFICATE("Death Certificate", Material.PAPER, ItemRarity.SPECIAL, DeathCertificate.class),
+    DEATH_COMPASS("Death Compass", Material.COMPASS, ItemRarity.SPECIAL, DeathCompass.class),
 
     // BLOCKS
     REFORGE_TABLE(     "Reforge Table",        Material.NETHER_BRICK,     ItemRarity.UNCOMMON, ReforgeTable.class),
