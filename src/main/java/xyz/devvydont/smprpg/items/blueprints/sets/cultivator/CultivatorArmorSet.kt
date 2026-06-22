@@ -25,7 +25,8 @@ abstract class CultivatorArmorSet(itemService: ItemService, type: CustomItemType
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry> {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.FARMING_FORTUNE, 25.0),
-            AdditiveAttributeEntry(AttributeWrapper.FARMING_PROFICIENCY, 5.0)
+            AdditiveAttributeEntry(AttributeWrapper.FARMING_PROFICIENCY, 5.0),
+            AdditiveAttributeEntry(AttributeWrapper.CRITTER_CHANCE, 35.0)
         )
     }
 
