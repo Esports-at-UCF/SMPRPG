@@ -22,6 +22,7 @@ import xyz.devvydont.smprpg.commands.admin.CommandAttribute
 import xyz.devvydont.smprpg.commands.admin.CommandEcoAdmin
 import xyz.devvydont.smprpg.commands.admin.CommandSimulateFishing
 import xyz.devvydont.smprpg.commands.admin.CommandSteal
+import xyz.devvydont.smprpg.commands.enchantments.CommandEnchantments
 import xyz.devvydont.smprpg.commands.entity.CommandSummon
 import xyz.devvydont.smprpg.commands.inventory.CommandPeek
 import xyz.devvydont.smprpg.commands.items.CommandEnchant
@@ -35,7 +36,6 @@ import xyz.devvydont.smprpg.gui.MainMenu
 import xyz.devvydont.smprpg.gui.MenuReforgeBrowser
 import xyz.devvydont.smprpg.gui.economy.MenuDeposit
 import xyz.devvydont.smprpg.gui.economy.MenuWithdraw
-import xyz.devvydont.smprpg.gui.enchantments.EnchantmentMenu
 import xyz.devvydont.smprpg.gui.items.MenuTrashItems
 import xyz.devvydont.smprpg.gui.player.MenuDifficultyChooser
 import xyz.devvydont.smprpg.gui.player.MenuPlayerSettings
@@ -84,7 +84,7 @@ class SMPRPGBootstrapper : PluginBootstrap {
             ICommand.SimplePlayerCommand("sell", { player -> MenuDeposit(player).openMenu()}),
             ICommand.SimplePlayerCommand("withdrawal", { player -> MenuWithdraw(player).openMenu()}),
             ICommand.SimplePlayerCommand("trash", { player -> MenuTrashItems(player).openMenu()}),
-            ICommand.SimplePlayerCommand("enchantments", { player -> EnchantmentMenu(player).openMenu()}),
+            CommandEnchantments("enchantments"),
             ICommand.SimplePlayerCommand("reforges", { player -> MenuReforgeBrowser(player).openMenu()}),
             CommandMarket(),
             CommandAuctionHouse(),
