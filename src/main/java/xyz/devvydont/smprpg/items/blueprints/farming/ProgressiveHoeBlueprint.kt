@@ -28,6 +28,7 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.items.interfaces.IDamageFromCrops
 import xyz.devvydont.smprpg.items.interfaces.IFooterDescribable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
@@ -38,7 +39,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import net.momirealms.craftengine.core.util.Key as CEKey
 
 class ProgressiveHoeBlueprint(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IModelOverridden, ISkillRequirement, IFooterDescribable, ICraftable, IBreakableEquipment, Listener {
+    IModelOverridden, ISkillRequirement, IFooterDescribable, ICraftable, IBreakableEquipment, IDamageFromCrops, Listener {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HOE
     override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.FARMING, 25))
@@ -167,16 +168,19 @@ class ProgressiveHoeBlueprint(itemService: ItemService, type: CustomItemType) : 
         val HOE_LEVEL_KEY = NamespacedKey(SMPRPG.plugin, "hoe_level")
 
         fun incrementCropProgress(item: ItemStack, player: Player?) {
+            if (player != null) {
+                if (!ItemService.meetsRequirements(item, player)) return
+            }
             val blueprint = ItemService.blueprint(item)
             val cropCount = item.persistentDataContainer.getOrDefault(CROP_COUNT_KEY, PersistentDataType.INTEGER, 0)
             val newCount = cropCount + 1
-            if (newCount > CROPS_PER_LEVEL) {
+            if (newCount >= CROPS_PER_LEVEL) {
                 val currLevel = item.persistentDataContainer.getOrDefault(HOE_LEVEL_KEY, PersistentDataType.INTEGER, 0)
                 if (currLevel == MAX_LEVEL) return
-                item.editPersistentDataContainer { pdc -> {
-                    pdc.set(HOE_LEVEL_KEY, PersistentDataType.INTEGER, currLevel + 1)
-                    pdc.set(CROP_COUNT_KEY, PersistentDataType.INTEGER, 0)
-                }
+                item.editPersistentDataContainer { pdc -> run {
+                        pdc.set(HOE_LEVEL_KEY, PersistentDataType.INTEGER, currLevel + 1)
+                        pdc.set(CROP_COUNT_KEY, PersistentDataType.INTEGER, 0)
+                    }
                 }
                 player?.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1f, 2f)
             }
