@@ -37,6 +37,7 @@ class ShroudedEffect(service: SpecialEffectService, player: Player, seconds: Int
         player.addPotionEffect(PotionEffect(PotionEffectType.REGENERATION, 50, 1, true, true))
         player.addPotionEffect(PotionEffect(PotionEffectType.FIRE_RESISTANCE, 50, 0, true, true))
         player.addPotionEffect(PotionEffect(PotionEffectType.GLOWING, 50, 0, true, true))
+        player.addPotionEffect(PotionEffect(PotionEffectType.ABSORPTION, 600, 4, true, true))
 
         if (flightAllowed)
             player.allowFlight = true
