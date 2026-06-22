@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.items;
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.augment.HotPotatoBook;
+import xyz.devvydont.smprpg.items.blueprints.augment.Recombobulator;
 import xyz.devvydont.smprpg.items.blueprints.block.SuperSoil;
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.block.interactable.ReforgeTable;
@@ -214,6 +215,7 @@ public enum CustomItemType {
     RARE_REPAIR_CORE("Rare Repair Core", Material.HEAVY_CORE, ItemRarity.RARE, RepairCore.class),
     EPIC_REPAIR_CORE("Epic Repair Core", Material.HEAVY_CORE, ItemRarity.EPIC, RepairCore.class),
     LEGENDARY_REPAIR_CORE("Legendary Repair Core", Material.HEAVY_CORE, ItemRarity.LEGENDARY, RepairCore.class),
+    RECOMBOBULATOR("Recombobulator 3000", ItemRarity.LEGENDARY, Recombobulator.class),
 
     // COPPER SET
     COPPER_BOW(    "Copper Bow",      Material.BOW,            CopperBow.class),

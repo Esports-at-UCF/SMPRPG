@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.gui.anvil
 import xyz.devvydont.smprpg.gui.anvil.operations.HotPotatoBookOperation
 import xyz.devvydont.smprpg.gui.anvil.operations.MaterialRepairOperation
 import xyz.devvydont.smprpg.gui.anvil.operations.NecronomiconExcerptOperation
+import xyz.devvydont.smprpg.gui.anvil.operations.RecombobulatorOperation
 import xyz.devvydont.smprpg.gui.anvil.operations.RepairCoreOperation
 import xyz.devvydont.smprpg.gui.anvil.operations.ReforgeStoneOperation
 
@@ -22,6 +23,7 @@ object AnvilOperations {
         MaterialRepairOperation,
         NecronomiconExcerptOperation,
         HotPotatoBookOperation,
-        ReforgeStoneOperation
+        ReforgeStoneOperation,
+        RecombobulatorOperation
     )
 }

@@ -35,6 +35,7 @@ class ShamblingAbominationBrutal(entity: LivingEntity?, entityType: CustomEntity
             ChancedItemDrop(generate(CustomItemType.SYPHON_SPELL), 100, this),
             ChancedItemDrop(generate(CustomItemType.NECRONOMICON_EXCERPTS), 200, this),
             ChancedItemDrop(generate(CustomItemType.NECRONOMICON), 500, this),
+            ChancedItemDrop(generate(CustomItemType.RECOMBOBULATOR), 250, this),
         )
     }
 

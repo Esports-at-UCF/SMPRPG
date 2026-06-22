@@ -181,6 +181,7 @@ public class LeveledDragon extends BossInstance<EnderDragon> implements Listener
                 new ChancedItemDrop(ItemService.generate(CustomItemType.ELDERFLAME_BOOTS), 850, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.ELDERFLAME_DAGGER), 1000, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.VOID_RELIC), 1000, this),
+                new ChancedItemDrop(ItemService.generate(CustomItemType.RECOMBOBULATOR), 500, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.TRANSMISSION_WAND), 1000, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.DRACONIC_CRYSTAL), 400, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.DRAGON_SCALES), 4, this),

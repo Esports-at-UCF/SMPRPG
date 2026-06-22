@@ -31,7 +31,8 @@ class IllagerWarlockAdvanced(entity: LivingEntity?, entityType: CustomEntityType
             ChancedItemDrop(generate(CustomItemType.CRYSTAL_BALL), 200, this),
             ChancedItemDrop(generate(CustomItemType.HORN_OF_WARLOCK), 50, this),
             ChancedItemDrop(generate(CustomItemType.FANG_STRIKE_SPELL), 100, this),
-            ChancedItemDrop(generate(CustomItemType.DAMAGE_AURA_SPELL), 100, this)
+            ChancedItemDrop(generate(CustomItemType.DAMAGE_AURA_SPELL), 100, this),
+            ChancedItemDrop(generate(CustomItemType.RECOMBOBULATOR), 750, this),
         )
     }
 

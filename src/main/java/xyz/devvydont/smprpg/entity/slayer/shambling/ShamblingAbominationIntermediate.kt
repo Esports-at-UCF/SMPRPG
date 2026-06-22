@@ -24,7 +24,7 @@ class ShamblingAbominationIntermediate(entity: LivingEntity?, entityType: Custom
             ChancedItemDrop(generate(CustomItemType.PREMIUM_FLESH), 10, this),
             ChancedItemDrop(generate(CustomItemType.ENCHANTED_FLESH), 70, this),
 
-            ChancedItemDrop(generate(CustomItemType.REVILED_VISCERA), 50, this)
+            ChancedItemDrop(generate(CustomItemType.REVILED_VISCERA), 50, this),
         )
     }
 

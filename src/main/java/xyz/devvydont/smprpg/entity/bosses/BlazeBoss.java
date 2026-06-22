@@ -224,6 +224,7 @@ public class BlazeBoss extends CustomBossInstance<Blaze> implements Listener {
                 new ChancedItemDrop(ItemService.generate(CustomItemType.INFERNO_SHORTBOW), 120, this),
 
                 new ChancedItemDrop(ItemService.generate(CustomItemType.SMOLDERING_CORE), 100, this),
+                new ChancedItemDrop(ItemService.generate(CustomItemType.RECOMBOBULATOR), 750, this),
 
                 // Chance to summon again
                 new ChancedItemDrop(ItemService.generate(CustomItemType.INFERNO_ARROW), 20, this)
