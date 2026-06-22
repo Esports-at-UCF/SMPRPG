@@ -51,9 +51,10 @@ public class FishingWeatherBonusTask extends BukkitRunnable {
 
         // Skip the message if they don't have a fishing rod anywhere in their inventory.
         var hasRod = false;
-        for (var item : player.getInventory().getContents())
-            if (item != null && ItemService.blueprint(item) instanceof IFishingRod)
-                hasRod = true;
+        if (ItemService.blueprint(player.getInventory().getItemInMainHand()) instanceof IFishingRod)
+            hasRod = true;
+        if (ItemService.blueprint(player.getInventory().getItemInOffHand()) instanceof IFishingRod)
+            hasRod = true;
         if (!hasRod)
             return;
         
