@@ -98,7 +98,7 @@ class WarlockTrousers(itemService: ItemService, type: CustomItemType) : WarlockA
                             item.getData(DataComponentTypes.ITEM_NAME),
                             ComponentUtils.create(" has leveled up to "),
                             ComponentUtils.create(
-                                "+" + (getKillArcaneRatingBoost(item) * 100.0).toInt() + " Arcane Rating",
+                                "+" + (getKillArcaneRatingBoost(item)).toInt() + " Arcane Rating",
                                 NamedTextColor.DARK_AQUA
                             ),
                             ComponentUtils.create("!")
