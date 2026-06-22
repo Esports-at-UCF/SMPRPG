@@ -53,9 +53,6 @@ class CropCritterService: IService, Listener {
             if (event.player.location.distance(critter!!.entity!!.location) < 100) {
                 event.player.sendMessage(ComponentUtils.error("The critter you dug up is scaring others away!"))
                 event.player.playSound(event.player.location, Sound.ENTITY_SILVERFISH_AMBIENT, 1f, 1.25f)
-                val team: Team = CropCritter.team
-                team.addEntity(critter.entity as LivingEntity)
-                critter.entity!!.isGlowing = true
                 return
             }
         }
@@ -107,6 +104,9 @@ class CropCritterService: IService, Listener {
                             if (clock > 20) {
                                 val critter = SMPRPG.getService(EntityService::class.java).spawnCustomEntity(critterType, location) as CropCritter
                                 critter.spawnedBy = event.player.uniqueId
+                                val team: Team = CropCritter.team
+                                team.addEntity(critter.entity as LivingEntity)
+                                critter.entity!!.isGlowing = true
                                 activeCritters.put(critter.spawnedBy!!, critter)
                                 spawningCritters.remove(event.player.uniqueId)
                                 player.world.playSound(location, Sound.BLOCK_CROP_BREAK, 1f, 0.5f)

@@ -45,7 +45,9 @@ public class PhantomThief extends CustomEntityInstance<Stray> {
                 new ChancedItemDrop(ItemService.generate(CustomItemType.SHADOW_BREW), 15, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.PHANTOM_CURRY), 4, this),
 
-                new ChancedItemDrop(ItemService.generate(Material.BONE), 2, this)
+                new ChancedItemDrop(ItemService.generate(Material.BONE), 2, this),
+                new ChancedItemDrop(ItemService.generate(CustomItemType.PREMIUM_BONE), 50, this),
+                new ChancedItemDrop(ItemService.generate(CustomItemType.ENCHANTED_BONE), 650, this)
         );
     }
 }

@@ -26,7 +26,7 @@ class SuperSoil(itemService: ItemService, type: CustomItemType) : CraftEngineBlu
     }
 
     override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(recipeKey, generate())
+        val recipe = ShapedRecipe(recipeKey, generate(2))
         recipe.shape(
             "bfb",
             "fdf",
