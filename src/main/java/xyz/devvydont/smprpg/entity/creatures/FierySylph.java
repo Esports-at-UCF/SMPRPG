@@ -40,6 +40,10 @@ public class FierySylph<T extends LivingEntity> extends CustomEntityInstance<T> 
                 new ChancedItemDrop(ItemService.generate(CustomItemType.PREMIUM_BLAZE_ROD), 25, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.ENCHANTED_BLAZE_ROD), 350, this),
 
+                new ChancedItemDrop(ItemService.generate(Material.GLOWSTONE_DUST), 4, this),
+                new ChancedItemDrop(ItemService.generate(CustomItemType.ENCHANTED_GLOWSTONE), 50, this),
+                new ChancedItemDrop(ItemService.generate(CustomItemType.ENCHANTED_GLOWSTONE_BLOCK), 600, this),
+
                 new ChancedItemDrop(ItemService.generate(CustomItemType.INFERNO_ARROW), 150, this)
         );
     }
