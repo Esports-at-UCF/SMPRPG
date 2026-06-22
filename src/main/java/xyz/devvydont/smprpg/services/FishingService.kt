@@ -23,7 +23,7 @@ class FishingService : IService {
 
         // Keep environmental (rain/thunderstorm) fishing speed bonuses synced with the weather players are standing in.
         weatherBonusTask = FishingWeatherBonusTask().also {
-            it.runTaskTimer(plugin, TickTime.INSTANTANEOUSLY, TickTime.seconds(1))
+            it.runTaskTimer(plugin, TickTime.INSTANTANEOUSLY, TickTime.seconds(5))
         }
     }
 
