@@ -8,6 +8,8 @@ import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.recipe.CraftingBookCategory
+import org.checkerframework.checker.index.qual.NonNegative
+import org.checkerframework.checker.index.qual.Positive
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
@@ -85,4 +87,21 @@ class WalletBlueprint(itemService: ItemService, type: CustomItemType) : CustomIt
             generate(Material.LEATHER)
         )
     }
+
+    fun getBalance(item: ItemStack): Int {
+        val durabilityComponent = item.getData<@Positive Int?>(DataComponentTypes.MAX_DAMAGE)
+        val durabilityUsed = item.getData<@NonNegative Int?>(DataComponentTypes.DAMAGE)
+
+        // If either component is null, these item is broken and the balance has to be 0.
+        if (durabilityComponent == null || durabilityUsed == null)
+            return 0
+
+        return durabilityComponent - durabilityUsed - 1
+    }
+
+    fun setBalance(item: ItemStack, balance: Int) {
+        val clamped = balance.coerceIn(0, maxCoins)
+        item.setData(DataComponentTypes.DAMAGE, maxCoins - clamped)
+    }
+
 }

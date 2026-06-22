@@ -1216,8 +1216,8 @@ class ItemService : IService, Listener {
             if (blueprint is WalletBlueprint) {
                 lore.add(
                     ComponentUtils.create("Balance: ")
-                        .append(ComponentUtils.create(EconomyService.formatMoney((durabilityComponent - durabilityUsed - 1).toLong()), NamedTextColor.GOLD))
-                        .append(ComponentUtils.create("/" + EconomyService.formatMoney((durabilityComponent - 1).toLong()), NamedTextColor.GOLD))
+                        .append(ComponentUtils.create(EconomyService.formatMoney((blueprint.getBalance(itemStack)).toLong()), NamedTextColor.GOLD))
+                        .append(ComponentUtils.create("/" + EconomyService.formatMoney((blueprint.maxCoins).toLong()), NamedTextColor.GOLD))
                 )
             }
             else if (blueprint is IFueledEquipment || blueprint is FuelTankBlueprint) {
