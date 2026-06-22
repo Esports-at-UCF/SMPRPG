@@ -26,6 +26,7 @@ import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
+import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IFooterDescribable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
@@ -37,7 +38,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import net.momirealms.craftengine.core.util.Key as CEKey
 
 class ProgressiveHoeBlueprint(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IModelOverridden, ISkillRequirement, IFooterDescribable, ICraftable, Listener {
+    IModelOverridden, ISkillRequirement, IFooterDescribable, ICraftable, IBreakableEquipment, Listener {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HOE
     override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.FARMING, 25))
@@ -149,6 +150,10 @@ class ProgressiveHoeBlueprint(itemService: ItemService, type: CustomItemType) : 
             CustomItemType.ONION_HOE -> listOf(itemService.getCustomItem(CustomItemType.ONION_SINGULARITY))
             else -> listOf()
         }
+    }
+
+    override fun getMaxDurability(): Int {
+        return 2_048
     }
 
     companion object {
