@@ -79,52 +79,53 @@ class ToolListeners : ToggleableListener() {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    fun __onAttemptPerformTransmuteUpgradeRecipe(event: PrepareItemCraftEvent) {
-        // If there's a recipe involved, there's nothing to check.
-
-        if (event.getRecipe() != null) return
-
-        var refuelableIndex = -1
-        var totalRefuel = 0
-        var totalItems = 0
-        var i = 0
-        // Get our crafting matrix
-        val matrix = event.getInventory().getMatrix()
-        for (itemStack in matrix) {
-            i++
-            if (itemStack == null) continue
-
-            val bp = blueprint(itemStack)
-            val isEquip = (bp is IFueledEquipment)
-            val isFuel = (bp is IFurnaceFuel) || itemStack.getType().isFuel()
-            if (!isEquip && !isFuel) {
-                // Something in here is not a furnace fuel, or refuelable, abort.
-                return
-            }
-
-            if (isEquip) {
-                if (refuelableIndex != -1) {
-                    // We already have a refuelable found??? Don't be trying to charge two drills on me!
-                    return
-                }
-                refuelableIndex = i - 1
-            } else {
-                if (bp is IFurnaceFuel) totalRefuel += ((bp as IFurnaceFuel).getBurnTime() / 20).toInt() // Convert from ticks to seconds
-                else totalRefuel += itemStack.getType().asItemType()!!.getBurnDuration() / 20
-            }
-            totalItems++
-        }
-        if (totalItems <= 1) {
-            // Kinda hard to refuel if there is just one item in the grid, huh?
-            return
-        }
-        val returnRefuelable = matrix[refuelableIndex]!!.clone()
-        val blueprint = blueprint(returnRefuelable) as IFueledEquipment
-        val fuel = blueprint.getFuelUsed(returnRefuelable)
-        val newFuel = max(0, fuel - totalRefuel)
-        blueprint.setFuelUsed(returnRefuelable, newFuel)
-        blueprint(returnRefuelable).updateItemData(returnRefuelable)
-        event.getInventory().setResult(returnRefuelable)
-    }
+    // todo: drill stuff, commented out for now bc it seems to be causing issues
+//    @EventHandler(priority = EventPriority.HIGHEST)
+//    fun __onAttemptPerformTransmuteUpgradeRecipe(event: PrepareItemCraftEvent) {
+//        // If there's a recipe involved, there's nothing to check.
+//
+//        if (event.getRecipe() != null) return
+//
+//        var refuelableIndex = -1
+//        var totalRefuel = 0
+//        var totalItems = 0
+//        var i = 0
+//        // Get our crafting matrix
+//        val matrix = event.getInventory().getMatrix()
+//        for (itemStack in matrix) {
+//            i++
+//            if (itemStack == null) continue
+//
+//            val bp = blueprint(itemStack)
+//            val isEquip = (bp is IFueledEquipment)
+//            val isFuel = (bp is IFurnaceFuel) || itemStack.getType().isFuel()
+//            if (!isEquip && !isFuel) {
+//                // Something in here is not a furnace fuel, or refuelable, abort.
+//                return
+//            }
+//
+//            if (isEquip) {
+//                if (refuelableIndex != -1) {
+//                    // We already have a refuelable found??? Don't be trying to charge two drills on me!
+//                    return
+//                }
+//                refuelableIndex = i - 1
+//            } else {
+//                if (bp is IFurnaceFuel) totalRefuel += ((bp as IFurnaceFuel).getBurnTime() / 20).toInt() // Convert from ticks to seconds
+//                else totalRefuel += itemStack.getType().asItemType()!!.getBurnDuration() / 20
+//            }
+//            totalItems++
+//        }
+//        if (totalItems <= 1) {
+//            // Kinda hard to refuel if there is just one item in the grid, huh?
+//            return
+//        }
+//        val returnRefuelable = matrix[refuelableIndex]!!.clone()
+//        val blueprint = blueprint(returnRefuelable) as IFueledEquipment
+//        val fuel = blueprint.getFuelUsed(returnRefuelable)
+//        val newFuel = max(0, fuel - totalRefuel)
+//        blueprint.setFuelUsed(returnRefuelable, newFuel)
+//        blueprint(returnRefuelable).updateItemData(returnRefuelable)
+//        event.getInventory().setResult(returnRefuelable)
+//    }
 }
