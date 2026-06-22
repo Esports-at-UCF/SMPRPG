@@ -1422,8 +1422,8 @@ public enum CustomItemType {
 
     ONION("Onion", Material.APPLE, ItemRarity.COMMON, Onion.class),
     PREMIUM_ONION("Premium Onion", Material.APPLE, ItemRarity.COMMON, OnionBlueprintFamily.class),
-    ENCHANTED_ONION("Enchanted Onion", Material.APPLE, ItemRarity.COMMON, OnionBlueprintFamily.class),
-    ONION_SINGULARITY("Onion Singularity", Material.APPLE, ItemRarity.COMMON, OnionBlueprintFamily.class),
+    ENCHANTED_ONION("Enchanted Onion", Material.APPLE, ItemRarity.UNCOMMON, OnionBlueprintFamily.class),
+    ONION_SINGULARITY("Onion Singularity", Material.APPLE, ItemRarity.RARE, OnionBlueprintFamily.class),
 
     ONION_SKIN("Onion Skin", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
 
