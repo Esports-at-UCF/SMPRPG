@@ -37,7 +37,10 @@ class ShroudedEffect(service: SpecialEffectService, player: Player, seconds: Int
         player.addPotionEffect(PotionEffect(PotionEffectType.REGENERATION, 50, 1, true, true))
         player.addPotionEffect(PotionEffect(PotionEffectType.FIRE_RESISTANCE, 50, 0, true, true))
         player.addPotionEffect(PotionEffect(PotionEffectType.GLOWING, 50, 0, true, true))
-        player.addPotionEffect(PotionEffect(PotionEffectType.ABSORPTION, 600, 4, true, true))
+
+        // We have to check for this effect otherwise the damage popup manager will spam absorption gain #s every tick
+        if (!player.hasPotionEffect(PotionEffectType.ABSORPTION))
+            player.addPotionEffect(PotionEffect(PotionEffectType.ABSORPTION, 600, 4, true, true))
 
         if (flightAllowed)
             player.allowFlight = true
