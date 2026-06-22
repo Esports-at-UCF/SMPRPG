@@ -242,6 +242,7 @@ class MenuDifficultyChooser : MenuBase {
                 ComponentUtils.create("* -50% (Combat) Stats from Skills", NamedTextColor.RED),
                 ComponentUtils.create("* -25% Skill Experience", NamedTextColor.RED),
                 ComponentUtils.create("* Effects of Shrouded are decreased", NamedTextColor.RED),
+                ComponentUtils.create("* Death Certificates cannot be converted into compasses", NamedTextColor.RED),
             )
             else -> listOf()
         }
