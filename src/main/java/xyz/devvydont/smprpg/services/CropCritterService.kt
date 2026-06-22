@@ -78,7 +78,7 @@ class CropCritterService: IService, Listener {
                 }
 
                 val spawnChance = CRITTER_SPAWN_CHANCE.get(critterType)
-                val spawnRoll = Math.random() * (uprooting / 1000.0)
+                val spawnRoll = Math.random() * (uprooting / 750.0)
                 if (spawnRoll >= (1.0 - spawnChance!!)) {
                     spawningCritters.add(event.player.uniqueId)
                     object : BukkitRunnable() {
@@ -135,9 +135,9 @@ class CropCritterService: IService, Listener {
             Pair(CraftEngineBlockEnums.ONION_PLANT.key, CustomEntityType.OGRELING),
         )
         val CRITTER_SPAWN_CHANCE = mutableMapOf(
-            Pair(CustomEntityType.EARTHWORM, 0.35),
-            Pair(CustomEntityType.MITE, 0.35),
-            Pair(CustomEntityType.OGRELING, 0.35),
+            Pair(CustomEntityType.EARTHWORM, 0.65),
+            Pair(CustomEntityType.MITE, 0.65),
+            Pair(CustomEntityType.OGRELING, 0.65),
         )
         val SOIL_TO_UPROOTING = mutableMapOf(
             Pair(CEKey.of("minecraft:farmland"), 0.0),
