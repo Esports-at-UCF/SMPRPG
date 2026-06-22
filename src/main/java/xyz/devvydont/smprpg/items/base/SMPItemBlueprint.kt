@@ -329,6 +329,7 @@ abstract class SMPItemBlueprint(
                 }
                 itemStack.setData(DataComponentTypes.MAX_DAMAGE, maxDurability.roundToInt())
                 itemStack.setData(DataComponentTypes.DAMAGE, dmg ?: 0)
+                itemStack.unsetData(DataComponentTypes.UNBREAKABLE)
             }
 
             is ChargedItemBlueprint, is IFueledEquipment, is ICosmeticDurability -> {
