@@ -349,11 +349,25 @@ public class EntitySpawner extends CustomEntityInstance<Entity> implements Liste
     @Override
     public void cleanup() {
 
-        for (var entity : spawned.entrySet()) {
-            var bukkitEntity = Bukkit.getEntity(entity.getKey());
-            if (bukkitEntity != null && bukkitEntity.isValid())
-                bukkitEntity.remove();
-        }
+        // cleanup() can run from within an EntityRemoveFromWorldEvent (e.g. the spawner unloading with
+        // its chunk). The server refuses to remove entities while it is processing section status updates,
+        // so removing the children inline triggers a warning and silently fails. Defer the removal to the
+        // next tick to escape that window. During a plugin disable the scheduler rejects new tasks (and no
+        // chunk tick is in progress), so fall back to removing them immediately.
+        var children = List.copyOf(spawned.keySet());
+        spawned.clear();
+        Runnable removeChildren = () -> {
+            for (var uuid : children) {
+                var bukkitEntity = Bukkit.getEntity(uuid);
+                if (bukkitEntity != null && bukkitEntity.isValid())
+                    bukkitEntity.remove();
+            }
+        };
+
+        if (_plugin.isEnabled())
+            Bukkit.getScheduler().runTask(_plugin, removeChildren);
+        else
+            removeChildren.run();
 
         if (tickTask != null)
             tickTask.cancel();
