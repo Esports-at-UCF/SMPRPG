@@ -59,6 +59,12 @@ public class SeaCreature<T extends LivingEntity> extends CustomEntityInstance<T>
     }
 
     @Override
+    public void setup() {
+        super.setup();
+        _entity.setGlowing(true);
+    }
+
+    @Override
     public TextColor getNameColor() {
         return NAME_COLOR;
     }
