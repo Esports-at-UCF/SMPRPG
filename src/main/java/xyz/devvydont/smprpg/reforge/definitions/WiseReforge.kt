@@ -13,7 +13,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 class WiseReforge(type: ReforgeType) : ReforgeBase(type) {
     fun getIntelligenceBoost(rarity: ItemRarity): Double {
-        return (20 + rarity.ordinal * 25) / 100.0
+        return (20 + rarity.ordinal * 25).toDouble()
     }
 
     override fun getAttributeModifiersWithRarity(rarity: ItemRarity): List<AttributeEntry> {

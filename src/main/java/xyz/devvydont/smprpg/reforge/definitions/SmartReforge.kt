@@ -13,7 +13,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 class SmartReforge(type: ReforgeType) : ReforgeBase(type) {
     fun getIntelligenceBoost(rarity: ItemRarity): Double {
-        return (50 + rarity.ordinal * 50) / 100.0
+        return (50 + rarity.ordinal * 50).toDouble()
     }
 
     fun getArcaneRating(rarity: ItemRarity): Int {
