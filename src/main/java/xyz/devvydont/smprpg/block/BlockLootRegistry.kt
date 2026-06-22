@@ -1240,7 +1240,7 @@ object BlockLootRegistry : Listener {
 
         register(
             CraftEngineBlockEnums.AETHER_SILVER_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_ORE)))
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.AETHER_SILVER_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SILVER_NUGGET)))
                 .build()
