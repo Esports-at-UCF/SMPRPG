@@ -323,6 +323,7 @@ class ItemService : IService, Listener {
         registerVanillaMaterialResolver(Material.COOKED_BEEF, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.SPIDER_EYE, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.BLAZE_ROD, VanillaCompressibleBlueprint::class.java)
+        registerVanillaMaterialResolver(Material.BREEZE_ROD, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.ECHO_SHARD, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.INK_SAC, VanillaCompressibleBlueprint::class.java)
         registerVanillaMaterialResolver(Material.MAGMA_CREAM, VanillaCompressibleBlueprint::class.java)

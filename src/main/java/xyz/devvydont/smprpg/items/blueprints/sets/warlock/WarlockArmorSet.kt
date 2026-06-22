@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
+import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
@@ -20,7 +21,7 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 abstract class WarlockArmorSet(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IEquippableAssetOverride, IRepairable, IFooterDescribable, IBreakableEquipment, ICraftable, IModelOverridden {
+    IEquippableAssetOverride, IRepairable, IFooterDescribable, IBreakableEquipment, ICraftable, IModelOverridden, Listener {
 
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH))
 

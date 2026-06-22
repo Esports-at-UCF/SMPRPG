@@ -18,7 +18,7 @@ class WiseReforge(type: ReforgeType) : ReforgeBase(type) {
 
     override fun getAttributeModifiersWithRarity(rarity: ItemRarity): List<AttributeEntry> {
         return listOf(
-            ScalarAttributeEntry(AttributeWrapper.INTELLIGENCE, getIntelligenceBoost(rarity)),
+            AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, getIntelligenceBoost(rarity)),
             AdditiveAttributeEntry(AttributeWrapper.HEALTH, (10 * rarity.ordinal).toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.DEFENSE, (5 * rarity.ordinal).toDouble())
         )

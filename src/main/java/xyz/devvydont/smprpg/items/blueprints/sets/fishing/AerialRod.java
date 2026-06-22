@@ -79,9 +79,9 @@ public class AerialRod extends CustomAttributeItem implements IBreakableEquipmen
     private RecipeChoice getTransmuteComponent() {
         return switch (this.getCustomItemType()) {
             case AERCLOUD_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.COLD_AERCLOUD));
-            case ETHER_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.ENDSTONE_ROD));
-            case MERCURIAL_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.ENDER_ROD));
-            case ZEPHYRUS_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.COMET_ROD));
+            case ETHER_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.AERCLOUD_ROD));
+            case MERCURIAL_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.ETHER_ROD));
+            case ZEPHYRUS_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.MERCURIAL_ROD));
             default -> new RecipeChoice.ExactChoice(ItemService.generate(Material.BARRIER));
         };
     }
@@ -93,8 +93,8 @@ public class AerialRod extends CustomAttributeItem implements IBreakableEquipmen
         return switch (this.getCustomItemType()) {
             case AERCLOUD_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.COLD_AERCLOUD));
             case ETHER_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.GOLD_AERCLOUD));
-            case MERCURIAL_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.OBSIDIAN_TOOL_ROD));
-            case ZEPHYRUS_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.DRACONIC_CRYSTAL));
+            case MERCURIAL_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.AETHERIUM_INGOT));
+            case ZEPHYRUS_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.ENCHANTED_BREEZE_ROD));
             default -> new RecipeChoice.ExactChoice(ItemService.generate(Material.BARRIER));
         };
     }

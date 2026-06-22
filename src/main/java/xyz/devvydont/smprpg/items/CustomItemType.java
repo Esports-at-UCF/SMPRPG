@@ -1301,6 +1301,12 @@ public enum CustomItemType {
     PREMIUM_MAGMA_CREAM("Premium Magma Cream", Material.MAGMA_CREAM, ItemRarity.UNCOMMON, true, MagmaCreamFamilyBlueprint.class),
     ENCHANTED_MAGMA_CREAM("Enchanted Magma Cream", Material.MAGMA_CREAM, ItemRarity.RARE, true, MagmaCreamFamilyBlueprint.class),
 
+    // AETHER MOBS
+
+    // BREEZE
+    PREMIUM_BREEZE_ROD("Premium Breeze Rod", Material.BREEZE_ROD, ItemRarity.UNCOMMON, true, BreezeRodFamilyBlueprint.class),
+    ENCHANTED_BREEZE_ROD("Enchanted Breeze Rod", Material.BREEZE_ROD, ItemRarity.RARE, true, BreezeRodFamilyBlueprint.class),
+
     // END MOBS
 
     // ENDER PEARL
