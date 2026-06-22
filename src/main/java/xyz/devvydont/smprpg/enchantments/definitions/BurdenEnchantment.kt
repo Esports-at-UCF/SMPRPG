@@ -5,6 +5,7 @@ import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
+import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -16,7 +17,9 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil
+import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
+import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
@@ -37,6 +40,52 @@ class BurdenEnchantment(id: String) : CustomEnchantment(id), Listener {
     override val weight: Int get()                             = EnchantmentRarity.UNCOMMON.weight
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.MAINHAND
     override val skillRequirement: Int get()                   = 15
+
+    override fun getRecipe(level: Int): EnchantmentRecipe? {
+        when (level) {
+            1 -> {
+                val powder = getIngredientStack(CustomItemType.SPELL_POWDER, 16)
+                val amethyst = getIngredientStack(Material.AMETHYST_SHARD, 16)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 15, powder, amethyst, lapis)
+            }
+
+            2 -> {
+                val powder = getIngredientStack(CustomItemType.SPELL_POWDER, 32)
+                val amethyst = getIngredientStack(Material.AMETHYST_SHARD, 32)
+                val pearl = getIngredientStack(Material.ENDER_PEARL, 16)
+                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 31, powder, amethyst, pearl, lapis)
+            }
+
+            3 -> {
+                val powder = getIngredientStack(CustomItemType.PREMIUM_SPELL_POWDER, 16)
+                val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST, 8)
+                val pearl = getIngredientStack(CustomItemType.PREMIUM_ENDER_PEARL, 12)
+                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 8)
+                return EnchantmentRecipe(getRecipeKey(level), 47, powder, amethyst, pearl, lapis)
+            }
+
+            4 -> {
+                val powder = getIngredientStack(CustomItemType.PREMIUM_SPELL_POWDER, 32)
+                val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST, 16)
+                val pearl = getIngredientStack(CustomItemType.ENCHANTED_ENDER_PEARL, 8)
+                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 63, powder, amethyst, pearl, lapis)
+            }
+
+            5 -> {
+                val powder = getIngredientStack(CustomItemType.ENCHANTED_SPELL_POWDER, 16)
+                val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 8)
+                val pearl = getIngredientStack(CustomItemType.ENCHANTED_ENDER_PEARL, 16)
+                val horn = getIngredientStack(CustomItemType.HORN_OF_WARLOCK, 4)
+                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
+                return EnchantmentRecipe(getRecipeKey(level), 80, powder, amethyst, pearl, horn, lapis)
+            }
+
+            else -> return null
+        }
+    }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onPlayerBurdenedEntity(event: CustomEntityDamageByEntityEvent) {
