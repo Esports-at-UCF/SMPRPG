@@ -55,7 +55,10 @@ class MenuDeposit(owner: Player) : MenuBase(owner, 5) {
 
         // If the item is sellable, but not worth anything, don't let them sell it.
         // This is usually the case with some CraftEngine items, as they use a universal parent blueprint.
-        if ((itemBlueprint as ISellable).getWorth(event.currentItem) == 0) event.isCancelled = true
+        if (itemBlueprint is ISellable) {
+            if ((itemBlueprint as ISellable).getWorth(event.currentItem) == 0)
+                event.isCancelled = true
+        }
 
         // If the item clicked is enchanted or reforged, we should prevent the item from being shift clicked.
         if (event.isShiftClick && (!event.getCurrentItem()!!.enchantments.isEmpty() || itemBlueprint.isReforged(
@@ -87,6 +90,7 @@ class MenuDeposit(owner: Player) : MenuBase(owner, 5) {
                 amountToCredit += itemBlueprint.getBalance(depositedItem)
                 quantitySold++
                 itemBlueprint.setBalance(depositedItem, 0)
+                itemBlueprint.updateItemData(depositedItem)
                 giveItemToPlayer(depositedItem)
                 continue
             }
