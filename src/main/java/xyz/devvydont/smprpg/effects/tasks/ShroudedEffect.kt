@@ -29,13 +29,18 @@ class ShroudedEffect(service: SpecialEffectService, player: Player, seconds: Int
     override val timerColor: TextColor
         get() = NamedTextColor.GREEN
 
+    var flightAllowed = false
+
 
     override fun tick() {
         player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 50, 2, true, true))
         player.addPotionEffect(PotionEffect(PotionEffectType.REGENERATION, 50, 1, true, true))
         player.addPotionEffect(PotionEffect(PotionEffectType.FIRE_RESISTANCE, 50, 0, true, true))
         player.addPotionEffect(PotionEffect(PotionEffectType.GLOWING, 50, 0, true, true))
-        player.allowFlight = true
+
+        if (flightAllowed)
+            player.allowFlight = true
+
         player.foodLevel = 20
         player.saturation = 20f
         // If we are flying, subtract a second depending on the tick. This will make it appear like it's draining.
