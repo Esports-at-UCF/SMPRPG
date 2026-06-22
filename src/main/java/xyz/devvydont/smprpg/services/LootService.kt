@@ -50,7 +50,7 @@ class LootService : IService, Listener {
     /**
      * How long in milliseconds chests should restock per player.
      */
-    val RESTOCK_COOLDOWN: Long = 24 * 60 * 60 * 1000
+    val RESTOCK_COOLDOWN: Long = 16 * 60 * 60 * 1000
 
     val rng = Random()
     val lootContainerViewers = HashMap<UUID, LootInventoryContext>()
