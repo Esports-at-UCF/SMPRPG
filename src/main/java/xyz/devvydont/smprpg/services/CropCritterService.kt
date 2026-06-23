@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.services
 import com.destroystokyo.paper.ParticleBuilder
 import net.momirealms.craftengine.bukkit.api.BukkitAdaptor
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.block.BlockFace
@@ -14,6 +15,7 @@ import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.entity.EntityInteractEvent
+import org.bukkit.persistence.PersistentDataType
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scoreboard.Team
 import xyz.devvydont.smprpg.SMPRPG
@@ -58,9 +60,9 @@ class CropCritterService: IService, Listener {
         }
 
         val attrService = SMPRPG.getService(AttributeService::class.java)
-        var uprooting = attrService.getOrCreateAttribute(event.player, AttributeWrapper.CRITTER_CHANCE).value
-        uprooting += SOIL_TO_UPROOTING.getOrDefault(BukkitAdaptor.adapt(event.block.getRelative(BlockFace.DOWN)).id(), 0.0)
-        if (uprooting > 0.0) {
+        var playerUprooting = attrService.getOrCreateAttribute(event.player, AttributeWrapper.CRITTER_CHANCE).value
+        playerUprooting += SOIL_TO_UPROOTING.getOrDefault(BukkitAdaptor.adapt(event.block.getRelative(BlockFace.DOWN)).id(), 0.0)
+        if (playerUprooting > 0.0) {
             val ceBlock = BukkitAdaptor.adapt(event.block)
             val critterType = CROP_TO_CRITTER.getOrDefault(ceBlock.id(), null)
             if (critterType != null) {
@@ -77,10 +79,14 @@ class CropCritterService: IService, Listener {
                         return
                 }
 
-                val spawnChance = CRITTER_SPAWN_CHANCE.get(critterType)
-                val spawnRoll = Math.random() * (uprooting / 750.0)
-                if (spawnRoll >= (1.0 - spawnChance!!)) {
+                val uprootingReq = CRITTER_UPROOTING_REQ[critterType]
+                val nextCritterTimestamp = event.player.persistentDataContainer.getOrDefault(CRITTER_TIMESTAMP_KEY, PersistentDataType.LONG, 0)
+                val currTime = System.currentTimeMillis()
+                val critterPity = if (nextCritterTimestamp - currTime < 0L) 0.0 else ((nextCritterTimestamp - currTime) / TIME_BETWEEN_CRITTER_SPAWNS.toDouble())
+                val spawnRoll = Math.random() * playerUprooting * (1.0 - critterPity)
+                if (spawnRoll >= uprootingReq!!) {
                     spawningCritters.add(event.player.uniqueId)
+                    event.player.persistentDataContainer.set(CRITTER_TIMESTAMP_KEY, PersistentDataType.LONG, currTime + TIME_BETWEEN_CRITTER_SPAWNS)
                     object : BukkitRunnable() {
                         private var clock = 0
                         private var location = event.block.location.add(0.5, 0.0, 0.5)
@@ -134,14 +140,16 @@ class CropCritterService: IService, Listener {
             Pair(CEKey.of("minecraft:wheat"), CustomEntityType.MITE),
             Pair(CraftEngineBlockEnums.ONION_PLANT.key, CustomEntityType.OGRELING),
         )
-        val CRITTER_SPAWN_CHANCE = mutableMapOf(
-            Pair(CustomEntityType.EARTHWORM, 0.65),
-            Pair(CustomEntityType.MITE, 0.65),
-            Pair(CustomEntityType.OGRELING, 0.65),
+        val CRITTER_UPROOTING_REQ = mutableMapOf(
+            Pair(CustomEntityType.EARTHWORM, 200),
+            Pair(CustomEntityType.MITE, 200),
+            Pair(CustomEntityType.OGRELING, 200),
         )
         val SOIL_TO_UPROOTING = mutableMapOf(
             Pair(CEKey.of("minecraft:farmland"), 0.0),
             Pair(CraftEngineBlockEnums.SUPER_SOIL.key, SuperSoil.UPROOTING_BONUS),
         )
+        val CRITTER_TIMESTAMP_KEY: NamespacedKey = NamespacedKey(plugin, "next_crop_critter_timestamp")
+        val TIME_BETWEEN_CRITTER_SPAWNS: Long = 60 * 5 * 1000L // 5 Minutes
     }
 }
