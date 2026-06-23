@@ -662,7 +662,7 @@ class MenuEnchantingTable(owner: Player, private val enchantingTable: Enchanting
             return false
         }
 
-        enchantItem.addEnchantment(enchant, enchantItem.getEnchantmentLevel(enchant) + 1)
+        enchantItem.addUnsafeEnchantment(enchant, enchantItem.getEnchantmentLevel(enchant) + 1)
         player.playSound(player.location, Sound.BLOCK_BEACON_ACTIVATE, 1f, 2f)
         player.playSound(player.location, Sound.BLOCK_BEACON_POWER_SELECT, 1f, 2f)
         return true
