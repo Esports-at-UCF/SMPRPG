@@ -54,6 +54,7 @@ class ToolListeners : ToggleableListener() {
                 CustomItemType.WHEAT_HOE -> cropKeyToMatch = CEKey.of("minecraft:wheat")
                 CustomItemType.POTATO_HOE -> cropKeyToMatch = CEKey.of("minecraft:potatoes")
                 CustomItemType.ONION_HOE -> cropKeyToMatch = CraftEngineBlockEnums.ONION_PLANT.key
+                CustomItemType.CARROT_HOE -> cropKeyToMatch = CEKey.of("minecraft:carrots")
                 else -> return
             }
             val ceBlock = BukkitAdaptor.adapt(event.block)

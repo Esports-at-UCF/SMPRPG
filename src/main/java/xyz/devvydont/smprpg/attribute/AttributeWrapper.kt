@@ -355,6 +355,17 @@ enum class AttributeWrapper @JvmOverloads constructor(
         )
     ),
 
+    CARROT_FORTUNE(
+        "Carrot Yield",
+        AttributeCategory.FORAGING,
+        AttributeType.HELPFUL,
+        ComponentUtils.merge(
+            ComponentUtils.create("Affects the amount of drops received from "),
+            ComponentUtils.create("farming onion", NamedTextColor.GOLD),
+            ComponentUtils.create(".")
+        )
+    ),
+
     LUMBERING(
         "Lumbering",
         AttributeCategory.FORAGING,

@@ -899,6 +899,7 @@ public enum CustomItemType {
     WHEAT_HOE("Wheat Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
     POTATO_HOE("Potato Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
     ONION_HOE("Onion Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
+    CARROT_HOE("Carrot Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
 
     // KNIVES
     IRON_KNIFE("Iron Knife", Material.IRON_SWORD, ItemRarity.COMMON, IronKnife.class),
@@ -1406,6 +1407,8 @@ public enum CustomItemType {
     ENCHANTED_GOLDEN_CARROT("Enchanted Golden Carrot", Material.GOLDEN_CARROT, ItemRarity.EPIC, true, CarrotBlueprintFamily.class),
     CARROT_SINGULARITY("Carrot Singularity", Material.GOLDEN_CARROT, ItemRarity.LEGENDARY, true, CarrotBlueprintFamily.class),
 
+    GNAWED_CARROT("Gnawed Carrot", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
+
     PREMIUM_POTATO("Premium Potato", Material.POTATO, ItemRarity.UNCOMMON, true, PotatoBlueprintFamily.class),
     PREMIUM_BAKED_POTATO("Premium Baked Potato", Material.BAKED_POTATO, ItemRarity.UNCOMMON, true, PotatoBlueprintFamily.class),
     ENCHANTED_POTATO("Enchanted Potato", Material.POTATO, ItemRarity.RARE, true, PotatoBlueprintFamily.class),
@@ -1413,7 +1416,7 @@ public enum CustomItemType {
     POTATO_SINGULARITY("Potato Singularity", Material.POTATO, ItemRarity.LEGENDARY, true, PotatoBlueprintFamily.class),
 
     HOT_POTATO_BOOK("Hot Potato Book", Material.BOOK, ItemRarity.EPIC, HotPotatoBook.class),
-    POTATO_SKINS("Potato Skins", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
+    POTATO_EYES("Potato Eyes", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
 
     PREMIUM_BEETROOT("Premium Beetroot", Material.BEETROOT, ItemRarity.UNCOMMON, true, BeetrootBlueprintFamily.class),
     ENCHANTED_BEETROOT("Enchanted Beetroot", Material.BEETROOT, ItemRarity.RARE, true, BeetrootBlueprintFamily.class),

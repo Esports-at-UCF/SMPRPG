@@ -67,6 +67,11 @@ class ProgressiveHoeBlueprint(itemService: ItemService, type: CustomItemType) : 
                     retList.add(AdditiveAttributeEntry(AttributeWrapper.FARMING_PROFICIENCY, level * PROFICIENCY_PER_LEVEL))
                     retList.add(AdditiveAttributeEntry(AttributeWrapper.CRITTER_CHANCE, level * UPROOTING_PER_LEVEL))
                 }
+                CustomItemType.CARROT_HOE -> {
+                    retList.add(AdditiveAttributeEntry(AttributeWrapper.CARROT_FORTUNE, level * YIELD_PER_LEVEL))
+                    retList.add(AdditiveAttributeEntry(AttributeWrapper.FARMING_PROFICIENCY, level * PROFICIENCY_PER_LEVEL))
+                    retList.add(AdditiveAttributeEntry(AttributeWrapper.CRITTER_CHANCE, level * UPROOTING_PER_LEVEL))
+                }
                 else -> {}
             }
         }
@@ -96,6 +101,7 @@ class ProgressiveHoeBlueprint(itemService: ItemService, type: CustomItemType) : 
             CustomItemType.WHEAT_HOE -> "Wheat"
             CustomItemType.POTATO_HOE -> "Potatoes"
             CustomItemType.ONION_HOE -> "Onions"
+            CustomItemType.CARROT_HOE -> "Carrots"
             else -> "Unknown Crop"
         }
         var xpBar = ComponentUtils.EMPTY
@@ -134,7 +140,8 @@ class ProgressiveHoeBlueprint(itemService: ItemService, type: CustomItemType) : 
             CustomItemType.WHEAT_HOE -> itemService.getCustomItem(CustomItemType.PREMIUM_HAY_BLOCK)
             CustomItemType.POTATO_HOE -> itemService.getCustomItem(CustomItemType.ENCHANTED_POTATO)
             CustomItemType.ONION_HOE -> itemService.getCustomItem(CustomItemType.ONION_SINGULARITY)
-            else -> itemService.getCustomItem(Material.DIRT)
+            CustomItemType.CARROT_HOE -> itemService.getCustomItem(CustomItemType.ENCHANTED_CARROT)
+            else -> itemService.getCustomItem(Material.BARRIER)
         }
         return HoeRecipe(
             this,
@@ -149,6 +156,7 @@ class ProgressiveHoeBlueprint(itemService: ItemService, type: CustomItemType) : 
             CustomItemType.WHEAT_HOE -> listOf(itemService.getCustomItem(CustomItemType.PREMIUM_HAY_BLOCK))
             CustomItemType.POTATO_HOE -> listOf(itemService.getCustomItem(CustomItemType.ENCHANTED_POTATO))
             CustomItemType.ONION_HOE -> listOf(itemService.getCustomItem(CustomItemType.ONION_SINGULARITY))
+            CustomItemType.CARROT_HOE -> listOf(itemService.getCustomItem(CustomItemType.ENCHANTED_CARROT))
             else -> listOf()
         }
     }

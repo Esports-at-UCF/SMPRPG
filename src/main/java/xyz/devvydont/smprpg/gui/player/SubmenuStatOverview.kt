@@ -337,6 +337,7 @@ class SubmenuStatOverview(player: Player, private val target: LivingEntity, val 
             AttributeWrapper.WHEAT_FORTUNE -> ItemStack.of(Material.WHEAT)
             AttributeWrapper.POTATO_FORTUNE -> ItemStack.of(Material.POTATO)
             AttributeWrapper.ONION_FORTUNE -> ItemService.generate(CustomItemType.ONION)
+            AttributeWrapper.CARROT_FORTUNE -> ItemService.generate(Material.CARROT)
             AttributeWrapper.LUMBERING -> ItemStack.of(Material.IRON_AXE)
             AttributeWrapper.WOODCUTTING_FORTUNE -> ItemStack.of(Material.OAK_LOG)
             AttributeWrapper.FISHING_SPEED -> ItemStack.of(Material.PRISMARINE)

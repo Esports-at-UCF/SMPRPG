@@ -14,6 +14,7 @@ import xyz.devvydont.smprpg.entity.base.CustomEntityInstance;
 import xyz.devvydont.smprpg.entity.base.LeveledEntity;
 import xyz.devvydont.smprpg.entity.bosses.BlazeBoss;
 import xyz.devvydont.smprpg.entity.creatures.*;
+import xyz.devvydont.smprpg.entity.farming.CarrotCannibal;
 import xyz.devvydont.smprpg.entity.farming.Earthworm;
 import xyz.devvydont.smprpg.entity.farming.Mite;
 import xyz.devvydont.smprpg.entity.farming.Ogreling;
@@ -204,6 +205,9 @@ public enum CustomEntityType implements IMenuDisplayable {
 
     OGRELING(EntityType.ZOMBIE, "Ogreling",
             20, 2_500, 50, Ogreling::new),
+
+    CARROT_CANNIBAL(EntityType.RABBIT, "Carrot Cannibal",
+            20, 2_500, 50, CarrotCannibal::new),
 
     // Test Monsters
     TEST_ZOMBIE(EntityType.ZOMBIE, "Test Zombie",

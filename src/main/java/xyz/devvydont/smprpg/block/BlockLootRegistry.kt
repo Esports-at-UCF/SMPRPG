@@ -487,6 +487,7 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.CARROT), 2.5))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(Material.CARROT), 2.5))
                 .uses(AttributeWrapper.FARMING_FORTUNE)
+                .usesSpecial(AttributeWrapper.CARROT_FORTUNE)
                 .build()
         )
 

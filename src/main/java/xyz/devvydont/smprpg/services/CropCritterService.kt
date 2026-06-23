@@ -139,11 +139,13 @@ class CropCritterService: IService, Listener {
             Pair(CEKey.of("minecraft:potatoes"), CustomEntityType.EARTHWORM),
             Pair(CEKey.of("minecraft:wheat"), CustomEntityType.MITE),
             Pair(CraftEngineBlockEnums.ONION_PLANT.key, CustomEntityType.OGRELING),
+            Pair(CEKey.of("minecraft:carrots"), CustomEntityType.CARROT_CANNIBAL),
         )
         val CRITTER_UPROOTING_REQ = mutableMapOf(
             Pair(CustomEntityType.EARTHWORM, 200),
             Pair(CustomEntityType.MITE, 200),
             Pair(CustomEntityType.OGRELING, 200),
+            Pair(CustomEntityType.CARROT_CANNIBAL, 200),
         )
         val SOIL_TO_UPROOTING = mutableMapOf(
             Pair(CEKey.of("minecraft:farmland"), 0.0),
