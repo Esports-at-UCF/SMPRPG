@@ -1,7 +1,6 @@
 package xyz.devvydont.smprpg.enchantments
 
 import io.papermc.paper.datacomponent.DataComponentTypes
-import io.papermc.paper.datacomponent.item.DyedItemColor
 import io.papermc.paper.plugin.bootstrap.BootstrapContext
 import io.papermc.paper.plugin.lifecycle.event.handler.LifecycleEventHandler
 import io.papermc.paper.registry.RegistryKey
@@ -18,7 +17,6 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Color
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.EquipmentSlotGroup
@@ -29,12 +27,10 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
 import xyz.devvydont.smprpg.entity.player.LeveledPlayer
-import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
+import xyz.devvydont.smprpg.services.RecipeService
 import java.util.*
 import java.util.function.Consumer
 import kotlin.math.min
@@ -190,8 +186,21 @@ abstract class CustomEnchantment(val id: String) : Cloneable {
         )
     }
 
+    /**
+     * The reagents + magic power to apply this enchantment at the given level. Read from the data-driven
+     * recipe registry (the recipes enchanting folder); returns null when no recipe is defined (e.g. above max level).
+     * Ingredients are rebuilt with an inflated max stack size so large reagent counts display in the table GUI.
+     */
     open fun getRecipe(level: Int): EnchantmentRecipe? {
-        return null
+        val core = SMPRPG.getService(RecipeService::class.java).getRegistry().enchantingRecipe(id, level) ?: return null
+        val itemService = SMPRPG.getService(ItemService::class.java)
+        val ingredients = core.ingredients.mapNotNull { ingredient ->
+            itemService.resolveIdentifier(ingredient.identifier.asString())?.apply {
+                setAmount(ingredient.amount)
+                editMeta(Consumer { meta: ItemMeta? -> meta!!.setMaxStackSize(99) })
+            }
+        }
+        return EnchantmentRecipe(getRecipeKey(level), core.power, *ingredients.toTypedArray())
     }
 
     /**
@@ -240,21 +249,5 @@ abstract class CustomEnchantment(val id: String) : Cloneable {
         // Placeholder value, VERY near white by default but used to flag in lore generation
         @JvmStatic
         var ARTIFICE_COLOR: TextColor = TextColor.color(16711422)
-
-        @JvmStatic
-        fun getIngredientStack(mat: Material, qty: Int): ItemStack {
-            val itemStack = generate(mat)
-            itemStack.setAmount(qty)
-            itemStack.editMeta(Consumer { meta: ItemMeta? -> meta!!.setMaxStackSize(99) })
-            return itemStack
-        }
-
-        @JvmStatic
-        fun getIngredientStack(type: CustomItemType, qty: Int): ItemStack {
-            val itemStack = generate(type)
-            itemStack.setAmount(qty)
-            itemStack.editMeta(Consumer { meta: ItemMeta? -> meta!!.setMaxStackSize(99) })
-            return itemStack
-        }
     }
 }

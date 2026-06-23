@@ -1,0 +1,143 @@
+package xyz.devvydont.smprpg.recipe
+
+import org.bukkit.Bukkit
+import org.bukkit.World
+import org.bukkit.inventory.ItemStack
+import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.recipe.core.Ingredient
+import xyz.devvydont.smprpg.recipe.core.RecipeStationType
+import xyz.devvydont.smprpg.recipe.core.ShapedRecipe
+import xyz.devvydont.smprpg.recipe.core.ShapelessRecipe
+import xyz.devvydont.smprpg.services.RecipeService
+import kotlin.math.max
+import kotlin.math.min
+
+/**
+ * Matches a 3x3 crafting grid against the data-driven recipe registry, then falls back to vanilla Bukkit
+ * recipes. Custom registry recipes are checked first and are count-aware (a slot can require several of an
+ * item via [Ingredient.amount]); vanilla recipes are resolved through [Bukkit.getCraftingRecipe].
+ *
+ * The grid is a row-major list of 9 cells (indices 0..8, row = i/3, col = i%3); empty cells are null/air.
+ */
+object CraftingRecipeMatcher {
+
+    /** A successful match: the produced [result] and how many items to remove from each grid cell. */
+    class Match(val result: ItemStack, val consumption: Map<Int, Int>)
+
+    private class Box(val minR: Int, val minC: Int, val height: Int, val width: Int)
+
+    fun match(grid: List<ItemStack?>, world: World): Match? {
+        matchCustom(grid)?.let { return it }
+        return matchVanilla(grid, world)
+    }
+
+    private fun matchCustom(grid: List<ItemStack?>): Match? {
+        val registry = SMPRPG.getService(RecipeService::class.java).getRegistry()
+        for (recipe in registry.byStation(RecipeStationType.CRAFTING_TABLE)) {
+            val match = when (recipe) {
+                is ShapedRecipe -> matchShaped(grid, recipe)
+                is ShapelessRecipe -> matchShapeless(grid, recipe)
+                else -> null
+            } ?: continue
+            return Match(applyTransmute(grid, match.result), match.consumption)
+        }
+        return null
+    }
+
+    /**
+     * If the grid holds exactly one "transmutable" item (one that differs from a fresh copy of itself — i.e. it
+     * carries enchantments or a reforge), upgrade THAT item into the recipe result rather than producing a fresh
+     * one, preserving its data. This is how enchanted/reforged custom items are upgraded through crafting.
+     */
+    private fun applyTransmute(grid: List<ItemStack?>, result: ItemStack): ItemStack {
+        val transmutables = grid.filterNotNull().filter { occupied(it) && !it.isSimilar(ItemService.clean(it)) }
+        if (transmutables.size != 1) return result
+        return ItemService.transmute(transmutables.first(), ItemService.blueprint(result))
+    }
+
+    private fun matchShaped(grid: List<ItemStack?>, recipe: ShapedRecipe): Match? {
+        // Expand the pattern into a 3x3 grid of ingredients (null = empty cell).
+        val pattern = arrayOfNulls<Ingredient>(9)
+        for (r in recipe.pattern.indices) {
+            val row = recipe.pattern[r]
+            for (c in row.indices) {
+                val ch = row[c]
+                if (ch == ' ') continue
+                pattern[r * 3 + c] = recipe.keyMap[ch] ?: return null
+            }
+        }
+
+        val patternBox = boundingBox { pattern[it] != null } ?: return null
+        val gridBox = boundingBox { occupied(grid[it]) } ?: return null
+        if (patternBox.height != gridBox.height || patternBox.width != gridBox.width) return null
+
+        val consumption = HashMap<Int, Int>()
+        for (dr in 0 until patternBox.height) {
+            for (dc in 0 until patternBox.width) {
+                val patternCell = (patternBox.minR + dr) * 3 + (patternBox.minC + dc)
+                val gridCell = (gridBox.minR + dr) * 3 + (gridBox.minC + dc)
+                val ingredient = pattern[patternCell]
+                val stack = grid[gridCell]
+                if (ingredient == null) {
+                    if (occupied(stack)) return null
+                } else {
+                    if (!occupied(stack)) return null
+                    if (!ingredient.matchesType(stack!!) || stack.amount < ingredient.amount) return null
+                    consumption[gridCell] = ingredient.amount
+                }
+            }
+        }
+
+        val result = recipe.result.generate() ?: return null
+        return Match(result, consumption)
+    }
+
+    private fun matchShapeless(grid: List<ItemStack?>, recipe: ShapelessRecipe): Match? {
+        val available = IntArray(9) { if (occupied(grid[it])) grid[it]!!.amount else 0 }
+        val consumption = HashMap<Int, Int>()
+        for (ingredient in recipe.ingredients) {
+            var toConsume = ingredient.amount
+            for (cell in 0..8) {
+                if (toConsume <= 0) break
+                if (available[cell] <= 0) continue
+                val stack = grid[cell] ?: continue
+                if (!ingredient.matchesType(stack)) continue
+                val take = min(toConsume, available[cell])
+                available[cell] -= take
+                toConsume -= take
+                consumption[cell] = (consumption[cell] ?: 0) + take
+            }
+            if (toConsume > 0) return null
+        }
+        // Shapeless recipes must use every item in the grid — no leftovers.
+        if ((0..8).any { available[it] > 0 }) return null
+
+        val result = recipe.result.generate() ?: return null
+        return Match(result, consumption)
+    }
+
+    private fun matchVanilla(grid: List<ItemStack?>, world: World): Match? {
+        // Bukkit's matrix is an ItemStack[] whose empty slots are null; the cast satisfies Kotlin's nullability.
+        @Suppress("UNCHECKED_CAST")
+        val matrix = Array(9) { grid[it] } as Array<ItemStack>
+        val recipe = Bukkit.getCraftingRecipe(matrix, world) ?: return null
+        val consumption = HashMap<Int, Int>()
+        for (i in 0..8) if (occupied(grid[i])) consumption[i] = 1
+        return Match(recipe.result.clone(), consumption)
+    }
+
+    private fun occupied(stack: ItemStack?): Boolean = stack != null && !stack.type.isAir
+
+    private fun boundingBox(occupied: (Int) -> Boolean): Box? {
+        var minR = 3; var maxR = -1; var minC = 3; var maxC = -1
+        for (i in 0..8) {
+            if (!occupied(i)) continue
+            val r = i / 3; val c = i % 3
+            minR = min(minR, r); maxR = max(maxR, r)
+            minC = min(minC, c); maxC = max(maxC, c)
+        }
+        if (maxR < 0) return null
+        return Box(minR, minC, maxR - minR + 1, maxC - minC + 1)
+    }
+}

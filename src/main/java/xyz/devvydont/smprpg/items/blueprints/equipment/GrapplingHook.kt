@@ -2,15 +2,11 @@ package xyz.devvydont.smprpg.items.blueprints.equipment
 
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerFishEvent
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
@@ -19,7 +15,6 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -29,7 +24,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 class GrapplingHook(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IHeaderDescribable, Listener, ICraftable, IBreakableEquipment {
+    IHeaderDescribable, Listener, IBreakableEquipment {
 
     override val itemClassification: ItemClassification get() = ItemClassification.EQUIPMENT
 
@@ -39,30 +34,6 @@ class GrapplingHook(itemService: ItemService, type: CustomItemType) : CustomAttr
             ComponentUtils.create("Use to propel yourself"),
             ComponentUtils.create("when reeling in!"),
             getCooldownComponent(COOLDOWN.toString() + "s")
-        )
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return ICraftable.getDefaultRecipeKey(type)
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(recipeKey, generate())
-        recipe.shape(
-            "  T",
-            " HS",
-            "H S"
-        )
-        recipe.setIngredient('H', itemService.getCustomItem(Material.STICK))
-        recipe.setIngredient('T', itemService.getCustomItem(Material.TRIPWIRE_HOOK))
-        recipe.setIngredient('S', itemService.getCustomItem(CustomItemType.ENCHANTED_STRING))
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack> {
-        return mutableListOf(
-            itemService.getCustomItem(Material.STRING)
         )
     }
 

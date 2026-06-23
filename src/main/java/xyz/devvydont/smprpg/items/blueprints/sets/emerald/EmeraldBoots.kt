@@ -1,10 +1,8 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.emerald
 
-import org.bukkit.inventory.CraftingRecipe
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.util.crafting.builders.BootsRecipe
 
 class EmeraldBoots(itemService: ItemService, type: CustomItemType) : EmeraldArmorSet(itemService, type) {
 
@@ -12,8 +10,6 @@ class EmeraldBoots(itemService: ItemService, type: CustomItemType) : EmeraldArmo
 
     override val defense: Double get() = 45.0
     override val health: Double get() = 20.0
-
-    override fun getCustomRecipe(): CraftingRecipe? { return BootsRecipe(this, itemService.getCustomItem(INGREDIENT), generate()).build() }
 
     override fun getMaxDurability(): Int { return ARMOR_DURABILITY_UNIT * 4 }
 }

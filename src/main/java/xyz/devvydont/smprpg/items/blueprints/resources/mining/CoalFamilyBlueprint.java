@@ -1,18 +1,16 @@
 package xyz.devvydont.smprpg.items.blueprints.resources.mining;
 
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
-import xyz.devvydont.smprpg.items.interfaces.ICompressible;
 import xyz.devvydont.smprpg.items.interfaces.IFurnaceFuel;
 import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.extensions.ItemExtensionsKt;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
-public class CoalFamilyBlueprint extends CustomItemBlueprint implements ICompressible, ISellable, IFurnaceFuel {
+public class CoalFamilyBlueprint extends CustomItemBlueprint implements ISellable, IFurnaceFuel {
 
     public CoalFamilyBlueprint(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -21,25 +19,6 @@ public class CoalFamilyBlueprint extends CustomItemBlueprint implements ICompres
     @Override
     public ItemClassification getItemClassification() {
         return ItemClassification.MATERIAL;
-    }
-
-    @Override
-    public CompressionStep getDecompressor() {
-        return switch (getCustomItemType()) {
-            case ENCHANTED_COAL -> new CompressionStep((ICompressible) itemService.getVanillaBlueprint(ItemStack.of(Material.COAL_BLOCK)), 1, 9);
-            case ENCHANTED_COAL_BLOCK -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.ENCHANTED_COAL), 1, 9);
-            case COAL_SINGULARITY -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.ENCHANTED_COAL_BLOCK), 1, 9);
-            default -> null;
-        };
-    }
-
-    @Override
-    public CompressionStep getCompressor() {
-        return switch (getCustomItemType()) {
-            case ENCHANTED_COAL -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.ENCHANTED_COAL_BLOCK), 9, 1);
-            case ENCHANTED_COAL_BLOCK -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.COAL_SINGULARITY), 9, 1);
-            default -> null;
-        };
     }
 
     @Override

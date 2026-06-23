@@ -20,10 +20,6 @@ abstract class TinAttributeItem(itemService: ItemService, type: CustomItemType) 
         return itemService.getCustomItem(CustomItemType.TIN_INGOT)
     }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.TIN_INGOT))
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)
     }

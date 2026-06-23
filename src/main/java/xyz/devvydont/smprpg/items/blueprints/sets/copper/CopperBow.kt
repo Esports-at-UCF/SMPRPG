@@ -1,8 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.copper
 
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -13,15 +11,13 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword.Companion.getSwordDamage
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
-import xyz.devvydont.smprpg.util.crafting.builders.BowRecipe
 import xyz.devvydont.smprpg.util.items.ToolStats
 
-class CopperBow(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type), ICraftable,
+class CopperBow(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
     IBreakableEquipment, IRepairable, ISkillRequirement {
 
     override val itemClassification: ItemClassification get() = ItemClassification.BOW
@@ -37,19 +33,6 @@ class CopperBow(itemService: ItemService, type: CustomItemType) : CustomAttribut
     override fun getPowerRating(): Int { return ToolStats.COPPER.power }
 
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.HAND }
-
-    override fun getRecipeKey(): NamespacedKey { return ICraftable.getDefaultRecipeKey(customItemType) }
-
-    override fun getCustomRecipe(): CraftingRecipe? {
-        return BowRecipe(
-            this,
-            itemService.getCustomItem(Material.COPPER_INGOT),
-            itemService.getCustomItem(Material.STRING),
-            generate()
-        ).build()
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> { return mutableListOf(itemService.getCustomItem(Material.COPPER_INGOT)) }
 
     override fun getMaxDurability(): Int { return ToolStats.COPPER.durability }
 

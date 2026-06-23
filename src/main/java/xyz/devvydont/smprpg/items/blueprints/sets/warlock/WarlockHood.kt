@@ -9,7 +9,6 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.inventory.*
-import org.bukkit.inventory.recipe.CraftingBookCategory
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
@@ -45,27 +44,6 @@ class WarlockHood(itemService: ItemService, type: CustomItemType) : WarlockArmor
 
     override fun getMaxDurability(): Int {
         return 1500
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, customItemType.key + "-recipe")
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe? {
-        val recipe = ShapedRecipe(recipeKey, generate())
-        recipe.setCategory(CraftingBookCategory.MISC)
-        recipe.shape(
-            "h h",
-            "sss",
-            "s s"
-        )
-        recipe.setIngredient('s', itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH))
-        recipe.setIngredient('h', itemService.getCustomItem(CustomItemType.HORN_OF_WARLOCK))
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH))
     }
 
     override val itemClassification: ItemClassification get() = ItemClassification.HELMET

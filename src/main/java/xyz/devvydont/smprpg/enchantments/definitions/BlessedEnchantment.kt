@@ -9,7 +9,6 @@ import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
-import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
@@ -22,9 +21,7 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil
-import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
 import xyz.devvydont.smprpg.entity.MobType
-import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.entity.base.LeveledEntity
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
 import xyz.devvydont.smprpg.services.EnchantmentService
@@ -67,54 +64,6 @@ class BlessedEnchantment(id: String) : CustomEnchantment(id), Listener {
             EnchantmentService.VIGILANTE.typedKey,
             EnchantmentService.MUFFLE.typedKey
         )
-
-    override fun getRecipe(level: Int): EnchantmentRecipe? {
-        when (level) {
-            1 -> {
-                val glowstone = getIngredientStack(Material.GLOWSTONE_DUST, 16)
-                val silver = getIngredientStack(CustomItemType.SILVER_INGOT, 2)
-                val blaze = getIngredientStack(Material.BLAZE_POWDER, 16)
-                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 8)
-                return EnchantmentRecipe(getRecipeKey(level), 19, glowstone, silver, blaze, lapis)
-            }
-
-            2 -> {
-                val glowstone = getIngredientStack(Material.GLOWSTONE_DUST, 32)
-                val silver = getIngredientStack(CustomItemType.SILVER_INGOT, 8)
-                val blaze = getIngredientStack(Material.BLAZE_ROD, 8)
-                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 34, glowstone, silver, blaze, lapis)
-            }
-
-            3 -> {
-                val glowstone = getIngredientStack(CustomItemType.ENCHANTED_GLOWSTONE, 8)
-                val silver = getIngredientStack(CustomItemType.SILVER_BLOCK, 4)
-                val magma = getIngredientStack(Material.MAGMA_CREAM, 16)
-                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 8)
-                return EnchantmentRecipe(getRecipeKey(level), 49, glowstone, silver, magma, lapis)
-            }
-
-            4 -> {
-                val glowstone = getIngredientStack(CustomItemType.ENCHANTED_GLOWSTONE, 16)
-                val silver = getIngredientStack(CustomItemType.ENCHANTED_SILVER, 2)
-                val blaze = getIngredientStack(CustomItemType.PREMIUM_BLAZE_ROD, 8)
-                val tear = getIngredientStack(Material.GHAST_TEAR, 4)
-                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 65, glowstone, silver, blaze, tear, lapis)
-            }
-
-            5 -> {
-                val glowstone = getIngredientStack(CustomItemType.ENCHANTED_GLOWSTONE_BLOCK, 8)
-                val silver = getIngredientStack(CustomItemType.ENCHANTED_SILVER, 8)
-                val blaze = getIngredientStack(CustomItemType.ENCHANTED_BLAZE_ROD, 8)
-                val inferno = getIngredientStack(CustomItemType.INFERNO_RESIDUE, 2)
-                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 80, glowstone, silver, blaze, inferno, lapis)
-            }
-
-            else -> return null
-        }
-    }
 
     @EventHandler(priority = EventPriority.HIGH)
     fun onDamageNetherMob(event: CustomEntityDamageByEntityEvent) {

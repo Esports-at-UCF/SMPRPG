@@ -5,14 +5,12 @@ import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
-import xyz.devvydont.smprpg.items.interfaces.ICompressible
-import xyz.devvydont.smprpg.items.interfaces.ICompressible.CompressionStep
 import xyz.devvydont.smprpg.items.interfaces.IEdible
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 
 class Onion(itemService: ItemService, type: CustomItemType) : CraftEngineBlueprint(itemService, type), IEdible,
-    ISellable, ICompressible {
+    ISellable {
     override val itemClassification: ItemClassification get() = ItemClassification.CONSUMABLE
 
     override fun getWorth(itemStack: ItemStack): Int { return 5 * itemStack.amount }
@@ -27,11 +25,5 @@ class Onion(itemService: ItemService, type: CustomItemType) : CraftEngineBluepri
         return Consumable.consumable()
             .consumeSeconds(IEdible.DEFAULT_EAT_SPEED)
             .build()
-    }
-
-    override val decompressor: ICompressible.CompressionStep? get() = null
-    override val compressor: CompressionStep? get() = when (customItemType) {
-        CustomItemType.ONION -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_ONION) as ICompressible, 9, 1)
-        else -> null
     }
 }

@@ -21,10 +21,6 @@ abstract class MithrilAttributeItem(itemService: ItemService, type: CustomItemTy
         return itemService.getCustomItem(CustomItemType.MITHRIL_INGOT)
     }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.MITHRIL_INGOT))
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)
     }

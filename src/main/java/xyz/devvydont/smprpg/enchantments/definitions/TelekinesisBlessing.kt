@@ -13,7 +13,6 @@ import org.bukkit.Color
 import org.bukkit.Sound
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Item
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -27,8 +26,6 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.ScrollColor
-import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
-import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.ActionBarService
 import xyz.devvydont.smprpg.services.DropsService
 import xyz.devvydont.smprpg.services.DropsService.DropFlag
@@ -64,19 +61,6 @@ class TelekinesisBlessing(id: String) : CustomEnchantment(id), Listener {
             EnchantmentService.REPLENISHING.typedKey,
             EnchantmentService.IGNORANCE_BLESSING.typedKey
         )
-
-    override fun getRecipe(level: Int): EnchantmentRecipe? {
-        when (level) {
-            1 -> {
-                val pearl = getIngredientStack(CustomItemType.ENCHANTED_ENDER_PEARL, 16)
-                val amethyst = getIngredientStack(CustomItemType.ENCHANTED_AMETHYST_BLOCK, 4)
-                val cloth = getIngredientStack(CustomItemType.SPELLBOUND_CLOTH, 4)
-                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 20, pearl, amethyst, cloth, lapis)
-            }
-            else -> return null
-        }
-    }
 
     /*
     * There may be multiple instances where we want to attempt to perform this enchants ability on an item, so pull

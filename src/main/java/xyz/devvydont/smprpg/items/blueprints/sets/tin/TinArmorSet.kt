@@ -1,7 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.tin
 
 import net.kyori.adventure.key.Key
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -29,14 +28,6 @@ abstract class TinArmorSet(itemService: ItemService, type: CustomItemType) :
     }
 
     open fun getCraftingMaterial(): ItemStack = itemService.getCustomItem(CustomItemType.TIN_INGOT)
-
-    open fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, customItemType.key + "-recipe")
-    }
-
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.TIN_INGOT))
-    }
 
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)

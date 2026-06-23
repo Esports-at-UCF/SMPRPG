@@ -1,6 +1,5 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.cobalt
 
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -12,14 +11,12 @@ import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
-import xyz.devvydont.smprpg.util.crafting.builders.SwordRecipe
 
 class CobaltSword(itemService: ItemService, type: CustomItemType) : CobaltAttributeItem(itemService, type),
-    ICraftable, IBreakableEquipment, IModelOverridden {
+    IBreakableEquipment, IModelOverridden {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SWORD
     override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.COMBAT, toolStats.skillReqLevel))
@@ -34,14 +31,5 @@ class CobaltSword(itemService: ItemService, type: CustomItemType) : CobaltAttrib
 
     override fun getActiveSlot(): EquipmentSlotGroup? {
         return EquipmentSlotGroup.MAINHAND
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe? {
-        return SwordRecipe(
-            this,
-            getCraftingMaterial(),
-            itemService.getCustomItem(CustomItemType.SULFUR_TREATED_TOOL_SHAFT),
-            generate()
-        ).build()
     }
 }

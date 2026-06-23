@@ -3,21 +3,16 @@ package xyz.devvydont.smprpg.items.blueprints.sets.forsaken
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -29,14 +24,12 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword.Companion.getSwordDamage
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.items.AbilityUtil.getAbilityComponent
-import java.util.List
 
 class ForsakenCutlass(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    Listener, IHeaderDescribable, ICraftable, IBreakableEquipment, IRepairable, ISkillRequirement {
+    Listener, IHeaderDescribable, IBreakableEquipment, IRepairable, ISkillRequirement {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SWORD
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.PREMIUM_NETHER_STAR))
@@ -78,25 +71,6 @@ class ForsakenCutlass(itemService: ItemService, type: CustomItemType) : CustomAt
         return EquipmentSlotGroup.MAINHAND
     }
 
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, customItemType.getKey() + "-recipe")
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(getRecipeKey(), generate())
-        recipe.shape(" s ", " s ", " r ")
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        recipe.setIngredient('s', generate(ForsakenArmorSet.CRAFTING_COMPONENT))
-        recipe.setIngredient('r', generate(CustomItemType.OBSIDIAN_TOOL_ROD))
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            generate(Material.NETHER_STAR)
-        )
-    }
 
     override fun getMaxDurability(): Int {
         return ForsakenArmorSet.DURABILITY

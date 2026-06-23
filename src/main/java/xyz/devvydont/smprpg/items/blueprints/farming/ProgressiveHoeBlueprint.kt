@@ -14,7 +14,6 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
@@ -27,19 +26,17 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IDamageFromCrops
 import xyz.devvydont.smprpg.items.interfaces.IFooterDescribable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
-import xyz.devvydont.smprpg.util.crafting.builders.HoeRecipe
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import net.momirealms.craftengine.core.util.Key as CEKey
 
 class ProgressiveHoeBlueprint(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IModelOverridden, ISkillRequirement, IFooterDescribable, ICraftable, IBreakableEquipment, IDamageFromCrops, Listener {
+    IModelOverridden, ISkillRequirement, IFooterDescribable, IBreakableEquipment, IDamageFromCrops, Listener {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HOE
     override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.FARMING, 25))
@@ -123,34 +120,6 @@ class ProgressiveHoeBlueprint(itemService: ItemService, type: CustomItemType) : 
                 ComponentUtils.create(" to next level!", NamedTextColor.DARK_GRAY)
             )
         )
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return ICraftable.getDefaultRecipeKey(type)
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val craftingMat = when(type) {
-            CustomItemType.WHEAT_HOE -> itemService.getCustomItem(CustomItemType.PREMIUM_HAY_BLOCK)
-            CustomItemType.POTATO_HOE -> itemService.getCustomItem(CustomItemType.ENCHANTED_POTATO)
-            CustomItemType.ONION_HOE -> itemService.getCustomItem(CustomItemType.ONION_SINGULARITY)
-            else -> itemService.getCustomItem(Material.DIRT)
-        }
-        return HoeRecipe(
-            this,
-            craftingMat,
-            itemService.getCustomItem(CustomItemType.STEEL_TOOL_SHAFT),
-            itemService.getCustomItem(type)
-        ).build()
-    }
-
-    override fun unlockedBy(): Collection<ItemStack> {
-        return when(type) {
-            CustomItemType.WHEAT_HOE -> listOf(itemService.getCustomItem(CustomItemType.PREMIUM_HAY_BLOCK))
-            CustomItemType.POTATO_HOE -> listOf(itemService.getCustomItem(CustomItemType.ENCHANTED_POTATO))
-            CustomItemType.ONION_HOE -> listOf(itemService.getCustomItem(CustomItemType.ONION_SINGULARITY))
-            else -> listOf()
-        }
     }
 
     override fun getMaxDurability(): Int {

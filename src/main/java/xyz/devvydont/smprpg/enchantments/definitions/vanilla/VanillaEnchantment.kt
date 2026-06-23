@@ -1,8 +1,6 @@
 package xyz.devvydont.smprpg.enchantments.definitions.vanilla
 
 import io.papermc.paper.plugin.bootstrap.BootstrapContext
-import io.papermc.paper.plugin.lifecycle.event.handler.LifecycleEventHandler
-import io.papermc.paper.registry.RegistryKey
 import io.papermc.paper.registry.TypedKey
 import io.papermc.paper.registry.data.EnchantmentRegistryEntry
 import io.papermc.paper.registry.event.RegistryEntryAddEvent

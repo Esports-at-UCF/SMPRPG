@@ -1,8 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.inferno;
 
-import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.trim.TrimPattern;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
@@ -11,7 +9,6 @@ import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
-import xyz.devvydont.smprpg.util.crafting.builders.ChestplateRecipe;
 
 import java.util.Collection;
 import java.util.List;
@@ -55,10 +52,5 @@ public class InfernoChestplate extends InfernoArmorSet {
     @Override
     public ItemClassification getItemClassification() {
         return ItemClassification.CHESTPLATE;
-    }
-
-    @Override
-    public CraftingRecipe getCustomRecipe() {
-        return new ChestplateRecipe(this, ItemService.generate(CustomItemType.INFERNO_REMNANT), generate()).build();
     }
 }

@@ -1,18 +1,16 @@
 package xyz.devvydont.smprpg.items.blueprints.resources.mob;
 
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
-import xyz.devvydont.smprpg.items.interfaces.ICompressible;
 import xyz.devvydont.smprpg.items.interfaces.IFurnaceFuel;
 import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.util.extensions.ItemExtensionsKt;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
-public class BreezeRodFamilyBlueprint extends CustomItemBlueprint implements ICompressible, ISellable, IFurnaceFuel {
+public class BreezeRodFamilyBlueprint extends CustomItemBlueprint implements ISellable, IFurnaceFuel {
 
     public BreezeRodFamilyBlueprint(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -21,23 +19,6 @@ public class BreezeRodFamilyBlueprint extends CustomItemBlueprint implements ICo
     @Override
     public ItemClassification getItemClassification() {
         return ItemClassification.MATERIAL;
-    }
-
-    @Override
-    public CompressionStep getDecompressor() {
-        return switch (getCustomItemType()) {
-            case PREMIUM_BREEZE_ROD -> new CompressionStep((ICompressible) itemService.getVanillaBlueprint(ItemStack.of(Material.BLAZE_ROD)), 1, 9);
-            case ENCHANTED_BREEZE_ROD -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.PREMIUM_BREEZE_ROD), 1, 9);
-            default -> null;
-        };
-    }
-
-    @Override
-    public CompressionStep getCompressor() {
-        return switch (getCustomItemType()) {
-            case PREMIUM_BREEZE_ROD -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.ENCHANTED_BREEZE_ROD), 9, 1);
-            default -> null;
-        };
     }
 
     @Override

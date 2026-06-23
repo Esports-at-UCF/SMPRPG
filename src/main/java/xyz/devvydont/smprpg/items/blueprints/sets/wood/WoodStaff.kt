@@ -2,14 +2,9 @@ package xyz.devvydont.smprpg.items.blueprints.sets.wood
 
 import io.papermc.paper.registry.keys.SoundEventKeys
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.Particle
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
-import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
@@ -19,14 +14,13 @@ import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICantCrit
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IMageBeam
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 class WoodStaff(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IBreakableEquipment, ICantCrit, IMageBeam, ICraftable, IRepairable {
+    IBreakableEquipment, ICantCrit, IMageBeam, IRepairable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.STAFF
     override val repairMaterial : MutableCollection<ItemStack> = mutableListOf(itemService.getCustomItem(Material.OAK_PLANKS), itemService.getCustomItem(Material.BIRCH_PLANKS), itemService.getCustomItem(Material.SPRUCE_PLANKS),
@@ -44,26 +38,6 @@ class WoodStaff(itemService: ItemService, type: CustomItemType) : CustomAttribut
     }
 
     override fun getPowerRating(): Int { return ToolStats.WOOD.power }
-
-    override fun getRecipeKey(): NamespacedKey { return ICraftable.getDefaultRecipeKey(customItemType) }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(recipeKey, generate())
-        recipe.shape(
-            "  s",
-            " ss",
-            "s  "
-        )
-        recipe.setIngredient('s', Material.STICK)
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            SMPRPG.getService(ItemService::class.java).getCustomItem(Material.STICK)
-        )
-    }
 
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.MAINHAND }
 

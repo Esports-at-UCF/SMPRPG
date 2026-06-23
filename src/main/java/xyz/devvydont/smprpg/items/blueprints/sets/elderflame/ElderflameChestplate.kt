@@ -1,7 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.elderflame
 
 import io.papermc.paper.datacomponent.DataComponentTypes
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -11,7 +10,6 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.util.crafting.builders.ChestplateRecipe
 
 class ElderflameChestplate(itemService: ItemService, type: CustomItemType) : ElderflameArmorSet(itemService, type) {
 
@@ -27,8 +25,6 @@ class ElderflameChestplate(itemService: ItemService, type: CustomItemType) : Eld
             AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, CRIT.toDouble())
         )
     }
-
-    override fun getCustomRecipe(): CraftingRecipe? { return ChestplateRecipe(this, itemService.getCustomItem(CustomItemType.DRACONIC_CRYSTAL), generate()).build() }
 
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)

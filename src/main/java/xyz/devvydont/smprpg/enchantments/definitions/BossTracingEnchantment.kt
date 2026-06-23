@@ -6,7 +6,6 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
 import org.bukkit.Effect
-import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
@@ -22,9 +21,7 @@ import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.EnchantmentUtil
-import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
 import xyz.devvydont.smprpg.entity.base.BossInstance
-import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
@@ -49,44 +46,6 @@ class BossTracingEnchantment(id: String) : CustomEnchantment(id), Listener {
     override val weight: Int get()                             = EnchantmentRarity.RARE.weight
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.HAND
     override val skillRequirement: Int get()                   = 35
-
-    override fun getRecipe(level: Int): EnchantmentRecipe? {
-        when (level) {
-            1 -> {
-                val crystal = getIngredientStack(CustomItemType.JUPITER_CRYSTAL, 5)
-                val redstone = getIngredientStack(Material.REDSTONE, 32)
-                val quartz = getIngredientStack(Material.QUARTZ, 32)
-                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 8)
-                return EnchantmentRecipe(getRecipeKey(level), 35, crystal, redstone, quartz, lapis)
-            }
-
-            2 -> {
-                val star = getIngredientStack(CustomItemType.PREMIUM_NETHER_STAR, 1)
-                val redstone = getIngredientStack(CustomItemType.ENCHANTED_REDSTONE, 4)
-                val quartz = getIngredientStack(CustomItemType.ENCHANTED_QUARTZ, 4)
-                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 50, star, redstone, quartz, lapis)
-            }
-
-            3 -> {
-                val remnant = getIngredientStack(CustomItemType.INFERNO_REMNANT, 2)
-                val redstone = getIngredientStack(CustomItemType.ENCHANTED_REDSTONE, 8)
-                val quartz = getIngredientStack(CustomItemType.ENCHANTED_QUARTZ, 8)
-                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 8)
-                return EnchantmentRecipe(getRecipeKey(level), 65, remnant, redstone, quartz, lapis)
-            }
-
-            4 -> {
-                val crystal = getIngredientStack(CustomItemType.DRACONIC_CRYSTAL, 4)
-                val redstone = getIngredientStack(CustomItemType.ENCHANTED_REDSTONE_BLOCK, 2)
-                val quartz = getIngredientStack(CustomItemType.ENCHANTED_QUARTZ_BLOCK, 2)
-                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 80, crystal, redstone, quartz, lapis)
-            }
-
-            else -> return null
-        }
-    }
 
     inner class HomingArrowTask(private val projectile: Entity, private val aggression: Int) : BukkitRunnable() {
         private var target: LivingEntity? = null

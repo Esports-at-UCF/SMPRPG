@@ -9,11 +9,11 @@ import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource
-import xyz.devvydont.smprpg.items.interfaces.ICompressible
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.market.MarketConstants
 import xyz.devvydont.smprpg.market.MarketService
 import xyz.devvydont.smprpg.market.storage.MarketDataStore
+import xyz.devvydont.smprpg.recipe.CompressionGraph
 import xyz.devvydont.smprpg.services.EconomyService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.crafting.CompressionRecipeMember
@@ -87,38 +87,28 @@ class BazaarManager(private val dataStore: MarketDataStore) {
         val itemService = SMPRPG.getService(ItemService::class.java)
         val result = mutableMapOf<String, List<CompressionRecipeMember>>()
 
-        // Collect all ICompressible blueprints (custom + vanilla) that are chain roots (no decompressor).
-        val allBlueprints = sequence {
-            val seenHandlers = mutableSetOf<Class<*>>()
-            for (type in CustomItemType.entries) {
-                if (seenHandlers.add(type.Handler))
-                    yield(itemService.getBlueprint(type))
+        // Walk each compression chain root forward through the unified registry's compression graph.
+        for (rootId in CompressionGraph.roots()) {
+            val flow = CompressionGraph.flowFromRoot(rootId).mapNotNull { (id, inputAmount) ->
+                wrapperOf(id, itemService)?.let { CompressionRecipeMember(it, inputAmount) }
             }
-            yieldAll(itemService.getAllVanillaBlueprints())
-        }
-
-        for (blueprint in allBlueprints) {
-            if (blueprint !is ICompressible) continue
-            if (blueprint.decompressor != null) continue  // Only process chain roots
-
-            // Walk forward through the linked list to build the flow list.
-            val flow = mutableListOf<CompressionRecipeMember>()
-            var current: ICompressible? = blueprint
-            while (current != null) {
-                val wrapper = when (current) {
-                    is CustomItemBlueprint -> MaterialWrapper(current.customItemType)
-                    is VanillaItemBlueprint -> MaterialWrapper(current.material)
-                    else -> break
-                }
-                val inputAmount = current.compressor?.inputAmount ?: 9
-                flow.add(CompressionRecipeMember(wrapper, inputAmount))
-                current = current.compressor?.blueprint
-            }
-
             if (flow.isEmpty()) continue
             result[flow.first().material.key()] = flow
         }
         return result
+    }
+
+    /** Convert a `namespace:path` identifier into the [MaterialWrapper] the bazaar flow members use. */
+    private fun wrapperOf(id: String, itemService: ItemService): MaterialWrapper? {
+        val idx = id.indexOf(':')
+        if (idx < 0) return null
+        val namespace = id.substring(0, idx)
+        val path = id.substring(idx + 1)
+        return when (namespace) {
+            "minecraft" -> Material.matchMaterial("minecraft:$path")?.let { MaterialWrapper(it) }
+            "smprpg" -> itemService.getItemTypeFromKey(path)?.let { MaterialWrapper(it) }
+            else -> null
+        }
     }
 
     // ── Category classification (private bootstrap helper) ──────────────

@@ -12,7 +12,6 @@ import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IEquippableAssetOverride
 import xyz.devvydont.smprpg.items.interfaces.IFooterDescribable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
@@ -21,7 +20,7 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 abstract class WarlockArmorSet(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IEquippableAssetOverride, IRepairable, IFooterDescribable, IBreakableEquipment, ICraftable, IModelOverridden, Listener {
+    IEquippableAssetOverride, IRepairable, IFooterDescribable, IBreakableEquipment, IModelOverridden, Listener {
 
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH))
 

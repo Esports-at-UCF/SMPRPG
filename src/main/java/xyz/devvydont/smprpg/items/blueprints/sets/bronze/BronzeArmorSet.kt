@@ -1,7 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.bronze
 
 import net.kyori.adventure.key.Key
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
@@ -21,14 +20,6 @@ abstract class BronzeArmorSet(itemService: ItemService, type: CustomItemType) :
     override fun getPowerRating(): Int { return toolStats.power }
 
     open fun getCraftingMaterial(): ItemStack = itemService.getCustomItem(CustomItemType.BRONZE_INGOT)
-
-    open fun getRecipeKey(): NamespacedKey {
-        return ICraftable.getDefaultRecipeKey(customItemType)
-    }
-
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.BRONZE_INGOT))
-    }
 
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)

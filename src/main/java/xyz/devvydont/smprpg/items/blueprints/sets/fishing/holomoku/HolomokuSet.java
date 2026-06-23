@@ -1,18 +1,15 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.fishing.holomoku;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.trim.TrimMaterial;
 import org.bukkit.inventory.meta.trim.TrimPattern;
 import org.jetbrains.annotations.NotNull;
-import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
-import xyz.devvydont.smprpg.items.interfaces.ICraftable;
 import xyz.devvydont.smprpg.items.interfaces.IRepairable;
 import xyz.devvydont.smprpg.items.interfaces.ITrimmable;
 import xyz.devvydont.smprpg.services.ItemService;
@@ -21,7 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-public abstract class HolomokuSet extends CustomAttributeItem implements IBreakableEquipment, ITrimmable, ICraftable, IRepairable {
+public abstract class HolomokuSet extends CustomAttributeItem implements IBreakableEquipment, ITrimmable, IRepairable {
 
     public static int POWER = 25;
 
@@ -85,20 +82,6 @@ public abstract class HolomokuSet extends CustomAttributeItem implements IBreaka
     @Override
     public TrimMaterial getTrimMaterial() {
         return TrimMaterial.EMERALD;
-    }
-
-    @Override
-    public NamespacedKey getRecipeKey() {
-        return new NamespacedKey(SMPRPG.getPlugin(), this.getCustomItemType().getKey() + "_recipe");
-    }
-
-    /**
-     * A collection of items that will unlock the recipe for this item. Typically, will be one of the components
-     * of the recipe itself, but can be set to whatever is desired
-     */
-    @Override
-    public Collection<ItemStack> unlockedBy() {
-        return List.of(ItemService.generate(CustomItemType.HOLOMOKU_CREST));
     }
 
     @Override

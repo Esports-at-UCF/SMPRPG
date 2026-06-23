@@ -1,0 +1,13 @@
+type: shaped
+pattern:
+- btb
+- tht
+ingredients:
+  b: smprpg:strange_binding
+  t: smprpg:strange_fiber
+  h: smprpg:nocturnum_helmet
+result:
+  item: smprpg:xenohunter_helmet
+  amount: 1
+unlocked_by:
+- smprpg:necroplasm

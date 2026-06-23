@@ -21,9 +21,7 @@ import org.bukkit.inventory.ItemType
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.ScrollColor
-import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
 import xyz.devvydont.smprpg.entity.player.LeveledPlayer
-import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
@@ -54,21 +52,6 @@ class KeepingBlessing(id: String) : CustomEnchantment(id), Listener {
             EnchantmentService.MERCY_BLESSING.typedKey,
             EnchantmentService.IGNORANCE_BLESSING.typedKey
         )
-
-    override fun getRecipe(level: Int): EnchantmentRecipe? {
-        when (level) {
-            1 -> {
-                val slime = getIngredientStack(CustomItemType.PREMIUM_SLIME, 4)
-                val matrix = getIngredientStack(CustomItemType.DISPLACEMENT_MATRIX, 1)
-                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 8)
-                return EnchantmentRecipe(getRecipeKey(level), 20, slime, matrix, lapis)
-            }
-
-            else -> {
-                return null
-            }
-        }
-    }
 
     override fun isEnchantmentActive(itemStack: ItemStack, player: LeveledPlayer): Boolean { return true }
 

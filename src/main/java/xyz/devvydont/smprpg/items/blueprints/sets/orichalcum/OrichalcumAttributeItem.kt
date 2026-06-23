@@ -20,10 +20,6 @@ abstract class OrichalcumAttributeItem(itemService: ItemService, type: CustomIte
         return itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT)
     }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT))
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)
     }

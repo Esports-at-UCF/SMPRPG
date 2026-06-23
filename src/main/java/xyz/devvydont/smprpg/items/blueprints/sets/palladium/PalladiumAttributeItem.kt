@@ -21,10 +21,6 @@ abstract class PalladiumAttributeItem(itemService: ItemService, type: CustomItem
         return itemService.getCustomItem(CustomItemType.PALLADIUM_INGOT)
     }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.PALLADIUM_INGOT))
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemTypeInDirectory(customItemType, "material_sets/palladium")
     }

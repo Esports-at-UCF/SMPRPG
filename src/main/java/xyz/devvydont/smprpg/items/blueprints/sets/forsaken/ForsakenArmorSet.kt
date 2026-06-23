@@ -1,25 +1,19 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.forsaken
 
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry
 import xyz.devvydont.smprpg.items.blueprints.sets.reaver.ReaverArmorSet
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.skills.SkillType
-import java.util.List
 
 abstract class ForsakenArmorSet(itemService: ItemService, type: CustomItemType) : ReaverArmorSet(itemService, type),
-    ICraftable, IRepairable, ISkillRequirement {
+    IRepairable, ISkillRequirement {
 
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf<ItemStack>(itemService.getCustomItem(CRAFTING_COMPONENT))
     override val skillRequirements: MutableMap<SkillType, Int> = mutableMapOf(Pair(SkillType.COMBAT, 25))
@@ -46,16 +40,6 @@ abstract class ForsakenArmorSet(itemService: ItemService, type: CustomItemType) 
 
     override fun getMaxDurability(): Int {
         return 40000
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, customItemType.getKey() + "-recipe")
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack> {
-        return mutableListOf(
-            generate(Material.NETHER_STAR)
-        )
     }
 
     companion object {

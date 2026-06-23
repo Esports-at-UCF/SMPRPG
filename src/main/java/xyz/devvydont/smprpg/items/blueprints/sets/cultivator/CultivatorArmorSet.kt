@@ -11,14 +11,13 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
 
 abstract class CultivatorArmorSet(itemService: ItemService, type: CustomItemType) :
-    CustomAttributeItem(itemService, type), IBreakableEquipment, ICraftable, IModelOverridden, ISkillRequirement {
+    CustomAttributeItem(itemService, type), IBreakableEquipment, IModelOverridden, ISkillRequirement {
 
     override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.FARMING, 15))
 
@@ -34,10 +33,6 @@ abstract class CultivatorArmorSet(itemService: ItemService, type: CustomItemType
     override fun getPowerRating(): Int { return 10 }
 
     override fun getMaxDurability(): Int { return 512 }
-
-    override fun getRecipeKey(): NamespacedKey { return ICraftable.getDefaultRecipeKey(type) }
-
-    override fun unlockedBy(): Collection<ItemStack> { return listOf(itemService.getCustomItem(CustomItemType.PREMIUM_HAY_BLOCK)) }
 
     override fun getDisplayKey(): Key {
         return IModelOverridden.ofItemTypeInDirectory(customItemType, "armor_sets/cultivator")

@@ -5,7 +5,6 @@ import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.events.CustomItemDropRollEvent
@@ -16,16 +15,14 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
-import xyz.devvydont.smprpg.util.crafting.builders.SwordRecipe
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.items.AbilityUtil
 
 class DragonsteelSword(itemService: ItemService, type: CustomItemType) : DragonsteelAttributeItem(itemService, type),
-    ICraftable, IHeaderDescribable, IBreakableEquipment, Listener {
+    IHeaderDescribable, IBreakableEquipment, Listener {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SWORD
     override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.COMBAT, toolStats.skillReqLevel))
@@ -53,15 +50,6 @@ class DragonsteelSword(itemService: ItemService, type: CustomItemType) : Dragons
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ItemSword.SWORD_ATTACK_SPEED_DEBUFF),
             AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, 10.0)
         )
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe? {
-        return SwordRecipe(
-            this,
-            getCraftingMaterial(),
-            itemService.getCustomItem(CustomItemType.OBSIDIAN_TOOL_ROD),
-            generate()
-        ).build()
     }
 
     @EventHandler

@@ -37,11 +37,13 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.util.Vector
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.block.behaviors.FreezerBlockBehavior
-import xyz.devvydont.smprpg.recipe.freezer.FreezerRecipe
-import xyz.devvydont.smprpg.recipe.freezer.FreezerRecipes
+import xyz.devvydont.smprpg.recipe.core.FreezerRecipe
+import xyz.devvydont.smprpg.recipe.core.RecipeStationType
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.services.RecipeService
 import xyz.devvydont.smprpg.util.extensions.transfer
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.time.TickTime
@@ -261,6 +263,12 @@ class FreezerBlockEntityController(val entity: BlockEntity, val behavior: Freeze
         const val ARROW_SLOT = 13
         val ALLOWED_SLOTS = listOf(INGREDIENT_SLOT, FUEL_SLOT, OUTPUT_SLOT)
 
+        /** All freezer recipes currently in the data-driven registry. */
+        private fun freezerRecipes(): List<FreezerRecipe> =
+            SMPRPG.getService(RecipeService::class.java).getRegistry()
+                .byStation(RecipeStationType.FREEZER)
+                .filterIsInstance<FreezerRecipe>()
+
         fun tick(ceWorld: CEWorld, blockPos: BlockPos, state: ImmutableBlockState, freezer: FreezerBlockEntityController) {
             val inv = freezer.inventory()!!
             if (!freezer.bordersInitialized) {
@@ -311,17 +319,14 @@ class FreezerBlockEntityController(val entity: BlockEntity, val behavior: Freeze
 
             if (freezer.isLit() || hasFuel && hasIngredient) {
                 val ingredient = inv.getItem(INGREDIENT_SLOT)
-                if (freezer.recipeTime == 0) {
-                    for (entry in FreezerRecipes.entries) {
-                        if (entry.recipe.input.isSimilar(ingredient)) {
-                            freezer.recipe = entry.recipe
+                if (freezer.recipeTime == 0 && ingredient != null) {
+                    for (entry in freezerRecipes()) {
+                        if (entry.input.matchesType(ingredient)) {
+                            freezer.recipe = entry
                             val result = inv.getItem(OUTPUT_SLOT)
-                            if (result == null || result.isSimilar(freezer.recipe!!.result)) {
-                                if (result != null && result.amount < result.maxStackSize)
-                                    freezer.recipeTime = entry.recipe.freezeTime
-                                else
-                                    freezer.recipeTime = entry.recipe.freezeTime
-                            }
+                            val resultPreview = entry.result.generate()
+                            if (result == null || (resultPreview != null && result.isSimilar(resultPreview)))
+                                freezer.recipeTime = entry.time
                             break
                         }
                     }
@@ -348,7 +353,7 @@ class FreezerBlockEntityController(val entity: BlockEntity, val behavior: Freeze
                     if (result != null)
                         result.add()
                     else
-                        inv.setItem(OUTPUT_SLOT, freezer.recipe!!.result)
+                        freezer.recipe!!.result.generate()?.let { inv.setItem(OUTPUT_SLOT, it) }
                     val newOutput = inv.getItem(OUTPUT_SLOT)!!
                     if (newOutput.amount >= newOutput.maxStackSize) {
                         freezer.recipeTime = 0

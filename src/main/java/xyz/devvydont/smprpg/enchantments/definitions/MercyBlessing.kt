@@ -28,8 +28,6 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.ScrollColor
-import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
-import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.ActionBarService
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
@@ -59,21 +57,6 @@ class MercyBlessing(id: String) : CustomEnchantment(id), Listener {
             RegistryKey.ENCHANTMENT,
             EnchantmentService.KEEPING_BLESSING.typedKey
         )
-
-    override fun getRecipe(level: Int): EnchantmentRecipe? {
-        when (level) {
-            1 -> {
-                val totem = getIngredientStack(Material.TOTEM_OF_UNDYING, 4)
-                val gapple = getIngredientStack(Material.ENCHANTED_GOLDEN_APPLE, 1)
-                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 8)
-                return EnchantmentRecipe(getRecipeKey(level)!!, 60, totem, gapple, lapis)
-            }
-
-            else -> {
-                return null
-            }
-        }
-    }
 
     /**
      * Listen for when damage is dealt. We aren't *supposed* to use monitor here, but this needs to happen

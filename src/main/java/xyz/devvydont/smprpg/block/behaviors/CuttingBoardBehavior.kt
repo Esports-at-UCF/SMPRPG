@@ -25,10 +25,13 @@ import org.bukkit.Location
 import org.bukkit.Sound
 import org.bukkit.World
 import org.bukkit.inventory.ItemStack
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.block.entity.CuttingBoardBlockEntityController
 import xyz.devvydont.smprpg.items.interfaces.IKnife
-import xyz.devvydont.smprpg.recipe.cuttingboard.CuttingBoardRecipes
+import xyz.devvydont.smprpg.recipe.core.CuttingBoardRecipe
+import xyz.devvydont.smprpg.recipe.core.RecipeStationType
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.services.RecipeService
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 import kotlin.random.Random
 
@@ -129,16 +132,15 @@ class CuttingBoardBehavior(blockDefinition: BlockDefinition) : BukkitBlockBehavi
                 return false
         }
         val dropPos = Vec3d.atCenterOf(board.blockEntity.pos)
-        for (entry in CuttingBoardRecipes.entries) {
-            if (entry.recipe.input.isSimilar(board.item)) {
-                // if (toolToProcess.hasItemTag(entry.recipe.processToolTag)) {  // TODO: This is the correct way to do this, we need to do a blueprint check until tags are fixed
+        for (recipe in cuttingBoardRecipes()) {
+            if (recipe.input.matchesType(board.item)) {
+                // TODO: tool tags are not wired up yet, so every cutting board recipe currently requires a
+                // knife (an IKnife blueprint). Once CraftEngine tag checks work, honor recipe.tool instead.
                 val bukkitItem = ItemStackUtils.getBukkitStack(toolToProcess)
-                val bp = ItemService.blueprint(bukkitItem)
                 if (ItemService.blueprint(bukkitItem) is IKnife) {
-                    for (item in entry.recipe.recipeResult) {
-                        val itemStack = item.first
-                        val chance = item.second
-                        if (Random.nextDouble() <= chance) {
+                    for (output in recipe.results) {
+                        if (Random.nextDouble() <= output.chance) {
+                            val itemStack = output.generate() ?: continue
                             board.blockEntity.world.world
                                 .dropItemNaturally(
                                     dropPos,
@@ -161,6 +163,12 @@ class CuttingBoardBehavior(blockDefinition: BlockDefinition) : BukkitBlockBehavi
         }
         return false
     }
+
+    /** All cutting board recipes currently in the data-driven registry. */
+    private fun cuttingBoardRecipes(): List<CuttingBoardRecipe> =
+        SMPRPG.getService(RecipeService::class.java).getRegistry()
+            .byStation(RecipeStationType.CUTTING_BOARD)
+            .filterIsInstance<CuttingBoardRecipe>()
 
     override fun createBlockEntityController(blockEntity: BlockEntity): BlockEntityController? {
         return CuttingBoardBlockEntityController(blockEntity, this)

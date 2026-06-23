@@ -2,11 +2,9 @@ package xyz.devvydont.smprpg.items.blueprints.sets.abomination
 
 import io.papermc.paper.datacomponent.DataComponentTypes
 import net.kyori.adventure.text.format.NamedTextColor
-import org.bukkit.NamespacedKey
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDeathEvent
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
@@ -22,16 +20,14 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
-import xyz.devvydont.smprpg.util.crafting.builders.ChestplateRecipe
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 
 class AbominationChestplate(itemService: ItemService, type: CustomItemType) : AbominationArmorSet(itemService, type),
-    IBreakableEquipment, ICraftable {
+    IBreakableEquipment {
 
     override val itemClassification: ItemClassification get() = ItemClassification.CHESTPLATE
 
@@ -53,18 +49,6 @@ class AbominationChestplate(itemService: ItemService, type: CustomItemType) : Ab
 
     override fun getMaxDurability(): Int {
         return armorDurabilityUnit * 8
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return ICraftable.getDefaultRecipeKey(customItemType)
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe? {
-        return ChestplateRecipe(this, itemService.getCustomItem(CustomItemType.REVILED_VISCERA), generate()).build()
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.REVILED_VISCERA))
     }
 
     @EventHandler

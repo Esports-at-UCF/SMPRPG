@@ -2,21 +2,15 @@ package xyz.devvydont.smprpg.items.blueprints.resources.crafting
 
 import net.kyori.adventure.key.Key
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.RecipeChoice
-import org.bukkit.inventory.RecipeChoice.ExactChoice
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
-import xyz.devvydont.smprpg.items.interfaces.ICompressible
-import xyz.devvydont.smprpg.items.interfaces.ICompressible.CompressionStep
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
-import xyz.devvydont.smprpg.util.time.TickTime
 
 class TitaniumIngot(itemService: ItemService, type: CustomItemType) :
-    CraftEngineBlueprint(itemService, type), ISellable, IModelOverridden, ICompressible {
+    CraftEngineBlueprint(itemService, type), ISellable, IModelOverridden {
     override val itemClassification: ItemClassification
         /**
          * Determine what type of item this is.
@@ -33,12 +27,4 @@ class TitaniumIngot(itemService: ItemService, type: CustomItemType) :
     override fun getWorth(item: ItemStack): Int { return 600 * item.amount }
 
     override fun getDisplayKey(): Key { return IModelOverridden.ofItemTypeInDirectory(customItemType, "materials") }
-
-    override val decompressor: CompressionStep? get() = null
-
-    override val compressor: CompressionStep? get() = when (customItemType) {
-        CustomItemType.TITANIUM_INGOT ->
-            CompressionStep(itemService.getBlueprint(CustomItemType.TITANIUM_BLOCK) as ICompressible, 9, 1)
-        else -> null
-    }
 }

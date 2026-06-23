@@ -2,7 +2,6 @@ package xyz.devvydont.smprpg.items.blueprints.sets.tungsten
 
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.Tool
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -13,14 +12,12 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
-import xyz.devvydont.smprpg.util.crafting.builders.AxeRecipe
 
 class TungstenAxe(itemService: ItemService, type: CustomItemType) : TungstenAttributeItem(itemService, type),
-    ICraftable, IBreakableEquipment, IModelOverridden {
+    IBreakableEquipment, IModelOverridden {
 
     override val itemClassification: ItemClassification get() = ItemClassification.AXE
     override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.WOODCUTTING, toolStats.skillReqLevel))
@@ -43,15 +40,6 @@ class TungstenAxe(itemService: ItemService, type: CustomItemType) : TungstenAttr
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
         itemStack.setData<Tool?>(DataComponentTypes.TOOL, TOOL_COMP)
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe? {
-        return AxeRecipe(
-            this,
-            getCraftingMaterial(),
-            itemService.getCustomItem(CustomItemType.SULFUR_TREATED_TOOL_SHAFT),
-            generate()
-        ).build()
     }
 
     companion object {

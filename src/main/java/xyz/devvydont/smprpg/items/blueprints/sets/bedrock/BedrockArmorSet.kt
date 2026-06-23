@@ -1,7 +1,5 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.bedrock
 
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.trim.TrimMaterial
@@ -14,12 +12,11 @@ import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.ITrimmable
 import xyz.devvydont.smprpg.services.ItemService
 
 abstract class BedrockArmorSet(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IBreakableEquipment, ITrimmable, ICraftable {
+    IBreakableEquipment, ITrimmable {
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.DEFENSE, this.defense.toDouble()),
@@ -31,8 +28,6 @@ abstract class BedrockArmorSet(itemService: ItemService, type: CustomItemType) :
 
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.ARMOR }
 
-    override fun getRecipeKey(): NamespacedKey? { return ICraftable.getDefaultRecipeKey(customItemType) }
-
     abstract val defense: Int
 
     override fun getPowerRating(): Int { return POWER }
@@ -40,8 +35,6 @@ abstract class BedrockArmorSet(itemService: ItemService, type: CustomItemType) :
     override fun getTrimMaterial(): TrimMaterial? { return TrimMaterial.NETHERITE }
 
     override fun getTrimPattern(): TrimPattern? { return TrimPattern.RIB }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?>? { return mutableListOf(itemService.getCustomItem(Material.COBBLED_DEEPSLATE)) }
 
     companion object {
         const val POWER: Int = 30

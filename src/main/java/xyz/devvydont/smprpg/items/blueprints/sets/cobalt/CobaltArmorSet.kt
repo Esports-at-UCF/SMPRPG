@@ -1,12 +1,10 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.cobalt
 
 import net.kyori.adventure.key.Key
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IEquippableAssetOverride
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
@@ -28,12 +26,6 @@ abstract class CobaltArmorSet(itemService: ItemService, type: CustomItemType) :
     }
 
     open fun getCraftingMaterial(): ItemStack = itemService.getCustomItem(CustomItemType.COBALT_INGOT)
-
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.COBALT_INGOT))
-    }
-
-    open fun getRecipeKey(): NamespacedKey { return ICraftable.getDefaultRecipeKey(customItemType) }
 
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)

@@ -4,12 +4,9 @@ import io.papermc.paper.datacomponent.item.Equippable
 import net.kyori.adventure.key.Key
 import org.bukkit.Color
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
@@ -18,12 +15,11 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.util.crafting.builders.ConicalRecipe
 import xyz.devvydont.smprpg.util.items.ToolStats
 import java.util.List
 
 class LeatherConicalHat(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    ICraftable, IBreakableEquipment, IDyeable, IModelOverridden, IEquippableOverride, IRepairable {
+    IBreakableEquipment, IDyeable, IModelOverridden, IEquippableOverride, IRepairable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HELMET
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(Material.LEATHER))
@@ -38,12 +34,6 @@ class LeatherConicalHat(itemService: ItemService, type: CustomItemType) : Custom
     override fun getPowerRating(): Int { return ToolStats.WOOD.power }
 
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.HEAD }
-
-    override fun getRecipeKey(): NamespacedKey { return NamespacedKey(plugin, customItemType.getKey() + "-recipe") }
-
-    override fun getCustomRecipe(): CraftingRecipe? { return ConicalRecipe(this, itemService.getCustomItem(Material.LEATHER), generate()).build() }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> { return mutableListOf(itemService.getCustomItem(Material.LEATHER)) }
 
     override fun getMaxDurability(): Int { return (ToolStats.WOOD.getArmorUnitDurability() * 4).toInt() }
 

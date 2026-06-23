@@ -1,16 +1,11 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.breeze
 
 import io.papermc.paper.datacomponent.DataComponentTypes
-import io.papermc.paper.datacomponent.item.AttackRange
-import io.papermc.paper.datacomponent.item.PiercingWeapon
-import io.papermc.paper.datacomponent.item.SwingAnimation
 import io.papermc.paper.datacomponent.item.UseCooldown
-import io.papermc.paper.datacomponent.item.Weapon
 import io.papermc.paper.registry.keys.SoundEventKeys
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.Particle
 import org.bukkit.Sound
@@ -18,13 +13,8 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
-import org.checkerframework.common.value.qual.IntRange
-import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.ability.Ability
 import xyz.devvydont.smprpg.ability.AbilityActivationMethod
@@ -41,14 +31,12 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster.AbilityEntry
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.items.AbilityUtil
 import xyz.devvydont.smprpg.util.time.TickTime
-import java.util.List
 
 class BreezeborneStaff(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IBreakableEquipment, ICantCrit, IMageBeam, ICraftable, IAbilityCaster, IModelOverridden, IHeaderDescribable,
+    IBreakableEquipment, ICantCrit, IMageBeam, IAbilityCaster, IModelOverridden, IHeaderDescribable,
     Listener {
 
     override val itemClassification: ItemClassification get() = ItemClassification.STAFF
@@ -75,29 +63,6 @@ class BreezeborneStaff(itemService: ItemService, type: CustomItemType) : CustomA
         components.add(ComponentUtils.create("against mobs that are not grounded."))
 
         return components
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return ICraftable.getDefaultRecipeKey(customItemType)
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(getRecipeKey(), generate())
-        recipe.shape(
-            " hb",
-            " bb",
-            "b  "
-        )
-        recipe.setIngredient('h', generate(Material.HEAVY_CORE))
-        recipe.setIngredient('b', generate(Material.BREEZE_ROD))
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            itemService.getCustomItem(Material.BREEZE_ROD)
-        )
     }
 
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.MAINHAND }

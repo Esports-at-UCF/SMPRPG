@@ -21,10 +21,6 @@ abstract class PlatinumAttributeItem(itemService: ItemService, type: CustomItemT
         return itemService.getCustomItem(CustomItemType.PLATINUM_INGOT)
     }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.PLATINUM_INGOT))
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemTypeInDirectory(customItemType, "material_sets/platinum")
     }

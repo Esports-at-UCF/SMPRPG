@@ -13,7 +13,6 @@ import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
-import java.util.List
 
 class ReviledViscera(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
     ISellable, IHeaderDescribable, IModelOverridden {

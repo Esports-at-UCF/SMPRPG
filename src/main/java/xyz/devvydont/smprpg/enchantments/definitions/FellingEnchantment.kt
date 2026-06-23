@@ -15,7 +15,6 @@ import xyz.devvydont.smprpg.enchantments.definitions.vanilla.overrides.FortuneEn
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeModifierType
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
-import java.util.List
 
 class FellingEnchantment(id: String) : CustomEnchantment(id), AttributeEnchantment {
     override val displayName: Component get() = ComponentUtils.create("Felling")

@@ -1,12 +1,10 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.amethyst
 
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.meta.trim.TrimPattern
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.util.crafting.builders.HelmetRecipe
 
 class AmethystHelmet(itemService: ItemService, type: CustomItemType) : AmethystArmorSet(itemService, type) {
 
@@ -20,10 +18,6 @@ class AmethystHelmet(itemService: ItemService, type: CustomItemType) : AmethystA
 
     override fun getTrimPattern(): TrimPattern? {
         return TrimPattern.DUNE
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe? {
-        return HelmetRecipe(this, itemService.getCustomItem(CustomItemType.ENCHANTED_AMETHYST), generate()).build()
     }
 
     override fun getMaxDurability(): Int {

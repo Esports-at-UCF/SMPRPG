@@ -21,10 +21,6 @@ abstract class AdamantiumAttributeItem(itemService: ItemService, type: CustomIte
         return itemService.getCustomItem(CustomItemType.ADAMANTIUM_INGOT)
     }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(getCraftingMaterial())
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)
     }

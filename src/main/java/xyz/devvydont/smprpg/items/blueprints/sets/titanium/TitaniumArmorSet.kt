@@ -1,9 +1,7 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.titanium
 
 import net.kyori.adventure.key.Key
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IEquippableAssetOverride
@@ -26,11 +24,7 @@ abstract class TitaniumArmorSet(itemService: ItemService, type: CustomItemType) 
 
     open fun getCraftingMaterial(): ItemStack = itemService.getCustomItem(CustomItemType.TITANIUM_INGOT)
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? { return mutableListOf(getCraftingMaterial()) }
-
     open fun getDisplayKey(): Key { return IModelOverridden.ofItemType(customItemType) }
-
-    open fun getRecipeKey(): NamespacedKey { return NamespacedKey(plugin, customItemType.key + "-recipe") }
 
     companion object {
         private val key = Key.key("titanium")

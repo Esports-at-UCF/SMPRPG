@@ -20,6 +20,7 @@ import xyz.devvydont.smprpg.market.gui.auction.MenuAuctionBrowser
 import xyz.devvydont.smprpg.market.gui.bazaar.MenuBazaarBrowser
 import xyz.devvydont.smprpg.commands.admin.CommandAttribute
 import xyz.devvydont.smprpg.commands.admin.CommandEcoAdmin
+import xyz.devvydont.smprpg.commands.admin.CommandRecipes
 import xyz.devvydont.smprpg.commands.admin.CommandSimulateFishing
 import xyz.devvydont.smprpg.commands.admin.CommandSteal
 import xyz.devvydont.smprpg.commands.enchantments.CommandEnchantments
@@ -62,6 +63,7 @@ class SMPRPGBootstrapper : PluginBootstrap {
             CommandSteal(),
             CommandAttribute(),
             CommandEcoAdmin(),
+            CommandRecipes(),
             CommandSkill(),
             CommandBalance("balance"),
             CommandBalance("bal"),  // Effectively functions as an alias. We can register the same command multiple times!

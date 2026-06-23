@@ -1,7 +1,6 @@
 package xyz.devvydont.smprpg.gui.items
 
 import io.papermc.paper.datacomponent.DataComponentTypes
-import io.papermc.paper.datacomponent.item.CustomModelData
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
@@ -23,7 +22,8 @@ import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItemWithDescription
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.CustomItemType
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
+import xyz.devvydont.smprpg.recipe.core.RecipeStationType
+import xyz.devvydont.smprpg.services.RecipeService
 import xyz.devvydont.smprpg.recipe.cookingpot.CookingPotRecipe
 import xyz.devvydont.smprpg.recipe.cuttingboard.CuttingBoardRecipe
 import xyz.devvydont.smprpg.recipe.cuttingboard.CuttingBoardToolTags
@@ -588,8 +588,15 @@ class MenuRecipeViewer(
         // Misc buttons
         this.setSlot(RESULT, result)
 
-        val blueprint = ItemService.blueprint(result)
-        if (blueprint is ICraftable) this.setSlot(REQUIREMENTS, getRequirements(blueprint.unlockedBy()))
+        // Show the unlock requirements for this item's data-driven crafting recipe, if it has one.
+        val itemService = SMPRPG.getService(ItemService::class.java)
+        val craftingRecipe = SMPRPG.getService(RecipeService::class.java).getRegistry()
+            .byResult(itemService.getIdentifier(result))
+            .firstOrNull { it.station == RecipeStationType.CRAFTING_TABLE }
+        if (craftingRecipe != null && craftingRecipe.unlockedBy.isNotEmpty()) {
+            val requirements = craftingRecipe.unlockedBy.mapNotNull { itemService.resolveIdentifier(it.asString()) }.toMutableList()
+            this.setSlot(REQUIREMENTS, getRequirements(requirements))
+        }
 
         if (recipes.size > 1) {
             this.setButton(

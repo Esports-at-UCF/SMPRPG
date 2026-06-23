@@ -20,10 +20,6 @@ abstract class RoseGoldAttributeItem(itemService: ItemService, type: CustomItemT
         return itemService.getCustomItem(CustomItemType.ROSE_GOLD_INGOT)
     }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.ROSE_GOLD_INGOT))
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)
     }

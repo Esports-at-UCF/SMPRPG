@@ -12,7 +12,6 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.IDamageFromCrops
 import xyz.devvydont.smprpg.services.ItemService
-import java.util.List
 
 open class ItemHatchet(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
     IBreakableEquipment, IDamageFromCrops {

@@ -1,12 +1,10 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.orichalcum
 
 import net.kyori.adventure.key.Key
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IEquippableAssetOverride
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
@@ -26,10 +24,6 @@ abstract class OrichalcumArmorSet(itemService: ItemService, type: CustomItemType
     override fun getPowerRating(): Int { return toolStats.power }
 
     open fun getCraftingMaterial(): ItemStack = itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT)
-
-    open fun unlockedBy(): MutableCollection<ItemStack?>? { return mutableListOf(itemService.getCustomItem(CustomItemType.ORICHALCUM_INGOT)) }
-
-    open fun getRecipeKey(): NamespacedKey { return ICraftable.getDefaultRecipeKey(customItemType) }
 
     open fun getDisplayKey(): Key { return IModelOverridden.ofItemType(customItemType) }
 

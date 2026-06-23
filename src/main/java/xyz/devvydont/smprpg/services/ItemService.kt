@@ -9,7 +9,6 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.momirealms.craftengine.bukkit.api.BukkitAdaptor
-import net.momirealms.craftengine.bukkit.api.CraftEngineItems
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Material
@@ -71,7 +70,7 @@ import xyz.devvydont.smprpg.reforge.ReforgeType
 import xyz.devvydont.smprpg.util.attributes.AttributeUtil
 import xyz.devvydont.smprpg.util.crafting.ItemUtil
 import xyz.devvydont.smprpg.util.crafting.MaterialWrapper
-import xyz.devvydont.smprpg.util.extensions.resolveFirstItemInCompressionChain
+import xyz.devvydont.smprpg.recipe.CompressionGraph
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.MinecraftStringUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
@@ -129,16 +128,7 @@ class ItemService : IService, Listener {
         )
         plugin.logger.info(String.format("Successfully registered %d custom item blueprints", blueprints.size))
 
-        val preProvidedRecipeCount = countRecipes()
-        registerProvidedRecipes()
-        val postProvidedRecipeCount = countRecipes()
-        plugin.logger.info(
-            String.format(
-                "Successfully registered %d craftable & compression recipes",
-                postProvidedRecipeCount - preProvidedRecipeCount
-            )
-        )
-
+        // Crafting and compression recipes are registered from the data-driven registry by RecipeService.
         Bukkit.updateRecipes()
 
         // Make the listeners start working.
@@ -620,38 +610,6 @@ class ItemService : IService, Listener {
      * with the unlock links that reveal each recipe in the recipe book. This is the single source of truth for recipe
      * registration so that adding a recipe and wiring up its discovery can never drift apart.
      */
-    private fun registerProvidedRecipes() {
-        val providers = ArrayList<IRecipeProvider>()
-        for (blueprint in blueprints.values)
-            if (blueprint is IRecipeProvider) providers.add(blueprint)
-        for (blueprint in vanillaBlueprintResolver.values)
-            if (blueprint is IRecipeProvider) providers.add(blueprint)
-
-        for (provider in providers)
-            for (provided in provider.getProvidedRecipes())
-                registerProvidedRecipe(provided)
-    }
-
-    private fun registerProvidedRecipe(provided: IRecipeProvider.UnlockableRecipe) {
-        val plugin = SMPRPG.plugin
-        val recipe = provided.recipe
-        val key = (recipe as? Keyed)?.key()?.asString()?.let(NamespacedKey::fromString)
-        if (key == null) {
-            plugin.logger.warning("Skipping a provided recipe that has no resolvable key")
-            return
-        }
-
-        // Add the recipe itself only if it is not already present, keeping registration idempotent across reloads.
-        if (plugin.server.getRecipe(key) == null && !plugin.server.addRecipe(recipe))
-            plugin.logger.warning("Failed to register recipe with key: $key")
-        registeredRecipes.add(recipe)
-
-        // Always wire up the unlock links by key, independent of whether the recipe was freshly added above.
-        // This decoupling is what guarantees discovery works even when the recipe already existed.
-        for (unlockItem in provided.unlockedBy)
-            registerUnlockRecipe(getBlueprint(unlockItem), key)
-    }
-
     private fun registerUnlockRecipe(unlockBlueprint: Any, recipeKey: NamespacedKey) {
         when (unlockBlueprint) {
             is CustomItemBlueprint -> {
@@ -666,6 +624,11 @@ class ItemService : IService, Listener {
                     .add(recipeKey)
             }
         }
+    }
+
+    /** Wire a recipe-book unlock so that acquiring [unlockItem] reveals the recipe identified by [recipeKey]. */
+    fun addRecipeUnlock(unlockItem: ItemStack, recipeKey: NamespacedKey) {
+        registerUnlockRecipe(getBlueprint(unlockItem), recipeKey)
     }
 
     fun getItemVersion(item: ItemStack): Int {
@@ -852,6 +815,68 @@ class ItemService : IService, Listener {
 
         // Make a new item
         return getBlueprint(type).generate()
+    }
+
+    /**
+     * Resolve a namespaced item key into a freshly generated ItemStack.
+     * Supports `smprpg:<custom_key>` (custom items) and `minecraft:<material>` (vanilla items).
+     * A bare key with no namespace is assumed to be `minecraft`. Returns null if it does not resolve.
+     *
+     * @param key The namespaced key, e.g. "smprpg:steel_ingot" or "minecraft:gold_ingot".
+     * @return A new ItemStack for the identifier, or null if unknown.
+     */
+    fun resolveIdentifier(key: String): ItemStack? {
+        val (namespace, path) = splitNamespacedKey(key)
+        return when (namespace) {
+            "smprpg" -> getCustomItem(path)
+            "minecraft" -> {
+                val material = Material.matchMaterial("minecraft:$path") ?: return null
+                if (!material.isItem) return null
+                getCustomItem(material)
+            }
+            else -> null
+        }
+    }
+
+    /**
+     * Resolve the namespaced key that best describes an existing item stack.
+     * Custom items return `smprpg:<key>`; everything else returns `minecraft:<material>`.
+     *
+     * @param item The item to identify.
+     * @return The canonical namespaced key for the item.
+     */
+    fun getIdentifier(item: ItemStack): String {
+        val key = getItemKey(item)
+        if (key != null)
+            return "smprpg:$key"
+        return "minecraft:" + item.type.key().value()
+    }
+
+    /**
+     * Test whether an item stack is of the type described by a namespaced key (type-level, ignoring stack
+     * count and NBT such as enchants/reforges). A custom item only matches a `minecraft:` key when it carries
+     * no custom item key, so custom items that render as a vanilla material never falsely match the vanilla one.
+     *
+     * @param item The item to test.
+     * @param key The namespaced key to test against.
+     * @return true if the item is of that type.
+     */
+    fun matchesIdentifier(item: ItemStack, key: String): Boolean {
+        val (namespace, path) = splitNamespacedKey(key)
+        return when (namespace) {
+            "smprpg" -> getItemKey(item) == path
+            "minecraft" -> getItemKey(item) == null && item.type == Material.matchMaterial("minecraft:$path")
+            else -> false
+        }
+    }
+
+    /** Split a "namespace:path" key into its parts, defaulting to the minecraft namespace when none is given. */
+    private fun splitNamespacedKey(key: String): Pair<String, String> {
+        val trimmed = key.trim()
+        val idx = trimmed.indexOf(':')
+        if (idx < 0)
+            return "minecraft" to trimmed.lowercase()
+        return trimmed.substring(0, idx).lowercase() to trimmed.substring(idx + 1).lowercase()
     }
 
     /**
@@ -1116,18 +1141,13 @@ class ItemService : IService, Listener {
             }
         }
 
-        // Is this item compressed (i.e. has a decompressor, meaning it is not the base of the chain)?
-        if (blueprint is ICompressible && (blueprint as ICompressible).decompressor != null) {
-            val compressible = blueprint as ICompressible
-            val firstInChain = compressible.resolveFirstItemInCompressionChain(blueprint.getGenericMaterial())
-            val material: Component = (firstInChain as SMPItemBlueprint).getGenericMaterial().component()
+        // Is this item compressed (i.e. it decompresses into a lower tier, meaning it is not the base of the chain)?
+        val compressionId = getIdentifier(itemStack)
+        val compressionBase = if (CompressionGraph.isCompressed(compressionId)) resolveIdentifier(CompressionGraph.baseOf(compressionId)) else null
+        if (compressionBase != null) {
+            val material: Component = getBlueprint(compressionBase).getGenericMaterial().component()
                 .decoration(TextDecoration.BOLD, true)
-            var compressedAmount = 1
-            var current: ICompressible = compressible
-            while (current.decompressor != null) {
-                compressedAmount *= current.decompressor!!.resultAmount
-                current = current.decompressor!!.blueprint
-            }
+            val compressedAmount = CompressionGraph.ratioToBase(compressionId)
             lore.add(ComponentUtils.EMPTY)
             lore.add(ComponentUtils.create("An ultra compressed"))
             lore.add(ComponentUtils.create("collection of ").append(material))
@@ -1356,11 +1376,13 @@ class ItemService : IService, Listener {
         val blueprint = getBlueprint(item)
 
         // If this blueprint is a compression member, find the chain root and discover all its linked recipes.
-        if (blueprint is ICompressible) {
-            val firstInChain = (blueprint as ICompressible).resolveFirstItemInCompressionChain(blueprint.getGenericMaterial())
-            when (firstInChain) {
+        val chainId = getIdentifier(item)
+        if (CompressionGraph.inChain(chainId)) {
+            val rootStack = resolveIdentifier(CompressionGraph.baseOf(chainId))
+            when (val firstInChain = rootStack?.let { getBlueprint(it) }) {
                 is VanillaItemBlueprint -> materialToRecipeUnlocks[firstInChain.material]?.let { player.discoverRecipes(it) }
                 is CustomItemBlueprint -> customItemToRecipeUnlocks[firstInChain.customItemType]?.let { player.discoverRecipes(it) }
+                else -> {}
             }
         }
 
@@ -1610,21 +1632,24 @@ class ItemService : IService, Listener {
         if (items.isEmpty()) return null
 
         val ingredient = items.first()
-        val blueprint = getBlueprint(ingredient)
-        if (blueprint !is ICompressible || !blueprint.isCustom) return null
+        // Only custom items collide with vanilla recipes; vanilla compression resolves normally.
+        val ingredientKey = getItemKey(ingredient) ?: return null
+        val id = getIdentifier(ingredient)
+        if (!CompressionGraph.inChain(id)) return null
 
         // Every occupied slot must hold the exact same custom item for a compression recipe to apply.
-        val ingredientKey = getItemKey(ingredient)
         if (items.any { getItemKey(it) != ingredientKey }) return null
 
         val occupiedSlots = items.size
-        blueprint.compressor?.let { step ->
-            if (occupiedSlots == step.inputAmount)
-                return (step.blueprint as SMPItemBlueprint).generate(step.resultAmount)
+        // A full chain's worth of this item compresses up into the next tier (always one output).
+        CompressionGraph.compressStep(id)?.let { (higherId, inputAmount) ->
+            if (occupiedSlots == inputAmount)
+                return resolveIdentifier(higherId)?.apply { amount = 1 }
         }
-        blueprint.decompressor?.let { step ->
-            if (occupiedSlots == step.inputAmount)
-                return (step.blueprint as SMPItemBlueprint).generate(step.resultAmount)
+        // A single item decompresses down into its lower tier (the decompression ratio worth of output).
+        CompressionGraph.decompressStep(id)?.let { (lowerId, ratio) ->
+            if (occupiedSlots == 1)
+                return resolveIdentifier(lowerId)?.apply { amount = ratio }
         }
         return null
     }

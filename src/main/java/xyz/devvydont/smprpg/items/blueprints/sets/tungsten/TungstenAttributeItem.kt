@@ -21,10 +21,6 @@ abstract class TungstenAttributeItem(itemService: ItemService, type: CustomItemT
         return itemService.getCustomItem(CustomItemType.TUNGSTEN_INGOT)
     }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.TUNGSTEN_INGOT))
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemTypeInDirectory(customItemType, "material_sets/tungsten")
     }

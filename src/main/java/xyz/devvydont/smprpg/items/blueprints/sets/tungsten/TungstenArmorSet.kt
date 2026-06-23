@@ -1,7 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.tungsten
 
 import net.kyori.adventure.key.Key
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -25,15 +24,6 @@ abstract class TungstenArmorSet(itemService: ItemService, type: CustomItemType) 
     override fun getPowerRating(): Int { return toolStats.power }
 
     open fun getCraftingMaterial(): ItemStack = itemService.getCustomItem(CustomItemType.TUNGSTEN_INGOT)
-
-    open fun unlockedBy(): MutableCollection<ItemStack?>? { return mutableListOf(
-        itemService.getCustomItem(
-            CustomItemType.TUNGSTEN_INGOT
-        )
-    )
-    }
-
-    open fun getRecipeKey(): NamespacedKey { return NamespacedKey(plugin, customItemType.key + "-recipe") }
 
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemTypeInDirectory(customItemType, "material_sets/tungsten")

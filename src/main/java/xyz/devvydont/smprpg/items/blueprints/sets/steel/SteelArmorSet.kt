@@ -1,9 +1,7 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.steel
 
 import net.kyori.adventure.key.Key
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IEquippableAssetOverride
@@ -27,16 +25,8 @@ abstract class SteelArmorSet(itemService: ItemService, type: CustomItemType) : C
 
     open fun getCraftingMaterial(): ItemStack = itemService.getCustomItem(CustomItemType.STEEL_INGOT)
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.STEEL_INGOT))
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)
-    }
-
-    open fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, customItemType.key + "-recipe")
     }
 
     companion object {

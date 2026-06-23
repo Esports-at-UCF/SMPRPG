@@ -1,10 +1,7 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.titanium
 
-import org.bukkit.NamespacedKey
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
@@ -12,14 +9,11 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemArmor
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
-import xyz.devvydont.smprpg.util.crafting.builders.ChestplateRecipe
-import xyz.devvydont.smprpg.util.items.ToolGlobals
 
 class TitaniumChestplate(itemService: ItemService, type: CustomItemType) : TitaniumArmorSet(itemService, type),
-    IBreakableEquipment, ICraftable {
+    IBreakableEquipment {
 
     override val itemClassification: ItemClassification get() = ItemClassification.CHESTPLATE
     override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.COMBAT, toolStats.skillReqLevel))
@@ -40,10 +34,6 @@ class TitaniumChestplate(itemService: ItemService, type: CustomItemType) : Titan
 
     override fun getMaxDurability(): Int {
         return armorDurabilityUnit * 8
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe? {
-        return ChestplateRecipe(this, getCraftingMaterial(), generate()).build()
     }
 
 }

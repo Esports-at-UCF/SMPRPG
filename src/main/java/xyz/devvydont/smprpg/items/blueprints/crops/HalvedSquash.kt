@@ -1,10 +1,7 @@
 package xyz.devvydont.smprpg.items.blueprints.crops
 
 import io.papermc.paper.datacomponent.item.Consumable
-import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect
 import org.bukkit.inventory.ItemStack
-import org.bukkit.potion.PotionEffect
-import org.bukkit.potion.PotionEffectType
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint

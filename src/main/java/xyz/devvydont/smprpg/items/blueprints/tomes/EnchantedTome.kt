@@ -1,25 +1,18 @@
 package xyz.devvydont.smprpg.items.blueprints.tomes
 
 import io.papermc.paper.datacomponent.DataComponentTypes
-import net.kyori.adventure.key.Key
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
 
 class EnchantedTome(itemService: ItemService, type: CustomItemType) : TomeBlueprint(itemService, type),
-    ISkillRequirement, ICraftable {
+    ISkillRequirement {
 
     override val maxSpellSlots: Int get() = 2
     override val cooldownMult: Double get() = 1.05
@@ -42,19 +35,5 @@ class EnchantedTome(itemService: ItemService, type: CustomItemType) : TomeBluepr
 
     override fun getPowerRating(): Int { return 10 }
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.HAND }
-
-    override fun getRecipeKey(): NamespacedKey { return ICraftable.getDefaultRecipeKey(type) }
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(recipeKey, generate())
-        recipe.shape(
-            "lll",
-            "lbl",
-            "lll")
-        recipe.setIngredient('l', itemService.getCustomItem(CustomItemType.ENCHANTED_LAPIS))
-        recipe.setIngredient('b', itemService.getCustomItem(Material.BOOK))
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        return recipe
-    }
-    override fun unlockedBy(): Collection<ItemStack> { return listOf(itemService.getCustomItem(Material.LAPIS_LAZULI)) }
 
 }

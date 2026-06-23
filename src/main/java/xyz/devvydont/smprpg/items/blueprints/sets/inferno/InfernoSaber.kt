@@ -2,13 +2,8 @@ package xyz.devvydont.smprpg.items.blueprints.sets.inferno
 
 import net.kyori.adventure.key.Key
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.ability.Ability
 import xyz.devvydont.smprpg.ability.AbilityActivationMethod
 import xyz.devvydont.smprpg.ability.AbilityCost
@@ -24,12 +19,10 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster.AbilityEntry
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.time.TickTime
-import java.util.List
 
-class InfernoSaber(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type), ICraftable,
+class InfernoSaber(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
     IModelOverridden, IBreakableEquipment, IAbilityCaster, IRepairable, ISkillRequirement {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SWORD
@@ -57,22 +50,6 @@ class InfernoSaber(itemService: ItemService, type: CustomItemType) : CustomAttri
         return EquipmentSlotGroup.MAINHAND
     }
 
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, customItemType.getKey() + "-recipe")
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(getRecipeKey(), generate())
-        recipe.shape("r", "r", "r")
-        recipe.setIngredient('r', generate(InfernoArmorSet.CRAFTING_COMPONENT))
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(generate(InfernoArmorSet.CRAFTING_COMPONENT))
-    }
 
     /**
      * Get the abilities this item has, and how they can be cast.

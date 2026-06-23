@@ -4,10 +4,7 @@ import net.kyori.adventure.key.Key
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
-import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
-import xyz.devvydont.smprpg.items.interfaces.ICompressible
-import xyz.devvydont.smprpg.items.interfaces.ICompressible.CompressionStep
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
@@ -15,17 +12,9 @@ import xyz.devvydont.smprpg.services.ItemService
 private const val WORTH_PER_ITEM = 15
 
 class RawSilver(itemService: ItemService, type: CustomItemType) :
-    CraftEngineBlueprint(itemService, type), ICompressible, ISellable, IModelOverridden {
+    CraftEngineBlueprint(itemService, type), ISellable, IModelOverridden {
 
     override val itemClassification: ItemClassification get() = ItemClassification.MATERIAL
-
-    override val decompressor: CompressionStep? get() = null
-
-    override val compressor: CompressionStep? get() = when (customItemType) {
-        CustomItemType.RAW_SILVER ->
-            CompressionStep(itemService.getBlueprint(CustomItemType.RAW_SILVER_BLOCK) as ICompressible, 9, 1)
-        else -> null
-    }
 
     override fun getWorth(itemStack: ItemStack): Int = WORTH_PER_ITEM * itemStack.amount
 

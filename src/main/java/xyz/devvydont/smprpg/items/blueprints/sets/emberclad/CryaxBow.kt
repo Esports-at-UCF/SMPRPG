@@ -1,6 +1,5 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.emberclad
 
-import org.bukkit.Material
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -9,10 +8,8 @@ import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
-import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe.Companion.getAxeDamage
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.services.ItemService
-import java.util.List
 
 class CryaxBow(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
     IBreakableEquipment {

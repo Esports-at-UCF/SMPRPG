@@ -20,10 +20,6 @@ abstract class DragonsteelAttributeItem(itemService: ItemService, type: CustomIt
         return itemService.getCustomItem(CustomItemType.DRAGONSTEEL_INGOT)
     }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.DRAGONSTEEL_INGOT))
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)
     }

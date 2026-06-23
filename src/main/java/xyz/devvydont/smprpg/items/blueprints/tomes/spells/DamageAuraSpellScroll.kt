@@ -6,11 +6,9 @@ import xyz.devvydont.smprpg.ability.AbilityActivationMethod
 import xyz.devvydont.smprpg.ability.AbilityCost
 import xyz.devvydont.smprpg.ability.AbilityCost.Companion.of
 import xyz.devvydont.smprpg.ability.handlers.DamageAuraAbilityHandler
-import xyz.devvydont.smprpg.ability.handlers.FireballAbilityHandler
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster.AbilityEntry
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.util.time.TickTime
 
 class DamageAuraSpellScroll(itemService: ItemService, type: CustomItemType) : SpellBlueprint(itemService, type) {
     override fun getAbilities(item: ItemStack): Collection<AbilityEntry> {

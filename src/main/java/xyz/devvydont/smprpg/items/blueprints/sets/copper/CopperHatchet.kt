@@ -3,8 +3,6 @@ package xyz.devvydont.smprpg.items.blueprints.sets.copper
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.Tool
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -17,17 +15,15 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemAxe
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword.Companion.getSwordDamage
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IDamageFromCrops
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.items.interfaces.ISkillRequirement
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
-import xyz.devvydont.smprpg.util.crafting.builders.HatchetRecipe
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 class CopperHatchet(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    ICraftable, IBreakableEquipment, IRepairable, ISkillRequirement, IDamageFromCrops {
+    IBreakableEquipment, IRepairable, ISkillRequirement, IDamageFromCrops {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HATCHET
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(Material.COPPER_INGOT))
@@ -53,26 +49,9 @@ class CopperHatchet(itemService: ItemService, type: CustomItemType) : CustomAttr
 
     override fun getMaxDurability(): Int { return ToolStats.COPPER.durability }
 
-    override fun getRecipeKey(): NamespacedKey { return ICraftable.getDefaultRecipeKey(customItemType) }
-
     override fun updateItemData(itemStack: ItemStack) {
         super.updateItemData(itemStack)
         itemStack.setData(DataComponentTypes.TOOL, TOOL_COMP)
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        return HatchetRecipe(
-            this,
-            itemService.getCustomItem(Material.COPPER_INGOT),
-            itemService.getCustomItem(Material.STICK),
-            generate()
-        ).build()
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            itemService.getCustomItem(Material.COPPER_INGOT)
-        )
     }
 
     companion object {

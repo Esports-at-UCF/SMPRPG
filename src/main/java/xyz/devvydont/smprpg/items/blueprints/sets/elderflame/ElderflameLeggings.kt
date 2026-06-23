@@ -1,6 +1,5 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.elderflame
 
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -9,7 +8,6 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.util.crafting.builders.LeggingsRecipe
 
 class ElderflameLeggings(itemService: ItemService, type: CustomItemType) : ElderflameArmorSet(itemService, type) {
 
@@ -25,8 +23,6 @@ class ElderflameLeggings(itemService: ItemService, type: CustomItemType) : Elder
             AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, ElderflameChestplate.Companion.CRIT.toDouble())
         )
     }
-
-    override fun getCustomRecipe(): CraftingRecipe? { return LeggingsRecipe(this, itemService.getCustomItem(CustomItemType.DRACONIC_CRYSTAL), generate()).build() }
 
     override fun getMaxDurability(): Int { return ARMOR_DURABILITY_UNIT * 7 }
 }

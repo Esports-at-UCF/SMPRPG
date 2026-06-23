@@ -5,7 +5,6 @@ import io.papermc.paper.registry.tag.TagKey
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Color
-import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
@@ -16,9 +15,7 @@ import org.bukkit.inventory.ItemType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
-import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
-import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import kotlin.math.max
@@ -42,48 +39,6 @@ class ExecuteEnchantment(id: String) : CustomEnchantment(id), Listener {
     override val weight: Int get()                             = EnchantmentRarity.UNCOMMON.weight
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.HAND
     override val skillRequirement: Int get()                   = 8
-
-    override fun getRecipe(level: Int): EnchantmentRecipe? {
-        when (level) {
-            1 -> {
-                val flesh = getIngredientStack(CustomItemType.NECROTIC_FLESH, 16)
-                val iron = getIngredientStack(Material.IRON_INGOT, 16)
-                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 8)
-                return EnchantmentRecipe(getRecipeKey(level), 8, flesh, iron, lapis)
-            }
-
-            2 -> {
-                val flesh = getIngredientStack(CustomItemType.NECROTIC_FLESH, 32)
-                val iron = getIngredientStack(CustomItemType.ENCHANTED_IRON, 4)
-                val lapis = getIngredientStack(Material.LAPIS_LAZULI, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 26, flesh, iron, lapis)
-            }
-
-            3 -> {
-                val flesh = getIngredientStack(CustomItemType.PREMIUM_NECROTIC_FLESH, 16)
-                val obsidian = getIngredientStack(CustomItemType.COMPRESSED_OBSIDIAN, 16)
-                val lapis = getIngredientStack(Material.LAPIS_BLOCK, 8)
-                return EnchantmentRecipe(getRecipeKey(level), 44, flesh, obsidian, lapis)
-            }
-
-            4 -> {
-                val flesh = getIngredientStack(CustomItemType.ENCHANTED_NECROTIC_FLESH, 8)
-                val obsidian = getIngredientStack(CustomItemType.ENCHANTED_OBSIDIAN, 8)
-                val adamantium = getIngredientStack(CustomItemType.ADAMANTIUM_BLOCK, 2)
-                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 8)
-                return EnchantmentRecipe(getRecipeKey(level), 62, flesh, obsidian, adamantium, lapis)
-            }
-
-            5 -> {
-                val flesh = getIngredientStack(CustomItemType.NECROTIC_FLESH_SINGULARITY, 2)
-                val obsidian = getIngredientStack(CustomItemType.ENCHANTED_OBSIDIAN, 16)
-                val adamantium = getIngredientStack(CustomItemType.ENCHANTED_ADAMANTIUM, 1)
-                val lapis = getIngredientStack(CustomItemType.ENCHANTED_LAPIS, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 80, flesh, obsidian, adamantium, lapis)
-            }
-            else -> return null
-        }
-    }
 
     @EventHandler
     private fun onDealDamageWithExecute(event: CustomEntityDamageByEntityEvent) {

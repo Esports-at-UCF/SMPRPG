@@ -4,32 +4,25 @@ import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
 import xyz.devvydont.smprpg.SMPRPG
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.fishing.utils.TemperatureReading
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ActionBarService
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.items.AbilityUtil
 
 class ThermometerBlueprint(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
-    Listener, IModelOverridden, IHeaderDescribable, ICraftable, ISellable {
+    Listener, IModelOverridden, IHeaderDescribable, ISellable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.EQUIPMENT
 
@@ -54,31 +47,6 @@ class ThermometerBlueprint(itemService: ItemService, type: CustomItemType) : Cus
 
     override fun getDisplayKey(): Key? {
         return IModelOverridden.ofMaterial(Material.REDSTONE_TORCH)
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, "thermometer_recipe")
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(recipeKey, generate())
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        recipe.shape("iri", "ihi", "igi")
-            .setIngredient('i', generate(Material.IRON_BLOCK))
-            .setIngredient('r', generate(CustomItemType.ENCHANTED_REDSTONE))
-            .setIngredient('h', generate(Material.HEART_OF_THE_SEA))
-            .setIngredient('g', generate(Material.GLASS))
-        return recipe
-    }
-
-    /**
-     * A collection of items that will unlock the recipe for this item. Typically will be one of the components
-     * of the recipe itself, but can be set to whatever is desired
-     *
-     * @return
-     */
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(generate(Material.HEART_OF_THE_SEA))
     }
 
     @EventHandler

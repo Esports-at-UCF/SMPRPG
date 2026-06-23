@@ -20,10 +20,6 @@ abstract class SilverAttributeItem(itemService: ItemService, type: CustomItemTyp
         return itemService.getCustomItem(CustomItemType.SILVER_INGOT)
     }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.SILVER_INGOT))
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)
     }

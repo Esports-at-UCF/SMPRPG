@@ -1,6 +1,5 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.rosegold
 
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
@@ -11,13 +10,11 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry
 import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemArmor
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
-import xyz.devvydont.smprpg.util.crafting.builders.LeggingsRecipe
 
 class RoseGoldLeggings(itemService: ItemService, type: CustomItemType) : RoseGoldArmorSet(itemService, type),
-    IBreakableEquipment, ICraftable {
+    IBreakableEquipment {
 
     override val itemClassification: ItemClassification get() = ItemClassification.LEGGINGS
     override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(Pair(SkillType.COMBAT, toolStats.skillReqLevel))
@@ -39,10 +36,6 @@ class RoseGoldLeggings(itemService: ItemService, type: CustomItemType) : RoseGol
 
     override fun getMaxDurability(): Int {
         return armorDurabilityUnit * 7
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe? {
-        return LeggingsRecipe(this, getCraftingMaterial(), generate()).build()
     }
 
 }

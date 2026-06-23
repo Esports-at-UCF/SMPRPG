@@ -6,8 +6,6 @@ import io.papermc.paper.registry.keys.SoundEventKeys
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.Sound
 import org.bukkit.entity.ElderGuardian
 import org.bukkit.entity.Player
@@ -16,17 +14,13 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.CreatureSpawnEvent
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.generator.structure.Structure
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.interfaces.IConsumable
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ChatService
@@ -34,7 +28,7 @@ import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 class NeptunesConch(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
-    IHeaderDescribable, Listener, ICraftable, IConsumable, ISellable {
+    IHeaderDescribable, Listener, IConsumable, ISellable {
     override fun getHeader(meta: ItemStack?): MutableList<Component?> {
         return mutableListOf(
             ComponentUtils.create("Consume while in an"),
@@ -48,31 +42,6 @@ class NeptunesConch(itemService: ItemService, type: CustomItemType) : CustomItem
     }
 
     override val itemClassification: ItemClassification get() = ItemClassification.CONSUMABLE
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, customItemType.key + "-recipe")
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(recipeKey, generate())
-        recipe.setCategory(CraftingBookCategory.MISC)
-        recipe.shape(
-            "csc",
-            "sds",
-            "csc"
-        )
-        recipe.setIngredient('c', itemService.getCustomItem(CustomItemType.ENCHANTED_PRISMARINE_CRYSTAL))
-        recipe.setIngredient('s', itemService.getCustomItem(CustomItemType.ENCHANTED_PRISMARINE_SHARD))
-        recipe.setIngredient('d', itemService.getCustomItem(Material.DIAMOND))
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            itemService.getCustomItem(Material.PRISMARINE_CRYSTALS),
-            itemService.getCustomItem(Material.PRISMARINE_SHARD)
-        )
-    }
 
     override fun getConsumableComponent(item: ItemStack?): Consumable {
         return Consumable.consumable()

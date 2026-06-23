@@ -2,8 +2,6 @@ package xyz.devvydont.smprpg.items.blueprints.sets.neptune
 
 import net.kyori.adventure.key.Key
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.ability.Passive
@@ -19,10 +17,9 @@ import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemSword.Companion.getSwor
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.skills.SkillType
-import xyz.devvydont.smprpg.util.crafting.builders.SwordRecipe
 
 class NeptuneTrident(itemService: ItemService, type: CustomItemType) : CraftEngineAttributeItem(itemService, type),
-    IBreakableEquipment, ICraftable, IPassiveProvider, IRepairable, IModelOverridden, ISkillRequirement {
+    IBreakableEquipment, IPassiveProvider, IRepairable, IModelOverridden, ISkillRequirement {
     override val itemClassification: ItemClassification get() = ItemClassification.TRIDENT
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.PLUTOS_ARTIFACT))
     override val skillRequirements: MutableMap<SkillType, Int> = mutableMapOf(Pair(SkillType.COMBAT, 15))
@@ -42,22 +39,6 @@ class NeptuneTrident(itemService: ItemService, type: CustomItemType) : CraftEngi
     override fun getPowerRating(): Int { return NeptuneArmorSet.POWER_LEVEL }
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.MAINHAND }
     override fun getMaxDurability(): Int { return NeptuneArmorSet.DURABILITY }
-
-    override fun getRecipeKey(): NamespacedKey { return ICraftable.getDefaultRecipeKey(type) }
-    override fun getCustomRecipe(): CraftingRecipe? {
-        return SwordRecipe(
-            this,
-            itemService.getCustomItem(CustomItemType.PLUTOS_ARTIFACT),
-            itemService.getCustomItem(CustomItemType.DIAMOND_TOOL_ROD),
-            generate()
-        ).build()
-    }
-
-    override fun unlockedBy(): Collection<ItemStack?> {
-        return listOf(
-            itemService.getCustomItem(CustomItemType.PLUTO_FRAGMENT)
-        )
-    }
 
     /**
      * Retrieve the passives this item has.

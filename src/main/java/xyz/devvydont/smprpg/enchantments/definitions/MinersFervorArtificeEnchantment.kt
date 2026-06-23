@@ -9,11 +9,9 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Color
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.enchantments.Enchantment
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -25,13 +23,10 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
 import xyz.devvydont.smprpg.enchantments.ScrollColor
-import xyz.devvydont.smprpg.enchantments.recipe.EnchantmentRecipe
-import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
-import java.util.List
 
 class MinersFervorArtificeEnchantment(id: String) : CustomEnchantment(id), Listener {
     override val displayName: Component get() = ComponentUtils.create("Miner's Fervor")
@@ -78,38 +73,6 @@ class MinersFervorArtificeEnchantment(id: String) : CustomEnchantment(id), Liste
         )
 
     override val magicExperience: Int get() = level * 200 * (1 + (level * 3 / maxLevel))
-
-    override fun getRecipe(level: Int): EnchantmentRecipe? {
-        when (level) {
-            1 -> {
-                val copper = getIngredientStack(Material.COPPER_BLOCK, 16)
-                val silver = getIngredientStack(CustomItemType.SILVER_BLOCK, 16)
-                val tin = getIngredientStack(CustomItemType.TIN_BLOCK, 16)
-                val mithril = getIngredientStack(CustomItemType.MITHRIL_BLOCK, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 30, copper, tin, silver, mithril)
-            }
-
-            2 -> {
-                val iron = getIngredientStack(Material.IRON_BLOCK, 16)
-                val gold = getIngredientStack(Material.GOLD_BLOCK, 16)
-                val diamond = getIngredientStack(Material.DIAMOND_BLOCK, 16)
-                val mithril = getIngredientStack(CustomItemType.ENCHANTED_MITHRIL, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 30, iron, gold, diamond, mithril)
-            }
-
-            3 -> {
-                val steel = getIngredientStack(CustomItemType.STEEL_BLOCK, 16)
-                val titanium = getIngredientStack(CustomItemType.TITANIUM_BLOCK, 16)
-                val adamantium = getIngredientStack(CustomItemType.ADAMANTIUM_BLOCK, 16)
-                val mithril = getIngredientStack(CustomItemType.ENCHANTED_MITHRIL_BLOCK, 16)
-                return EnchantmentRecipe(getRecipeKey(level), 50, steel, titanium, adamantium, mithril)
-            }
-
-            else -> {
-                return null
-            }
-        }
-    }
 
     @EventHandler(priority = EventPriority.HIGH)
     fun onPlayerElevationChange(event: PlayerMoveEvent) {

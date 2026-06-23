@@ -3,18 +3,15 @@ package xyz.devvydont.smprpg.items.blueprints.sets.warlock
 import io.papermc.paper.datacomponent.DataComponentTypes
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.format.NamedTextColor
-import org.bukkit.NamespacedKey
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDeathEvent
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.entity.slayer.illager.IllagerWarlockParent
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
@@ -26,7 +23,6 @@ import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
-import xyz.devvydont.smprpg.util.crafting.builders.BootsRecipe
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 
@@ -48,18 +44,6 @@ class WarlockShoes(itemService: ItemService, type: CustomItemType) : WarlockArmo
 
     override fun getMaxDurability(): Int {
         return 1500
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, customItemType.key + "-recipe")
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe? {
-        return BootsRecipe(this, itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH), generate()).build()
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.SPELLBOUND_CLOTH))
     }
 
     override val itemClassification: ItemClassification get() = ItemClassification.BOOTS

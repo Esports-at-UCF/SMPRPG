@@ -1,16 +1,9 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.mithril
 
 import io.papermc.paper.registry.keys.SoundEventKeys
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.Particle
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
-import xyz.devvydont.smprpg.SMPRPG
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.ability.Ability
 import xyz.devvydont.smprpg.ability.AbilityActivationMethod
 import xyz.devvydont.smprpg.ability.AbilityCost
@@ -26,12 +19,11 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster.AbilityEntry
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.items.ToolStats
 
 class MithrilStaff(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IBreakableEquipment, ICantCrit, IMageBeam, ICraftable, IRepairable, ISkillRequirement, IAbilityCaster {
+    IBreakableEquipment, ICantCrit, IMageBeam, IRepairable, ISkillRequirement, IAbilityCaster {
 
     override val itemClassification: ItemClassification get() = ItemClassification.STAFF
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.MITHRIL_INGOT))
@@ -50,27 +42,6 @@ class MithrilStaff(itemService: ItemService, type: CustomItemType) : CustomAttri
     }
 
     override fun getPowerRating(): Int { return ToolStats.MITHRIL.power }
-
-    override fun getRecipeKey(): NamespacedKey { return NamespacedKey(plugin, customItemType.key + "-recipe") }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(recipeKey, generate())
-        recipe.shape(
-            " dm",
-            " mm",
-            "m  "
-        )
-        recipe.setIngredient('d', Material.DIAMOND_BLOCK)
-        recipe.setIngredient('m', generate(CustomItemType.MITHRIL_INGOT))
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            SMPRPG.getService(ItemService::class.java).getCustomItem(CustomItemType.MITHRIL_INGOT)
-        )
-    }
 
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.MAINHAND }
 

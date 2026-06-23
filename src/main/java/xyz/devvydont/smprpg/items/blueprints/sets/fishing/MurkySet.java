@@ -2,14 +2,11 @@ package xyz.devvydont.smprpg.items.blueprints.sets.fishing;
 
 import org.bukkit.Color;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.trim.TrimMaterial;
 import org.bukkit.inventory.meta.trim.TrimPattern;
 import org.jetbrains.annotations.NotNull;
-import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
@@ -17,15 +14,11 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
 import xyz.devvydont.smprpg.items.interfaces.*;
 import xyz.devvydont.smprpg.services.ItemService;
-import xyz.devvydont.smprpg.util.crafting.builders.BootsRecipe;
-import xyz.devvydont.smprpg.util.crafting.builders.ChestplateRecipe;
-import xyz.devvydont.smprpg.util.crafting.builders.HelmetRecipe;
-import xyz.devvydont.smprpg.util.crafting.builders.LeggingsRecipe;
 
 import java.util.Collection;
 import java.util.List;
 
-public class MurkySet extends CustomAttributeItem implements ITrimmable, IDyeable, ICraftable, IBreakableEquipment, IRepairable {
+public class MurkySet extends CustomAttributeItem implements ITrimmable, IDyeable, IBreakableEquipment, IRepairable {
 
     public static final int POWER = 5;
     public static final int CATCH_QUALITY = 15;
@@ -83,35 +76,6 @@ public class MurkySet extends CustomAttributeItem implements ITrimmable, IDyeabl
     @Override
     public TrimPattern getTrimPattern() {
         return TRIM;
-    }
-
-    @Override
-    public NamespacedKey getRecipeKey() {
-        return new NamespacedKey(SMPRPG.getPlugin(), this.getCustomItemType().getKey() + "_recipe");
-    }
-
-    @Override
-    public CraftingRecipe getCustomRecipe() {
-        var mat = ItemService.generate(Material.LILY_PAD);
-        var recipe = switch (this.getCustomItemType()) {
-            case MURKY_HELMET -> new HelmetRecipe(this, mat, generate());
-            case MURKY_CHESTPLATE -> new ChestplateRecipe(this, mat, generate());
-            case MURKY_LEGGINGS -> new LeggingsRecipe(this, mat, generate());
-            case MURKY_BOOTS -> new BootsRecipe(this, mat, generate());
-            default -> throw new IllegalStateException("Unexpected value: " + this.getCustomItemType());
-        };
-        return recipe.build();
-    }
-
-    /**
-     * A collection of items that will unlock the recipe for this item. Typically will be one of the components
-     * of the recipe itself, but can be set to whatever is desired
-     *
-     * @return
-     */
-    @Override
-    public Collection<ItemStack> unlockedBy() {
-        return List.of(ItemService.generate(Material.LILY_PAD));
     }
 
     private int getDefense() {

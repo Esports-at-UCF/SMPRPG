@@ -1,11 +1,7 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.fishing;
 
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.*;
-import org.bukkit.inventory.recipe.CraftingBookCategory;
 import org.jetbrains.annotations.NotNull;
-import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
@@ -19,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class AerialRod extends CustomAttributeItem implements IBreakableEquipment, IFishingRod, ICraftable, ISellable, IRepairable {
+public class AerialRod extends CustomAttributeItem implements IBreakableEquipment, IFishingRod, ISellable, IRepairable {
 
     public AerialRod(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -66,79 +62,6 @@ public class AerialRod extends CustomAttributeItem implements IBreakableEquipmen
     @Override
     public Set<FishingFlag> getFishingFlags() {
         return Set.of(FishingFlag.AERIAL);
-    }
-
-    @Override
-    public NamespacedKey getRecipeKey() {
-        return new NamespacedKey(SMPRPG.getPlugin(), getCustomItemType().getKey() + "_recipe");
-    }
-
-    /**
-     * Work out which fishing rod this rod will be crafted from.
-     */
-    private RecipeChoice getTransmuteComponent() {
-        return switch (this.getCustomItemType()) {
-            case AERCLOUD_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.COLD_AERCLOUD));
-            case ETHER_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.AERCLOUD_ROD));
-            case MERCURIAL_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.ETHER_ROD));
-            case ZEPHYRUS_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.MERCURIAL_ROD));
-            default -> new RecipeChoice.ExactChoice(ItemService.generate(Material.BARRIER));
-        };
-    }
-
-    /**
-     * Get the material used for crafting the rod part of the rod.
-     */
-    private RecipeChoice getCraftingMaterial() {
-        return switch (this.getCustomItemType()) {
-            case AERCLOUD_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.COLD_AERCLOUD));
-            case ETHER_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.GOLD_AERCLOUD));
-            case MERCURIAL_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.AETHERIUM_INGOT));
-            case ZEPHYRUS_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.ENCHANTED_BREEZE_ROD));
-            default -> new RecipeChoice.ExactChoice(ItemService.generate(Material.BARRIER));
-        };
-    }
-
-    /**
-     * Get the material used for crafting the rod part of the rod.
-     */
-    private RecipeChoice getStringMaterial() {
-        return switch (this.getCustomItemType()) {
-            case AERCLOUD_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.PREMIUM_STRING));
-            case ETHER_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.ENCHANTED_STRING));
-            case MERCURIAL_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.ASTRAL_FILAMENT));
-            case ZEPHYRUS_ROD -> new RecipeChoice.ExactChoice(ItemService.generate(CustomItemType.ETHEREAL_FIBER));
-            default -> new RecipeChoice.ExactChoice(ItemService.generate(Material.BARRIER));
-        };
-    }
-
-    @Override
-    public CraftingRecipe getCustomRecipe() {
-        var recipe = new ShapedRecipe(getRecipeKey(), generate());
-        recipe.shape(
-                "  m",
-                " ts",
-                "m s"
-        );
-        recipe.setIngredient('m', getCraftingMaterial());
-        recipe.setIngredient('t', getTransmuteComponent());
-        recipe.setIngredient('s', getStringMaterial());
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT);
-        recipe.setGroup("void_rod");
-        return recipe;
-    }
-
-    /**
-     * A collection of items that will unlock the recipe for this item. Typically will be one of the components
-     * of the recipe itself, but can be set to whatever is desired
-     *
-     * @return
-     */
-    @Override
-    public Collection<ItemStack> unlockedBy() {
-        if (getCraftingMaterial() instanceof RecipeChoice.ExactChoice exact)
-            return List.of(exact.getItemStack());
-        return List.of(ItemService.generate(Material.END_STONE));
     }
 
     private int getFishingRating() {

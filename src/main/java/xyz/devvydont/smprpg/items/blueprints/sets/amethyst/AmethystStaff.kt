@@ -1,14 +1,9 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.amethyst
 
 import io.papermc.paper.registry.keys.SoundEventKeys
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.Particle
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
 import xyz.devvydont.smprpg.ability.Ability
 import xyz.devvydont.smprpg.ability.AbilityActivationMethod
 import xyz.devvydont.smprpg.ability.AbilityCost
@@ -23,12 +18,11 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster.AbilityEntry
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.util.items.ToolStats
 import xyz.devvydont.smprpg.util.time.TickTime
 
 class AmethystStaff(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IBreakableEquipment, ICantCrit, IMageBeam, ICraftable, IAbilityCaster, IRepairable {
+    IBreakableEquipment, ICantCrit, IMageBeam, IAbilityCaster, IRepairable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.STAFF
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.ENCHANTED_AMETHYST))
@@ -43,27 +37,6 @@ class AmethystStaff(itemService: ItemService, type: CustomItemType) : CustomAttr
     }
 
     override fun getPowerRating(): Int { return 12 }
-
-    override fun getRecipeKey(): NamespacedKey { return ICraftable.getDefaultRecipeKey(customItemType) }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(recipeKey, generate())
-        recipe.shape(
-            " as",
-            " ss",
-            "s  "
-        )
-        recipe.setIngredient('s', Material.STICK)
-        recipe.setIngredient('a', generate(CustomItemType.ENCHANTED_AMETHYST))
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            itemService.getCustomItem(Material.AMETHYST_SHARD)
-        )
-    }
 
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.MAINHAND }
 

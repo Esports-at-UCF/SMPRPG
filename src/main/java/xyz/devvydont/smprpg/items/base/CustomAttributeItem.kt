@@ -6,9 +6,9 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemRarity
 import xyz.devvydont.smprpg.items.attribute.AttributeModifierType
 import xyz.devvydont.smprpg.items.interfaces.IAttributeItem
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.services.RecipeService
 import xyz.devvydont.smprpg.util.attributes.AttributeUtil
 import java.util.*
 
@@ -30,7 +30,7 @@ abstract class CustomAttributeItem(itemService: ItemService, override val type: 
         return AttributeUtil.calculateValue(
             getTotalPower(item.itemMeta),
             defaultRarity,
-            this is ICraftable && wantNerfedSellPrice()
+            RecipeService.isCraftable(item) && wantNerfedSellPrice()
         ) * item.amount
     }
 

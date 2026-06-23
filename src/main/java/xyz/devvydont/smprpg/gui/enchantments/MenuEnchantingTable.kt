@@ -8,7 +8,6 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks
-import net.momirealms.craftengine.core.util.Key as CEKey
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey

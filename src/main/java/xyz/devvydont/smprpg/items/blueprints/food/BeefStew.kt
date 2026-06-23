@@ -16,9 +16,7 @@ import xyz.devvydont.smprpg.items.interfaces.IEdible
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.util.persistence.KeyStore
 import xyz.devvydont.smprpg.util.time.TickTime
-import java.util.List
 
 class BeefStew(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type), IEdible,
     ISellable, IModelOverridden {

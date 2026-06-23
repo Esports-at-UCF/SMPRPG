@@ -2,19 +2,14 @@ package xyz.devvydont.smprpg.items.blueprints.augment
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.meta.ItemMeta
-import org.bukkit.inventory.recipe.CraftingBookCategory
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable
 import xyz.devvydont.smprpg.items.interfaces.ISellable
 import xyz.devvydont.smprpg.services.ItemService
@@ -22,7 +17,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import java.util.function.Consumer
 
 class HotPotatoBook(itemService: ItemService, type: CustomItemType) : CustomItemBlueprint(itemService, type),
-    ISellable, IHeaderDescribable, ICraftable {
+    ISellable, IHeaderDescribable {
     /**
      * Determine what type of item this is.
      */
@@ -61,26 +56,6 @@ class HotPotatoBook(itemService: ItemService, type: CustomItemType) : CustomItem
                 ComponentUtils.create("."),
             ),
         )
-    }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return ICraftable.getDefaultRecipeKey(type)
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(recipeKey, generate())
-        recipe.shape(
-            "pp",
-            "pP"
-        )
-        recipe.setIngredient('p', ItemService.Companion.generate(Material.PAPER))
-        recipe.setIngredient('P', ItemService.Companion.generate(CustomItemType.ENCHANTED_BAKED_POTATO))
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        return recipe
-    }
-
-    override fun unlockedBy(): Collection<ItemStack> {
-        return listOf(itemService.getCustomItem(Material.POTATO))
     }
 
     companion object {

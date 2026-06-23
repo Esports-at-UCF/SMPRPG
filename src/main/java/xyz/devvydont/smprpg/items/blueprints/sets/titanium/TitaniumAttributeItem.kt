@@ -18,8 +18,6 @@ abstract class TitaniumAttributeItem(itemService: ItemService, type: CustomItemT
 
     override fun getCraftingMaterial(): ItemStack { return itemService.getCustomItem(CustomItemType.TITANIUM_INGOT) }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? { return mutableListOf(getCraftingMaterial()) }
-
     open fun getDisplayKey(): Key { return IModelOverridden.ofItemType(customItemType) }
 
     open fun getComponentPrefix(): String { return "Titanium" }

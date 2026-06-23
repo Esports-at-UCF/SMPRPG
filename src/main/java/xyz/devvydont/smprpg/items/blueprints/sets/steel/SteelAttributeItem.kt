@@ -20,10 +20,6 @@ abstract class SteelAttributeItem(itemService: ItemService, type: CustomItemType
         return itemService.getCustomItem(CustomItemType.STEEL_INGOT)
     }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(CustomItemType.STEEL_INGOT))
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)
     }

@@ -1,33 +1,24 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.emberclad
 
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.trim.TrimMaterial
 import org.bukkit.inventory.meta.trim.TrimPattern
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
-import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.items.interfaces.ITrimmable
 import xyz.devvydont.smprpg.services.ItemService
-import java.util.List
 
 abstract class CryaxArmorSet(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IBreakableEquipment, ICraftable, ITrimmable, IRepairable {
+    IBreakableEquipment, ITrimmable, IRepairable {
 
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.ENCHANTED_BLAZE_ROD))
 
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.ARMOR }
 
     override fun getPowerRating(): Int { return POWER }
-
-    override fun getRecipeKey(): NamespacedKey { return NamespacedKey(plugin, customItemType.key + "-recipe") }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> { return mutableListOf(itemService.getCustomItem(Material.BLAZE_ROD)) }
 
     override fun getTrimMaterial(): TrimMaterial? { return TrimMaterial.COPPER }
 

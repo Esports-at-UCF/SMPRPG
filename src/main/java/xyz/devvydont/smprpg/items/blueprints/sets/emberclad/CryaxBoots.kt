@@ -1,6 +1,5 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.emberclad
 
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.items.CustomItemType
@@ -9,8 +8,6 @@ import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.util.crafting.builders.BootsRecipe
-import java.util.List
 
 class CryaxBoots(itemService: ItemService, type: CustomItemType) : CryaxArmorSet(itemService, type) {
 
@@ -24,8 +21,6 @@ class CryaxBoots(itemService: ItemService, type: CustomItemType) : CryaxArmorSet
             ScalarAttributeEntry(AttributeWrapper.BURNING_TIME, -.25)
         )
     }
-
-    override fun getCustomRecipe(): CraftingRecipe? { return BootsRecipe(this, itemService.getCustomItem(INGREDIENT), generate()).build() }
 
     override fun getMaxDurability(): Int { return ARMOR_DURABILITY_UNIT * 4 }
 

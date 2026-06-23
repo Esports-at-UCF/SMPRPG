@@ -3,20 +3,14 @@ package xyz.devvydont.smprpg.items.blueprints.sets.abomination
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
-import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.entity.slayer.shambling.ShamblingAbominationParent
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
@@ -29,14 +23,13 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.ItemService.Companion.generate
 import xyz.devvydont.smprpg.slayer.quest.SlayerType
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.items.AbilityUtil
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 
 class AbominableCleaver(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    Listener, IHeaderDescribable, ICraftable, IBreakableEquipment, IRepairable, ISlayerProficiencyBoost {
+    Listener, IHeaderDescribable, IBreakableEquipment, IRepairable, ISlayerProficiencyBoost {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SWORD
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.PREMIUM_NECROTIC_FLESH))
@@ -81,25 +74,6 @@ class AbominableCleaver(itemService: ItemService, type: CustomItemType) : Custom
         return EquipmentSlotGroup.MAINHAND
     }
 
-
-    override fun getRecipeKey(): NamespacedKey {
-        return NamespacedKey(plugin, customItemType.key + "-recipe")
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(recipeKey, generate())
-        recipe.shape("ffs", "fs ", "s  ")
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        recipe.setIngredient('s', generate(Material.STICK))
-        recipe.setIngredient('f', generate(CustomItemType.PREMIUM_NECROTIC_FLESH))
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            generate(CustomItemType.NECROTIC_FLESH)
-        )
-    }
 
     override fun getMaxDurability(): Int { return 333 }
 

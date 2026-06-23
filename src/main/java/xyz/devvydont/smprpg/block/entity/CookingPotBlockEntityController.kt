@@ -21,7 +21,6 @@ import net.momirealms.craftengine.core.block.entity.BlockEntity
 import net.momirealms.craftengine.core.block.entity.BlockEntityController
 import net.momirealms.craftengine.core.block.entity.tick.BlockEntityTicker
 import net.momirealms.craftengine.core.entity.player.Player
-import net.momirealms.craftengine.core.plugin.CraftEngine
 import net.momirealms.craftengine.core.plugin.config.Config
 import net.momirealms.craftengine.core.util.VersionHelper
 import net.momirealms.craftengine.core.world.BlockPos
@@ -40,7 +39,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.event.inventory.InventoryType
-import org.bukkit.event.server.PluginDisableEvent
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.util.Vector
@@ -49,15 +47,20 @@ import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
 import xyz.devvydont.smprpg.block.behaviors.CookingPotBlockBehavior
 import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent
 import xyz.devvydont.smprpg.items.CustomItemType
-import xyz.devvydont.smprpg.recipe.cookingpot.CookingPotRecipe
+import xyz.devvydont.smprpg.recipe.core.CookingPotRecipe
+import xyz.devvydont.smprpg.recipe.core.RecipeStationType
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.services.RecipeService
+import xyz.devvydont.smprpg.skills.SkillType
+import xyz.devvydont.smprpg.skills.utils.SkillExperienceReward
 import xyz.devvydont.smprpg.util.extensions.transfer
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.time.TickTime
 import java.util.*
 import java.util.function.Supplier
 import kotlin.math.max
+import kotlin.math.min
 import net.momirealms.craftengine.core.util.Key as CEKey
 
 @Suppress("UnstableApiUsage")
@@ -314,12 +317,18 @@ class CookingPotBlockEntityController(val entity: BlockEntity, val behavior: Coo
     }
 
     fun addXpReward(recipe: CookingPotRecipe) {
+        if (recipe.skillXp.isEmpty()) return
         Bukkit.getScheduler().runTask(plugin, Runnable {
             if (boundPlayer == null) return@Runnable
             val player = Bukkit.getPlayer(boundPlayer!!)
             if (player != null) {
                 val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
-                recipe.skillXpReward?.apply(leveledPlayer, SkillExperienceGainEvent.ExperienceSource.COOK)
+                val reward = SkillExperienceReward()
+                for ((skill, xp) in recipe.skillXp) {
+                    val type = runCatching { SkillType.valueOf(skill.uppercase()) }.getOrNull() ?: continue
+                    reward.add(type, xp)
+                }
+                reward.apply(leveledPlayer, SkillExperienceGainEvent.ExperienceSource.COOK)
             }
         })
     }
@@ -339,6 +348,69 @@ class CookingPotBlockEntityController(val entity: BlockEntity, val behavior: Coo
             ItemService.generate(CustomItemType.CERAMIC_PLATE)
         )
         val ALLOWED_SLOTS = listOf(OUTPUT_SLOT, PLATING_SLOT) + INGREDIENT_SLOTS
+
+        /** All cooking pot recipes currently in the data-driven registry. */
+        private fun cookingPotRecipes(): List<CookingPotRecipe> =
+            SMPRPG.getService(RecipeService::class.java).getRegistry()
+                .byStation(RecipeStationType.COOKING_POT)
+                .filterIsInstance<CookingPotRecipe>()
+
+        /**
+         * Find the first registry recipe whose required ingredient set the pot exactly satisfies: the pot's
+         * ingredient slots must contain precisely the recipe's ingredient types (no extras), each present in
+         * at least the required amount, and the plating slot must hold the required vessel (if any).
+         */
+        fun firstRecipeMatch(pot: CookingPotBlockEntityController): CookingPotRecipe? {
+            val itemService = SMPRPG.getService(ItemService::class.java)
+            val inv = pot.inventory() ?: return null
+
+            // Total amount of each ingredient type currently in the pot, keyed by namespaced identifier.
+            val potCounts = HashMap<String, Int>()
+            for (slot in INGREDIENT_SLOTS) {
+                val ing = inv.getItem(slot) ?: continue
+                if (ing.isEmpty) continue
+                val id = itemService.getIdentifier(ing)
+                potCounts[id] = (potCounts[id] ?: 0) + ing.amount
+            }
+            if (potCounts.isEmpty()) return null
+
+            for (recipe in cookingPotRecipes()) {
+                val needed = HashMap<String, Int>()
+                for (ingredient in recipe.ingredients) {
+                    val id = ingredient.identifier.asString()
+                    needed[id] = (needed[id] ?: 0) + ingredient.amount
+                }
+                // The pot must contain exactly the recipe's ingredient types...
+                if (needed.keys != potCounts.keys) continue
+                // ...each in sufficient quantity.
+                if (needed.any { (id, amount) -> (potCounts[id] ?: 0) < amount }) continue
+                // Plating, if required, must match.
+                if (recipe.plating != null) {
+                    val platingItem = inv.getItem(PLATING_SLOT) ?: continue
+                    if (!recipe.plating.matches(platingItem)) continue
+                }
+                return recipe
+            }
+            return null
+        }
+
+        /** Consume the recipe's ingredient amounts (and one plating item, if any) from the pot. */
+        fun takeIngredients(pot: CookingPotBlockEntityController, recipe: CookingPotRecipe) {
+            val inv = pot.inventory() ?: return
+            for (ingredient in recipe.ingredients) {
+                var toRemove = ingredient.amount
+                for (slot in INGREDIENT_SLOTS) {
+                    if (toRemove <= 0) break
+                    val item = inv.getItem(slot) ?: continue
+                    if (item.isEmpty || !ingredient.matchesType(item)) continue
+                    val take = min(toRemove, item.amount)
+                    item.amount -= take
+                    toRemove -= take
+                }
+            }
+            if (recipe.plating != null)
+                inv.getItem(PLATING_SLOT)?.let { it.amount-- }
+        }
 
         fun tick(ceWorld: CEWorld, blockPos: BlockPos, state: ImmutableBlockState, pot: CookingPotBlockEntityController) {
             val inv = pot.inventory()!!
@@ -404,9 +476,9 @@ class CookingPotBlockEntityController(val entity: BlockEntity, val behavior: Coo
                 pot.recipe = null
             }
             else if (pot.heated) {
-                pot.recipe = CookingPotRecipe.getFirstRecipeMatch(pot)
+                pot.recipe = firstRecipeMatch(pot)
                 if (pot.recipe != null) {
-                    pot.recipeTime = pot.recipe!!.cookTime
+                    pot.recipeTime = pot.recipe!!.time
                     pot.cookTime += pot.speed
                 }
                 else {
@@ -417,15 +489,18 @@ class CookingPotBlockEntityController(val entity: BlockEntity, val behavior: Coo
                 if ((pot.cookTime > pot.recipeTime) && (pot.recipe != null)) {
                     pot.cookTime = 0
                     val result = inv.getItem(OUTPUT_SLOT)
+                    val resultStack = pot.recipe!!.result.generate()
                     // Add to our output
                     if (result == null) {
-                        inv.setItem(OUTPUT_SLOT, pot.recipe!!.result)
-                        CookingPotRecipe.takeIngredients(pot, pot.recipe!!)
-                        pot.addXpReward(pot.recipe!!)
+                        if (resultStack != null) {
+                            inv.setItem(OUTPUT_SLOT, resultStack)
+                            takeIngredients(pot, pot.recipe!!)
+                            pot.addXpReward(pot.recipe!!)
+                        }
                     }
-                    else if (result.isSimilar(pot.recipe!!.recipeResult) && result.amount < result.maxStackSize) {
+                    else if (resultStack != null && result.isSimilar(resultStack) && result.amount < result.maxStackSize) {
                         result.add()
-                        CookingPotRecipe.takeIngredients(pot, pot.recipe!!)
+                        takeIngredients(pot, pot.recipe!!)
                         pot.addXpReward(pot.recipe!!)
                     }
 

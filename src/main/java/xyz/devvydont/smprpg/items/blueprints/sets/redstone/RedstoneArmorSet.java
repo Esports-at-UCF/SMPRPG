@@ -1,14 +1,11 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.redstone;
 
 import org.bukkit.Color;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.trim.TrimMaterial;
 import org.bukkit.inventory.meta.trim.TrimPattern;
 import org.jetbrains.annotations.NotNull;
-import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.attribute.AdditiveAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
@@ -22,7 +19,7 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class RedstoneArmorSet extends CustomAttributeItem implements IBreakableEquipment, IDyeable, ITrimmable, ICraftable, IRepairable {
+public abstract class RedstoneArmorSet extends CustomAttributeItem implements IBreakableEquipment, IDyeable, ITrimmable, IRepairable {
 
     public static final int POWER = 15;
     public static final int DURABILITY = 12_500;
@@ -56,16 +53,6 @@ public abstract class RedstoneArmorSet extends CustomAttributeItem implements IB
                 new MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, ATTACK_BUFF),
                 new AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, MINING_BUFF)
         );
-    }
-
-    @Override
-    public NamespacedKey getRecipeKey() {
-        return new NamespacedKey(SMPRPG.getPlugin(), getCustomItemType().getKey() + "-recipe");
-    }
-
-    @Override
-    public Collection<ItemStack> unlockedBy() {
-        return List.of(itemService.getCustomItem(Material.REDSTONE));
     }
 
     public abstract int getDefense();

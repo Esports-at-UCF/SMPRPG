@@ -2,7 +2,6 @@ package xyz.devvydont.smprpg.items.blueprints.resources.mob;
 
 import io.papermc.paper.datacomponent.item.Consumable;
 import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -10,7 +9,6 @@ import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
-import xyz.devvydont.smprpg.items.interfaces.ICompressible;
 import xyz.devvydont.smprpg.items.interfaces.IConsumable;
 import xyz.devvydont.smprpg.items.interfaces.IEdible;
 import xyz.devvydont.smprpg.items.interfaces.ISellable;
@@ -21,27 +19,10 @@ import xyz.devvydont.smprpg.util.time.TickTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PorkchopFamilyBlueprint extends CustomItemBlueprint implements ICompressible, ISellable, IEdible, IConsumable {
+public class PorkchopFamilyBlueprint extends CustomItemBlueprint implements ISellable, IEdible, IConsumable {
 
     public PorkchopFamilyBlueprint(ItemService itemService, CustomItemType type) {
         super(itemService, type);
-    }
-
-    @Override
-    public CompressionStep getDecompressor() {
-        return switch (getCustomItemType()) {
-            case PREMIUM_PORKCHOP -> new CompressionStep((ICompressible) itemService.getVanillaBlueprint(ItemStack.of(Material.COOKED_PORKCHOP)), 1, 9);
-            case ENCHANTED_PORKCHOP -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.PREMIUM_PORKCHOP), 1, 9);
-            default -> null;
-        };
-    }
-
-    @Override
-    public CompressionStep getCompressor() {
-        return switch (getCustomItemType()) {
-            case PREMIUM_PORKCHOP -> new CompressionStep((ICompressible) itemService.getBlueprint(CustomItemType.ENCHANTED_PORKCHOP), 9, 1);
-            default -> null;
-        };
     }
 
     @Override

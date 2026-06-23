@@ -21,10 +21,6 @@ abstract class IronAttributeItem(itemService: ItemService, type: CustomItemType)
         return itemService.getCustomItem(Material.IRON_INGOT)
     }
 
-    open fun unlockedBy(): MutableCollection<ItemStack?>? {
-        return mutableListOf(itemService.getCustomItem(Material.IRON_INGOT))
-    }
-
     open fun getDisplayKey(): Key {
         return IModelOverridden.ofItemType(customItemType)
     }

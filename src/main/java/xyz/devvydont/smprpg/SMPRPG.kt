@@ -18,6 +18,7 @@ import xyz.devvydont.smprpg.items.listeners.ToolListeners
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
 import xyz.devvydont.smprpg.listeners.block.*
 import xyz.devvydont.smprpg.listeners.crafting.AnvilMenuListener
+import xyz.devvydont.smprpg.listeners.crafting.CraftingTableMenuListener
 import xyz.devvydont.smprpg.listeners.damage.*
 import xyz.devvydont.smprpg.listeners.entity.CatPufferfishPoisonListener
 import xyz.devvydont.smprpg.listeners.entity.HealthRegenerationListener
@@ -115,6 +116,7 @@ class SMPRPG : JavaPlugin() {
         generalListeners.add(AbsorptionDamageFix()) // Makes absorption work correctly.
         generalListeners.add(DimensionPortalLockingListener()) // Implements dimension requirements.
         generalListeners.add(AnvilMenuListener()) // Replaces the vanilla anvil GUI with our custom anvil menu.
+        generalListeners.add(CraftingTableMenuListener()) // Replaces the vanilla crafting table with our custom crafting menu.
         generalListeners.add(PvPListener()) // Disables PVP in certain contexts.
         generalListeners.add(StructureEntitySpawnListener()) // Allows entities to spawn as the level of the structure they're in.
         generalListeners.add(LootListener()) // Overrides vanilla loot tables by injecting our items into it.
