@@ -615,7 +615,7 @@ public enum CustomItemType {
     EMERALD_BOOTS(     "Emerald Boots",          Material.DIAMOND_BOOTS,      ItemRarity.RARE, EmeraldBoots.class),
 
     // BREEZE/TRIAL CHAMBERS
-    BREEZEBORNE_STAFF(    "Breezeborne Staff",  Material.STICK,           ItemRarity.LEGENDARY,     BreezeborneStaff.class),
+    BREEZEBORNE_STAFF(    "Breezeborne Staff",  Material.STICK,           ItemRarity.EPIC,     BreezeborneStaff.class),
 
     // REAVER
     REAVER_HELMET("Reaver Helmet",         Material.BLACK_STAINED_GLASS, ItemRarity.EPIC, ReaverHelmet.class),
@@ -670,6 +670,7 @@ public enum CustomItemType {
     INFERNO_LEGGINGS("Inferno Leggings",     Material.GOLDEN_LEGGINGS,   ItemRarity.LEGENDARY, InfernoLeggings.class),
     INFERNO_BOOTS("Inferno Boots",           Material.GOLDEN_BOOTS,      ItemRarity.LEGENDARY, InfernoBoots.class),
     INFERNO_SABER("Inferno Saber",           Material.NETHERITE_SWORD,   ItemRarity.LEGENDARY, InfernoSaber.class),
+    INFERNO_STAFF("Inferno Staff",           Material.BLAZE_ROD,   ItemRarity.LEGENDARY, InfernoStaff.class),
     INFERNO_SHORTBOW("Inferno Shortbow",     Material.BOW,               ItemRarity.LEGENDARY, InfernoShortbow.class),
 
     SCORCHING_STRING("Scorching String", Material.STRING, ItemRarity.RARE, true, ScorchingString.class),

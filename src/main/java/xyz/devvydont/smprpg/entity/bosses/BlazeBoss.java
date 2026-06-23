@@ -221,6 +221,7 @@ public class BlazeBoss extends CustomBossInstance<Blaze> implements Listener {
                 new ChancedItemDrop(ItemService.generate(CustomItemType.INFERNO_LEGGINGS), 110, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.INFERNO_BOOTS), 100, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.INFERNO_SABER), 120, this),
+                new ChancedItemDrop(ItemService.generate(CustomItemType.INFERNO_STAFF), 120, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.INFERNO_SHORTBOW), 120, this),
 
                 new ChancedItemDrop(ItemService.generate(CustomItemType.SMOLDERING_CORE), 100, this),

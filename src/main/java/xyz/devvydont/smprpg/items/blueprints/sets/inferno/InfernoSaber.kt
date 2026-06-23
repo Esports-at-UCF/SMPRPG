@@ -30,19 +30,19 @@ import xyz.devvydont.smprpg.util.time.TickTime
 import java.util.List
 
 class InfernoSaber(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type), ICraftable,
-    IModelOverridden, IBreakableEquipment, IAbilityCaster, IRepairable, ISkillRequirement {
+    IModelOverridden, IBreakableEquipment, IRepairable, ISkillRequirement {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SWORD
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.INFERNO_REMNANT))
     override val skillRequirements: MutableMap<SkillType, Int> = mutableMapOf(Pair(SkillType.COMBAT, 35))
 
-    override fun getDisplayKey(): Key? {
+    override fun getDisplayKey(): Key {
         return IModelOverridden.ofMaterial(Material.BLAZE_ROD)
     }
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 125.0),
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 150.0),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.6),
             AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, 50.0),
             ScalarAttributeEntry(AttributeWrapper.MOVEMENT_SPEED, .25)
@@ -72,34 +72,6 @@ class InfernoSaber(itemService: ItemService, type: CustomItemType) : CustomAttri
 
     override fun unlockedBy(): MutableCollection<ItemStack?> {
         return mutableListOf(generate(InfernoArmorSet.CRAFTING_COMPONENT))
-    }
-
-    /**
-     * Get the abilities this item has, and how they can be cast.
-     *
-     * @param item The item.
-     * @return A list of abilities.
-     */
-    override fun getAbilities(item: ItemStack): MutableCollection<AbilityEntry> {
-        return mutableListOf(
-            AbilityEntry(
-                Ability.HOT_SHOT,
-                AbilityActivationMethod.RIGHT_CLICK,
-                of(AbilityCost.Resource.MANA, 150)
-            )
-        )
-    }
-
-    /**
-     * Get the cooldown in between item uses.
-     * Keep in mind this is more for preventing strange things from happening via casting on the same tick or teleporting,
-     * so it needs to be per item since we use the default cooldown system.
-     *
-     * @param item The item.
-     * @return The cooldown in ticks.
-     */
-    override fun getCooldown(item: ItemStack): Long {
-        return TickTime.seconds(1)
     }
 
     override fun getMaxDurability(): Int {
