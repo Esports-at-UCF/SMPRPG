@@ -89,7 +89,33 @@ public class StatCalculator {
 
     private final static int MAX_LEVEL = 100;
     private final static int STARTING_HEALTH = 100;
-    private final static int TARGET_HEALTH = 50000;
+
+    /**
+     * How much total defense (from gear) a max-level (MAX_LEVEL) player is expected to have.
+     * DEFENSE_AT_MAX_LEVEL / DEFENSE_K_FACTOR + 1 is the endgame defense multiplier "M".
+     * 1900 / 100 + 1 = 20x effective health from defense at level 100.
+     */
+    private final static int DEFENSE_AT_MAX_LEVEL = 1900;
+
+    /**
+     * Defense stays at 0 until this level so that early-game players rely on their raw HP bar
+     * (and the +2/level skill HP) instead of defense. Keeps the low-level HP bar from being
+     * crushed by the defense curve.
+     */
+    private final static int DEFENSE_ONSET_LEVEL = 10;
+
+    /**
+     * Shape of the defense curve between DEFENSE_ONSET_LEVEL and MAX_LEVEL.
+     * < 1.0 is "front-loaded": defense ramps quickly through the mid game and eases off as it
+     * approaches the cap (gentle 80->100). > 1.0 would back-load it (steep near max level).
+     */
+    private final static double DEFENSE_CURVE_EXPONENT = 0.7;
+
+    /**
+     * How much max HP a player gains per level from skills (combat). The game grants this directly,
+     * so the calculator treats it as a known, fixed contribution and lets gear cover the rest.
+     */
+    private final static double SKILL_HP_PER_LEVEL = 2.0;
 
     /*
      * The core of how stat scaling should player out mid/late game.
@@ -104,6 +130,12 @@ public class StatCalculator {
     private int _level = 25;
 
     /**
+     * A single shared stdin scanner. Using one instance everywhere avoids two Scanners fighting over
+     * System.in (which corrupts input and breaks piped/scripted runs).
+     */
+    private final Scanner _scanner = new Scanner(System.in);
+
+    /**
      * Calculates what a standard enemy/player's effective health should be at a certain level.
      * Note that this does not factor in defense, so it is assumed that the entity will have 0 defense if they
      * want to use this health value.
@@ -115,28 +147,50 @@ public class StatCalculator {
     }
 
     /**
-     * Players have a defense stat, so their health won't go as far as enemies. Instead, their health will gradually
-     * scale from 100-5000, where defense will then do the rest of the work to bring their EHP up.
-     * @param level The level of the player.
-     * @return How much health a player should have.
-     */
-    private int calculateExpectedPlayerHealth(int level) {
-        double hpMultiplier = (level * level / 500.0) + 1;
-        return (int) Math.ceil(calculateExpectedHealth(level) / hpMultiplier);
-    }
-
-    /**
-     * Work out how much defense is expected of a player of a certain level.
-     * Since HP will linearly scale, we can work out how much defense is required to hit their target EHP.
+     * Work out how much total defense (from gear) is expected of a player at a certain level.
+     * Defense is now the independent variable that defines the HP/defense split: we pick a defense
+     * curve, and a player's HP is whatever is left over to reach their target EHP.
+     *
+     * The curve ramps from 0 at DEFENSE_ONSET_LEVEL up to DEFENSE_AT_MAX_LEVEL at MAX_LEVEL, shaped
+     * by DEFENSE_CURVE_EXPONENT (front-loaded so the 80->100 stretch eases off).
      * @param level The level of the player.
      * @return How much defense they should have.
      */
     private int calculateExpectedDefense(int level) {
-        var multiplier = (double)calculateExpectedPlayerHealth(level) / calculateExpectedHealth(level);
+        if (level <= DEFENSE_ONSET_LEVEL)
+            return 0;
+        var progress = (double) (level - DEFENSE_ONSET_LEVEL) / (MAX_LEVEL - DEFENSE_ONSET_LEVEL);
+        progress = Math.min(1.0, Math.max(0.0, progress));
+        return (int) Math.round(DEFENSE_AT_MAX_LEVEL * Math.pow(progress, DEFENSE_CURVE_EXPONENT));
+    }
 
-        // Work the defense formula backwards so that we can find defense given multiplier.
-        // I won't go into the specifics of the math, but it can be solved using K((1-multi)/multi)
-        return Math.toIntExact(Math.round(DEFENSE_K_FACTOR * ((1 - multiplier) / multiplier)));
+    /**
+     * The effective-health multiplier granted by a player's expected defense at a given level.
+     * EHP = HP * defenseMultiplier, so this is simply 1 + defense/K.
+     */
+    private double calculateExpectedDefenseMultiplier(int level) {
+        return 1.0 + calculateExpectedDefense(level) / (double) DEFENSE_K_FACTOR;
+    }
+
+    /**
+     * Players have a defense stat, so their raw HP doesn't need to reach their full EHP; defense
+     * multiplies it the rest of the way. HP = targetEHP / defenseMultiplier, floored at the base
+     * starting health so low-level players always have at least their base pool.
+     * @param level The level of the player.
+     * @return How much raw (non-effective) health a player should have.
+     */
+    private int calculateExpectedPlayerHealth(int level) {
+        var hp = (int) Math.ceil(calculateExpectedHealth(level) / calculateExpectedDefenseMultiplier(level));
+        return Math.max(hp, STARTING_HEALTH);
+    }
+
+    /**
+     * How much max HP a player is expected to have from skills at a given level (+2 per level).
+     * @param level The level of the player.
+     * @return Fixed skill HP contribution.
+     */
+    private double calculateSkillHp(int level) {
+        return SKILL_HP_PER_LEVEL * level;
     }
 
     /**
@@ -185,10 +239,9 @@ public class StatCalculator {
     }
 
     private void operationSetLevel() {
-        var sc = new Scanner(System.in);
         System.out.println("Please enter a level you want to use.");
         try {
-            _level = sc.nextInt();
+            _level = Integer.parseInt(_scanner.nextLine().trim());
         } catch (Exception e) {
             System.out.println("Failed to read level (level is unchanged): " + e.getMessage());
             return;
@@ -231,12 +284,20 @@ public class StatCalculator {
 
     private void operationCreateArmor() {
         System.out.println("Creating armor for level " + _level);
-        var distribution = StatSource.generateStatDistribution(_level);
-        var hp = distribution.get(StatSource.ARMOR) * (calculateExpectedPlayerHealth(_level) - 100);
-        var def = distribution.get(StatSource.ARMOR) * calculateExpectedDefense(_level);
+        var gearDistribution = StatSource.generateGearStatDistribution(_level);
+
+        // Skills grant a known, fixed HP amount (+2/level); gear only has to cover the remainder.
+        // All defense comes from gear, so the full defense pool is distributed among gear sources.
+        var skillHp = calculateSkillHp(_level);
+        var totalGearHp = Math.max(0.0, (calculateExpectedPlayerHealth(_level) - STARTING_HEALTH) - skillHp);
+        var totalGearDef = (double) calculateExpectedDefense(_level);
+        System.out.println("Skills grant " + skillHp + "HP. Gear must supply " + totalGearHp + "HP and " + totalGearDef + "DEF total.");
+
+        var hp = gearDistribution.get(StatSource.ARMOR) * totalGearHp;
+        var def = gearDistribution.get(StatSource.ARMOR) * totalGearDef;
         System.out.println("Player should have " + hp + "HP and " + def + "DEF from armor at level " + _level);
-        var enchHp = distribution.get(StatSource.ENCHANTMENTS) * (calculateExpectedPlayerHealth(_level) - 100);
-        var enchDef = distribution.get(StatSource.ENCHANTMENTS) * calculateExpectedDefense(_level);
+        var enchHp = gearDistribution.get(StatSource.ENCHANTMENTS) * totalGearHp;
+        var enchDef = gearDistribution.get(StatSource.ENCHANTMENTS) * totalGearDef;
         for (var rarity : ItemRarity.values()) {
             var sb = new StringBuilder(rarity + ": ");
             for (var piece : ArmorPiece.values()) {
@@ -249,17 +310,9 @@ public class StatCalculator {
     }
 
     private void operationDumpSkillExpectations() {
-        System.out.println("Skill expectations");
-        for (var i = 1; i <= 120; i++) {
-            var distribution = StatSource.generateStatDistribution(i);
-            var hp = distribution.get(StatSource.SKILLS) * (calculateExpectedPlayerHealth(i) - 100);
-            var def = distribution.get(StatSource.SKILLS) * calculateExpectedDefense(i);
-            var rareDmg = StatSource.getExpectedWeaponDamage(i, ItemRarity.RARE, 1.0);
-            var expectedMultiplier = (double)calculatePlayerDps(i) / rareDmg;
-            var dps = distribution.get(StatSource.SKILLS) * expectedMultiplier;
-            System.out.println(i + ": " + hp + "HP " + def + "DEF " + dps + "xSTR");
-        }
-
+        System.out.println("Skill HP expectations (+" + SKILL_HP_PER_LEVEL + " HP per level, HP only)");
+        for (var i = 1; i <= 120; i++)
+            System.out.println(i + ": " + calculateSkillHp(i) + "HP");
     }
 
     private void operationQuit() {
@@ -294,14 +347,13 @@ public class StatCalculator {
 
     public static void main(String[] args) {
         var calculator = new StatCalculator();
-        var scanner = new Scanner(System.in);
         while (true) {
             System.out.println();
             System.out.println("What would you like to do? Enter the characters before the colon to select an option.");
             for (Operation operation : Operation.values())
                 System.out.println(operation.Key + ": " + operation.Description);
 
-            var handler = calculator.getHandler(scanner.nextLine());
+            var handler = calculator.getHandler(calculator._scanner.nextLine());
             if (handler == null) {
                 System.out.println("Invalid input! Try again.\n");
                 continue;
