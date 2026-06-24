@@ -10,8 +10,7 @@ class EmeraldChestplate(itemService: ItemService, type: CustomItemType) : Emeral
 
     override val itemClassification: ItemClassification get() = ItemClassification.CHESTPLATE
 
-    override val defense: Double get() = 75.0
-    override val health: Double get() = 30.0
+    override val defense: Double get() = 115.0
 
     override fun getCustomRecipe(): CraftingRecipe? { return ChestplateRecipe(this, itemService.getCustomItem(INGREDIENT), generate()).build() }
 

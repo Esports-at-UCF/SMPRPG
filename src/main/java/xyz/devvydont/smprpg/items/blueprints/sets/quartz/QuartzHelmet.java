@@ -18,7 +18,7 @@ public class QuartzHelmet extends QuartzArmorSet {
 
     @Override
     public int getDefense() {
-        return ItemArmor.getDefenseFromMaterial(Material.DIAMOND_HELMET) / 2;
+        return 65;
     }
 
     @Override

@@ -21,7 +21,6 @@ abstract class EmeraldArmorSet(itemService: ItemService, type: CustomItemType) :
     IBreakableEquipment, ICraftable, IEquippableAssetOverride, IRepairable {
 
     abstract val defense: Double
-    abstract val health: Double
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(INGREDIENT))
 
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.ARMOR }
@@ -31,7 +30,6 @@ abstract class EmeraldArmorSet(itemService: ItemService, type: CustomItemType) :
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.DEFENSE, this.defense),
-            AdditiveAttributeEntry(AttributeWrapper.HEALTH, this.health),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, 0.1)
         )
     }

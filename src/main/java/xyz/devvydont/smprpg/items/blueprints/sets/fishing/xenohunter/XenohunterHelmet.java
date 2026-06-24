@@ -23,12 +23,12 @@ public class XenohunterHelmet extends XenohunterSet {
 
     @Override
     public int getHealth() {
-        return XenohunterChestplate.HEALTH / 2 + 60;
+        return 1550;
     }
 
     @Override
     public int getDefense() {
-        return XenohunterChestplate.DEFENSE / 2 + 60;
+        return 290;
     }
 
     @Override

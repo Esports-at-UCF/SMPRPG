@@ -28,14 +28,12 @@ public abstract class RadiantArmorSet extends CustomAttributeItem implements IBr
         super(itemService, type);
     }
 
-    public abstract double getHealth();
     public abstract double getDefense();
 
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.DEFENSE, getDefense()),
-                new AdditiveAttributeEntry(AttributeWrapper.HEALTH, getHealth()),
                 new AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, LuxeArmorSet.INTELLIGENCE*2)
         );
     }

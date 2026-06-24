@@ -14,13 +14,8 @@ public class HolomokuBoots extends HolomokuSet {
     }
 
     @Override
-    public int getHealth() {
-        return HolomokuChestplate.HEALTH / 2;
-    }
-
-    @Override
     public int getDefense() {
-        return HolomokuChestplate.DEFENSE / 2;
+        return 40;
     }
 
     /**

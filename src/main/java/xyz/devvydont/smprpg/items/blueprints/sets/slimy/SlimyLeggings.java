@@ -16,8 +16,8 @@ public class SlimyLeggings extends SlimyArmorSet implements ITrimmable {
     }
 
     @Override
-    public int getHealth() {
-        return 50;
+    public int getDefense() {
+        return 70;
     }
 
     @Override

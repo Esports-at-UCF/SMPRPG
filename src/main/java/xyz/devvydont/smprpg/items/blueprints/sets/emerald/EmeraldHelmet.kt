@@ -10,8 +10,7 @@ class EmeraldHelmet(itemService: ItemService, type: CustomItemType) : EmeraldArm
 
     override val itemClassification: ItemClassification get() = ItemClassification.HELMET
 
-    override val defense: Double get() = 50.0
-    override val health: Double get() = 20.0
+    override val defense: Double get() = 65.0
 
     override fun getCustomRecipe(): CraftingRecipe? { return HelmetRecipe(this, itemService.getCustomItem(INGREDIENT), generate()).build() }
 

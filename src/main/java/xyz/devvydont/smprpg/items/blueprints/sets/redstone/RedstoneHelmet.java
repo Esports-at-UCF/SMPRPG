@@ -11,7 +11,6 @@ import xyz.devvydont.smprpg.SMPRPG;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.interfaces.IEquippableOverride;
-import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemArmor;
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment;
 import xyz.devvydont.smprpg.items.interfaces.ICraftable;
 import xyz.devvydont.smprpg.services.ItemService;
@@ -33,7 +32,7 @@ public class RedstoneHelmet extends RedstoneArmorSet implements IBreakableEquipm
 
     @Override
     public int getDefense() {
-        return ItemArmor.getDefenseFromMaterial(Material.IRON_HELMET);
+        return 45;
     }
 
     @Override

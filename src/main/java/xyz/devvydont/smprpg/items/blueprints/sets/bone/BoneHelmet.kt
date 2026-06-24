@@ -10,7 +10,7 @@ import xyz.devvydont.smprpg.util.crafting.builders.HelmetRecipe
 class BoneHelmet(itemService: ItemService, type: CustomItemType) : BoneArmorSet(itemService, type) {
 
     override val itemClassification: ItemClassification get() = ItemClassification.HELMET
-    override val defense: Int get() = 10
+    override val defense: Int get() = 35
 
     override fun getCustomRecipe(): CraftingRecipe? { return HelmetRecipe(this, itemService.getCustomItem(Material.BONE), generate()).build() }
 

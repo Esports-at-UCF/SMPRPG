@@ -12,7 +12,7 @@ import xyz.devvydont.smprpg.util.crafting.builders.ChestplateRecipe
 class BoneChestplate(itemService: ItemService, type: CustomItemType) : BoneArmorSet(itemService, type), IDyeable {
 
     override val itemClassification: ItemClassification get() = ItemClassification.CHESTPLATE
-    override val defense: Int get() = 15
+    override val defense: Int get() = 60
 
     override fun getColor(): Color { return Color.fromRGB(0x9d9d97) }
 

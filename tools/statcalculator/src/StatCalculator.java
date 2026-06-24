@@ -13,6 +13,7 @@ public class StatCalculator {
     private enum Operation {
         SET_LEVEL("l", "Set the calculator level"),
         CREATE_ARMOR("armor", "Create armor"),
+        BATCH_ARMOR("batch", "Batch armor from stdin (level,rarity,combat[,name] per line)"),
         CREATE_SWORD("sword", "Create sword"),
         CREATE_AXE("axe", "Create axe"),
         DUMP_PLAYER_EXPECTATIONS("player", "Dump player expectations"),
@@ -98,24 +99,44 @@ public class StatCalculator {
     private final static int DEFENSE_AT_MAX_LEVEL = 1900;
 
     /**
-     * Defense stays at 0 until this level so that early-game players rely on their raw HP bar
-     * (and the +2/level skill HP) instead of defense. Keeps the low-level HP bar from being
-     * crushed by the defense curve.
+     * The defense curve is a logistic (S-curve): low at low levels (so skill HP carries early-game
+     * survivability), steepest growth through the mid game, then easing off toward the cap (gentle
+     * 80->100). MIDPOINT is the level of fastest growth; STEEPNESS controls how sharp the ramp is.
+     * The curve is scaled so it passes through DEFENSE_AT_MAX_LEVEL at MAX_LEVEL.
      */
-    private final static int DEFENSE_ONSET_LEVEL = 10;
+    private final static double DEFENSE_CURVE_MIDPOINT = 50.0;
+    private final static double DEFENSE_CURVE_STEEPNESS = 0.05;
 
     /**
-     * Shape of the defense curve between DEFENSE_ONSET_LEVEL and MAX_LEVEL.
-     * < 1.0 is "front-loaded": defense ramps quickly through the mid game and eases off as it
-     * approaches the cap (gentle 80->100). > 1.0 would back-load it (steep near max level).
-     */
-    private final static double DEFENSE_CURVE_EXPONENT = 0.7;
-
-    /**
-     * How much max HP a player gains per level from skills (combat). The game grants this directly,
-     * so the calculator treats it as a known, fixed contribution and lets gear cover the rest.
+     * How much max HP a player gains per skill level, per HP-granting skill. The game grants this
+     * directly (+2/level), so the calculator treats it as a known, fixed contribution.
      */
     private final static double SKILL_HP_PER_LEVEL = 2.0;
+
+    /**
+     * How many skills grant HP. Every core skill rewards the same per-level HP, so a player's total
+     * skill HP at an average skill level L is SKILL_HP_PER_LEVEL * NUM_HP_SKILLS * L.
+     */
+    private final static int NUM_HP_SKILLS = 7;
+
+    /**
+     * The fraction of a player's total defense that should come from the armor SET itself.
+     * The remainder is left as headroom for defensive enchantments (Protection, etc.), which our
+     * augment system treats as optional. 0.85 = armor carries 85% of defense, enchants up to 15%.
+     */
+    private final static double ARMOR_DEFENSE_SHARE = 0.85;
+
+    /**
+     * Survivability multiplier for non-combat sets (farming/fishing/mining/etc.). They should still
+     * be wearable, just worse than a dedicated combat set. 0.8 = 20% less HP/DEF.
+     */
+    private final static double NON_COMBAT_PENALTY = 0.8;
+
+    /**
+     * All armor stat outputs are rounded to the nearest multiple of this so item numbers look clean
+     * (e.g. 150/155/160 instead of 147/153/161).
+     */
+    private final static int CLEAN_ROUNDING = 5;
 
     /*
      * The core of how stat scaling should player out mid/late game.
@@ -151,17 +172,19 @@ public class StatCalculator {
      * Defense is now the independent variable that defines the HP/defense split: we pick a defense
      * curve, and a player's HP is whatever is left over to reach their target EHP.
      *
-     * The curve ramps from 0 at DEFENSE_ONSET_LEVEL up to DEFENSE_AT_MAX_LEVEL at MAX_LEVEL, shaped
-     * by DEFENSE_CURVE_EXPONENT (front-loaded so the 80->100 stretch eases off).
+     * The curve is a logistic S-curve (see DEFENSE_CURVE_MIDPOINT/STEEPNESS): low early so skill HP
+     * carries the early game, steepest through the mid game, easing off toward DEFENSE_AT_MAX_LEVEL.
      * @param level The level of the player.
      * @return How much defense they should have.
      */
     private int calculateExpectedDefense(int level) {
-        if (level <= DEFENSE_ONSET_LEVEL)
-            return 0;
-        var progress = (double) (level - DEFENSE_ONSET_LEVEL) / (MAX_LEVEL - DEFENSE_ONSET_LEVEL);
-        progress = Math.min(1.0, Math.max(0.0, progress));
-        return (int) Math.round(DEFENSE_AT_MAX_LEVEL * Math.pow(progress, DEFENSE_CURVE_EXPONENT));
+        // Logistic S-curve, normalized so that level MAX_LEVEL yields exactly DEFENSE_AT_MAX_LEVEL.
+        var scale = DEFENSE_AT_MAX_LEVEL / logistic(MAX_LEVEL);
+        return (int) Math.round(scale * logistic(level));
+    }
+
+    private double logistic(int level) {
+        return 1.0 / (1.0 + Math.exp(-DEFENSE_CURVE_STEEPNESS * (level - DEFENSE_CURVE_MIDPOINT)));
     }
 
     /**
@@ -185,12 +208,14 @@ public class StatCalculator {
     }
 
     /**
-     * How much max HP a player is expected to have from skills at a given level (+2 per level).
-     * @param level The level of the player.
+     * How much max HP a player is expected to have from skills at a given average skill level.
+     * Every HP-granting skill pays a flat +2/level (no tier ramping), so this is simply
+     * SKILL_HP_PER_LEVEL * NUM_HP_SKILLS * level.
+     * @param level The average skill level of the player.
      * @return Fixed skill HP contribution.
      */
     private double calculateSkillHp(int level) {
-        return SKILL_HP_PER_LEVEL * level;
+        return SKILL_HP_PER_LEVEL * NUM_HP_SKILLS * level;
     }
 
     /**
@@ -251,7 +276,21 @@ public class StatCalculator {
 
     private void operationDumpPlayerExpectationsTable() {
         for (var i = 1; i <= 120; i++)
-            System.out.println(i + ": " + calculateExpectedPlayerHealth(i) + "HP," + calculateExpectedDefense(i) + "DEF" + " EHP=" + calculateExpectedHealth(i) + "DPS=" + calculatePlayerDps(i) + " STR=" + (1.0 + i/11.0) + "x");
+            System.out.println(i + ": " + calculateExpectedPlayerHealth(i) + "HP," + calculateExpectedDefense(i) + "DEF" + " EHP=" + calculateExpectedHealth(i) + " DPS=" + calculatePlayerDps(i) + " STR=" + (1.0 + i/11.0) + "x" + " realizedEHPx" + String.format("%.2f", calculatePlayerOvershoot(i)));
+    }
+
+    /**
+     * How much the EHP of a skill-average player in a perfectly-budgeted armor set OVERSHOOTS the
+     * target EHP curve. Because skills + base HP can exceed the raw HP target at low levels (where
+     * armor HP floors at 0), early-game players end up tankier than the curve intends - a deliberate
+     * "feel OP early, then feel the scaling" effect. 1.0 = exactly on curve.
+     * @param level The level / average skill level of the player.
+     * @return The ratio of realized EHP to target EHP (>= 1.0).
+     */
+    private double calculatePlayerOvershoot(int level) {
+        var realizedHp = Math.max((double) calculateExpectedPlayerHealth(level), STARTING_HEALTH + calculateSkillHp(level));
+        var realizedEhp = realizedHp * calculateExpectedDefenseMultiplier(level);
+        return realizedEhp / calculateExpectedHealth(level);
     }
 
     private void operationDumpHpTable() {
@@ -282,37 +321,94 @@ public class StatCalculator {
         System.out.println("Player should have a damage multiplier of x" + expectedMultiplier + " to achieve a DPS of " + calculatePlayerDps(_level));
     }
 
+    /**
+     * Work out how much HP and DEF the armor SET as a whole should provide at a given level.
+     * HP heavy-lifting is done by skills (and misc world items); the armor set only tops off however
+     * much HP is still needed to reach the target. Defense is mostly on the armor set
+     * (ARMOR_DEFENSE_SHARE), with the rest left as headroom for optional defensive enchantments.
+     * Non-combat sets take a small survivability penalty.
+     * @return [armorHp, armorDef] for the whole set (before per-piece weighting/rarity).
+     */
+    private double[] computeArmorPools(int level, boolean combat) {
+        var targetHp = calculateExpectedPlayerHealth(level);
+        var skillHp = calculateSkillHp(level);
+        var totalDef = (double) calculateExpectedDefense(level);
+
+        var armorHp = Math.max(0.0, targetHp - STARTING_HEALTH - skillHp);
+        var armorDef = ARMOR_DEFENSE_SHARE * totalDef;
+
+        if (!combat) {
+            armorHp *= NON_COMBAT_PENALTY;
+            armorDef *= NON_COMBAT_PENALTY;
+        }
+        return new double[]{armorHp, armorDef};
+    }
+
+    /**
+     * Rounds a stat to the nearest CLEAN_ROUNDING so item numbers look intentional, not random.
+     */
+    private static long roundClean(double value) {
+        return Math.round(value / CLEAN_ROUNDING) * (long) CLEAN_ROUNDING;
+    }
+
     private void operationCreateArmor() {
         System.out.println("Creating armor for level " + _level);
-        var gearDistribution = StatSource.generateGearStatDistribution(_level);
 
-        // Skills grant a known, fixed HP amount (+2/level); gear only has to cover the remainder.
-        // All defense comes from gear, so the full defense pool is distributed among gear sources.
-        var skillHp = calculateSkillHp(_level);
-        var totalGearHp = Math.max(0.0, (calculateExpectedPlayerHealth(_level) - STARTING_HEALTH) - skillHp);
-        var totalGearDef = (double) calculateExpectedDefense(_level);
-        System.out.println("Skills grant " + skillHp + "HP. Gear must supply " + totalGearHp + "HP and " + totalGearDef + "DEF total.");
+        var pools = computeArmorPools(_level, true);
+        var armorHp = pools[0];
+        var armorDef = pools[1];
+        var enchDef = (1.0 - ARMOR_DEFENSE_SHARE) * calculateExpectedDefense(_level);
 
-        var hp = gearDistribution.get(StatSource.ARMOR) * totalGearHp;
-        var def = gearDistribution.get(StatSource.ARMOR) * totalGearDef;
-        System.out.println("Player should have " + hp + "HP and " + def + "DEF from armor at level " + _level);
-        var enchHp = gearDistribution.get(StatSource.ENCHANTMENTS) * totalGearHp;
-        var enchDef = gearDistribution.get(StatSource.ENCHANTMENTS) * totalGearDef;
+        System.out.println("Target: " + calculateExpectedPlayerHealth(_level) + "HP / " + calculateExpectedDefense(_level) + "DEF  (EHP " + calculateExpectedHealth(_level) + ")");
+        System.out.println("  Skills " + calculateSkillHp(_level) + "HP leave " + armorHp + "HP for the set; set carries " + armorDef + "DEF (" + enchDef + "DEF enchant headroom).");
+
         for (var rarity : ItemRarity.values()) {
             var sb = new StringBuilder(rarity + ": ");
             for (var piece : ArmorPiece.values()) {
-                sb.append(piece).append("=").append(piece.calculateStatTarget(def, rarity)).append("DEF/").append(piece.calculateStatTarget(hp, rarity)).append("HP").append(" | ");
+                var def = roundClean(piece.calculateStatTarget(armorDef, rarity));
+                var hp = roundClean(piece.calculateStatTarget(armorHp, rarity));
+                sb.append(piece).append("=").append(def).append("DEF/").append(hp).append("HP").append(" | ");
             }
             System.out.println(sb);
         }
-        System.out.println("Expected enchantment defense pool = " + enchDef + " (" + (enchDef / ArmorPiece.values().length) + ")");
-        System.out.println("Expected enchantment hp pool      = " + enchHp + " (" + (enchHp / ArmorPiece.values().length) + ")");
+    }
+
+    /**
+     * Batch mode: read armor specs from stdin (one per line: "level,rarity,combat[,name]") and print
+     * the clean-rounded per-piece DEF/HP for each. A blank line finishes. Lets us regenerate every
+     * armor set in the game in one pass.
+     */
+    private void operationBatch() {
+        System.out.println("Enter sets as 'level,rarity,combat[,name]' (blank line to finish):");
+        while (_scanner.hasNextLine()) {
+            var line = _scanner.nextLine().trim();
+            if (line.isEmpty())
+                break;
+            try {
+                var parts = line.split(",");
+                var level = Integer.parseInt(parts[0].trim());
+                var rarity = ItemRarity.valueOf(parts[1].trim().toUpperCase());
+                var combat = Boolean.parseBoolean(parts[2].trim());
+                var name = parts.length > 3 ? parts[3].trim() : ("L" + level + " " + rarity);
+
+                var pools = computeArmorPools(level, combat);
+                var sb = new StringBuilder(name + " (L" + level + " " + rarity + (combat ? "" : " NON-COMBAT") + "): ");
+                for (var piece : ArmorPiece.values()) {
+                    var def = roundClean(piece.calculateStatTarget(pools[1], rarity));
+                    var hp = roundClean(piece.calculateStatTarget(pools[0], rarity));
+                    sb.append(piece).append("=").append(def).append("/").append(hp).append(" ");
+                }
+                System.out.println(sb);
+            } catch (Exception e) {
+                System.out.println("  ! could not parse '" + line + "': " + e.getMessage());
+            }
+        }
     }
 
     private void operationDumpSkillExpectations() {
-        System.out.println("Skill HP expectations (+" + SKILL_HP_PER_LEVEL + " HP per level, HP only)");
+        System.out.println("Skill HP expectations (+" + SKILL_HP_PER_LEVEL + " HP/level x " + NUM_HP_SKILLS + " skills, flat)");
         for (var i = 1; i <= 120; i++)
-            System.out.println(i + ": " + calculateSkillHp(i) + "HP");
+            System.out.println(i + ": " + calculateSkillHp(i) + "HP (avg skill level " + i + ")");
     }
 
     private void operationQuit() {
@@ -334,6 +430,7 @@ public class StatCalculator {
         return switch (op) {
             case SET_LEVEL -> this::operationSetLevel;
             case CREATE_ARMOR -> this::operationCreateArmor;
+            case BATCH_ARMOR -> this::operationBatch;
             case CREATE_SWORD -> this::operationCreateSword;
             case CREATE_AXE -> this::operationCreateAxe;
             case DUMP_PLAYER_EXPECTATIONS -> this::operationDumpPlayerExpectationsTable;

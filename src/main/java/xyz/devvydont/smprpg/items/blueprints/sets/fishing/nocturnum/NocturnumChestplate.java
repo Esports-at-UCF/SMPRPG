@@ -11,21 +11,18 @@ import xyz.devvydont.smprpg.services.ItemService;
 
 public class NocturnumChestplate extends NocturnumSet {
 
-    public static int DEFENSE = 280;
-    public static int HEALTH = 220;
-
     public NocturnumChestplate(ItemService itemService, CustomItemType type) {
         super(itemService, type);
     }
 
     @Override
     public int getHealth() {
-        return HEALTH;
+        return 280;
     }
 
     @Override
     public int getDefense() {
-        return DEFENSE;
+        return 345;
     }
 
     /**

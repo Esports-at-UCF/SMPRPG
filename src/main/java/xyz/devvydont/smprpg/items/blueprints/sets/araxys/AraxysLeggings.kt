@@ -20,8 +20,8 @@ class AraxysLeggings(itemService: ItemService, type: CustomItemType) : AraxysArm
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, (AraxysChestplate.Companion.DEFENSE - 50).toDouble()),
-            AdditiveAttributeEntry(AttributeWrapper.HEALTH, (AraxysChestplate.Companion.HEALTH - 50).toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 305.0),
+            AdditiveAttributeEntry(AttributeWrapper.HEALTH, 120.0),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, AraxysChestplate.Companion.STRENGTH),
             AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, AraxysChestplate.Companion.CRIT.toDouble())
         )

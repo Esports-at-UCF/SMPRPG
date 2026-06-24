@@ -135,54 +135,59 @@ class ItemArmor(itemService: ItemService, material: Material) : VanillaAttribute
 
         fun getDefenseFromItemType(itemType: CustomItemType): Int {
             return when (itemType) {
-                CustomItemType.SILVER_HELMET -> 5
-                CustomItemType.SILVER_CHESTPLATE -> 7
-                CustomItemType.SILVER_LEGGINGS -> 6
-                CustomItemType.SILVER_BOOTS -> 4
-                CustomItemType.TIN_HELMET -> 10
-                CustomItemType.TIN_CHESTPLATE -> 15
-                CustomItemType.TIN_LEGGINGS -> 13
-                CustomItemType.TIN_BOOTS -> 7
+                // Rebalanced via tools/statcalculator (power rating = level). These early/mid metal
+                // sets are <= L40 so they carry pure defense; HP comes from skills (+2/level).
+                CustomItemType.TIN_HELMET -> 25
+                CustomItemType.TIN_CHESTPLATE -> 45
+                CustomItemType.TIN_LEGGINGS -> 35
+                CustomItemType.TIN_BOOTS -> 20
+                CustomItemType.SILVER_HELMET -> 30
+                CustomItemType.SILVER_CHESTPLATE -> 50
+                CustomItemType.SILVER_LEGGINGS -> 35
+                CustomItemType.SILVER_BOOTS -> 20
                 CustomItemType.BRONZE_HELMET -> 30
-                CustomItemType.BRONZE_CHESTPLATE -> 40
-                CustomItemType.BRONZE_LEGGINGS -> 35
+                CustomItemType.BRONZE_CHESTPLATE -> 50
+                CustomItemType.BRONZE_LEGGINGS -> 40
                 CustomItemType.BRONZE_BOOTS -> 20
-                CustomItemType.ROSE_GOLD_HELMET -> 15
-                CustomItemType.ROSE_GOLD_CHESTPLATE -> 20
-                CustomItemType.ROSE_GOLD_LEGGINGS -> 16
-                CustomItemType.ROSE_GOLD_BOOTS -> 12
                 CustomItemType.STEEL_HELMET -> 35
-                CustomItemType.STEEL_CHESTPLATE -> 50
-                CustomItemType.STEEL_LEGGINGS -> 40
+                CustomItemType.STEEL_CHESTPLATE -> 65
+                CustomItemType.STEEL_LEGGINGS -> 50
                 CustomItemType.STEEL_BOOTS -> 25
-                CustomItemType.PLATINUM_HELMET -> 35
-                CustomItemType.PLATINUM_CHESTPLATE -> 50
-                CustomItemType.PLATINUM_LEGGINGS -> 40
-                CustomItemType.PLATINUM_BOOTS -> 25
-                CustomItemType.MITHRIL_HELMET -> 40
-                CustomItemType.MITHRIL_CHESTPLATE -> 60
-                CustomItemType.MITHRIL_LEGGINGS -> 45
+                CustomItemType.ROSE_GOLD_HELMET -> 45
+                CustomItemType.ROSE_GOLD_CHESTPLATE -> 75
+                CustomItemType.ROSE_GOLD_LEGGINGS -> 55
+                CustomItemType.ROSE_GOLD_BOOTS -> 30
+                CustomItemType.MITHRIL_HELMET -> 45
+                CustomItemType.MITHRIL_CHESTPLATE -> 75
+                CustomItemType.MITHRIL_LEGGINGS -> 60
                 CustomItemType.MITHRIL_BOOTS -> 30
-                CustomItemType.TITANIUM_HELMET -> 45
-                CustomItemType.TITANIUM_CHESTPLATE -> 70
-                CustomItemType.TITANIUM_LEGGINGS -> 60
+                CustomItemType.TITANIUM_HELMET -> 55
+                CustomItemType.TITANIUM_CHESTPLATE -> 95
+                CustomItemType.TITANIUM_LEGGINGS -> 70
                 CustomItemType.TITANIUM_BOOTS -> 40
                 CustomItemType.ADAMANTIUM_HELMET -> 60
-                CustomItemType.ADAMANTIUM_CHESTPLATE -> 90
-                CustomItemType.ADAMANTIUM_LEGGINGS -> 75
-                CustomItemType.ADAMANTIUM_BOOTS -> 55
-                CustomItemType.TUNGSTEN_HELMET -> 45
-                CustomItemType.TUNGSTEN_CHESTPLATE -> 70
-                CustomItemType.TUNGSTEN_LEGGINGS -> 60
-                CustomItemType.TUNGSTEN_BOOTS -> 40
-                CustomItemType.COBALT_HELMET, CustomItemType.PALLADIUM_HELMET -> 60
-                CustomItemType.COBALT_CHESTPLATE, CustomItemType.PALLADIUM_CHESTPLATE -> 90
-                CustomItemType.COBALT_LEGGINGS, CustomItemType.PALLADIUM_LEGGINGS -> 75
-                CustomItemType.COBALT_BOOTS, CustomItemType.PALLADIUM_BOOTS -> 55
-                CustomItemType.ORICHALCUM_HELMET, CustomItemType.AETHERIUM_HELMET -> 70
-                CustomItemType.ORICHALCUM_CHESTPLATE, CustomItemType.AETHERIUM_CHESTPLATE -> 105
-                CustomItemType.ORICHALCUM_LEGGINGS, CustomItemType.AETHERIUM_LEGGINGS -> 90
-                CustomItemType.ORICHALCUM_BOOTS, CustomItemType.AETHERIUM_BOOTS -> 60
+                CustomItemType.ADAMANTIUM_CHESTPLATE -> 105
+                CustomItemType.ADAMANTIUM_LEGGINGS -> 80
+                CustomItemType.ADAMANTIUM_BOOTS -> 45
+                CustomItemType.TUNGSTEN_HELMET -> 70
+                CustomItemType.TUNGSTEN_CHESTPLATE -> 120
+                CustomItemType.TUNGSTEN_LEGGINGS -> 95
+                CustomItemType.TUNGSTEN_BOOTS -> 50
+                // Cobalt / Orichalcum / Platinum are all L30 RARE combat -> identical sidegrades.
+                CustomItemType.COBALT_HELMET, CustomItemType.ORICHALCUM_HELMET, CustomItemType.PLATINUM_HELMET -> 100
+                CustomItemType.COBALT_CHESTPLATE, CustomItemType.ORICHALCUM_CHESTPLATE, CustomItemType.PLATINUM_CHESTPLATE -> 170
+                CustomItemType.COBALT_LEGGINGS, CustomItemType.ORICHALCUM_LEGGINGS, CustomItemType.PLATINUM_LEGGINGS -> 130
+                CustomItemType.COBALT_BOOTS, CustomItemType.ORICHALCUM_BOOTS, CustomItemType.PLATINUM_BOOTS -> 70
+                // Palladium is L30 RARE but NON-COMBAT (arcane utility) -> x0.8 survivability.
+                CustomItemType.PALLADIUM_HELMET -> 80
+                CustomItemType.PALLADIUM_CHESTPLATE -> 135
+                CustomItemType.PALLADIUM_LEGGINGS -> 105
+                CustomItemType.PALLADIUM_BOOTS -> 55
+                // Aetherium is L40 EPIC combat (split from Orichalcum).
+                CustomItemType.AETHERIUM_HELMET -> 150
+                CustomItemType.AETHERIUM_CHESTPLATE -> 260
+                CustomItemType.AETHERIUM_LEGGINGS -> 205
+                CustomItemType.AETHERIUM_BOOTS -> 110
                 else -> 0
             }
         }

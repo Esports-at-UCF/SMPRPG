@@ -31,8 +31,8 @@ class AraxysHelmet(itemService: ItemService, type: CustomItemType) : AraxysArmor
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, AraxysChestplate.Companion.DEFENSE.toDouble() / 2 + 30),
-            AdditiveAttributeEntry(AttributeWrapper.HEALTH, AraxysChestplate.Companion.HEALTH.toDouble() / 2 + 30),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 225.0),
+            AdditiveAttributeEntry(AttributeWrapper.HEALTH, 90.0),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, AraxysChestplate.Companion.STRENGTH),
             AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, AraxysChestplate.Companion.CRIT.toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 200.0)

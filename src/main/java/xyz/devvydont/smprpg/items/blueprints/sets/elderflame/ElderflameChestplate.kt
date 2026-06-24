@@ -38,8 +38,8 @@ class ElderflameChestplate(itemService: ItemService, type: CustomItemType) : Eld
     override fun getMaxDurability(): Int { return ARMOR_DURABILITY_UNIT * 8 }
 
     companion object {
-        const val DEFENSE: Int = 300
-        const val HEALTH: Int = 150
+        const val DEFENSE: Int = 375
+        const val HEALTH: Int = 60
         const val STRENGTH: Double = .75
         const val CRIT: Int = 25
     }

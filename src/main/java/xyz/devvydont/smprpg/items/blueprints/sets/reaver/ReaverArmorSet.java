@@ -59,7 +59,6 @@ public abstract class ReaverArmorSet extends CustomAttributeItem implements IHea
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 new AdditiveAttributeEntry(AttributeWrapper.DEFENSE, getDefense()),
-                new AdditiveAttributeEntry(AttributeWrapper.HEALTH, getHealth()),
                 new ScalarAttributeEntry(AttributeWrapper.STRENGTH, getStrength()),
                 new AdditiveAttributeEntry(AttributeWrapper.KNOCKBACK_RESISTANCE, .15),
                 new AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, 12)

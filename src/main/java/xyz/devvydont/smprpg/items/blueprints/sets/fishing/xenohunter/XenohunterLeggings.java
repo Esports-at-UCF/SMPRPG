@@ -23,12 +23,12 @@ public class XenohunterLeggings extends XenohunterSet {
 
     @Override
     public int getHealth() {
-        return XenohunterChestplate.HEALTH - 50;
+        return 2065;
     }
 
     @Override
     public int getDefense() {
-        return XenohunterChestplate.DEFENSE - 50;
+        return 385;
     }
 
     @Override

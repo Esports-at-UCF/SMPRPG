@@ -17,8 +17,8 @@ class ElderflameHelmet(itemService: ItemService, type: CustomItemType) : Elderfl
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, ElderflameChestplate.Companion.DEFENSE / 2.0 + 30),
-            AdditiveAttributeEntry(AttributeWrapper.HEALTH, ElderflameChestplate.Companion.HEALTH / 2.0 + 20),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 220.0),
+            AdditiveAttributeEntry(AttributeWrapper.HEALTH, 40.0),
             AdditiveAttributeEntry(AttributeWrapper.ARMOR, 3.0),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, ElderflameChestplate.Companion.STRENGTH),
             AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, ElderflameChestplate.Companion.CRIT.toDouble()),

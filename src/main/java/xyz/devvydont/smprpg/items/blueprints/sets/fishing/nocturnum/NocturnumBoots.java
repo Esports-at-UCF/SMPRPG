@@ -18,12 +18,12 @@ public class NocturnumBoots extends NocturnumSet implements IDyeable {
 
     @Override
     public int getHealth() {
-        return NocturnumChestplate.HEALTH / 2;
+        return 115;
     }
 
     @Override
     public int getDefense() {
-        return NocturnumChestplate.DEFENSE / 2;
+        return 145;
     }
 
     /**

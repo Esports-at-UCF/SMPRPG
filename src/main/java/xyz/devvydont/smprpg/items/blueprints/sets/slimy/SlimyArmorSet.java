@@ -34,7 +34,7 @@ public abstract class SlimyArmorSet extends CustomAttributeItem implements ICraf
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.HEALTH, getHealth()),
+                new AdditiveAttributeEntry(AttributeWrapper.DEFENSE, getDefense()),
                 new ScalarAttributeEntry(AttributeWrapper.ATTACK_SPEED, .25)
         );
     }
@@ -49,7 +49,7 @@ public abstract class SlimyArmorSet extends CustomAttributeItem implements ICraf
         return new NamespacedKey(SMPRPG.getPlugin(), this.getCustomItemType().getKey() + "-recipe");
     }
 
-    public abstract int getHealth();
+    public abstract int getDefense();
 
     @Override
     public Collection<ItemStack> unlockedBy() {

@@ -5,13 +5,9 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
-import xyz.devvydont.smprpg.items.blueprints.sets.fishing.nocturnum.NocturnumSet;
 import xyz.devvydont.smprpg.services.ItemService;
 
 public class XenohunterChestplate extends XenohunterSet {
-
-    public static final int DEFENSE = 600;
-    public static final int HEALTH = 500;
 
     public XenohunterChestplate(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -27,12 +23,12 @@ public class XenohunterChestplate extends XenohunterSet {
 
     @Override
     public int getHealth() {
-        return HEALTH;
+        return 2655;
     }
 
     @Override
     public int getDefense() {
-        return DEFENSE;
+        return 495;
     }
 
     @Override

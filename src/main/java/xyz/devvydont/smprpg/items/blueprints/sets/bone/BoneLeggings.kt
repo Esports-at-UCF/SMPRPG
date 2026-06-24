@@ -10,7 +10,7 @@ import xyz.devvydont.smprpg.util.crafting.builders.LeggingsRecipe
 class BoneLeggings(itemService: ItemService, type: CustomItemType) : BoneArmorSet(itemService, type) {
 
     override val itemClassification: ItemClassification get() = ItemClassification.LEGGINGS
-    override val defense: Int get() = 12
+    override val defense: Int get() = 45
 
     override fun getCustomRecipe(): CraftingRecipe? { return LeggingsRecipe(this, itemService.getCustomItem(Material.BONE), generate()).build() }
 

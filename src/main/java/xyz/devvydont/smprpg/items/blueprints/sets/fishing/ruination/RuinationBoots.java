@@ -14,13 +14,8 @@ public class RuinationBoots extends RuinationSet {
     }
 
     @Override
-    public int getHealth() {
-        return RuinationChestplate.HEALTH / 2;
-    }
-
-    @Override
     public int getDefense() {
-        return RuinationChestplate.DEFENSE / 2;
+        return 80;
     }
 
     /**

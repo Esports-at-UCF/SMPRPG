@@ -92,7 +92,6 @@ public class MinnowSet extends CustomAttributeItem implements ITrimmable, IDyeab
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 AttributeEntry.additive(AttributeWrapper.DEFENSE, getDefense()),
-                AttributeEntry.additive(AttributeWrapper.HEALTH, getHealth()),
                 AttributeEntry.additive(AttributeWrapper.FISHING_RATING, CATCH_QUALITY),
                 AttributeEntry.additive(AttributeWrapper.FISHING_CREATURE_CHANCE, CHANCE)
         );
@@ -125,20 +124,10 @@ public class MinnowSet extends CustomAttributeItem implements ITrimmable, IDyeab
 
     private int getDefense() {
         return switch (this.getCustomItemType()) {
-            case MINNOW_HELMET -> 30;
-            case MINNOW_CHESTPLATE -> 50;
-            case MINNOW_LEGGINGS -> 40;
+            case MINNOW_HELMET -> 35;
+            case MINNOW_CHESTPLATE -> 60;
+            case MINNOW_LEGGINGS -> 45;
             case MINNOW_BOOTS -> 25;
-            default -> 0;
-        };
-    }
-
-    private int getHealth() {
-        return switch (this.getCustomItemType()) {
-            case MINNOW_HELMET -> 5;
-            case MINNOW_CHESTPLATE -> 5;
-            case MINNOW_LEGGINGS -> 5;
-            case MINNOW_BOOTS -> 5;
             default -> 0;
         };
     }

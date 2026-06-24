@@ -18,8 +18,7 @@ class CryaxLeggings(itemService: ItemService, type: CustomItemType) : CryaxArmor
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 160.0),
-            AdditiveAttributeEntry(AttributeWrapper.HEALTH, 25.0),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 175.0),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, .3),
             ScalarAttributeEntry(AttributeWrapper.BURNING_TIME, -.25)
         )

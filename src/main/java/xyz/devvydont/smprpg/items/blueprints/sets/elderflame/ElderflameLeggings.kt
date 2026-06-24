@@ -17,8 +17,8 @@ class ElderflameLeggings(itemService: ItemService, type: CustomItemType) : Elder
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, (ElderflameChestplate.Companion.DEFENSE - 50).toDouble()),
-            AdditiveAttributeEntry(AttributeWrapper.HEALTH, (ElderflameChestplate.Companion.HEALTH - 50).toDouble()),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 295.0),
+            AdditiveAttributeEntry(AttributeWrapper.HEALTH, 50.0),
             AdditiveAttributeEntry(AttributeWrapper.ARMOR, 3.0),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, ElderflameChestplate.Companion.STRENGTH),
             ScalarAttributeEntry(AttributeWrapper.MOVEMENT_SPEED, .2),

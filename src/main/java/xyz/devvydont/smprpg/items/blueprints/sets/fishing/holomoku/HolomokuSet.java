@@ -37,8 +37,6 @@ public abstract class HolomokuSet extends CustomAttributeItem implements IBreaka
         super(itemService, type);
     }
 
-    public abstract int getHealth();
-
     public abstract int getDefense();
 
     /**
@@ -57,7 +55,6 @@ public abstract class HolomokuSet extends CustomAttributeItem implements IBreaka
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
                 AttributeEntry.additive(AttributeWrapper.DEFENSE, getDefense()),
-                AttributeEntry.additive(AttributeWrapper.HEALTH, getHealth()),
                 AttributeEntry.additive(AttributeWrapper.FISHING_CREATURE_CHANCE, 2),
                 AttributeEntry.additive(AttributeWrapper.FISHING_RATING, 20)
         );

@@ -26,7 +26,6 @@ abstract class AmethystArmorSet(itemService: ItemService, type: CustomItemType) 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.DEFENSE, this.defense.toDouble()),
-            AdditiveAttributeEntry(AttributeWrapper.HEALTH, this.health.toDouble()),
             AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 30.0)
         )
     }
@@ -41,7 +40,6 @@ abstract class AmethystArmorSet(itemService: ItemService, type: CustomItemType) 
         )
     }
 
-    abstract val health: Int
     abstract val defense: Int
 
     override fun getPowerRating(): Int {

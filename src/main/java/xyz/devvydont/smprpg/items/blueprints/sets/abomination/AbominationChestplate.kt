@@ -37,7 +37,7 @@ class AbominationChestplate(itemService: ItemService, type: CustomItemType) : Ab
 
     override fun getAttributeModifiers(item: ItemStack): MutableCollection<AttributeEntry?> {
         val attributes: MutableList<AttributeEntry?> = ArrayList()
-        attributes.add(AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 180.0))
+        attributes.add(AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 155.0))
         attributes.add(AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 20.0))
         attributes.add(AdditiveAttributeEntry(AttributeWrapper.REGENERATION, 25.0))
         val strMult = getKillStrengthMultBoost(item)

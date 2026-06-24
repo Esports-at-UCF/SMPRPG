@@ -18,8 +18,8 @@ class AraxysBoots(itemService: ItemService, type: CustomItemType) : AraxysArmorS
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, AraxysChestplate.Companion.DEFENSE.toDouble() / 2),
-            AdditiveAttributeEntry(AttributeWrapper.HEALTH, AraxysChestplate.Companion.HEALTH.toDouble() / 2),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 160.0),
+            AdditiveAttributeEntry(AttributeWrapper.HEALTH, 65.0),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, AraxysChestplate.Companion.STRENGTH),
             AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, AraxysChestplate.Companion.CRIT.toDouble()),
             ScalarAttributeEntry(AttributeWrapper.MOVEMENT_SPEED, .15),

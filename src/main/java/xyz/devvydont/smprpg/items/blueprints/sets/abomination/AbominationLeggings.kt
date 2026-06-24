@@ -38,7 +38,7 @@ class AbominationLeggings(itemService: ItemService, type: CustomItemType) : Abom
 
     override fun getAttributeModifiers(item: ItemStack): MutableCollection<AttributeEntry?> {
         val attributes: MutableList<AttributeEntry?> = ArrayList()
-        attributes.add(AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 150.0))
+        attributes.add(AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 120.0))
         attributes.add(AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 10.0))
         attributes.add(AdditiveAttributeEntry(AttributeWrapper.REGENERATION, 25.0))
         val strMult = getKillStrengthMultBoost(item)
