@@ -68,11 +68,16 @@ class SpreadShotAbilityHandler : AbilityHandler {
                             AttributeWrapper.STRENGTH).value,
                         instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.INTELLIGENCE).value,
                         ABILITY_SCALING + instance.getOrCreateAttribute(ctx.caster, AttributeWrapper.ARCANE_RATING).value)
+                    // All beams fire in the same tick, so clear i-frames before each hit. Otherwise the first beam's
+                    // invulnerability window causes EntityDamageCalculatorService to cancel every subsequent beam,
+                    // collapsing the spread into a single registered hit.
+                    entity.noDamageTicks = 0
                     entity.damage(dmg, DamageSource.builder(DamageType.MAGIC).withDirectEntity(player).withCausingEntity(player).build())
                 }
             }
-            ParticleUtil.spawnParticlesBetweenTwoPoints(Particle.ENCHANTED_HIT, player.world, playerMidpoint.toVector(), playerMidpoint.toVector().add(vec.multiply(RANGE)), 25)
-            ParticleUtil.spawnParticlesBetweenTwoPoints(Particle.CRIT, player.world, playerMidpoint.toVector(), playerMidpoint.toVector().add(vec.multiply(RANGE)), 25)
+            val endpoint = playerMidpoint.toVector().add(vec.clone().multiply(RANGE))
+            ParticleUtil.spawnParticlesBetweenTwoPoints(Particle.ENCHANTED_HIT, player.world, playerMidpoint.toVector(), endpoint, 25)
+            ParticleUtil.spawnParticlesBetweenTwoPoints(Particle.CRIT, player.world, playerMidpoint.toVector(), endpoint, 25)
         }
         player.velocity = player.velocity.clone().add(player.location.direction.multiply(-1.0))
         world.playSound(player.location, Sound.ENTITY_ALLAY_HURT, 1f, 0.5f)
