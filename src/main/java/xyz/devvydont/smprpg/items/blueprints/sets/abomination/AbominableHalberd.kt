@@ -5,6 +5,7 @@ import io.papermc.paper.datacomponent.item.AttackRange
 import io.papermc.paper.datacomponent.item.PiercingWeapon
 import io.papermc.paper.datacomponent.item.SwingAnimation
 import io.papermc.paper.registry.keys.SoundEventKeys
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -44,7 +45,7 @@ import xyz.devvydont.smprpg.util.items.AbilityUtil
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 
 class AbominableHalberd(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    Listener, IHeaderDescribable, ICraftable, IBreakableEquipment, IRepairable, ISlayerProficiencyBoost {
+    Listener, IHeaderDescribable, ICraftable, IBreakableEquipment, IRepairable, ISlayerProficiencyBoost, IModelOverridden {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SWORD
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.REVILED_VISCERA))
@@ -174,6 +175,10 @@ class AbominableHalberd(itemService: ItemService, type: CustomItemType) : Custom
 
     override fun getMaxDurability(): Int {
         return 1_000
+    }
+
+    override fun getDisplayKey(): Key {
+        return IModelOverridden.ofItemType(type)
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)

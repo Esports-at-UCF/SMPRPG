@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.abomination
 
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -28,6 +29,7 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.IBreakableEquipment
 import xyz.devvydont.smprpg.items.interfaces.ICraftable
 import xyz.devvydont.smprpg.items.interfaces.IHeaderDescribable
+import xyz.devvydont.smprpg.items.interfaces.IModelOverridden
 import xyz.devvydont.smprpg.items.interfaces.IRepairable
 import xyz.devvydont.smprpg.items.interfaces.ISlayerProficiencyBoost
 import xyz.devvydont.smprpg.services.EntityService
@@ -40,7 +42,7 @@ import xyz.devvydont.smprpg.util.items.AbilityUtil
 import xyz.devvydont.smprpg.util.persistence.KeyStore
 
 class AbominableMachete(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    Listener, IHeaderDescribable, ICraftable, IBreakableEquipment, IRepairable, ISlayerProficiencyBoost {
+    Listener, IHeaderDescribable, ICraftable, IBreakableEquipment, IRepairable, ISlayerProficiencyBoost, IModelOverridden {
 
     override val itemClassification: ItemClassification get() = ItemClassification.SWORD
     override val repairMaterial: MutableCollection<ItemStack> get() = mutableListOf(itemService.getCustomItem(CustomItemType.ENCHANTED_NECROTIC_FLESH))
@@ -115,6 +117,10 @@ class AbominableMachete(itemService: ItemService, type: CustomItemType) : Custom
 
     override fun getMaxDurability(): Int {
         return 666
+    }
+
+    override fun getDisplayKey(): Key {
+        return IModelOverridden.ofItemType(type)
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
