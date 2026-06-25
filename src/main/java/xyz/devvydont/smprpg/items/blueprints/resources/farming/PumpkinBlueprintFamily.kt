@@ -18,15 +18,19 @@ class PumpkinBlueprintFamily(itemService: ItemService, type: CustomItemType) : C
     override val decompressor: CompressionStep?
         get() = when (customItemType) {
             CustomItemType.PREMIUM_PUMPKIN -> CompressionStep(itemService.getVanillaBlueprint(ItemStack.of(Material.PUMPKIN)) as ICompressible, 1, 9)
-            CustomItemType.ENCHANTED_PUMPKIN -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_PUMPKIN) as ICompressible, 1, 9)
-            CustomItemType.PUMPKIN_SINGULARITY -> CompressionStep(itemService.getBlueprint(CustomItemType.ENCHANTED_PUMPKIN) as ICompressible, 1, 9)
+            CustomItemType.PREMIUM_CARVED_PUMPKIN -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_PUMPKIN) as ICompressible, 1, 9)
+            CustomItemType.ENCHANTED_PUMPKIN -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_CARVED_PUMPKIN) as ICompressible, 1, 9)
+            CustomItemType.ENCHANTED_CARVED_PUMPKIN -> CompressionStep(itemService.getBlueprint(CustomItemType.ENCHANTED_PUMPKIN) as ICompressible, 1, 9)
+            CustomItemType.PUMPKIN_SINGULARITY -> CompressionStep(itemService.getBlueprint(CustomItemType.ENCHANTED_CARVED_PUMPKIN) as ICompressible, 1, 9)
             else -> null
         }
 
     override val compressor: CompressionStep?
         get() = when (customItemType) {
-            CustomItemType.PREMIUM_PUMPKIN -> CompressionStep(itemService.getBlueprint(CustomItemType.ENCHANTED_PUMPKIN) as ICompressible, 9, 1)
-            CustomItemType.ENCHANTED_PUMPKIN -> CompressionStep(itemService.getBlueprint(CustomItemType.PUMPKIN_SINGULARITY) as ICompressible, 9, 1)
+            CustomItemType.PREMIUM_PUMPKIN -> CompressionStep(itemService.getBlueprint(CustomItemType.PREMIUM_CARVED_PUMPKIN) as ICompressible, 9, 1)
+            CustomItemType.PREMIUM_CARVED_PUMPKIN -> CompressionStep(itemService.getBlueprint(CustomItemType.ENCHANTED_PUMPKIN) as ICompressible, 9, 1)
+            CustomItemType.ENCHANTED_PUMPKIN -> CompressionStep(itemService.getBlueprint(CustomItemType.ENCHANTED_CARVED_PUMPKIN) as ICompressible, 9, 1)
+            CustomItemType.ENCHANTED_CARVED_PUMPKIN -> CompressionStep(itemService.getBlueprint(CustomItemType.PUMPKIN_SINGULARITY) as ICompressible, 9, 1)
             else -> null
         }
 
