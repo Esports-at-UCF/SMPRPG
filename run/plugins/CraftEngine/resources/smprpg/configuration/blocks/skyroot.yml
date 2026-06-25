@@ -316,7 +316,6 @@ items:
           template:
             - smprpg:settings/leaves
             - smprpg:sound/crystal_leaves
-            - smprpg:data/breaking_power_6
           overrides:
             hardness: 1.5
         states:

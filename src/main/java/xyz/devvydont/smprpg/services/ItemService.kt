@@ -112,6 +112,7 @@ class ItemService : IService, Listener {
         listeners.add(VelocitySensitiveItemListener())
         listeners.add(TomeInteractionListener())
         listeners.add(WalletListener())
+        listeners.add(PocketCompressorListener())
     }
 
     @Throws(RuntimeException::class)

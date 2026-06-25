@@ -203,6 +203,12 @@ public enum CustomItemType {
     GIGANTIC_COIN_PURSE("Gigantic Coin Purse", Material.LEATHER, ItemRarity.EPIC, WalletBlueprint.class),
     COLOSSAL_COIN_PURSE("Colossal Coin Purse", Material.LEATHER, ItemRarity.LEGENDARY, WalletBlueprint.class),
 
+    SMALL_POCKET_COMPRESSOR("Small Pocket Compressor", Material.NETHER_BRICK, ItemRarity.COMMON, true, PocketCompressorBlueprint.class),
+    MEDIUM_POCKET_COMPRESSOR("Medium Pocket Compressor", Material.NETHER_BRICK, ItemRarity.UNCOMMON, true, PocketCompressorBlueprint.class),
+    LARGE_POCKET_COMPRESSOR("Large Pocket Compressor", Material.NETHER_BRICK, ItemRarity.RARE, true, PocketCompressorBlueprint.class),
+    GIGANTIC_POCKET_COMPRESSOR("Gigantic Pocket Compressor", Material.NETHER_BRICK, ItemRarity.EPIC, true, PocketCompressorBlueprint.class),
+    COLOSSAL_POCKET_COMPRESSOR("Colossal Pocket Compressor", Material.NETHER_BRICK, ItemRarity.LEGENDARY, true, PocketCompressorBlueprint.class),
+
     // DYNAMIC TOOLS
     // DRILL("Mining Drill", Material.PRISMARINE_SHARD, ItemDrill.class),
     // SMALL_FUEL_TANK("Small Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.COMMON,    SmallFuelTank.class),
@@ -901,6 +907,7 @@ public enum CustomItemType {
     POTATO_HOE("Potato Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
     ONION_HOE("Onion Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
     CARROT_HOE("Carrot Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
+    MELON_HOE("Melon Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
 
     // KNIVES
     IRON_KNIFE("Iron Knife", Material.IRON_SWORD, ItemRarity.COMMON, IronKnife.class),
@@ -1394,6 +1401,8 @@ public enum CustomItemType {
     ENCHANTED_MELON("Enchanted Melon", Material.MELON, ItemRarity.EPIC, true, MelonBlueprintFamily.class),
     MELON_SLICE_SINGULARITY("Melon Slice Singularity", Material.GLISTERING_MELON_SLICE, ItemRarity.LEGENDARY, true, MelonBlueprintFamily.class),
 
+    MASHED_MELON("Mashed Melon", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
+
     PREMIUM_WHEAT("Premium Wheat", Material.WHEAT, ItemRarity.UNCOMMON, true, WheatBlueprintFamily.class),
     PREMIUM_HAY_BLOCK("Premium Hay Block", Material.HAY_BLOCK, ItemRarity.UNCOMMON, true, WheatBlueprintFamily.class),
     ENCHANTED_WHEAT("Enchanted Wheat", Material.WHEAT, ItemRarity.RARE, true, WheatBlueprintFamily.class),
@@ -1427,7 +1436,7 @@ public enum CustomItemType {
     PREMIUM_CARVED_PUMPKIN("Premium Carved Pumpkin", Material.CARVED_PUMPKIN, ItemRarity.UNCOMMON, true, PumpkinBlueprintFamily.class),
     ENCHANTED_PUMPKIN("Enchanted Pumpkin", Material.PUMPKIN, ItemRarity.RARE, true, PumpkinBlueprintFamily.class),
     ENCHANTED_CARVED_PUMPKIN("Enchanted Carved Pumpkin", Material.CARVED_PUMPKIN, ItemRarity.EPIC, true, PumpkinBlueprintFamily.class),
-    PUMPKIN_SINGULARITY("Pumpkin Singularity", Material.CARVED_PUMPKIN, ItemRarity.LEGENDARY, true, PumpkinBlueprintFamily.class),
+    PUMPKIN_SINGULARITY("Pumpkin Singularity", Material.PUMPKIN, ItemRarity.LEGENDARY, true, PumpkinBlueprintFamily.class),
 
     ONION("Onion", Material.APPLE, ItemRarity.COMMON, Onion.class),
     PREMIUM_ONION("Premium Onion", Material.APPLE, ItemRarity.COMMON, OnionBlueprintFamily.class),

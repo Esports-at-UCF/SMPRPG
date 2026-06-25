@@ -68,10 +68,12 @@ class CropCritterService: IService, Listener {
             if (critterType != null) {
                 // First check that our crop is mature.
                 if (ceBlock.isCustom) {
-                    val age = ceBlock.customBlockState()!!.customBlockState().getProperty<Int>("age") ?: return
-                    val maxAge = FarmingExperienceListener.getCustomCropMaxAge(ceBlock.id())
-                    if (age != maxAge)
-                        return
+                    val age = ceBlock.customBlockState()!!.customBlockState().getProperty<Int>("age")
+                    if (age != null) {
+                        val maxAge = FarmingExperienceListener.getCustomCropMaxAge(ceBlock.id())
+                        if (age != maxAge)
+                            return
+                    }
                 }
                 else if (event.block.blockData is Ageable) {
                     val data = event.block.blockData as Ageable
@@ -140,12 +142,14 @@ class CropCritterService: IService, Listener {
             Pair(CEKey.of("minecraft:wheat"), CustomEntityType.MITE),
             Pair(CraftEngineBlockEnums.ONION_PLANT.key, CustomEntityType.OGRELING),
             Pair(CEKey.of("minecraft:carrots"), CustomEntityType.CARROT_CANNIBAL),
+            Pair(CEKey.of("minecraft:melon"), CustomEntityType.MELON_MASHER),
         )
         val CRITTER_UPROOTING_REQ = mutableMapOf(
             Pair(CustomEntityType.EARTHWORM, 200),
             Pair(CustomEntityType.MITE, 200),
             Pair(CustomEntityType.OGRELING, 200),
             Pair(CustomEntityType.CARROT_CANNIBAL, 200),
+            Pair(CustomEntityType.MELON_MASHER, 200),
         )
         val SOIL_TO_UPROOTING = mutableMapOf(
             Pair(CEKey.of("minecraft:farmland"), 0.0),

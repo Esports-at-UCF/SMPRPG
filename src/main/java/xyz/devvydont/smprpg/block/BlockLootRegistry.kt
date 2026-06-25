@@ -452,6 +452,7 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.MELON_SLICE), 3.5))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(Material.MELON)))
                 .uses(AttributeWrapper.FARMING_FORTUNE)
+                .usesSpecial(AttributeWrapper.MELON_FORTUNE)
                 .build()
         )
 
