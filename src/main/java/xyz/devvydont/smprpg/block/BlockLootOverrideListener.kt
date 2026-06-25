@@ -45,7 +45,7 @@ class BlockLootOverrideListener : ToggleableListener() {
     /**
      * This method will handle exploded block loot from CraftEngine custom blocks.
      */
-    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.LOW)
     private fun onCraftEngineBlockExplode(event: EntityExplodeEvent) {
 
         if (event.explosionResult == ExplosionResult.KEEP || event.explosionResult == ExplosionResult.TRIGGER_BLOCK) return
