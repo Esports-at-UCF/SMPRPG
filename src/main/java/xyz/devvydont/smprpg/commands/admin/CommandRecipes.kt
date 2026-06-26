@@ -37,13 +37,20 @@ class CommandRecipes : ICommand {
 
     private fun executeReload(ctx: CommandContext<CommandSourceStack>): Int {
         val service = SMPRPG.getService(RecipeService::class.java)
+        val sender = ctx.source.sender
         try {
-            service.reload()
-            ctx.source.sender.sendMessage(
-                ComponentUtils.success("Reloaded custom recipes (${service.getRegistry().size} loaded). Check console for any skipped entries.")
-            )
+            // The rebuild runs across ticks so it never hangs the server; report when it finishes.
+            val started = service.reload { count ->
+                sender.sendMessage(
+                    ComponentUtils.success("Reloaded custom recipes ($count loaded). Check console for any skipped entries.")
+                )
+            }
+            if (started)
+                sender.sendMessage(ComponentUtils.success("Reloading custom recipes in the background..."))
+            else
+                sender.sendMessage(ComponentUtils.error("A recipe reload is already in progress."))
         } catch (e: Exception) {
-            ctx.source.sender.sendMessage(ComponentUtils.error("Failed to reload recipes: ${e.message}"))
+            sender.sendMessage(ComponentUtils.error("Failed to reload recipes: ${e.message}"))
             SMPRPG.plugin.logger.severe("Failed to reload recipes: ${e.message}")
         }
         return Command.SINGLE_SUCCESS

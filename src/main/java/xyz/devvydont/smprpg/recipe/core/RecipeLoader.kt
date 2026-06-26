@@ -5,6 +5,7 @@ import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.YamlConfiguration
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.skills.SkillType
 import java.io.File
 
 /**
@@ -25,45 +26,60 @@ object RecipeLoader {
         val plugin = SMPRPG.plugin
         val itemService = SMPRPG.getService(ItemService::class.java)
         val registry = RecipeRegistry()
-        val dir = File(plugin.dataFolder, FOLDER)
+        val files = recipeFiles()
 
-        if (!dir.isDirectory) {
-            plugin.logger.info("No recipes folder found at ${dir.path}; loaded 0 custom recipes.")
+        if (files.isEmpty()) {
+            plugin.logger.info("No recipe files found under $FOLDER/; loaded 0 custom recipes.")
             return registry
         }
 
-        val files = dir.walkTopDown()
-            .filter { it.isFile && it.extension.lowercase() in YAML_EXTENSIONS }
-            .sortedBy { it.path }
-
-        for (file in files) {
-            val id = file.nameWithoutExtension.lowercase()
-            val yaml = YamlConfiguration.loadConfiguration(file)
-            try {
-                val recipes = parse(id, yaml)
-                if (recipes.isEmpty()) {
-                    plugin.logger.warning("Skipping recipe file '${file.name}': could not parse (check 'type' and required fields).")
-                    continue
-                }
-                for (recipe in recipes) {
-                    if (registry.byKey(recipe.key.asString()) != null) {
-                        plugin.logger.warning("Skipping recipe '${recipe.key.value()}' in '${file.name}': duplicate recipe id.")
-                        continue
-                    }
-                    val unresolved = firstUnresolved(recipe, itemService)
-                    if (unresolved != null) {
-                        plugin.logger.warning("Skipping recipe '${recipe.key.value()}' in '${file.name}': item '$unresolved' does not resolve.")
-                        continue
-                    }
-                    registry.register(recipe)
-                }
-            } catch (e: Exception) {
-                plugin.logger.warning("Skipping recipe file '${file.name}': ${e.message}")
-            }
-        }
+        for (file in files)
+            loadFileInto(file, registry, itemService)
 
         plugin.logger.info("Loaded ${registry.size} custom recipes from $FOLDER/.")
         return registry
+    }
+
+    /** Every YAML recipe file under the data folder's `recipes/` directory, sorted for deterministic loading. */
+    fun recipeFiles(): List<File> {
+        val dir = File(SMPRPG.plugin.dataFolder, FOLDER)
+        if (!dir.isDirectory) return emptyList()
+        return dir.walkTopDown()
+            .filter { it.isFile && it.extension.lowercase() in YAML_EXTENSIONS }
+            .sortedBy { it.path }
+            .toList()
+    }
+
+    /**
+     * Parse a single recipe file and register its recipe(s) into [registry]. Malformed entries (bad shape, an
+     * unresolved item, or a duplicate id) are logged and skipped without aborting — the same per-file resilience
+     * [load] has, exposed so the batched reload can drive one file per work unit.
+     */
+    fun loadFileInto(file: File, registry: RecipeRegistry, itemService: ItemService) {
+        val plugin = SMPRPG.plugin
+        val id = file.nameWithoutExtension.lowercase()
+        val yaml = YamlConfiguration.loadConfiguration(file)
+        try {
+            val recipes = parse(id, yaml)
+            if (recipes.isEmpty()) {
+                plugin.logger.warning("Skipping recipe file '${file.name}': could not parse (check 'type' and required fields).")
+                return
+            }
+            for (recipe in recipes) {
+                if (registry.byKey(recipe.key.asString()) != null) {
+                    plugin.logger.warning("Skipping recipe '${recipe.key.value()}' in '${file.name}': duplicate recipe id.")
+                    continue
+                }
+                val unresolved = firstUnresolved(recipe, itemService)
+                if (unresolved != null) {
+                    plugin.logger.warning("Skipping recipe '${recipe.key.value()}' in '${file.name}': item '$unresolved' does not resolve.")
+                    continue
+                }
+                registry.register(recipe)
+            }
+        } catch (e: Exception) {
+            plugin.logger.warning("Skipping recipe file '${file.name}': ${e.message}")
+        }
     }
 
     /** Returns the first ingredient/output identifier that fails to resolve, or null if all are valid. */
@@ -105,7 +121,10 @@ object RecipeLoader {
         }
         val result = RecipeOutput.deserialize(normalize(section.get("result"))) ?: return null
         val upgradeChar = parseShapedUpgrade(section, pattern, keyMap)
-        return ShapedRecipe(key, pattern, keyMap, result, unlockedBy(section), upgradeChar)
+        return ShapedRecipe(
+            key, pattern, keyMap, result, unlockedBy(section), upgradeChar,
+            parseRewards(section), parseRequirements(section)
+        )
     }
 
     /**
@@ -133,7 +152,10 @@ object RecipeLoader {
         val ingredients = ingredientList(section, "ingredients") ?: return null
         val result = RecipeOutput.deserialize(normalize(section.get("result"))) ?: return null
         val upgradeIngredient = parseShapelessUpgrade(section, ingredients)
-        return ShapelessRecipe(key, ingredients, result, unlockedBy(section), upgradeIngredient)
+        return ShapelessRecipe(
+            key, ingredients, result, unlockedBy(section), upgradeIngredient,
+            parseRewards(section), parseRequirements(section)
+        )
     }
 
     /**
@@ -157,18 +179,20 @@ object RecipeLoader {
         val result = RecipeOutput.deserialize(normalize(section.get("result"))) ?: return null
         val experience = (section.get("experience") as? Number)?.toFloat() ?: 0f
         val cook = SmeltingCookType.fromId(section.getString("cook"))
-        return SmeltingRecipe(key, input, section.getInt("time", 200), result, experience, cook, unlockedBy(section))
+        return SmeltingRecipe(
+            key, input, section.getInt("time", 200), result, experience, cook, unlockedBy(section),
+            parseRewards(section), parseRequirements(section)
+        )
     }
 
     private fun parseCookingPot(key: NamespacedKey, section: ConfigurationSection): CustomRecipe? {
         val ingredients = ingredientList(section, "ingredients") ?: return null
         val result = RecipeOutput.deserialize(normalize(section.get("result"))) ?: return null
         val plating = section.getString("plating")?.let { ItemIdentifier.parse(it) }
-        val skillXp = section.getConfigurationSection("skill_xp")
-            ?.getValues(false)
-            ?.mapValues { (it.value as? Number)?.toInt() ?: 0 }
-            ?: emptyMap()
-        return CookingPotRecipe(key, ingredients, section.getInt("time", 200), result, plating, skillXp, unlockedBy(section))
+        return CookingPotRecipe(
+            key, ingredients, section.getInt("time", 200), result, plating, unlockedBy(section),
+            parseRewards(section), parseRequirements(section)
+        )
     }
 
     private fun parseCuttingBoard(key: NamespacedKey, section: ConfigurationSection): CustomRecipe? {
@@ -176,13 +200,19 @@ object RecipeLoader {
         val rawResults = section.getList("result") ?: return null
         val results = rawResults.mapNotNull { RecipeOutput.deserialize(normalize(it)) }
         if (results.isEmpty()) return null
-        return CuttingBoardRecipe(key, input, results, section.getString("tool"), unlockedBy(section))
+        return CuttingBoardRecipe(
+            key, input, results, section.getString("tool"), unlockedBy(section),
+            parseRewards(section), parseRequirements(section)
+        )
     }
 
     private fun parseFreezer(key: NamespacedKey, section: ConfigurationSection): CustomRecipe? {
         val input = Ingredient.deserialize(normalize(section.get("input"))) ?: return null
         val result = RecipeOutput.deserialize(normalize(section.get("result"))) ?: return null
-        return FreezerRecipe(key, input, section.getInt("time", 200), result, unlockedBy(section))
+        return FreezerRecipe(
+            key, input, section.getInt("time", 200), result, unlockedBy(section),
+            parseRewards(section), parseRequirements(section)
+        )
     }
 
     /**
@@ -236,6 +266,49 @@ object RecipeLoader {
 
     private fun unlockedBy(section: ConfigurationSection): List<ItemIdentifier> =
         section.getStringList("unlocked_by").map { ItemIdentifier.parse(it) }
+
+    /**
+     * Parse the optional `rewards:` block (`coins:` and a `skill_xp:` map). A legacy top-level `skill_xp:`
+     * block (used by cooking pot recipes) is folded in too, so existing recipes keep working; an explicit
+     * `rewards.skill_xp` entry overrides the legacy one for the same skill.
+     */
+    private fun parseRewards(section: ConfigurationSection): RecipeRewards {
+        val rewardsSection = section.getConfigurationSection("rewards")
+        val coins = (rewardsSection?.get("coins") as? Number)?.toLong() ?: 0L
+        val skillXp = LinkedHashMap<SkillType, Int>()
+        readSkillXp(section.getConfigurationSection("skill_xp"), skillXp)          // legacy top-level
+        readSkillXp(rewardsSection?.getConfigurationSection("skill_xp"), skillXp)  // new rewards.skill_xp
+        return RecipeRewards(coins, skillXp)
+    }
+
+    /** Parse the optional `requirements:` block (currently a `skills:` map of `skill -> minimum level`). */
+    private fun parseRequirements(section: ConfigurationSection): RecipeRequirements {
+        val skills = section.getConfigurationSection("requirements")?.getConfigurationSection("skills")
+            ?: return RecipeRequirements()
+        val levels = LinkedHashMap<SkillType, Int>()
+        for (skill in skills.getKeys(false)) {
+            val type = skillTypeOf(skill) ?: continue
+            levels[type] = skills.getInt(skill)
+        }
+        return RecipeRequirements(levels)
+    }
+
+    /** Read a `skill -> amount` config section into [into], skipping (and warning on) unknown skill names. */
+    private fun readSkillXp(section: ConfigurationSection?, into: MutableMap<SkillType, Int>) {
+        if (section == null) return
+        for (skill in section.getKeys(false)) {
+            val type = skillTypeOf(skill) ?: continue
+            into[type] = section.getInt(skill)
+        }
+    }
+
+    /** Resolve a skill name to its [SkillType], logging and returning null for an unknown name. */
+    private fun skillTypeOf(name: String): SkillType? {
+        val type = runCatching { SkillType.valueOf(name.uppercase()) }.getOrNull()
+        if (type == null)
+            SMPRPG.plugin.logger.warning("Unknown skill '$name' in a recipe rewards/requirements block; ignoring it.")
+        return type
+    }
 
     /**
      * Bukkit deserializes nested YAML maps into [ConfigurationSection]s but leaves list-element maps as

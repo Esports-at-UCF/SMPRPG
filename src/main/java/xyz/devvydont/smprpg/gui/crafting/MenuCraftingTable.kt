@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.gui.crafting
 
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -14,10 +15,13 @@ import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.plugin
+import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent
 import xyz.devvydont.smprpg.gui.InterfaceUtil
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.gui.base.IRecipeDependentMenu
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.recipe.CraftingRecipeMatcher
+import xyz.devvydont.smprpg.recipe.core.RecipeRequirements
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
 /**
@@ -25,7 +29,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
  * output, committing it when clicked. Matching is driven by [CraftingRecipeMatcher]: data-driven custom
  * recipes (count-aware) are tried first, with vanilla recipes as a fallback.
  */
-class MenuCraftingTable(player: Player) : MenuBase(player, ROWS) {
+class MenuCraftingTable(player: Player) : MenuBase(player, ROWS), IRecipeDependentMenu {
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
         super.handleInventoryOpened(event)
@@ -52,7 +56,27 @@ class MenuCraftingTable(player: Player) : MenuBase(player, ROWS) {
             setButton(RESULT_SLOT, IDLE_INDICATOR) { _: InventoryClickEvent -> }
             return
         }
+        // A locked recipe (unmet requirements) previews as a barrier and can't be committed.
+        val requirements = match.recipe?.requirements
+        if (requirements != null && !requirements.meets(player)) {
+            setButton(RESULT_SLOT, lockedIndicator(requirements)) { _: InventoryClickEvent -> playInvalidAnimation() }
+            return
+        }
         setButton(RESULT_SLOT, match.result) { event: InventoryClickEvent -> commit(event) }
+    }
+
+    /** A barrier preview listing the requirements the player has not yet met for a locked recipe. */
+    private fun lockedIndicator(requirements: RecipeRequirements): ItemStack {
+        val lore = mutableListOf<Component>()
+        lore.add(ComponentUtils.EMPTY)
+        lore.add(ComponentUtils.create("You don't meet the requirements:", NamedTextColor.RED))
+        for ((skill, level) in requirements.unmet(player))
+            lore.add(ComponentUtils.create("- ${skill.displayName} level $level", NamedTextColor.GRAY))
+        return InterfaceUtil.getNamedItemWithDescription(
+            Material.BARRIER,
+            ComponentUtils.create("Locked", NamedTextColor.RED),
+            *lore.toTypedArray()
+        )
     }
 
     /**
@@ -67,6 +91,9 @@ class MenuCraftingTable(player: Player) : MenuBase(player, ROWS) {
         while (crafted < maxCrafts) {
             val match = computeResult() ?: break
             if (match.consumption.isEmpty()) break
+            // Never craft a recipe the player isn't allowed to (defensive; the preview already blocks it).
+            val recipe = match.recipe
+            if (recipe != null && !recipe.requirements.meets(player)) break
 
             for ((cell, amount) in match.consumption) {
                 val slot = GRID_SLOTS[cell]
@@ -79,6 +106,7 @@ class MenuCraftingTable(player: Player) : MenuBase(player, ROWS) {
                 }
             }
             giveItemToPlayer(match.result.clone())
+            recipe?.rewards?.grant(player, SkillExperienceGainEvent.ExperienceSource.FORGE)
             crafted++
         }
 

@@ -10,6 +10,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.gui.base.IRecipeDependentMenu
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.equipment.PocketCompressorBlueprint
@@ -17,7 +18,7 @@ import xyz.devvydont.smprpg.recipe.CompressionGraph
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.Symbols
 
-class MenuCompressor(val owner: Player, val compressor: ItemStack, val compressorBp: PocketCompressorBlueprint) : MenuBase(owner, 3) {
+class MenuCompressor(val owner: Player, val compressor: ItemStack, val compressorBp: PocketCompressorBlueprint) : MenuBase(owner, 3), IRecipeDependentMenu {
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
         // Prepare the inventory

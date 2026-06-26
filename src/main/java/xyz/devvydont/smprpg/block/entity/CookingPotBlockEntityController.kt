@@ -49,11 +49,8 @@ import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.recipe.core.CookingPotRecipe
 import xyz.devvydont.smprpg.recipe.core.RecipeStationType
-import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.RecipeService
-import xyz.devvydont.smprpg.skills.SkillType
-import xyz.devvydont.smprpg.skills.utils.SkillExperienceReward
 import xyz.devvydont.smprpg.util.extensions.transfer
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.time.TickTime
@@ -316,20 +313,12 @@ class CookingPotBlockEntityController(val entity: BlockEntity, val behavior: Coo
         return super.blockEntity.isValid()
     }
 
-    fun addXpReward(recipe: CookingPotRecipe) {
-        if (recipe.skillXp.isEmpty()) return
+    fun grantRewards(recipe: CookingPotRecipe) {
+        if (recipe.rewards.isEmpty) return
         Bukkit.getScheduler().runTask(plugin, Runnable {
-            if (boundPlayer == null) return@Runnable
-            val player = Bukkit.getPlayer(boundPlayer!!)
-            if (player != null) {
-                val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
-                val reward = SkillExperienceReward()
-                for ((skill, xp) in recipe.skillXp) {
-                    val type = runCatching { SkillType.valueOf(skill.uppercase()) }.getOrNull() ?: continue
-                    reward.add(type, xp)
-                }
-                reward.apply(leveledPlayer, SkillExperienceGainEvent.ExperienceSource.COOK)
-            }
+            val uuid = boundPlayer ?: return@Runnable
+            val player = Bukkit.getPlayer(uuid) ?: return@Runnable
+            recipe.rewards.grant(player, SkillExperienceGainEvent.ExperienceSource.COOK)
         })
     }
 
@@ -495,13 +484,13 @@ class CookingPotBlockEntityController(val entity: BlockEntity, val behavior: Coo
                         if (resultStack != null) {
                             inv.setItem(OUTPUT_SLOT, resultStack)
                             takeIngredients(pot, pot.recipe!!)
-                            pot.addXpReward(pot.recipe!!)
+                            pot.grantRewards(pot.recipe!!)
                         }
                     }
                     else if (resultStack != null && result.isSimilar(resultStack) && result.amount < result.maxStackSize) {
                         result.add()
                         takeIngredients(pot, pot.recipe!!)
-                        pot.addXpReward(pot.recipe!!)
+                        pot.grantRewards(pot.recipe!!)
                     }
 
                     val newOutput = inv.getItem(OUTPUT_SLOT)!!

@@ -31,6 +31,7 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.block.CraftEngineBlockEnums
 import xyz.devvydont.smprpg.events.CustomEnchantItemEvent
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
+import xyz.devvydont.smprpg.gui.base.IRecipeDependentMenu
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
@@ -75,7 +76,7 @@ enum class RuneType(val runeBlock: CraftEngineBlockEnums, val runeItem : CustomI
     RUNE_DIVINITY(CraftEngineBlockEnums.RUNE_DIVINITY, CustomItemType.RUNE_DIVINITY)
 }
 
-class MenuEnchantingTable(owner: Player, private val enchantingTable: EnchantingTable) : MenuBase(owner, 5) {
+class MenuEnchantingTable(owner: Player, private val enchantingTable: EnchantingTable) : MenuBase(owner, 5), IRecipeDependentMenu {
     private var actionButtonState = ActionButtonState.DISABLED
     private val runeBlocks : MutableMap<RuneType, Int> = getRuneMap(enchantingTable)
     private val shelfPower = getShelfPower(enchantingTable)

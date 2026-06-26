@@ -24,6 +24,12 @@ sealed interface CustomRecipe {
 
     /** Items whose acquisition reveals this recipe in the recipe browser. */
     val unlockedBy: List<ItemIdentifier>
+
+    /** Coins / skill XP granted to the producing player on a successful craft. Empty by default. */
+    val rewards: RecipeRewards
+
+    /** Conditions (e.g. minimum skill levels) a player must meet to craft this. Empty = always craftable. */
+    val requirements: RecipeRequirements
 }
 
 /**
@@ -43,6 +49,8 @@ data class ShapedRecipe(
      * amount 1.
      */
     val upgradeChar: Char? = null,
+    override val rewards: RecipeRewards = RecipeRewards(),
+    override val requirements: RecipeRequirements = RecipeRequirements(),
 ) : CustomRecipe {
     override val station: RecipeStationType get() = RecipeStationType.CRAFTING_TABLE
     override val ingredients: List<Ingredient> get() = keyMap.values.toList()
@@ -63,6 +71,8 @@ data class ShapelessRecipe(
      * ingredient of amount 1.
      */
     val upgradeIngredient: ItemIdentifier? = null,
+    override val rewards: RecipeRewards = RecipeRewards(),
+    override val requirements: RecipeRequirements = RecipeRequirements(),
 ) : CustomRecipe {
     override val station: RecipeStationType get() = RecipeStationType.CRAFTING_TABLE
     override val outputs: List<RecipeOutput> get() = listOf(result)
@@ -93,6 +103,8 @@ data class SmeltingRecipe(
     val experience: Float = 0f,
     val cook: SmeltingCookType = SmeltingCookType.FURNACE,
     override val unlockedBy: List<ItemIdentifier> = emptyList(),
+    override val rewards: RecipeRewards = RecipeRewards(),
+    override val requirements: RecipeRequirements = RecipeRequirements(),
 ) : CustomRecipe {
     override val station: RecipeStationType get() = RecipeStationType.FURNACE
     override val ingredients: List<Ingredient> get() = listOf(input)
@@ -101,7 +113,8 @@ data class SmeltingRecipe(
 
 /**
  * A cooking pot recipe: several ingredients simmer for [time] ticks into [result], optionally requiring a
- * [plating] vessel and granting [skillXp] on completion.
+ * [plating] vessel. Skill XP granted on completion lives in [rewards] (a legacy top-level `skill_xp` block
+ * is folded into it on load).
  */
 data class CookingPotRecipe(
     override val key: NamespacedKey,
@@ -109,8 +122,9 @@ data class CookingPotRecipe(
     val time: Int,
     val result: RecipeOutput,
     val plating: ItemIdentifier? = null,
-    val skillXp: Map<String, Int> = emptyMap(),
     override val unlockedBy: List<ItemIdentifier> = emptyList(),
+    override val rewards: RecipeRewards = RecipeRewards(),
+    override val requirements: RecipeRequirements = RecipeRequirements(),
 ) : CustomRecipe {
     override val station: RecipeStationType get() = RecipeStationType.COOKING_POT
     override val outputs: List<RecipeOutput> get() = listOf(result)
@@ -126,6 +140,8 @@ data class CuttingBoardRecipe(
     val results: List<RecipeOutput>,
     val tool: String? = null,
     override val unlockedBy: List<ItemIdentifier> = emptyList(),
+    override val rewards: RecipeRewards = RecipeRewards(),
+    override val requirements: RecipeRequirements = RecipeRequirements(),
 ) : CustomRecipe {
     override val station: RecipeStationType get() = RecipeStationType.CUTTING_BOARD
     override val ingredients: List<Ingredient> get() = listOf(input)
@@ -141,6 +157,8 @@ data class FreezerRecipe(
     val time: Int,
     val result: RecipeOutput,
     override val unlockedBy: List<ItemIdentifier> = emptyList(),
+    override val rewards: RecipeRewards = RecipeRewards(),
+    override val requirements: RecipeRequirements = RecipeRequirements(),
 ) : CustomRecipe {
     override val station: RecipeStationType get() = RecipeStationType.FREEZER
     override val ingredients: List<Ingredient> get() = listOf(input)
@@ -158,6 +176,8 @@ data class CompressionRecipe(
     val result: RecipeOutput,
     val family: String = "",
     override val unlockedBy: List<ItemIdentifier> = emptyList(),
+    override val rewards: RecipeRewards = RecipeRewards(),
+    override val requirements: RecipeRequirements = RecipeRequirements(),
 ) : CustomRecipe {
     override val station: RecipeStationType get() = RecipeStationType.COMPRESSOR
     override val ingredients: List<Ingredient> get() = listOf(input)
@@ -176,6 +196,8 @@ data class EnchantingRecipe(
     val power: Int,
     override val ingredients: List<Ingredient>,
     override val unlockedBy: List<ItemIdentifier> = emptyList(),
+    override val rewards: RecipeRewards = RecipeRewards(),
+    override val requirements: RecipeRequirements = RecipeRequirements(),
 ) : CustomRecipe {
     override val station: RecipeStationType get() = RecipeStationType.ENCHANTING
     override val outputs: List<RecipeOutput> get() = emptyList()

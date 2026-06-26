@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentTargetDisplay
+import xyz.devvydont.smprpg.gui.base.IRecipeDependentMenu
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
 import xyz.devvydont.smprpg.services.EnchantmentService
@@ -28,7 +29,7 @@ import java.util.function.Consumer
 /*
  * A menu used to view all the enchantments and their attributes in the game.
  */
-class EnchantmentMenu : MenuBase {
+class EnchantmentMenu : MenuBase, IRecipeDependentMenu {
     // List of the custom enchantment instances we are trying to display.
     protected var enchantments: MutableList<CustomEnchantment>
 

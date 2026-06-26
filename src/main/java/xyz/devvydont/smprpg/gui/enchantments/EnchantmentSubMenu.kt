@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
+import xyz.devvydont.smprpg.gui.base.IRecipeDependentMenu
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
 import xyz.devvydont.smprpg.services.EntityService
@@ -27,7 +28,7 @@ import java.util.function.Consumer
 class EnchantmentSubMenu(
     player: Player, parentMenu: MenuBase?, // The enchantment we are expanding details on
     private val enchantment: CustomEnchantment
-) : MenuBase(player, ROWS, parentMenu) {
+) : MenuBase(player, ROWS, parentMenu), IRecipeDependentMenu {
     fun createEnchantmentButton(level: Int): ItemStack {
         // Display the actual scroll for this enchantment instead of a generic enchanted book, and set the stack
         // size to the enchantment level so the requirements for each tier can be told apart at a glance.

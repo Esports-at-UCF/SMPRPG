@@ -5,6 +5,7 @@ import org.bukkit.World
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.recipe.core.CustomRecipe
 import xyz.devvydont.smprpg.recipe.core.Ingredient
 import xyz.devvydont.smprpg.recipe.core.RecipeStationType
 import xyz.devvydont.smprpg.recipe.core.ShapedRecipe
@@ -22,8 +23,11 @@ import kotlin.math.min
  */
 object CraftingRecipeMatcher {
 
-    /** A successful match: the produced [result] and how many items to remove from each grid cell. */
-    class Match(val result: ItemStack, val consumption: Map<Int, Int>)
+    /**
+     * A successful match: the produced [result], how many items to remove from each grid cell, and the
+     * registry [recipe] that matched (null for a pure vanilla recipe, which carries no rewards/requirements).
+     */
+    class Match(val result: ItemStack, val consumption: Map<Int, Int>, val recipe: CustomRecipe? = null)
 
     private class Box(val minR: Int, val minC: Int, val height: Int, val width: Int)
 
@@ -95,7 +99,7 @@ object CraftingRecipeMatcher {
         }
 
         val result = recipe.result.generate() ?: return null
-        return Match(upgradeResult(grid, upgradeCell, result), consumption)
+        return Match(upgradeResult(grid, upgradeCell, result), consumption, recipe)
     }
 
     private fun matchShapeless(grid: List<ItemStack?>, recipe: ShapelessRecipe): Match? {
@@ -120,7 +124,7 @@ object CraftingRecipeMatcher {
 
         val result = recipe.result.generate() ?: return null
         val upgradeCell = recipe.upgradeIngredient?.let { id -> consumption.keys.firstOrNull { id.matches(grid[it]!!) } }
-        return Match(upgradeResult(grid, upgradeCell, result), consumption)
+        return Match(upgradeResult(grid, upgradeCell, result), consumption, recipe)
     }
 
     private fun matchVanilla(grid: List<ItemStack?>, world: World): Match? {
@@ -130,7 +134,7 @@ object CraftingRecipeMatcher {
         val recipe = Bukkit.getCraftingRecipe(matrix, world) ?: return null
         val consumption = HashMap<Int, Int>()
         for (i in 0..8) if (occupied(grid[i])) consumption[i] = 1
-        return Match(recipe.result.clone(), consumption)
+        return Match(recipe.result.clone(), consumption, null)
     }
 
     private fun occupied(stack: ItemStack?): Boolean = stack != null && !stack.type.isAir

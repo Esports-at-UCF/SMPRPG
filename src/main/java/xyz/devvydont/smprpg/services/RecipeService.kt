@@ -5,7 +5,9 @@ import org.bukkit.Keyed
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.configuration.file.YamlConfiguration
+import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.event.Listener
+import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.BlastingRecipe
 import org.bukkit.inventory.CampfireRecipe
 import org.bukkit.inventory.FurnaceRecipe
@@ -18,16 +20,22 @@ import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.ShapelessRecipe
 import org.bukkit.inventory.SmokingRecipe
 import org.bukkit.inventory.recipe.CraftingBookCategory
+import org.bukkit.scheduler.BukkitRunnable
+import org.bukkit.scheduler.BukkitTask
 import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.gui.base.IRecipeDependentMenu
+import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemRarity
 import xyz.devvydont.smprpg.items.blueprints.fishing.FishBlueprint
 import xyz.devvydont.smprpg.listeners.crafting.CustomCampfireController
 import xyz.devvydont.smprpg.listeners.crafting.CustomFurnaceController
+import xyz.devvydont.smprpg.listeners.crafting.CustomRecipeCraftListener
 import net.momirealms.craftengine.core.util.Key
 import xyz.devvydont.smprpg.recipe.campfire.FishTeardown
 import xyz.devvydont.smprpg.recipe.CompressionGraph
 import xyz.devvydont.smprpg.recipe.core.CompressionRecipe
+import xyz.devvydont.smprpg.recipe.core.CustomRecipe
 import xyz.devvydont.smprpg.recipe.core.ItemIdentifier
 import xyz.devvydont.smprpg.recipe.cookingpot.CookingPotRecipe
 import xyz.devvydont.smprpg.recipe.core.CookingPotRecipe as CoreCookingPotRecipe
@@ -45,6 +53,7 @@ import xyz.devvydont.smprpg.recipe.core.ShapedRecipe as CoreShapedRecipe
 import xyz.devvydont.smprpg.recipe.core.ShapelessRecipe as CoreShapelessRecipe
 import xyz.devvydont.smprpg.services.ItemService.Companion.blueprint
 import xyz.devvydont.smprpg.services.ItemService.Companion.generate
+import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import java.io.File
 import java.util.jar.JarFile
@@ -62,13 +71,27 @@ class RecipeService : IService, Listener {
      */
     private var registry: RecipeRegistry = RecipeRegistry()
 
-    /** Keys of the Bukkit compression crafting recipes we registered from the registry, removed on reload. */
-    private val registeredCompressionKeys: MutableList<NamespacedKey> = ArrayList()
+    /**
+     * The compression recipes currently registered with Bukkit, keyed by their registry key and mapped to the
+     * exact [CompressionRecipe] they were built from. Lets a reload diff against the new registry and only
+     * re-register edges whose definition actually changed (each edge owns two derived Bukkit recipes).
+     */
+    private val registeredCompression: MutableMap<NamespacedKey, CompressionRecipe> = HashMap()
 
-    /** Keys of the Bukkit crafting-table recipes we registered from the registry, removed on reload. */
-    private val registeredCraftingKeys: MutableList<NamespacedKey> = ArrayList()
+    /**
+     * The crafting-table recipes currently registered with Bukkit, keyed by recipe key and mapped to the exact
+     * [CustomRecipe] they were built from, so a reload only re-registers recipes whose definition changed.
+     */
+    private val registeredCrafting: MutableMap<NamespacedKey, CustomRecipe> = HashMap()
+
+    /** The running batched-reload task (and its remaining work), or null when no reload is in progress. */
+    private var reloadTask: BukkitTask? = null
+    private val reloadQueue: ArrayDeque<() -> Unit> = ArrayDeque()
 
     fun getRegistry(): RecipeRegistry = registry
+
+    /** Whether a batched reload is currently running. */
+    fun isReloading(): Boolean = reloadTask != null
 
     @Throws(RuntimeException::class)
     override fun setup() {
@@ -82,25 +105,153 @@ class RecipeService : IService, Listener {
         // Start listeners.
         listeners.add(CustomFurnaceController())
         listeners.add(CustomCampfireController())
+        listeners.add(CustomRecipeCraftListener())
         for (listener in listeners)
             listener.start()
     }
 
     /**
-     * Rebuild the recipe registry from disk without a server restart. Ensures the default files exist,
-     * loads a fresh registry, then swaps it in. Existing files are never overwritten.
+     * Rebuild the recipe registry from disk WITHOUT blocking the main thread. Parsing every recipe file and
+     * re-registering the Bukkit recipes generates thousands of items, so the work is spread across ticks
+     * ([RELOAD_UNITS_PER_TICK] units per tick), mirroring the item browser cache.
+     *
+     * The new registry is built in full, then swapped in atomically — so the custom stations (crafting GUI,
+     * furnace, campfire) that read [getRegistry] flip cleanly to it. The vanilla recipe book / 2x2 grid is
+     * briefly inconsistent while the Bukkit recipes re-register over the following ticks; a single
+     * [Bukkit.updateRecipes] resync runs once at the very end.
+     *
+     * Furnace and campfire smelting are driven live from the registry, so they need no re-registration here.
+     *
+     * @param onComplete invoked (with the loaded recipe count) on the tick the rebuild finishes.
+     * @return false if a reload is already in progress, true if this one was started.
      */
-    fun reload() {
+    fun reload(onComplete: (Int) -> Unit = {}): Boolean {
+        if (reloadTask != null) return false
+        prepareClientsForReload()
         saveDefaultRecipes()
-        registry = RecipeLoader.load()
-        registerCompressionRecipes()
-        registerCraftingRecipes()
-        // A single resync after all the quiet add/remove calls, so online players' recipe books update with
-        // one packet instead of one per recipe (which previously flooded clients into a packet-limit kick).
-        // Furnace smelting is driven live by CustomFurnaceController, which reads the swapped-in registry each
-        // tick, so a reload needs no furnace re-registration.
-        Bukkit.updateRecipes()
-        SMPRPG.plugin.logger.info("Reloaded custom recipe registry (${registry.size} recipes).")
+        val itemService = SMPRPG.getService(ItemService::class.java)
+        val newRegistry = RecipeRegistry()
+        reloadQueue.clear()
+
+        // Phase 1: parse + validate each file into the new registry, one file per unit (the item-generation cost).
+        for (file in RecipeLoader.recipeFiles())
+            reloadQueue.add { RecipeLoader.loadFileInto(file, newRegistry, itemService) }
+
+        // Phase 2: swap the new registry in, then queue Bukkit recipe mutations ONLY for recipes whose
+        // definition actually changed (diff against what's currently registered). Re-registering every recipe
+        // each reload is what hammered the recipe manager — and thus the client recipe-book resync — and stalled
+        // the server. Each mutation is one recipe per unit so even a large change stays off the TPS loop.
+        reloadQueue.add {
+            registry = newRegistry
+            val changed = enqueueCraftingDiff(newRegistry, itemService) +
+                enqueueCompressionDiff(newRegistry, itemService)
+            // Phase 3: resync clients only if something actually changed (otherwise a reload is silent + free).
+            reloadQueue.add {
+                if (changed > 0) Bukkit.updateRecipes()
+                Bukkit.broadcast(ComponentUtils.success("Recipes reloaded — crafting is back to normal."))
+                SMPRPG.plugin.logger.info("Reloaded custom recipe registry (${registry.size} recipes, $changed changed).")
+                onComplete(registry.size)
+            }
+        }
+
+        reloadTask = object : BukkitRunnable() {
+            override fun run() {
+                var processed = 0
+                while (processed < RELOAD_UNITS_PER_TICK && reloadQueue.isNotEmpty()) {
+                    val unit = reloadQueue.removeFirst()
+                    try {
+                        unit()
+                    } catch (e: Exception) {
+                        SMPRPG.plugin.logger.warning("Recipe reload step failed: ${e.message}")
+                    }
+                    processed++
+                }
+                if (reloadQueue.isEmpty()) {
+                    cancel()
+                    reloadTask = null
+                }
+            }
+        }.runTaskTimer(SMPRPG.plugin, 0L, 1L)
+        return true
+    }
+
+    /**
+     * Queue Bukkit mutations for crafting-table recipes that differ between what's currently registered and
+     * [newRegistry]. Unchanged recipes are left untouched — that's what keeps a reload off the TPS loop, since
+     * each touched recipe churns the recipe manager (and resyncs the client recipe book). One unit per recipe.
+     * @return the number of mutation units queued.
+     */
+    private fun enqueueCraftingDiff(newRegistry: RecipeRegistry, itemService: ItemService): Int {
+        val newByKey = newRegistry.byStation(RecipeStationType.CRAFTING_TABLE).associateBy { it.key }
+        var changes = 0
+        // Removed or redefined recipes: drop the stale Bukkit recipe.
+        for ((key, old) in registeredCrafting.toList()) {
+            if (newByKey[key] == old) continue
+            reloadQueue.add {
+                Bukkit.removeRecipe(key, false)
+                registeredCrafting.remove(key)
+            }
+            changes++
+        }
+        // New or redefined recipes: (re)register the new definition.
+        for ((key, new) in newByKey) {
+            if (registeredCrafting[key] == new) continue
+            reloadQueue.add { registerCraftingRecipe(new, itemService) }
+            changes++
+        }
+        return changes
+    }
+
+    /** As [enqueueCraftingDiff], but for compression edges (each owns two derived Bukkit recipes). */
+    private fun enqueueCompressionDiff(newRegistry: RecipeRegistry, itemService: ItemService): Int {
+        val newByKey = newRegistry.byStation(RecipeStationType.COMPRESSOR)
+            .filterIsInstance<CompressionRecipe>().associateBy { it.key }
+        var changes = 0
+        for ((key, old) in registeredCompression.toList()) {
+            if (newByKey[key] == old) continue
+            reloadQueue.add { unregisterCompression(key) }
+            changes++
+        }
+        for ((key, new) in newByKey) {
+            if (registeredCompression[key] == new) continue
+            reloadQueue.add { registerCompressionEdge(new, itemService) }
+            changes++
+        }
+        return changes
+    }
+
+    /**
+     * Announce the reload to the whole server and close every interface whose contents come from the recipe
+     * registry ([IRecipeDependentMenu] menus, plus the vanilla crafting/enchanting screens), so nobody
+     * interacts with a half-swapped recipe set. Stations that read the registry live each tick (furnaces, the
+     * cooking pot, ...) survive the atomic swap and are intentionally left open.
+     */
+    private fun prepareClientsForReload() {
+        Bukkit.broadcast(
+            ComponentUtils.create(
+                "Recipes are reloading — crafting, compression, and enchanting may briefly not work...",
+                NamedTextColor.YELLOW
+            )
+        )
+
+        val closedMenus = MenuBase.closeMatching { it is IRecipeDependentMenu }
+        var closedVanilla = 0
+        for (player in Bukkit.getOnlinePlayers()) {
+            val top = player.openInventory.topInventory
+            val shouldClose = when (top.type) {
+                InventoryType.WORKBENCH, InventoryType.ENCHANTING -> true
+                // A player's own inventory screen always reports CRAFTING; only close it if they are mid-craft.
+                InventoryType.CRAFTING -> top.contents.any { it != null && !it.isEmpty }
+                else -> false
+            }
+            if (shouldClose) {
+                player.closeInventory()
+                closedVanilla++
+            }
+        }
+
+        if (closedMenus + closedVanilla > 0)
+            SMPRPG.plugin.logger.info("Closed ${closedMenus + closedVanilla} recipe interface(s) for reload.")
     }
 
     /**
@@ -220,6 +371,9 @@ class RecipeService : IService, Listener {
     }
 
     override fun cleanup() {
+        reloadTask?.cancel()
+        reloadTask = null
+        reloadQueue.clear()
         for (listener in listeners)
             listener.stop()
     }
@@ -232,45 +386,56 @@ class RecipeService : IService, Listener {
      */
     private fun registerCompressionRecipes() {
         // Mutate quietly (no per-recipe client resend); callers resync once via Bukkit.updateRecipes().
-        for (key in registeredCompressionKeys)
-            Bukkit.removeRecipe(key, false)
-        registeredCompressionKeys.clear()
+        for (key in registeredCompression.keys.toList())
+            unregisterCompression(key)
 
         val itemService = SMPRPG.getService(ItemService::class.java)
-        for (recipe in registry.byStation(RecipeStationType.COMPRESSOR).filterIsInstance<CompressionRecipe>()) {
-            // Only build from the compress direction (N -> 1); the decompress recipe is derived here.
-            if (recipe.input.amount <= recipe.result.amount) continue
-            val lowerId = recipe.input.identifier
-            val higherId = recipe.result.identifier
-            val n = recipe.input.amount
-            val lowerStack = itemService.resolveIdentifier(lowerId.asString()) ?: continue
-            val higherStack = itemService.resolveIdentifier(higherId.asString()) ?: continue
+        for (recipe in registry.byStation(RecipeStationType.COMPRESSOR).filterIsInstance<CompressionRecipe>())
+            registerCompressionEdge(recipe, itemService)
+    }
 
-            val group = CompressionGraph.baseOf(lowerId.asString())
-            val rootStack = itemService.resolveIdentifier(group)
+    /** Remove the two derived Bukkit recipes for a compression edge and forget it. */
+    private fun unregisterCompression(key: NamespacedKey) {
+        Bukkit.removeRecipe(NamespacedKey("smprpg", key.value() + "_compress"), false)
+        Bukkit.removeRecipe(NamespacedKey("smprpg", key.value() + "_decompress"), false)
+        registeredCompression.remove(key)
+    }
 
-            // Compress: N lower -> 1 higher
-            val compressKey = NamespacedKey("smprpg", recipe.key.value() + "_compress")
-            val compress = ShapedRecipe(compressKey, higherStack.clone().apply { amount = 1 })
-            compress.shape(*compressionShape(n).toTypedArray())
-            compress.setIngredient(COMPRESSION_CHAR, compressionChoice(lowerId, lowerStack))
-            compress.category = CraftingBookCategory.MISC
-            compress.group = group
+    /** Build and register the compress + decompress Bukkit recipes for one compression edge (quietly). */
+    private fun registerCompressionEdge(recipe: CompressionRecipe, itemService: ItemService) {
+        // Only build from the compress direction (N -> 1); the decompress recipe is derived here.
+        if (recipe.input.amount <= recipe.result.amount) return
+        val lowerId = recipe.input.identifier
+        val higherId = recipe.result.identifier
+        val n = recipe.input.amount
+        val lowerStack = itemService.resolveIdentifier(lowerId.asString()) ?: return
+        val higherStack = itemService.resolveIdentifier(higherId.asString()) ?: return
 
-            // Decompress: 1 higher -> N lower
-            val decompressKey = NamespacedKey("smprpg", recipe.key.value() + "_decompress")
-            val decompress = ShapedRecipe(decompressKey, lowerStack.clone().apply { amount = n })
-            decompress.shape(*compressionShape(1).toTypedArray())
-            decompress.setIngredient(COMPRESSION_CHAR, compressionChoice(higherId, higherStack))
-            decompress.category = CraftingBookCategory.MISC
-            decompress.group = group
+        val group = CompressionGraph.baseOf(lowerId.asString())
+        val rootStack = itemService.resolveIdentifier(group)
 
-            if (Bukkit.addRecipe(compress, false)) registeredCompressionKeys.add(compressKey)
-            if (Bukkit.addRecipe(decompress, false)) registeredCompressionKeys.add(decompressKey)
-            if (rootStack != null) {
-                itemService.addRecipeUnlock(rootStack, compressKey)
-                itemService.addRecipeUnlock(rootStack, decompressKey)
-            }
+        // Compress: N lower -> 1 higher
+        val compressKey = NamespacedKey("smprpg", recipe.key.value() + "_compress")
+        val compress = ShapedRecipe(compressKey, higherStack.clone().apply { amount = 1 })
+        compress.shape(*compressionShape(n).toTypedArray())
+        compress.setIngredient(COMPRESSION_CHAR, compressionChoice(lowerId, lowerStack))
+        compress.category = CraftingBookCategory.MISC
+        compress.group = group
+
+        // Decompress: 1 higher -> N lower
+        val decompressKey = NamespacedKey("smprpg", recipe.key.value() + "_decompress")
+        val decompress = ShapedRecipe(decompressKey, lowerStack.clone().apply { amount = n })
+        decompress.shape(*compressionShape(1).toTypedArray())
+        decompress.setIngredient(COMPRESSION_CHAR, compressionChoice(higherId, higherStack))
+        decompress.category = CraftingBookCategory.MISC
+        decompress.group = group
+
+        Bukkit.addRecipe(compress, false)
+        Bukkit.addRecipe(decompress, false)
+        registeredCompression[recipe.key] = recipe
+        if (rootStack != null) {
+            itemService.addRecipeUnlock(rootStack, compressKey)
+            itemService.addRecipeUnlock(rootStack, decompressKey)
         }
     }
 
@@ -287,45 +452,51 @@ class RecipeService : IService, Listener {
      */
     private fun registerCraftingRecipes() {
         // Mutate quietly (no per-recipe client resend); callers resync once via Bukkit.updateRecipes().
-        for (key in registeredCraftingKeys)
+        for (key in registeredCrafting.keys.toList())
             Bukkit.removeRecipe(key, false)
-        registeredCraftingKeys.clear()
+        registeredCrafting.clear()
 
         val itemService = SMPRPG.getService(ItemService::class.java)
-        for (recipe in registry.byStation(RecipeStationType.CRAFTING_TABLE)) {
-            val result = recipe.outputs.firstOrNull()?.generate() ?: continue
-            val key = recipe.key
-            val bukkit: Recipe = when (recipe) {
-                is CoreShapedRecipe -> {
-                    if (recipe.keyMap.values.any { it.amount > 1 }) {
-                        SMPRPG.plugin.logger.info("Crafting recipe ${key.value()} uses per-slot counts; only the custom crafting menu will craft it.")
-                        continue
-                    }
-                    val shaped = ShapedRecipe(key, result)
-                    shaped.shape(*recipe.pattern.toTypedArray())
-                    for ((ch, ingredient) in recipe.keyMap)
-                        shaped.setIngredient(ch, craftingChoice(ingredient.identifier, itemService) ?: continue)
-                    shaped.category = CraftingBookCategory.MISC
-                    shaped
-                }
-                is CoreShapelessRecipe -> {
-                    val shapeless = ShapelessRecipe(key, result)
-                    for (ingredient in recipe.ingredients) {
-                        val choice = craftingChoice(ingredient.identifier, itemService) ?: continue
-                        repeat(ingredient.amount) { shapeless.addIngredient(choice) }
-                    }
-                    shapeless.category = CraftingBookCategory.MISC
-                    shapeless
-                }
-                else -> continue
-            }
+        for (recipe in registry.byStation(RecipeStationType.CRAFTING_TABLE))
+            registerCraftingRecipe(recipe, itemService)
+    }
 
-            if (Bukkit.addRecipe(bukkit, false))
-                registeredCraftingKeys.add(key)
-            for (unlock in recipe.unlockedBy) {
-                val stack = itemService.resolveIdentifier(unlock.asString()) ?: continue
-                itemService.addRecipeUnlock(stack, key)
+    /** Build and register the Bukkit crafting recipe for one registry crafting recipe (quietly). */
+    private fun registerCraftingRecipe(recipe: CustomRecipe, itemService: ItemService) {
+        val result = recipe.outputs.firstOrNull()?.generate() ?: return
+        val key = recipe.key
+        val bukkit: Recipe = when (recipe) {
+            is CoreShapedRecipe -> {
+                if (recipe.keyMap.values.any { it.amount > 1 }) {
+                    SMPRPG.plugin.logger.info("Crafting recipe ${key.value()} uses per-slot counts; only the custom crafting menu will craft it.")
+                    // Still track it (no Bukkit recipe) so the reload diff treats it as registered/unchanged.
+                    registeredCrafting[key] = recipe
+                    return
+                }
+                val shaped = ShapedRecipe(key, result)
+                shaped.shape(*recipe.pattern.toTypedArray())
+                for ((ch, ingredient) in recipe.keyMap)
+                    shaped.setIngredient(ch, craftingChoice(ingredient.identifier, itemService) ?: continue)
+                shaped.category = CraftingBookCategory.MISC
+                shaped
             }
+            is CoreShapelessRecipe -> {
+                val shapeless = ShapelessRecipe(key, result)
+                for (ingredient in recipe.ingredients) {
+                    val choice = craftingChoice(ingredient.identifier, itemService) ?: continue
+                    repeat(ingredient.amount) { shapeless.addIngredient(choice) }
+                }
+                shapeless.category = CraftingBookCategory.MISC
+                shapeless
+            }
+            else -> return
+        }
+
+        Bukkit.addRecipe(bukkit, false)
+        registeredCrafting[key] = recipe
+        for (unlock in recipe.unlockedBy) {
+            val stack = itemService.resolveIdentifier(unlock.asString()) ?: continue
+            itemService.addRecipeUnlock(stack, key)
         }
     }
 
@@ -336,6 +507,13 @@ class RecipeService : IService, Listener {
     }
 
     companion object {
+
+        /**
+         * How many reload work units (file parses / recipe add+removes) to process per tick. Each unit can
+         * generate custom items (validation + result generation) and touch Bukkit's recipe manager, both
+         * main-thread only — kept low so a reload never noticeably dents the TPS loop (it just takes longer).
+         */
+        private const val RELOAD_UNITS_PER_TICK = 8
 
         /** The grid character used for the single repeated ingredient in a compression recipe. */
         private const val COMPRESSION_CHAR = 'm'

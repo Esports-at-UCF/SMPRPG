@@ -20,6 +20,7 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.SMPRPG.Companion.broadcastToOperatorsCausedBy
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItem
 import xyz.devvydont.smprpg.gui.InterfaceUtil.getNamedItemWithDescription
+import xyz.devvydont.smprpg.gui.base.IRecipeDependentMenu
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.recipe.core.RecipeStationType
@@ -40,7 +41,7 @@ class MenuRecipeViewer(
     parentMenu: MenuBase?,
     private val recipes: MutableList<Recipe>,
     result: ItemStack
-) : MenuBase(player, ROWS, parentMenu) {
+) : MenuBase(player, ROWS, parentMenu), IRecipeDependentMenu {
     // The index of the recipe we want to show if there is more than one recipe.
     private var currentRecipe = 0
 

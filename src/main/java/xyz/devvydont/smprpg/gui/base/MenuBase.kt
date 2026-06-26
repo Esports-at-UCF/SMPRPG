@@ -127,6 +127,8 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
             return
         }
 
+        openMenus.add(this)
+
         if (this.shouldPlayOpeningSound) {
             this.sounds.playMenuOpen()
         }
@@ -173,6 +175,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
             this.sounds.playMenuClose()
         }
 
+        openMenus.remove(this)
         this.stopAnimation()
         this.handleInventoryClosed(event)
         HandlerList.unregisterAll(this)
@@ -544,6 +547,27 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
     }
 
     companion object {
+
+        /**
+         * Every menu currently open on the server. Maintained on open/close (all on the main thread, so a plain
+         * set is safe). Lets systems like the recipe reload find and close menus by kind via [closeMatching].
+         */
+        private val openMenus: MutableSet<MenuBase> = HashSet()
+
+        /**
+         * Force-close every open menu matching [predicate] (e.g. all [IRecipeDependentMenu]s before a recipe
+         * reload). Iterates a snapshot, since each close removes the menu from [openMenus].
+         *
+         * @return the number of menus closed.
+         */
+        @JvmStatic
+        fun closeMatching(predicate: (MenuBase) -> Boolean): Int {
+            val targets = openMenus.filter(predicate)
+            for (menu in targets)
+                menu.closeMenu()
+            return targets.size
+        }
+
         // -----------
         //   Presets
         // -----------

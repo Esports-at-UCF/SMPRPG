@@ -20,10 +20,13 @@ import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitTask
 import org.bukkit.util.Vector
+import java.util.UUID
 import xyz.devvydont.smprpg.SMPRPG
+import xyz.devvydont.smprpg.events.skills.SkillExperienceGainEvent
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.blueprints.fishing.FishBlueprint
 import xyz.devvydont.smprpg.recipe.campfire.FishTeardown
+import xyz.devvydont.smprpg.recipe.core.RecipeRewards
 import xyz.devvydont.smprpg.recipe.core.RecipeStationType
 import xyz.devvydont.smprpg.recipe.core.SmeltingCookType
 import xyz.devvydont.smprpg.recipe.core.SmeltingRecipe
@@ -51,9 +54,12 @@ class CustomCampfireController : ToggleableListener() {
     /** Per-slot cook progress (ticks) for every campfire we are driving, keyed by block location. */
     private val cookProgress: MutableMap<Location, IntArray> = HashMap()
 
+    /** Per-slot UUID of the player who placed each cooking item, so completion rewards reach them. */
+    private val placers: MutableMap<Location, Array<UUID?>> = HashMap()
+
     private var task: BukkitTask? = null
 
-    private data class CampfireResult(val result: ItemStack, val cookTime: Int)
+    private data class CampfireResult(val result: ItemStack, val cookTime: Int, val rewards: RecipeRewards)
 
     override fun start() {
         super.start()
@@ -65,6 +71,7 @@ class CustomCampfireController : ToggleableListener() {
         task?.cancel()
         task = null
         cookProgress.clear()
+        placers.clear()
         super.stop()
     }
 
@@ -111,6 +118,7 @@ class CustomCampfireController : ToggleableListener() {
                 campfire.setCookTime(slot, 0)
                 progress[slot] = 0
                 spawnCookEffects(world, location)
+                grantRewards(location, slot, recipe.rewards)
                 dirty = true
             } else {
                 progress[slot] = advanced
@@ -129,13 +137,14 @@ class CustomCampfireController : ToggleableListener() {
             .firstOrNull { it.cook == SmeltingCookType.CAMPFIRE && it.input.matchesType(item) }
         if (registryRecipe != null) {
             val result = registryRecipe.result.generate() ?: return null
-            return CampfireResult(result, registryRecipe.time)
+            return CampfireResult(result, registryRecipe.time, registryRecipe.rewards)
         }
 
         val blueprint = blueprint(item)
         if (blueprint is FishBlueprint) {
             val rarity = blueprint.getRarity(item)
-            return CampfireResult(ItemService.generate(FishTeardown.essenceFor(rarity)), FishTeardown.cookTimeTicks(rarity))
+            // Fish teardown is dynamic (not a registry recipe), so it carries no configurable rewards.
+            return CampfireResult(ItemService.generate(FishTeardown.essenceFor(rarity)), FishTeardown.cookTimeTicks(rarity), RecipeRewards())
         }
         return null
     }
@@ -182,6 +191,7 @@ class CustomCampfireController : ToggleableListener() {
 
         consumeFromHand(event.player, handSlot)
         track(block.location)
+        placers.getOrPut(block.location) { arrayOfNulls(CAMPFIRE_SLOTS) }[slot] = event.player.uniqueId
         block.world.playSound(block.location, Sound.BLOCK_CAMPFIRE_CRACKLE, 1f, 1f)
         if (handSlot == EquipmentSlot.HAND) event.player.swingMainHand() else event.player.swingOffHand()
     }
@@ -251,9 +261,9 @@ class CustomCampfireController : ToggleableListener() {
         val world = event.world
         val chunkX = event.chunk.x
         val chunkZ = event.chunk.z
-        cookProgress.keys.removeIf {
-            it.world == world && (it.blockX shr 4) == chunkX && (it.blockZ shr 4) == chunkZ
-        }
+        val inChunk = { loc: Location -> loc.world == world && (loc.blockX shr 4) == chunkX && (loc.blockZ shr 4) == chunkZ }
+        cookProgress.keys.removeIf(inChunk)
+        placers.keys.removeIf(inChunk)
     }
 
     // ---------------------------------------------------------------------------------------------------
@@ -270,6 +280,15 @@ class CustomCampfireController : ToggleableListener() {
     private fun dropResult(world: World, location: Location, result: ItemStack) {
         val drop = location.toCenterLocation().add(0.0, DROP_HEIGHT, 0.0)
         world.dropItem(drop, result) { it.velocity = Vector(0.0, DROP_UPWARD_VELOCITY, 0.0) }
+    }
+
+    /** Grant a completed slot's rewards to the player who placed it (if still online), then clear the placer. */
+    private fun grantRewards(location: Location, slot: Int, rewards: RecipeRewards) {
+        val placerId = placers[location]?.getOrNull(slot)
+        placers[location]?.set(slot, null)
+        if (rewards.isEmpty || placerId == null) return
+        val placer = Bukkit.getPlayer(placerId) ?: return
+        rewards.grant(placer, SkillExperienceGainEvent.ExperienceSource.COOK)
     }
 
     private fun spawnCookEffects(world: World, location: Location) {
