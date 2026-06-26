@@ -52,10 +52,11 @@ class CommandRecipes : ICommand {
     private fun executeExport(ctx: CommandContext<CommandSourceStack>): Int {
         val service = SMPRPG.getService(RecipeService::class.java)
         try {
+            val bundled = service.exportBundledRecipes()
             val compression = service.exportCompressionRecipes()
             val enchanting = service.exportEnchantingRecipes()
             ctx.source.sender.sendMessage(
-                ComponentUtils.success("Exported $compression compression + $enchanting enchanting recipes to recipes/. Run /smprpg recipes reload to load them as YAML.")
+                ComponentUtils.success("Exported $bundled bundled (overwritten) + $compression compression + $enchanting enchanting recipes to recipes/. Run /smprpg recipes reload to apply.")
             )
         } catch (e: Exception) {
             ctx.source.sender.sendMessage(ComponentUtils.error("Export failed: ${e.message}"))

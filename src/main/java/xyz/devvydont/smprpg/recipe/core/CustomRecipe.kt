@@ -36,6 +36,13 @@ data class ShapedRecipe(
     val keyMap: Map<Char, Ingredient>,
     val result: RecipeOutput,
     override val unlockedBy: List<ItemIdentifier> = emptyList(),
+    /**
+     * The pattern character of the "upgrade" ingredient, if this is an upgrade recipe. The actual item in
+     * that single slot has its data (enchantments, reforges, stored contents, ...) transferred to the result
+     * instead of producing a fresh one. Null for ordinary recipes. Validated at load to occupy one slot of
+     * amount 1.
+     */
+    val upgradeChar: Char? = null,
 ) : CustomRecipe {
     override val station: RecipeStationType get() = RecipeStationType.CRAFTING_TABLE
     override val ingredients: List<Ingredient> get() = keyMap.values.toList()
@@ -50,6 +57,12 @@ data class ShapelessRecipe(
     override val ingredients: List<Ingredient>,
     val result: RecipeOutput,
     override val unlockedBy: List<ItemIdentifier> = emptyList(),
+    /**
+     * The identifier of the "upgrade" ingredient, if this is an upgrade recipe; the matching item in the grid
+     * has its data transferred to the result. Null for ordinary recipes. Validated at load to be a single
+     * ingredient of amount 1.
+     */
+    val upgradeIngredient: ItemIdentifier? = null,
 ) : CustomRecipe {
     override val station: RecipeStationType get() = RecipeStationType.CRAFTING_TABLE
     override val outputs: List<RecipeOutput> get() = listOf(result)

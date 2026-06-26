@@ -104,13 +104,52 @@ object RecipeLoader {
             keyMap[charKey[0]] = ingredient
         }
         val result = RecipeOutput.deserialize(normalize(section.get("result"))) ?: return null
-        return ShapedRecipe(key, pattern, keyMap, result, unlockedBy(section))
+        val upgradeChar = parseShapedUpgrade(section, pattern, keyMap)
+        return ShapedRecipe(key, pattern, keyMap, result, unlockedBy(section), upgradeChar)
+    }
+
+    /**
+     * Resolve and validate the optional `upgrade:` field of a shaped recipe: the named character must be a
+     * defined ingredient, occupy exactly one grid slot, and require amount 1 (you can only transfer data from
+     * a single item). Throws if the designation is invalid so the file is skipped with a clear message.
+     */
+    private fun parseShapedUpgrade(
+        section: ConfigurationSection,
+        pattern: List<String>,
+        keyMap: Map<Char, Ingredient>,
+    ): Char? {
+        val raw = section.getString("upgrade")?.trim()?.takeIf { it.isNotEmpty() } ?: return null
+        require(raw.length == 1) { "upgrade must be a single ingredient character, got '$raw'." }
+        val upgradeChar = raw[0]
+        val ingredient = keyMap[upgradeChar]
+            ?: throw IllegalArgumentException("upgrade '$upgradeChar' is not a defined ingredient.")
+        val occurrences = pattern.sumOf { row -> row.count { it == upgradeChar } }
+        require(occurrences == 1) { "upgrade '$upgradeChar' must occupy exactly one slot, found $occurrences." }
+        require(ingredient.amount == 1) { "upgrade '$upgradeChar' must require amount 1, got ${ingredient.amount}." }
+        return upgradeChar
     }
 
     private fun parseShapeless(key: NamespacedKey, section: ConfigurationSection): CustomRecipe? {
         val ingredients = ingredientList(section, "ingredients") ?: return null
         val result = RecipeOutput.deserialize(normalize(section.get("result"))) ?: return null
-        return ShapelessRecipe(key, ingredients, result, unlockedBy(section))
+        val upgradeIngredient = parseShapelessUpgrade(section, ingredients)
+        return ShapelessRecipe(key, ingredients, result, unlockedBy(section), upgradeIngredient)
+    }
+
+    /**
+     * Resolve and validate the optional `upgrade:` field of a shapeless recipe: the named item must be a
+     * single ingredient of amount 1. Throws on an invalid designation so the file is skipped with a message.
+     */
+    private fun parseShapelessUpgrade(
+        section: ConfigurationSection,
+        ingredients: List<Ingredient>,
+    ): ItemIdentifier? {
+        val raw = section.getString("upgrade")?.trim()?.takeIf { it.isNotEmpty() } ?: return null
+        val identifier = ItemIdentifier.parse(raw)
+        val matches = ingredients.filter { it.identifier == identifier }
+        require(matches.size == 1) { "upgrade '$raw' must match exactly one ingredient, found ${matches.size}." }
+        require(matches.first().amount == 1) { "upgrade '$raw' must require amount 1, got ${matches.first().amount}." }
+        return identifier
     }
 
     private fun parseSmelting(key: NamespacedKey, section: ConfigurationSection): CustomRecipe? {

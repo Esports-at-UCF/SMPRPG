@@ -40,31 +40,34 @@ object CraftingRecipeMatcher {
                 is ShapelessRecipe -> matchShapeless(grid, recipe)
                 else -> null
             } ?: continue
-            return Match(applyTransmute(grid, match.result), match.consumption)
+            return match
         }
         return null
     }
 
     /**
-     * If the grid holds exactly one "transmutable" item (one that differs from a fresh copy of itself — i.e. it
-     * carries enchantments or a reforge), upgrade THAT item into the recipe result rather than producing a fresh
-     * one, preserving its data. This is how enchanted/reforged custom items are upgraded through crafting.
+     * Build the result for an upgrade recipe: transfer the data of the item in the designated [sourceCell]
+     * (enchantments, reforges, stored contents, ...) onto the recipe result, then normalize the stack count to
+     * the recipe's output amount. Returns the fresh [result] unchanged when there is no upgrade source.
      */
-    private fun applyTransmute(grid: List<ItemStack?>, result: ItemStack): ItemStack {
-        val transmutables = grid.filterNotNull().filter { occupied(it) && !it.isSimilar(ItemService.clean(it)) }
-        if (transmutables.size != 1) return result
-        return ItemService.transmute(transmutables.first(), ItemService.blueprint(result))
+    private fun upgradeResult(grid: List<ItemStack?>, sourceCell: Int?, result: ItemStack): ItemStack {
+        val source = sourceCell?.let { grid[it] } ?: return result
+        val upgraded = ItemService.transmute(source, ItemService.blueprint(result))
+        upgraded.amount = result.amount
+        return upgraded
     }
 
     private fun matchShaped(grid: List<ItemStack?>, recipe: ShapedRecipe): Match? {
-        // Expand the pattern into a 3x3 grid of ingredients (null = empty cell).
+        // Expand the pattern into a 3x3 grid of ingredients (null = empty cell), tracking each cell's character.
         val pattern = arrayOfNulls<Ingredient>(9)
+        val patternChars = arrayOfNulls<Char>(9)
         for (r in recipe.pattern.indices) {
             val row = recipe.pattern[r]
             for (c in row.indices) {
                 val ch = row[c]
                 if (ch == ' ') continue
                 pattern[r * 3 + c] = recipe.keyMap[ch] ?: return null
+                patternChars[r * 3 + c] = ch
             }
         }
 
@@ -73,6 +76,7 @@ object CraftingRecipeMatcher {
         if (patternBox.height != gridBox.height || patternBox.width != gridBox.width) return null
 
         val consumption = HashMap<Int, Int>()
+        var upgradeCell: Int? = null
         for (dr in 0 until patternBox.height) {
             for (dc in 0 until patternBox.width) {
                 val patternCell = (patternBox.minR + dr) * 3 + (patternBox.minC + dc)
@@ -85,12 +89,13 @@ object CraftingRecipeMatcher {
                     if (!occupied(stack)) return null
                     if (!ingredient.matchesType(stack!!) || stack.amount < ingredient.amount) return null
                     consumption[gridCell] = ingredient.amount
+                    if (patternChars[patternCell] == recipe.upgradeChar) upgradeCell = gridCell
                 }
             }
         }
 
         val result = recipe.result.generate() ?: return null
-        return Match(result, consumption)
+        return Match(upgradeResult(grid, upgradeCell, result), consumption)
     }
 
     private fun matchShapeless(grid: List<ItemStack?>, recipe: ShapelessRecipe): Match? {
@@ -114,7 +119,8 @@ object CraftingRecipeMatcher {
         if ((0..8).any { available[it] > 0 }) return null
 
         val result = recipe.result.generate() ?: return null
-        return Match(result, consumption)
+        val upgradeCell = recipe.upgradeIngredient?.let { id -> consumption.keys.firstOrNull { id.matches(grid[it]!!) } }
+        return Match(upgradeResult(grid, upgradeCell, result), consumption)
     }
 
     private fun matchVanilla(grid: List<ItemStack?>, world: World): Match? {

@@ -22,7 +22,6 @@ import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemRarity
 import xyz.devvydont.smprpg.items.blueprints.fishing.FishBlueprint
-import xyz.devvydont.smprpg.listeners.crafting.CraftingTransmuteUpgradeFix
 import xyz.devvydont.smprpg.listeners.crafting.CustomCampfireController
 import xyz.devvydont.smprpg.listeners.crafting.CustomFurnaceController
 import net.momirealms.craftengine.core.util.Key
@@ -78,9 +77,9 @@ class RecipeService : IService, Listener {
         registry = RecipeLoader.load()
         registerCompressionRecipes()
         registerCraftingRecipes()
+        Bukkit.updateRecipes()
 
         // Start listeners.
-        listeners.add(CraftingTransmuteUpgradeFix())
         listeners.add(CustomFurnaceController())
         listeners.add(CustomCampfireController())
         for (listener in listeners)
@@ -96,8 +95,11 @@ class RecipeService : IService, Listener {
         registry = RecipeLoader.load()
         registerCompressionRecipes()
         registerCraftingRecipes()
-        // Furnace smelting is driven live by CustomFurnaceController, which reads the swapped-in registry
-        // each tick, so a reload needs no furnace re-registration.
+        // A single resync after all the quiet add/remove calls, so online players' recipe books update with
+        // one packet instead of one per recipe (which previously flooded clients into a packet-limit kick).
+        // Furnace smelting is driven live by CustomFurnaceController, which reads the swapped-in registry each
+        // tick, so a reload needs no furnace re-registration.
+        Bukkit.updateRecipes()
         SMPRPG.plugin.logger.info("Reloaded custom recipe registry (${registry.size} recipes).")
     }
 
@@ -169,15 +171,32 @@ class RecipeService : IService, Listener {
     }
 
     /**
-     * Seed every bundled recipe file into the data folder on first run only. We copy every recipe file
-     * under the jar's recipes directory, so adding a new bundled recipe needs no extra bookkeeping.
-     * We only seed when the recipes folder does not yet exist, so admin edits — and deletions — are
-     * respected on later restarts.
+     * Seed every bundled recipe file into the data folder on first run only. We only seed when the recipes
+     * folder does not yet exist, so admin edits — and deletions — are respected on later restarts.
      */
     private fun saveDefaultRecipes() {
         val dir = File(SMPRPG.plugin.dataFolder, "recipes")
         if (dir.exists())
             return
+        copyBundledRecipes(overwrite = false)
+    }
+
+    /**
+     * Force every bundled recipe file from the jar back into the data folder, overwriting existing copies.
+     * Unlike [saveDefaultRecipes], this ignores whether the folder already exists, so it refreshes the
+     * hand-authored recipes (shaped/smelting/etc.) to match the current build — the counterpart of
+     * [exportCompressionRecipes]/[exportEnchantingRecipes] for the file-authored recipe types.
+     * @return the number of files written.
+     */
+    fun exportBundledRecipes(): Int = copyBundledRecipes(overwrite = true)
+
+    /**
+     * Copy every recipe file under the jar's `recipes/` directory into the data folder. With [overwrite] off,
+     * existing files are left untouched (first-run seeding); with it on, they are replaced.
+     * @return the number of files copied.
+     */
+    private fun copyBundledRecipes(overwrite: Boolean): Int {
+        var count = 0
         try {
             val jar = File(SMPRPG.plugin.javaClass.protectionDomain.codeSource.location.toURI())
             JarFile(jar).use { jf ->
@@ -187,15 +206,17 @@ class RecipeService : IService, Listener {
                     if (!name.startsWith("recipes/")) continue
                     if (!name.endsWith(".yml") && !name.endsWith(".yaml")) continue
                     try {
-                        SMPRPG.plugin.saveResource(name, false)
+                        SMPRPG.plugin.saveResource(name, overwrite)
+                        count++
                     } catch (e: IllegalArgumentException) {
                         // Shouldn't happen for a jar entry we just enumerated; ignore defensively.
                     }
                 }
             }
         } catch (e: Exception) {
-            SMPRPG.plugin.logger.warning("Could not seed default recipe files: ${e.message}")
+            SMPRPG.plugin.logger.warning("Could not copy bundled recipe files: ${e.message}")
         }
+        return count
     }
 
     override fun cleanup() {
@@ -210,8 +231,9 @@ class RecipeService : IService, Listener {
      * removed first so this is safe to call again on reload, and both recipes are unlocked by the chain root.
      */
     private fun registerCompressionRecipes() {
+        // Mutate quietly (no per-recipe client resend); callers resync once via Bukkit.updateRecipes().
         for (key in registeredCompressionKeys)
-            Bukkit.removeRecipe(key)
+            Bukkit.removeRecipe(key, false)
         registeredCompressionKeys.clear()
 
         val itemService = SMPRPG.getService(ItemService::class.java)
@@ -243,14 +265,13 @@ class RecipeService : IService, Listener {
             decompress.category = CraftingBookCategory.MISC
             decompress.group = group
 
-            if (Bukkit.addRecipe(compress)) registeredCompressionKeys.add(compressKey)
-            if (Bukkit.addRecipe(decompress)) registeredCompressionKeys.add(decompressKey)
+            if (Bukkit.addRecipe(compress, false)) registeredCompressionKeys.add(compressKey)
+            if (Bukkit.addRecipe(decompress, false)) registeredCompressionKeys.add(decompressKey)
             if (rootStack != null) {
                 itemService.addRecipeUnlock(rootStack, compressKey)
                 itemService.addRecipeUnlock(rootStack, decompressKey)
             }
         }
-        Bukkit.updateRecipes()
     }
 
     /** Custom items must match exactly (shared base materials are ambiguous); vanilla items match by material. */
@@ -265,8 +286,9 @@ class RecipeService : IService, Listener {
      * in the custom menu). Removed and re-added on reload, and unlocked by each recipe's `unlocked_by` items.
      */
     private fun registerCraftingRecipes() {
+        // Mutate quietly (no per-recipe client resend); callers resync once via Bukkit.updateRecipes().
         for (key in registeredCraftingKeys)
-            Bukkit.removeRecipe(key)
+            Bukkit.removeRecipe(key, false)
         registeredCraftingKeys.clear()
 
         val itemService = SMPRPG.getService(ItemService::class.java)
@@ -298,14 +320,13 @@ class RecipeService : IService, Listener {
                 else -> continue
             }
 
-            if (Bukkit.addRecipe(bukkit))
+            if (Bukkit.addRecipe(bukkit, false))
                 registeredCraftingKeys.add(key)
             for (unlock in recipe.unlockedBy) {
                 val stack = itemService.resolveIdentifier(unlock.asString()) ?: continue
                 itemService.addRecipeUnlock(stack, key)
             }
         }
-        Bukkit.updateRecipes()
     }
 
     /** Resolve a recipe choice for a crafting ingredient: exact for custom items, material for vanilla. */
