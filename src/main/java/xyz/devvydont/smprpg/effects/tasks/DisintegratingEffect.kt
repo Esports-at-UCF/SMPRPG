@@ -125,6 +125,7 @@ class DisintegratingEffect(service: SpecialEffectService, player: Player, second
             .location(player.eyeLocation)
             .offset(.1, .1, .1)
             .count(5)
+            .data(1.0f)  // DRAGON_BREATH now requires a Float ("power of the breath") in newer MC
             .spawn()
         ses.giveEffect(player, HollowedEffect(ses, player, 10))
     }

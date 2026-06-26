@@ -188,6 +188,18 @@ public class FishHookBehaviorTask extends BukkitRunnable {
     private HookEffectOptions options = DEFAULT_OPTIONS;
 
     /**
+     * Supplies default data for particles that require it. Newer MC versions force certain particles (e.g.
+     * {@link Particle#DRAGON_BREATH}) to carry a Float, otherwise spawning them throws
+     * "missing required data class java.lang.Float". Since the configured fishing particle can be any type, we apply
+     * a sane default only when the particle expects a Float.
+     */
+    private static ParticleBuilder withRequiredData(ParticleBuilder builder) {
+        if (builder.particle().getDataType() == Float.class)
+            builder.data(1.0f);
+        return builder;
+    }
+
+    /**
      * The anchor represents the "anchor" point of the hook. When the hook finds a valid point to attach to,
      * it will bob up and down on this point. Null until the hook finds a valid spot to anchor itself.
      */
@@ -460,7 +472,7 @@ public class FishHookBehaviorTask extends BukkitRunnable {
         if (!this.options.Predicate().check(loc.clone().subtract(0, 1, 0)))
             return;
 
-        new ParticleBuilder(getOptionsFromCurrentState().FishParticle())
+        withRequiredData(new ParticleBuilder(getOptionsFromCurrentState().FishParticle()))
                 .location(loc)
                 .receivers(25)
                 .extra(0)
@@ -601,7 +613,7 @@ public class FishHookBehaviorTask extends BukkitRunnable {
         this.hookMount.teleport(this.anchor.clone().add(0, yOffset, 0));
 
         // Spawn in some random particles around us.
-        new ParticleBuilder(getOptionsFromCurrentState().IdleParticle())
+        withRequiredData(new ParticleBuilder(getOptionsFromCurrentState().IdleParticle()))
                 .location(hook.getLocation().add(0, .5, 0))
                 .receivers(25)
                 .offset(2, 0, 2)
@@ -649,7 +661,7 @@ public class FishHookBehaviorTask extends BukkitRunnable {
         if (hookMount == null)
             return;
 
-        new ParticleBuilder(getOptionsFromCurrentState().CatchParticle())
+        withRequiredData(new ParticleBuilder(getOptionsFromCurrentState().CatchParticle()))
                 .location(hook.getLocation().add(0, .5, 0))
                 .receivers(25)
                 .offset(.25, 0, .25)
