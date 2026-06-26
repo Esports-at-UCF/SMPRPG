@@ -34,7 +34,7 @@ class MenuCraftingTable(player: Player) : MenuBase(player, ROWS) {
     }
 
     private fun render() {
-        setBorderFull()
+        setBorderFullForced()  // Remove Forced when UI is made. UI does not look good w/o a UI resource
         for (slot in GRID_SLOTS)
             clearSlot(slot)
         refreshResult()

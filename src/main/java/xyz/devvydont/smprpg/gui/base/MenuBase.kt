@@ -400,6 +400,15 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
         this.setSlots(BORDER_NORMAL)
     }
 
+    /**
+     * Creates a border which covers every slot in the menus inventory, forcing the menu
+     * to use black stained glass panes that don't respect the resource pack's override.
+     * This can be swapped out for setBorderFull() when a UI is made in the resource pack.
+     */
+    protected fun setBorderFullForced() {
+        this.setSlots(BORDER_FORCED)
+    }
+
 
     /**
      * Plays an animation which signifies the user performed a valid operation.
@@ -538,8 +547,38 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
         // -----------
         //   Presets
         // -----------
+
+        /**
+         * A border that doesn't use the resource pack's invisible texture override to make the slot appear empty.
+         * This is used for slots that are intentionally left empty, but should not be interacted with.
+         * We can use this variant of the border if a UI isn't made yet so we need the legacy black glass to fill the void.
+         */
+        @JvmField
+        protected val BORDER_FORCED: ItemStack = createNamedItem(Material.BLACK_STAINED_GLASS_PANE, Component.text(""))
+
+        /**
+         * The default border for filler/non-interactive slots.
+         *
+         * Backed by black stained glass, but the resource pack overrides its item model with `smprpg:empty`
+         * (which resolves to `minecraft:empty`), so the client renders nothing at all. The slot therefore looks
+         * completely empty while still occupying the slot to block interaction. Its tooltip is also hidden.
+         *
+         * Use this for the "blank space" around a menu's content. Visually it differs from [BORDER_VOID] only in
+         * that this one is invisible, whereas [BORDER_VOID] shows a styled void-slot texture.
+         */
         @JvmField
         protected val BORDER_NORMAL: ItemStack = createNamedItem(Material.BLACK_STAINED_GLASS_PANE, Component.text(""))
+
+        /**
+         * A decorative, intentionally-visible filler for "void" slots.
+         *
+         * Backed by black stained glass, but the resource pack overrides its item model with `smprpg:ui/void_slot`,
+         * so the client renders a custom void-slot texture instead of nothing. Its tooltip is also hidden.
+         *
+         * Use this when an empty slot should be clearly shown as a deliberate void (e.g. an inactive/locked region)
+         * rather than blending in. The only difference from [BORDER_NORMAL] is the rendered appearance: this one
+         * draws a void-slot graphic, while [BORDER_NORMAL] draws nothing.
+         */
         @JvmField
         protected val BORDER_VOID: ItemStack = createNamedItem(Material.BLACK_STAINED_GLASS_PANE, Component.text(""))
         @JvmStatic
@@ -556,6 +595,7 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
             createNamedItem(Material.BARRIER, Component.text("Exit", NamedTextColor.RED))
 
         init {
+            BORDER_FORCED.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().hideTooltip(true))
             BORDER_NORMAL.setData(DataComponentTypes.ITEM_MODEL, Key.key("smprpg:empty"))
             BORDER_NORMAL.setData(DataComponentTypes.TOOLTIP_DISPLAY,
                 TooltipDisplay.tooltipDisplay().hideTooltip(true).build());
