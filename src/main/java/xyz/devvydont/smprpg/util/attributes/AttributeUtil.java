@@ -21,6 +21,7 @@ import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.AttributeModifierType;
 import xyz.devvydont.smprpg.items.attribute.IAttributeContainer;
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.augment.BookOfBounties;
 import xyz.devvydont.smprpg.items.blueprints.augment.HotPotatoBook;
 import xyz.devvydont.smprpg.items.interfaces.IAttributeItem;
 import xyz.devvydont.smprpg.reforge.ReforgeBase;
@@ -213,6 +214,28 @@ public class AttributeUtil {
                     );
                 }
             }
+        }
+
+        // Bounty Books
+        int bountyBooks = item.getPersistentDataContainer().getOrDefault(BookOfBounties.Companion.getBOUNTY_BOOK_KEY(), PersistentDataType.INTEGER, 0);
+        if (bountyBooks > 0) {
+            AttributeWrapper wrapper;
+            var bonus = 5.0;
+            System.out.println(blueprint.getItemClassification());
+            switch (blueprint.getItemClassification()) {
+                case PICKAXE, DRILL: { wrapper = AttributeWrapper.MINING_FORTUNE; break; }
+                case HOE: { wrapper = AttributeWrapper.FARMING_FORTUNE; break; }
+                case AXE, HATCHET: { wrapper = AttributeWrapper.WOODCUTTING_FORTUNE; break; }
+                default: {
+                    wrapper = AttributeWrapper.LUCK;
+                    bonus = 2.0;
+                }
+            }
+            var bountyEntry = AttributeEntry.additive(wrapper, bonus * bountyBooks);
+            modifiers.put(
+                    wrapper,
+                    new SourcedAttributeModifier(bountyEntry.asModifier(AttributeModifierType.AUGMENT.keyForItem(nameKey), attributeItem.getActiveSlot()), AttributeModifierType.AUGMENT)
+            );
         }
 
         return modifiers;

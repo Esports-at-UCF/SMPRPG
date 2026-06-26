@@ -1,5 +1,6 @@
 package xyz.devvydont.smprpg.gui.anvil
 
+import xyz.devvydont.smprpg.gui.anvil.operations.BountyBookOperation
 import xyz.devvydont.smprpg.gui.anvil.operations.HotPotatoBookOperation
 import xyz.devvydont.smprpg.gui.anvil.operations.MaterialRepairOperation
 import xyz.devvydont.smprpg.gui.anvil.operations.NecronomiconExcerptOperation
@@ -23,6 +24,7 @@ object AnvilOperations {
         MaterialRepairOperation,
         NecronomiconExcerptOperation,
         HotPotatoBookOperation,
+        BountyBookOperation,
         ReforgeStoneOperation,
         RecombobulatorOperation
     )
