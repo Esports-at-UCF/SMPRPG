@@ -23,7 +23,6 @@ abstract class ForsakenArmorSet(itemService: ItemService, type: CustomItemType) 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry> {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.DEFENSE, getDefense().toDouble()),
-            AdditiveAttributeEntry(AttributeWrapper.HEALTH, getHealth().toDouble()),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, getStrength()),
             AdditiveAttributeEntry(AttributeWrapper.KNOCKBACK_RESISTANCE, .25),
             AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, 20.0)

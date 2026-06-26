@@ -30,7 +30,7 @@ public abstract class SlimyArmorSet extends CustomAttributeItem implements IBrea
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                new AdditiveAttributeEntry(AttributeWrapper.HEALTH, getHealth()),
+                new AdditiveAttributeEntry(AttributeWrapper.DEFENSE, getDefense()),
                 new ScalarAttributeEntry(AttributeWrapper.ATTACK_SPEED, .25)
         );
     }

@@ -59,7 +59,7 @@ class HotPotatoBook(itemService: ItemService, type: CustomItemType) : CustomItem
     }
 
     companion object {
-        val HOT_POTATO_BOOK_KEY = NamespacedKey(SMPRPG.plugin, "necronomicon_excerpts_modifier")
+        val HOT_POTATO_BOOK_KEY = NamespacedKey(SMPRPG.plugin, "hot_potato_book_modifier")
         const val MAX_HOT_POTATO_BOOKS = 10
         const val DEFENSE_BONUS = 2
         const val HEALTH_BONUS =  4

@@ -11,13 +11,8 @@ public class HolomokuLeggings extends HolomokuSet {
     }
 
     @Override
-    public int getHealth() {
-        return HolomokuChestplate.HEALTH;
-    }
-
-    @Override
     public int getDefense() {
-        return HolomokuChestplate.DEFENSE - 15;
+        return 80;
     }
 
     /**

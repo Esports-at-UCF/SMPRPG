@@ -1,10 +1,8 @@
 package xyz.devvydont.smprpg.items.blueprints.sets.radiant;
 
-import org.bukkit.Material;
 import org.bukkit.inventory.meta.trim.TrimPattern;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
-import xyz.devvydont.smprpg.items.blueprints.vanilla.ItemArmor;
 import xyz.devvydont.smprpg.services.ItemService;
 
 public class RadiantBoots extends RadiantArmorSet {
@@ -14,13 +12,8 @@ public class RadiantBoots extends RadiantArmorSet {
     }
 
     @Override
-    public double getHealth() {
-        return 15;
-    }
-
-    @Override
     public double getDefense() {
-        return ItemArmor.getDefenseFromMaterial(Material.NETHERITE_BOOTS)-10;
+        return 80;
     }
 
     @Override

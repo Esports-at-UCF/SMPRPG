@@ -14,12 +14,12 @@ public class NocturnumHelmet extends NocturnumSet
 
     @Override
     public int getHealth() {
-        return NocturnumChestplate.HEALTH / 2 + 40;
+        return 165;
     }
 
     @Override
     public int getDefense() {
-        return NocturnumChestplate.DEFENSE / 2 + 40;
+        return 200;
     }
 
     /**

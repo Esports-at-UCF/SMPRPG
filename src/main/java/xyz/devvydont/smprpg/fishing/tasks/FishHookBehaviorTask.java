@@ -18,6 +18,7 @@ import xyz.devvydont.smprpg.fishing.utils.FishingPredicates;
 import xyz.devvydont.smprpg.fishing.utils.HookEffectOptions;
 import xyz.devvydont.smprpg.items.interfaces.IFishingRod;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.particles.ParticleUtil;
 import xyz.devvydont.smprpg.util.persistence.KeyStore;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
@@ -186,6 +187,17 @@ public class FishHookBehaviorTask extends BukkitRunnable {
      * The predicate that this task is going to abide by. This determines what are valid "fishing spots".
      */
     private HookEffectOptions options = DEFAULT_OPTIONS;
+
+    /**
+     * Supplies default data for particles that require it. Newer MC versions force certain particles (e.g.
+     * {@link Particle#DRAGON_BREATH}) to carry data, otherwise spawning them throws
+     * "missing required data class ...". Since the configured fishing particle can be any type, we delegate to the
+     * shared {@link ParticleUtil#withDefaultData(ParticleBuilder)} helper which fills a sane default based on the
+     * particle's runtime data type.
+     */
+    private static ParticleBuilder withRequiredData(ParticleBuilder builder) {
+        return ParticleUtil.withDefaultData(builder);
+    }
 
     /**
      * The anchor represents the "anchor" point of the hook. When the hook finds a valid point to attach to,
@@ -460,7 +472,7 @@ public class FishHookBehaviorTask extends BukkitRunnable {
         if (!this.options.Predicate().check(loc.clone().subtract(0, 1, 0)))
             return;
 
-        new ParticleBuilder(getOptionsFromCurrentState().FishParticle())
+        withRequiredData(new ParticleBuilder(getOptionsFromCurrentState().FishParticle()))
                 .location(loc)
                 .receivers(25)
                 .extra(0)
@@ -601,7 +613,7 @@ public class FishHookBehaviorTask extends BukkitRunnable {
         this.hookMount.teleport(this.anchor.clone().add(0, yOffset, 0));
 
         // Spawn in some random particles around us.
-        new ParticleBuilder(getOptionsFromCurrentState().IdleParticle())
+        withRequiredData(new ParticleBuilder(getOptionsFromCurrentState().IdleParticle()))
                 .location(hook.getLocation().add(0, .5, 0))
                 .receivers(25)
                 .offset(2, 0, 2)
@@ -649,7 +661,7 @@ public class FishHookBehaviorTask extends BukkitRunnable {
         if (hookMount == null)
             return;
 
-        new ParticleBuilder(getOptionsFromCurrentState().CatchParticle())
+        withRequiredData(new ParticleBuilder(getOptionsFromCurrentState().CatchParticle()))
                 .location(hook.getLocation().add(0, .5, 0))
                 .receivers(25)
                 .offset(.25, 0, .25)

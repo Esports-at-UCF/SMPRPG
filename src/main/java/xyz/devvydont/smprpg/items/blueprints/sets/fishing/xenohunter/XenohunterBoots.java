@@ -20,11 +20,11 @@ public class XenohunterBoots extends XenohunterSet {
 
     @Override
     public int getHealth() {
-        return XenohunterChestplate.HEALTH / 2;
+        return 1105;
     }
 
     @Override
     public int getDefense() {
-        return XenohunterChestplate.DEFENSE / 2;
+        return 205;
     }
 }

@@ -12,7 +12,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 class HastyReforge(type: ReforgeType) : ReforgeBase(type) {
     override fun getAttributeModifiersWithRarity(rarity: ItemRarity): List<AttributeEntry> {
         return listOf<AttributeEntry>(
-            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, rarity.ordinal * 100.0),
+            AdditiveAttributeEntry(AttributeWrapper.MINING_SPEED, (rarity.ordinal + 1) * 100.0),
         )
     }
 

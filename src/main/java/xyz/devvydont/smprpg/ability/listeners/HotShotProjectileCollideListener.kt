@@ -1,6 +1,7 @@
 package xyz.devvydont.smprpg.ability.listeners
 
 import com.destroystokyo.paper.ParticleBuilder
+import org.bukkit.ExplosionResult
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.damage.DamageSource
@@ -24,7 +25,7 @@ class HotShotProjectileCollideListener : ToggleableListener() {
      * When the fireball explodes, we need to ensure that it does not damage terrain and also damage nearby entities
      * at a penalty (for missing)
      */
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     @Suppress("unused")
     private fun onFireballExplode(event: EntityExplodeEvent) {
         // If this isn't an inferno projectile we don't care

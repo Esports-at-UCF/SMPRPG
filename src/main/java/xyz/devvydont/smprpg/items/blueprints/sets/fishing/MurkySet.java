@@ -80,10 +80,10 @@ public class MurkySet extends CustomAttributeItem implements ITrimmable, IDyeabl
 
     private int getDefense() {
         return switch (this.getCustomItemType()) {
-            case MURKY_HELMET -> 12;
-            case MURKY_CHESTPLATE -> 20;
-            case MURKY_LEGGINGS -> 15;
-            case MURKY_BOOTS -> 10;
+            case MURKY_HELMET -> 20;
+            case MURKY_CHESTPLATE -> 40;
+            case MURKY_LEGGINGS -> 30;
+            case MURKY_BOOTS -> 15;
             default -> 0;
         };
     }

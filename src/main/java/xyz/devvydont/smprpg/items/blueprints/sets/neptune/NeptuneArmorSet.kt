@@ -31,7 +31,6 @@ abstract class NeptuneArmorSet(itemService: ItemService, type: CustomItemType) :
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry> {
         return mutableListOf(
             AdditiveAttributeEntry(AttributeWrapper.DEFENSE, this.defense.toDouble()),
-            AdditiveAttributeEntry(AttributeWrapper.HEALTH, this.health.toDouble()),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, this.strength / 100.0),
             AdditiveAttributeEntry(AttributeWrapper.OXYGEN_BONUS, OXYGEN_BONUS.toDouble()),
             ScalarAttributeEntry(AttributeWrapper.BURNING_TIME, -.1),
@@ -40,8 +39,6 @@ abstract class NeptuneArmorSet(itemService: ItemService, type: CustomItemType) :
     }
 
     abstract val defense: Int
-
-    abstract val health: Int
 
     abstract val strength: Int
 

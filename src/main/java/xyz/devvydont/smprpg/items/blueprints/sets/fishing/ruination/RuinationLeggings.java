@@ -11,13 +11,8 @@ public class RuinationLeggings extends RuinationSet {
     }
 
     @Override
-    public int getHealth() {
-        return RuinationChestplate.HEALTH - 20;
-    }
-
-    @Override
     public int getDefense() {
-        return RuinationChestplate.DEFENSE - 30;
+        return 150;
     }
 
     /**

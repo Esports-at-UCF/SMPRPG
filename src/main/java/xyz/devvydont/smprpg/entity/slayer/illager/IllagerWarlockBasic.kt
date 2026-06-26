@@ -31,7 +31,7 @@ class IllagerWarlockBasic(entity: LivingEntity?, entityType: CustomEntityType?) 
     override fun updateAttributes() {
         super.updateAttributes()
         updateBaseAttribute(AttributeWrapper.KNOCKBACK_RESISTANCE, 0.8)
-        updateBaseAttribute(AttributeWrapper.DEFENSE, 75.0)
+        updateBaseAttribute(AttributeWrapper.DEFENSE, 50.0)
     }
 
     override fun setup() {

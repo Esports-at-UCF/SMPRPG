@@ -54,6 +54,8 @@ class ToolListeners : ToggleableListener() {
                 CustomItemType.WHEAT_HOE -> cropKeyToMatch = CEKey.of("minecraft:wheat")
                 CustomItemType.POTATO_HOE -> cropKeyToMatch = CEKey.of("minecraft:potatoes")
                 CustomItemType.ONION_HOE -> cropKeyToMatch = CraftEngineBlockEnums.ONION_PLANT.key
+                CustomItemType.CARROT_HOE -> cropKeyToMatch = CEKey.of("minecraft:carrots")
+                CustomItemType.MELON_HOE -> cropKeyToMatch = CEKey.of("minecraft:melon")
                 else -> return
             }
             val ceBlock = BukkitAdaptor.adapt(event.block)
@@ -66,6 +68,9 @@ class ToolListeners : ToggleableListener() {
                         if (data.age == data.maximumAge) {
                             ProgressiveHoeBlueprint.incrementCropProgress(potentialHoe, event.player)
                         }
+                    }
+                    else {
+                        ProgressiveHoeBlueprint.incrementCropProgress(potentialHoe, event.player)
                     }
                 }
                 else {

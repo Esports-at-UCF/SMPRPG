@@ -8,8 +8,7 @@ class EmeraldLeggings(itemService: ItemService, type: CustomItemType) : EmeraldA
 
     override val itemClassification: ItemClassification get() = ItemClassification.LEGGINGS
 
-    override val defense: Double get() = 65.0
-    override val health: Double get() = 30.0
+    override val defense: Double get() = 90.0
 
     override fun getMaxDurability(): Int { return ARMOR_DURABILITY_UNIT * 7 }
 

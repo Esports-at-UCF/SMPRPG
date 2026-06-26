@@ -15,8 +15,7 @@ class CryaxBoots(itemService: ItemService, type: CustomItemType) : CryaxArmorSet
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 85.0),
-            AdditiveAttributeEntry(AttributeWrapper.HEALTH, 15.0),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 95.0),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, .25),
             ScalarAttributeEntry(AttributeWrapper.BURNING_TIME, -.25)
         )

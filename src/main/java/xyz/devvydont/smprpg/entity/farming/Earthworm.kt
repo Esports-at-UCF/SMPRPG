@@ -31,7 +31,7 @@ class Earthworm
         return mutableListOf(
             QuantityLootDrop(generate(CustomItemType.PREMIUM_POTATO), 8, 16, this),
             ChancedItemDrop(generate(CustomItemType.PREMIUM_BAKED_POTATO), 4, this),
-            ChancedItemDrop(generate(CustomItemType.POTATO_SKINS), 10, this),
+            ChancedItemDrop(generate(CustomItemType.POTATO_EYES), 10, this),
             ChancedItemDrop(generate(CustomItemType.SUPER_SOIL), 25, this)
         )
     }

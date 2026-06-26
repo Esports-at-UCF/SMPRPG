@@ -394,8 +394,8 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
      * - 2500 HP = 3 full rows = 60 half-hearts (cap)
      * The scale is calculated in tiers:
      * - Below 100 HP: 1 half-heart per 5 HP
-     * - Between 100–1000 HP: 1 half-heart per 40 HP above 200 (starts from 20)
-     * - Above 1000 HP: 1 half-heart per 75 HP above 1000 (starts from 40)
+     * - Between 100–1000 HP: 1 half-heart per 45 HP above 100 (starts from 20)
+     * - Above 1000 HP: 1 half-heart per 500 HP above 1000 (starts from 40)
      * Always rounded up to the nearest even number (Minecraft only displays full hearts).
      * @return The health scale (number of half-hearts) to display to the client (min 2, max 60).
      */
@@ -406,7 +406,7 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         if (hp < 100) {
             scale = Math.round(hp / 5f); // 20 at 100 HP
         } else if (hp < 1000) {
-            scale = 20 + Math.round((hp - 100) / 40f); // 40 at 1000 HP
+            scale = 20 + Math.round((hp - 100) / 45f); // 40 at 1000 HP
         } else {
             scale = 40 + Math.round((hp - 1000) / 500f); // Half heart every 500HP
         }
@@ -415,7 +415,7 @@ public class LeveledPlayer extends LeveledEntity<Player> implements Listener {
         if (scale % 2 != 0)
             scale--;
 
-        return Math.min(Math.max(2, scale), 60);
+        return Math.clamp(scale, 2, 60);
     }
 
     /**

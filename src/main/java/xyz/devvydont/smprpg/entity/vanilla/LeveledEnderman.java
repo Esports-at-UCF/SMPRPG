@@ -68,7 +68,6 @@ public class LeveledEnderman extends VanillaEntity<Enderman> implements Listener
             drops.add(new ChancedItemDrop(ItemService.generate(CustomItemType.UNSTABLE_CHESTPLATE), 500, this));
             drops.add(new ChancedItemDrop(ItemService.generate(CustomItemType.UNSTABLE_LEGGINGS), 500, this));
             drops.add(new ChancedItemDrop(ItemService.generate(CustomItemType.UNSTABLE_BOOTS), 500, this));
-            drops.add(new ChancedItemDrop(ItemService.generate(CustomItemType.BOOK_OF_SHADOWS), 1500, this));
         }
 
         return drops;

@@ -15,8 +15,7 @@ class CryaxChestplate(itemService: ItemService, type: CustomItemType) : CryaxArm
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 175.0),
-            AdditiveAttributeEntry(AttributeWrapper.HEALTH, 30.0),
+            AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 220.0),
             ScalarAttributeEntry(AttributeWrapper.STRENGTH, .35),
             ScalarAttributeEntry(AttributeWrapper.BURNING_TIME, -.25)
         )

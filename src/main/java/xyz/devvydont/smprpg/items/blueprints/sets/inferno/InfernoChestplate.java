@@ -15,8 +15,8 @@ import java.util.List;
 
 public class InfernoChestplate extends InfernoArmorSet {
 
-    public static final int DEFENSE = 240;
-    public static final int HEALTH = 40;
+    public static final int DEFENSE = 280;
+    public static final int HEALTH = 30;
     public static final double STRENGTH = 0.5;
 
     public InfernoChestplate(ItemService itemService, CustomItemType type) {

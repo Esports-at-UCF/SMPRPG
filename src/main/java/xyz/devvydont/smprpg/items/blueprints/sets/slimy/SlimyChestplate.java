@@ -16,8 +16,8 @@ public class SlimyChestplate extends SlimyArmorSet implements IDyeable, ITrimmab
     }
 
     @Override
-    public int getHealth() {
-        return 60;
+    public int getDefense() {
+        return 95;
     }
 
     @Override

@@ -144,7 +144,14 @@ class DamageAuraAbilityHandler : AbilityHandler {
                         location.world.playSound(location, Sound.BLOCK_FIRE_EXTINGUISH, 1f, 2f)
                         this.cancel()
                     }
-}
+                }
+
+                override fun cancel() {
+                    super.cancel()
+                    // Always clean up the visual entity when the task ends, otherwise it lingers forever.
+                    if (display.isValid)
+                        display.remove()
+                }
             }.runTaskTimer(plugin, TickTime.INSTANTANEOUSLY, TickTime.INSTANTANEOUSLY)
         }
     }

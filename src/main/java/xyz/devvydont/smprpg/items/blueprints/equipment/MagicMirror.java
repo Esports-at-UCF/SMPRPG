@@ -311,6 +311,7 @@ public class MagicMirror extends CustomItemBlueprint implements IConsumable, Lis
                 .offset(.75, .1, .75)
                 .count(25)
                 .extra(0)
+                .data(1.0f)  // DRAGON_BREATH now requires a Float ("power of the breath") in newer MC
                 .spawn();
         event.getPlayer().teleport(getLocation(event.getPlayer(), mirror.getMode(event.getItem())));
         event.getPlayer().getWorld().playSound(event.getPlayer().getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 1, 2f);
@@ -319,6 +320,7 @@ public class MagicMirror extends CustomItemBlueprint implements IConsumable, Lis
                 .offset(.75, .1, .75)
                 .count(25)
                 .extra(0)
+                .data(1.0f)  // DRAGON_BREATH now requires a Float ("power of the breath") in newer MC
                 .spawn();
         player = SMPRPG.getService(EntityService.class).getPlayerInstance(event.getPlayer());
         player.useMana((int) player.getMana());

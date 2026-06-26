@@ -20,6 +20,7 @@ import xyz.devvydont.smprpg.reforge.ReforgeBase
 import xyz.devvydont.smprpg.reforge.ReforgeType
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
+import xyz.devvydont.smprpg.util.particles.ParticleUtil
 
 
 class SirenicReforge(type: ReforgeType) : ReforgeBase(type), Listener {
@@ -113,7 +114,7 @@ class SirenicReforge(type: ReforgeType) : ReforgeBase(type), Listener {
         event.isCancelled = true
         entity.noDamageTicks = 20
         event.getEntity().world.playSound(event.getEntity().location, Sound.ENTITY_BREEZE_DEATH, 1f, 1.5f)
-        ParticleBuilder(Particle.FLASH)
+        ParticleUtil.withDefaultData(ParticleBuilder(Particle.FLASH))
             .location(event.getEntity().location.add(0.0, 1.0, 0.0))
             .spawn()
     }

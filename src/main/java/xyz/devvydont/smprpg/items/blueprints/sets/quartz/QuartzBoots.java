@@ -18,7 +18,7 @@ public class QuartzBoots extends QuartzArmorSet implements IDyeable {
 
     @Override
     public int getDefense() {
-        return ItemArmor.getDefenseFromMaterial(Material.DIAMOND_BOOTS) / 2;
+        return 50;
     }
 
     @Override

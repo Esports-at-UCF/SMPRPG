@@ -339,7 +339,7 @@ enum class AttributeWrapper @JvmOverloads constructor(
         AttributeType.HELPFUL,
         ComponentUtils.merge(
             ComponentUtils.create("Affects the amount of drops received from "),
-            ComponentUtils.create("farming potato", NamedTextColor.GOLD),
+            ComponentUtils.create("farming potatoes", NamedTextColor.GOLD),
             ComponentUtils.create(".")
         )
     ),
@@ -351,6 +351,28 @@ enum class AttributeWrapper @JvmOverloads constructor(
         ComponentUtils.merge(
             ComponentUtils.create("Affects the amount of drops received from "),
             ComponentUtils.create("farming onion", NamedTextColor.GOLD),
+            ComponentUtils.create(".")
+        )
+    ),
+
+    CARROT_FORTUNE(
+        "Carrot Yield",
+        AttributeCategory.FORAGING,
+        AttributeType.HELPFUL,
+        ComponentUtils.merge(
+            ComponentUtils.create("Affects the amount of drops received from "),
+            ComponentUtils.create("farming carrots", NamedTextColor.GOLD),
+            ComponentUtils.create(".")
+        )
+    ),
+
+    MELON_FORTUNE(
+        "Melon Yield",
+        AttributeCategory.FORAGING,
+        AttributeType.HELPFUL,
+        ComponentUtils.merge(
+            ComponentUtils.create("Affects the amount of drops received from "),
+            ComponentUtils.create("farming melons", NamedTextColor.GOLD),
             ComponentUtils.create(".")
         )
     ),

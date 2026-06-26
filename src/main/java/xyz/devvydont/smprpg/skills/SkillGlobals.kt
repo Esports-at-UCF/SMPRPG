@@ -145,6 +145,7 @@ object SkillGlobals {
     // Typically, we give HP for every skill, every certain amount of levels. Define that here.
     const val HP_LEVEL_FREQUENCY: Int = 5
     const val HP_PER_5_LEVELS: Double = 2.0
+    const val HP_PER_LEVEL: Double = 2.0
 
     // The combat skill improves some damage related attributes.
     const val STR_PER_LEVEL: Double = 5.0

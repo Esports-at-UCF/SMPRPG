@@ -15,8 +15,8 @@ public class SlimyHelmet extends SlimyArmorSet implements IBreakableEquipment, I
         super(itemService, type);
     }
 
-    public int getHealth() {
-        return 40;
+    public int getDefense() {
+        return 55;
     }
 
     @Override

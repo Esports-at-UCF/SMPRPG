@@ -33,7 +33,7 @@ class AbominationBoots(itemService: ItemService, type: CustomItemType) : Abomina
 
     override fun getAttributeModifiers(item: ItemStack): MutableCollection<AttributeEntry?> {
         val attributes: MutableList<AttributeEntry?> = ArrayList()
-        attributes.add(AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 110.0))
+        attributes.add(AdditiveAttributeEntry(AttributeWrapper.DEFENSE, 65.0))
         attributes.add(AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 20.0))
         attributes.add(AdditiveAttributeEntry(AttributeWrapper.REGENERATION, 25.0))
         val strMult = getKillStrengthMultBoost(item)

@@ -13,12 +13,12 @@ public class NocturnumLeggings extends NocturnumSet {
 
     @Override
     public int getHealth() {
-        return NocturnumChestplate.HEALTH - 40;
+        return 215;
     }
 
     @Override
     public int getDefense() {
-        return NocturnumChestplate.DEFENSE - 40;
+        return 270;
     }
 
     /**

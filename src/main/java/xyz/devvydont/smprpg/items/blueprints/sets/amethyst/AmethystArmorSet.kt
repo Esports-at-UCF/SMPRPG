@@ -27,8 +27,8 @@ abstract class AmethystArmorSet(itemService: ItemService, type: CustomItemType) 
         )
     }
 
-    abstract val health: Int
     abstract val defense: Int
+    abstract val health: Int
 
     override fun getPowerRating(): Int {
         return 12

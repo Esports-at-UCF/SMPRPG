@@ -7,18 +7,14 @@ import org.bukkit.GameMode
 import org.bukkit.block.data.Ageable
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Item
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.block.BlockDropItemEvent
-import org.bukkit.event.block.BlockExplodeEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.block.BlockLootRegistry.get
 import xyz.devvydont.smprpg.items.ItemClassification
-import xyz.devvydont.smprpg.items.blueprints.sets.emberclad.BoilingPickaxe
-import xyz.devvydont.smprpg.items.interfaces.IKnife
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.DropsService
 import xyz.devvydont.smprpg.services.ItemService
@@ -49,7 +45,7 @@ class BlockLootOverrideListener : ToggleableListener() {
     /**
      * This method will handle exploded block loot from CraftEngine custom blocks.
      */
-    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.LOW)
     private fun onCraftEngineBlockExplode(event: EntityExplodeEvent) {
 
         if (event.explosionResult == ExplosionResult.KEEP || event.explosionResult == ExplosionResult.TRIGGER_BLOCK) return
@@ -179,9 +175,18 @@ class BlockLootOverrideListener : ToggleableListener() {
             // If we found one, increment the fortune to use in drop calculation.
             // The idea here is that base fortune is 0, and 100 fortune would yield 2x drops (scalarly scales).
             if (attribute != null) {
-                val attrInstance = instance.getAttribute<Player>(event.player, attribute)
+                val attrInstance = instance.getAttribute(event.player, attribute)
                 if (attrInstance != null) {
-                    fortune += attrInstance.getValue() / 100
+                    fortune += attrInstance.value / 100
+                }
+            }
+
+            // Add any special fortune if we have it.
+            val specialFortuneWrapper =  entry.specialFortune
+            if (specialFortuneWrapper != null) {
+                val specialFortuneInstance = instance.getAttribute(event.player, specialFortuneWrapper)
+                if (specialFortuneInstance != null) {
+                    fortune += specialFortuneInstance.value / 100
                 }
             }
         }

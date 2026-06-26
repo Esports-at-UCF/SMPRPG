@@ -31,19 +31,25 @@ import xyz.devvydont.smprpg.items.base.CustomAttributeItem
 import xyz.devvydont.smprpg.items.interfaces.*
 import xyz.devvydont.smprpg.items.interfaces.IAbilityCaster.AbilityEntry
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.services.ItemService.Companion.generate
+import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.items.AbilityUtil
 import xyz.devvydont.smprpg.util.time.TickTime
 
 class BreezeborneStaff(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IBreakableEquipment, ICantCrit, IMageBeam, IAbilityCaster, IModelOverridden, IHeaderDescribable,
+    IBreakableEquipment, ICantCrit, IMageBeam, IAbilityCaster, IModelOverridden, IHeaderDescribable, ISkillRequirement,
     Listener {
 
     override val itemClassification: ItemClassification get() = ItemClassification.STAFF
+    override val skillRequirements: MutableMap<SkillType, Int> get() = mutableMapOf(
+        Pair(SkillType.COMBAT, 25),
+        Pair(SkillType.MAGIC, 25),
+    )
 
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 180.0),
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 75.0),
             AdditiveAttributeEntry(AttributeWrapper.INTELLIGENCE, 160.0),
             AdditiveAttributeEntry(AttributeWrapper.ARCANE_RATING, 25.0),
             MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.5)
@@ -69,10 +75,10 @@ class BreezeborneStaff(itemService: ItemService, type: CustomItemType) : CustomA
 
     override fun getMaxDurability(): Int { return 10000 }
 
-    override val manaCost : Int get() = 30
+    override val manaCost : Int get() = 25
     override val hitParticle: Particle get() = Particle.END_ROD
     override val missParticle: Particle get() = Particle.ENCHANTED_HIT
-    override val particleRange: Int get() = 13
+    override val particleRange: Int get() = 12
     override val particleDensity: Int get() = particleRange * 2
 
     override fun updateItemData(itemStack: ItemStack) {

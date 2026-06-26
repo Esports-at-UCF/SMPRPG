@@ -8,8 +8,7 @@ class EmeraldBoots(itemService: ItemService, type: CustomItemType) : EmeraldArmo
 
     override val itemClassification: ItemClassification get() = ItemClassification.BOOTS
 
-    override val defense: Double get() = 45.0
-    override val health: Double get() = 20.0
+    override val defense: Double get() = 50.0
 
     override fun getMaxDurability(): Int { return ARMOR_DURABILITY_UNIT * 4 }
 }

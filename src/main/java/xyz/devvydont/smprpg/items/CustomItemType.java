@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.items;
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.augment.HotPotatoBook;
+import xyz.devvydont.smprpg.items.blueprints.augment.Recombobulator;
 import xyz.devvydont.smprpg.items.blueprints.block.SuperSoil;
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.block.interactable.ReforgeTable;
@@ -11,6 +12,7 @@ import xyz.devvydont.smprpg.items.blueprints.boss.DiamondToolRod;
 import xyz.devvydont.smprpg.items.blueprints.boss.InfernoArrow;
 import xyz.devvydont.smprpg.items.blueprints.boss.NeptunesConch;
 import xyz.devvydont.smprpg.items.blueprints.charms.LuckyCharm;
+import xyz.devvydont.smprpg.items.blueprints.consumables.HeartConsumableBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.charms.SpeedCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineCompressibleBlueprint;
@@ -202,6 +204,12 @@ public enum CustomItemType {
     GIGANTIC_COIN_PURSE("Gigantic Coin Purse", Material.LEATHER, ItemRarity.EPIC, WalletBlueprint.class),
     COLOSSAL_COIN_PURSE("Colossal Coin Purse", Material.LEATHER, ItemRarity.LEGENDARY, WalletBlueprint.class),
 
+    SMALL_POCKET_COMPRESSOR("Small Pocket Compressor", Material.NETHER_BRICK, ItemRarity.COMMON, true, PocketCompressorBlueprint.class),
+    MEDIUM_POCKET_COMPRESSOR("Medium Pocket Compressor", Material.NETHER_BRICK, ItemRarity.UNCOMMON, true, PocketCompressorBlueprint.class),
+    LARGE_POCKET_COMPRESSOR("Large Pocket Compressor", Material.NETHER_BRICK, ItemRarity.RARE, true, PocketCompressorBlueprint.class),
+    GIGANTIC_POCKET_COMPRESSOR("Gigantic Pocket Compressor", Material.NETHER_BRICK, ItemRarity.EPIC, true, PocketCompressorBlueprint.class),
+    COLOSSAL_POCKET_COMPRESSOR("Colossal Pocket Compressor", Material.NETHER_BRICK, ItemRarity.LEGENDARY, true, PocketCompressorBlueprint.class),
+
     // DYNAMIC TOOLS
     // DRILL("Mining Drill", Material.PRISMARINE_SHARD, ItemDrill.class),
     // SMALL_FUEL_TANK("Small Fuel Tank",   Material.PRISMARINE_SHARD,   ItemRarity.COMMON,    SmallFuelTank.class),
@@ -214,6 +222,7 @@ public enum CustomItemType {
     RARE_REPAIR_CORE("Rare Repair Core", Material.HEAVY_CORE, ItemRarity.RARE, RepairCore.class),
     EPIC_REPAIR_CORE("Epic Repair Core", Material.HEAVY_CORE, ItemRarity.EPIC, RepairCore.class),
     LEGENDARY_REPAIR_CORE("Legendary Repair Core", Material.HEAVY_CORE, ItemRarity.LEGENDARY, RepairCore.class),
+    RECOMBOBULATOR("Recombobulator 3000", ItemRarity.LEGENDARY, Recombobulator.class),
 
     // COPPER SET
     COPPER_BOW(    "Copper Bow",      Material.BOW,            CopperBow.class),
@@ -613,7 +622,7 @@ public enum CustomItemType {
     EMERALD_BOOTS(     "Emerald Boots",          Material.DIAMOND_BOOTS,      ItemRarity.RARE, EmeraldBoots.class),
 
     // BREEZE/TRIAL CHAMBERS
-    BREEZEBORNE_STAFF(    "Breezeborne Staff",  Material.STICK,           ItemRarity.LEGENDARY,     BreezeborneStaff.class),
+    BREEZEBORNE_STAFF(    "Breezeborne Staff",  Material.STICK,           ItemRarity.EPIC,     BreezeborneStaff.class),
 
     // REAVER
     REAVER_HELMET("Reaver Helmet",         Material.BLACK_STAINED_GLASS, ItemRarity.EPIC, ReaverHelmet.class),
@@ -668,6 +677,7 @@ public enum CustomItemType {
     INFERNO_LEGGINGS("Inferno Leggings",     Material.GOLDEN_LEGGINGS,   ItemRarity.LEGENDARY, InfernoLeggings.class),
     INFERNO_BOOTS("Inferno Boots",           Material.GOLDEN_BOOTS,      ItemRarity.LEGENDARY, InfernoBoots.class),
     INFERNO_SABER("Inferno Saber",           Material.NETHERITE_SWORD,   ItemRarity.LEGENDARY, InfernoSaber.class),
+    INFERNO_STAFF("Inferno Staff",           Material.BLAZE_ROD,   ItemRarity.LEGENDARY, InfernoStaff.class),
     INFERNO_SHORTBOW("Inferno Shortbow",     Material.BOW,               ItemRarity.LEGENDARY, InfernoShortbow.class),
 
     SCORCHING_STRING("Scorching String", Material.STRING, ItemRarity.RARE, true, ScorchingString.class),
@@ -800,6 +810,23 @@ public enum CustomItemType {
     UNDIGESTED_BRAINS("Undigested Brains", Material.COCOA_BEANS, ItemRarity.EPIC, UndigestedBrains.class),
     NECRONOMICON_EXCERPTS("Accursed Manuscripts", Material.PAPER, ItemRarity.LEGENDARY, NecronomiconExcerpts.class),
 
+    // HEART CRYSTALS (permanent maximum-health consumables, one tier per dimension; see HeartTier).
+    VITALITY_HEART("Vitality Heart", Material.GHAST_TEAR,       ItemRarity.COMMON,    HeartConsumableBlueprint.class),
+    EMBER_HEART(   "Ember Heart",    Material.BLAZE_POWDER,     ItemRarity.UNCOMMON,  HeartConsumableBlueprint.class),
+    CLOUDHEART(    "Cloudheart",     Material.HEART_OF_THE_SEA, ItemRarity.RARE,      HeartConsumableBlueprint.class),
+    VOIDHEART(     "Voidheart",      Material.ECHO_SHARD,       ItemRarity.EPIC,      HeartConsumableBlueprint.class),
+    ETERNAL_HEART( "Eternal Heart",  Material.NETHER_STAR,      ItemRarity.LEGENDARY, HeartConsumableBlueprint.class),
+
+    // HEART CRYSTAL REAGENTS (recipes/drops are added later; defined here so they exist as items).
+    // Universal grind reagent, intended to drop from skill activities across every dimension.
+    VITALITY_SHARD("Vitality Shard", Material.AMETHYST_SHARD,   ItemRarity.UNCOMMON,  false, 250),
+    // Dimension-exclusive core reagents that gate each heart tier to its origin dimension.
+    VERDANT_CORE(  "Verdant Core",   Material.EMERALD,          ItemRarity.COMMON,    false, 500),
+    INFERNAL_CORE( "Infernal Core",  Material.MAGMA_CREAM,      ItemRarity.UNCOMMON,  false, 1500),
+    AETHERIAL_CORE("Aetherial Core", Material.PHANTOM_MEMBRANE, ItemRarity.RARE,      false, 5000),
+    VOID_CORE(     "Void Core",      Material.DRAGON_BREATH,    ItemRarity.EPIC,      false, 20000),
+    ETERNAL_CORE(  "Eternal Core",   Material.HEAVY_CORE,       ItemRarity.LEGENDARY, false, 80000),
+
     ABOMINABLE_CLEAVER(     "Abominable Cleaver",  Material.GOLDEN_SWORD,     ItemRarity.RARE, AbominableCleaver.class),
     ABOMINABLE_MACHETE(     "Abominable Machete",  Material.DIAMOND_SWORD,    ItemRarity.EPIC, AbominableMachete.class),
     ABOMINABLE_HALBERD(     "Abominable Halberd",  Material.NETHERITE_SWORD,  ItemRarity.LEGENDARY, AbominableHalberd.class),
@@ -897,6 +924,8 @@ public enum CustomItemType {
     WHEAT_HOE("Wheat Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
     POTATO_HOE("Potato Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
     ONION_HOE("Onion Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
+    CARROT_HOE("Carrot Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
+    MELON_HOE("Melon Hoe", Material.IRON_HOE, ItemRarity.RARE, ProgressiveHoeBlueprint.class),
 
     // KNIVES
     IRON_KNIFE("Iron Knife", Material.IRON_SWORD, ItemRarity.COMMON, IronKnife.class),
@@ -1390,6 +1419,8 @@ public enum CustomItemType {
     ENCHANTED_MELON("Enchanted Melon", Material.MELON, ItemRarity.EPIC, true, MelonBlueprintFamily.class),
     MELON_SLICE_SINGULARITY("Melon Slice Singularity", Material.GLISTERING_MELON_SLICE, ItemRarity.LEGENDARY, true, MelonBlueprintFamily.class),
 
+    MASHED_MELON("Mashed Melon", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
+
     PREMIUM_WHEAT("Premium Wheat", Material.WHEAT, ItemRarity.UNCOMMON, true, WheatBlueprintFamily.class),
     PREMIUM_HAY_BLOCK("Premium Hay Block", Material.HAY_BLOCK, ItemRarity.UNCOMMON, true, WheatBlueprintFamily.class),
     ENCHANTED_WHEAT("Enchanted Wheat", Material.WHEAT, ItemRarity.RARE, true, WheatBlueprintFamily.class),
@@ -1404,6 +1435,8 @@ public enum CustomItemType {
     ENCHANTED_GOLDEN_CARROT("Enchanted Golden Carrot", Material.GOLDEN_CARROT, ItemRarity.EPIC, true, CarrotBlueprintFamily.class),
     CARROT_SINGULARITY("Carrot Singularity", Material.GOLDEN_CARROT, ItemRarity.LEGENDARY, true, CarrotBlueprintFamily.class),
 
+    GNAWED_CARROT("Gnawed Carrot", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
+
     PREMIUM_POTATO("Premium Potato", Material.POTATO, ItemRarity.UNCOMMON, true, PotatoBlueprintFamily.class),
     PREMIUM_BAKED_POTATO("Premium Baked Potato", Material.BAKED_POTATO, ItemRarity.UNCOMMON, true, PotatoBlueprintFamily.class),
     ENCHANTED_POTATO("Enchanted Potato", Material.POTATO, ItemRarity.RARE, true, PotatoBlueprintFamily.class),
@@ -1411,15 +1444,17 @@ public enum CustomItemType {
     POTATO_SINGULARITY("Potato Singularity", Material.POTATO, ItemRarity.LEGENDARY, true, PotatoBlueprintFamily.class),
 
     HOT_POTATO_BOOK("Hot Potato Book", Material.BOOK, ItemRarity.EPIC, HotPotatoBook.class),
-    POTATO_SKINS("Potato Skins", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
+    POTATO_EYES("Potato Eyes", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
 
     PREMIUM_BEETROOT("Premium Beetroot", Material.BEETROOT, ItemRarity.UNCOMMON, true, BeetrootBlueprintFamily.class),
     ENCHANTED_BEETROOT("Enchanted Beetroot", Material.BEETROOT, ItemRarity.RARE, true, BeetrootBlueprintFamily.class),
     BEETROOT_SINGULARITY("Beetroot Singularity", Material.BEETROOT, ItemRarity.EPIC, true, BeetrootBlueprintFamily.class),
 
     PREMIUM_PUMPKIN("Premium Pumpkin", Material.PUMPKIN, ItemRarity.UNCOMMON, true, PumpkinBlueprintFamily.class),
+    PREMIUM_CARVED_PUMPKIN("Premium Carved Pumpkin", Material.CARVED_PUMPKIN, ItemRarity.UNCOMMON, true, PumpkinBlueprintFamily.class),
     ENCHANTED_PUMPKIN("Enchanted Pumpkin", Material.PUMPKIN, ItemRarity.RARE, true, PumpkinBlueprintFamily.class),
-    PUMPKIN_SINGULARITY("Pumpkin Singularity", Material.CARVED_PUMPKIN, ItemRarity.EPIC, true, PumpkinBlueprintFamily.class),
+    ENCHANTED_CARVED_PUMPKIN("Enchanted Carved Pumpkin", Material.CARVED_PUMPKIN, ItemRarity.EPIC, true, PumpkinBlueprintFamily.class),
+    PUMPKIN_SINGULARITY("Pumpkin Singularity", Material.PUMPKIN, ItemRarity.LEGENDARY, true, PumpkinBlueprintFamily.class),
 
     ONION("Onion", Material.APPLE, ItemRarity.COMMON, Onion.class),
     PREMIUM_ONION("Premium Onion", Material.APPLE, ItemRarity.COMMON, OnionBlueprintFamily.class),

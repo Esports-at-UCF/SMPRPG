@@ -186,7 +186,9 @@ class DifficultyService : IService, Listener {
         }
 
         fun allowedToFlyInShrouded(difficulty: ProfileDifficulty): Boolean {
-            return difficulty != ProfileDifficulty.HARD
+            // commented out for now, was way too punishing
+//            return difficulty != ProfileDifficulty.HARD
+            return true
         }
     }
 }

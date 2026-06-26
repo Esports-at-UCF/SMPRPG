@@ -6,6 +6,7 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemRarity
+import xyz.devvydont.smprpg.items.blueprints.augment.Recombobulator
 import xyz.devvydont.smprpg.services.ItemService
 
 abstract class CustomItemBlueprint(
@@ -19,7 +20,12 @@ abstract class CustomItemBlueprint(
 
     override val customModelDataIdentifier: String get() = "smprpg:" + customItemType.key
 
-    override fun getRarity(item: ItemStack): ItemRarity { return defaultRarity }
+    override fun getRarity(item: ItemStack): ItemRarity {
+        var rarityMod = 0
+        if (item.persistentDataContainer.getOrDefault(Recombobulator.RECOMBOBULATOR_KEY, PersistentDataType.BOOLEAN, false))
+            rarityMod += 1
+        return ItemRarity.values()[defaultRarity.ordinal + rarityMod]
+    }
 
     override val defaultRarity: ItemRarity get() = this.customItemType.DefaultRarity
 

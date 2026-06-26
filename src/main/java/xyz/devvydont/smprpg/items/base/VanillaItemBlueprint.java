@@ -3,9 +3,11 @@ package xyz.devvydont.smprpg.items.base;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 import org.jspecify.annotations.NonNull;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.ItemRarity;
+import xyz.devvydont.smprpg.items.blueprints.augment.Recombobulator;
 import xyz.devvydont.smprpg.items.blueprints.resources.VanillaResource;
 import xyz.devvydont.smprpg.items.interfaces.ISellable;
 import xyz.devvydont.smprpg.services.ItemService;
@@ -35,7 +37,13 @@ public class VanillaItemBlueprint extends SMPItemBlueprint implements ISellable 
 
     @Override
     public ItemRarity getRarity(ItemStack item) {
-        return getDefaultRarity();
+        var rarityMod = 0;
+        // Add 1 to rarity ordinal if it's recombed.
+        if (item.getPersistentDataContainer().getOrDefault(Recombobulator.Companion.getRECOMBOBULATOR_KEY(), PersistentDataType.BOOLEAN, false))
+            rarityMod += 1;
+        var retRarity = getDefaultRarity().ordinal();
+        retRarity += rarityMod;
+        return ItemRarity.values()[retRarity];
     }
 
     @Override

@@ -53,6 +53,7 @@ import xyz.devvydont.smprpg.items.base.ChargedItemBlueprint
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
 import xyz.devvydont.smprpg.items.base.VanillaItemBlueprint
+import xyz.devvydont.smprpg.items.blueprints.augment.Recombobulator
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineBlueprint
 import xyz.devvydont.smprpg.items.blueprints.equipment.WalletBlueprint
 import xyz.devvydont.smprpg.items.blueprints.potion.PotionBlueprint
@@ -110,6 +111,7 @@ class ItemService : IService, Listener {
         listeners.add(VelocitySensitiveItemListener())
         listeners.add(TomeInteractionListener())
         listeners.add(WalletListener())
+        listeners.add(PocketCompressorListener())
     }
 
     @Throws(RuntimeException::class)
@@ -1321,11 +1323,24 @@ class ItemService : IService, Listener {
         if (blueprint is IFishingRod) itemCategory = IFishingRod.FishingFlag.prefix(blueprint.getFishingFlags())
             .uppercase(Locale.getDefault()) + " " + itemCategory
 
-        lore.add(
-            blueprint.getRarity(itemStack)
-                .applyDecoration(ComponentUtils.create(blueprint.getRarity(itemStack).name + " " + itemCategory))
-                .decoration(TextDecoration.BOLD, true).color(blueprint.getRarity(itemStack).color)
-        )
+        if (!itemStack.persistentDataContainer.getOrDefault(Recombobulator.RECOMBOBULATOR_KEY, PersistentDataType.BOOLEAN, false)) {
+            lore.add(
+                blueprint.getRarity(itemStack)
+                    .applyDecoration(ComponentUtils.create(blueprint.getRarity(itemStack).name + " " + itemCategory))
+                    .decoration(TextDecoration.BOLD, true).color(blueprint.getRarity(itemStack).color)
+            )
+        }
+        else {
+            lore.add(
+                ComponentUtils.merge(
+                    ComponentUtils.create("a ", TextColor.color(blueprint.getRarity(itemStack).color), TextDecoration.OBFUSCATED, TextDecoration.BOLD),
+                    blueprint.getRarity(itemStack)
+                        .applyDecoration(ComponentUtils.create(blueprint.getRarity(itemStack).name + " " + itemCategory))
+                        .decoration(TextDecoration.BOLD, true).color(blueprint.getRarity(itemStack).color),
+                    ComponentUtils.create(" b", TextColor.color(blueprint.getRarity(itemStack).color), TextDecoration.OBFUSCATED, TextDecoration.BOLD),
+                )
+            )
+        }
         lore.add(ComponentUtils.create(blueprint.customModelDataIdentifier, NamedTextColor.DARK_GRAY))
         return ComponentUtils.cleanItalics(lore)
     }

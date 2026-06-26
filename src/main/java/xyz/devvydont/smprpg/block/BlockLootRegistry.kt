@@ -452,6 +452,7 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.MELON_SLICE), 3.5))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(Material.MELON)))
                 .uses(AttributeWrapper.FARMING_FORTUNE)
+                .usesSpecial(AttributeWrapper.MELON_FORTUNE)
                 .build()
         )
 
@@ -476,6 +477,7 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.WHEAT_SEEDS), 1.5))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(Material.WHEAT_SEEDS), 1.5))
                 .uses(AttributeWrapper.FARMING_FORTUNE)
+                .usesSpecial(AttributeWrapper.WHEAT_FORTUNE)
                 .build()
         )
 
@@ -486,6 +488,7 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.CARROT), 2.5))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(Material.CARROT), 2.5))
                 .uses(AttributeWrapper.FARMING_FORTUNE)
+                .usesSpecial(AttributeWrapper.CARROT_FORTUNE)
                 .build()
         )
 
@@ -500,6 +503,7 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.POISONOUS_POTATO), 0.02))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(Material.POISONOUS_POTATO), 0.02))
                 .uses(AttributeWrapper.FARMING_FORTUNE)
+                .usesSpecial(AttributeWrapper.POTATO_FORTUNE)
                 .build()
         )
 
@@ -566,6 +570,7 @@ object BlockLootRegistry : Listener {
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.ONION), 2.5))
                 .add(BlockLootContext.IMMATURE_AGEABLE, of(ItemService.generate(CustomItemType.ONION)))
                 .uses(AttributeWrapper.FARMING_FORTUNE)
+                .usesSpecial(AttributeWrapper.ONION_FORTUNE)
                 .build()
         )
 
@@ -1237,7 +1242,7 @@ object BlockLootRegistry : Listener {
 
         register(
             CraftEngineBlockEnums.AETHER_SILVER_ORE.key, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
-                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_ORE)))
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(CustomItemType.SILVER_INGOT)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(CustomItemType.AETHER_SILVER_ORE)))
                 .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(CustomItemType.SILVER_NUGGET)))
                 .build()

@@ -64,6 +64,16 @@ class ProgressiveHoeBlueprint(itemService: ItemService, type: CustomItemType) : 
                     retList.add(AdditiveAttributeEntry(AttributeWrapper.FARMING_PROFICIENCY, level * PROFICIENCY_PER_LEVEL))
                     retList.add(AdditiveAttributeEntry(AttributeWrapper.CRITTER_CHANCE, level * UPROOTING_PER_LEVEL))
                 }
+                CustomItemType.CARROT_HOE -> {
+                    retList.add(AdditiveAttributeEntry(AttributeWrapper.CARROT_FORTUNE, level * YIELD_PER_LEVEL))
+                    retList.add(AdditiveAttributeEntry(AttributeWrapper.FARMING_PROFICIENCY, level * PROFICIENCY_PER_LEVEL))
+                    retList.add(AdditiveAttributeEntry(AttributeWrapper.CRITTER_CHANCE, level * UPROOTING_PER_LEVEL))
+                }
+                CustomItemType.MELON_HOE -> {
+                    retList.add(AdditiveAttributeEntry(AttributeWrapper.MELON_FORTUNE, level * YIELD_PER_LEVEL))
+                    retList.add(AdditiveAttributeEntry(AttributeWrapper.FARMING_PROFICIENCY, level * PROFICIENCY_PER_LEVEL))
+                    retList.add(AdditiveAttributeEntry(AttributeWrapper.CRITTER_CHANCE, level * UPROOTING_PER_LEVEL))
+                }
                 else -> {}
             }
         }
@@ -93,6 +103,8 @@ class ProgressiveHoeBlueprint(itemService: ItemService, type: CustomItemType) : 
             CustomItemType.WHEAT_HOE -> "Wheat"
             CustomItemType.POTATO_HOE -> "Potatoes"
             CustomItemType.ONION_HOE -> "Onions"
+            CustomItemType.CARROT_HOE -> "Carrots"
+            CustomItemType.MELON_HOE -> "Melons"
             else -> "Unknown Crop"
         }
         var xpBar = ComponentUtils.EMPTY

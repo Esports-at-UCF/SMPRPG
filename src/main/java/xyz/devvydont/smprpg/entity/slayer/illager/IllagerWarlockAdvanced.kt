@@ -20,7 +20,7 @@ import xyz.devvydont.smprpg.util.items.QuantityLootDrop
 class IllagerWarlockAdvanced(entity: LivingEntity?, entityType: CustomEntityType?) : IllagerWarlockParent(entity as Evoker?, entityType) {
     override fun getItemDrops(): List<LootDrop> {
         return listOf(
-            QuantityLootDrop(generate(CustomItemType.PREMIUM_SPELL_POWDER), 1, 3, this),
+            QuantityLootDrop(generate(CustomItemType.PREMIUM_SPELL_POWDER), 2, 5, this),
             QuantityLootDrop(generate(Material.EMERALD), 24, 48, this),
             QuantityLootDrop(generate(Material.EMERALD_BLOCK), 1, 2, this),
             ChancedItemDrop(generate(CustomItemType.ENCHANTED_EMERALD), 50, this),
@@ -31,14 +31,15 @@ class IllagerWarlockAdvanced(entity: LivingEntity?, entityType: CustomEntityType
             ChancedItemDrop(generate(CustomItemType.CRYSTAL_BALL), 200, this),
             ChancedItemDrop(generate(CustomItemType.HORN_OF_WARLOCK), 50, this),
             ChancedItemDrop(generate(CustomItemType.FANG_STRIKE_SPELL), 100, this),
-            ChancedItemDrop(generate(CustomItemType.DAMAGE_AURA_SPELL), 100, this)
+            ChancedItemDrop(generate(CustomItemType.DAMAGE_AURA_SPELL), 100, this),
+            ChancedItemDrop(generate(CustomItemType.RECOMBOBULATOR), 750, this),
         )
     }
 
     override fun updateAttributes() {
         super.updateAttributes()
         updateBaseAttribute(AttributeWrapper.KNOCKBACK_RESISTANCE, 0.9)
-        updateBaseAttribute(AttributeWrapper.DEFENSE, 200.0)
+        updateBaseAttribute(AttributeWrapper.DEFENSE, 150.0)
     }
 
     override fun setup() {

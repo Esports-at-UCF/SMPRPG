@@ -96,6 +96,7 @@ public class LeveledWither extends BossInstance<Wither> {
                 new ChancedItemDrop(ItemService.generate(CustomItemType.FORSAKEN_CUTLASS), 125, this),
 
                 new ChancedItemDrop(ItemService.generate(CustomItemType.DESOLATED_STONE), 100, this),
+                new ChancedItemDrop(ItemService.generate(CustomItemType.RECOMBOBULATOR), 1000, this),
 
                 new ChancedItemDrop(ItemService.generate(Material.NETHERITE_INGOT), 70, this),
                 new ChancedItemDrop(ItemService.generate(Material.NETHERITE_BLOCK), 900, this),

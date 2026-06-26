@@ -15,13 +15,13 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
+import xyz.devvydont.smprpg.enchantments.EnchantmentTargetDisplay
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
-import xyz.devvydont.smprpg.util.formatting.MinecraftStringUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
 import java.util.function.Consumer
 
@@ -146,11 +146,7 @@ class EnchantmentMenu : MenuBase {
         enchantmentDescription.add(
             ComponentUtils.merge(
                 ComponentUtils.create("Applicable Item Type: "),
-                ComponentUtils.create(
-                    MinecraftStringUtils.getTitledString(
-                        enchantment.itemTypeTag.key().asMinimalString().replace("/", " ").replace("smprpg:", "")
-                    ), NamedTextColor.GOLD
-                )
+                EnchantmentTargetDisplay.getApplicableItemsComponent(enchantment.itemTypeTag)
             )
         )
 

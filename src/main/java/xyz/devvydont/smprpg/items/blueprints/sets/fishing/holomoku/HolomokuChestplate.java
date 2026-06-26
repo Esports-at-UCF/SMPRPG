@@ -6,21 +6,13 @@ import xyz.devvydont.smprpg.services.ItemService;
 
 public class HolomokuChestplate extends HolomokuSet {
 
-    public static int DEFENSE = 90;
-    public static int HEALTH = 10;
-
     public HolomokuChestplate(ItemService itemService, CustomItemType type) {
         super(itemService, type);
     }
 
     @Override
-    public int getHealth() {
-        return HEALTH;
-    }
-
-    @Override
     public int getDefense() {
-        return DEFENSE;
+        return 100;
     }
 
     /**

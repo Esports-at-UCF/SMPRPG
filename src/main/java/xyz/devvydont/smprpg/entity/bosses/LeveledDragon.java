@@ -181,6 +181,8 @@ public class LeveledDragon extends BossInstance<EnderDragon> implements Listener
                 new ChancedItemDrop(ItemService.generate(CustomItemType.ELDERFLAME_BOOTS), 850, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.ELDERFLAME_DAGGER), 1000, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.VOID_RELIC), 1000, this),
+                new ChancedItemDrop(ItemService.generate(CustomItemType.BOOK_OF_SHADOWS), 1000, this),
+                new ChancedItemDrop(ItemService.generate(CustomItemType.RECOMBOBULATOR), 500, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.TRANSMISSION_WAND), 1000, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.DRACONIC_CRYSTAL), 400, this),
                 new ChancedItemDrop(ItemService.generate(CustomItemType.DRAGON_SCALES), 4, this),
@@ -313,7 +315,9 @@ public class LeveledDragon extends BossInstance<EnderDragon> implements Listener
         var cloud = event.getEntity().getWorld().spawn(event.getLocation(), AreaEffectCloud.class);
         cloud.setColor(Color.PURPLE);
         cloud.setSource(_entity);
-        cloud.setParticle(Particle.DRAGON_BREATH);
+        // Newer MC versions require the DRAGON_BREATH particle to carry a Float ("power of the breath"); without it
+        // CraftParticle throws "missing required data class java.lang.Float".
+        cloud.setParticle(Particle.DRAGON_BREATH, 1.0f);
         cloud.setBasePotionType(PotionType.HARMING);
         cloud.setOwnerUniqueId(_entity.getUniqueId());
         cloud.setDuration((int) TickTime.seconds(30));

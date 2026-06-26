@@ -28,8 +28,8 @@ class AraxysChestplate(itemService: ItemService, type: CustomItemType) : AraxysA
     override fun getMaxDurability(): Int { return ARMOR_DURABILITY_UNIT * 8 }
 
     companion object {
-        const val DEFENSE: Int = 320
-        const val HEALTH: Int = 300
+        const val DEFENSE: Int = 390
+        const val HEALTH: Int = 155
         const val STRENGTH: Double = .75
         const val CRIT: Int = 40
     }
