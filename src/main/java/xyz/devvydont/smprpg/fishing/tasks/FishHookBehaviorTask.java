@@ -18,6 +18,7 @@ import xyz.devvydont.smprpg.fishing.utils.FishingPredicates;
 import xyz.devvydont.smprpg.fishing.utils.HookEffectOptions;
 import xyz.devvydont.smprpg.items.interfaces.IFishingRod;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
+import xyz.devvydont.smprpg.util.particles.ParticleUtil;
 import xyz.devvydont.smprpg.util.persistence.KeyStore;
 import xyz.devvydont.smprpg.util.time.TickTime;
 
@@ -189,14 +190,13 @@ public class FishHookBehaviorTask extends BukkitRunnable {
 
     /**
      * Supplies default data for particles that require it. Newer MC versions force certain particles (e.g.
-     * {@link Particle#DRAGON_BREATH}) to carry a Float, otherwise spawning them throws
-     * "missing required data class java.lang.Float". Since the configured fishing particle can be any type, we apply
-     * a sane default only when the particle expects a Float.
+     * {@link Particle#DRAGON_BREATH}) to carry data, otherwise spawning them throws
+     * "missing required data class ...". Since the configured fishing particle can be any type, we delegate to the
+     * shared {@link ParticleUtil#withDefaultData(ParticleBuilder)} helper which fills a sane default based on the
+     * particle's runtime data type.
      */
     private static ParticleBuilder withRequiredData(ParticleBuilder builder) {
-        if (builder.particle().getDataType() == Float.class)
-            builder.data(1.0f);
-        return builder;
+        return ParticleUtil.withDefaultData(builder);
     }
 
     /**
