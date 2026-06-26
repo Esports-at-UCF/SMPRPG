@@ -72,13 +72,19 @@ class MenuCompressor(val owner: Player, val compressor: ItemStack, val compresso
         }
         val compressorConfig = compressor.getData(DataComponentTypes.CONTAINER)
         for (itemIdx in 0..<compressorBp.compressorSlots) {
-            val configItem = compressorConfig!!.contents().get(itemIdx)
+            var configItem: ItemStack
+            try {
+                configItem = compressorConfig!!.contents().get(itemIdx)
+            } catch (e: IndexOutOfBoundsException) {
+                configItem = ItemStack.empty()
+            }
             var item: ItemStack
             if (configItem.type == Material.BARRIER) item = ItemStack.empty()
             else item = configItem
 
             val newConfig = mutableListOf<ItemStack>()
-            for (idx in 0..<compressorConfig.contents().size) newConfig.add(compressorConfig.contents()[idx])
+            for (i in 0..<compressorBp.compressorSlots) newConfig.add(ItemStack.of(PocketCompressorBlueprint.DUMMY_MATERIAL))
+            for (idx in 0..<compressorConfig!!.contents().size) newConfig[idx] = compressorConfig.contents()[idx]
             this.setButton(startSlot + itemIdx, item) { e: InventoryClickEvent ->
                 e.isCancelled = true
 
