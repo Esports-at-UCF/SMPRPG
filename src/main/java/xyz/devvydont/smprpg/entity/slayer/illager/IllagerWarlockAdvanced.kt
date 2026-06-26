@@ -20,7 +20,7 @@ import xyz.devvydont.smprpg.util.items.QuantityLootDrop
 class IllagerWarlockAdvanced(entity: LivingEntity?, entityType: CustomEntityType?) : IllagerWarlockParent(entity as Evoker?, entityType) {
     override fun getItemDrops(): List<LootDrop> {
         return listOf(
-            QuantityLootDrop(generate(CustomItemType.PREMIUM_SPELL_POWDER), 1, 3, this),
+            QuantityLootDrop(generate(CustomItemType.PREMIUM_SPELL_POWDER), 2, 5, this),
             QuantityLootDrop(generate(Material.EMERALD), 24, 48, this),
             QuantityLootDrop(generate(Material.EMERALD_BLOCK), 1, 2, this),
             ChancedItemDrop(generate(CustomItemType.ENCHANTED_EMERALD), 50, this),
@@ -39,7 +39,7 @@ class IllagerWarlockAdvanced(entity: LivingEntity?, entityType: CustomEntityType
     override fun updateAttributes() {
         super.updateAttributes()
         updateBaseAttribute(AttributeWrapper.KNOCKBACK_RESISTANCE, 0.9)
-        updateBaseAttribute(AttributeWrapper.DEFENSE, 200.0)
+        updateBaseAttribute(AttributeWrapper.DEFENSE, 150.0)
     }
 
     override fun setup() {

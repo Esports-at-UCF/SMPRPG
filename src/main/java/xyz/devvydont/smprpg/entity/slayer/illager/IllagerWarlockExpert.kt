@@ -41,7 +41,7 @@ class IllagerWarlockExpert(entity: LivingEntity?, entityType: CustomEntityType?)
     override fun updateAttributes() {
         super.updateAttributes()
         updateBaseAttribute(AttributeWrapper.KNOCKBACK_RESISTANCE, 0.95)
-        updateBaseAttribute(AttributeWrapper.DEFENSE, 300.0)
+        updateBaseAttribute(AttributeWrapper.DEFENSE, 200.0)
     }
 
     override fun setup() {
