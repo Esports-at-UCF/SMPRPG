@@ -1,7 +1,5 @@
 package xyz.devvydont.smprpg.services
 
-import com.google.common.collect.HashMultimap
-import com.google.common.collect.Multimap
 import org.bukkit.Bukkit
 import org.bukkit.Keyed
 import org.bukkit.Material
@@ -10,7 +8,6 @@ import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.event.Listener
 import org.bukkit.inventory.BlastingRecipe
 import org.bukkit.inventory.CampfireRecipe
-import org.bukkit.inventory.CookingRecipe
 import org.bukkit.inventory.FurnaceRecipe
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.Recipe
@@ -26,8 +23,10 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemRarity
 import xyz.devvydont.smprpg.items.blueprints.fishing.FishBlueprint
 import xyz.devvydont.smprpg.listeners.crafting.CraftingTransmuteUpgradeFix
-import xyz.devvydont.smprpg.listeners.crafting.NormalFishCampfireBlacklist
+import xyz.devvydont.smprpg.listeners.crafting.CustomCampfireController
+import xyz.devvydont.smprpg.listeners.crafting.CustomFurnaceController
 import net.momirealms.craftengine.core.util.Key
+import xyz.devvydont.smprpg.recipe.campfire.FishTeardown
 import xyz.devvydont.smprpg.recipe.CompressionGraph
 import xyz.devvydont.smprpg.recipe.core.CompressionRecipe
 import xyz.devvydont.smprpg.recipe.core.ItemIdentifier
@@ -64,9 +63,6 @@ class RecipeService : IService, Listener {
      */
     private var registry: RecipeRegistry = RecipeRegistry()
 
-    /** Keys of the Bukkit cooking recipes we registered from the registry, so we can remove them on reload. */
-    private val registeredFurnaceKeys: MutableList<NamespacedKey> = ArrayList()
-
     /** Keys of the Bukkit compression crafting recipes we registered from the registry, removed on reload. */
     private val registeredCompressionKeys: MutableList<NamespacedKey> = ArrayList()
 
@@ -83,12 +79,10 @@ class RecipeService : IService, Listener {
         registerCompressionRecipes()
         registerCraftingRecipes()
 
-        registerFurnaceRecipes()
-        registerFishTeardownRecipes()
-
         // Start listeners.
         listeners.add(CraftingTransmuteUpgradeFix())
-        listeners.add(NormalFishCampfireBlacklist())
+        listeners.add(CustomFurnaceController())
+        listeners.add(CustomCampfireController())
         for (listener in listeners)
             listener.start()
     }
@@ -102,7 +96,8 @@ class RecipeService : IService, Listener {
         registry = RecipeLoader.load()
         registerCompressionRecipes()
         registerCraftingRecipes()
-        registerFurnaceRecipes()
+        // Furnace smelting is driven live by CustomFurnaceController, which reads the swapped-in registry
+        // each tick, so a reload needs no furnace re-registration.
         SMPRPG.plugin.logger.info("Reloaded custom recipe registry (${registry.size} recipes).")
     }
 
@@ -206,35 +201,6 @@ class RecipeService : IService, Listener {
     override fun cleanup() {
         for (listener in listeners)
             listener.stop()
-    }
-
-    /**
-     * Registers furnace/blast/smoker/campfire recipes with Bukkit, built from the data-driven registry's
-     * [SmeltingRecipe] entries. Custom inputs use an exact NBT match; vanilla inputs match by material.
-     * Previously-registered recipes are removed first so this is safe to call again on reload.
-     */
-    private fun registerFurnaceRecipes() {
-        for (key in registeredFurnaceKeys)
-            Bukkit.removeRecipe(key)
-        registeredFurnaceKeys.clear()
-
-        for (recipe in registry.byStation(RecipeStationType.FURNACE).filterIsInstance<SmeltingRecipe>()) {
-            val result = recipe.result.generate() ?: continue
-            val inputStack = recipe.input.identifier.resolve() ?: continue
-            val choice: RecipeChoice =
-                if (recipe.input.identifier.namespace == "smprpg") ExactChoice(inputStack)
-                else MaterialChoice(inputStack.type)
-            val key = recipe.key
-            val cooking: CookingRecipe<*> = when (recipe.cook) {
-                SmeltingCookType.FURNACE -> FurnaceRecipe(key, result, choice, recipe.experience, recipe.time)
-                SmeltingCookType.BLASTING -> BlastingRecipe(key, result, choice, recipe.experience, recipe.time)
-                SmeltingCookType.SMOKING -> SmokingRecipe(key, result, choice, recipe.experience, recipe.time)
-                SmeltingCookType.CAMPFIRE -> CampfireRecipe(key, result, choice, recipe.experience, recipe.time)
-            }
-            if (Bukkit.addRecipe(cooking))
-                registeredFurnaceKeys.add(key)
-        }
-        Bukkit.updateRecipes()
     }
 
     /**
@@ -348,51 +314,6 @@ class RecipeService : IService, Listener {
         return if (id.namespace == "smprpg") ExactChoice(stack) else MaterialChoice(stack.type)
     }
 
-    /**
-     * Registers every fish blueprint to have a teardown recipe into essence.
-     */
-    private fun registerFishTeardownRecipes() {
-
-        val fishToRarity: Multimap<ItemRarity, CustomItemType> = HashMultimap.create<ItemRarity, CustomItemType>()
-
-        // Loop through every fish blueprint and map its rarity.
-        for (item in SMPRPG.getService(ItemService::class.java).customBlueprints) {
-            if (item !is FishBlueprint)
-                continue
-            fishToRarity.put(item.defaultRarity, item.customItemType)
-        }
-
-        // Create a recipe for every rarity we discovered for a teardown.
-        for (entry in fishToRarity.asMap().entries) {
-            val essence = when (entry.key) {
-                ItemRarity.UNCOMMON -> CustomItemType.UNCOMMON_FISH_ESSENCE
-                ItemRarity.RARE -> CustomItemType.RARE_FISH_ESSENCE
-                ItemRarity.EPIC -> CustomItemType.EPIC_FISH_ESSENCE
-                ItemRarity.LEGENDARY -> CustomItemType.LEGENDARY_FISH_ESSENCE
-                ItemRarity.MYTHIC -> CustomItemType.MYTHIC_FISH_ESSENCE
-                ItemRarity.DIVINE -> CustomItemType.DIVINE_FISH_ESSENCE
-                ItemRarity.TRANSCENDENT -> CustomItemType.TRANSCENDENT_FISH_ESSENCE
-                else -> CustomItemType.COMMON_FISH_ESSENCE
-            }
-
-            val choices = ArrayList<ItemStack>()
-            val cookingTimeFactor = (entry.key.ordinal + 1)
-
-            for (choice in entry.value)
-                choices.add(generate(choice))
-
-            val recipe = CampfireRecipe(
-                NamespacedKey(SMPRPG.plugin, entry.key.toString() + "_campfire"),
-                generate(essence),
-                ExactChoice(choices),
-                (cookingTimeFactor * cookingTimeFactor).toFloat(),
-                cookingTimeFactor * cookingTimeFactor * cookingTimeFactor * 20 + 5
-            )
-
-            Bukkit.addRecipe(recipe)
-        }
-    }
-
     companion object {
 
         /** The grid character used for the single repeated ingredient in a compression recipe. */
@@ -503,7 +424,47 @@ class RecipeService : IService, Listener {
                 val inputStack = core.input.identifier.resolve() ?: continue
                 results.add(CuttingBoardRecipe(core.key, inputStack, outputs, toolTagOf(core.tool)))
             }
+            // Furnace smelting is no longer registered with Bukkit (CustomFurnaceController drives it directly),
+            // so build unregistered Bukkit cooking recipes purely so the recipe browser can still display them.
+            for (core in registry.byStation(RecipeStationType.FURNACE).filterIsInstance<SmeltingRecipe>()) {
+                val resultStack = core.result.generate() ?: continue
+                if (resultStack.type == Material.BARRIER || !resultStack.isSimilar(item)) continue
+                val inputStack = core.input.identifier.resolve() ?: continue
+                val choice: RecipeChoice =
+                    if (core.input.identifier.namespace == "smprpg") ExactChoice(inputStack)
+                    else MaterialChoice(inputStack.type)
+                results.add(when (core.cook) {
+                    SmeltingCookType.FURNACE -> FurnaceRecipe(core.key, resultStack, choice, core.experience, core.time)
+                    SmeltingCookType.BLASTING -> BlastingRecipe(core.key, resultStack, choice, core.experience, core.time)
+                    SmeltingCookType.SMOKING -> SmokingRecipe(core.key, resultStack, choice, core.experience, core.time)
+                    SmeltingCookType.CAMPFIRE -> CampfireRecipe(core.key, resultStack, choice, core.experience, core.time)
+                })
+            }
+            results.addAll(fishTeardownDisplayRecipes(item))
             return results
+        }
+
+        /**
+         * Fish teardown is driven by [CustomCampfireController] rather than a Bukkit recipe, so build
+         * unregistered campfire display recipes (one per rarity, choosing any fish of that rarity) for the
+         * recipe browser when the queried item is the essence that rarity produces.
+         */
+        private fun fishTeardownDisplayRecipes(item: ItemStack): List<Recipe> {
+            val fishByRarity: MutableMap<ItemRarity, MutableList<ItemStack>> = HashMap()
+            for (blueprint in SMPRPG.getService(ItemService::class.java).customBlueprints) {
+                if (blueprint !is FishBlueprint) continue
+                fishByRarity.getOrPut(blueprint.defaultRarity) { ArrayList() }.add(generate(blueprint.customItemType))
+            }
+
+            val display = mutableListOf<Recipe>()
+            for ((rarity, fish) in fishByRarity) {
+                if (fish.isEmpty()) continue
+                val essence = generate(FishTeardown.essenceFor(rarity))
+                if (!essence.isSimilar(item)) continue
+                val key = NamespacedKey(SMPRPG.plugin, "${rarity}_fish_teardown")
+                display.add(CampfireRecipe(key, essence, ExactChoice(fish), 0f, FishTeardown.cookTimeTicks(rarity)))
+            }
+            return display
         }
     }
 
