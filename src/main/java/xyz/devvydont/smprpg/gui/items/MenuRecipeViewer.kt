@@ -26,6 +26,8 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.recipe.core.RecipeStationType
 import xyz.devvydont.smprpg.services.RecipeService
 import xyz.devvydont.smprpg.recipe.cookingpot.CookingPotRecipe
+import xyz.devvydont.smprpg.recipe.crafting.ShapedDisplayRecipe
+import xyz.devvydont.smprpg.recipe.crafting.ShapelessDisplayRecipe
 import xyz.devvydont.smprpg.recipe.cuttingboard.CuttingBoardRecipe
 import xyz.devvydont.smprpg.recipe.cuttingboard.CuttingBoardToolTags
 import xyz.devvydont.smprpg.recipe.freezer.FreezerRecipe
@@ -157,6 +159,8 @@ class MenuRecipeViewer(
             is CookingPotRecipe -> renderCookingPotRecipe(recipe, event)
             is CuttingBoardRecipe -> renderCuttingBoardRecipe(recipe)
             is FreezerRecipe -> renderFreezerRecipe(recipe, event)
+            is ShapedDisplayRecipe -> renderShapedDisplayRecipe(recipe, event)
+            is ShapelessDisplayRecipe -> renderShapelessDisplayRecipe(recipe, event)
             is CookingRecipe<*> -> renderCookingRecipe(recipe, event)
             is ShapelessRecipe -> renderShapelessRecipe(recipe, event)
             is ShapedRecipe -> renderShapedRecipe(recipe, event)
@@ -446,6 +450,69 @@ class MenuRecipeViewer(
             CORNER + 36 + 1,
             getNamedItem(Material.CRAFTING_TABLE, ComponentUtils.create("Shaped Crafting Recipe", NamedTextColor.GOLD))
         )
+    }
+
+    /**
+     * Renders a registry-sourced shaped recipe. Unlike the Bukkit shaped renderer, each ingredient display
+     * carries its required per-slot count (so count>1 recipes read correctly), and the upgrade slot is marked.
+     */
+    private fun renderShapedDisplayRecipe(recipe: ShapedDisplayRecipe, event: InventoryOpenEvent) {
+        event.titleOverride(
+            ComponentUtils.merge(
+                ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SHAPED_RECIPE_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
+                    NamedTextColor.BLACK
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
+            )
+        )
+        var x = 0
+        var y = 0
+        for (row in recipe.pattern) {
+            for (ch in row.toCharArray()) {
+                val ingredient = recipe.ingredients[ch]
+                if (ingredient != null) {
+                    val display = prepareIngredientDisplay(ingredient)
+                    if (ch == recipe.upgradeChar) markUpgradeBase(display)
+                    setButton(y * 9 + x + CORNER, display) { _: InventoryClickEvent -> handleIngredientClick(ingredient) }
+                }
+                x += 1
+            }
+            x = 0
+            y += 1
+        }
+        setSlot(CORNER + 36 + 1, getNamedItem(Material.CRAFTING_TABLE, ComponentUtils.create("Shaped Crafting Recipe", NamedTextColor.GOLD)))
+    }
+
+    /** Renders a registry-sourced shapeless recipe, each ingredient display carrying its required count. */
+    private fun renderShapelessDisplayRecipe(recipe: ShapelessDisplayRecipe, event: InventoryOpenEvent) {
+        event.titleOverride(
+            ComponentUtils.merge(
+                ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.SHAPELESS_RECIPE_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(
+                    Symbols.OFFSET_NEG_128 + Symbols.OFFSET_NEG_32 + Symbols.OFFSET_NEG_2 + "Recipes for: ",
+                    NamedTextColor.BLACK
+                ),
+                ItemService.blueprint(result).getNameComponent(result)
+            )
+        )
+        var x = 0
+        var y = 0
+        for (ingredient in recipe.ingredients) {
+            val display = prepareIngredientDisplay(ingredient)
+            setButton(y * 9 + x + CORNER, display) { _: InventoryClickEvent -> handleIngredientClick(ingredient) }
+            x += 1
+            if (x >= 3) { x = 0; y += 1 }
+        }
+        setSlot(CORNER + 36 + 1, getNamedItem(Material.CRAFTING_TABLE, ComponentUtils.create("Shapeless Crafting Recipe", NamedTextColor.GOLD)))
+    }
+
+    /** Append an "upgrade base" note to an ingredient's lore (the slot whose data carries over on craft). */
+    private fun markUpgradeBase(item: ItemStack) {
+        val lore = item.lore()?.toMutableList() ?: mutableListOf()
+        lore.add(ComponentUtils.create("Upgrade base — keeps its enchants & reforges", NamedTextColor.AQUA))
+        item.lore(lore)
     }
 
     /**

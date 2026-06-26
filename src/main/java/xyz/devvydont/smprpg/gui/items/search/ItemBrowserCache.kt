@@ -3,6 +3,7 @@ package xyz.devvydont.smprpg.gui.items.search
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
@@ -12,7 +13,7 @@ import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
 import xyz.devvydont.smprpg.services.ItemService
-import xyz.devvydont.smprpg.services.RecipeService.Companion.getRecipesFor
+import xyz.devvydont.smprpg.services.RecipeService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.time.TickTime
 import kotlin.math.min
@@ -44,9 +45,9 @@ object ItemBrowserCache {
         READY
     }
 
-    // How many items to generate and index per tick. Tuned to keep each tick's added work small while still finishing
-    // the entire registry within a few seconds of boot.
-    private const val ITEMS_PER_TICK = 25
+    // How many items to generate and index per tick. Kept conservative so a live rebuild (e.g. after a recipe
+    // reload, with players online) never noticeably dents TPS — it just takes a little longer to finish.
+    private const val ITEMS_PER_TICK = 12
 
     // How long to wait after startup before indexing begins, giving dependent systems (recipes, CraftEngine) time to
     // finish loading so generated items render with their final lore and recipe tooltips.
@@ -78,6 +79,11 @@ object ItemBrowserCache {
 
     // The running gradual-build task, kept so it can be cancelled on shutdown.
     private var buildTask: BukkitTask? = null
+
+    // Identifier sets snapshotted once per build so each item's "craftable"/"used in" hint is an O(1) lookup
+    // instead of a per-item recipe scan (which made the live rebuild drag TPS down).
+    private var craftableResultIds: Set<String> = emptySet()
+    private var usableIngredientIds: Set<String> = emptySet()
 
     var state: State = State.UNBUILT
         private set
@@ -119,12 +125,42 @@ object ItemBrowserCache {
      * ignored while a build is already in progress or complete.
      */
     @JvmStatic
-    fun beginBuild() {
+    @JvmOverloads
+    fun beginBuild(startDelay: Long = BUILD_START_DELAY) {
         if (state != State.UNBUILT) return
         state = State.BUILDING
+        indexRecipeLookups()
         enqueueSources()
         totalSources = pending.size
-        scheduleBuildTask()
+        scheduleBuildTask(startDelay)
+    }
+
+    /**
+     * Snapshot, once per build, the set of identifiers that any recipe produces (for the "Left-click to view
+     * recipe!" hint) and consumes (for the "Right-click to view usages!" hint). Doing this once — instead of
+     * resolving recipes per cached item — turns each item's hint check into an O(1) set lookup.
+     */
+    private fun indexRecipeLookups() {
+        val itemService = SMPRPG.getService(ItemService::class.java)
+        val registry = SMPRPG.getService(RecipeService::class.java).getRegistry()
+        // Producible identifiers: our registry results plus every Bukkit recipe's result (vanilla, compression).
+        val craftable = HashSet(registry.resultIdentifiers())
+        val recipes = Bukkit.recipeIterator()
+        while (recipes.hasNext())
+            runCatching { craftable.add(itemService.getIdentifier(recipes.next().result)) }
+        craftableResultIds = craftable
+        usableIngredientIds = registry.ingredientIdentifiers().toHashSet()
+    }
+
+    /**
+     * Discard the current cache and rebuild it from scratch — e.g. after a recipe reload, since each cached item
+     * bakes in its recipe tooltip. The rebuild starts immediately (no startup delay) and runs gradually like the
+     * initial build, so `/search` is briefly unavailable (showing build progress) until it finishes.
+     */
+    @JvmStatic
+    fun rebuild() {
+        shutdown()
+        beginBuild(startDelay = 0L)
     }
 
     /**
@@ -137,6 +173,8 @@ object ItemBrowserCache {
         buildTask = null
         pending.clear()
         cache.clear()
+        craftableResultIds = emptySet()
+        usableIngredientIds = emptySet()
         totalSources = 0
         state = State.UNBUILT
     }
@@ -158,7 +196,7 @@ object ItemBrowserCache {
     /**
      * Starts the repeating task that indexes [ITEMS_PER_TICK] items per tick until the queue is drained.
      */
-    private fun scheduleBuildTask() {
+    private fun scheduleBuildTask(startDelay: Long) {
         val plugin = SMPRPG.plugin
         val itemService = SMPRPG.getService(ItemService::class.java)
         buildTask = object : BukkitRunnable() {
@@ -176,7 +214,7 @@ object ItemBrowserCache {
                     plugin.logger.info("Item browser registry finished indexing ${cache.size} items.")
                 }
             }
-        }.runTaskTimer(plugin, BUILD_START_DELAY, TickTime.TICK)
+        }.runTaskTimer(plugin, startDelay, TickTime.TICK)
     }
 
     /**
@@ -188,11 +226,16 @@ object ItemBrowserCache {
         val blueprint = itemService.getBlueprint(item)
         val renderedLore = itemService.renderItemStackLore(item)
 
-        // Only items with a known recipe (crafting, smelting, or custom station) get the clickable tooltip.
-        if (getRecipesFor(blueprint.generate()).isNotEmpty()) {
+        // Bake clickable hints: left-click to view how it's made, right-click to view what it's used in.
+        // Both are O(1) set lookups against the per-build snapshot — no recipe resolution per item.
+        val id = itemService.getIdentifier(item)
+        val craftable = id in craftableResultIds
+        val usable = id in usableIngredientIds
+        if (craftable || usable) {
             val displayLore = ArrayList(renderedLore)
             displayLore.addFirst(ComponentUtils.EMPTY)
-            displayLore.addFirst(ComponentUtils.create("Click to view recipe!", NamedTextColor.YELLOW))
+            if (usable) displayLore.addFirst(ComponentUtils.create("Right-click to view usages!", NamedTextColor.AQUA))
+            if (craftable) displayLore.addFirst(ComponentUtils.create("Left-click to view recipe!", NamedTextColor.YELLOW))
             displayLore.addFirst(ComponentUtils.EMPTY)
             item.editMeta { meta -> meta.lore(displayLore) }
         }

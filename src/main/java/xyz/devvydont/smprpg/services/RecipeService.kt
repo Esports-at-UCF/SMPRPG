@@ -25,6 +25,7 @@ import org.bukkit.scheduler.BukkitTask
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.gui.base.IRecipeDependentMenu
 import xyz.devvydont.smprpg.gui.base.MenuBase
+import xyz.devvydont.smprpg.gui.items.search.ItemBrowserCache
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.ItemRarity
 import xyz.devvydont.smprpg.items.blueprints.fishing.FishBlueprint
@@ -38,6 +39,8 @@ import xyz.devvydont.smprpg.recipe.core.CompressionRecipe
 import xyz.devvydont.smprpg.recipe.core.CustomRecipe
 import xyz.devvydont.smprpg.recipe.core.ItemIdentifier
 import xyz.devvydont.smprpg.recipe.cookingpot.CookingPotRecipe
+import xyz.devvydont.smprpg.recipe.crafting.ShapedDisplayRecipe
+import xyz.devvydont.smprpg.recipe.crafting.ShapelessDisplayRecipe
 import xyz.devvydont.smprpg.recipe.core.CookingPotRecipe as CoreCookingPotRecipe
 import xyz.devvydont.smprpg.recipe.core.RecipeLoader
 import xyz.devvydont.smprpg.recipe.core.RecipeRegistry
@@ -57,6 +60,7 @@ import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 import java.io.File
 import java.util.jar.JarFile
+import kotlin.math.min
 
 
 /**
@@ -122,20 +126,23 @@ class RecipeService : IService, Listener {
      *
      * Furnace and campfire smelting are driven live from the registry, so they need no re-registration here.
      *
-     * @param onComplete invoked (with the loaded recipe count) on the tick the rebuild finishes.
+     * @param onComplete invoked with the loaded recipe count and a one-line reason for each recipe that failed
+     *   to load, on the tick the rebuild finishes.
      * @return false if a reload is already in progress, true if this one was started.
      */
-    fun reload(onComplete: (Int) -> Unit = {}): Boolean {
+    fun reload(onComplete: (loaded: Int, failures: List<String>) -> Unit = { _, _ -> }): Boolean {
         if (reloadTask != null) return false
         prepareClientsForReload()
         saveDefaultRecipes()
         val itemService = SMPRPG.getService(ItemService::class.java)
         val newRegistry = RecipeRegistry()
         reloadQueue.clear()
+        // Single-threaded accumulator collecting the failure reasons across the per-file units.
+        val failures = mutableListOf<String>()
 
         // Phase 1: parse + validate each file into the new registry, one file per unit (the item-generation cost).
         for (file in RecipeLoader.recipeFiles())
-            reloadQueue.add { RecipeLoader.loadFileInto(file, newRegistry, itemService) }
+            reloadQueue.add { failures += RecipeLoader.loadFileInto(file, newRegistry, itemService) }
 
         // Phase 2: swap the new registry in, then queue Bukkit recipe mutations ONLY for recipes whose
         // definition actually changed (diff against what's currently registered). Re-registering every recipe
@@ -147,10 +154,16 @@ class RecipeService : IService, Listener {
                 enqueueCompressionDiff(newRegistry, itemService)
             // Phase 3: resync clients only if something actually changed (otherwise a reload is silent + free).
             reloadQueue.add {
-                if (changed > 0) Bukkit.updateRecipes()
-                Bukkit.broadcast(ComponentUtils.success("Recipes reloaded — crafting is back to normal."))
-                SMPRPG.plugin.logger.info("Reloaded custom recipe registry (${registry.size} recipes, $changed changed).")
-                onComplete(registry.size)
+                if (changed > 0) {
+                    Bukkit.updateRecipes()
+                    // The /search item cache bakes each item's recipe tooltip, so it's now stale — rebuild it.
+                    ItemBrowserCache.rebuild()
+                    Bukkit.broadcast(ComponentUtils.success("Recipes reloaded — crafting is back to normal. Rebuilding the /search index..."))
+                } else {
+                    Bukkit.broadcast(ComponentUtils.success("Recipes reloaded — no changes detected."))
+                }
+                SMPRPG.plugin.logger.info("Reloaded custom recipe registry (${registry.size} recipes, $changed changed, ${failures.size} failed).")
+                onComplete(registry.size, failures)
             }
         }
 
@@ -555,6 +568,11 @@ class RecipeService : IService, Listener {
          */
         @JvmStatic
         fun getRecipesFor(item: ItemStack): MutableList<Recipe> {
+            // Our crafting-table recipes are sourced from the registry below (getCustomRecipesFor), so drop the
+            // Bukkit-registered copies here to avoid duplicates — and so count>1 recipes (which have no Bukkit
+            // copy) are represented by exactly one entry.
+            val craftingKeys = SMPRPG.getService(RecipeService::class.java).getRegistry()
+                .byStation(RecipeStationType.CRAFTING_TABLE).map { it.key.asString() }.toSet()
             val allRecipes = Bukkit.getRecipesFor(item)
             // Filter out recipes that have the minecraft namespace that think they can craft custom items.
             // Filter out items that do not match. This function has this lovely behavior of giving us ALL recipes that give us the same underlying vanilla material.
@@ -570,6 +588,12 @@ class RecipeService : IService, Listener {
 
                 if (recipe !is Keyed)
                     continue
+
+                // Drop our own Bukkit crafting recipes; the registry-built display recipe replaces them.
+                if (recipe.key.asString() in craftingKeys) {
+                    allRecipes.remove(recipe)
+                    continue
+                }
 
                 // Filter out a recipe if it is vanilla, but thinks it can craft a custom item.
                 //todo commented out to see if recipe browser behaves better with displaying recipes with strange
@@ -592,55 +616,86 @@ class RecipeService : IService, Listener {
             return allRecipes
         }
 
+        /**
+         * The registry-sourced display recipes that PRODUCE [item]. Uses the registry's by-result index, so it
+         * only builds display recipes for the (usually one or two) recipes that actually make this item — never
+         * iterating or generating items for the whole recipe set, which is what made the recipe viewer lag.
+         */
         private fun getCustomRecipesFor(item: ItemStack): List<Recipe> {
-            val results = mutableListOf<Recipe>()
-            // Freezer, cutting board and cooking pot recipes now live in the data-driven registry. Build
-            // lightweight display recipes from it so the recipe browser keeps working until it is fully
-            // migrated to the core types.
+            val itemService = SMPRPG.getService(ItemService::class.java)
             val registry = SMPRPG.getService(RecipeService::class.java).getRegistry()
-            for (core in registry.byStation(RecipeStationType.COOKING_POT).filterIsInstance<CoreCookingPotRecipe>()) {
-                val resultStack = core.result.generate() ?: continue
-                if (resultStack.type == Material.BARRIER) continue
-                if (resultStack.isSimilar(item)) {
-                    val inputs = core.ingredients.mapNotNull { ing ->
-                        ing.identifier.resolve()?.also { it.amount = ing.amount }
-                    }
-                    val plating = core.plating?.resolve()
-                    results.add(CookingPotRecipe(core.key, inputs, core.time, resultStack, null, plating))
-                }
+            val results = mutableListOf<Recipe>()
+            for (core in registry.byResult(itemService.getIdentifier(item)))
+                buildDisplayRecipe(core)?.let { results.add(it) }
+            results.addAll(fishTeardownDisplayRecipes(item))
+            return results
+        }
+
+        /**
+         * All registry-sourced display recipes that USE [item] as an ingredient — the backend for an item
+         * "usages" view. Indexed lookup, so it is as cheap as [getCustomRecipesFor].
+         */
+        @JvmStatic
+        fun getUsagesFor(item: ItemStack): MutableList<Recipe> {
+            val itemService = SMPRPG.getService(ItemService::class.java)
+            val registry = SMPRPG.getService(RecipeService::class.java).getRegistry()
+            val results = mutableListOf<Recipe>()
+            for (core in registry.byIngredient(itemService.getIdentifier(item)))
+                buildDisplayRecipe(core)?.let { results.add(it) }
+            return results
+        }
+
+        /**
+         * Build the recipe-browser display recipe for one registry recipe (count-aware for crafting), or null
+         * for recipes that have no browser display here (compression, which is shown via Bukkit, and enchanting,
+         * which produces no item).
+         */
+        private fun buildDisplayRecipe(core: CustomRecipe): Recipe? = when (core) {
+            is CoreCookingPotRecipe -> {
+                val resultStack = core.result.generate()?.takeIf { it.type != Material.BARRIER } ?: return null
+                val inputs = core.ingredients.mapNotNull { ing -> ing.identifier.resolve()?.also { it.amount = ing.amount } }
+                CookingPotRecipe(core.key, inputs, core.time, resultStack, null, core.plating?.resolve())
             }
-            for (core in registry.byStation(RecipeStationType.FREEZER).filterIsInstance<CoreFreezerRecipe>()) {
-                val resultStack = core.result.generate() ?: continue
-                if (resultStack.type == Material.BARRIER) continue
-                if (resultStack.isSimilar(item)) {
-                    val inputStack = core.input.identifier.resolve() ?: continue
-                    results.add(FreezerRecipe(core.key, inputStack, core.time, resultStack))
-                }
+            is CoreFreezerRecipe -> {
+                val resultStack = core.result.generate()?.takeIf { it.type != Material.BARRIER } ?: return null
+                val inputStack = core.input.identifier.resolve() ?: return null
+                FreezerRecipe(core.key, inputStack, core.time, resultStack)
             }
-            for (core in registry.byStation(RecipeStationType.CUTTING_BOARD).filterIsInstance<CoreCuttingBoardRecipe>()) {
+            is CoreCuttingBoardRecipe -> {
                 val outputs = core.results.mapNotNull { out -> out.generate()?.let { it to out.chance } }
-                if (outputs.none { (stack, _) -> stack.type != Material.BARRIER && stack.isSimilar(item) }) continue
-                val inputStack = core.input.identifier.resolve() ?: continue
-                results.add(CuttingBoardRecipe(core.key, inputStack, outputs, toolTagOf(core.tool)))
+                if (outputs.none { (stack, _) -> stack.type != Material.BARRIER }) return null
+                val inputStack = core.input.identifier.resolve() ?: return null
+                CuttingBoardRecipe(core.key, inputStack, outputs, toolTagOf(core.tool))
             }
-            // Furnace smelting is no longer registered with Bukkit (CustomFurnaceController drives it directly),
-            // so build unregistered Bukkit cooking recipes purely so the recipe browser can still display them.
-            for (core in registry.byStation(RecipeStationType.FURNACE).filterIsInstance<SmeltingRecipe>()) {
-                val resultStack = core.result.generate() ?: continue
-                if (resultStack.type == Material.BARRIER || !resultStack.isSimilar(item)) continue
-                val inputStack = core.input.identifier.resolve() ?: continue
+            is SmeltingRecipe -> {
+                val resultStack = core.result.generate()?.takeIf { it.type != Material.BARRIER } ?: return null
+                val inputStack = core.input.identifier.resolve() ?: return null
                 val choice: RecipeChoice =
                     if (core.input.identifier.namespace == "smprpg") ExactChoice(inputStack)
                     else MaterialChoice(inputStack.type)
-                results.add(when (core.cook) {
+                when (core.cook) {
                     SmeltingCookType.FURNACE -> FurnaceRecipe(core.key, resultStack, choice, core.experience, core.time)
                     SmeltingCookType.BLASTING -> BlastingRecipe(core.key, resultStack, choice, core.experience, core.time)
                     SmeltingCookType.SMOKING -> SmokingRecipe(core.key, resultStack, choice, core.experience, core.time)
                     SmeltingCookType.CAMPFIRE -> CampfireRecipe(core.key, resultStack, choice, core.experience, core.time)
-                })
+                }
             }
-            results.addAll(fishTeardownDisplayRecipes(item))
-            return results
+            is CoreShapedRecipe -> {
+                val resultStack = core.result.generate()?.takeIf { it.type != Material.BARRIER } ?: return null
+                val ingredientItems = HashMap<Char, ItemStack>()
+                for ((ch, ingredient) in core.keyMap) {
+                    val stack = ingredient.identifier.resolve() ?: continue
+                    stack.amount = min(ingredient.amount, stack.maxStackSize)
+                    ingredientItems[ch] = stack
+                }
+                ShapedDisplayRecipe(core.key, core.pattern, ingredientItems, resultStack, core.upgradeChar)
+            }
+            is CoreShapelessRecipe -> {
+                val resultStack = core.result.generate()?.takeIf { it.type != Material.BARRIER } ?: return null
+                val items = core.ingredients.mapNotNull { ing -> ing.identifier.resolve()?.also { it.amount = min(ing.amount, it.maxStackSize) } }
+                ShapelessDisplayRecipe(core.key, items, resultStack)
+            }
+            else -> null
         }
 
         /**

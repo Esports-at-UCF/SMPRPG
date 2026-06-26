@@ -33,10 +33,12 @@ object RecipeLoader {
             return registry
         }
 
+        val failures = mutableListOf<String>()
         for (file in files)
-            loadFileInto(file, registry, itemService)
+            failures += loadFileInto(file, registry, itemService)
 
-        plugin.logger.info("Loaded ${registry.size} custom recipes from $FOLDER/.")
+        val suffix = if (failures.isNotEmpty()) " (${failures.size} failed — see warnings above)." else "."
+        plugin.logger.info("Loaded ${registry.size} custom recipes from $FOLDER/$suffix")
         return registry
     }
 
@@ -54,32 +56,42 @@ object RecipeLoader {
      * Parse a single recipe file and register its recipe(s) into [registry]. Malformed entries (bad shape, an
      * unresolved item, or a duplicate id) are logged and skipped without aborting — the same per-file resilience
      * [load] has, exposed so the batched reload can drive one file per work unit.
+     *
+     * @return a one-line reason for each recipe in this file that failed to load (empty if all registered);
+     *   every reason is also logged as a console warning.
      */
-    fun loadFileInto(file: File, registry: RecipeRegistry, itemService: ItemService) {
-        val plugin = SMPRPG.plugin
+    fun loadFileInto(file: File, registry: RecipeRegistry, itemService: ItemService): List<String> {
         val id = file.nameWithoutExtension.lowercase()
         val yaml = YamlConfiguration.loadConfiguration(file)
+        val failures = mutableListOf<String>()
         try {
             val recipes = parse(id, yaml)
-            if (recipes.isEmpty()) {
-                plugin.logger.warning("Skipping recipe file '${file.name}': could not parse (check 'type' and required fields).")
-                return
-            }
+            if (recipes.isEmpty())
+                return listOf(fail(file, null, "could not parse (check 'type' and required fields)"))
             for (recipe in recipes) {
                 if (registry.byKey(recipe.key.asString()) != null) {
-                    plugin.logger.warning("Skipping recipe '${recipe.key.value()}' in '${file.name}': duplicate recipe id.")
+                    failures += fail(file, recipe.key.value(), "duplicate recipe id")
                     continue
                 }
                 val unresolved = firstUnresolved(recipe, itemService)
                 if (unresolved != null) {
-                    plugin.logger.warning("Skipping recipe '${recipe.key.value()}' in '${file.name}': item '$unresolved' does not resolve.")
+                    failures += fail(file, recipe.key.value(), "item '$unresolved' does not resolve")
                     continue
                 }
                 registry.register(recipe)
             }
         } catch (e: Exception) {
-            plugin.logger.warning("Skipping recipe file '${file.name}': ${e.message}")
+            failures += fail(file, null, e.message ?: "unexpected error")
         }
+        return failures
+    }
+
+    /** Build a one-line failure reason, log it as a console warning, and return it for surfacing to the admin. */
+    private fun fail(file: File, recipeId: String?, reason: String): String {
+        val where = if (recipeId != null) "$recipeId (${file.name})" else file.name
+        val message = "$where — $reason"
+        SMPRPG.plugin.logger.warning("Skipping recipe $message")
+        return message
     }
 
     /** Returns the first ingredient/output identifier that fails to resolve, or null if all are valid. */

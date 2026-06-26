@@ -40,10 +40,20 @@ class CommandRecipes : ICommand {
         val sender = ctx.source.sender
         try {
             // The rebuild runs across ticks so it never hangs the server; report when it finishes.
-            val started = service.reload { count ->
-                sender.sendMessage(
-                    ComponentUtils.success("Reloaded custom recipes ($count loaded). Check console for any skipped entries.")
-                )
+            val started = service.reload { count, failures ->
+                when {
+                    failures.isEmpty() ->
+                        sender.sendMessage(ComponentUtils.success("Reloaded custom recipes ($count loaded)."))
+                    // Too many to read in chat — point the admin at the console warnings instead.
+                    failures.size >= MAX_LISTED_FAILURES ->
+                        sender.sendMessage(ComponentUtils.error("Reloaded custom recipes: $count loaded, ${failures.size} failed to load — check the console for the skipped entries."))
+                    // A handful — list each reason inline so the admin can fix them without leaving the game.
+                    else -> {
+                        sender.sendMessage(ComponentUtils.error("Reloaded custom recipes: $count loaded, ${failures.size} failed to load:"))
+                        for (failure in failures)
+                            sender.sendMessage(ComponentUtils.error("  • $failure"))
+                    }
+                }
             }
             if (started)
                 sender.sendMessage(ComponentUtils.success("Reloading custom recipes in the background..."))
@@ -70,5 +80,10 @@ class CommandRecipes : ICommand {
             SMPRPG.plugin.logger.severe("Recipe export failed: ${e.message}")
         }
         return Command.SINGLE_SUCCESS
+    }
+
+    companion object {
+        // At or above this many load failures, list none inline (too spammy for chat) and defer to the console.
+        private const val MAX_LISTED_FAILURES = 10
     }
 }

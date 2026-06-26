@@ -387,6 +387,28 @@ abstract class MenuBase @JvmOverloads constructor(// ---------
         }
     }
 
+    // -----------
+    //   Borders
+    // -----------
+    /**
+     * Creates a border around the perimeter of the menus inventory.
+     * Forces the glass panes to render without resource pack overrides.
+     * If you want resource pack overrides, use setBorderEdge()
+     */
+    fun setBorderEdgeForced() {
+        val canApplyBorder = this.inventory.size >= (3 * 9)
+        require(canApplyBorder) { "Edge borders can only be applied to menus with 3 or more rows" }
+
+        for (slotIndex in 0..<this.inventory.size) {
+            val isTopSlot = slotIndex <= 8
+            val isBottomSlot = this.inventory.size - slotIndex <= 9
+            val isSideSlot = slotIndex % 9 == 0 || slotIndex % 9 == 8
+            if (isTopSlot || isBottomSlot || isSideSlot) {
+                this.setSlot(slotIndex, BORDER_FORCED)
+            }
+        }
+    }
+
     fun setBorderBottom() {
         // Make all the slots in the bottom row a border.
 

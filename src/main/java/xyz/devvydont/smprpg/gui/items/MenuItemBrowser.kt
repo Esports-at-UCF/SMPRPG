@@ -16,6 +16,7 @@ import xyz.devvydont.smprpg.gui.items.search.ItemBrowserCache
 import xyz.devvydont.smprpg.gui.items.search.ItemSearchQuery
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.RecipeService.Companion.getRecipesFor
+import xyz.devvydont.smprpg.services.RecipeService.Companion.getUsagesFor
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
 
@@ -96,14 +97,20 @@ class MenuItemBrowser @JvmOverloads constructor(
             return
         }
 
+        if (itemStack.type == Material.AIR) return
         // Get a clean version of the item w/o modified lore so that we can properly query recipes.
-        val clean = ItemService.blueprint(itemStack)
-        val recipes: MutableList<Recipe> = getRecipesFor(clean.generate())
-        if (recipes.isEmpty() || itemStack.type == Material.AIR) {
-            //this.playInvalidAnimation();
+        val clean = ItemService.blueprint(itemStack).generate()
+
+        // Right-click: show what this item is used in. Left-click: show how to make it.
+        if (event.isRightClick) {
+            val usages: MutableList<Recipe> = getUsagesFor(clean)
+            if (usages.isEmpty()) return
+            MenuUsageViewer(this.player, this, itemStack, usages).openMenu()
             return
         }
 
+        val recipes: MutableList<Recipe> = getRecipesFor(clean)
+        if (recipes.isEmpty()) return
         MenuRecipeViewer(this.player, this, recipes, itemStack).openMenu()
     }
 
