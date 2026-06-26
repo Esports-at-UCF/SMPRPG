@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import xyz.devvydont.smprpg.ability.listeners.PlayerFreezeService
 import xyz.devvydont.smprpg.block.behaviors.SMPRPGBlockBehaviors
 import xyz.devvydont.smprpg.block.behaviors.SMPRPGItemBehaviors
+import xyz.devvydont.smprpg.gui.items.search.ItemBrowserCache
 import xyz.devvydont.smprpg.items.CraftEngineItemSource
 import xyz.devvydont.smprpg.items.listeners.ToolListeners
 import xyz.devvydont.smprpg.listeners.advancement.AdvancementTriggerListener
@@ -144,6 +145,10 @@ class SMPRPG : JavaPlugin() {
         // Start all of them.
         for (listener in generalListeners) listener.start()
 
+        // Begin gradually indexing the item browser registry (used by /search). This spreads the expensive item
+        // generation across many ticks instead of freezing the server the first time someone opens the browser.
+        ItemBrowserCache.beginBuild()
+
 
         // CraftEngine Compat
 
@@ -169,6 +174,7 @@ class SMPRPG : JavaPlugin() {
     }
 
     override fun onDisable() {
+        ItemBrowserCache.shutdown()
         for (service in services) service.cleanup()
         for (listener in generalListeners) listener.stop()
     }

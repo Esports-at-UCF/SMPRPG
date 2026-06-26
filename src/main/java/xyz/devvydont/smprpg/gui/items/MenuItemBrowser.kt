@@ -1,8 +1,6 @@
 package xyz.devvydont.smprpg.gui.items
 
-import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -14,13 +12,8 @@ import org.bukkit.inventory.Recipe
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.gui.base.MenuButtonClickHandler
+import xyz.devvydont.smprpg.gui.items.search.ItemBrowserCache
 import xyz.devvydont.smprpg.gui.items.search.ItemSearchQuery
-import xyz.devvydont.smprpg.gui.items.search.SearchField
-import xyz.devvydont.smprpg.gui.items.search.SearchNormalizer
-import xyz.devvydont.smprpg.gui.items.search.SearchableItem
-import xyz.devvydont.smprpg.items.CustomItemType
-import xyz.devvydont.smprpg.items.ItemClassification
-import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.services.RecipeService.Companion.getRecipesFor
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
@@ -41,24 +34,6 @@ class MenuItemBrowser @JvmOverloads constructor(
 ) : MenuBase(player, ROWS) {
     private val queriedItems: MutableList<ItemStack> = ArrayList<ItemStack>()
     private var page = 0
-
-    /**
-     * Alternative constructor if the user is querying for a specific item. We only want to display items that have
-     * some sort of matching string pattern with their query.
-     * 
-     * @param player The player who wants to view items
-     * @param query The string query the player provided within the command
-     */
-    /**
-     * Default constructor. Used for general queries when we want to just display every single item in the game.
-     * 
-     * @param player The player who wants to view items
-     */
-    init {
-        // Make sure the display cache is ready. This is normally warmed at startup (see warmCache), but we build it
-        // here too so the menu still works if a player opens it before the startup warm-up completes.
-        buildCache()
-    }
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
         super.handleInventoryOpened(event)
@@ -96,7 +71,7 @@ class MenuItemBrowser @JvmOverloads constructor(
         // just running each item through the parsed query. We store references (not clones) since Bukkit copies items
         // on insert into the inventory, and the click handler clones before ever handing one to a player.
         val parsedQuery = ItemSearchQuery.parse(query ?: "")
-        for (cached in ITEM_CACHE)
+        for (cached in ItemBrowserCache.items())
             if (parsedQuery.matches(cached))
                 this.queriedItems.add(cached.displayItem)
 
@@ -207,100 +182,6 @@ class MenuItemBrowser @JvmOverloads constructor(
     }
 
     companion object {
-        // Serializes lore components down to plain text once, so tooltip searches operate on simple strings.
-        private val PLAIN_TEXT = PlainTextComponentSerializer.plainText()
-
-        // The browser cache: fully display-ready items, each with its searchable fields pre-indexed. Building this once
-        // lets both page flips and queries avoid all per-item lore/recipe computation.
-        private val ITEM_CACHE: MutableList<SearchableItem> = ArrayList()
-        private val BLACKLISTED_MATERIALS = arrayOf(
-            Material.STONE_AXE, Material.STONE_PICKAXE, Material.STONE_HOE, Material.STONE_SWORD, Material.STONE_SHOVEL, Material.STONE_SPEAR,
-            Material.DIAMOND_AXE, Material.DIAMOND_PICKAXE, Material.DIAMOND_HOE, Material.DIAMOND_SWORD, Material.DIAMOND_SHOVEL, Material.DIAMOND_SPEAR, Material.DIAMOND_HELMET, Material.DIAMOND_BOOTS, Material.DIAMOND_LEGGINGS, Material.DIAMOND_CHESTPLATE
-        )
-
-
         const val ROWS: Int = 6
-
-        /**
-         * Pre-builds the browser display cache. This is safe to call multiple times; it only does work the first time.
-         * Items are not updated dynamically while browsing, so the rendered items can be reused for the server's
-         * lifetime. Intended to be called once at startup (see [warmCache]) so players never pay the build cost while
-         * browsing, but the menu also calls this on construction as a fallback.
-         */
-        @JvmStatic
-        fun warmCache() {
-            buildCache()
-        }
-
-        private fun buildCache() {
-            if (ITEM_CACHE.isNotEmpty()) return
-
-            val itemService = SMPRPG.getService(ItemService::class.java)
-            for (type in CustomItemType.entries)
-                cacheItem(itemService, ItemService.generate(type))
-
-            for (material in Material.entries) {
-                if (material.isLegacy || !material.isItem || material == Material.AIR || material in BLACKLISTED_MATERIALS) continue
-                cacheItem(itemService, ItemService.generate(material))
-            }
-        }
-
-        /**
-         * Bakes the browser tooltip into a generated item and indexes its searchable fields, then stores it in the
-         * cache. This mirrors the lore/recipe work that used to happen on every page flip inside render(), but now
-         * only ever runs a single time per item.
-         */
-        private fun cacheItem(itemService: ItemService, item: ItemStack) {
-            val blueprint = itemService.getBlueprint(item)
-            val renderedLore = itemService.renderItemStackLore(item)
-
-            // Only items with a known recipe (crafting, smelting, or custom station) get the clickable tooltip.
-            if (getRecipesFor(blueprint.generate()).isNotEmpty()) {
-                val displayLore = ArrayList(renderedLore)
-                displayLore.addFirst(ComponentUtils.EMPTY)
-                displayLore.addFirst(ComponentUtils.create("Click to view recipe!", NamedTextColor.YELLOW))
-                displayLore.addFirst(ComponentUtils.EMPTY)
-                item.editMeta { meta -> meta.lore(displayLore) }
-            }
-
-            ITEM_CACHE.add(buildSearchable(item, blueprint, renderedLore))
-        }
-
-        /**
-         * Indexes an item's searchable fields (name, tooltip, rarity, classification) so that queries become simple
-         * substring checks against pre-normalized strings.
-         */
-        private fun buildSearchable(
-            item: ItemStack,
-            blueprint: SMPItemBlueprint,
-            renderedLore: List<Component?>
-        ): SearchableItem {
-            val name = blueprint.getItemName(item)
-            val loreText = renderedLore.filterNotNull().joinToString("\n") { PLAIN_TEXT.serialize(it) }
-            // The tooltip field includes the name so that '#' searches everything a player can read on the item.
-            val tooltip = "$name\n$loreText"
-            val rarity = blueprint.getRarity(item).name
-            val classification = classificationKeywords(blueprint.itemClassification)
-
-            val fields = mapOf(
-                SearchField.NAME to SearchNormalizer.normalize(SearchField.NAME, name),
-                SearchField.TOOLTIP to SearchNormalizer.normalize(SearchField.TOOLTIP, tooltip),
-                SearchField.RARITY to SearchNormalizer.normalize(SearchField.RARITY, rarity),
-                SearchField.CLASSIFICATION to SearchNormalizer.normalize(SearchField.CLASSIFICATION, classification)
-            )
-            return SearchableItem(item, fields)
-        }
-
-        /**
-         * Builds the searchable keyword text for an item's classification. Beyond the specific category name (e.g.
-         * "sword"), broad groupings ("weapon", "armor", "bow") are appended so a player can search by either.
-         */
-        private fun classificationKeywords(classification: ItemClassification): String {
-            val keywords = StringBuilder(classification.name)
-            if (classification.isWeapon) keywords.append(" weapon")
-            if (classification.isArmor) keywords.append(" armor")
-            if (classification.isBow) keywords.append(" bow")
-            return keywords.toString()
-        }
     }
 }

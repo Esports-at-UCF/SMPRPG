@@ -19,6 +19,7 @@ import xyz.devvydont.smprpg.market.MarketService
 import xyz.devvydont.smprpg.market.gui.auction.MenuAuctionBrowser
 import xyz.devvydont.smprpg.market.gui.bazaar.MenuBazaarBrowser
 import xyz.devvydont.smprpg.gui.items.MenuItemBrowser
+import xyz.devvydont.smprpg.gui.items.search.ItemBrowserCache
 import xyz.devvydont.smprpg.gui.player.InterfaceStats
 import xyz.devvydont.smprpg.gui.player.InterfaceWardrobe
 import xyz.devvydont.smprpg.gui.player.MenuDifficultyChooser
@@ -51,6 +52,12 @@ class MainMenu(player: Player) : MenuBase(player, ROWS) {
             RECIPE_MENU,
             this.recipeDisplay
         ) { e: InventoryClickEvent ->
+            // The item registry indexes gradually after boot; don't open the browser until it's fully built.
+            if (!ItemBrowserCache.isReady()) {
+                this.player.sendMessage(ItemBrowserCache.notReadyMessage())
+                this.playInvalidAnimation()
+                return@setButton
+            }
             this.openSubMenu(
                 MenuItemBrowser(
                     this,
