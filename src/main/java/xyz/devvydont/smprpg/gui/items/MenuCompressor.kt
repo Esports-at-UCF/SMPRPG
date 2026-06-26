@@ -9,10 +9,11 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.ItemStack
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.items.CustomItemType
 import xyz.devvydont.smprpg.items.blueprints.equipment.PocketCompressorBlueprint
-import xyz.devvydont.smprpg.items.interfaces.ICompressible
+import xyz.devvydont.smprpg.recipe.CompressionGraph
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.formatting.Symbols
 
@@ -88,17 +89,15 @@ class MenuCompressor(val owner: Player, val compressor: ItemStack, val compresso
             this.setButton(startSlot + itemIdx, item) { e: InventoryClickEvent ->
                 e.isCancelled = true
 
-                val cursorBp = ItemService.blueprint(e.cursor)
+                val itemService = SMPRPG.getService(ItemService::class.java)
                 if (e.cursor.isEmpty) {
                     if (e.slot < startSlot || e.slot > (startSlot + compressorBp.compressorSlots)) {
                         return@setButton
                     }
                     newConfig[e.slot - startSlot] = ItemStack.of(PocketCompressorBlueprint.DUMMY_MATERIAL)
                 }
-                else if (cursorBp is ICompressible) {
-                    if (cursorBp.decompressor == null) {
-                        return@setButton
-                    }
+                // Only a compressed item (one that decompresses into a lower tier) can be a compression target.
+                else if (CompressionGraph.isCompressed(itemService.getIdentifier(e.cursor))) {
                     if (e.slot < startSlot || e.slot > (startSlot + compressorBp.compressorSlots)) {
                         return@setButton
                     }

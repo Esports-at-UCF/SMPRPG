@@ -15,9 +15,8 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.gui.items.MenuCompressor
-import xyz.devvydont.smprpg.items.base.SMPItemBlueprint
 import xyz.devvydont.smprpg.items.blueprints.equipment.PocketCompressorBlueprint
-import xyz.devvydont.smprpg.items.interfaces.ICompressible
+import xyz.devvydont.smprpg.recipe.CompressionGraph
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.extensions.takeIfPresent
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
@@ -48,10 +47,12 @@ class PocketCompressorListener: ToggleableListener() {
             val compressionItems = compressor.getData(DataComponentTypes.CONTAINER)
             for (itemToCompressTo in compressionItems!!.contents()) {
                 if (itemToCompressTo.type != PocketCompressorBlueprint.DUMMY_MATERIAL) {
-                    val compressResultBp = ItemService.blueprint(itemToCompressTo) as ICompressible
-                    val stepBelowBp = compressResultBp.decompressor?.blueprint ?: continue
-                    val stepBelowItem: ItemStack = (stepBelowBp as SMPItemBlueprint).generate().clone()
-                    stepBelowItem.amount = compressResultBp.decompressor!!.resultAmount
+                    // Determine what the configured item decompresses into (the tier directly below it) and how
+                    // many of that lower item a single pickup-batch must accumulate to compress back up into one.
+                    val compressTargetId = itemService.getIdentifier(itemToCompressTo)
+                    val (stepBelowId, decompressRatio) = CompressionGraph.decompressStep(compressTargetId) ?: continue
+                    val stepBelowItem: ItemStack = itemService.resolveIdentifier(stepBelowId)?.clone() ?: continue
+                    stepBelowItem.amount = decompressRatio
 
                     // We need to put our dropped item into an inventory and parse through it,
                     // as it is not a part of the player inventory yet.

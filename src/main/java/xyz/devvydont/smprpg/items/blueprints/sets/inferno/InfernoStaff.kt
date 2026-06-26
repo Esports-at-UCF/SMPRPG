@@ -7,11 +7,8 @@ import net.kyori.adventure.key.Key
 import org.bukkit.NamespacedKey
 import org.bukkit.Particle
 import org.bukkit.event.Listener
-import org.bukkit.inventory.CraftingRecipe
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.recipe.CraftingBookCategory
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.ability.Ability
 import xyz.devvydont.smprpg.ability.AbilityActivationMethod
@@ -31,7 +28,7 @@ import xyz.devvydont.smprpg.skills.SkillType
 import xyz.devvydont.smprpg.util.time.TickTime
 
 class InfernoStaff(itemService: ItemService, type: CustomItemType) : CustomAttributeItem(itemService, type),
-    IBreakableEquipment, ICantCrit, IMageBeam, ICraftable, IAbilityCaster, IModelOverridden, ISkillRequirement,
+    IBreakableEquipment, ICantCrit, IMageBeam, IAbilityCaster, IModelOverridden, ISkillRequirement,
     Listener {
 
     override val itemClassification: ItemClassification get() = ItemClassification.STAFF
@@ -50,29 +47,6 @@ class InfernoStaff(itemService: ItemService, type: CustomItemType) : CustomAttri
     }
 
     override fun getPowerRating(): Int { return InfernoArmorSet.POWER }
-
-    override fun getRecipeKey(): NamespacedKey {
-        return ICraftable.getDefaultRecipeKey(customItemType)
-    }
-
-    override fun getCustomRecipe(): CraftingRecipe {
-        val recipe = ShapedRecipe(getRecipeKey(), generate())
-        recipe.shape(
-            " ib",
-            " bb",
-            "b  "
-        )
-        recipe.setIngredient('i', ItemService.Companion.generate(InfernoArmorSet.CRAFTING_COMPONENT))
-        recipe.setIngredient('b', ItemService.Companion.generate(CustomItemType.ENCHANTED_BLAZE_ROD))
-        recipe.setCategory(CraftingBookCategory.EQUIPMENT)
-        return recipe
-    }
-
-    override fun unlockedBy(): MutableCollection<ItemStack?> {
-        return mutableListOf(
-            itemService.getCustomItem(CustomItemType.INFERNO_REMNANT)
-        )
-    }
 
     override fun getActiveSlot(): EquipmentSlotGroup { return EquipmentSlotGroup.MAINHAND }
 

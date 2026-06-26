@@ -40,7 +40,7 @@ public abstract class SlimyArmorSet extends CustomAttributeItem implements IBrea
         return EquipmentSlotGroup.ARMOR;
     }
 
-    public abstract int getHealth();
+    public abstract int getDefense();
 
     @Override
     public int getPowerRating() {
