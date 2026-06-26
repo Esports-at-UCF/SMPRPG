@@ -2,6 +2,7 @@ package xyz.devvydont.smprpg.items;
 
 import org.bukkit.Material;
 import xyz.devvydont.smprpg.items.base.CustomItemBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.augment.BookOfBounties;
 import xyz.devvydont.smprpg.items.blueprints.augment.HotPotatoBook;
 import xyz.devvydont.smprpg.items.blueprints.augment.Recombobulator;
 import xyz.devvydont.smprpg.items.blueprints.block.SuperSoil;
@@ -1435,6 +1436,7 @@ public enum CustomItemType {
     ENCHANTED_GOLDEN_CARROT("Enchanted Golden Carrot", Material.GOLDEN_CARROT, ItemRarity.EPIC, true, CarrotBlueprintFamily.class),
     CARROT_SINGULARITY("Carrot Singularity", Material.GOLDEN_CARROT, ItemRarity.LEGENDARY, true, CarrotBlueprintFamily.class),
 
+    BOOK_OF_BOUNTIES("Book of Bounties", Material.BOOK, ItemRarity.EPIC, BookOfBounties.class),
     GNAWED_CARROT("Gnawed Carrot", Material.NETHER_BRICK, ItemRarity.RARE, false, 10_000, "materials"),
 
     PREMIUM_POTATO("Premium Potato", Material.POTATO, ItemRarity.UNCOMMON, true, PotatoBlueprintFamily.class),
