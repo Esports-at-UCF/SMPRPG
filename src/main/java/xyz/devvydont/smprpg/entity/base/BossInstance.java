@@ -295,7 +295,9 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
         if (!_entity.isValid())
             return;
 
-        for (Player player : getActivelyInvolvedPlayers()) {
+        // Copy the collection first: setHealth(0) fires PlayerDeathEvent synchronously, which removes the
+        // player from activelyInvolvedPlayers and would otherwise mutate the map we are iterating over.
+        for (Player player : new ArrayList<>(getActivelyInvolvedPlayers())) {
             // Kill everyone
             player.setHealth(0);
         }
