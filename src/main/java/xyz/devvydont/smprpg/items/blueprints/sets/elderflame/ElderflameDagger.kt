@@ -26,9 +26,9 @@ class ElderflameDagger(itemService: ItemService, type: CustomItemType) : CustomA
      */
     override fun getAttributeModifiers(item: ItemStack?): MutableCollection<AttributeEntry?> {
         return mutableListOf(
-            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 200.0),
-            AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, 50.0),
-            MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.5)
+            AdditiveAttributeEntry(AttributeWrapper.STRENGTH, 250.0),
+            AdditiveAttributeEntry(AttributeWrapper.CRITICAL_DAMAGE, 75.0),
+            MultiplicativeAttributeEntry(AttributeWrapper.ATTACK_SPEED, -.4)
         )
     }
 
