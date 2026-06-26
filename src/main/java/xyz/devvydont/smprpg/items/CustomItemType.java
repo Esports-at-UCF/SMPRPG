@@ -12,6 +12,7 @@ import xyz.devvydont.smprpg.items.blueprints.boss.DiamondToolRod;
 import xyz.devvydont.smprpg.items.blueprints.boss.InfernoArrow;
 import xyz.devvydont.smprpg.items.blueprints.boss.NeptunesConch;
 import xyz.devvydont.smprpg.items.blueprints.charms.LuckyCharm;
+import xyz.devvydont.smprpg.items.blueprints.consumables.HeartConsumableBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.charms.SpeedCharm;
 import xyz.devvydont.smprpg.items.blueprints.charms.StrengthCharm;
 import xyz.devvydont.smprpg.items.blueprints.craftengine.CraftEngineCompressibleBlueprint;
@@ -808,6 +809,23 @@ public enum CustomItemType {
     VISCERAL_AMALGAMATION("Visceral Amalgamation", Material.ROTTEN_FLESH, ItemRarity.RARE, VisceralAmalgamation.class),
     UNDIGESTED_BRAINS("Undigested Brains", Material.COCOA_BEANS, ItemRarity.EPIC, UndigestedBrains.class),
     NECRONOMICON_EXCERPTS("Accursed Manuscripts", Material.PAPER, ItemRarity.LEGENDARY, NecronomiconExcerpts.class),
+
+    // HEART CRYSTALS (permanent maximum-health consumables, one tier per dimension; see HeartTier).
+    VITALITY_HEART("Vitality Heart", Material.GHAST_TEAR,       ItemRarity.COMMON,    HeartConsumableBlueprint.class),
+    EMBER_HEART(   "Ember Heart",    Material.BLAZE_POWDER,     ItemRarity.UNCOMMON,  HeartConsumableBlueprint.class),
+    CLOUDHEART(    "Cloudheart",     Material.HEART_OF_THE_SEA, ItemRarity.RARE,      HeartConsumableBlueprint.class),
+    VOIDHEART(     "Voidheart",      Material.ECHO_SHARD,       ItemRarity.EPIC,      HeartConsumableBlueprint.class),
+    ETERNAL_HEART( "Eternal Heart",  Material.NETHER_STAR,      ItemRarity.LEGENDARY, HeartConsumableBlueprint.class),
+
+    // HEART CRYSTAL REAGENTS (recipes/drops are added later; defined here so they exist as items).
+    // Universal grind reagent, intended to drop from skill activities across every dimension.
+    VITALITY_SHARD("Vitality Shard", Material.AMETHYST_SHARD,   ItemRarity.UNCOMMON,  false, 250),
+    // Dimension-exclusive core reagents that gate each heart tier to its origin dimension.
+    VERDANT_CORE(  "Verdant Core",   Material.EMERALD,          ItemRarity.COMMON,    false, 500),
+    INFERNAL_CORE( "Infernal Core",  Material.MAGMA_CREAM,      ItemRarity.UNCOMMON,  false, 1500),
+    AETHERIAL_CORE("Aetherial Core", Material.PHANTOM_MEMBRANE, ItemRarity.RARE,      false, 5000),
+    VOID_CORE(     "Void Core",      Material.DRAGON_BREATH,    ItemRarity.EPIC,      false, 20000),
+    ETERNAL_CORE(  "Eternal Core",   Material.HEAVY_CORE,       ItemRarity.LEGENDARY, false, 80000),
 
     ABOMINABLE_CLEAVER(     "Abominable Cleaver",  Material.GOLDEN_SWORD,     ItemRarity.RARE, AbominableCleaver.class),
     ABOMINABLE_MACHETE(     "Abominable Machete",  Material.DIAMOND_SWORD,    ItemRarity.EPIC, AbominableMachete.class),
