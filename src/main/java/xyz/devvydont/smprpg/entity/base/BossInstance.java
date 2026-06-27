@@ -100,10 +100,11 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
     // Additive damage gained per stack. +0.5 == +50% of the boss's base damage per stack.
     private static final double ENRAGE_STRENGTH_PER_STACK = 0.5;
 
-    // How long doom takes to drain a freshly-doomed player from full health to wiped.
+    // How long doom takes to drain a freshly-doomed player from full health down to the floor.
     private static final int DOOM_DRAIN_SECONDS = 50;
-    // Once a player has lost all but this fraction of their captured max HP, doom finishes them off.
-    private static final double DOOM_WIPE_FRACTION = 0.02;
+    // The max HP a doomed player is drained down to (and held at). At 1, any hit from anything kills them, so a
+    // wipe becomes purely about getting hit rather than the drain finishing the job itself.
+    private static final double DOOM_MIN_HP = 1.0;
 
     private static final NamespacedKey ENRAGE_STRENGTH_KEY = new NamespacedKey("smprpg", "boss_enrage_strength");
     private static final NamespacedKey DOOM_DRAIN_KEY = new NamespacedKey("smprpg", "boss_doom_drain");
@@ -468,8 +469,9 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
     }
 
     /**
-     * Applies one tick of doom to a single player: shrinks their max HP toward zero at a rate that empties a full
-     * health bar in {@link #DOOM_DRAIN_SECONDS}, and finishes them off once almost nothing is left.
+     * Applies one tick of doom to a single player: shrinks their max HP toward {@link #DOOM_MIN_HP} at a rate that
+     * reaches the floor in {@link #DOOM_DRAIN_SECONDS}, then holds them there. They are never killed by the drain
+     * itself; at 1 max HP any hit finishes them, so the wipe depends entirely on getting hit.
      */
     private void drainDoomed(Player player) {
 
@@ -484,36 +486,25 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
             return hp.getValue();
         });
 
-        double drained = doomDrained.getOrDefault(id, 0.0) + base / (DOOM_DRAIN_SECONDS * 20.0);
+        // Total HP to strip is everything above the floor; pace it so the floor is reached in DOOM_DRAIN_SECONDS,
+        // then clamp so the drain holds at the floor instead of continuing past it.
+        double drainCeiling = Math.max(0, base - DOOM_MIN_HP);
+        double drained = Math.min(drainCeiling, doomDrained.getOrDefault(id, 0.0) + drainCeiling / (DOOM_DRAIN_SECONDS * 20.0));
         doomDrained.put(id, drained);
 
-        // Once we have stripped nearly all of their health, wipe them from the fight.
-        if (drained >= base * (1 - DOOM_WIPE_FRACTION)) {
-            wipeDoomed(player);
-            return;
-        }
-
         hp.removeModifier(DOOM_DRAIN_KEY);
-        hp.addTransientModifier(new AttributeModifier(DOOM_DRAIN_KEY, -drained, AttributeModifier.Operation.ADD_NUMBER));
+        if (drained > 0)
+            hp.addTransientModifier(new AttributeModifier(DOOM_DRAIN_KEY, -drained, AttributeModifier.Operation.ADD_NUMBER));
 
         // Keep current health pinned under the shrinking ceiling so the squeeze is felt immediately.
         double newMax = hp.getValue();
         if (player.getHealth() > newMax)
-            player.setHealth(Math.max(1, newMax));
+            player.setHealth(Math.max(DOOM_MIN_HP, newMax));
 
         refreshHealthScale(player);
 
         if (Bukkit.getServer().getCurrentTick() % 10 == 0)
             player.playSound(player.getLocation(), Sound.ENTITY_WARDEN_HEARTBEAT, 1f, 0.5f);
-    }
-
-    /**
-     * Removes a doomed player from the fight by killing them outright. The death has no killer, so no loot is
-     * credited, mirroring the old timer wipe.
-     */
-    private void wipeDoomed(Player player) {
-        clearDoom(player);
-        player.setHealth(0);
     }
 
     /**

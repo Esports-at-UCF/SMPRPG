@@ -196,25 +196,29 @@ public class LeveledDragon extends BossInstance<EnderDragon> implements Listener
 
     @Override
     public void wipe() {
-
-        var battle = _entity.getWorld().getEnderDragonBattle();
-        if (battle != null) {
-            battle.generateEndPortal(true);
-            battle.resetCrystals();
-        }
-
         super.wipe();
+        // Kill the dragon the way a legitimate combat death does. We previously set the DYING phase, but that only
+        // plays the death animation while the dragon stays at full health, so the vanilla EnderDragonBattle never
+        // registers the kill and would randomly respawn the dragon afterwards.
+        killWithoutCredit();
+    }
 
-        // The base wipe() never calls _entity.remove() on a dragon (removing it directly leaves the vanilla
-        // EnderDragonBattle in a broken state), so without this the dragon would survive the wipe and keep
-        // flying. Hand it to its native death sequence instead: it animates out and despawns cleanly, which in
-        // turn fires the removal chain that runs cleanup(). This mirrors cleanup()'s own teardown, and because
-        // the death has no player killer, DropsService awards no loot for the failed attempt.
+    /**
+     * Forcibly kills the dragon so the vanilla dragon battle treats it as a real death. All damage contribution is
+     * cleared first so the kill credits nobody and {@code DropsService} awards no loot.
+     *
+     * <p>Note we cannot use {@code Entity#damage()} here: the dragon's main hitbox ignores direct damage (only its
+     * body-part entities route damage in vanilla), so a damage call is a silent no-op and the dragon flies on.
+     * Setting health to 0 invokes the dragon's genuine death (die() -> the vanilla death animation ->
+     * {@code EnderDragonBattle#setDragonKilled}), which registers the kill, generates the exit portal, and prevents
+     * any respawn, all without the problematic {@code Entity#remove()} on a dragon.
+     */
+    private void killWithoutCredit() {
         if (!_entity.isValid())
             return;
 
         getDamageTracker().clear();
-        _entity.setPhase(EnderDragon.Phase.DYING);
+        _entity.setHealth(0);
     }
 
     /**
