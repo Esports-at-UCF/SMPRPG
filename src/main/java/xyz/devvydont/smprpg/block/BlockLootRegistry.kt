@@ -54,6 +54,15 @@ object BlockLootRegistry : Listener {
         )
 
         register(
+            Material.DIRT, builder()
+                .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.DIRT)))
+                .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(Material.DIRT)))
+                .add(BlockLootContext.CORRECT_TOOL, of(ItemService.generate(Material.DIRT)))
+                .uses(AttributeWrapper.MINING_FORTUNE)
+                .build()
+        )
+
+        register(
             Material.COBBLESTONE, builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .add(BlockLootContext.AUTO_SMELT, of(ItemService.generate(Material.STONE)))
                 .add(BlockLootContext.SILK_TOUCH, of(ItemService.generate(Material.STONE)))

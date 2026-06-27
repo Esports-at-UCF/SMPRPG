@@ -13,6 +13,8 @@ import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
+import org.bukkit.damage.DamageSource
+import org.bukkit.damage.DamageType
 import org.bukkit.entity.Player
 import org.bukkit.entity.Zombie
 import org.bukkit.inventory.EquipmentSlot
@@ -63,7 +65,7 @@ class ShamblingAbominationSyphonGoal(val slayer : ShamblingAbominationParent, va
             for (participant in slayer.activelyInvolvedPlayers) {
                 val maxHp = participant.getAttribute(Attribute.MAX_HEALTH)
                 val damage = maxHp!!.value * syphonPercentage
-                participant.damage(damage, zombie)
+                participant.damage(damage)
                 zombie.heal(damage * 1000.0)
                 participant.playSound(participant.location, Sound.ENTITY_GENERIC_DRINK, 0.75f, 0.5f)
                 ParticleUtil.spawnParticlesBetweenTwoPoints(SYPHON_PARTICLE,
