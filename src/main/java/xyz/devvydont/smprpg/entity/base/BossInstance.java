@@ -440,7 +440,7 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
     private void onEnrageStackIncreased() {
         float pitch = (float) Math.min(2.0, 0.5 + enrageStacks * 0.1);
         for (Player player : getActivelyInvolvedPlayers())
-            player.playSound(player.getLocation(), Sound.BLOCK_VAULT_EJECT_ITEM, 1f, pitch);
+            player.playSound(player.getLocation(), Sound.BLOCK_TRIAL_SPAWNER_OPEN_SHUTTER, 1f, pitch);
     }
 
     /**
