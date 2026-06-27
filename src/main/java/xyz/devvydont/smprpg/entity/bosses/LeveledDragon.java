@@ -204,6 +204,17 @@ public class LeveledDragon extends BossInstance<EnderDragon> implements Listener
         }
 
         super.wipe();
+
+        // The base wipe() never calls _entity.remove() on a dragon (removing it directly leaves the vanilla
+        // EnderDragonBattle in a broken state), so without this the dragon would survive the wipe and keep
+        // flying. Hand it to its native death sequence instead: it animates out and despawns cleanly, which in
+        // turn fires the removal chain that runs cleanup(). This mirrors cleanup()'s own teardown, and because
+        // the death has no player killer, DropsService awards no loot for the failed attempt.
+        if (!_entity.isValid())
+            return;
+
+        getDamageTracker().clear();
+        _entity.setPhase(EnderDragon.Phase.DYING);
     }
 
     /**
