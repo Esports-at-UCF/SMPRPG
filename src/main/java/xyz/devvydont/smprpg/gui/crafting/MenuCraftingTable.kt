@@ -80,36 +80,65 @@ class MenuCraftingTable(player: Player) : MenuBase(player, ROWS), IRecipeDepende
     }
 
     /**
-     * Commit the previewed craft. Recomputes from the live grid each iteration so a stale preview can never be
-     * committed. A shift-click crafts as many as the grid allows (capped at one result stack's worth).
+     * Commit a craft from a click on the result slot, mirroring vanilla: a normal click picks a single craft's
+     * worth of items onto the cursor, while a shift-click crafts as many as the grid allows straight into the
+     * inventory. The live grid is recomputed each step so a stale preview can never be committed.
      */
     private fun commit(event: InventoryClickEvent) {
-        val itemService = SMPRPG.getService(ItemService::class.java)
-        val maxCrafts = if (event.isShiftClick) 64 else 1
-        var crafted = 0
+        if (event.isShiftClick)
+            commitToInventory()
+        else
+            commitToCursor(event)
+    }
 
-        while (crafted < maxCrafts) {
-            val match = computeResult() ?: break
-            if (match.consumption.isEmpty()) break
-            // Never craft a recipe the player isn't allowed to (defensive; the preview already blocks it).
-            val recipe = match.recipe
-            if (recipe != null && !recipe.requirements.meets(player)) break
-
-            for ((cell, amount) in match.consumption) {
-                val slot = GRID_SLOTS[cell]
-                val item = getItem(slot)
-                consume(slot, amount)
-                // Vanilla container ingredients (buckets, bottles) leave a remainder when crafted.
-                if (item != null && itemService.getItemKey(item) == null) {
-                    val remainder = item.type.craftingRemainingItem
-                    if (remainder != null) giveItemToPlayer(ItemStack(remainder, amount))
-                }
-            }
-            giveItemToPlayer(match.result.clone())
-            recipe?.rewards?.grant(player, SkillExperienceGainEvent.ExperienceSource.FORGE)
-            crafted++
+    /**
+     * Vanilla single-click craft: place one craft's worth of result onto the cursor. An empty cursor simply
+     * receives the result; an occupied cursor receives it only if the result can stack onto what's already held
+     * (same item, with room for the full amount), exactly as vanilla lets you keep stacking crafts onto the
+     * cursor and refuses the click otherwise.
+     */
+    private fun commitToCursor(event: InventoryClickEvent) {
+        val match = craftable() ?: run { playInvalidAnimation(); return }
+        val result = match.result
+        val cursor = event.cursor
+        val cursorOccupied = cursor != null && !cursor.isEmpty
+        if (cursorOccupied && !canStackOnto(cursor!!, result)) {
+            playInvalidAnimation()
+            return
         }
+        consumeMatch(match)
+        val held = if (cursorOccupied) cursor!!.clone().apply { amount += result.amount } else result.clone()
+        player.setItemOnCursor(held)
+        // A cancelled click leaves the client thinking the cursor is empty; resync it next tick.
+        Bukkit.getScheduler().runTaskLater(plugin, Runnable { player.updateInventory() }, 1L)
+        grantRewards(match)
+        playSound(Sound.ENTITY_ITEM_PICKUP, 0.6f, 1.0f)
+        refreshResult()
+    }
 
+    /** Whether a freshly crafted [result] can be added in full onto an already-held [cursor] stack. */
+    private fun canStackOnto(cursor: ItemStack, result: ItemStack): Boolean =
+        cursor.isSimilar(result) && cursor.amount + result.amount <= result.maxStackSize
+
+    /**
+     * Vanilla shift-click craft: repeatedly craft the SAME recipe into the inventory until the grid no longer
+     * produces it. Locking onto the first result prevents the leftovers from silently crafting a different
+     * recipe (e.g. finishing pressure plates and then turning the last plank into a button).
+     */
+    private fun commitToInventory() {
+        val first = craftable() ?: run { playInvalidAnimation(); return }
+        val target = resultIdentifier(first.result)
+        var crafted = 0
+        var match: CraftingRecipeMatcher.Match? = first
+        while (match != null && crafted < SHIFT_CRAFT_LIMIT) {
+            if (resultIdentifier(match.result) != target) break
+            if (!craftAllowed(match)) break
+            consumeMatch(match)
+            giveItemToPlayer(match.result.clone())
+            grantRewards(match)
+            crafted++
+            match = computeResult()
+        }
         if (crafted == 0) {
             playInvalidAnimation()
             return
@@ -117,6 +146,41 @@ class MenuCraftingTable(player: Player) : MenuBase(player, ROWS), IRecipeDepende
         playSound(Sound.ENTITY_ITEM_PICKUP, 0.6f, 1.0f)
         refreshResult()
     }
+
+    /** The current committable match (non-empty, requirements met), or null if nothing can be crafted now. */
+    private fun craftable(): CraftingRecipeMatcher.Match? {
+        val match = computeResult() ?: return null
+        return if (craftAllowed(match)) match else null
+    }
+
+    /** A match is craftable when it consumes something and the player meets any recipe requirements. */
+    private fun craftAllowed(match: CraftingRecipeMatcher.Match): Boolean {
+        if (match.consumption.isEmpty()) return false
+        val recipe = match.recipe
+        return recipe == null || recipe.requirements.meets(player)
+    }
+
+    /** Remove the matched ingredients from the grid, returning vanilla container remainders (buckets, bottles). */
+    private fun consumeMatch(match: CraftingRecipeMatcher.Match) {
+        val itemService = SMPRPG.getService(ItemService::class.java)
+        for ((cell, amount) in match.consumption) {
+            val slot = GRID_SLOTS[cell]
+            val item = getItem(slot)
+            consume(slot, amount)
+            if (item != null && itemService.getItemKey(item) == null) {
+                val remainder = item.type.craftingRemainingItem
+                if (remainder != null) giveItemToPlayer(ItemStack(remainder, amount))
+            }
+        }
+    }
+
+    private fun grantRewards(match: CraftingRecipeMatcher.Match) {
+        match.recipe?.rewards?.grant(player, SkillExperienceGainEvent.ExperienceSource.FORGE)
+    }
+
+    /** The `namespace:path` identity of a result stack, used to detect when a shift-craft would change recipes. */
+    private fun resultIdentifier(stack: ItemStack): String =
+        SMPRPG.getService(ItemService::class.java).getIdentifier(stack)
 
     /** Remove [amount] items from the given slot, clearing it entirely if nothing remains. */
     private fun consume(slotIndex: Int, amount: Int) {
@@ -142,6 +206,9 @@ class MenuCraftingTable(player: Player) : MenuBase(player, ROWS), IRecipeDepende
 
         // Inside the menu, only the 3x3 grid slots may be edited directly.
         if (clicked == inventory && event.rawSlot in GRID_SLOTS) return
+
+        // Clicking outside the window throws the held cursor item into the world, just like vanilla.
+        if (event.slotType == InventoryType.SlotType.OUTSIDE) return
 
         event.isCancelled = true
     }
@@ -171,6 +238,9 @@ class MenuCraftingTable(player: Player) : MenuBase(player, ROWS), IRecipeDepende
 
     companion object {
         const val ROWS = 5
+
+        /** Upper bound on a single shift-click's crafts; a full grid of single-item stacks can never exceed this. */
+        const val SHIFT_CRAFT_LIMIT = 64
 
         // 3x3 grid laid out row-major in the upper-left, with the result to the right of center.
         val GRID_SLOTS = listOf(10, 11, 12, 19, 20, 21, 28, 29, 30)

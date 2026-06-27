@@ -31,7 +31,6 @@ import xyz.devvydont.smprpg.items.ItemRarity
 import xyz.devvydont.smprpg.items.blueprints.fishing.FishBlueprint
 import xyz.devvydont.smprpg.listeners.crafting.CustomCampfireController
 import xyz.devvydont.smprpg.listeners.crafting.CustomFurnaceController
-import xyz.devvydont.smprpg.listeners.crafting.CustomRecipeCraftListener
 import net.momirealms.craftengine.core.util.Key
 import xyz.devvydont.smprpg.recipe.campfire.FishTeardown
 import xyz.devvydont.smprpg.recipe.CompressionGraph
@@ -109,7 +108,6 @@ class RecipeService : IService, Listener {
         // Start listeners.
         listeners.add(CustomFurnaceController())
         listeners.add(CustomCampfireController())
-        listeners.add(CustomRecipeCraftListener())
         for (listener in listeners)
             listener.start()
     }

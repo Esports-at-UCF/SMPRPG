@@ -5,6 +5,7 @@ import org.bukkit.World
 import org.bukkit.inventory.ItemStack
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.recipe.core.CompressionRecipe
 import xyz.devvydont.smprpg.recipe.core.CustomRecipe
 import xyz.devvydont.smprpg.recipe.core.Ingredient
 import xyz.devvydont.smprpg.recipe.core.RecipeStationType
@@ -46,7 +47,44 @@ object CraftingRecipeMatcher {
             } ?: continue
             return match
         }
+        return matchCompression(grid)
+    }
+
+    /**
+     * Match the grid against the compression edges. These live on the [RecipeStationType.COMPRESSOR] station
+     * (not [RecipeStationType.CRAFTING_TABLE]), so the loop above skips them. Each edge works both ways:
+     * compressing [CompressionRecipe.input].amount of the lower item into one higher item, or decompressing one
+     * higher item back into that many lower items. Matching is by real item identity, so a vanilla recipe that
+     * shares the base material (e.g. pumpkin -> seeds) can never hijack a custom item here.
+     */
+    private fun matchCompression(grid: List<ItemStack?>): Match? {
+        val registry = SMPRPG.getService(RecipeService::class.java).getRegistry()
+        for (recipe in registry.byStation(RecipeStationType.COMPRESSOR).filterIsInstance<CompressionRecipe>()) {
+            matchDecompress(grid, recipe)?.let { return it }
+            matchCompress(grid, recipe)?.let { return it }
+        }
         return null
+    }
+
+    /** Compress: exactly [CompressionRecipe.input].amount occupied cells, each holding the lower item. */
+    private fun matchCompress(grid: List<ItemStack?>, recipe: CompressionRecipe): Match? {
+        val occupiedCells = (0..8).filter { occupied(grid[it]) }
+        if (occupiedCells.size != recipe.input.amount) return null
+        for (cell in occupiedCells)
+            if (!recipe.input.matchesType(grid[cell]!!)) return null
+        val result = recipe.result.generate() ?: return null
+        return Match(result, occupiedCells.associateWith { 1 }, recipe)
+    }
+
+    /** Decompress: a single occupied cell holding the higher item yields [CompressionRecipe.input].amount of the lower item. */
+    private fun matchDecompress(grid: List<ItemStack?>, recipe: CompressionRecipe): Match? {
+        val occupiedCells = (0..8).filter { occupied(grid[it]) }
+        if (occupiedCells.size != 1) return null
+        val cell = occupiedCells[0]
+        if (!recipe.result.identifier.matches(grid[cell]!!)) return null
+        val result = recipe.input.identifier.resolve() ?: return null
+        result.amount = recipe.input.amount
+        return Match(result, mapOf(cell to recipe.result.amount), recipe)
     }
 
     /**
@@ -128,6 +166,10 @@ object CraftingRecipeMatcher {
     }
 
     private fun matchVanilla(grid: List<ItemStack?>, world: World): Match? {
+        // Vanilla recipes match purely by material and ignore our custom item data, so a custom item (e.g. an
+        // enchanted pumpkin) would otherwise satisfy a vanilla recipe (pumpkin -> seeds). Only our own recipes
+        // may consume custom items; if the grid holds any, decline the vanilla fallback entirely.
+        if (grid.any { it != null && isCustomItem(it) }) return null
         // Bukkit's matrix is an ItemStack[] whose empty slots are null; the cast satisfies Kotlin's nullability.
         @Suppress("UNCHECKED_CAST")
         val matrix = Array(9) { grid[it] } as Array<ItemStack>
@@ -138,6 +180,10 @@ object CraftingRecipeMatcher {
     }
 
     private fun occupied(stack: ItemStack?): Boolean = stack != null && !stack.type.isAir
+
+    /** True if the stack is one of our custom items (carries an smprpg item-type key), not a plain vanilla item. */
+    private fun isCustomItem(stack: ItemStack): Boolean =
+        SMPRPG.getService(ItemService::class.java).getItemKey(stack) != null
 
     private fun boundingBox(occupied: (Int) -> Boolean): Box? {
         var minR = 3; var maxR = -1; var minC = 3; var maxC = -1

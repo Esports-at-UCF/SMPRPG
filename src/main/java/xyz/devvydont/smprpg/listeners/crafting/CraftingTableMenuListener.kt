@@ -14,8 +14,9 @@ import xyz.devvydont.smprpg.util.listeners.ToggleableListener
  * custom [MenuCraftingTable], which supports the data-driven recipe registry (including per-slot count
  * requirements) and falls back to vanilla recipes.
  *
- * Note: the player's built-in 2x2 inventory crafting grid is a separate inventory ([InventoryType.CRAFTING])
- * and is intentionally NOT replaced — it continues to use Bukkit recipes.
+ * Note: the player's built-in 2x2 inventory crafting grid ([InventoryType.CRAFTING]) is not a crafting
+ * surface either — its slots are repurposed as UI shortcut buttons by PlayerInventoryButtonsListener, so the
+ * custom [MenuCraftingTable] is the only way to craft.
  */
 class CraftingTableMenuListener : ToggleableListener() {
 
