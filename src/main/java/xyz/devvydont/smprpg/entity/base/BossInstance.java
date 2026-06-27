@@ -558,22 +558,25 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
 
-        var removed = activelyInvolvedPlayers.remove(event.getPlayer().getUniqueId());
+        Player player = event.getPlayer();
+
+        // Always drop a dying player as a viewer, even one who only ever got near the boss and never dealt
+        // damage. Such proximity viewers are not in activelyInvolvedPlayers, so the involved-player check
+        // below would skip them and leak them as a sidebar viewer: the client tears the objective down on
+        // respawn while the server still believes it is shown. That desyncs the re-show guards (the sidebar
+        // never reappears) and races a stale refresh into a protocol-error disconnect.
+        if (bossBar != null)
+            bossBar.removeViewer(player);
+        if (scoreboard != null && scoreboard.showing(player))
+            scoreboard.hide(player);
+
+        var removed = activelyInvolvedPlayers.remove(player.getUniqueId());
         if (removed == null)
             return;
-
-        if (bossBar != null)
-            bossBar.removeViewer(event.getPlayer());
 
         // If this is the last player that was involved, we need to wipe.
         if (activelyInvolvedPlayers.isEmpty())
             wipe();
-
-        if (scoreboard == null)
-            return;
-
-        if (scoreboard.showing(event.getPlayer()))
-            scoreboard.hide(event.getPlayer());
     }
 
     /*

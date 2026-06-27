@@ -101,6 +101,11 @@ public class BossSidebar {
      * and to recover after a client-side scoreboard reset (e.g. respawn).
      */
     public void refresh(Player player) {
+        // Remove before adding so the ADD always targets an objective the client does not currently have.
+        // If the client still has it (e.g. its respawn-time scoreboard reset has not fired yet) a second ADD
+        // is a protocol error that disconnects them. METHOD_REMOVE for an absent objective is a safe
+        // client-side no-op, so this ordering is race-free regardless of when the client clears its state.
+        send(player, new ClientboundSetObjectivePacket(objective, ClientboundSetObjectivePacket.METHOD_REMOVE));
         send(player, new ClientboundSetObjectivePacket(objective, ClientboundSetObjectivePacket.METHOD_ADD));
         send(player, new ClientboundSetDisplayObjectivePacket(DisplaySlot.SIDEBAR, objective));
         for (int i = 0; i < lines.size(); i++)
