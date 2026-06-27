@@ -6,8 +6,14 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -30,10 +36,12 @@ import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent;
 import xyz.devvydont.smprpg.events.CustomItemDropRollEvent;
 import xyz.devvydont.smprpg.services.AttributeService;
 import xyz.devvydont.smprpg.services.ChatService;
+import xyz.devvydont.smprpg.services.EntityService;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.formatting.MinecraftStringUtils;
 import xyz.devvydont.smprpg.util.scoreboard.BossSidebar;
 
+import java.time.Duration;
 import java.util.*;
 
 public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity<T> implements IDamageTrackable, Listener {
@@ -73,6 +81,42 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
      * but not as much.
      */
     private final Map<UUID, Double> spawnContribution = new HashMap<>();
+
+    /**
+     * The escalating stages a timed boss moves through once its timer expires. Rather than instantly wiping the
+     * party, the boss first enrages (a stacking strength buff) and then dooms (an unhealable, escalating max-HP
+     * drain on everyone still fighting). The party is only fully removed once every member is dead or gone.
+     */
+    public enum WipePhase {
+        ACTIVE,
+        ENRAGED,
+        DOOMED
+    }
+
+    // How long the enrage stage lasts before doom sets in.
+    private static final long ENRAGE_DURATION_MS = 2 * 60 * 1000L;
+    // How often the boss gains another strength stack during enrage/doom.
+    private static final long ENRAGE_STACK_INTERVAL_MS = 15 * 1000L;
+    // Additive damage gained per stack. +0.5 == +50% of the boss's base damage per stack.
+    private static final double ENRAGE_STRENGTH_PER_STACK = 0.5;
+
+    // How long doom takes to drain a freshly-doomed player from full health to wiped.
+    private static final int DOOM_DRAIN_SECONDS = 50;
+    // Once a player has lost all but this fraction of their captured max HP, doom finishes them off.
+    private static final double DOOM_WIPE_FRACTION = 0.02;
+
+    private static final NamespacedKey ENRAGE_STRENGTH_KEY = new NamespacedKey("smprpg", "boss_enrage_strength");
+    private static final NamespacedKey DOOM_DRAIN_KEY = new NamespacedKey("smprpg", "boss_doom_drain");
+
+    private WipePhase wipePhase = WipePhase.ACTIVE;
+    // Timestamp the boss became enraged. Drives both the enrage countdown and the (continuous) strength stacking,
+    // which keeps climbing through doom.
+    private long enrageStartedAt = 0;
+    private int enrageStacks = 0;
+    // Per-player doom bookkeeping. A present key means the player is being drained; the value is the max HP they
+    // had when doom first touched them, which anchors a deterministic drain rate.
+    private final Map<UUID, Double> doomBaseHp = new HashMap<>();
+    private final Map<UUID, Double> doomDrained = new HashMap<>();
 
 
     public BossInstance(Entity entity) {
@@ -264,10 +308,256 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
 
         considerHeartbeat();
 
-        // Are we out of time? (If a time limit is set)
+        // Drive the escalating wipe mechanics (timer -> enrage -> doom) instead of an instant party kill.
+        tickWipeMechanics();
+    }
+
+    // =====================================================================================================
+    //  Wipe escalation: enrage -> doom
+    // =====================================================================================================
+
+    /**
+     * @return The current escalation stage of this boss's wipe timer.
+     */
+    public WipePhase getWipePhase() {
+        return wipePhase;
+    }
+
+    /**
+     * @return The boss's current outgoing damage multiplier from enrage stacks (1.0 == no buff).
+     */
+    public double getDamageMultiplier() {
+        return 1.0 + ENRAGE_STRENGTH_PER_STACK * enrageStacks;
+    }
+
+    /**
+     * @return Whether this boss has a real, finite wipe deadline (as opposed to being unlimited).
+     */
+    private boolean hasWipeDeadline() {
+        return wipeTimestamp != 0 && wipeTimestamp != INFINITE_TIME_LIMIT;
+    }
+
+    /**
+     * Advances the wipe escalation each brain tick. While ACTIVE, watches for the deadline and kicks off enrage.
+     * While ENRAGED/DOOMED, keeps the strength stacks climbing, transitions to doom, and drains doomed players.
+     * If the party has emptied out at any point past the deadline, the boss simply despawns.
+     */
+    private void tickWipeMechanics() {
+
         long now = System.currentTimeMillis();
-        if (wipeTimestamp != 0 && now > wipeTimestamp)
+
+        if (wipePhase == WipePhase.ACTIVE) {
+            if (!hasWipeDeadline() || now < wipeTimestamp)
+                return;
+            // Deadline reached. With nobody left to punish, just clean up the boss.
+            if (getActivelyInvolvedPlayers().isEmpty()) {
+                wipe();
+                return;
+            }
+            enterEnraged();
+            return;
+        }
+
+        // ENRAGED or DOOMED: if everyone has died or fled, the fight is over.
+        if (getActivelyInvolvedPlayers().isEmpty()) {
             wipe();
+            return;
+        }
+
+        updateEnrageStacks(now);
+
+        if (wipePhase == WipePhase.ENRAGED && now - enrageStartedAt >= ENRAGE_DURATION_MS)
+            enterDoomed();
+
+        if (wipePhase == WipePhase.DOOMED)
+            tickDoomDrain();
+    }
+
+    /**
+     * Transitions the boss into the enrage stage: a 2-minute window where it gains a stacking strength buff.
+     */
+    private void enterEnraged() {
+        wipePhase = WipePhase.ENRAGED;
+        enrageStartedAt = System.currentTimeMillis();
+        enrageStacks = 0;
+        applyEnrageStrength();
+        announcePhase(
+                ComponentUtils.create("ENRAGED!", NamedTextColor.RED, TextDecoration.BOLD),
+                ComponentUtils.create("It grows stronger with every passing moment...", NamedTextColor.GOLD),
+                Sound.ENTITY_ENDER_DRAGON_GROWL, 0.5f
+        );
+    }
+
+    /**
+     * Transitions the boss into the doom stage: strength keeps climbing and everyone still fighting begins to lose
+     * max HP until they are wiped. There is no escaping it.
+     */
+    private void enterDoomed() {
+        wipePhase = WipePhase.DOOMED;
+        announcePhase(
+                ComponentUtils.create("DOOMED!", NamedTextColor.DARK_RED, TextDecoration.BOLD),
+                ComponentUtils.create("Your life is being torn away. There is no escape.", NamedTextColor.RED),
+                Sound.ENTITY_WITHER_SPAWN, 0.7f
+        );
+    }
+
+    /**
+     * Recomputes how many strength stacks the boss should have based on how long it has been enraged, applying the
+     * buff and firing audible feedback whenever a new stack lands.
+     */
+    private void updateEnrageStacks(long now) {
+        int target = (int) ((now - enrageStartedAt) / ENRAGE_STACK_INTERVAL_MS);
+        if (target <= enrageStacks)
+            return;
+        enrageStacks = target;
+        applyEnrageStrength();
+        onEnrageStackIncreased();
+    }
+
+    /**
+     * Applies the current enrage stacks to the boss as a single transient strength modifier. Using ADD_SCALAR
+     * means the boss deals base * (1 + 0.5 * stacks), composing cleanly with the base value set elsewhere.
+     */
+    private void applyEnrageStrength() {
+        if (!(_entity instanceof LivingEntity living))
+            return;
+        AttributeInstance attack = living.getAttribute(Attribute.ATTACK_DAMAGE);
+        if (attack == null)
+            return;
+        attack.removeModifier(ENRAGE_STRENGTH_KEY);
+        if (enrageStacks <= 0)
+            return;
+        attack.addTransientModifier(new AttributeModifier(
+                ENRAGE_STRENGTH_KEY,
+                ENRAGE_STRENGTH_PER_STACK * enrageStacks,
+                AttributeModifier.Operation.ADD_SCALAR
+        ));
+    }
+
+    /**
+     * Plays a rising-pitch cue to the party each time the boss gains a stack, so the escalation is audible.
+     */
+    private void onEnrageStackIncreased() {
+        float pitch = (float) Math.min(2.0, 0.5 + enrageStacks * 0.1);
+        for (Player player : getActivelyInvolvedPlayers())
+            player.playSound(player.getLocation(), Sound.BLOCK_VAULT_EJECT_ITEM, 1f, pitch);
+    }
+
+    /**
+     * Shows a dramatic title and plays a sound to everyone still fighting when a wipe stage begins.
+     */
+    private void announcePhase(Component title, Component subtitle, Sound sound, float pitch) {
+        Title shown = Title.title(title, subtitle,
+                Title.Times.times(Duration.ofMillis(300), Duration.ofMillis(2500), Duration.ofMillis(500)));
+        for (Player player : getActivelyInvolvedPlayers()) {
+            player.showTitle(shown);
+            player.playSound(player.getLocation(), sound, 1.5f, pitch);
+        }
+    }
+
+    /**
+     * Drains a tick's worth of max HP from every player still in the fight. Iterates a snapshot because wiping a
+     * player kills them, which mutates the involved-players map mid-loop.
+     */
+    private void tickDoomDrain() {
+        for (Player player : new ArrayList<>(getActivelyInvolvedPlayers())) {
+            if (!player.isOnline() || player.isDead())
+                continue;
+            drainDoomed(player);
+        }
+    }
+
+    /**
+     * Applies one tick of doom to a single player: shrinks their max HP toward zero at a rate that empties a full
+     * health bar in {@link #DOOM_DRAIN_SECONDS}, and finishes them off once almost nothing is left.
+     */
+    private void drainDoomed(Player player) {
+
+        UUID id = player.getUniqueId();
+        AttributeInstance hp = player.getAttribute(Attribute.MAX_HEALTH);
+        if (hp == null)
+            return;
+
+        // First doom tick for this player: capture their current max HP as the drain baseline.
+        double base = doomBaseHp.computeIfAbsent(id, key -> {
+            hp.removeModifier(DOOM_DRAIN_KEY);
+            return hp.getValue();
+        });
+
+        double drained = doomDrained.getOrDefault(id, 0.0) + base / (DOOM_DRAIN_SECONDS * 20.0);
+        doomDrained.put(id, drained);
+
+        // Once we have stripped nearly all of their health, wipe them from the fight.
+        if (drained >= base * (1 - DOOM_WIPE_FRACTION)) {
+            wipeDoomed(player);
+            return;
+        }
+
+        hp.removeModifier(DOOM_DRAIN_KEY);
+        hp.addTransientModifier(new AttributeModifier(DOOM_DRAIN_KEY, -drained, AttributeModifier.Operation.ADD_NUMBER));
+
+        // Keep current health pinned under the shrinking ceiling so the squeeze is felt immediately.
+        double newMax = hp.getValue();
+        if (player.getHealth() > newMax)
+            player.setHealth(Math.max(1, newMax));
+
+        refreshHealthScale(player);
+
+        if (Bukkit.getServer().getCurrentTick() % 10 == 0)
+            player.playSound(player.getLocation(), Sound.ENTITY_WARDEN_HEARTBEAT, 1f, 0.5f);
+    }
+
+    /**
+     * Removes a doomed player from the fight by killing them outright. The death has no killer, so no loot is
+     * credited, mirroring the old timer wipe.
+     */
+    private void wipeDoomed(Player player) {
+        clearDoom(player);
+        player.setHealth(0);
+    }
+
+    /**
+     * Lifts doom off a single player: removes the max-HP drain modifier and forgets their bookkeeping so a future
+     * fight (or a respawn) starts clean.
+     */
+    private void clearDoom(Player player) {
+        doomBaseHp.remove(player.getUniqueId());
+        doomDrained.remove(player.getUniqueId());
+        AttributeInstance hp = player.getAttribute(Attribute.MAX_HEALTH);
+        if (hp != null)
+            hp.removeModifier(DOOM_DRAIN_KEY);
+        refreshHealthScale(player);
+    }
+
+    /**
+     * Re-syncs the number of hearts the client renders to the player's (possibly drained) max HP.
+     */
+    private void refreshHealthScale(Player player) {
+        player.setHealthScale(SMPRPG.getService(EntityService.class).getPlayerInstance(player).getHealthScale());
+    }
+
+    /**
+     * Resets all wipe escalation back to a clean slate: stops the strength buff on the boss and lifts doom off any
+     * afflicted player. Called when the boss is (re)initialised and when it is torn down.
+     */
+    private void resetWipeMechanics() {
+        wipePhase = WipePhase.ACTIVE;
+        enrageStartedAt = 0;
+        enrageStacks = 0;
+
+        if (_entity instanceof LivingEntity living) {
+            AttributeInstance attack = living.getAttribute(Attribute.ATTACK_DAMAGE);
+            if (attack != null)
+                attack.removeModifier(ENRAGE_STRENGTH_KEY);
+        }
+
+        for (UUID id : new ArrayList<>(doomBaseHp.keySet())) {
+            Player player = Bukkit.getPlayer(id);
+            if (player != null)
+                clearDoom(player);
+        }
+        doomBaseHp.clear();
+        doomDrained.clear();
     }
 
     /*
@@ -401,35 +691,105 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
             ComponentUtils.SYMBOL_EXCLAMATION
         ));
 
-        // If we have a time limit, add a wipe section
-        int secondsLeft = Math.max(0, getSecondsLeft());
-        long msLeft = wipeTimestamp-System.currentTimeMillis()-(secondsLeft*1000L);
-        if (secondsLeft < 1000 && secondsLeft > 0) {
-            lines.add(ComponentUtils.EMPTY);
-
-            // Color is always green by default
-            NamedTextColor timeColor = NamedTextColor.GREEN;
-            String timestring = String.format("%d:%02d", secondsLeft/60, secondsLeft%60);
-            // If there is less than a minute left, we turn red.
-            if (secondsLeft < 60) {
-                timeColor = NamedTextColor.RED;
-                timestring = String.format("%02d.%d", secondsLeft, msLeft/100);
-            }
-
-            // If there is less than 30 seconds left even seconds are red
-            if (secondsLeft < 30 && secondsLeft % 2 == 1)
-                timeColor = NamedTextColor.DARK_GRAY;
-
-            // If there is less than 15 seconds half of a tick is one color and the other half is the other
-            if (secondsLeft < 10)
-                timeColor = Bukkit.getCurrentTick() % 20 >= 10 ? NamedTextColor.RED : NamedTextColor.DARK_GRAY;
-
-
-            lines.add(ComponentUtils.create("Time Left: ").append(ComponentUtils.create(timestring, timeColor)));
-        }
+        // Append the wipe section appropriate to the current escalation stage.
+        appendWipeStatusLines(lines);
 
         // With default settings so far, we are using 12 lines. We have space for another 3 if desired
         scoreboard.setLines(lines);
+    }
+
+    /**
+     * Appends the timer / enrage / doom section of the sidebar based on the current wipe stage.
+     */
+    private void appendWipeStatusLines(List<Component> lines) {
+        switch (wipePhase) {
+            case ACTIVE -> appendTimeLeftLine(lines);
+            case ENRAGED -> appendEnrageLines(lines);
+            case DOOMED -> appendDoomedLines(lines);
+        }
+    }
+
+    /**
+     * The standard pre-deadline countdown, ramping through green/red/flashing as time runs out.
+     */
+    private void appendTimeLeftLine(List<Component> lines) {
+
+        int secondsLeft = Math.max(0, getSecondsLeft());
+        long msLeft = wipeTimestamp - System.currentTimeMillis() - (secondsLeft * 1000L);
+        if (secondsLeft >= 1000 || secondsLeft <= 0)
+            return;
+
+        lines.add(ComponentUtils.EMPTY);
+
+        // Color is always green by default
+        NamedTextColor timeColor = NamedTextColor.GREEN;
+        String timestring = String.format("%d:%02d", secondsLeft / 60, secondsLeft % 60);
+        // If there is less than a minute left, we turn red.
+        if (secondsLeft < 60) {
+            timeColor = NamedTextColor.RED;
+            timestring = String.format("%02d.%d", secondsLeft, msLeft / 100);
+        }
+
+        // If there is less than 30 seconds left even seconds are red
+        if (secondsLeft < 30 && secondsLeft % 2 == 1)
+            timeColor = NamedTextColor.DARK_GRAY;
+
+        // If there is less than 15 seconds half of a tick is one color and the other half is the other
+        if (secondsLeft < 10)
+            timeColor = Bukkit.getServer().getCurrentTick() % 20 >= 10 ? NamedTextColor.RED : NamedTextColor.DARK_GRAY;
+
+        lines.add(ComponentUtils.create("Time Left: ").append(ComponentUtils.create(timestring, timeColor)));
+    }
+
+    /**
+     * The enrage section: a flashing ENRAGED banner, a countdown to doom, and the live damage multiplier.
+     */
+    private void appendEnrageLines(List<Component> lines) {
+        lines.add(ComponentUtils.EMPTY);
+        boolean flash = Bukkit.getServer().getCurrentTick() % 20 >= 10;
+        lines.add(ComponentUtils.create("ENRAGED!!!", flash ? NamedTextColor.RED : NamedTextColor.DARK_RED, TextDecoration.BOLD));
+        long remaining = Math.max(0, ENRAGE_DURATION_MS - (System.currentTimeMillis() - enrageStartedAt));
+        lines.add(ComponentUtils.merge(
+                ComponentUtils.create("Doom in: "),
+                formatThreatTimer(remaining)
+        ));
+        lines.add(damageMultiplierLine());
+    }
+
+    /**
+     * The doom section: a flashing DOOMED banner, flavor text, and the still-climbing damage multiplier.
+     */
+    private void appendDoomedLines(List<Component> lines) {
+        lines.add(ComponentUtils.EMPTY);
+        boolean flash = Bukkit.getServer().getCurrentTick() % 20 >= 10;
+        lines.add(ComponentUtils.create("DOOMED!!!", flash ? NamedTextColor.DARK_RED : NamedTextColor.BLACK, TextDecoration.BOLD));
+        lines.add(ComponentUtils.create("Your soul is being drained...", NamedTextColor.DARK_GRAY));
+        lines.add(damageMultiplierLine());
+    }
+
+    /**
+     * Renders the boss's current outgoing damage multiplier, e.g. "Damage: 5.0x".
+     */
+    private Component damageMultiplierLine() {
+        return ComponentUtils.merge(
+                ComponentUtils.create("Damage: "),
+                ComponentUtils.create(String.format("%.1fx", getDamageMultiplier()), NamedTextColor.RED, TextDecoration.BOLD)
+        );
+    }
+
+    /**
+     * Formats a threatening countdown: m:ss normally, ss.d in the final minute, flashing in the final seconds.
+     */
+    private Component formatThreatTimer(long ms) {
+        int secondsLeft = (int) (ms / 1000);
+        long msLeft = ms - secondsLeft * 1000L;
+        NamedTextColor color = NamedTextColor.RED;
+        String text = String.format("%d:%02d", secondsLeft / 60, secondsLeft % 60);
+        if (secondsLeft < 60)
+            text = String.format("%02d.%d", secondsLeft, msLeft / 100);
+        if (secondsLeft < 10)
+            color = Bukkit.getServer().getCurrentTick() % 20 >= 10 ? NamedTextColor.RED : NamedTextColor.DARK_GRAY;
+        return ComponentUtils.create(text, color, TextDecoration.BOLD);
     }
 
     @Override
@@ -465,6 +825,7 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
         super.setup();
         cleanupBrainTickTask();
         cleanupScoreboard();
+        resetWipeMechanics();
         scoreboard = new BossSidebar(getPowerComponent().append(ComponentUtils.SPACE).append(getNameComponent()));
         heal();
         bossBar = createBossBar();
@@ -479,6 +840,7 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
 
         cleanupBrainTickTask();
         cleanupScoreboard();
+        resetWipeMechanics();
         if (bossBar != null)
             for (Player p : Bukkit.getOnlinePlayers())
                 bossBar.removeViewer(p);
@@ -570,6 +932,9 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
         if (scoreboard != null && scoreboard.showing(player))
             scoreboard.hide(player);
 
+        // However they died, lift any doom drain so they don't respawn with a shrunken health bar.
+        clearDoom(player);
+
         var removed = activelyInvolvedPlayers.remove(player.getUniqueId());
         if (removed == null)
             return;
@@ -594,6 +959,11 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
      */
     @EventHandler
     public void onPlayerDistanced(PlayerMoveEvent event) {
+
+        // Doom is inescapable: once the fight is doomed, players cannot drop out of it by walking away. Leaving
+        // the involved set here would also let the boss despawn out from under players who are still being drained.
+        if (wipePhase == WipePhase.DOOMED)
+            return;
 
         if (!event.getPlayer().getWorld().equals(_entity.getWorld()))
             return;
@@ -634,6 +1004,8 @@ public abstract class BossInstance<T extends LivingEntity> extends LeveledEntity
         // Drop them as a sidebar viewer so we don't try to send packets to an offline player.
         if (scoreboard != null && scoreboard.showing(event.getPlayer()))
             scoreboard.hide(event.getPlayer());
+        // Clear any doom drain so a logged-off player isn't left with a modified health bar.
+        clearDoom(event.getPlayer());
     }
 
     /**
