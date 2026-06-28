@@ -6,18 +6,23 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Color
+import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
+import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
+import org.bukkit.event.Listener
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemType
-import xyz.devvydont.smprpg.attribute.AttributeWrapper
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.enchantments.CustomEnchantment
 import xyz.devvydont.smprpg.enchantments.EnchantmentRarity
+import xyz.devvydont.smprpg.enchantments.EnchantmentUtil
 import xyz.devvydont.smprpg.enchantments.ScrollColor
-import xyz.devvydont.smprpg.enchantments.base.AttributeEnchantment
-import xyz.devvydont.smprpg.items.attribute.AttributeEntry
-import xyz.devvydont.smprpg.items.attribute.AttributeModifierType
+import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
+import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 
-class AmplificationBlessing(id: String) : CustomEnchantment(id), AttributeEnchantment {
+class AmplificationBlessing(id: String) : CustomEnchantment(id), Listener {
 
     override val displayName: Component get() = ComponentUtils.create("Blessing of Amplification", NamedTextColor.YELLOW)
     override val description: Component
@@ -39,12 +44,22 @@ class AmplificationBlessing(id: String) : CustomEnchantment(id), AttributeEnchan
     override val equipmentSlotGroup: EquipmentSlotGroup? get() = EquipmentSlotGroup.MAINHAND
     override val skillRequirement: Int get()                   = 0
 
-    override val powerRating : Int get() = level
-    override val attributeModifierType : AttributeModifierType get() = AttributeModifierType.ENCHANTMENT
-    override fun getHeldAttributes() : MutableCollection<AttributeEntry?>? {
-        return mutableListOf(
-            AttributeEntry.multiplicative(AttributeWrapper.STRENGTH, getDamageIncrease(level) / 100.0)
-        )
+    @EventHandler(priority = EventPriority.HIGH)
+    fun onDamageLiving(event: CustomEntityDamageByEntityEvent) {
+        // Skip entity if they aren't alive
+        if (event.dealer !is LivingEntity) return
+        val dealer = event.dealer
+
+        if (dealer is Player) {
+            val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(dealer)
+            if (!isEnchantmentActive(dealer.equipment.itemInMainHand, leveledPlayer)) return
+        }
+
+        val level = EnchantmentUtil.getHoldingEnchantLevel(enchantment, EquipmentSlotGroup.HAND, dealer.equipment)
+        if (level <= 0) return
+
+        val multiplier: Double = 1.0 + (getDamageIncrease(level) / 100.0)
+        event.multiplyDamage(multiplier)
     }
 
     companion object {
