@@ -64,7 +64,7 @@ public class CrystallizedSugarBlueprint extends CustomItemBlueprint implements I
      */
     @Override
     public long getCooldown(ItemStack item) {
-        return TickTime.seconds(1);
+        return TickTime.seconds(30);
     }
 
     /**
