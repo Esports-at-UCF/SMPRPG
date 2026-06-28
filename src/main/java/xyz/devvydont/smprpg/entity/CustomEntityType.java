@@ -231,6 +231,14 @@ public enum CustomEntityType implements IMenuDisplayable {
     SHAMBLING_MALFEASANT(EntityType.ZOMBIE, "Shambling Malfeasant", 42, 1_000_000, 800, ShamblingMalfeasant::new),
     REMORSEFUL_ABOMINATION(EntityType.ZOMBIE, "Remorseful Abomination", 48, 2_400_000, 1_200, RemorsefulAbomination::new),
 
+    // PIGLIN WARLORD
+    PIGLIN_WARLORD_1(EntityType.PIGLIN_BRUTE, "Piglin Warlord", 15, 15_000, 100, PiglinWarlordBasic::new),
+    PIGLIN_WARLORD_2(EntityType.PIGLIN_BRUTE, "Piglin Warlord", 25, 150_000, 200, PiglinWarlordBasic::new),
+    PIGLIN_WARLORD_3(EntityType.PIGLIN_BRUTE, "Piglin Warlord", 35, 600_000, 500, PiglinWarlordBasic::new),
+    PIGLIN_WARLORD_4(EntityType.PIGLIN_BRUTE, "Piglin Warlord", 45, 2_000_000, 1_000, PiglinWarlordBasic::new),
+    PIGLIN_WARLORD_5(EntityType.PIGLIN_BRUTE, "Piglin Warlord", 55, 12_500_000, 2_000, PiglinWarlordBasic::new),
+
+
     // ILLAGER WARLOCK
     ILLAGER_WARLOCK_1(EntityType.EVOKER, "Illager Warlock", 20, 10_000, 100, IllagerWarlockBasic::new),
     ILLAGER_WARLOCK_2(EntityType.EVOKER, "Illager Warlock", 30, 100_000, 200, IllagerWarlockIntermediate::new),

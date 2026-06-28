@@ -80,6 +80,28 @@ class MenuSlayer : MenuBase {
                 MenuSlayerQuest(this.player, this, SlayerType.SHAMBLING_ABOMINATION).openMenu()
             })
 
+        // Shambling Abomination
+        this.setButton(
+            SLAYERS_START + 1, getNamedItemWithDescription(
+                CustomItemType.HOG_SKIN,
+                ComponentUtils.create("Piglin Warlord", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
+                ComponentUtils.EMPTY,
+                ComponentUtils.merge(
+                    ComponentUtils.create("A "),
+                    ComponentUtils.create("towering brute", NamedTextColor.RED),
+                    ComponentUtils.create(" that has razed")
+                ),
+                ComponentUtils.create("entire villages on a whim. This Piglin"),
+                ComponentUtils.merge(
+                    ComponentUtils.create("fears nothing", NamedTextColor.RED),
+                    ComponentUtils.create(" and will use his "),
+                    ComponentUtils.create("brute strength", NamedTextColor.DARK_RED),
+                ),
+                ComponentUtils.create("without prejudice.")
+            ), { e: InventoryClickEvent? ->
+                MenuSlayerQuest(this.player, this, SlayerType.PIGLIN_WARLORD).openMenu()
+            })
+
         // Illager Warlock
         this.setButton(
             SLAYERS_START + 2, getNamedItemWithDescription(

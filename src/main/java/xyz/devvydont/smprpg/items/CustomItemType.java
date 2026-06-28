@@ -24,7 +24,7 @@ import xyz.devvydont.smprpg.items.blueprints.farming.ProgressiveHoeBlueprint;
 import xyz.devvydont.smprpg.items.blueprints.food.ingredients.*;
 import xyz.devvydont.smprpg.items.blueprints.misc.DeathCompass;
 import xyz.devvydont.smprpg.items.blueprints.resources.farming.*;
-import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowderFamilyBlueprint;
+import xyz.devvydont.smprpg.items.blueprints.resources.slayer.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.woodcutting.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.aetherium.*;
@@ -59,9 +59,6 @@ import xyz.devvydont.smprpg.items.blueprints.resources.fishing.HolomokuCrest;
 import xyz.devvydont.smprpg.items.blueprints.resources.mining.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.mob.*;
 import xyz.devvydont.smprpg.items.blueprints.resources.scrolls.DynamicEnchantingScroll;
-import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFlesh;
-import xyz.devvydont.smprpg.items.blueprints.resources.slayer.NecroticFleshFamilyBlueprint;
-import xyz.devvydont.smprpg.items.blueprints.resources.slayer.SpellPowder;
 import xyz.devvydont.smprpg.items.blueprints.reusable.SimpleTexturedItem;
 import xyz.devvydont.smprpg.items.blueprints.sets.abomination.*;
 import xyz.devvydont.smprpg.items.blueprints.sets.amethyst.*;
@@ -835,6 +832,12 @@ public enum CustomItemType {
     ABOMINABLE_CHESTPLATE("Abominable Chestplate", Material.DIAMOND_CHESTPLATE, ItemRarity.EPIC, AbominationChestplate.class),
     ABOMINABLE_LEGGINGS("Abominable Leggings", Material.DIAMOND_LEGGINGS, ItemRarity.EPIC, AbominationLeggings.class),
     ABOMINABLE_BOOTS("Abominable Boots", Material.DIAMOND_BOOTS, ItemRarity.EPIC, AbominationBoots.class),
+
+    // PIGLIN WARLORD
+    HOG_SKIN(      "Hog Skin",          Material.NETHER_BRICK,       ItemRarity.UNCOMMON,      false, HogSkin.class),
+    PREMIUM_HOG_SKIN("Premium Hog Skin", Material.NETHER_BRICK, ItemRarity.RARE, true, HogSkinFamilyBlueprint.class),
+    ENCHANTED_HOG_SKIN(    "Enchanted Hog Skin",        Material.NETHER_BRICK,       ItemRarity.EPIC,    true, HogSkinFamilyBlueprint.class),
+    HOG_SKIN_SINGULARITY(    "Hog Skin Singularity",        Material.NETHER_BRICK,       ItemRarity.LEGENDARY,    true, HogSkinFamilyBlueprint.class),
 
     // ILLAGER WARLOCK
 

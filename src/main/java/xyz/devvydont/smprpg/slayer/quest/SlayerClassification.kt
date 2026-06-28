@@ -46,6 +46,42 @@ enum class SlayerClassification(val slayerType : SlayerType,
     ),
     //</editor-fold>
 
+    //<editor-fold desc="Piglin Warlord">
+    PIGLIN_WARLORD_1(SlayerType.PIGLIN_WARLORD,
+        CustomEntityType.PIGLIN_WARLORD_1,
+        450,
+        1_000,
+        100,
+        null),
+    PIGLIN_WARLORD_2(SlayerType.PIGLIN_WARLORD,
+        CustomEntityType.PIGLIN_WARLORD_2,
+        1_125,
+        2_500,
+        400,
+        null),
+    PIGLIN_WARLORD_3(SlayerType.PIGLIN_WARLORD,
+        CustomEntityType.PIGLIN_WARLORD_3,
+        2_820,
+        10_000,
+        1_600,
+        ImmutableList.of(CustomEntityType.ILLAGER_POPPET)
+    ),
+    PIGLIN_WARLORD_4(SlayerType.PIGLIN_WARLORD,
+        CustomEntityType.PIGLIN_WARLORD_4,
+        7_050,
+        50_000,
+        6_400,
+        ImmutableList.of(CustomEntityType.RAVAGER_FAMILIAR, CustomEntityType.HEXED_VEX)
+    ),
+    PIGLIN_WARLORD_5(SlayerType.PIGLIN_WARLORD,
+        CustomEntityType.PIGLIN_WARLORD_5,
+        17_625,
+        100_000,
+        25_600,
+        ImmutableList.of(CustomEntityType.WARLOCK_APPRENTICE, CustomEntityType.WARLOCK_SHADOW)
+    ),
+    //</editor-fold>
+
     //<editor-fold desc="Illager Warlock">
     ILLAGER_WARLOCK_1(SlayerType.ILLAGER_WARLOCK,
     CustomEntityType.ILLAGER_WARLOCK_1,

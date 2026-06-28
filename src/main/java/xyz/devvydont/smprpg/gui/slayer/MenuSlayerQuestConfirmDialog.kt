@@ -37,7 +37,7 @@ class MenuSlayerQuestConfirmDialog(
         var item : ItemStack?
         when (slayerClassification.slayerType) {
             SlayerType.SHAMBLING_ABOMINATION -> item = itemService.getCustomItem(CustomItemType.NECROTIC_FLESH)
-            SlayerType.PIGLIN_WARLORD -> item = itemService.getCustomItem(Material.COOKED_PORKCHOP)
+            SlayerType.PIGLIN_WARLORD -> item = itemService.getCustomItem(CustomItemType.HOG_SKIN)
             SlayerType.ILLAGER_WARLOCK -> item = itemService.getCustomItem(CustomItemType.SPELL_POWDER)
         }
 
