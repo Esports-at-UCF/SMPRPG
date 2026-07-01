@@ -252,7 +252,7 @@ class InterfaceStats : MenuBase {
         display.add(
             ComponentUtils.create("Skill Average: ", NamedTextColor.GOLD).append(
                 ComponentUtils.create(
-                    String.format("%.2f", player.getAverageSkillLevel()),
+                    String.format("%.2f", player.averageSkillLevel),
                     NamedTextColor.GREEN
                 )
             )

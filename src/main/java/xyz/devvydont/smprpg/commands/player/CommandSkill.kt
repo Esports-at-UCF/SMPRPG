@@ -158,7 +158,7 @@ class CommandSkill : ICommand {
         }
         output.add(ComponentUtils.EMPTY)
         output.add(ComponentUtils.create("Skill Average: "))
-        output.add(ComponentUtils.create(String.format("%.2f", player.getAverageSkillLevel()), NamedTextColor.GOLD))
+        output.add(ComponentUtils.create(String.format("%.2f", player.averageSkillLevel), NamedTextColor.GOLD))
         return output
     }
 

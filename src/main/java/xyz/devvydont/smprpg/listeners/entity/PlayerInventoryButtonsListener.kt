@@ -11,6 +11,7 @@ import org.bukkit.inventory.MenuType
 import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.gui.player.InterfaceStats
 import xyz.devvydont.smprpg.gui.player.InterfaceWardrobe
+import xyz.devvydont.smprpg.gui.player.MenuAccessoryInventory
 import xyz.devvydont.smprpg.gui.player.MenuStatsRoot
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
 
@@ -41,7 +42,7 @@ class PlayerInventoryButtonsListener: ToggleableListener() {
                             InterfaceWardrobe(null, player, player).openMenu()
                         }, 1L)
                     }
-                    3 -> InterfaceStats(player, player, null).openMenu()
+                    3 -> MenuAccessoryInventory(player).openMenu()
                     4 -> MenuStatsRoot(player, player, null).openMenu()
                     -999 -> return@Runnable
                     else -> event.isCancelled = true

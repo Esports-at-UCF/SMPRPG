@@ -23,7 +23,7 @@ class HealthScaleListener : ToggleableListener() {
         val player = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.getPlayer())
         object : BukkitRunnable() {
             override fun run() {
-                event.getPlayer().healthScale = player.getHealthScale().toDouble()
+                event.getPlayer().healthScale = player.healthScale.toDouble()
             }
         }.runTaskLater(plugin, TickTime.INSTANTANEOUSLY)
     }
@@ -32,6 +32,6 @@ class HealthScaleListener : ToggleableListener() {
     @Suppress("unused")
     private fun onSkillLevelUp(event: SkillLevelUpEvent) {
         val player = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.player)
-        event.player.healthScale = player.getHealthScale().toDouble()
+        event.player.healthScale = player.healthScale.toDouble()
     }
 }

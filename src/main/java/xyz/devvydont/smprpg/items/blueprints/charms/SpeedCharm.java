@@ -6,12 +6,15 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
+import xyz.devvydont.smprpg.items.AccessorySlot;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.ScalarAttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
+import xyz.devvydont.smprpg.items.interfaces.IAccessory;
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
@@ -19,7 +22,7 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import java.util.Collection;
 import java.util.List;
 
-public class SpeedCharm extends CustomAttributeItem implements IModelOverridden {
+public class SpeedCharm extends CustomAttributeItem implements IModelOverridden, IAccessory {
 
     public SpeedCharm(ItemService itemService, CustomItemType type) {
         super(itemService, type);
@@ -58,5 +61,10 @@ public class SpeedCharm extends CustomAttributeItem implements IModelOverridden 
     @Override
     public EquipmentSlotGroup getActiveSlot() {
         return EquipmentSlotGroup.HAND;
+    }
+
+    @Override
+    public AccessorySlot getSlot(@NotNull ItemStack item) {
+        return AccessorySlot.CHARM;
     }
 }

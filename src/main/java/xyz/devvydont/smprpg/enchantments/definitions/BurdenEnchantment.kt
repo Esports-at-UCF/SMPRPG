@@ -48,7 +48,7 @@ class BurdenEnchantment(id: String) : CustomEnchantment(id), Listener {
 
 
         val player = SMPRPG.getService(EntityService::class.java).getPlayerInstance(event.dealer)
-        val maxMana = player.getMaxMana()
+        val maxMana = player.maxMana
 
         // Is this player holding the enchantment?
         val leechLevels = EnchantmentUtil.getHoldingEnchantLevel(this, EquipmentSlotGroup.HAND, player.player.equipment)

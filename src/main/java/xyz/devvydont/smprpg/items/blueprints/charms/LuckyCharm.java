@@ -5,11 +5,14 @@ import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
+import xyz.devvydont.smprpg.items.AccessorySlot;
 import xyz.devvydont.smprpg.items.CustomItemType;
 import xyz.devvydont.smprpg.items.ItemClassification;
 import xyz.devvydont.smprpg.items.attribute.AttributeEntry;
 import xyz.devvydont.smprpg.items.attribute.MultiplicativeAttributeEntry;
 import xyz.devvydont.smprpg.items.base.CustomAttributeItem;
+import xyz.devvydont.smprpg.items.interfaces.IAccessory;
 import xyz.devvydont.smprpg.items.interfaces.IModelOverridden;
 import xyz.devvydont.smprpg.services.ItemService;
 import xyz.devvydont.smprpg.attribute.AttributeWrapper;
@@ -17,7 +20,7 @@ import xyz.devvydont.smprpg.attribute.AttributeWrapper;
 import java.util.Collection;
 import java.util.List;
 
-public class LuckyCharm extends CustomAttributeItem implements IModelOverridden {
+public class LuckyCharm extends CustomAttributeItem implements IModelOverridden, IAccessory {
 
     @Override
     public void updateItemData(ItemStack itemStack) {
@@ -53,7 +56,11 @@ public class LuckyCharm extends CustomAttributeItem implements IModelOverridden 
 
     @Override
     public EquipmentSlotGroup getActiveSlot() {
-        return EquipmentSlotGroup.HAND;
+        return EquipmentSlotGroup.SADDLE;
     }
 
+    @Override
+    public AccessorySlot getSlot(@NotNull ItemStack item) {
+        return AccessorySlot.CHARM;
+    }
 }

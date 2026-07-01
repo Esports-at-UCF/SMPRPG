@@ -47,6 +47,11 @@ public class KeyStore {
     public static final NamespacedKey WARDROBE_UPGRADES = key("wardrobe_upgrades");
 
     /**
+     * Used for storing the accessory inventory.
+     */
+    public static final NamespacedKey PLAYER_ACCESSORIES = key("accessories");
+
+    /**
      * Used for storing a player's personal HUD/gameplay preferences.
      */
     public static final NamespacedKey PLAYER_SETTINGS = key("player_settings");

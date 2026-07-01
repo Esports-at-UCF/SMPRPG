@@ -116,7 +116,7 @@ class DimensionPortalLockingListener : ToggleableListener() {
             return
 
         // Is this player high enough skill?
-        if (wrapper.getAverageSkillLevel() < lock.level) {
+        if (wrapper.averageSkillLevel < lock.level) {
             event.isCancelled = true
             sendSkillTooLowMessage(wrapper, lock.level)
             return
@@ -177,7 +177,7 @@ class DimensionPortalLockingListener : ToggleableListener() {
                         " to enter this portal. You average skill level is currently ",
                         NamedTextColor.RED
                     ),
-                    ComponentUtils.create("" + player.getAverageSkillLevel().toInt(), NamedTextColor.DARK_RED),
+                    ComponentUtils.create("" + player.averageSkillLevel.toInt(), NamedTextColor.DARK_RED),
                     ComponentUtils.create("!", NamedTextColor.RED)
                 )
             )

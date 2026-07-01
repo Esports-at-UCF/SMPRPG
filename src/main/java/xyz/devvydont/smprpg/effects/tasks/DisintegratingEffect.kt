@@ -115,7 +115,7 @@ class DisintegratingEffect(service: SpecialEffectService, player: Player, second
         updateAttribute(Attribute.SCALE, -scaleDrain)
 
         player.healthScale = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
-            .getHealthScale().toDouble()
+            .healthScale.toDouble()
     }
 
     override fun expire() {

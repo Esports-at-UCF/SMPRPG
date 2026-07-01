@@ -17,5 +17,6 @@ public class PDCAdapters {
     // Adapters for items.
     public static final EquipmentSetAdapter EQUIPMENT_SET_ADAPTER = new EquipmentSetAdapter();
     public static final WardrobeAdapter WARDROBE_ADAPTER = new WardrobeAdapter();
+    public static final AccessoryInventoryAdapater ACCESSORY_INVENTORY_ADAPTER = new AccessoryInventoryAdapater();
 
 }

@@ -33,7 +33,7 @@ class HollowedEffect(service: SpecialEffectService, player: Player, seconds: Int
         player.addPotionEffect(PotionEffect(PotionEffectType.INVISIBILITY, 50, 0, true, true))
         updateAttribute(Attribute.MAX_HEALTH)
         updateAttribute(Attribute.SCALE)
-        player.healthScale = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player).getHealthScale().toDouble()
+        player.healthScale = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player).healthScale.toDouble()
         ParticleBuilder(Particle.SMOKE)
             .location(player.eyeLocation)
             .count(5)
@@ -45,7 +45,7 @@ class HollowedEffect(service: SpecialEffectService, player: Player, seconds: Int
         clearAttributes()
         player.removePotionEffect(PotionEffectType.INVISIBILITY)
         player.healthScale = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
-            .getHealthScale().toDouble()
+            .healthScale.toDouble()
         player.playSound(player.location, Sound.BLOCK_TRIAL_SPAWNER_OMINOUS_ACTIVATE, 1f, 1f)
     }
 
@@ -53,7 +53,7 @@ class HollowedEffect(service: SpecialEffectService, player: Player, seconds: Int
         clearAttributes()
         player.removePotionEffect(PotionEffectType.INVISIBILITY)
         player.healthScale = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
-            .getHealthScale().toDouble()
+            .healthScale.toDouble()
     }
 
     private fun updateAttribute(attribute: Attribute) {

@@ -91,7 +91,7 @@ class ActionBarService : IService, Listener {
     private fun getImageComponent(player: Player): Component {
         val leveledPlayer = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
         val mana = ceil(leveledPlayer.mana)
-        val max = ceil(leveledPlayer.getMaxMana())
+        val max = ceil(leveledPlayer.maxMana)
 
         // Mana Bar
         var percentage = (mana / max)
@@ -213,7 +213,7 @@ class ActionBarService : IService, Listener {
     private fun getManaComponent(player: Player): Component {
         val playerWrapper = SMPRPG.getService(EntityService::class.java).getPlayerInstance(player)
         val mana = ceil(playerWrapper.mana).toInt()
-        val max = ceil(playerWrapper.getMaxMana()).toInt()
+        val max = ceil(playerWrapper.maxMana).toInt()
 
         return ComponentUtils.merge(
             ComponentUtils.create("" + mana, NamedTextColor.AQUA),
