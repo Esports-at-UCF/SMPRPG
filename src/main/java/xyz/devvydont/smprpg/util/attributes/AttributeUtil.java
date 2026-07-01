@@ -205,6 +205,7 @@ public class AttributeUtil {
                             AttributeWrapper.HEALTH,
                             new SourcedAttributeModifier(hpEntry.asModifier(AttributeModifierType.AUGMENT.keyForItem(nameKey), attributeItem.getActiveSlot()), AttributeModifierType.AUGMENT)
                     );
+                    break;
                 }
                 default: {
                     var strEntry = AttributeEntry.additive(AttributeWrapper.STRENGTH, HotPotatoBook.STRENGTH_BONUS * potatoBooks);
