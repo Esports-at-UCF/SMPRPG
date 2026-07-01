@@ -62,7 +62,6 @@ blocks:
         is-suffocating: true
         is-redstone-conductor: true
         tags:
-          - minecraft:enderman_holdable
           - minecraft:mineable/axe
           - minecraft:sword_efficient
     state:
