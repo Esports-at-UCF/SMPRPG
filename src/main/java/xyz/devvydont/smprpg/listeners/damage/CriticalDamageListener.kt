@@ -1,7 +1,11 @@
 package xyz.devvydont.smprpg.listeners.damage
 
+import org.bukkit.Bukkit
+import org.bukkit.NamespacedKey
 import org.bukkit.Particle
 import org.bukkit.Sound
+import org.bukkit.attribute.Attribute
+import org.bukkit.attribute.AttributeModifier
 import org.bukkit.entity.AbstractArrow
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
@@ -9,6 +13,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause
 import org.bukkit.event.entity.EntityShootBowEvent
+import xyz.devvydont.smprpg.SMPRPG
 import xyz.devvydont.smprpg.attribute.AttributeWrapper
 import xyz.devvydont.smprpg.events.CustomEntityDamageByEntityEvent
 import xyz.devvydont.smprpg.items.interfaces.ICantCrit
@@ -16,6 +21,8 @@ import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EntityDamageCalculatorService
 import xyz.devvydont.smprpg.services.ItemService
 import xyz.devvydont.smprpg.util.listeners.ToggleableListener
+import xyz.devvydont.smprpg.util.time.TickTime
+import kotlin.math.floor
 
 /**
  * When this listener is initialized, the plugin will listen for "critical" damage events, and set the event to be
@@ -189,12 +196,38 @@ class CriticalDamageListener : ToggleableListener() {
 
         // Only living entities can be attribute checked.
         if (event.dealer is LivingEntity) {
-            val living = event.dealer as LivingEntity
+            val living = event.dealer
+            val critChance = instance.getAttribute(living, AttributeWrapper.CRITICAL_CHANCE)
             val crit = instance.getAttribute(living, AttributeWrapper.CRITICAL_DAMAGE)
+
+            var bonusRolls = 1.0
+            if (critChance != null) {
+                bonusRolls = floor(critChance.value / 100)
+                if (Math.random() < ((critChance.value / 100.0) - bonusRolls))
+                    bonusRolls += 1.0
+            }
 
             // Only update if they have the attribute, and remember it is an unformatted percentage **boost**.
             if (crit != null)
-                multiplier = 1.0 + crit.getValue() / 100
+                multiplier = 1.0 + ((crit.getValue() / 100.0) * bonusRolls)
+
+            // Add a transient attack cooldown modifier if the entity is airborne when attacking, and multiply the multiplier by 1.15x
+            if (!living.isOnGround) {
+                multiplier *= JUMP_ATTACK_MULTIPLIER
+
+                // Reduce their attack speed by 25% for 1 second
+                val atkSpeed = living.getAttribute(Attribute.ATTACK_SPEED)
+                if (atkSpeed != null) {
+                    atkSpeed.addTransientModifier(AttributeModifier(
+                        ATTACK_SPEED_DEBUFF_KEY,
+                        -0.25,
+                        AttributeModifier.Operation.MULTIPLY_SCALAR_1
+                    ))
+                    Bukkit.getScheduler().runTaskLater(SMPRPG.plugin, Runnable {
+                        atkSpeed.removeModifier(ATTACK_SPEED_DEBUFF_KEY)
+                    }, TickTime.seconds(1))
+                }
+            }
         }
 
         event.multiplyDamage(multiplier)
@@ -236,5 +269,15 @@ class CriticalDamageListener : ToggleableListener() {
          * The default "critical rating" to use for an entity if they don't have the Critical Rating attribute.
          */
         const val DEFAULT_CRITICAL_RATING: Float = .5f
+
+        /**
+         * The amount that crits are multiplied by on jump attacks
+         */
+        const val JUMP_ATTACK_MULTIPLIER: Float = 1.15f
+
+        /**
+         * The NamespacedKey that the transient attack speed modifier is stored in.
+         */
+        val ATTACK_SPEED_DEBUFF_KEY = NamespacedKey(SMPRPG.plugin, "jump_crit_attack_speed_debuff")
     }
 }

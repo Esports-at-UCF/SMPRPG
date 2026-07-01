@@ -47,6 +47,6 @@ class OpportunistEnchantment(id: String) : CustomEnchantment(id), AttributeEncha
     }
 
     companion object {
-        fun getAdditionalPercentageIncrease(level: Int): Int { return level * 5 }
+        fun getAdditionalPercentageIncrease(level: Int): Int { return level * 10 }
     }
 }

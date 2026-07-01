@@ -149,7 +149,7 @@ object SkillGlobals {
 
     // The combat skill improves some damage related attributes.
     const val STR_PER_LEVEL: Double = 5.0
-    const val CRITICAL_CHANCE_PER_LEVEL: Double = 0.5
+    const val CRITICAL_CHANCE_PER_LEVEL: Double = 3.0
     const val CRITICAL_RATING_PER_4_LEVELS: Double = 4.0
     const val CRITICAL_RATING_LEVEL_FREQUENCY: Int = 4
 
