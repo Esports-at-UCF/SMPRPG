@@ -1,4 +1,4 @@
-lang-version: '61'
+lang-version: '62'
 exception.invalid_syntax: '<red>Ungültige Syntax. Korrekte Syntax: <white><arg:0></white></red>'
 exception.invalid_argument: '<red>Ungültiges Argument. Grund: <white><arg:0></white></red>'
 exception.invalid_sender: <red><arg:0> darf diesen Befehl nicht ausführen. Muss vom Typ <arg:1> sein</red>
@@ -260,6 +260,7 @@ resource.block.state.entity_renderer.unknown_type: Unbekannter Block-Entity-Rend
 resource.block.state.invalid_variant_nbt: Ungültiger partieller Block-State-NBT '<arg:0>'
 resource.block.state.undefined_appearance: Undefiniertes Block-State-Erscheinungsbild '<arg:0>'
 resource.block.state.model_conflict: Bindung von Modell '<arg:0>' an Block State '<arg:1>' fehlgeschlagen, der bereits mit Modell '<arg:2>' verknüpft ist
+resource.block.state.invalid_rotation: Invalid rotation '<arg:1>' on <arg:0>-axis, which is expected to be in increments of 90 degrees
 resource.block.entity_renderer.tint_source.unknown_type: Unbekannter Tint-Source-Typ für Block-Entity-Renderer '<arg:0>'
 resource.item.model_definition.unknown_type: Unbekannter Item-Modell-Definitionstyp '<arg:0>'
 resource.item.model_definition.condition.unknown_type: Unbekannter Condition-Property-Typ '<arg:0>'
