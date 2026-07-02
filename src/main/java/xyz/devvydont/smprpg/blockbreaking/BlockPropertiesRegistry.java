@@ -1066,10 +1066,10 @@ public class BlockPropertiesRegistry implements Listener {
                 .softRequirement(false)
                 .build());
 
-        register(Material.SEA_LANTERN, BlockPropertiesEntry.builder()
+        register(Material.SEA_LANTERN, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
                 .hardness(30)
                 .breakingPower(0)
-                .softRequirement(false)
+                .softRequirement(true)
                 .build());
 
         register(Material.MAGMA_BLOCK, BlockPropertiesEntry.builder(ItemClassification.PICKAXE, ItemClassification.DRILL)
