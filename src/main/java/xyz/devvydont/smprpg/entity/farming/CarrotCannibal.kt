@@ -45,7 +45,7 @@ class CarrotCannibal
             QuantityLootDrop(generate(Material.RABBIT), 1, 3, this),
             ChancedItemDrop(generate(CustomItemType.PREMIUM_GOLDEN_CARROT), 4, this),
             ChancedItemDrop(generate(CustomItemType.GNAWED_CARROT), 10, this),
-            ChancedItemDrop(generate(CustomItemType.SUPER_SOIL), 25, this)
+            ChancedItemDrop(generate(CustomItemType.SUPER_SOIL), 10, this)
         )
     }
 }

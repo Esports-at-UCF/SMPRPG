@@ -40,7 +40,7 @@ class Ogreling
             QuantityLootDrop(generate(CustomItemType.PREMIUM_ONION), 8, 16, this),
             ChancedItemDrop(generate(CustomItemType.ENCHANTED_ONION), 4, this),
             ChancedItemDrop(generate(CustomItemType.ONION_SKIN), 10, this),
-            ChancedItemDrop(generate(CustomItemType.SUPER_SOIL), 25, this)
+            ChancedItemDrop(generate(CustomItemType.SUPER_SOIL), 10, this)
         )
     }
 }

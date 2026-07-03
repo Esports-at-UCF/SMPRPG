@@ -39,7 +39,7 @@ class MelonMasher
             QuantityLootDrop(generate(Material.MELON), 8, 16, this),
             ChancedItemDrop(generate(CustomItemType.PREMIUM_MELON_SLICE), 4, this),
             ChancedItemDrop(generate(CustomItemType.MASHED_MELON), 10, this),
-            ChancedItemDrop(generate(CustomItemType.SUPER_SOIL), 25, this)
+            ChancedItemDrop(generate(CustomItemType.SUPER_SOIL), 10, this)
         )
     }
 }

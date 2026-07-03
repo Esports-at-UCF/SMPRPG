@@ -39,7 +39,7 @@ class Mite
             QuantityLootDrop(generate(Material.HAY_BLOCK), 8, 16, this),
             ChancedItemDrop(generate(CustomItemType.PREMIUM_WHEAT), 4, this),
             ChancedItemDrop(generate(CustomItemType.WHEAT_GRAINS), 10, this),
-            ChancedItemDrop(generate(CustomItemType.SUPER_SOIL), 25, this)
+            ChancedItemDrop(generate(CustomItemType.SUPER_SOIL), 10, this)
         )
     }
 }
