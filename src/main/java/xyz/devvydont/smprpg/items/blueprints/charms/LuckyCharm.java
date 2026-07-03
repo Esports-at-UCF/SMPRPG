@@ -37,7 +37,9 @@ public class LuckyCharm extends CustomAttributeItem implements IModelOverridden 
     @Override
     public Collection<AttributeEntry> getAttributeModifiers(ItemStack item) {
         return List.of(
-                AttributeEntry.additive(AttributeWrapper.LUCK, 30)
+                AttributeEntry.additive(AttributeWrapper.MINING_FORTUNE, 50),
+                AttributeEntry.additive(AttributeWrapper.FARMING_FORTUNE, 50),
+                AttributeEntry.additive(AttributeWrapper.WOODCUTTING_FORTUNE, 50)
         );
     }
 

@@ -889,7 +889,7 @@ public enum CustomItemType {
     // CHARMS
     SPEED_CHARM("Speed Charm",       Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      SpeedCharm.class),
     STRENGTH_CHARM("Strength Charm", Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      StrengthCharm.class),
-    LUCKY_CHARM("Lucky Charm",       Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      LuckyCharm.class),
+    LUCKY_CHARM("Fortune Charm",       Material.PRISMARINE_CRYSTALS, ItemRarity.EPIC,      LuckyCharm.class),
 
     // TOMES
     SIMPLE_TOME("Simple Tome",          Material.PAPER,  ItemRarity.COMMON,        SimpleTome.class),
