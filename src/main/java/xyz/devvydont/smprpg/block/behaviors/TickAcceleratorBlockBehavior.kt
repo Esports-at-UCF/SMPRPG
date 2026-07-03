@@ -17,6 +17,7 @@ import net.momirealms.craftengine.core.block.property.IntegerProperty
 import net.momirealms.craftengine.core.plugin.config.ConfigSection
 import org.bukkit.block.BlockFace
 import xyz.devvydont.smprpg.skills.listeners.FarmingExperienceListener
+import xyz.devvydont.smprpg.util.world.ChunkUtil
 import kotlin.math.min
 import kotlin.random.Random
 
@@ -56,6 +57,8 @@ class TickAcceleratorBlockBehavior(blockDefinition: BlockDefinition,
                     else { return }
 
                     val ageProperty = ceBlockState.getProperty<Int>("age") as IntegerProperty
+                    if (ceBlockState.get<Int>(ageProperty) + numTicks >= ageProperty.max)
+                        ChunkUtil.markBlockSkillValid(bukkitBlock)
                     ceBlock.customBlockState()!!.setCustomBlockState(ceBlockState.customBlockState().withProperty(propertyToCheck, min(ceBlockState.get<Int>(ageProperty) + numTicks, ageProperty.max).toString()))
                 }
                 else {
@@ -66,9 +69,13 @@ class TickAcceleratorBlockBehavior(blockDefinition: BlockDefinition,
                     else { return }
 
                     val currAge = ceBlockState.getProperty<Int>(propertyToCheck)
+                    val maxAge = FarmingExperienceListener.getVanillaCropMaxAge(bukkitBlock.type)
+                    val newAge = min(currAge + numTicks, maxAge)
+                    if (newAge >= maxAge)
+                        ChunkUtil.markBlockSkillValid(bukkitBlock)
                     ceBlock.world().setBlockState(ceBlock.x(), ceBlock.y(), ceBlock.z(),
                         ceBlock.blockState().withProperty(propertyToCheck,
-                            min(currAge + numTicks, FarmingExperienceListener.getVanillaCropMaxAge(bukkitBlock.type)).toString()),
+                            min(currAge + numTicks, maxAge).toString()),
                         UpdateFlags.UPDATE_ALL)
 
                 }

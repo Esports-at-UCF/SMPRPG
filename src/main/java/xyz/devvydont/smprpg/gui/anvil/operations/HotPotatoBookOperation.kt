@@ -7,8 +7,6 @@ import xyz.devvydont.smprpg.gui.anvil.AnvilOperation
 import xyz.devvydont.smprpg.gui.anvil.AnvilResult
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.blueprints.augment.HotPotatoBook
-import xyz.devvydont.smprpg.items.blueprints.resources.slayer.drops.NecronomiconExcerpts
-import xyz.devvydont.smprpg.items.blueprints.tomes.TomeBlueprint
 import xyz.devvydont.smprpg.services.ItemService
 
 /**
