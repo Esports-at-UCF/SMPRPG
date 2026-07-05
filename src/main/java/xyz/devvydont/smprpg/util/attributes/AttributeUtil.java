@@ -222,7 +222,6 @@ public class AttributeUtil {
         if (bountyBooks > 0) {
             AttributeWrapper wrapper;
             var bonus = 5.0;
-            System.out.println(blueprint.getItemClassification());
             switch (blueprint.getItemClassification()) {
                 case PICKAXE, DRILL: { wrapper = AttributeWrapper.MINING_FORTUNE; break; }
                 case HOE: { wrapper = AttributeWrapper.FARMING_FORTUNE; break; }
