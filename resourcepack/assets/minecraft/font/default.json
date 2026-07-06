@@ -920,6 +920,15 @@
         },
         {
             "type": "bitmap",
+            "file": "ui:font/backgrounds/3x3_crafting_table_menu.png",
+            "height": 256,
+            "ascent": -4,
+            "chars": [
+                "\ub016"
+            ]
+        },
+        {
+            "type": "bitmap",
             "file": "ui:font/tooltip_elements/ability.png",
             "height": 10,
             "ascent": 8,

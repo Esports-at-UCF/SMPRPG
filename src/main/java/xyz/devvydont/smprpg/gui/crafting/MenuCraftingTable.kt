@@ -1,9 +1,11 @@
 package xyz.devvydont.smprpg.gui.crafting
 
+import io.papermc.paper.datacomponent.DataComponentTypes
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -23,6 +25,8 @@ import xyz.devvydont.smprpg.gui.base.MenuBase
 import xyz.devvydont.smprpg.recipe.CraftingRecipeMatcher
 import xyz.devvydont.smprpg.recipe.core.RecipeRequirements
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
+import xyz.devvydont.smprpg.util.formatting.Symbols
+import xyz.devvydont.smprpg.util.formatting.TooltipStyle
 
 /**
  * A fully custom crafting table interface. The player fills a 3x3 grid and the result slot previews the
@@ -33,12 +37,20 @@ class MenuCraftingTable(player: Player) : MenuBase(player, ROWS), IRecipeDepende
 
     override fun handleInventoryOpened(event: InventoryOpenEvent) {
         super.handleInventoryOpened(event)
-        event.titleOverride(ComponentUtils.create("Crafting Table", NamedTextColor.DARK_GRAY))
+        event.titleOverride(
+            ComponentUtils.merge(
+                ComponentUtils.create(Symbols.OFFSET_NEG_1 + Symbols.CRAFTING_3X3_MENU, NamedTextColor.WHITE),
+                ComponentUtils.create(
+                    Symbols.OVERLAY_BG_OFFSET_STANDARD + "Crafting Table",
+                    Symbols.INVENTORY_TITLE_COLOR
+                )
+            )
+        )
         render()
     }
 
     private fun render() {
-        setBorderFullForced()  // Remove Forced when UI is made. UI does not look good w/o a UI resource
+        setBorderFull()  // Remove Forced when UI is made. UI does not look good w/o a UI resource
         for (slot in GRID_SLOTS)
             clearSlot(slot)
         refreshResult()
@@ -52,6 +64,8 @@ class MenuCraftingTable(player: Player) : MenuBase(player, ROWS), IRecipeDepende
 
     private fun refreshResult() {
         val match = computeResult()
+        IDLE_INDICATOR.setData(DataComponentTypes.TOOLTIP_STYLE, TooltipStyle.INFO.key)
+        IDLE_INDICATOR.setData(DataComponentTypes.ITEM_MODEL, NamespacedKey(plugin, "empty"))
         if (match == null) {
             setButton(RESULT_SLOT, IDLE_INDICATOR) { _: InventoryClickEvent -> }
             return
@@ -248,9 +262,9 @@ class MenuCraftingTable(player: Player) : MenuBase(player, ROWS), IRecipeDepende
 
         private val IDLE_INDICATOR: ItemStack = InterfaceUtil.getNamedItemWithDescription(
             Material.GRAY_STAINED_GLASS_PANE,
-            ComponentUtils.create("Result", NamedTextColor.GRAY),
+            ComponentUtils.create("Result", NamedTextColor.WHITE),
             ComponentUtils.EMPTY,
-            ComponentUtils.create("Place ingredients in the grid to craft.", NamedTextColor.DARK_GRAY)
+            ComponentUtils.create("Place ingredients in the grid to craft.", NamedTextColor.GRAY)
         )
     }
 }
