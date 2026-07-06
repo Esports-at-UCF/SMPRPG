@@ -64,43 +64,4 @@ public class MagicMirrorShard extends CustomItemBlueprint implements ISellable, 
         return 20_000;
     }
 
-    /**
-     * Listen for when we combine this item with a mirror. We need to apply the mode.
-     */
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onCombineInAnvil(PrepareAnvilEvent event) {
-
-        var first = event.getInventory().getFirstItem();
-        var second = event.getInventory().getSecondItem();
-
-        // We only care if there are two items involved.
-        if (first == null || second == null)
-            return;
-
-        if (first.getType().equals(Material.AIR) || second.getType().equals(Material.AIR))
-            return;
-
-        if (!isItemOfType(second))
-            return;
-
-        // We only care if we have a mirror and shard.
-        var firstBlueprint = ItemService.blueprint(first);
-        var secondBlueprint = ItemService.blueprint(second);
-        if (!(firstBlueprint instanceof MagicMirror mirror))
-            return;
-
-        if (!(secondBlueprint instanceof MagicMirrorShard mirrorShard))
-            return;
-
-        // We only care if the mirror already doesn't have the mode.
-        var mode = mirrorShard.getMode();
-        if (mirror.hasModeUnlocked(first, mode))
-            return;
-
-        // Awesome! Continue.
-        var result = first.clone();
-        mirror.withModeUnlocked(result, mode);
-        event.setResult(result);
-        event.getView().setRepairCost(30);
-    }
 }
