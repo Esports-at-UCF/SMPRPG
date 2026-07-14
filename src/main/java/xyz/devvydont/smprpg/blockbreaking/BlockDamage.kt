@@ -24,8 +24,8 @@ import xyz.devvydont.smprpg.enchantments.definitions.MinersFervorArtificeEnchant
 import xyz.devvydont.smprpg.hooks.WorldGuardHook
 import xyz.devvydont.smprpg.items.ItemClassification
 import xyz.devvydont.smprpg.items.interfaces.IFueledEquipment
-import xyz.devvydont.smprpg.listeners.damage.DamagePopupListener
-import xyz.devvydont.smprpg.listeners.damage.DamagePopupListener.Companion.spawnTextPopup
+import xyz.devvydont.smprpg.listeners.damage.popup.DamagePopup
+import xyz.devvydont.smprpg.listeners.damage.popup.PopupStyleResolver
 import xyz.devvydont.smprpg.services.AttributeService.Companion.instance
 import xyz.devvydont.smprpg.services.EnchantmentService
 import xyz.devvydont.smprpg.services.ItemService
@@ -311,26 +311,36 @@ class BlockDamage {
             if (Bukkit.getServer().pluginManager.getPlugin("WorldGuard") != null)
                 if (!WorldGuardHook.isLocationBreakable(block.location, player)) return -1.0
         } else {
-            player.world.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 0.5f, 0.5f)
             val popupLoc = player.eyeLocation.toVector()
             popupLoc.midpoint(block.location.add(Vector(0.5, 0.0, 0.5)).toVector())
             popupLoc.subtract(Vector(0.25, 0.0, 0.25))
+            val warningLocation = popupLoc.toLocation(block.world)
+
+            // Track whether this warning is brand new so we only play the "denied" sound on a fresh
+            // label. Spamming a failing block simply re-anchors and replays the existing warning.
+            var spawnedFreshWarning = false
             if (!correctTool) {
                 checkNotNull(preferredTools)
                 if (preferredTools.isNotEmpty()) {
-                    spawnTextPopup(
-                        popupLoc.toLocation(block.world),
+                    spawnedFreshWarning = DamagePopup.spawnMiningWarning(
+                        player,
+                        warningLocation,
+                        PopupStyleResolver.requiresTool(),
                         "Requires " + preferredTools.toTypedArray()[0].toString().lowercase(
                             Locale.getDefault()
-                        ),
-                        DamagePopupListener.PopupType.REQUIRES_TOOL
+                        )
                     )
                 }
-            } else spawnTextPopup(
-                popupLoc.toLocation(block.world),
-                entry.breakingPower.toDouble(),
-                DamagePopupListener.PopupType.BREAKING_POWER
+            } else spawnedFreshWarning = DamagePopup.spawnMiningWarning(
+                player,
+                warningLocation,
+                PopupStyleResolver.miningPower(entry.breakingPower),
+                entry.breakingPower.toDouble()
             )
+
+            if (spawnedFreshWarning)
+                player.world.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 0.5f, 0.5f)
+
             return -1.0
         }
         damage = speedMultiplier / hardness

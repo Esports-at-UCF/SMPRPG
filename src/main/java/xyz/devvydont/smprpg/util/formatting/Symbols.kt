@@ -24,6 +24,7 @@ object Symbols {
 
     const val STAR: String = "✯"
     const val ENCLOSED_STAR: String = "✪"
+    const val SPARKLE_STAR: String = "✧"
 
     const val COIN: String = "⛁"
 

@@ -23,6 +23,7 @@ import xyz.devvydont.smprpg.services.EntityDamageCalculatorService.Companion.cal
 import xyz.devvydont.smprpg.services.EntityDamageCalculatorService.Companion.calculateResistancePercentage
 import xyz.devvydont.smprpg.services.EntityService
 import xyz.devvydont.smprpg.services.ItemService
+import xyz.devvydont.smprpg.util.formatting.BreakingPowerFormatting
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils
 import xyz.devvydont.smprpg.util.formatting.Symbols
 import xyz.devvydont.smprpg.util.formatting.TooltipStyle
@@ -112,10 +113,16 @@ class SubmenuStatOverview(player: Player, private val target: LivingEntity, val 
                 )
             }
             lore.add(ComponentUtils.EMPTY)
+            val finalValue = attributeInstance.getValue()
+            // Breaking Power is colored by its tier so it matches how it's shown in item lore and popups.
+            val finalColor = if (attribute == AttributeWrapper.MINING_POWER)
+                BreakingPowerFormatting.color(finalValue)
+            else
+                NamedTextColor.GREEN
             lore.add(
                 ComponentUtils.merge(
                     ComponentUtils.create("Final: "),
-                    ComponentUtils.create(df.format(attributeInstance.getValue()), NamedTextColor.GREEN)
+                    ComponentUtils.create(df.format(finalValue), finalColor)
                 )
             )
 

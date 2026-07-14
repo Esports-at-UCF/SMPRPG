@@ -207,6 +207,9 @@ class CriticalDamageListener : ToggleableListener() {
                     bonusRolls += 1.0
             }
 
+            // Communicate the crit "tier" to the popup system so it can escalate the visuals.
+            event.criticalTier = bonusRolls.toInt()
+
             // Only update if they have the attribute, and remember it is an unformatted percentage **boost**.
             if (crit != null)
                 multiplier = 1.0 + ((crit.getValue() / 100.0) * bonusRolls)
@@ -218,6 +221,7 @@ class CriticalDamageListener : ToggleableListener() {
                 // Reduce their attack speed by 25% for 1 second
                 val atkSpeed = living.getAttribute(Attribute.ATTACK_SPEED)
                 if (atkSpeed != null) {
+                    atkSpeed.removeModifier(ATTACK_SPEED_DEBUFF_KEY)
                     atkSpeed.addTransientModifier(AttributeModifier(
                         ATTACK_SPEED_DEBUFF_KEY,
                         -0.25,

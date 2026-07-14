@@ -28,6 +28,7 @@ import xyz.devvydont.smprpg.reforge.ReforgeBase;
 import xyz.devvydont.smprpg.services.AttributeService;
 import xyz.devvydont.smprpg.services.EnchantmentService;
 import xyz.devvydont.smprpg.services.ItemService;
+import xyz.devvydont.smprpg.util.formatting.BreakingPowerFormatting;
 import xyz.devvydont.smprpg.util.formatting.ComponentUtils;
 import xyz.devvydont.smprpg.util.formatting.Symbols;
 
@@ -87,8 +88,11 @@ public class AttributeUtil {
         // Some attributes are weird and are always percents
         String formattedResult = result.formatTotal(option);
 
-        if (wrapper.key().equals(new NamespacedKey("smprpg", "mining_power")))
+        // Breaking Power is colored by its tier so it reads consistently everywhere it's shown.
+        if (wrapper.key().equals(new NamespacedKey("smprpg", "mining_power"))) {
             formattedResult = Symbols.PICKAXE + formattedResult;
+            color = BreakingPowerFormatting.color(result.getTotal());
+        }
         return ComponentUtils.create(formattedResult, color);
     }
 
